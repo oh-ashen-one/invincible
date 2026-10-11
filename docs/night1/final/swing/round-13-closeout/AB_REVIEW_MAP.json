@@ -1,0 +1,152 @@
+{
+  "normalization": {
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 30,
+    "center_crop_fraction": 0.84,
+    "audio": false,
+    "metadata_removed": true,
+    "paired_duration_equal": true
+  },
+  "identity_key_withheld_from_critic": true,
+  "private_reference_media_not_published": true,
+  "pairs": [
+    {
+      "id": "swing-chain",
+      "slots": {
+        "A": {
+          "role": "private reference",
+          "source_basename": "swing-canyon-chase__nm_0139-0147.mp4",
+          "normalized_sha256": "eec16288954cf8dba7764ef768cb2f69ca0e091f9bfe0bd1a4e0940cb4dc549f"
+        },
+        "B": {
+          "role": "current checkpoint",
+          "source_basename": "s1_swing_chain.mp4",
+          "normalized_sha256": "527ec6aba85d2e0e399e4337d40ba5d4dafa285229e4d43a969e7bf5d64e70d7"
+        }
+      }
+    },
+    {
+      "id": "swing-presses",
+      "slots": {
+        "A": {
+          "role": "private reference",
+          "source_basename": "swing-start-from-street__og_0000-0008.mp4",
+          "normalized_sha256": "80bab68427dc98ae8b6081772260052b79fbdf821d1fd17dbb59f3507b06ee71"
+        },
+        "B": {
+          "role": "current checkpoint",
+          "source_basename": "s2_press_variety.mp4",
+          "normalized_sha256": "3b4ae5b26b8d4536641a006a6355121a51c34d96e08aba48f7938761495e56f9"
+        }
+      }
+    },
+    {
+      "id": "aerial-flips",
+      "slots": {
+        "A": {
+          "role": "current checkpoint",
+          "source_basename": "s3_flip_chain.mp4",
+          "normalized_sha256": "c1ac18aa90668daf4a7bb5465e785393c3e74c0aa6e5825c6b23213af0503192"
+        },
+        "B": {
+          "role": "private reference",
+          "source_basename": "flips_owner_2026-09-29.mov",
+          "normalized_sha256": "4002c8bca8eeee84f77676a6b9d769a076bb8f51c2780bfaf329a3ce77aa7c4d"
+        }
+      }
+    },
+    {
+      "id": "release-air",
+      "slots": {
+        "A": {
+          "role": "private reference",
+          "source_basename": "trick-release-sky__nm_0425-0433.mp4",
+          "normalized_sha256": "50795853b57235aeee707827912f183be9194d76b815ccce59bff9df854e1a75"
+        },
+        "B": {
+          "role": "current checkpoint",
+          "source_basename": "s4_release_float.mp4",
+          "normalized_sha256": "b500c30419b53ad4b69594a6b32610d3a5fe38e25d911a5dacf459da6563b7d6"
+        }
+      }
+    },
+    {
+      "id": "night-swing",
+      "slots": {
+        "A": {
+          "role": "private reference",
+          "source_basename": "night-street-swing__nt_0418-0426.mp4",
+          "normalized_sha256": "6f1beb820730d19ae8ff739d77e251a4f53d4352051775397d693ff05c754acf"
+        },
+        "B": {
+          "role": "current checkpoint",
+          "source_basename": "s5_night_swing.mp4",
+          "normalized_sha256": "a97f39ffcd5a803d9cad7391a10df830407d21196f0b8a9e2f46772aed2a1454"
+        }
+      }
+    },
+    {
+      "id": "progress-swing",
+      "slots": {
+        "A": {
+          "role": "current checkpoint",
+          "source_basename": "s1_swing_chain.mp4",
+          "normalized_sha256": "c2d070e1f2858aba6de36ff2ce4062398e5e4839a2b854163219843aeb6ab24f"
+        },
+        "B": {
+          "role": "round12 baseline",
+          "source_basename": "s1_swing_chain.mp4",
+          "normalized_sha256": "dd3e879a19601da4f3040d85441c2822e40c3efe9f6a99b58cedb0b8940a119e"
+        }
+      }
+    },
+    {
+      "id": "progress-presses",
+      "slots": {
+        "A": {
+          "role": "current checkpoint",
+          "source_basename": "s2_press_variety.mp4",
+          "normalized_sha256": "930101cc11294ec07c1967578a93a262fda30a77af6bc80899d2fc8fcb804d6a"
+        },
+        "B": {
+          "role": "round12 baseline",
+          "source_basename": "s2_press_variety.mp4",
+          "normalized_sha256": "2b4c4dcbfec070953e4c4ce222ed843cfc046cf8d8612ea48800ea3964af21ce"
+        }
+      }
+    },
+    {
+      "id": "progress-flips",
+      "slots": {
+        "A": {
+          "role": "round12 baseline",
+          "source_basename": "s3b_flip_cases.mp4",
+          "normalized_sha256": "f64643416e2867656550c7b27e1ca367599e6f10a3ed2b794c191d52d035d257"
+        },
+        "B": {
+          "role": "current checkpoint",
+          "source_basename": "s3b_flip_cases.mp4",
+          "normalized_sha256": "80b51e123f8095ae76d51df160a5c2bc7c353cc7a0f48d0cf259120dd13d076a"
+        }
+      }
+    },
+    {
+      "id": "progress-night",
+      "slots": {
+        "A": {
+          "role": "round12 baseline",
+          "source_basename": "s5_night_swing.mp4",
+          "normalized_sha256": "e23bb54e7e31f3a8fcb4ab6ad86c5a996f791cf618e5b066802d33728c9022ff"
+        },
+        "B": {
+          "role": "current checkpoint",
+          "source_basename": "s5_night_swing.mp4",
+          "normalized_sha256": "a08c53d61ab29f4ca94062aa9269a9cb9eb9d272460afcd2982b4dd818144101"
+        }
+      }
+    }
+  ]
+}

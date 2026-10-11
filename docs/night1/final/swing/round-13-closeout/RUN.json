@@ -12,7 +12,7 @@
     "tooling_scout": "gpt-6-sol high",
     "critic_planned": "gpt-6.1-sol xhigh, fresh context"
   },
-  "phase": "All six final captures complete; relocated owner artifact smoke passed; one independent critic running",
+  "phase": "Bounded pass complete; stop for owner playtest; final publication/cleanup",
   "native_mcp": {
     "engine_plugins_present": true,
     "task_project_AllToolsets_enabled": true,
@@ -81,7 +81,17 @@
     "reasoning_effort": "xhigh",
     "fresh_context": true,
     "review_budget_minutes": 30,
-    "status": "running"
+    "status": "complete",
+    "review_minutes_approx": 17,
+    "verdict": "APPROACHES TARGET",
+    "scores": {
+      "web_deployment": 6,
+      "web_readability": 8,
+      "swing_body": 6,
+      "flips_tricks": 7,
+      "air_catches": 6,
+      "camera": 5
+    }
   },
   "owner_playtest": {
     "source_commit": "21e43450c772292c6d9bc51b3ce1c3397ec1ae77",
@@ -101,6 +111,10 @@
       "Existing distance-field DoubleFloat matrix precision ensure",
       "Editor-only Python toolset types unavailable under -game",
       "Non-Mac SDK validation warnings"
-    ]
-  }
+    ],
+    "local_build_evidence": "/Users/midir/SpiderMan-R13-OwnerPlaytest-20261011/Saved/BuildEvidence/"
+  },
+  "owner_acceptance": "pending; no automatic next round",
+  "runtime_engines": "all task-owned editor/game processes stopped",
+  "completed_utc": "2026-10-11T20:30:26.514266+00:00"
 }
