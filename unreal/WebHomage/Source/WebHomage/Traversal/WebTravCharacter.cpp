@@ -318,7 +318,8 @@ void AWebTravCharacter::BuildFigure()
 	// round 25: unlit two-tone strand (see RopeLook in WebTraversalComponent.h); built by Scripts/build_traversal.py (traversal_web_material.py)
 	if (UMaterialInterface* WebBase = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Traversal/Materials/M_TravWeb.M_TravWeb")))
 	{
-		WebMatTwoTone = UMaterialInstanceDynamic::Create(WebBase, this);
+		// final round 13: one MID per strand -- the material's background taps (BgUV0 / BgUV1) are per-strand vector params
+		for (int32 SI = 0; SI < 2; ++SI) WebMatTwoTone[SI] = UMaterialInstanceDynamic::Create(WebBase, this);
 	}
 	else UE_LOG(LogTemp, Warning, TEXT("WebTrav: /Game/Traversal/Materials/M_TravWeb missing -- web strands keep the r24 dark line"));
 	WebLookNow = 0;
@@ -1396,27 +1397,33 @@ void AWebTravCharacter::PoseFigure(float Dt)
 void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 {
 	// round 25: the rope look (RopeLook 1 = unlit two-tone M_TravWeb with a screen-space width clamp; 0 = r24 lit dark line)
-	const bool bTwoTone = Traversal->RopeLook > 0.5f && WebMatTwoTone != nullptr;
+	const bool bTwoTone = Traversal->RopeLook > 0.5f && WebMatTwoTone[0] != nullptr && WebMatTwoTone[1] != nullptr;
 	if (WebLookNow != (bTwoTone ? 1 : 0))
 	{
 		WebLookNow = bTwoTone ? 1 : 0;
-		for (UStaticMeshComponent* C : WebSegs) { if (C) C->SetMaterial(0, bTwoTone ? static_cast<UMaterialInterface*>(WebMatTwoTone) : static_cast<UMaterialInterface*>(WebMat)); }
+		for (int32 SI = 0; SI < 2; ++SI)
+			for (int32 K = 0; K < SEGS_PER_STRAND; ++K)
+				if (UStaticMeshComponent* C = WebSegs[SI * SEGS_PER_STRAND + K]) C->SetMaterial(0, bTwoTone ? static_cast<UMaterialInterface*>(WebMatTwoTone[SI].Get()) : static_cast<UMaterialInterface*>(WebMat.Get()));
 	}
 	if (bTwoTone)
 	{
-		WebMatTwoTone->SetScalarParameterValue(TEXT("CoreBright"), Traversal->RopeCoreBright);
-		WebMatTwoTone->SetScalarParameterValue(TEXT("CoreDark"), Traversal->RopeCoreDark);
-		WebMatTwoTone->SetScalarParameterValue(TEXT("Pivot"), Traversal->RopePivot);
-		WebMatTwoTone->SetScalarParameterValue(TEXT("CoreLvl"), Traversal->RopeCoreLvl);
-		WebMatTwoTone->SetScalarParameterValue(TEXT("RimLvl"), Traversal->RopeRimLvl);
-		WebMatTwoTone->SetScalarParameterValue(TEXT("Solid"), Traversal->RopeSolid);
+		for (int32 SI = 0; SI < 2; ++SI)
+		{
+			WebMatTwoTone[SI]->SetScalarParameterValue(TEXT("CoreBright"), Traversal->RopeCoreBright);
+			WebMatTwoTone[SI]->SetScalarParameterValue(TEXT("CoreDark"), Traversal->RopeCoreDark);
+			WebMatTwoTone[SI]->SetScalarParameterValue(TEXT("Pivot"), Traversal->RopePivot);
+			WebMatTwoTone[SI]->SetScalarParameterValue(TEXT("CoreLvl"), Traversal->RopeCoreLvl);
+			WebMatTwoTone[SI]->SetScalarParameterValue(TEXT("RimLvl"), Traversal->RopeRimLvl);
+			WebMatTwoTone[SI]->SetScalarParameterValue(TEXT("Solid"), Traversal->RopeSolid);
+		}
 	}
 	// pixels per cm at 1 cm distance: viewport height / (2 tan(vfov / 2)) -- the strand width is clamped in screen space
-	double ViewH = 1080.0;
+	double ViewH = 1080.0, Aspect = 16.0 / 9.0;
 	if (GEngine && GEngine->GameViewport && GEngine->GameViewport->Viewport)
 	{
 		const FIntPoint Sz = GEngine->GameViewport->Viewport->GetSizeXY();
 		if (Sz.Y > 0) ViewH = double(Sz.Y);
+		if (Sz.X > 0 && Sz.Y > 0) Aspect = double(Sz.X) / double(Sz.Y);
 	}
 	const double PxK = ViewH / (2.0 * FMath::Tan(FMath::DegreesToRadians(FMath::Clamp(double(Cam.OutVFov), 20.0, 150.0) * 0.5)));
 	for (int32 SI = 0; SI < 2; ++SI)
@@ -1445,14 +1452,19 @@ void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 			  // 0.15 s off-screen and collapsed the visible length in 5 frames; an anchor-ward retract of the near end left the
 			  // frame behind the lens in ~4 frames at 50 m/s). Slack sag from the first frames, fade 0.14 -> 0.38 s: length
 			  // shrink >= 0.15 s AND alpha fade >= 0.15 s (both measurements of W8; drawn ~0.37 s <= 0.40).
+			  // round 13 (critic r12, s4 t=15.75: the tail still collapsed 520 -> 0 px in 4 frames -- a release whose anchor sits
+			  // behind the lens foreshortens the retract along the view axis): past R = 0.24 s the geometric shrink PINS at 89 %
+			  // (a short slack stub at the hand) and the alpha fade alone carries the last 0.14 s, so the strand never vanishes
+			  // by collapse; the slack sag now runs 0.30 s so the stub reads as a spent strand, not a cut.
 				const double R = St.ReleaseT;
 				const double X = FMath::Min(1.0, R / 0.36);
-				const double E = 1.0 - (1.0 - X) * (1.0 - X);
+				double E = 1.0 - (1.0 - X) * (1.0 - X);
+				if (R > 0.24) E = 0.889;
 				A = Hand;                                   // stays near the hero (the camera tracks him: the retract must stay in view)
 				B = Hand + (B - Hand) * (1.0 - E);
 				Fade = FMath::Clamp(1.0 - (R - 0.14) / 0.24, 0.0, 1.0);
 				Wave = 0.0;
-				Droop = FMath::Min(180.0, 0.35 * FVector::Dist(A, B)) * FMath::Sin(PI * FMath::Min(1.0, R / 0.20));   // slack shows early
+				Droop = FMath::Min(180.0, 0.35 * FVector::Dist(A, B)) * FMath::Sin(PI * FMath::Min(1.0, R / 0.30));   // slack shows early
 				Curl = 14.0 * (1.0 - E) * FMath::Sin(R * 30.0);
 			}
 		}
@@ -1525,6 +1537,26 @@ void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 			}
 			if (!bRopeDrawn[SI]) { RopeDrawA[SI] = P0; RopeDrawWA[SI] = W; bRopeDrawn[SI] = true; }
 			RopeDrawB[SI] = P1; RopeDrawWB[SI] = W;
+		}
+		if (bTwoTone && bRopeDrawn[SI])
+		{ // final round 13 (critic r12 gap 1: the strand beaded / flickered in daylight -- the background luminance was evaluated
+		  // PER PIXEL, so a mixed facade flipped the core share fragment-by-fragment): the material now samples the scene colour
+		  // at two FIXED screen points along the drawn strand (35 % / 70 % hand -> anchor), pushed here per strand per frame, so
+		  // the tone is one value for the whole strand and evolves smoothly (uniform line, no dashes, no frame flicker)
+			const FRotationMatrix RM(Cam.CamRot);
+			const FVector CF = RM.GetUnitAxis(EAxis::X), CR = RM.GetUnitAxis(EAxis::Y), CU = RM.GetUnitAxis(EAxis::Z);
+			const double TV = FMath::Tan(FMath::DegreesToRadians(FMath::Clamp(double(Cam.OutVFov), 20.0, 150.0) * 0.5));
+			auto PushUV = [&](double U, const TCHAR* Name)
+			{
+				const FVector Rel = FMath::Lerp(RopeDrawA[SI], RopeDrawB[SI], U) / 100.0 - Cam.CamPos;
+				const double Z = FVector::DotProduct(Rel, CF);
+				if (Z < 0.3) return;   // behind / on the lens: keep last frame's sample point
+				const double Ux = FMath::Clamp(0.5 + 0.5 * FVector::DotProduct(Rel, CR) / (Z * TV * Aspect), 0.0, 1.0);
+				const double Uy = FMath::Clamp(0.5 - 0.5 * FVector::DotProduct(Rel, CU) / (Z * TV), 0.0, 1.0);
+				WebMatTwoTone[SI]->SetVectorParameterValue(Name, FLinearColor(float(Ux), float(Uy), 0.f, 0.f));
+			};
+			PushUV(0.35, TEXT("BgUV0"));
+			PushUV(0.70, TEXT("BgUV1"));
 		}
 	}
 }

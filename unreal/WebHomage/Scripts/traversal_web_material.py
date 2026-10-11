@@ -7,10 +7,13 @@
 #
 # M_TravWeb: an UNLIT, translucent (opacity 1 inside the strand, a soft half-pixel edge) two-tone strand on the cylinder segments the pawn
 # draws (AWebTravCharacter::UpdateWebs). Across the strand the cylinder's view-facing coordinate u (0 at the centre line, 1 at the silhouette)
-# picks a bright CORE (u < c) or a dark RIM. The core share c follows the luminance of the scene right behind the strand (4 scene-colour
-# taps ~5 px out, exposure-applied): over a dark background (glass, shadow) the bright core fills CoreDark of the width; over a bright one
-# (sky, pale stone) only CoreBright and the dark rim carries the line; the switch sits at Pivot. The output is divided by the eye
-# adaptation (EyeAdaptationInverse), so the displayed level is CoreLvl / RimLvl whatever the exposure: no HDR emissive, no bloom.
+# picks a bright CORE (u < c) or a dark RIM. The core share c follows the luminance of the scene behind the strand, sampled UNIFORMLY for
+# the whole strand (final round 13: 4 taps at two fixed screen points along the strand, 35 % / 70 % hand -> anchor, passed as the BgUV0 /
+# BgUV1 vector params per strand per frame -- the r08-r12 per-pixel taps beaded / flickered against mixed facades, critic r12): over a dark
+# background (glass, shadow) the bright core fills CoreDark of the width, over a bright one (sky, pale stone) only CoreBright and the dark
+# rim carries the line, and mid backgrounds sit on a ~0.68 plateau so a mixed facade keeps both tones (transitions at Pivot x 0.55-1.05 and
+# x 1.30-2.10). The output is divided by the eye adaptation (EyeAdaptationInverse), so the displayed level is CoreLvl / RimLvl whatever
+# the exposure: no HDR emissive, no bloom.
 # No fog on the strand (Apply Fogging off), responsive AA (thin moving line), not lit, casts no shadow (set on the component).
 #
 # Run from build_traversal.py (materials section), or alone as a commandlet with your editor closed:
@@ -34,18 +37,28 @@ if (lv > 1e-3)
 	u = sqrt(saturate(1.0 - nv * nv));
 }
 float inv = max(Inv.x, 1e-8);
+// final round 13 (critic r12 gap 1, orchestrator-verified: the strand renders BEADED/DASHED in daylight -- s3 t=14.2, s4
+// t=15.6-15.8): the r08 adaptation evaluated the background luminance PER PIXEL (4 taps ~5 px out of each fragment), so a
+// checkerboard facade flipped the core share pixel-by-pixel into alternating dark/bright beads, and any background motion
+// flickered the tone frame to frame. Now the taps sit at two FIXED points along the strand (35 % / 70 % hand -> anchor,
+// passed per strand per frame as BgUV0 / BgUV1 vector parameters by AWebTravCharacter::UpdateWebs): lb is one value for
+// every fragment of the strand, so the tone is UNIFORM hand -> anchor and evolves smoothly (no dashes, no flicker).
 float lb = dot((S0.rgb + S1.rgb + S2.rgb + S3.rgb) * 0.25, float3(0.2126, 0.7152, 0.0722)) / inv;
-float dark = 1.0 - smoothstep(Pivot * 0.95, Pivot * 1.05, lb);
+// three-zone core share, continuous in lb: dark background -> the bright core carries (CoreDark of the width); bright ->
+// the dark rim carries (CoreBright); mid backgrounds -> a ~0.68 plateau, so a mixed background (windows + pale grid) keeps
+// BOTH tones present instead of sitting exactly on the step (a hard step at a mixed facade dashed the line at the
+// facade's own checker period)
+float m1 = smoothstep(Pivot * 0.55, Pivot * 1.05, lb);
+float m2 = smoothstep(Pivot * 1.30, Pivot * 2.10, lb);
+float c = lerp(lerp(CoreDark, 0.68, m1), CoreBright, m2);
 float lvl;
 if (Solid > 0.5)
 {
-	// build 2: ONE tone across the whole strand -- bright over a dark background, near-black over a bright one (a two-tone core/rim
-	// averaged back to the background's level once the 3-4 px strand was resolved)
-	lvl = lerp(RimLvl, CoreLvl, dark);
+	// build 2: ONE tone across the whole strand -- bright over a dark background, near-black over a bright one
+	lvl = lerp(CoreLvl, RimLvl, 0.5 * (m1 + m2));
 }
 else
 {
-	float c = lerp(CoreBright, CoreDark, dark);
 	float core = 1.0 - smoothstep(c - 0.05, c + 0.05, u);
 	lvl = lerp(RimLvl, CoreLvl, core);
 }
@@ -102,12 +115,38 @@ def build(eal=None, mel=None, tools=None):
     _set(ax, "transform_source_type", unreal.MaterialVectorCoordTransformSource.TRANSFORMSOURCE_LOCAL)
     _set(ax, "transform_type", unreal.MaterialVectorCoordTransform.TRANSFORM_WORLD)
     mel.connect_material_expressions(zc, "", ax, "")
-    # scene colour taps ~5 px out at 1080p (offset fraction of the view)
+    # final round 13: background taps at two FIXED screen points along the strand (BgUV0 / BgUV1 vector params, set per
+    # strand per frame from C++) instead of 4 per-pixel offsets -- the tone is uniform over the whole strand (the per-pixel
+    # taps beaded / flickered, critic r12). The SceneColor nodes keep OFFSET_FRACTION mode: feeding (BgUVn - ScreenPosition)
+    # as the offset lands the sample exactly on BgUVn.
+    spos = expr(unreal.MaterialExpressionScreenPosition, -1600, 300)
+    uvp = []
+    for i, n in enumerate(("BgUV0", "BgUV1")):
+        vp = expr(unreal.MaterialExpressionVectorParameter, -1600, 420 + i * 130)
+        _set(vp, "parameter_name", n)
+        _set(vp, "default_value", unreal.LinearColor(0.4 + 0.2 * i, 0.5, 0.0, 0.0))
+        rg = expr(unreal.MaterialExpressionComponentMask, -1400, 420 + i * 130)
+        _set(rg, "r", True); _set(rg, "g", True); _set(rg, "b", False); _set(rg, "a", False)
+        mel.connect_material_expressions(vp, "", rg, "")
+        uvp.append(rg)
+    # taps: at BgUV0 (+0 / +0.006 x), at BgUV1 (+0 / -0.006 x) -- a 4-tap average around the two strand points
     taps = []
-    for i, (ox, oy) in enumerate(((0.0026, 0.0), (-0.0026, 0.0), (0.0, 0.0046), (0.0, -0.0046))):
-        sc = expr(unreal.MaterialExpressionSceneColor, -1200, 80 + i * 120)
+    for i, (k, ox) in enumerate(((0, 0.0), (0, 0.006), (1, 0.0), (1, -0.006))):
+        off = expr(unreal.MaterialExpressionConstant, -1400, 700 + i * 90)
+        _set(off, "r", ox)
+        app = expr(unreal.MaterialExpressionAppendVector, -1250, 700 + i * 90)
+        mel.connect_material_expressions(off, "", app, "A")
+        z0 = expr(unreal.MaterialExpressionConstant, -1400, 760 + i * 90)
+        mel.connect_material_expressions(z0, "", app, "B")
+        add = expr(unreal.MaterialExpressionAdd, -1100, 700 + i * 90)
+        mel.connect_material_expressions(uvp[k], "", add, "A")
+        mel.connect_material_expressions(app, "", add, "B")
+        sub = expr(unreal.MaterialExpressionSubtract, -950, 700 + i * 90)
+        mel.connect_material_expressions(add, "", sub, "A")
+        mel.connect_material_expressions(spos, "", sub, "B")
+        sc = expr(unreal.MaterialExpressionSceneColor, -1200, 850 + i * 90)
         _set(sc, "input_mode", unreal.MaterialSceneAttributeInputMode.OFFSET_FRACTION)
-        _set(sc, "const_input", unreal.Vector2D(ox, oy))
+        mel.connect_material_expressions(sub, "", sc, "")
         taps.append(sc)
     inv = expr(unreal.MaterialExpressionEyeAdaptationInverse, -1200, 600)
     sd = expr(unreal.MaterialExpressionSceneDepth, -1200, 1500)

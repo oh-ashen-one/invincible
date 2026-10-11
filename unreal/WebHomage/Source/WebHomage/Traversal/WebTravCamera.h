@@ -143,9 +143,11 @@ public:
 	// approaches the frame edge (the watchdog only fires ~20 % past the frustum cone); relaxes the output slew caps like VisBoostK
 	double EdgeK = 0.0;
 	double FlipDistMax = 6.3, FlipDistCompact = 3.8, FlipExtK = 3.55, FlipExtS = 0.0, FlipExtV = 0.0, FlipAzHold = 0.25, FlipAzRate = 50.0, FlipAzNow = 0.0;   // round 11: 5.9 -> 6.3 (r10 P1 air overshoot p90 0.43 on s3/s3b: open shapes at the capped 5.9 m read over the 0.36 band top; the extent path now reaches ~6.3 directly instead of waiting ~0.25 s for the feedback loop; the final clamp's headroom is x1.03 so the worst case stays <= 6.5 m, TC4)
-	double FlipDist = 5.4, FlipDistMin = 4.0, FlipTuckPull = 0.0, FlipCompactS = 0.0, FlipCompactV = 0.0, FlipCompactT = 0.2, FlipDrop = 1.2, FlipYawMin = 35.0, FlipYawMax = 55.0, FlipPrefYaw = 47.0, FlipLeadDeg = 3.0;
+	double FlipDist = 5.4, FlipDistMin = 4.0, FlipTuckPull = 0.0, FlipCompactS = 0.0, FlipCompactV = 0.0, FlipCompactT = 0.2, FlipDrop = 1.5, FlipYawMin = 35.0, FlipYawMax = 55.0, FlipPrefYaw = 47.0, FlipLeadDeg = 3.0;
 	// round 10 (critic r09 gap 1): FlipDrop 1.0 -> 1.2 and FlipSFrame 0.38 -> 0.36 -- the lens sits lower and the hero higher in the
 	// frame during tricks (camera level-or-below looking UP, TC5/TC6/TC7 all still in band), so the backdrop over a low roofline is sky.
+	// round 13 (critic r12 gap 3: tricks still frame against facades where the route allows sky): FlipDrop 1.2 -> 1.5 (TC6's band is
+	// 0.5-2.0 m under the hips) -- a lower lens drops the horizon behind the hero without buying sky with pitch (TC8).
 	double FlipSFrame = 0.36, FlipPitchUpMax = 7.5, MaxLookUpDeg = 10.0;
 	double FlipInT = 0.34, FlipOutT = 0.90, FlipZInT = 0.15, FlipZHold = 0.30, FlipDollyInT = 0.08, FlipDollyOutT = 0.6;
 	double FlipWallMargin = 1.5, FlipAheadT = 0.5;

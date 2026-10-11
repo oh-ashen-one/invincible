@@ -96,9 +96,12 @@ public:
 	// band either side, over dark glass AND pale facades"; r07 emissive beam bloomed, r08 pale line vanished on pale facades, r09-r24 dark
 	// lit line vanished on dark glass): read by the character's web strands (the rope look; no gameplay effect).
 	// RopeLook 1 = an UNLIT two-tone strand (/Game/Traversal/Materials/M_TravWeb: bright core, dark rim, exposure-compensated so the core
-	// never blooms, no fog) whose core share follows the luminance of the scene right behind it (a ring of 4 scene-colour taps ~5 px out):
-	// over a dark background the bright core fills RopeCoreDark of the width, over a bright one only RopeCoreBright (the dark rim carries
-	// the line), the switch at RopePivot (exposed linear luminance; ~sRGB 120); screen-space width clamp RopePxMin..RopePxMax px.
+	// never blooms, no fog) whose core share follows the luminance of the scene behind the strand -- sampled UNIFORMLY per strand
+	// (final round 13, critic r12: per-pixel taps beaded / flickered against mixed facades): 4 taps at two fixed screen points along the
+	// line (BgUV0 / BgUV1 vector params, pushed per strand per frame by UpdateWebs): over a dark background the bright core fills
+	// RopeCoreDark of the width, over a bright one only RopeCoreBright (the dark rim carries the line), mid backgrounds sit on a ~0.68
+	// plateau so a mixed facade keeps both tones; the ramps sit at RopePivot x (0.55-1.05) / x (1.30-2.10); screen-space width clamp
+	// RopePxMin..RopePxMax px.
 	// 0 = r24 (lit dark M_TravColor line, world width 1.6 cm / 0.25 % of the distance).
 	// r25 build 2: RopeSolid 1 = ONE tone over the whole strand width (bright over a dark background, near-black over a bright one; the
 	// two-tone core/rim averaged back to the background's level in the resolved 3-4 px line: 18/65 frames passed), drawn after motion

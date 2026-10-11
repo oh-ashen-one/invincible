@@ -14,6 +14,9 @@
 #   glob      the literal whole-rope reading: |mean of all rope pixels - mean of all left-band pixels| and the same for the right band (min)
 #   width     median measured width: pixels of the profile deviating > half the peak deviation from the band mean (contiguous around s0)
 #   edge      the drawn line leaves the frame (far end outside) -- "hand -> frame edge"
+#   gap_max_px / gap_pts (final round 13, critic r12: beaded/dashed strand) -- the longest run of CONSECUTIVE sample points along the line
+#             whose rope-vs-band contrast is < 12 (locally invisible), x 8 px; a sampling break (hero box / frame edge) breaks a run
+#   dlum      |rope_lum - previous judged frame's rope_lum| (tone flicker per 0.1 s sample)
 # A frame PASSES when pt_med >= 25 and pt_pass >= 0.8 and the median measured width is 2-4 px; frames whose visible rope is < 40 px long
 # (rope leaving the frame right at the hand, or released) are listed as 'short' and not judged.
 # usage: rope_r25_check.py <movie.mp4> <telemetry.csv> <label> [--fps 10] [--debug <dir> t,t,...]
@@ -121,10 +124,27 @@ while True:
                         while hi < len(S) - 1 and dev[hi + 1] > 0.5 * pk: hi += 1
                         widths.append((hi - lo + 1) * 0.5)
                     con = np.array(con)
+                    # final round 13 (critic r12 gap 1: the strand renders BEADED/DASHED in daylight -- width/contrast medians
+                    # pass while the line has holes): continuity along the sampled strand line. A "gap point" is a sample whose
+                    # rope-vs-band contrast is < 12 (half the 25 readability threshold: the strand is locally invisible there).
+                    # gap_max_px = the longest run of consecutive gap points along the line (8 px sampling; a sampling break --
+                    # the hero box or the frame edge -- does NOT count as a strand gap). dlum = |rope_lum - previous sampled
+                    # frame's rope_lum| (tone flicker frame to frame; filled by the caller loop below).
+                    grun = gbest = 0
+                    prev_pt = None
+                    for i, p in enumerate(pts):
+                        brk = prev_pt is not None and math.hypot(p[0] - prev_pt[0], p[1] - prev_pt[1]) > 12.0
+                        if con[i] < 12.0:
+                            grun = 1 if brk else grun + 1
+                            gbest = max(gbest, grun)
+                        else:
+                            grun = 0
+                        prev_pt = p
                     rec.update(pt_pass=round(float((con >= a.thr).mean()), 3), pt_med=round(float(np.median(con)), 1), pt_p10=round(float(np.percentile(con, 10)), 1),
                                glob=round(float(min(abs(np.mean(Rv) - np.mean(Lv)), abs(np.mean(Rv) - np.mean(Rt)))), 1),
                                rope_lum=round(float(np.mean(Rv)), 1), band_lum=round(float(0.5 * (np.mean(Lv) + np.mean(Rt))), 1),
-                               width=round(float(np.median(widths)), 2), wdraw=round(float(np.median([p[2] for p in pts])), 2))
+                               width=round(float(np.median(widths)), 2), wdraw=round(float(np.median([p[2] for p in pts])), 2),
+                               gap_max_px=gbest * 8, gap_pts=int(gbest))
                     rec['pass'] = bool(rec['pt_med'] >= a.thr and rec['pt_pass'] >= 0.8 and 2.0 <= rec['width'] <= 4.0)
                 if a.debug and round(t, 2) in dbg_t:
                     im = frame.copy()
@@ -136,6 +156,11 @@ while True:
 on = [x for x in res if x['web_on']]
 judged = [x for x in on if 'pass' in x]
 short = [x for x in on if x.get('short')]
+prev_lum = None
+for x in res:   # tone flicker: |rope luminance - previous JUDGED frame's| (samples are 0.1 s apart at 10 fps)
+    if 'rope_lum' not in x: continue
+    if prev_lum is not None: x['dlum'] = round(abs(x['rope_lum'] - prev_lum), 1)
+    prev_lum = x['rope_lum']
 print(f"{a.label}: {len(res)} samples at {a.fps:g} fps, web_on {len(on)} ({100.0 * len(on) / max(1, len(res)):.1f} %), judged {len(judged)}, short/not drawn {len(short) + len(on) - len(judged) - len(short)}")
 if judged:
     P = [x for x in judged if x['pass']]
@@ -143,6 +168,9 @@ if judged:
     print(f"  pt_med p10/p50 {np.percentile([x['pt_med'] for x in judged], 10):.1f}/{np.median([x['pt_med'] for x in judged]):.1f}; pt_pass median {np.median([x['pt_pass'] for x in judged]):.2f}; "
           f"glob (whole-rope literal) >= {a.thr:g}: {sum(1 for x in judged if x['glob'] >= a.thr)}/{len(judged)}; width median {np.median([x['width'] for x in judged]):.2f} px "
           f"(drawn {np.median([x['wdraw'] for x in judged]):.2f}); edge {sum(1 for x in judged if x.get('edge'))}/{len(judged)}")
+    G = [x.get('gap_max_px', 0) for x in judged]; DL = [x['dlum'] for x in judged if 'dlum' in x]
+    print(f"  continuity (r13): gap_max_px median {np.median(G):.0f} p90 {np.percentile(G, 90):.0f} max {max(G)} (0 = no low-contrast hole along the sampled line); "
+          f"frames with an interior gap run > 16 px: {sum(1 for g in G if g > 16)}/{len(G)}; tone flicker |dlum| p50/p90 {np.median(DL):.1f}/{np.percentile(DL, 90):.1f} per 0.1 s")
     for nm, t0, t1 in (('pale facades 0.9-1.1 s', 0.9, 1.1), ('dark glass 10.5-11.2 s', 10.5, 11.2)):
         W_ = [x for x in judged if t0 - 1e-6 <= x['t'] <= t1 + 1e-6]
         if W_: print(f"  {nm}: " + ' '.join(f"{x['t']:.1f}:{'P' if x['pass'] else 'F'}(med {x['pt_med']:.0f}, pass {x['pt_pass']:.2f}, glob {x['glob']:.0f}, rope {x['rope_lum']:.0f}/band {x['band_lum']:.0f}, w {x['width']:.1f})" for x in W_))

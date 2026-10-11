@@ -197,11 +197,15 @@ if a.mp4:
         r = subprocess.run([sys.executable, str(ROOT / 'docs/night1/traversal/rope_r25_check.py'), a.mp4, a.csv, label, '--fps', '10', '--out', str(jp)], capture_output=True, text=True, timeout=1800)
         res = json.loads(jp.read_text()); on = [x for x in res if x.get('web_on')]; judged = [x for x in on if 'pass' in x]
         if judged:
-            P = sum(1 for x in judged if x['pass']); w5 = (P, len(judged), pct([x['width'] for x in judged], 50), pct([x['pt_med'] for x in judged], 50), sum(1 for x in on if x.get('short')), len(on))
+            # round 13 (critic r12 gap 1): continuity metrics -- longest low-contrast hole along the sampled line (gap_max_px)
+            # and per-sample tone flicker (dlum); reported alongside the width/contrast medians (not part of pass/fail yet)
+            G = [x.get('gap_max_px', 0) for x in judged]; DL = [x['dlum'] for x in judged if 'dlum' in x]
+            P = sum(1 for x in judged if x['pass']); w5 = (P, len(judged), pct([x['width'] for x in judged], 50), pct([x['pt_med'] for x in judged], 50), sum(1 for x in on if x.get('short')), len(on),
+                pct(G, 50), pct(G, 90), max(G), pct(DL, 50) if DL else -1, pct(DL, 90) if DL else -1)
     except Exception as ex:
         w5 = str(ex)[:120]
 if isinstance(w5, tuple):
-    line('W5', 'strand 2-4 px, visible on >= 95 % of web-on frames (10 fps samples of the movie)', '%d/%d judged frames pass (%.0f %%); measured width median %.2f px; contrast median %.0f/255; not judged (short / off-screen) %d of %d web-on' % (w5[0], w5[1], 100.0 * w5[0] / w5[1], w5[2], w5[3], w5[4], w5[5]), w5[0] / w5[1] >= 0.95)
+    line('W5', 'strand 2-4 px, visible on >= 95 % of web-on frames (10 fps samples of the movie)', '%d/%d judged frames pass (%.0f %%); measured width median %.2f px; contrast median %.0f/255; not judged (short / off-screen) %d of %d web-on; continuity: gap_max_px p50/p90/max %.0f/%.0f/%.0f (0 = no low-contrast hole along the sampled line), tone flicker |dlum| p50/p90 %.0f/%.0f' % (w5[0], w5[1], 100.0 * w5[0] / w5[1], w5[2], w5[3], w5[4], w5[5], w5[6], w5[7], w5[8], w5[9], w5[10]), w5[0] / w5[1] >= 0.95)
 else: line('W5', 'strand readability', 'n/m: ' + (w5 if isinstance(w5, str) else 'no movie given'), False)
 
 # ---- W6 shape: wave amplitude in flight / after landing

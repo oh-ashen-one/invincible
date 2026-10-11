@@ -228,6 +228,21 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		// round 14: the position re-aim above may add pitch -- keep the look-up cap (wall-run camera excepted)
 		// (round 15: CapUpDeg = the cap ComposeChase applied this frame -- flip 8, chase 10, wall 30)
 		if (CamRot.Pitch > CapUpDeg + 0.5) CamRot.Pitch = CapUpDeg + 0.5;
+		// round 13 (critic r12 gap 3: hero fully lost ~0.3 s in the s3b trick blend-out at t=11.62-11.94; the r12 EdgeK only
+		// RELAXED the slew caps -- the composed target itself kept turning away (the chase yaw outruns the boosted cap at
+		// ~37 m/s tangential), so the recovery crawled): while the hero sits past the edge band, the OUTPUT also steers
+		// straight toward his bearing, rate-capped at the same boosted caps. Inside the band the composed target rules
+		// (TC-B); the steering fades out with EdgeK (slow release), so it never fights the deliberate off-centre framing.
+		if (EdgeK > 0.30 && !(SlewFlags & 8))
+		{
+			const FRotator ToH = (P.Pos + FVector(0, 0, 0.4) - CamPos).Rotation();
+			const double StDY = FRotator::NormalizeAxis(ToH.Yaw - CamRot.Yaw), StDP = ToH.Pitch - CamRot.Pitch;
+			const double CapY = MaxStepYawDeg * K * Boost * EdgeK, CapP = MaxStepPitchDeg * K * Boost * EdgeK;
+			CamRot.Yaw += FMath::Clamp(StDY, -CapY, CapY);
+			CamRot.Pitch += FMath::Clamp(StDP, -CapP, CapP);
+			if (CamRot.Pitch > CapUpDeg + 0.5) CamRot.Pitch = CapUpDeg + 0.5;
+			SlewFlags |= 16;
+		}
 	}
 	bLensTouch = World.SphereOverlaps(CamPos, 0.25);
 	bCamEnclosed = World.Enclosed(CamPos);

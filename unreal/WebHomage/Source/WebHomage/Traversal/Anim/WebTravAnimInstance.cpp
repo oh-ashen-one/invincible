@@ -447,11 +447,26 @@ void UWebTravAnimInstance::BuildFlipLayers(FName Program, float T, TArray<FWebTr
 	if (!P) return;
 	const FWebFlipPose Po = WebFlips::Sample(*P, T);
 	// a held shape "breathes": its 1 s clip runs 0 -> 1 s over the hold (limbs open ~7 % by the end of the hold)
+	// final round 13 (critic r12 gap 2: the F4 checker passes on the program rate (<= 150 deg/s in the holds) but a held
+	// pencil / throne READS as continuously rotating on pixels -- the hold scrub keeps playing the clip's keyed travel, so
+	// the shape-transition lean stacks through the whole hold): in the hold core of an OPEN hold shape (pencil / throne /
+	// swan / straddle) the clip time crawls at 12 % past u 0.30, so the shape freezes into its held pose (the root still
+	// turns at the program's slow hold rate -- the owner's held shapes turn slowly too; tucks, twists, reach and kickout
+	// keep their full scrub)
+	auto HoldFreeze = [](EWebFlipShape S, float U)
+	{
+		switch (S)
+		{
+		case EWebFlipShape::Pencil: case EWebFlipShape::Throne: case EWebFlipShape::Swan: case EWebFlipShape::Straddle: break;
+		default: return U;
+		}
+		return U <= 0.30f ? U : 0.30f + (U - 0.30f) * 0.12f;
+	};
 	auto AddShape = [&](TArray<FWebTravAnimLayer>& Dst, EWebFlipShape S, float Hold, float W)
 	{
 		UAnimSequence* Seq = Clip(FName(WebFlips::ShapeClip(S)));
 		if (!Seq || W <= 0.001f) return;
-		Dst.Add({ Seq, FMath::Clamp(Hold, 0.f, 1.f) * Seq->GetPlayLength(), W, false });
+		Dst.Add({ Seq, FMath::Clamp(HoldFreeze(S, Hold), 0.f, 1.f) * Seq->GetPlayLength(), W, false });
 	};
 	// round 09 (critic r08: "legs stay BENT in the open shapes -- the pencil / pike don't read as straight-leg held shapes"):
 	// the pencil and straddle clips end their 1 s timeline in a tucked-up / knees-bent key (the tuck-up was added so the feet

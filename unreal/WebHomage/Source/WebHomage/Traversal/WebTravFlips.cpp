@@ -37,10 +37,14 @@ namespace WebFlips
 			// were the END reach/kickout, not a mid-chain open shape): hold shapes are slower (pencil/throne 9 -> 11, swan 10 -> 12,
 			// straddle 7.5 -> 8.5) and the hold segments run 0.42-0.54 s (see the tables), so the rendered <= 150 deg/s window covers
 			// >= 0.3 s mid-chain with the tuck bursts kept (owner clip: pencil 0.64 s, throne 0.48 s)
-			case EWebFlipShape::Swan: return 12.0f;
-			case EWebFlipShape::Pencil: return 11.0f;
-			case EWebFlipShape::Straddle: return 8.5f; // round 18: corkscrew's inverted shape (replaces its swan: same timeline)
-			case EWebFlipShape::Throne: return 11.0f;
+			// final round 13 (critic r12 gap 2: rendered vs program -- with the clip scrub frozen in the hold core
+			// (WebTravAnimInstance HoldFreeze), the hold's program rate also slows (pencil/throne 11 -> 13, swan 12 -> 14,
+			// straddle 8.5 -> 10): a held shape now turns ~55-75 deg/s instead of ~80-115, so it READS held; the table's
+			// total-rotation normalization moves ~1-2 % onto the tuck peaks, inside F3's headroom)
+			case EWebFlipShape::Swan: return 14.0f;
+			case EWebFlipShape::Pencil: return 13.0f;
+			case EWebFlipShape::Straddle: return 10.0f; // round 18: corkscrew's inverted shape (replaces its swan: same timeline)
+			case EWebFlipShape::Throne: return 13.0f;
 			case EWebFlipShape::Twist: return 3.5f;
 			case EWebFlipShape::Reach: return 7.0f;
 			// round 13: open finish; round 14 5.5 -> 10.5 (rendered r13 hold 0.21 s: the keyed arch adds ~40 deg/s to the program's 123)

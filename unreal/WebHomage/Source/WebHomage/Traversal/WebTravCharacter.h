@@ -225,7 +225,7 @@ private:
 	UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> FigureParts;
 	UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> WebSegs;
 	UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WebMat;
-	UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WebMatTwoTone; // round 25: M_TravWeb (null when the asset is missing)
+	UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WebMatTwoTone[2]; // round 25: M_TravWeb (null when the asset is missing); final round 13: one MID per strand (the background taps are per-strand vector params)
 	int32 WebLookNow = -1;
 	TArray<int8> WebSegDpg;   // round 12: cached depth-priority group per segment (0 world, 1 foreground); -1 = never set
 	// round 25: the strand as drawn this frame (cm; telemetry projects it through the final camera), and its width (cm) at each end
