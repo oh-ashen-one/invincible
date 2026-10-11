@@ -12,7 +12,7 @@
     "tooling_scout": "gpt-6-sol high",
     "critic_planned": "gpt-6.1-sol xhigh, fresh context"
   },
-  "phase": "source audit and capture isolation; engine launch awaiting desktop-clear confirmation",
+  "phase": "initial source build and offline assets passed; builder verifying held leg poses and frustum check; engine launch awaiting desktop-clear confirmation",
   "native_mcp": {
     "engine_plugins_present": true,
     "task_project_AllToolsets_enabled": true,
@@ -24,5 +24,22 @@
     "global_renderer_limit": 2,
     "automatic_next_round": false
   },
-  "scratch": "/Users/midir/sm2-r13-closeout-cache"
+  "scratch": "/Users/midir/sm2-r13-closeout-cache",
+  "initial_build": {
+    "source_parent": "4f2a10daa1281db9c6816028544b104449bd9eb1",
+    "result": "Succeeded",
+    "duration_seconds": 54.49,
+    "command": "DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer bash unreal/WebHomage/Scripts/build_editor.sh -MaxParallelActions=6",
+    "log_local": "unreal/WebHomage/Saved/Round13Closeout/build-initial.log",
+    "runtime_verified": false
+  },
+  "offline_assets": {
+    "status": "ready_on_disk",
+    "missing": [],
+    "suit_references_checked": 25
+  },
+  "tooling_commits": [
+    "2bb17f46abde75b0002c2e25efd184f16420a8da",
+    "13358449e4d1c3130ebc7259eba4b4db5cdb3375"
+  ]
 }
