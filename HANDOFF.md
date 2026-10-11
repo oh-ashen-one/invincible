@@ -1,3 +1,9 @@
+## Active closeout — 2026-10-11
+
+Branch `codex/round13-closeout-20261011` continues the preserved round13 only, in this isolated checkout. Read AGENTS.md and `docs/night1/final/swing/round-13-closeout/RUN.json` for scope, models, deadline and current status. Owner authorized implementation/build/capture using our own subagents, then a stop for playtest. Original checkout is preserved. Latest desktop safety check is pending user confirmation; no engine has been launched.
+
+---
+
 ## Preservation checkpoint — 2026-10-11
 
 **WIP saved after Kimi's weekly usage limit.** Resume from `codex/preserve-kimi-spiderman-20261011` in `oh-ashen-one/spider-man-2`. This branch retains the two previously unpushed round-13 commits (`8b382fb7`, `10aa01fc`), two unfinished source edits, and five completed round-13 clips with metadata/telemetry. The original checkout, index, branch and session remain intact.

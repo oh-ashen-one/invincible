@@ -1,3 +1,15 @@
+# Active round-13 closeout — 2026-10-11
+
+Owner explicitly authorized this continuation on the verified M3 Ultra (`midirstudio.local`, Mac15,14). This worktree is task-owned on `codex/round13-closeout-20261011`; `/Users/midir/spider-man-2` is the preserved original and must remain untouched. Existing M5 migration instructions below are historical, not this host identity.
+
+Scope: finish existing round-13 flip held poses/tuck-open transitions, trick-camera containment during flip/cancel/landing, and existing web continuity/retract edits; create one consistent capture set, one independent critique, push and stop for owner playtest. No next round or broad game polish. Three-hour cap from 2026-10-11 18:48 UTC.
+
+User-selected roles: orchestrator GPT-6 Astra/high; difficult engineering and independent critic GPT-6.1 Sol/xhigh; scoped tooling and scouting GPT-6 Sol/high. Native Epic Unreal guidance is mandatory, using published brain revision76b36ccd28a0. Only the orchestrator starts/stops engines through the existing shared coordinator at `~/.cache/gpu-slot`; at most one task-owned renderer, global hard cap two. Never clear PAUSED or touch foreign processes.
+
+Task output is `docs/night1/final/swing/round-13-closeout/`; raw capture cache is `/Users/midir/sm2-r13-closeout-cache/`. Never run unmodified shared-scratch round-13 capture paths or reuse prior-build case caches. Current handoff and RUN.json carry status.
+
+---
+
 # Spider-Man on the M5
 
 Working project: ~/spider-man-2. Owner authorized migration from M3, not a playtest or a new improvement loop. Read HANDOFF.md first. Work on codex/m5-migration-20261006 or a separately authorized task branch; never push main without explicit owner permission.

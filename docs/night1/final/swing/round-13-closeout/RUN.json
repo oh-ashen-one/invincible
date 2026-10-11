@@ -1,0 +1,28 @@
+{
+  "scope": "Finish interrupted round13 flips/held poses, trick-camera containment and existing web fix; one consistent capture set and one independent critic; stop for owner playtest",
+  "started_utc": "2026-10-11T18:48:43Z",
+  "deadline_utc": "2026-10-11T21:48:43Z",
+  "branch": "codex/round13-closeout-20261011",
+  "preserved_source": "4f2a10daa1281db9c6816028544b104449bd9eb1",
+  "host": "midirstudio.local",
+  "hardware": "Mac15,14 Apple M3 Ultra",
+  "models": {
+    "orchestrator_requested": "gpt-6-astra high",
+    "flip_builder": "gpt-6.1-sol xhigh",
+    "tooling_scout": "gpt-6-sol high",
+    "critic_planned": "gpt-6.1-sol xhigh, fresh context"
+  },
+  "phase": "source audit and capture isolation; engine launch awaiting desktop-clear confirmation",
+  "native_mcp": {
+    "engine_plugins_present": true,
+    "task_project_AllToolsets_enabled": true,
+    "port_planned": 18765,
+    "verified_live": false
+  },
+  "limits": {
+    "task_renderer_limit": 1,
+    "global_renderer_limit": 2,
+    "automatic_next_round": false
+  },
+  "scratch": "/Users/midir/sm2-r13-closeout-cache"
+}
