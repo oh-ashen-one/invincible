@@ -1,6 +1,6 @@
 ## Active closeout — 2026-10-11
 
-Branch `codex/round13-closeout-20261011` continues the preserved round13 only, in this isolated checkout. Read AGENTS.md and `docs/night1/final/swing/round-13-closeout/RUN.json` for scope, models, deadline and current status. Owner authorized implementation/build/capture using our own subagents, then a stop for playtest. Original checkout is preserved. Latest desktop safety check is pending user confirmation; no engine has been launched.
+Branch `codex/round13-closeout-20261011` continues the preserved round13 only, in this isolated checkout. Read AGENTS.md and `docs/night1/final/swing/round-13-closeout/RUN.json` for scope, models, deadline and current status. Owner authorized implementation/build/capture using our own subagents, then a stop for playtest. Original checkout is preserved. Source fixes from GPT-6.1 Sol/xhigh commit `5516d9f6` are integrated as `1b655c5b`; final C++ rebuild succeeded in 11.33 s. GPT-6 Sol/high added isolated capture caches and corrected UnrealEditorServices being mistaken for a running game. The asset checker and two cache safety tests pass. Desktop-clear confirmation is still pending; no editor/game has been launched. Native MCP verification, rebuilding M_TravWeb, fresh six-clip captures and independent critique remain. F4 rendered hold duration is explicitly unverified; do not infer a pass from the build or offline math.
 
 ---
 
