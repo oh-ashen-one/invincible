@@ -110,7 +110,9 @@ public:
 	// r25 build 4: the shot strand's travelling wave (30 cm world, decays in ~0.3 s) bounded to RopeWavePx on screen (< 0 = unbounded, r24)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Traversal") float RopeWavePx = 1.5f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Traversal") float RopePxMin = 3.2f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Traversal") float RopePxMax = 3.4f;
+	// round 09 (critic r08 adjacent: the night halo reads > 4 px on near-vertical strands over dark glass; 7 of 8 s5 W5 fails
+	// are width): 3.4 -> 3.3 px at the top of the clamp (the measured width runs ~0.5-0.9 px of AA / bloom halo over the drawn)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Traversal") float RopePxMax = 3.3f;
 	// round 08 (critic r07: web read 7 -> 5 -- the strand averaged back to the background because CoreBright == CoreDark pinned the
 	// core share at 0.5 and Pivot 100 sat above every exposed-luminance reading, so the adaptivity never fired): the core share now
 	// actually switches at Pivot (exposure-applied pre-tonemap luminance: dark glass ~0.02-0.08, lit facades ~0.2-0.5, sky ~0.6-1.2) --

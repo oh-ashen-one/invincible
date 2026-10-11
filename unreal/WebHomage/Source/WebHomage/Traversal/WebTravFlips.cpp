@@ -29,7 +29,8 @@ namespace WebFlips
 			case EWebFlipShape::Tuck: return 1.0f;
 			case EWebFlipShape::Pike: return 1.35f;
 			case EWebFlipShape::Layout: return 3.2f;
-			case EWebFlipShape::Swan: return 7.5f;
+			case EWebFlipShape::Swan: return 10.0f;   // round 09 (critic r08 F4: frontPikeSwan's longest <= 150 deg/s hold 0.27 s): the swan
+				// rate must sit under 150 even with the axis-correction catch-up stacked on it (7.5 measured ~140 + correction)
 			case EWebFlipShape::Pencil: return 9.0f;
 			case EWebFlipShape::Straddle: return 7.5f; // round 18: corkscrew's inverted shape (replaces its swan: same timeline)
 			case EWebFlipShape::Throne: return 9.0f;
@@ -70,7 +71,9 @@ namespace WebFlips
 			Add(TEXT("backDouble"), -720.f, { {S::Tuck, 0.78f, 0.f, 0.4f, 0.3f}, {S::Pencil, 0.36f}, {S::Tuck, 0.66f, 0.f, 0.3f, 0.4f}, {S::Kickout, 0.26f}, {S::Reach, 0.24f} }, 3.5f, 1.5f, 0.2f);
 			// front pike into a held inverted swan, a long fast tuck round again, kick out, reach (720 deg; the swan sits mid-rotation
 			// so every 330 deg chunk of the render mixes a fast and a slow phase: flip_check F5)
-			Add(TEXT("frontPikeSwan"), 720.f, { {S::Pike, 0.44f, 0.f, 0.5f, 0.3f}, {S::Tuck, 0.28f}, {S::Swan, 0.32f}, {S::Tuck, 0.60f, 0.f, 0.4f, 0.4f}, {S::Straddle, 0.26f}, {S::Kickout, 0.16f}, {S::Reach, 0.20f} }, 3.5f, 1.5f, 0.2f);
+			// round 09 (critic r08 F4: frontPikeSwan's longest <= 150 deg/s hold measured 0.27 s vs the 0.3 s line): the swan hold
+			// 0.32 -> 0.38 s (mean rate 720 / 2.32 s = 310 deg/s stays inside F2's 300-500)
+			Add(TEXT("frontPikeSwan"), 720.f, { {S::Pike, 0.44f, 0.f, 0.5f, 0.3f}, {S::Tuck, 0.28f}, {S::Swan, 0.38f}, {S::Tuck, 0.60f, 0.f, 0.4f, 0.4f}, {S::Straddle, 0.26f}, {S::Kickout, 0.16f}, {S::Reach, 0.20f} }, 3.5f, 1.5f, 0.2f);
 			// corkscrew: a layout that turns over while it twists a full turn (arms crossed), tucks through the second rotation, opens
 			// into its inverted straddle, tucks, reach (720 deg)
 			Add(TEXT("corkscrew"), 720.f, { {S::Layout, 0.22f}, {S::Twist, 0.40f, 360.f}, {S::Tuck, 0.56f, 0.f, 0.3f, 0.3f}, {S::Straddle, 0.36f}, {S::Tuck, 0.54f, 0.f, 0.3f, 0.4f}, {S::Reach, 0.24f} }, 4.0f, 1.2f, 0.2f);

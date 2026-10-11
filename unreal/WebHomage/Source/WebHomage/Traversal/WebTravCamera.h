@@ -121,7 +121,7 @@ public:
 	// round 06 (critic r05 gap 1: hero dips under the band mid-float, swing pixel p50 0.23 < the 0.25 bar; s4 air in-band 62 %):
 	// gain 1.5 -> 4.5 and deadband 8 -> 3 % so a pose-phase swing is corrected inside ~0.2 s, range widened 0.62-1.55. Targets
 	// sit under the band top (the swing-end tall poses overshoot the 0.30 pixel top when the loop lags; air tolerates more)
-	double ChaseFbK = 1.0, ChaseFbSwing = 0.27, ChaseFbAir = 0.315, ChaseFbGain = 4.5, ChaseFbMin = 0.62, ChaseFbMax = 1.55; // round 07 fix: air target 0.295 -> 0.315 -- the FOV-normalized loop lets the pixels float down under a saturated speed kick (s1 air 88 % < 90); the swing target stays
+	double ChaseFbK = 1.0, ChaseFbSwing = 0.27, ChaseFbAir = 0.33, ChaseFbGain = 4.5, ChaseFbMin = 0.62, ChaseFbMax = 1.55; // round 07 fix: air target 0.295 -> 0.315 -- the FOV-normalized loop lets the pixels float down under a saturated speed kick (s1 air 88 % < 90); the swing target stays. round 09: 0.315 -> 0.33 (critic r08: P1 air s1/s5 91 -> 79 % -- the tuckier air-drift poses shrink the mask bbox under the 0.18 floor; the loop closes in a touch)
 	// round 05 (critic r04: hero fully hidden behind a rooftop ~0.8 s in s1/s5; rule: never fully occluded / off-frame > 0.25 s during
 	// swings): visibility watchdog for the chase camera (the trick camera owns its own obstruction handling, TC11). While the hero is
 	// out of the frustum or the lens->chest line is blocked, VisBoostK ramps 0 -> 1 over VisBoostT s: the output slew caps relax

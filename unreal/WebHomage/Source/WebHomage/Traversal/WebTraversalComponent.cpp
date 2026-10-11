@@ -3472,7 +3472,7 @@ void UWebTraversalComponent::UpdateTraversal(double Dt, FWebTravInput I)
 	{
 		if (!St.bActive) continue;
 		St.Age += float(Dt); St.BlendT = FMath::Min(1.f, St.BlendT + float(Dt) / 0.15f);
-		if (St.ReleaseT >= 0.f) { St.ReleaseT += float(Dt); if (St.ReleaseT > 0.35f) St.bActive = false; }
+		if (St.ReleaseT >= 0.f) { St.ReleaseT += float(Dt); if (St.ReleaseT > 0.42f) St.bActive = false; }   // round 09: the W8 retract now runs 0.36 s + fade to 0.38
 	}
 }
 

@@ -1387,15 +1387,21 @@ void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 			Wave = 30.0 * FMath::Exp(-9.0 * St.Age) * (1 - St.Taut);
 			if (St.Age > St.ShootDur) Wave *= FMath::Clamp(1.0 - (St.Age - St.ShootDur) / 0.08, 0.0, 1.0);   // round 01 (W6): straight within 0.10 s of the tip landing (0.08 s fade)
 			if (bReleased)
-			{ // round 01 (W8): the strand lets go of the anchor and falls slack toward the hand over 0.30 s (the far end comes home, drooping, the strand fades); it stays near the hero
+			{ // round 09 (W8, critic r08: the strand's pixel length collapsed 950 -> 0 px in ~0.07 s at s1 t=4.85-4.92): the strand
+			  // lets go of the anchor and shrinks back toward the hand over 0.36 s with an EASE-OUT profile -- fast while the far
+			  // end is off-screen, slow while the endpoint crosses the frame near the hero (the r08 smoothstep's slow start spent
+			  // 0.15 s off-screen and collapsed the visible length in 5 frames; an anchor-ward retract of the near end left the
+			  // frame behind the lens in ~4 frames at 50 m/s). Slack sag from the first frames, fade 0.14 -> 0.38 s: length
+			  // shrink >= 0.15 s AND alpha fade >= 0.15 s (both measurements of W8; drawn ~0.37 s <= 0.40).
 				const double R = St.ReleaseT;
-				const double E = FMath::SmoothStep(0.0, 1.0, R / 0.30);
-				A = Hand;                                   // the near end stays on the palm
+				const double X = FMath::Min(1.0, R / 0.36);
+				const double E = 1.0 - (1.0 - X) * (1.0 - X);
+				A = Hand;                                   // stays near the hero (the camera tracks him: the retract must stay in view)
 				B = Hand + (B - Hand) * (1.0 - E);
-				Fade = FMath::Clamp(1.0 - (R - 0.10) / 0.20, 0.0, 1.0);
+				Fade = FMath::Clamp(1.0 - (R - 0.14) / 0.24, 0.0, 1.0);
 				Wave = 0.0;
-				Droop = FMath::Min(150.0, 0.30 * FVector::Dist(A, B)) * FMath::Sin(PI * FMath::Min(1.0, R / 0.30));
-				Curl = 18.0 * (1.0 - E) * FMath::Sin(R * 38.0);
+				Droop = FMath::Min(180.0, 0.35 * FVector::Dist(A, B)) * FMath::Sin(PI * FMath::Min(1.0, R / 0.20));   // slack shows early
+				Curl = 14.0 * (1.0 - E) * FMath::Sin(R * 30.0);
 			}
 		}
 		const FVector D = B - A;

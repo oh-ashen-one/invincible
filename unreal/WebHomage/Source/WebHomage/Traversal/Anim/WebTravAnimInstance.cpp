@@ -447,6 +447,20 @@ void UWebTravAnimInstance::BuildFlipLayers(FName Program, float T, TArray<FWebTr
 		if (!Seq || W <= 0.001f) return;
 		Dst.Add({ Seq, FMath::Clamp(Hold, 0.f, 1.f) * Seq->GetPlayLength(), W, false });
 	};
+	// round 09 (critic r08: "legs stay BENT in the open shapes -- the pencil / pike don't read as straight-leg held shapes"):
+	// the pencil and straddle clips end their 1 s timeline in a tucked-up / knees-bent key (the tuck-up was added so the feet
+	// travel through the hold). A straight-leg held shape must never reach those keys: the LEG overlay samples the clip at a
+	// scaled hold so the legs stop at the straight keys (pencil ~u .25: legs glued, knee ~10 deg; straddle ~u .55: the wide
+	// straight split) while the upper body still plays the full timeline (the arms carry the hold's motion).
+	auto LegHoldScale = [](EWebFlipShape S)
+	{
+		switch (S)
+		{
+		case EWebFlipShape::Pencil: return 0.25f;
+		case EWebFlipShape::Straddle: return 0.55f;
+		default: return 1.0f;
+		}
+	};
 	{ // round 19: tuck share of the upper body and the legs (both must be tucked for the wrists-to-shins hold)
 		const float TU = (Po.A == EWebFlipShape::Tuck ? 1.f - Po.W : 0.f) + (Po.B == EWebFlipShape::Tuck ? Po.W : 0.f);
 		const float TL = (Po.LA == EWebFlipShape::Tuck ? 1.f - Po.LW : 0.f) + (Po.LB == EWebFlipShape::Tuck ? Po.LW : 0.f);
@@ -454,8 +468,8 @@ void UWebTravAnimInstance::BuildFlipLayers(FName Program, float T, TArray<FWebTr
 	}
 	AddShape(Out, Po.A, Po.HoldA, 1.f - Po.W);
 	if (Po.B != Po.A || Po.W > 0.f) AddShape(Out, Po.B, Po.HoldB, Po.W);
-	AddShape(OutLegs, Po.LA, Po.LHoldA, 1.f - Po.LW);
-	if (Po.LB != Po.LA || Po.LW > 0.f) AddShape(OutLegs, Po.LB, Po.LHoldB, Po.LW);
+	AddShape(OutLegs, Po.LA, Po.LHoldA * LegHoldScale(Po.LA), 1.f - Po.LW);
+	if (Po.LB != Po.LA || Po.LW > 0.f) AddShape(OutLegs, Po.LB, Po.LHoldB * LegHoldScale(Po.LB), Po.LW);
 }
 
 void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
