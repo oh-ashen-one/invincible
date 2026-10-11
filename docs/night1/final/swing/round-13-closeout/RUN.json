@@ -12,7 +12,7 @@
     "tooling_scout": "gpt-6-sol high",
     "critic_planned": "gpt-6.1-sol xhigh, fresh context"
   },
-  "phase": "native MCP verified and web material saved; fresh final capture set starting",
+  "phase": "final build frozen; final six-clip capture set starting",
   "native_mcp": {
     "engine_plugins_present": true,
     "task_project_AllToolsets_enabled": true,
@@ -47,12 +47,12 @@
     "2bb17f46abde75b0002c2e25efd184f16420a8da",
     "13358449e4d1c3130ebc7259eba4b4db5cdb3375"
   ],
-  "source_build_commit": "1b655c5b",
+  "source_build_commit": "21e43450",
   "final_build": {
     "result": "Succeeded",
-    "duration_seconds": 11.33,
-    "module_sha256": "7388d22839b8534b98a260fc8a6b47ce8861aa9fc4326e6b775be1705682b8ff",
-    "log_local": "unreal/WebHomage/Saved/Round13Closeout/build-final.log",
+    "duration_seconds": 8.93,
+    "module_sha256": "f94a190b6dc0673aff8535db3af608a88addab369252c20c7f2babd9c01b2d5b",
+    "log_local": "unreal/WebHomage/Saved/Round13Closeout/build-camera-probe.log",
     "runtime_verified": false
   },
   "builder_commit": "5516d9f66cabfec99b726252a3ae019568125f7e",
@@ -67,5 +67,11 @@
     "builder_program_math": "13 programs, uniform tempo .95/1/1.01; peaks576.6-754.2deg/s; slow windows.350-.508s; excludes jitter/rendered blending",
     "held_pose_limitation": "F4 rendered hold>=.3s remains unverified; a .42s segment yields .294s individual plateau and .159s bothlayers fully unblended/frozen"
   },
-  "desktop_clear_confirmed": true
+  "desktop_clear_confirmed": true,
+  "focused_camera_probe": {
+    "change": "Delay ordinary ground crane until trick camera blendout",
+    "missing_hero_mask_frames_before": 4,
+    "missing_hero_mask_frames_after": 3,
+    "note": "Improved but not eliminated; retain as a known limit for independent review. No further source iteration in this pass."
+  }
 }
