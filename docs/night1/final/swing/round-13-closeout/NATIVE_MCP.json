@@ -1,0 +1,26 @@
+{
+  "engine_pid": 30360,
+  "endpoint": "http://127.0.0.1:18765/mcp",
+  "project": "/Users/midir/spider-man-2-r13-closeout/unreal/WebHomage/WebHomage.uproject",
+  "current_world": "/Engine/Maps/Entry",
+  "project_identity_verified_by": [
+    "owned listener PID and project command",
+    "native current-level query",
+    "native editor Saved log read"
+  ],
+  "native_project_skills_discovered": true,
+  "material_skill_loaded": true,
+  "mutation": {
+    "updated": true,
+    "readback_matches_source": true,
+    "saved": true,
+    "asset": "/Game/Traversal/Materials/M_TravWeb",
+    "code_characters": 2320
+  },
+  "code_sha256_before": "075028517371a64161e268db41555389b4da165b345025240c7a0af8595e5031",
+  "code_sha256_after": "075028517371a64161e268db41555389b4da165b345025240c7a0af8595e5031",
+  "material_sha256_after": "8b881f34c3c3d7dd9f0847e45c47ce5c3cc4e0e10d89c423a5cf744708582474",
+  "rendering_verified": false,
+  "editor_stopped_gracefully": true,
+  "note": "Existing custom shader already matched preserved WEB_CODE. Recompiled/saved through native tools; visual shader verification still pending fresh capture."
+}

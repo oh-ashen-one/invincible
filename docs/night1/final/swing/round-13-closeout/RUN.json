@@ -12,12 +12,17 @@
     "tooling_scout": "gpt-6-sol high",
     "critic_planned": "gpt-6.1-sol xhigh, fresh context"
   },
-  "phase": "source fixes integrated and rebuilt; ready for native-MCP and fresh capture verification after desktop-clear confirmation",
+  "phase": "native MCP verified and web material saved; fresh final capture set starting",
   "native_mcp": {
     "engine_plugins_present": true,
     "task_project_AllToolsets_enabled": true,
     "port_planned": 18765,
-    "verified_live": false
+    "verified_live": true,
+    "editor_pid": 30360,
+    "editor_stopped_gracefully": true,
+    "transport": "native Epic HTTP MCP via repository client",
+    "auto_start": false,
+    "start_flags": "-ModelContextProtocolStartServer -ModelContextProtocolPort=18765"
   },
   "limits": {
     "task_renderer_limit": 1,
@@ -61,5 +66,6 @@
     "secret_scan": "5 commits; no leaks",
     "builder_program_math": "13 programs, uniform tempo .95/1/1.01; peaks576.6-754.2deg/s; slow windows.350-.508s; excludes jitter/rendered blending",
     "held_pose_limitation": "F4 rendered hold>=.3s remains unverified; a .42s segment yields .294s individual plateau and .159s bothlayers fully unblended/frozen"
-  }
+  },
+  "desktop_clear_confirmed": true
 }
