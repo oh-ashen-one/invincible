@@ -133,6 +133,7 @@ private:
 	// up to 3.6x inside a 0.28 s tuck), so the 45 deg cap saturated and the excess lean passed straight through (rendered peaks
 	// 800-900 over a ~500 deg/s program); the brake can now hold the whole sweep.
 	double FlipTwistHotT = 0.0; bool bFlipTwistWas = false; // round 10: fast-twist freeze + re-base (see PoseFigure)
+	double FlipRebaseT = 0.0;   // round 12: slow-bleed window right after the twist re-base (see PoseFigure)
 	const FWebFlipProgram* FlipProgramNow(float& OutT) const;
 	void UpdateWebs(float Dt, const FVector& CamPosCm);
 	FVector HandWorldCm(bool bRight) const;
@@ -226,6 +227,7 @@ private:
 	UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WebMat;
 	UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WebMatTwoTone; // round 25: M_TravWeb (null when the asset is missing)
 	int32 WebLookNow = -1;
+	TArray<int8> WebSegDpg;   // round 12: cached depth-priority group per segment (0 world, 1 foreground); -1 = never set
 	// round 25: the strand as drawn this frame (cm; telemetry projects it through the final camera), and its width (cm) at each end
 	FVector RopeDrawA[2], RopeDrawB[2];
 	double RopeDrawWA[2] = { 0.0, 0.0 }, RopeDrawWB[2] = { 0.0, 0.0 };

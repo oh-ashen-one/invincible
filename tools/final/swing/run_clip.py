@@ -73,7 +73,7 @@ def launch_case(d, name, q, game_map, log):
                  '-WHQuitAt=%s' % (q + PRE), '-ExecCmds=' + ','.join(execs)]
     if a.tune: game_args.append('-WHTravTune=%s' % a.tune)
     env = dict(os.environ, GPU_SLOT_DIR=str(GPU))
-    qcmd = [str(ROOT / 'tools/gpu/gpu_slot.sh'), 'capture', '--label', 'final-swing-r11-%s' % name, '--',
+    qcmd = [str(ROOT / 'tools/gpu/gpu_slot.sh'), 'capture', '--label', 'final-swing-r12-%s' % name, '--',
             str(UE), str(ROOT / 'unreal/WebHomage/WebHomage.uproject'), MAPS[game_map], *game_args]
     proc = subprocess.Popen(qcmd, stdout=log, stderr=subprocess.STDOUT, cwd=ROOT, env=env)
     try:

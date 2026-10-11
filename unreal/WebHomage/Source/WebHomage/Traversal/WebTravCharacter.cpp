@@ -314,6 +314,7 @@ void AWebTravCharacter::BuildFigure()
 		C->RegisterComponent();
 		WebSegs.Add(C);
 	}
+	WebSegDpg.Init(-1, 2 * SEGS_PER_STRAND);
 	// round 25: unlit two-tone strand (see RopeLook in WebTraversalComponent.h); built by Scripts/build_traversal.py (traversal_web_material.py)
 	if (UMaterialInterface* WebBase = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Traversal/Materials/M_TravWeb.M_TravWeb")))
 	{
@@ -1160,7 +1161,7 @@ void AWebTravCharacter::PoseFigure(float Dt)
 			const FVector Fw(FMath::Cos(Fy), FMath::Sin(Fy), 0.0);
 			const double BpMeas = Ax.IsNearlyZero() ? 0.0 : FMath::RadiansToDegrees(FMath::Atan2(FVector::DotProduct(Ax, Fw), Ax.Z));
 			const double ProgPitch = double(FPo.PitchDeg) - AxisOff;
-			if (!bFlipMeasInit || LastFlipName != FP->Name) { bFlipMeasInit = true; FlipMeasBp0 = BpMeas; FlipMeasPitch0 = ProgPitch; FlipCorr = 0.0; FlipTwistHotT = 0.0; bFlipTwistWas = false; }
+			if (!bFlipMeasInit || LastFlipName != FP->Name) { bFlipMeasInit = true; FlipMeasBp0 = BpMeas; FlipMeasPitch0 = ProgPitch; FlipCorr = 0.0; FlipTwistHotT = 0.0; bFlipTwistWas = false; FlipRebaseT = 0.0; }
 			const double Expected = FlipMeasBp0 + (ProgPitch - FlipMeasPitch0);
 			const double E = FMath::UnwindDegrees(BpMeas - Expected);
 			// asymmetric rate cap: the correction BRAKES an over-rotating rendered axis as fast as needed (the r05 > 800 deg/s
@@ -1177,15 +1178,29 @@ void AWebTravCharacter::PoseFigure(float Dt)
 			const double TwistRate = bFlipMeasInit && Dt > 0.0 ? FMath::Abs(double(FPo.TwistDeg) - double(LastFlip.TwistDeg)) / Dt : 0.0;
 			FlipTwistHotT = TwistRate > 250.0 ? 0.10 : FMath::Max(0.0, FlipTwistHotT - Dt);
 			const bool bTwistHot = FlipTwistHotT > 0.0;
-			if (!bTwistHot && bFlipTwistWas) { FlipMeasBp0 = BpMeas; FlipMeasPitch0 = ProgPitch; } // twist falling edge: fresh baseline
+			if (!bTwistHot && bFlipTwistWas) { FlipMeasBp0 = BpMeas; FlipMeasPitch0 = ProgPitch; FlipRebaseT = 0.35; } // twist falling edge: fresh baseline
 			bFlipTwistWas = bTwistHot;
+			FlipRebaseT = FMath::Max(0.0, FlipRebaseT - Dt);
 			const double Dir = FP->PitchDeg >= 0.f ? 1.0 : -1.0;
 			double Step = FMath::UnwindDegrees(E - FlipCorr);
 			// round 10b (probe r10a: the brake's stored offset bled at 60 deg/s through the NEXT held shape -- program ~120 + bleed
 			// 60 + clip breathing ~40 read > 150 deg/s, so s3's holds failed F4): during a program-declared SLOW phase the loop holds
 			// the render AT the program rate: brake 320 -> 120, catch-up 60 -> 30 (tucks/twists are fast phases, unaffected)
 			const bool bSlowPh = FMath::Abs(double(FPo.PitchRate)) < 160.0;
-			const double CapRate = Step * Dir < 0.0 ? (bTwistHot ? 0.0 : (bSlowPh ? 30.0 : 60.0)) : (bTwistHot ? 0.0 : (bSlowPh ? 120.0 : 320.0)); // after a rebase E ~= 0, so the stale correction bleeds out through the catch-up side on its own
+			// round 12a (r12 probe: the one-frame-delayed loop LIMIT-CYCLES +-2 deg/frame through a held open shape -- flip_check's
+			// 0.04 s rate windows then spike past 150 deg/s and the r12 0.42-0.54 s hold segments still measure 0.22-0.26 s): under
+			// 2 deg of error in a slow phase the correction holds instead of stepping (a standing <= 2 deg offset is invisible)
+			if (bSlowPh && FMath::Abs(Step) < 2.0) Step = 0.0;
+			double CapRate = Step * Dir < 0.0 ? (bTwistHot ? 0.0 : (bSlowPh ? 30.0 : 60.0)) : (bTwistHot ? 0.0 : (bSlowPh ? 45.0 : 320.0)); // after a rebase E ~= 0, so the stale correction bleeds out through the catch-up side on its own
+			// round 12c (r12 probe: the slow-phase catch-up side at 120 chased the transition lag THROUGH the hold -- program 70 +
+			// 120 = 190 deg/s bursts broke the <= 150 windows mid-swan): slow-phase catch-up 120 -> 45, so a held open shape never
+			// reads faster than ~115 deg/s from the loop; the lag it was chasing is a few deg and rides out on the next tuck.
+			// round 12b (r12 probe: barani / fullTwist / rudi rendered 835-904 deg/s on the tuck right AFTER the twist -- the stale
+			// correction discharges at the fast-phase catch-up cap (320) into that tuck): for 0.35 s after the twist's rebase the
+			// DISCHARGE side bleeds at <= 45 deg/s. The brake side keeps its cap: the twist->tuck clip crossfade leans +150-200
+			// deg/s onto the program for a few frames and only the brake keeps that under F3's 800 (probe: capping both sides let
+			// the stack read 892-946)
+			if (FlipRebaseT > 0.0 && Step * Dir < 0.0) CapRate = FMath::Min(CapRate, 45.0);
 			const double Cap = CapRate * FMath::Max(0.001, double(Dt));
 			Step = FMath::Clamp(Step, -Cap, Cap);
 			FlipCorr = FMath::Clamp(FlipCorr + Step, -FlipCorrMax, FlipCorrMax);
@@ -1210,14 +1225,18 @@ void AWebTravCharacter::PoseFigure(float Dt)
 		const double Ang = FlipOffQ.GetAngle();
 		if (Ang > FMath::DegreesToRadians(0.2))
 		{
-			const double CapDps = (A.Mode == EWebTravMode::Swing && AttachT < 0.9) ? 100.0 : 240.0;
+			// round 12 (r11 s3 W4 50 % / A5 702: the route's bare wall-exit catches are big-gap attaches whose spring window is
+			// 1.3 s; the residual's 100 deg/s bleed window ended at 0.9 s, so the tail stacked on the still-converging spring):
+			// the slow bleed covers the spring's whole convergence window for a big-gap attach
+			const bool bBigGap = SpringResid0 > FMath::DegreesToRadians(60.0);
+			const double CapDps = (A.Mode == EWebTravMode::Swing && AttachT < (bBigGap ? 1.3 : 0.9)) ? 100.0 : 240.0;
 			const double MaxStep = FMath::DegreesToRadians(CapDps) * Dt;
 			const double Step = FMath::Min(Ang * (1.0 - FMath::Exp(-Dt / 0.10)), MaxStep);
 			FlipOffQ = FQuat::Slerp(FlipOffQ, FQuat::Identity, FMath::Clamp(Step / Ang, 0.0, 1.0));
 		}
 		else FlipOffQ = FQuat::Identity;
 		LastFlip = FWebFlipPose(); LastFlipName = NAME_None;
-		FlipTwistHotT = 0.0; bFlipTwistWas = false;
+		FlipTwistHotT = 0.0; bFlipTwistWas = false; FlipRebaseT = 0.0;
 	}
 	if (FP || FlipOffQ.GetAngle() > FMath::DegreesToRadians(0.2))
 	{
@@ -1489,6 +1508,21 @@ void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 			C->SetWorldLocationAndRotation(Mid, FRotationMatrix::MakeFromZ((P1 - P0).GetSafeNormal()).ToQuat());
 			C->SetWorldScale3D(FVector(W / 100.0, W / 100.0, Len / 100.0));
 			C->SetVisibility(true);
+			{ // round 12 (critic r11 gap 1, s2_c1 t=2.5-2.9: a dark corner fin sits between the CAMERA and the strand's
+			  // near-hand stretch -- telemetry hand->anchor clear=1.0, so this is render-depth occlusion, and the strand
+			  // reads detached from the palm for ~0.3 s): the first ~2 m from the hand render in the FOREGROUND depth
+			  // group (depth-tested only against other foreground primitives), so a foreground edge can never sever the
+			  // strand from the palm. W7's anchor filter keeps the hand->anchor line clear of geometry by design, so the
+			  // foreground pass only ever restores a stretch the anchor search already proved clear; the width keeps its
+			  // screen-space clamp, so this never reads as a beam over the lens.
+				const int8 WantDpg = D.Size() * U0 <= 200.0 ? 1 : 0;
+				const int32 SegI = SI * SEGS_PER_STRAND + K;
+				if (WebSegDpg[SegI] != WantDpg)
+				{
+					WebSegDpg[SegI] = WantDpg;
+					C->SetDepthPriorityGroup(WantDpg ? ESceneDepthPriorityGroup::SDPG_Foreground : ESceneDepthPriorityGroup::SDPG_World);
+				}
+			}
 			if (!bRopeDrawn[SI]) { RopeDrawA[SI] = P0; RopeDrawWA[SI] = W; bRopeDrawn[SI] = true; }
 			RopeDrawB[SI] = P1; RopeDrawWB[SI] = W;
 		}

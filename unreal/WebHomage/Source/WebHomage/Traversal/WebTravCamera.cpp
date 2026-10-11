@@ -203,7 +203,9 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		// round 05: while the hero is out of view (watchdog below) the caps relax -- a fast pan that finds him beats a hidden hero
 		// round 09: the relaxation now also applies in trick mode while the watchdog fires (critic r08: the trick camera held its
 		// slew caps through a 1.6 s hero-loss in s3); TC-B's 150 deg/s cap still binds whenever the hero is seen
-		const double Boost = 1.0 + VisBoostK * (VisWhipMul - 1.0);
+		// round 12: EdgeK (hero at/over the frame edge, see the watchdog block) relaxes the same caps -- an edge exit is a
+		// partially lost hero; the recovery pan beats the held view there too
+		const double Boost = 1.0 + FMath::Max(VisBoostK, EdgeK) * (VisWhipMul - 1.0);
 		const FVector D = CamPos - LastOutPos;
 		const double Lm = MaxStepPosM * K * Boost;
 		// round 20: the position slew never leaves the lens behind a wall (T19 beats "never a cut")
@@ -219,7 +221,7 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 			SlewFlags |= 1;
 		}
 		const double SlP = CamRot.Pitch - LastOutRot.Pitch, SlY = FRotator::NormalizeAxis(CamRot.Yaw - LastOutRot.Yaw);
-		const double MP = MaxStepPitchDeg * K * Boost, MY = (FlipK > 1e-3 && VisBoostK <= 0.01 ? FlipMaxStepYawDeg : MaxStepYawDeg * Boost) * K; // round 16 (TC-B): <= 150 deg/s while the trick camera is in (blend in / hold / blend out) and the hero is seen; round 09: the watchdog relaxes it when he is not
+		const double MP = MaxStepPitchDeg * K * Boost, MY = (FlipK > 1e-3 && VisBoostK <= 0.01 && EdgeK <= 0.01 ? FlipMaxStepYawDeg : MaxStepYawDeg * Boost) * K; // round 16 (TC-B): <= 150 deg/s while the trick camera is in (blend in / hold / blend out) and the hero is seen; round 09: the watchdog relaxes it when he is not; round 12: EdgeK relaxes it at the frame edge
 		if (FMath::Abs(SlP) > MP) { CamRot.Pitch = LastOutRot.Pitch + FMath::Sign(SlP) * MP; SlewFlags |= 2; }
 		if (FMath::Abs(SlY) > MY) { CamRot.Yaw = LastOutRot.Yaw + FMath::Sign(SlY) * MY; SlewFlags |= 4; }
 		if (SlewFlags) { HeroDist = FVector::Dist(CamPos, P.Pos); bCamInGeometry = World.SphereOverlaps(CamPos, 0.15); }
@@ -241,17 +243,37 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		const FVector ToH = ChestW - CamPos;
 		const double Dh = ToH.Size();
 		bool bSeen = true;
+		const double HalfV = FMath::DegreesToRadians(FMath::Max(20.0, OutVFov)) * 0.5;
+		const double HalfH = FMath::Atan(FMath::Tan(HalfV) * 16.0 / 9.0);
 		if (bChaseModes && Dh > 0.3)
 		{
 			const double CosA = FVector::DotProduct(ToH / Dh, CamRot.Vector());
-			const double HalfV = FMath::DegreesToRadians(FMath::Max(20.0, OutVFov)) * 0.5;
-			const double HalfH = FMath::Atan(FMath::Tan(HalfV) * 16.0 / 9.0);
 			if (CosA < FMath::Cos(FMath::Max(HalfV, HalfH) * 0.80)) bSeen = false; // out of the frustum (or behind the lens)
 			else if (World.LineBlocked(CamPos, ChestW)) bSeen = false;            // a roof edge / facade between the lens and him
 		}
 		if (bSeen || !bChaseModes) UnseenT = FMath::Max(0.0, UnseenT - Dt * 1.5);
 		else UnseenT += Dt;
 		VisBoostK = FMath::Clamp(UnseenT / FMath::Max(0.05, VisBoostT), 0.0, 1.0);
+		// round 12 (critic r11 gap 3 / F9: the hero exits the right frame edge ~0.6 s on s3b t=7.4-7.8; TC wants him inside the
+		// central 60 %): the watchdog fires only ~20 % PAST the frustum cone, so a hero crossing the edge inside a slew-capped
+		// turn crawls back for half a second. Edge containment: measure the chest's angle off the view axis per axis; past
+		// ~2/3 of the half-angle EdgeK snaps in (release slow), and the output slew caps relax exactly like the watchdog's
+		// boost -- a hero at/over the edge recovers in ~0.1 s. TC-B's 150 deg/s still binds while he is inside the band
+		// (TC-G in-frame beats the held view, the round-09 precedence).
+		double EdgeGoal = 0.0;
+		if (bChaseModes && Dh > 0.3)
+		{
+			const FRotationMatrix ERM(CamRot);
+			const double Zf = FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::X));
+			if (Zf > 0.3 * Dh)
+			{
+				const double OffH = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Y)), Zf);
+				const double OffV = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Z)), Zf);
+				EdgeGoal = Smooth(FMath::Max(FMath::Abs(OffH) / FMath::Max(1e-3, HalfH), FMath::Abs(OffV) / FMath::Max(1e-3, HalfV)), 0.68, 0.98);
+			}
+			else EdgeGoal = 1.0; // beside / behind the lens: full boost (the watchdog's frustum test covers the same case)
+		}
+		EdgeK = EdgeGoal > EdgeK ? Damp(EdgeK, EdgeGoal, 25.0, Dt) : Damp(EdgeK, EdgeGoal, 2.5, Dt);
 	}
 	LastOutPos = CamPos; LastOutRot = CamRot; bOutInit = true;
 	// speed motion blur: none on foot / walls, ramps in over fast swings / dives / zips
@@ -593,12 +615,16 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 	const bool bGndTurn = bGndCam && LastLook < GndLookHold && LookYawDir != 0;
 	const double DefClear = ClearTo(Candidate(0, 0), Tmp);
 	const double DefLen = FVector::Dist(Candidate(0, 0), Hero); // unobstructed distance of the default spot
+	// round 12 (critic r11: the s3 t=20.0 top-out read top-down): through a top-out the orbit never cranes UP onto the roof the
+	// hero is climbing onto -- a horizontal re-seat keeps him in frame from the street side while the wall camera owns the view
+	const bool bTopOutNow = P.Sub == N_topOut;
 	if (DefClear >= DefLen - 0.3) { OccYawGoal = 0; OccUpGoal = 0; }
-	else if ((OccYawGoal == 0 && OccUpGoal == 0) || ClearTo(Candidate(OccYawGoal, OccUpGoal), Tmp) < DefLen - 0.8)
+	else if ((OccYawGoal == 0 && OccUpGoal == 0) || (bTopOutNow && OccUpGoal > 0.0) || ClearTo(Candidate(OccYawGoal, OccUpGoal), Tmp) < DefLen - 0.8)
 	{ // default spot blocked and no clear orbit held: search raised / rotated spots
 		double BestC = -1e9, BY = 0, BU = 0;
 		for (double Up : { 0.0, 2.0, 4.0, 6.0, 9.0 })
 		{
+			if (bTopOutNow && Up > 0.0) continue;
 			for (double DYw : { 0.0, 0.6, -0.6, 1.1, -1.1, 1.6, -1.6, 2.2, -2.2 })
 			{
 				if (bGndTurn && DYw * double(LookYawDir) < -1e-3) continue; // round 24: never orbit back against the user's turn
@@ -712,7 +738,12 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 			N = N.SizeSquared() > 0.01 ? N.GetSafeNormal() : -ForwardFlat();
 			const FVector Base = (bOnWall || !bWallXY) ? Hero : FVector(WallHeroXY.X, WallHeroXY.Y, Hero.Z);
 			const double Floor = World.GroundHeight(Base.X + N.X * WallCamOut, Base.Y + N.Y * WallCamOut, Hero.Z + 0.5);
-			const double WZ = FMath::Max(Hero.Z - WallCamBelow, Floor + 0.6);
+			double WZ = FMath::Max(Hero.Z - WallCamBelow, Floor + 0.6);
+			// round 12 (critic r11 gap 3 / F9: s3 t=20.0 -- through the top-out the roof's floor clamp parks the lens ON the roof,
+			// ~3 m over the rising hero, and the wallFront reads top-down at 0.14 of the frame height): while he tops out the lens
+			// never sits above his eye line; the ClearFrom sweep keeps it out of the roof geometry (it stops at the facade face,
+			// over the street), so the top-out reads level-or-below with the hero big in frame
+			if (P.Sub == N_topOut) WZ = FMath::Min(WZ, Hero.Z + 0.2);
 			const double Dz = Hero.Z - WZ;
 			const double Out = FMath::Max(WallCamOut, FMath::Sqrt(FMath::Max(0.0, WallCamDist * WallCamDist - Dz * Dz)));
 			FVector WallCam(Base.X + N.X * Out, Base.Y + N.Y * Out, WZ), WallClear;

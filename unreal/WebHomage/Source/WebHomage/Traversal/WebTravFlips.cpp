@@ -32,11 +32,15 @@ namespace WebFlips
 			case EWebFlipShape::Tuck: return 1.22f;
 			case EWebFlipShape::Pike: return 1.35f;
 			case EWebFlipShape::Layout: return 3.2f;
-			case EWebFlipShape::Swan: return 10.0f;   // round 09 (critic r08 F4: frontPikeSwan's longest <= 150 deg/s hold 0.27 s): the swan
-				// rate must sit under 150 even with the axis-correction catch-up stacked on it (7.5 measured ~140 + correction)
-			case EWebFlipShape::Pencil: return 9.0f;
-			case EWebFlipShape::Straddle: return 7.5f; // round 18: corkscrew's inverted shape (replaces its swan: same timeline)
-			case EWebFlipShape::Throne: return 9.0f;
+			// final round 12 (critic r11 gap 2: the r11 alternating programs never HOLD -- the 0.32 s hold segments at inertia 9-10
+			// dip under 150 deg/s (rendered) for only ~0.25 s once the shape-transition lean stacks at both ends; the r11 F4 passes
+			// were the END reach/kickout, not a mid-chain open shape): hold shapes are slower (pencil/throne 9 -> 11, swan 10 -> 12,
+			// straddle 7.5 -> 8.5) and the hold segments run 0.42-0.54 s (see the tables), so the rendered <= 150 deg/s window covers
+			// >= 0.3 s mid-chain with the tuck bursts kept (owner clip: pencil 0.64 s, throne 0.48 s)
+			case EWebFlipShape::Swan: return 12.0f;
+			case EWebFlipShape::Pencil: return 11.0f;
+			case EWebFlipShape::Straddle: return 8.5f; // round 18: corkscrew's inverted shape (replaces its swan: same timeline)
+			case EWebFlipShape::Throne: return 11.0f;
 			case EWebFlipShape::Twist: return 3.5f;
 			case EWebFlipShape::Reach: return 7.0f;
 			// round 13: open finish; round 14 5.5 -> 10.5 (rendered r13 hold 0.21 s: the keyed arch adds ~40 deg/s to the program's 123)
@@ -77,25 +81,34 @@ namespace WebFlips
 			// open shapes that KEEP ROTATING (layout / straddle at ~230-370 deg/s), one F4 hold mid-chain (pencil / swan / throne,
 			// 0.32-0.34 s at <= 150 deg/s), no long hold after a rotation. Base peaks 617-714 (flip sim), means 303-365, 7-10 shapes
 			// per program, every shape >= 0.22 s (A7: >= 3 frames at 25 fps).
-			Add(TEXT("backDouble"), -720.f, { {S::Tuck, 0.38f, 0.f, 0.55f, 0.3f}, {S::Layout, 0.30f}, {S::Tuck, 0.33f}, {S::Pencil, 0.32f}, {S::Tuck, 0.33f, 0.f, 0.3f, 0.4f}, {S::Kickout, 0.24f}, {S::Reach, 0.26f} }, 3.5f, 1.5f, 0.2f);
+			// final round 12 (critic r11 gap 2: the alternation reads as CONTINUOUS rotation -- the 0.32 s holds never reach a
+			// rendered <= 150 deg/s window of >= 0.3 s; r09's held shapes passed at 0.54-0.87 s): the hold segment runs 0.42-0.44 s
+			// (barani / corkscrew / fullTwist straddles 0.48-0.54) at the raised hold inertias, while the alternating tuck bursts and
+			// rotating open shapes stay (flip sim on the committed tables: base peaks 611-741, means 306-358, program <= 115 deg/s
+			// hold windows 0.35-0.50 s at the fastest variant).
+			Add(TEXT("backDouble"), -720.f, { {S::Tuck, 0.38f, 0.f, 0.55f, 0.3f}, {S::Layout, 0.28f}, {S::Tuck, 0.35f}, {S::Pencil, 0.44f}, {S::Tuck, 0.35f, 0.f, 0.3f, 0.4f}, {S::Kickout, 0.20f}, {S::Reach, 0.22f} }, 3.5f, 1.5f, 0.2f);
 			// front pike into a held inverted swan, a long fast tuck round again, kick out, reach (720 deg; the swan sits mid-rotation
 			// so every 330 deg chunk of the render mixes a fast and a slow phase: flip_check F5)
 			// round 09 (critic r08 F4: frontPikeSwan's longest <= 150 deg/s hold measured 0.27 s vs the 0.3 s line): the swan hold
 			// 0.32 -> 0.38 s (mean rate 720 / 2.32 s = 310 deg/s stays inside F2's 300-500)
 			// final round 10: 2.32 -> 2.15 s (entry / exit tightened, holds at the 0.30-0.32 s floor): a double now completes inside
 			// the short scripted air windows instead of dying mid-second-rotation at the catch (mean 335 deg/s, base peak 617)
-			Add(TEXT("frontPikeSwan"), 720.f, { {S::Pike, 0.40f, 0.f, 0.6f, 0.3f}, {S::Tuck, 0.28f}, {S::Swan, 0.32f}, {S::Tuck, 0.30f}, {S::Straddle, 0.22f}, {S::Tuck, 0.30f, 0.f, 0.4f, 0.4f}, {S::Kickout, 0.20f}, {S::Reach, 0.22f} }, 3.5f, 1.5f, 0.2f);
+			// final round 12: the hold 0.32 -> 0.48 s (see backDouble), and it moves swan -> pencil: the flipSwan clip's arch
+			// breathes +-2-3 deg/frame mid-hold (probe: rendered rate bursts to 170-200 deg/s over the program's 70), which kept
+			// breaking F4's <= 150 deg/s windows (0.22-0.24 s measured); flipPencil reads steady (backSingle's pencil holds 0.54 s)
+			Add(TEXT("frontPikeSwan"), 720.f, { {S::Pike, 0.38f, 0.f, 0.6f, 0.3f}, {S::Tuck, 0.32f}, {S::Pencil, 0.48f}, {S::Tuck, 0.30f}, {S::Straddle, 0.20f}, {S::Tuck, 0.30f, 0.f, 0.4f, 0.4f}, {S::Kickout, 0.18f}, {S::Reach, 0.20f} }, 3.5f, 1.5f, 0.2f);
 			// corkscrew: a layout that turns over while it twists a full turn (arms crossed), tucks through the second rotation, opens
 			// into its inverted straddle, tucks, reach (720 deg)
-			Add(TEXT("corkscrew"), 720.f, { {S::Layout, 0.2f}, {S::Twist, 0.46f, 360.f}, {S::Tuck, 0.54f, 0.f, 0.3f, 0.3f}, {S::Straddle, 0.34f}, {S::Tuck, 0.48f, 0.f, 0.3f, 0.4f}, {S::Reach, 0.24f} }, 4.0f, 1.2f, 0.2f);
+			Add(TEXT("corkscrew"), 720.f, { {S::Layout, 0.2f}, {S::Twist, 0.44f, 360.f}, {S::Tuck, 0.52f, 0.f, 0.3f, 0.3f}, {S::Straddle, 0.48f, 0.f, 0.3f, 0.3f}, {S::Tuck, 0.48f, 0.f, 0.3f, 0.4f}, {S::Reach, 0.20f} }, 4.0f, 1.2f, 0.2f);
 			// short air (plain trick release): tuck to inverted, pencil hold, tuck round, reach
 			// Tricks C r01: every program's final Reach is >= 0.36 s, so the catch window (CatchOpen 0.16 s before the end) opens only after
 			// >= 0.2 s of the open reach -- r01 probe: backSingle's 0.24 s reach was caught 0.08 s in, straight out of a 446 deg/s tuck
 			// round 06: backSingle stays the 360 deg short-air fallback (FitFlip's tight-air pick)
 			// final round 10: tucks 0.32 -> 0.36/0.34 (its fast variant rendered 883 deg/s -- over F3's 800), reach 0.38 -> 0.32
-			Add(TEXT("backSingle"), -360.f, { {S::Tuck, 0.36f, 0.f, 0.5f, 0.3f}, {S::Pencil, 0.34f}, {S::Tuck, 0.34f, 0.f, 0.3f, 0.6f}, {S::Reach, 0.34f} });
+			// final round 12: pencil hold 0.34 -> 0.44 s
+			Add(TEXT("backSingle"), -360.f, { {S::Tuck, 0.36f, 0.f, 0.5f, 0.3f}, {S::Pencil, 0.44f}, {S::Tuck, 0.34f, 0.f, 0.3f, 0.6f}, {S::Reach, 0.32f} });
 			// wall-run top-out: front flip over the roof edge, layout on top, throne into the landing
-			Add(TEXT("wallFront"), 360.f, { {S::Tuck, 0.3f}, {S::Layout, 0.3f}, {S::Tuck, 0.3f}, {S::Throne, 0.28f} }, 0.f, 0.f);
+			Add(TEXT("wallFront"), 360.f, { {S::Tuck, 0.28f}, {S::Layout, 0.3f}, {S::Tuck, 0.28f}, {S::Throne, 0.38f} }, 0.f, 0.f);
 			// ---- Tricks C round 1 (owner: "look like a gymnast", "many tricks"): the gymnastics vocabulary, built from the same keyed shapes.
 			// Every program opens out of its rotation into a slow open shape (Kickout / Straddle / Layout / Reach) before the catch (clean open-out); a
 			// twist always exits into a shape keyed out of the twist wrap (Straddle / Layout), never into the Kickout (which starts from the tuck grab); every
@@ -107,18 +120,18 @@ namespace WebFlips
 			// 39 to 60 m/s in 12 s and through the avenue corner into a facade).
 			// front tuck: set, tight tuck, held upright throne mid-way, second tuck, kick out, reach (720 deg in 2.18 s; a slow
 			// shape inside every 330 deg chunk: flip_check F5)
-			Add(TEXT("frontSingle"), 720.f, { {S::Tuck, 0.42f, 0.f, 0.6f, 0.3f}, {S::Layout, 0.28f}, {S::Tuck, 0.31f}, {S::Throne, 0.32f}, {S::Tuck, 0.31f, 0.f, 0.3f, 0.4f}, {S::Kickout, 0.22f}, {S::Reach, 0.24f} }, 2.0f, 1.0f, 0.2f);
+			Add(TEXT("frontSingle"), 720.f, { {S::Tuck, 0.42f, 0.f, 0.6f, 0.3f}, {S::Layout, 0.26f}, {S::Tuck, 0.34f}, {S::Throne, 0.44f}, {S::Tuck, 0.34f, 0.f, 0.3f, 0.4f}, {S::Kickout, 0.20f}, {S::Reach, 0.22f} }, 2.0f, 1.0f, 0.2f);
 			// front double tuck with a kick-out (the front twin of backDouble); a held upright throne between the rotations
 			// (F4, owner clip S6's 0.48 s throne), tucks at 450-750 deg/s (F3); round 11: the layout between the first tucks keeps
 			// the open shape rotating through the first rotation's end (the r10 throne-after-the-ball read as the trick being over)
-			Add(TEXT("frontDouble"), 720.f, { {S::Tuck, 0.38f, 0.f, 0.55f, 0.3f}, {S::Layout, 0.28f}, {S::Tuck, 0.33f}, {S::Throne, 0.32f}, {S::Tuck, 0.33f, 0.f, 0.3f, 0.4f}, {S::Kickout, 0.24f}, {S::Reach, 0.26f} }, 2.0f, 1.0f, 0.2f);
+			Add(TEXT("frontDouble"), 720.f, { {S::Tuck, 0.38f, 0.f, 0.55f, 0.3f}, {S::Layout, 0.26f}, {S::Tuck, 0.35f}, {S::Throne, 0.44f}, {S::Tuck, 0.35f, 0.f, 0.3f, 0.4f}, {S::Kickout, 0.20f}, {S::Reach, 0.22f} }, 2.0f, 1.0f, 0.2f);
 			// back pike: the body folds at the hips with straight legs (keyed pike), a tucked half-turn, a held pencil, the second
 			// tuck round, kick out, reach (720 deg)
-			Add(TEXT("backPike"), -720.f, { {S::Pike, 0.44f, 0.f, 0.6f, 0.3f}, {S::Tuck, 0.30f}, {S::Layout, 0.28f}, {S::Pencil, 0.32f}, {S::Tuck, 0.32f, 0.f, 0.4f, 0.4f}, {S::Kickout, 0.22f}, {S::Reach, 0.24f} }, 2.0f, 1.0f, 0.2f);
+			Add(TEXT("backPike"), -720.f, { {S::Pike, 0.44f, 0.f, 0.6f, 0.3f}, {S::Tuck, 0.30f}, {S::Layout, 0.26f}, {S::Pencil, 0.44f}, {S::Tuck, 0.34f, 0.f, 0.4f, 0.4f}, {S::Kickout, 0.20f}, {S::Reach, 0.22f} }, 2.0f, 1.0f, 0.2f);
 			// back layout: the layout line keeps its identity through the middle, with a short tuck entry / exit (F3 450-750 deg/s);
 			// 720 deg — held layout, fast tuck, a held pencil into the open-out (F4); round 11: the second tuck is split by a
 			// straddle that keeps turning (no ball-then-stall read)
-			Add(TEXT("backLayout"), -720.f, { {S::Tuck, 0.38f, 0.f, 0.55f, 0.2f}, {S::Layout, 0.46f, 0.f, 0.3f, 0.2f}, {S::Tuck, 0.30f}, {S::Pencil, 0.32f}, {S::Tuck, 0.30f, 0.f, 0.3f, 0.3f}, {S::Straddle, 0.22f}, {S::Reach, 0.24f} }, 2.0f, 1.0f, 0.2f);
+			Add(TEXT("backLayout"), -720.f, { {S::Tuck, 0.38f, 0.f, 0.55f, 0.2f}, {S::Layout, 0.44f, 0.f, 0.3f, 0.2f}, {S::Tuck, 0.33f}, {S::Pencil, 0.44f}, {S::Tuck, 0.33f, 0.f, 0.3f, 0.3f}, {S::Straddle, 0.20f}, {S::Reach, 0.22f} }, 2.0f, 1.0f, 0.2f);
 			// barani: front pike with a half twist (180 deg, arms wrapped), a tuck through the second rotation, the straddle flings
 			// open out of the wrap and turns the last half in toward the catch (720 deg)
 			// round 08 (critic r06/r07 adjacent: barani's rendered peak sat at 1063 deg/s both rounds -- the twist's roll couples into
@@ -127,17 +140,17 @@ namespace WebFlips
 			// final round 10 (r09: STILL 1018 rendered): the twist segments slow further (0.44 -> 0.54 s, the straddle catch-turn
 			// 0.38 -> 0.46 s; eased peaks 643 -> 523 / 744 -> 614 deg/s) and the axis correction now re-bases at a twist's end
 			// (WebTravCharacter.cpp) instead of discharging the stale error into the next tuck
-			Add(TEXT("barani"), 720.f, { {S::Pike, 0.34f, 0.f, 0.5f, 0.3f}, {S::Twist, 0.54f, 180.f}, {S::Tuck, 0.34f}, {S::Straddle, 0.46f, 180.f}, {S::Tuck, 0.46f, 0.f, 0.4f, 0.4f}, {S::Reach, 0.24f} }, 2.0f, 1.0f, 0.22f);
+			Add(TEXT("barani"), 720.f, { {S::Pike, 0.32f, 0.f, 0.5f, 0.3f}, {S::Twist, 0.50f, 180.f}, {S::Tuck, 0.39f}, {S::Straddle, 0.51f, 180.f, 0.25f, 0.25f}, {S::Tuck, 0.44f, 0.f, 0.4f, 0.4f}, {S::Reach, 0.19f} }, 2.0f, 1.0f, 0.22f);
 			// back full: a back layout with one full twist (360 deg) in the middle of the rotation, short tucks at the entry / exit;
 			// 720 deg — the second rotation opens into a held straddle
-			Add(TEXT("fullTwist"), -720.f, { {S::Tuck, 0.36f, 0.f, 0.4f, 0.2f}, {S::Layout, 0.26f, 0.f, 0.3f}, {S::Twist, 0.58f, 360.f}, {S::Straddle, 0.34f}, {S::Tuck, 0.56f, 0.f, 0.3f, 0.3f}, {S::Reach, 0.24f} }, 2.0f, 1.0f, 0.22f);
+			Add(TEXT("fullTwist"), -720.f, { {S::Tuck, 0.34f, 0.f, 0.4f, 0.2f}, {S::Layout, 0.21f, 0.f, 0.3f}, {S::Twist, 0.54f, 360.f}, {S::Straddle, 0.47f, 0.f, 0.3f, 0.3f}, {S::Tuck, 0.60f, 0.f, 0.3f, 0.3f}, {S::Reach, 0.19f} }, 2.0f, 1.0f, 0.22f);
 			// rudi: a tuck wraps one and a half twists (540 deg), the straddle opens out of the wrap and turns the last half in,
 			// a second tuck and a held pencil finish the second rotation (720 deg)
-			Add(TEXT("rudi"), 720.f, { {S::Tuck, 0.34f, 0.f, 0.5f, 0.3f}, {S::Twist, 0.52f, 540.f}, {S::Straddle, 0.3f, 180.f}, {S::Tuck, 0.28f}, {S::Pencil, 0.32f}, {S::Tuck, 0.42f, 0.f, 0.4f, 0.4f}, {S::Reach, 0.22f} }, 2.0f, 1.0f, 0.22f);
+			Add(TEXT("rudi"), 720.f, { {S::Tuck, 0.33f, 0.f, 0.5f, 0.3f}, {S::Twist, 0.46f, 540.f}, {S::Straddle, 0.24f, 180.f}, {S::Tuck, 0.28f}, {S::Pencil, 0.42f}, {S::Tuck, 0.44f, 0.f, 0.4f, 0.4f}, {S::Reach, 0.18f} }, 2.0f, 1.0f, 0.22f);
 			// chain: three back rotations in one release with a shape per rotation (owner clip S3: tuck -> layout -> tuck -> straddle -> tuck
 			// -> open, 3 rotations in 2.8 s, ~385 deg/s mean); the middle rotation holds an inverted pencil (owner S3 9.72-9.84, F4);
 			// round 11: every rotation is delimited by a rotating open shape (no long ball, no post-rotation stall), 2.96 s, mean 365
-			Add(TEXT("backTripleChain"), -1080.f, { {S::Tuck, 0.42f, 0.f, 0.55f, 0.3f}, {S::Layout, 0.30f}, {S::Tuck, 0.34f}, {S::Straddle, 0.26f}, {S::Tuck, 0.34f}, {S::Pencil, 0.32f}, {S::Tuck, 0.34f, 0.f, 0.3f, 0.4f}, {S::Layout, 0.24f}, {S::Kickout, 0.20f}, {S::Reach, 0.20f} }, 2.0f, 1.0f, 0.2f);
+			Add(TEXT("backTripleChain"), -1080.f, { {S::Tuck, 0.42f, 0.f, 0.55f, 0.3f}, {S::Layout, 0.30f}, {S::Tuck, 0.36f}, {S::Straddle, 0.26f}, {S::Tuck, 0.36f}, {S::Pencil, 0.44f}, {S::Tuck, 0.36f, 0.f, 0.3f, 0.4f}, {S::Layout, 0.24f}, {S::Kickout, 0.18f}, {S::Reach, 0.18f} }, 2.0f, 1.0f, 0.2f);
 			return P;
 		}
 
