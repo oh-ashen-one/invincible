@@ -1101,7 +1101,11 @@ void AWebTravCharacter::PoseFigure(float Dt)
 		// round 08 (W4 s3 t=10.43: the wall entry 0.15 s after a swing attach snapped the chest at 1576 deg/s -- the spring only
 		// covered swing mode, so the wall frame replaced the rope frame in one step): the spring stays live into a wall entry
 		// fresh off a swing until it has converged (or 0.5 s), so the body turns onto the wall at <= 320 deg/s like the attach
-		const bool bSpring = (bSw && AttachT < 0.45)
+		// round 10 (critic r09 gap 3: a one-frame ~840-3340 deg/s chest snap 0.43 s after the s3 wallJump catch, reproducible in a
+		// nullrhi probe at t=14.00): the 0.45 s window expired with the spring still ~20-50 deg off (a wall-entry frame is far from
+		// the rope frame and the traversal's own rate gate (Sw.T < 0.4) ends at the same time) -- the residual landed in one frame.
+		// The spring now runs until CONVERGED (residual <= 2 deg), capped at 0.9 s, same 320 deg/s step limit throughout.
+		const bool bSpring = (bSw && (AttachT < 0.45 || (AttachT < 0.9 && BodySpringQ.AngularDistance(Body) > FMath::DegreesToRadians(2.0))))
 			|| (A.Mode == EWebTravMode::Wall && OffSwingT < 0.5 && BodySpringQ.AngularDistance(Body) > FMath::DegreesToRadians(2.0));
 		if (bSpring)
 		{
@@ -1114,8 +1118,9 @@ void AWebTravCharacter::PoseFigure(float Dt)
 			BodySpringVel = (BodySpringVel - Tmp * Omega) * Ex;
 			X = (X + Tmp) * Ex;
 			FQuat NewQ = (FQuat::MakeFromRotationVector(X) * Body).GetNormalized();
-			{ // the turn onto the rope never exceeds 320 deg/s (a head-down attach is up to 150 deg away)
-				const double Step = BodySpringQ.AngularDistance(NewQ), MaxStep = FMath::DegreesToRadians(320.0) * Dt;
+			{ // the turn onto the rope never exceeds 260 deg/s (a head-down attach is up to 150 deg away; round 10: 320 -> 280 -> 260 --
+				// it stacks with the hips-align slew and the clip crossfade at the catch, and the spring now runs until converged)
+				const double Step = BodySpringQ.AngularDistance(NewQ), MaxStep = FMath::DegreesToRadians(260.0) * Dt;
 				if (Step > MaxStep) NewQ = FQuat::Slerp(BodySpringQ, NewQ, MaxStep / Step).GetNormalized();
 			}
 			BodySpringQ = NewQ;
@@ -1147,7 +1152,7 @@ void AWebTravCharacter::PoseFigure(float Dt)
 			const FVector Fw(FMath::Cos(Fy), FMath::Sin(Fy), 0.0);
 			const double BpMeas = Ax.IsNearlyZero() ? 0.0 : FMath::RadiansToDegrees(FMath::Atan2(FVector::DotProduct(Ax, Fw), Ax.Z));
 			const double ProgPitch = double(FPo.PitchDeg) - AxisOff;
-			if (!bFlipMeasInit || LastFlipName != FP->Name) { bFlipMeasInit = true; FlipMeasBp0 = BpMeas; FlipMeasPitch0 = ProgPitch; FlipCorr = 0.0; }
+			if (!bFlipMeasInit || LastFlipName != FP->Name) { bFlipMeasInit = true; FlipMeasBp0 = BpMeas; FlipMeasPitch0 = ProgPitch; FlipCorr = 0.0; FlipTwistHotT = 0.0; bFlipTwistWas = false; }
 			const double Expected = FlipMeasBp0 + (ProgPitch - FlipMeasPitch0);
 			const double E = FMath::UnwindDegrees(BpMeas - Expected);
 			// asymmetric rate cap: the correction BRAKES an over-rotating rendered axis as fast as needed (the r05 > 800 deg/s
@@ -1157,11 +1162,23 @@ void AWebTravCharacter::PoseFigure(float Dt)
 			// twist runs fast the twist's roll couples into the hips->head pitch measurement at high tilt and the loop
 			// mis-corrects (its 320 deg/s brake stacks on the program rate). During a fast twist the catch-up is frozen and
 			// the brake is capped low, so the loop can neither chase noise nor add rate.
+			// round 10 (critic r09 gap 2: barani STILL rendered 1018 deg/s): the r07 freeze left the stale correction in place --
+			// it discharged into the first tuck after the twist. Now the loop freezes BOTH ways through the twist (and 0.1 s
+			// after), then re-bases its measurement (the twist-phase readings are unusable, not correctable) and bleeds the old
+			// correction off at <= 90 deg/s, so nothing stacks onto the next tuck.
 			const double TwistRate = bFlipMeasInit && Dt > 0.0 ? FMath::Abs(double(FPo.TwistDeg) - double(LastFlip.TwistDeg)) / Dt : 0.0;
-			const bool bTwistFast = TwistRate > 250.0;
+			FlipTwistHotT = TwistRate > 250.0 ? 0.10 : FMath::Max(0.0, FlipTwistHotT - Dt);
+			const bool bTwistHot = FlipTwistHotT > 0.0;
+			if (!bTwistHot && bFlipTwistWas) { FlipMeasBp0 = BpMeas; FlipMeasPitch0 = ProgPitch; } // twist falling edge: fresh baseline
+			bFlipTwistWas = bTwistHot;
 			const double Dir = FP->PitchDeg >= 0.f ? 1.0 : -1.0;
 			double Step = FMath::UnwindDegrees(E - FlipCorr);
-			const double Cap = Step * Dir < 0.0 ? (bTwistFast ? 0.0 : 60.0) * FMath::Max(0.001, double(Dt)) : (bTwistFast ? 120.0 : 320.0) * FMath::Max(0.001, double(Dt));
+			// round 10b (probe r10a: the brake's stored offset bled at 60 deg/s through the NEXT held shape -- program ~120 + bleed
+			// 60 + clip breathing ~40 read > 150 deg/s, so s3's holds failed F4): during a program-declared SLOW phase the loop holds
+			// the render AT the program rate: brake 320 -> 120, catch-up 60 -> 30 (tucks/twists are fast phases, unaffected)
+			const bool bSlowPh = FMath::Abs(double(FPo.PitchRate)) < 160.0;
+			const double CapRate = Step * Dir < 0.0 ? (bTwistHot ? 0.0 : (bSlowPh ? 30.0 : 60.0)) : (bTwistHot ? 0.0 : (bSlowPh ? 120.0 : 320.0)); // after a rebase E ~= 0, so the stale correction bleeds out through the catch-up side on its own
+			const double Cap = CapRate * FMath::Max(0.001, double(Dt));
 			Step = FMath::Clamp(Step, -Cap, Cap);
 			FlipCorr = FMath::Clamp(FlipCorr + Step, -FlipCorrMax, FlipCorrMax);
 			FlipOffQ = FQuat(FVector(0, 1, 0), FMath::DegreesToRadians(ProgPitch - FlipCorr)) * FQuat(FVector(0, 0, 1), FMath::DegreesToRadians(FPo.TwistDeg) * A.TrickSide);
@@ -1179,15 +1196,20 @@ void AWebTravCharacter::PoseFigure(float Dt)
 		// round 07 (critic r06 s3 W4 t=20.68, 2187 deg/s: the topOut catch landed mid wallFront rotation and took the >70 deg
 		// cancel snap): EVERY residual decays rate-limited now (the press's answer is the web firing, not the body snap);
 		// <= 340 deg/s keeps the catch inside W4's never->700 band even with the attach spring's own 320 on top
+		// round 10 (critic r09: A5 chest-rate median on s3 599 deg/s -- the residual unwind STACKS on the attach spring's turn onto
+		// the rope frame and the clip crossfade): 340 -> 240 deg/s, and while the attach spring is still converging (its own 320
+		// deg/s is the dominant motion) the residual bleeds at <= 100 deg/s so the two never sum past the 400 bar.
 		const double Ang = FlipOffQ.GetAngle();
 		if (Ang > FMath::DegreesToRadians(0.2))
 		{
-			const double MaxStep = FMath::DegreesToRadians(340.0) * Dt;
+			const double CapDps = (A.Mode == EWebTravMode::Swing && AttachT < 0.9) ? 100.0 : 240.0;
+			const double MaxStep = FMath::DegreesToRadians(CapDps) * Dt;
 			const double Step = FMath::Min(Ang * (1.0 - FMath::Exp(-Dt / 0.10)), MaxStep);
 			FlipOffQ = FQuat::Slerp(FlipOffQ, FQuat::Identity, FMath::Clamp(Step / Ang, 0.0, 1.0));
 		}
 		else FlipOffQ = FQuat::Identity;
 		LastFlip = FWebFlipPose(); LastFlipName = NAME_None;
+		FlipTwistHotT = 0.0; bFlipTwistWas = false;
 	}
 	if (FP || FlipOffQ.GetAngle() > FMath::DegreesToRadians(0.2))
 	{
@@ -1237,7 +1259,9 @@ void AWebTravCharacter::PoseFigure(float Dt)
 	}
 	if (!(bHeroMesh && A.Mode == EWebTravMode::Air && SwayW > 0.001f))
 	{ // round 01 (W4): the air-sway lean (up to 34 deg of roll) used to vanish in the swing's first frame (1500 deg/s chest spike): it decays over ~0.1 s instead
-		SwayDeltaQ = FQuat::Slerp(SwayDeltaQ, FQuat::Identity, 1.0 - FMath::Exp(-Dt / 0.1));
+	  // round 10 (critic r09: W4 chest rate on plain chain catches 400-570 deg/s): the sway decay stacks on the attach spring + the
+	  // air->swing crossfade at the attach -- 0.1 -> 0.2 s (peak ~170 -> ~85 deg/s)
+		SwayDeltaQ = FQuat::Slerp(SwayDeltaQ, FQuat::Identity, 1.0 - FMath::Exp(-Dt / 0.2));
 		if (SwayDeltaQ.GetAngle() > FMath::DegreesToRadians(0.3))
 		{
 			Q = Q * SwayDeltaQ;

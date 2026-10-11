@@ -51,6 +51,7 @@ struct FWebTravAnimFrame
 	// round 19 (owner: swing / in-air poses at speed): procedural leg shaping while swinging (legs trail the velocity at the arc bottom,
 	// knees tuck on the rise) and the free arm opening against the arc; weights 0..1
 	float SwingLegW = 0.f, SwingTuck = 0.f, SwingFreeArmW = 0.f;
+	float SwingT = 9.f;   // round 10: seconds since the current web attached (9 = not swinging); the catch-window align slew budget keys off it
 	// round 01 (Gap 4): SWING LIFE -- ported from the browser animator (spiderbench animator.js swingLife): per web one body style (split / tuck / long / stride, never the same twice
 	// in a row); thighs, knees and the back run on springs (2.1 / 2.8 / 2.0 Hz, zeta .5-.6) toward phase-dependent targets, so the legs and torso lag the arc, swing through and overshoot.
 	// SwTh = thigh pitch (rad, - = knee forward), SwKn = absolute knee flexion (rad), SwArch = back arch (rad); index 0 = left, 1 = right

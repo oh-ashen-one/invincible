@@ -3250,7 +3250,11 @@ FQuat UWebTraversalComponent::Orient(double Dt)
 			// through the first 0.4 s of the swing the body-frame turn is rate-limited, so the turn onto the rope completes
 			// inside W4's 0.15-0.35 s window instead of ahead of the attach; a wall entry right off a swing eases in too
 			// (its snap landed inside the attach window of the W4/A5 probes: +27 deg in one frame)
-			const bool bWebLead = (S.Mode == EWebTravMode::Air && S.bWebPending) || (S.Mode == EWebTravMode::Swing && S.Sw.T < 0.4)
+			// round 10 (critic r09 gap 3: the one-frame s3 snap lands at Sw.T = 0.43, the first frame PAST this gate -- an attach
+			// fresh off a wallJump still had ~20-50 deg of turn left when the limit fell away, and it landed at once): the gate
+			// now holds until the frame has CONVERGED (residual <= 2 deg), capped at 0.9 s; identical when it converged on time.
+			const bool bWebLead = (S.Mode == EWebTravMode::Air && S.bWebPending)
+				|| (S.Mode == EWebTravMode::Swing && (S.Sw.T < 0.4 || (S.Sw.T < 0.9 && S.BodyQ.AngularDistance(Want) > FMath::DegreesToRadians(2.0))))
 				|| (S.Mode == EWebTravMode::Wall && S.ModeT < 0.35 && S.PrevMode == EWebTravMode::Swing);
 			if (bWebLead)
 			{

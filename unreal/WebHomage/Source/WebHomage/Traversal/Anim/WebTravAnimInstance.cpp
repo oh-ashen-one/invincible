@@ -165,9 +165,10 @@ float UWebTravAnimInstance::BlendTime(FName F, FName T)
 		{ NA_ground, NA_jumpCharge, 0.18f }, { NA_ground, NA_jumpLaunch, 0.2f }, { NA_ground, NA_air, 0.28f }, { NA_ground, NA_wallRun, 0.3f },
 		{ NA_jumpCharge, NA_jumpLaunch, 0.14f }, { NA_jumpCharge, NA_ground, 0.24f },
 		{ NA_jumpLaunch, NA_air, 0.38f }, { NA_jumpLaunch, NA_land, 0.12f },
-		{ NA_air, NA_ground, 0.2f }, { NA_air, NA_land, 0.1f }, { NA_air, NA_swing, 0.26f }, { NA_air, NA_air, 0.18f } /* round 07: 0.25 -> 0.18 (critic r06: float poses drift too slowly -- the pose was always mid-blend; distinct shapes must actually arrive) */,
-		{ NA_swing, NA_air, 0.34f }, { NA_swing, NA_trick, 0.18f }, { NA_swing, NA_swing, 0.3f },
-		{ NA_trick, NA_air, 0.22f } /* round 06: 0.4 -> 0.22 (sway now ramps in; the long blend held the flip's end pose) */, { NA_land, NA_ground, 0.38f }, { NA_land, NA_jumpCharge, 0.18f }, { NA_land, NA_jumpLaunch, 0.14f },
+		{ NA_air, NA_ground, 0.2f }, { NA_air, NA_land, 0.1f }, { NA_air, NA_swing, 0.32f } /* round 10 (W4): the fall pose's crossfade onto the rope stacked on the attach spring past 400 deg/s on plain chain catches; 0.26 -> 0.32 s */, { NA_air, NA_air, 0.18f } /* round 07: 0.25 -> 0.18 (critic r06: float poses drift too slowly -- the pose was always mid-blend; distinct shapes must actually arrive) */,
+		{ NA_swing, NA_air, 0.34f }, { NA_swing, NA_trick, 0.30f } /* final round 10 (critic r09: F3 rendered peaks 814-937 on s3 -- the swing-clip -> flip-shape crossfade's lean stacks on the program's entry rate; 0.18 -> 0.30 s matches the owner clip's own release -> tuck-ball time (~0.2-0.3 s, S1) and slows the lean ~40 %; F10's 0.1 s start is the program clock, untouched) */, { NA_swing, NA_swing, 0.3f },
+		{ NA_air, NA_trick, 0.30f }, // round 10: same entry-lean stack for flips that start from the air (s3b's cases)
+		{ NA_trick, NA_air, 0.22f } /* round 06: 0.4 -> 0.22 (sway now ramps in; the long blend held the flip's end pose) */, { NA_trick, NA_swing, 0.30f } /* round 10 (A5): the catch's clip crossfade stacked on the attach spring + align slew; 0.2 -> 0.3 s */, { NA_land, NA_ground, 0.38f }, { NA_land, NA_jumpCharge, 0.18f }, { NA_land, NA_jumpLaunch, 0.14f },
 		{ NA_zip, NA_perch, 0.14f }, { NA_zip, NA_air, 0.34f }, { NA_perch, NA_ground, 0.34f },
 		{ NA_crawl, NA_wallRun, 0.3f }, { NA_crawl, NA_air, 0.32f }, { NA_crawl, NA_jumpLaunch, 0.26f }, { NA_crawl, NA_wallJump, 0.24f },
 		{ NA_wallRun, NA_crawl, 0.36f }, { NA_wallRun, NA_air, 0.34f }, { NA_wallRun, NA_jumpLaunch, 0.26f }, { NA_wallRun, NA_wallJump, 0.24f },
@@ -711,6 +712,7 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 	// round 19: swing leg shaping (legs trail the velocity at the arc bottom, knees tuck on the rising front) + the free arm
 	{
 		const bool bSw = A.Mode == EWebTravMode::Swing && Mesh;
+		Frame.SwingT = A.Mode == EWebTravMode::Swing ? A.T : 9.f;
 		const float Want = bSw ? 0.78f : 0.f;   // round 05 (critic r04: "symmetric arms-up V, straight legs"): the procedural legs / free arm read stronger over the clip
 		const float Step = Dt / 0.2f;
 		Frame.SwingLegW = Want > Frame.SwingLegW ? FMath::Min(Want, Frame.SwingLegW + Step) : FMath::Max(Want, Frame.SwingLegW - Step);
@@ -846,7 +848,10 @@ bool FWebTravAnimProxy::Evaluate(FPoseContext& Output)
 				AlignQ = FQuat::Slerp(FQuat::Identity, FQuat::FindBetweenNormals(Cur, Want), Frame.BodyAlignW);
 				// round 06 (F8): the align quat slews at <= 200 deg/s from the previous frame's — a steep (near-horizontal)
 				// rope no longer jumps the hips at the attach frame; the turn lands through W4's 0.15-0.35 s window
-				const double MaxA = FMath::DegreesToRadians(200.0) * AlignPrevDt;
+				// round 10 (critic r09: A5 chest-rate median on s3 599 deg/s): the align slew STACKS on the attach body spring
+				// (its own 260 deg/s) plus the trick -> swing clip crossfade; through the catch window (first 0.5 s of the swing)
+				// the align share slews at <= 60 deg/s so the stack stays under A5's 400 bar (the spring owns the turn there)
+				const double MaxA = FMath::DegreesToRadians(Frame.SwingT < 0.5f ? 60.0 : 200.0) * AlignPrevDt;
 				const double DA = AlignQ.AngularDistance(AlignPrevQ);
 				if (DA > MaxA) AlignQ = FQuat::Slerp(AlignPrevQ, AlignQ, MaxA / DA).GetNormalized();
 				if (DA > 1e-4)

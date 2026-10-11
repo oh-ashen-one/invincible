@@ -296,7 +296,9 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 	}
 	if (P.Mode == EWebTravMode::Wall || P.Sub == N_topOut) SWant = WallFrameS;
 	// round 10: sky launch — the camera sinks under the hero and looks up while he rises / hangs (released at a fast fall)
-	SD(SkyK, SkyKV, (P.bSky && P.Vel.Z > -9.0) ? 1.0 : 0.0, P.bSky && P.Vel.Z > -9.0 ? 0.25 : 0.35, Dt);
+	// round 10 (final loop, critic r09 gap 1): long floats high over the street get the same from-below framing (see the header)
+	const bool bSkyFloat = bAir && !P.bDive && !P.bFlip && !P.bFlipSoon && !P.bFlipPre && P.HAbove > SkyFloatH;
+	SD(SkyK, SkyKV, ((P.bSky || bSkyFloat) && P.Vel.Z > -9.0) ? 1.0 : 0.0, (P.bSky || bSkyFloat) && P.Vel.Z > -9.0 ? 0.25 : 0.35, Dt);
 	SkyK = FMath::Clamp(SkyK, 0.0, 1.0);
 	SWant = FMath::Lerp(SWant, SkySFrame, SkyK);
 	// round 16 (TRICK_CAMERA_SPEC): the trick camera is chosen ONCE at the release frame (ChooseFlipView) and held on its world
@@ -364,7 +366,7 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 			// round 05 (critic r04 secondary: hero 0.11-0.15 of frame mid-flip in s3b): clamp 0.6-1.7 -> 0.5-1.9 (the pose-extent
 			// anticipation undershoots on a layout seen end-on; the loop needs the range to pull in / back off further)
 			// round 06 (critic r05: trick hero below the 0.18 floor on some frames): gain 2.5 -> 3.2, deadband 8 -> 6 %, pull-in to 0.46
-			if (FMath::Abs(Ratio - 1.0) > 0.06) FlipFbK = FMath::Clamp(FlipFbK * (1.0 + (Ratio - 1.0) * FMath::Min(1.0, FlipFbGain * Dt)), 0.46, 1.9);
+			if (FMath::Abs(Ratio - 1.0) > 0.06) FlipFbK = FMath::Clamp(FlipFbK * (1.0 + (Ratio - 1.0) * FMath::Min(1.0, FlipFbGain * Dt)), 0.46, 1.35);
 		}
 		else FlipFbK = FMath::Lerp(FlipFbK, 1.0, FMath::Min(1.0, 2.0 * Dt));
 		const double Want0 = P.FlipExtent > 0.f || FlipExtS > 0.0
@@ -375,7 +377,7 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		// inside TC11's constraints -- dolly IN along the held axis (never a yaw / side re-pick), and past the grace of a fully
 		// unseen hero the trick view falls back to the plain chase (the watchdog's distance / lift / slew boost then owns the
 		// recovery; TC-G hero-visible beats the held view)
-		const double Want = FMath::Clamp(Want0 * FlipFbK * (1.0 - 0.45 * VisBoostK), 2.8, FMath::Max(FlipDistSel, FlipDistMax) * 1.25);
+		const double Want = FMath::Clamp(Want0 * FlipFbK * (1.0 - 0.45 * VisBoostK), 2.8, FMath::Max(FlipDistSel, FlipDistMax) * 1.1);
 		double HitD = 0.0, ObsGoal = 1e9;
 		if (!World.SphereOverlaps(Chest, 0.22) && World.SphereSweep(Chest, Hero + Uc * Want, 0.3, HitD)) ObsGoal = HitD - 0.25;
 		const double Goal = FMath::Min(Want, ObsGoal);
@@ -485,7 +487,11 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 	else ChainAirT += Dt;
 	if (P.bDive || ChainAirT > 0.8) bInChain = false;       // a long fall / dive is not the chain rhythm: centred again (aiming)
 	SD(SideK, SideKV, bInChain ? SideGoal : 0.0, 0.3, Dt);
-	FVector Desired = Hero + BackR * BackDist + Right * (0.3 + AnchorShift * SideK);
+	// round 10 (critic r09 gap 1: P1 air s1/s5 82 % -- the release-transient poses turn the hero end-on and the closed loop lags
+	// ~0.2 s, so the 10 fps sampler catches him under the 0.18 floor): a small geometric pull-in right after each release,
+	// decaying over the first 0.45 s of the chain gap (the closed loop owns the size again after that)
+	const double RelPull = (bAir && bInChain && ChainAirT < 0.45) ? 1.0 - 0.12 * (1.0 - ChainAirT / 0.45) : 1.0;
+	FVector Desired = Hero + BackR * (BackDist * RelPull) + Right * (0.3 + AnchorShift * SideK);
 	double ZWant = Hero.Z + FMath::Lerp(ChaseHeight, -SkyCamBelow, SkyK) + OU;
 	// round 07 (critic r06: steep top-down stretches on floats, s4 t=5.9): the 0.05 s CamZ spring lags a fast-falling hero by
 	// ~vz * 0.05-0.07 m above him, which reads as a top-down float; feed the vertical velocity forward so the camera descends

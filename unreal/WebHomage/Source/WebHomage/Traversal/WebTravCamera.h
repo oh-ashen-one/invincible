@@ -89,7 +89,11 @@ public:
 	double WallK = 0.0;            // 0 chase .. 1 wall camera (spring)
 	// round 10 (TRAVERSAL-SPEC T23: release trick silhouetted against the sky, with a rise): during a sky launch the camera sinks
 	// SkyCamBelow m under the hero centre and frames him at SkySFrame (upper centre), look-up limited to SkyPitchUp deg (T11 p5)
+	// round 10 (critic r09 gap 1: "long floats play top-down against the street"): the same sink now also engages on a long float
+	// high over the street (Air, feet above the floor below by SkyFloatH m, no dive / trick) -- level-or-below looking UP where the
+	// route's height allows sky behind him; the swing arcs (bottoms < 15 m) never trip it.
 	double SkyCamBelow = 1.2, SkySFrame = 0.40, SkyPitchUp = 10.0;
+	double SkyFloatH = 22.0;
 	double SkyK = 0.0, SkyKV = 0.0;
 	// ---- round 16: TRICK_CAMERA_SPEC (director, Fable 5.1, after r15; supersedes the r11-r15 sky search / side-on orbit / tilt demands)
 	// While a flip program plays the camera is a HELD 3/4-behind chase: ONE yaw offset of FlipYawMin..FlipYawMax deg from the
@@ -108,7 +112,7 @@ public:
 	bool bFlipWas = false, bFlipAbort = false, bFlipOutRun = false, bFlipInRun = false;
 	double FlipInClock = 0.0, FlipInK0 = 0.0, FlipInS = 0.0, FlipInR = 0.0, FlipInD0 = 30.0;
 	double FlipInRate = 140.0, FlipInAcc = 2400.0, FlipInDec = 380.0;   // round 17 v2 blend-in profile (deg/s, deg/s^2)   // round 17: blend-in state (smoothstep over FlipInT from the weight at its start: k >= .9 by 0.8 x FlipInT)
-	double FlipSkyW = 4.0;   // round 17: weight of the ring sky share in the side choice (r16 1.5: the open-space term picked the street side)
+	double FlipSkyW = 5.0;   // round 17: weight of the ring sky share in the side choice (r16 1.5: the open-space term picked the street side); round 10: 4.0 -> 5.0 (critic r09 gap 1: facade backdrops through tricks where a sky side exists)
 	double FlipObsT = 0.0, FlipSinceObs = 9.0, FlipAbortGrace = 0.20;   // seconds the held axis has been blocked under FlipDistMin / grace before the plain-chase fallback
 	double FlipOutClock = 0.0, FlipOutK0 = 0.0, FlipOutZ0 = 0.0;   // blend-out state (smoothstep over FlipOutT from the weights at its start)
 	// round 18 (critic r17 TC-C "distance 4.1-4.4 m, h p90 .37-.46"): FlipDist 4.4 -> 5.0 (TC4 5.0-6.5) and the distance follows the hero's
@@ -117,19 +121,29 @@ public:
 	// re-chosen view while the previous one is still blended moves its azimuth at <= this rate (deg/s) instead of jumping
 	// round 04: closed-loop trick distance: the character reports the hero's projected bone-box height (fraction of the frame, previous frame); FlipFbK scales the held distance so it
 	// settles at FlipFbTarget (the bone box is padded 10 cm, ~1.15x the pixel mask height: 0.31 ~ 0.27 by pixels), dead band 8 %
-	double HeroProjH = -1.0, FlipFbK = 1.0, FlipFbTarget = 0.29, FlipFbGain = 3.2;
+	// round 10 (critic r09 gap 1: hero 0.12-0.14 of frame at s3 t=3.16 -- the extent-driven expansion ran out to 6.6 m through the
+	// throne hold and the 3.2 gain closed it in ~0.35 s, so mid-trick tucks dipped under the 0.18 floor): gain 3.2 -> 5.5 (the
+	// correction lands in ~0.2 s), and the open-shape expansion caps lower (FlipDistMax 7.5 -> 6.6, FlipExtK 4.0 -> 3.55).
+	// round 10b (probe r10a: the distance still ballooned to ~8 m through a straddle, then the next tuck read 0.09-0.13 of the
+	// frame -- the critic's s3 t=3.16 small-hero frames): FlipDistMax 6.6 -> 5.9, FlipFbK's back-off 1.9 -> 1.35, the final clamp's
+	// headroom x1.25 -> x1.1 (worst-case trick distance 6.5 m, TC4's band), so the tuck after an open shape starts ~5.5 m out.
+	double HeroProjH = -1.0, FlipFbK = 1.0, FlipFbTarget = 0.29, FlipFbGain = 5.5;
 	// round 06 (critic r05 gap 1: hero dips under the band mid-float, swing pixel p50 0.23 < the 0.25 bar; s4 air in-band 62 %):
 	// gain 1.5 -> 4.5 and deadband 8 -> 3 % so a pose-phase swing is corrected inside ~0.2 s, range widened 0.62-1.55. Targets
 	// sit under the band top (the swing-end tall poses overshoot the 0.30 pixel top when the loop lags; air tolerates more)
-	double ChaseFbK = 1.0, ChaseFbSwing = 0.27, ChaseFbAir = 0.33, ChaseFbGain = 4.5, ChaseFbMin = 0.62, ChaseFbMax = 1.55; // round 07 fix: air target 0.295 -> 0.315 -- the FOV-normalized loop lets the pixels float down under a saturated speed kick (s1 air 88 % < 90); the swing target stays. round 09: 0.315 -> 0.33 (critic r08: P1 air s1/s5 91 -> 79 % -- the tuckier air-drift poses shrink the mask bbox under the 0.18 floor; the loop closes in a touch)
+	// round 10 (critic r09 gap 1: P1 air s1/s5 82 %, s3 63 % -- the release-transient poses turn the hero end-on faster than the
+	// 4.5 gain can follow): gain 4.5 -> 6.0, air target 0.33 -> 0.345.
+	double ChaseFbK = 1.0, ChaseFbSwing = 0.27, ChaseFbAir = 0.345, ChaseFbGain = 6.0, ChaseFbMin = 0.62, ChaseFbMax = 1.55; // round 07 fix: air target 0.295 -> 0.315 -- the FOV-normalized loop lets the pixels float down under a saturated speed kick (s1 air 88 % < 90); the swing target stays. round 09: 0.315 -> 0.33 (critic r08: P1 air s1/s5 91 -> 79 % -- the tuckier air-drift poses shrink the mask bbox under the 0.18 floor; the loop closes in a touch)
 	// round 05 (critic r04: hero fully hidden behind a rooftop ~0.8 s in s1/s5; rule: never fully occluded / off-frame > 0.25 s during
 	// swings): visibility watchdog for the chase camera (the trick camera owns its own obstruction handling, TC11). While the hero is
 	// out of the frustum or the lens->chest line is blocked, VisBoostK ramps 0 -> 1 over VisBoostT s: the output slew caps relax
 	// (x VisWhipMul at full), the chase distance grows by VisBoostBack and the visibility lift runs. Eases back when he is seen.
 	double UnseenT = 0.0, VisBoostK = 0.0, VisWhipMul = 4.0, VisBoostT = 0.15, VisBoostBack = 0.35, VisBoostUp = 2.0;
-	double FlipDistMax = 7.5, FlipDistCompact = 3.8, FlipExtK = 4.0, FlipExtS = 0.0, FlipExtV = 0.0, FlipAzHold = 0.25, FlipAzRate = 50.0, FlipAzNow = 0.0;
-	double FlipDist = 5.4, FlipDistMin = 4.0, FlipTuckPull = 0.0, FlipCompactS = 0.0, FlipCompactV = 0.0, FlipCompactT = 0.2, FlipDrop = 1.0, FlipYawMin = 35.0, FlipYawMax = 55.0, FlipPrefYaw = 47.0, FlipLeadDeg = 3.0;
-	double FlipSFrame = 0.38, FlipPitchUpMax = 7.5, MaxLookUpDeg = 10.0;
+	double FlipDistMax = 5.9, FlipDistCompact = 3.8, FlipExtK = 3.55, FlipExtS = 0.0, FlipExtV = 0.0, FlipAzHold = 0.25, FlipAzRate = 50.0, FlipAzNow = 0.0;
+	double FlipDist = 5.4, FlipDistMin = 4.0, FlipTuckPull = 0.0, FlipCompactS = 0.0, FlipCompactV = 0.0, FlipCompactT = 0.2, FlipDrop = 1.2, FlipYawMin = 35.0, FlipYawMax = 55.0, FlipPrefYaw = 47.0, FlipLeadDeg = 3.0;
+	// round 10 (critic r09 gap 1): FlipDrop 1.0 -> 1.2 and FlipSFrame 0.38 -> 0.36 -- the lens sits lower and the hero higher in the
+	// frame during tricks (camera level-or-below looking UP, TC5/TC6/TC7 all still in band), so the backdrop over a low roofline is sky.
+	double FlipSFrame = 0.36, FlipPitchUpMax = 7.5, MaxLookUpDeg = 10.0;
 	double FlipInT = 0.34, FlipOutT = 0.90, FlipZInT = 0.15, FlipZHold = 0.30, FlipDollyInT = 0.08, FlipDollyOutT = 0.6;
 	double FlipWallMargin = 1.5, FlipAheadT = 0.5;
 	double FlipAz = 0.0;        // rad, world azimuth hero -> camera (held for the trick)
