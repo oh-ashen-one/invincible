@@ -128,7 +128,8 @@ Tessera suit, 60 fps cap. Map: Manhattan_Island.
 
 Controls (from the project's traversal HANDOFF): WASD move, mouse look, right
 mouse button swing, Space jump, Shift sprint, E zip, C drop, Q quick boost,
-F trick. Gamepad: left stick move, right stick look, R2 swing, A jump, X trick.
+F trick. Gamepad: left stick move, right stick look, R2/RT swing. On a
+DualSense, Cross jumps and Square triggers tricks; Xbox equivalents are A and X.
 
 To verify every staged file without the source checkout, run from this folder:
 `shasum -a 256 -c SHA256SUMS`. `STAGE.json` records the source commit, checkout

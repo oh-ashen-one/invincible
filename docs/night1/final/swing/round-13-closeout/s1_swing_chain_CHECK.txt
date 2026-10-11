@@ -1,0 +1,21 @@
+CHECK s1_swing_chain: 1199 rows (20.0 s), 13 presses, 13 attaches, 13 releases, 13 strands
+line pass  value
+W1   PASS  strand start within 8 cm of the firing hand (rendered same frame; web-on frames before release) -- 100.0 % of 889 frames; error p50 0.0 p95 0.0 max 0.0 cm (hero speed median 47 m/s); press/attach frame median 0.0 cm; same-row bone read max 7.0 cm; release-phase frames (229): median 0 cm; flight frames measured (palm outside the 45 cm flight hide zone): 146; palm-prefix inside the lens zone (excluded): 0
+W2   FAIL  firing arm: starts <= 0.05 s, <= 20 deg at tip arrival, <= 30 deg for the swing -- arrival median 9 deg (13/13 <= 20); max over swing median 16 deg (12/13 <= 30); motion start (angle -5 deg) median 0.017 s (13 of 13 strands started)
+P1   FAIL  hero height by pixels: swing 0.15-0.30, air/trick 0.18-0.36 on >= 90 % of 10 fps samples (mask frames only; bbox of the hero-only depth pass) -- swing 123 samples median 0.20 p10 0.16 p90 0.24 in-band 89 %; air 77 samples median 0.25 p10 0.17 p90 0.31 in-band 84 %; no hero pixels in 0 samples; telemetry hero_bbox_h median 0.24
+P2   PASS  pose evolution by silhouette: IoU(0.3 s apart) < 0.85 on >= 90 % of swing/air frames; no pose held > 0.4 s -- 1181 pairs; IoU median 0.39 p90 0.55; below 0.85 on 100 %; longest held (IoU >= 0.92 over 0.1 s) 0.13 s
+W3   PASS  tip travels visibly 0.06-0.20 s at 150-400 m/s, not full length in frame 1, tension after landing -- 13/13 shots pass (0.08-0.20 s, growth <= 25 %/frame, monotone); max per-frame growth 19 %; shoot s median 0.200 (0.107-0.200); tip speed median 228 m/s; first-frame progress median 0.00; tension starts 0.02 s relative to tip landing (median; negative = before)
+W4   FAIL  attach: chest rate <= 400 deg/s on >= 90 %, never > 700; hand speed <= 2.5x -- chest rate max within -1..+9 frames of the attach: 85 % <= 400, worst 421 deg/s (>700: 0 of 13); hand speed ratio median 1.93, max 2.22 (> 2.5: 0 of 13)
+W5   FAIL  strand 2-4 px, visible on >= 95 % of web-on frames (10 fps samples of the movie) -- 76/138 judged frames pass (55 %); measured width median 3.50 px; contrast median 52/255; not judged (short / off-screen) 8 of 151 web-on; continuity: gap_max_px p50/p90/max 0/136/352 (0 = no low-contrast hole along the sampled line), tone flicker |dlum| p50/p90 7/68
+W6   PASS  in-flight wave, straight <= 0.10 s after landing (model wave cm, before the screen-space clamp) -- wave in flight median 14.1 cm (max 34.8); at landing median 4.9; 0.10 s after landing median 0.0 cm (max 0.0)
+W7   FAIL  hand->anchor line clear of building geometry (tree crowns: no collision, not measured) -- 40/1118 drawn frames blocked; min clear fraction 0.356
+W8   PASS  release: strand leaves the hand and retracts over 0.15-0.40 s (no vanish in one frame) -- 12 releases; drawn-after-release duration median 0.30 s (min 0.30 max 0.37)
+W9   PASS  firing hand matches the anchor side on >= 90 % of attaches; alternates where the anchors alternate -- 13/13 attaches match (100 %); where the anchor side alternated the hand alternated 9/9
+W10  PASS  every press: a strand within 0.05 s or a readable no-anchor reach; none to an anchor behind the hero -- 13/13 presses resolve; no visible response at t=[]; anchor behind the hero 0
+A1   PASS  pose signature changes >= 0.15 between 0.3 s samples during a swing (rms over the 10 values) -- 96 % of 25 sample pairs in 8 swings; median 0.33; (legs-lag 0.05-0.15 s: n/m, no per-bone timing logged)
+A2   PASS  >= 3 distinct swing body styles in any 6 consecutive swings (style = the clip at 40 % of the swing) -- 8 swings; distinct in 6-windows [4, 3, 3]; styles ['swingBottomL', 'swingCornerBank', 'swingCornerBankL', 'swingLow']
+A3   PASS  release: pose opens (>= 0.10 signature change) within 0.1 s; upward / forward momentum -- 13 releases; signature change in 0.1 s median 0.38 (13/13 >= 0.10); vz at release median 7.8 m/s, speed 53.1 m/s
+A4   PASS  no held identical air pose > 0.6 s (signature change < 0.03 per 0.1 s) -- longest held stretch 0.00 s over 19 air spans
+A5   n/a   catch out of a trick -- no flip in this clip
+A6   n/a   end-pose variety -- no flip in this clip
+A7   n/a   flip shapes -- no flip in this clip

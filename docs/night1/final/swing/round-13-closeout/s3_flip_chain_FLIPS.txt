@@ -1,0 +1,54 @@
+FLIP CHECK s3_flip_chain (s3_flip_chain_telemetry.csv): 7 tricks
+-- trick 1: frontDouble  t 1.92-3.92 (2.00 s)
+   F1 rotations: program 1.99, rendered 2.08; twist 0 deg
+   F2 mean 375 deg/s PASS | F3 peak 1021 deg/s FAIL | F4 longest hold 0.46 s (Tuck@0.90) PASS | F5 ease ratio 6.2,40.6,30.9 PASS
+   F10 release->trick 0.000 s PASS
+   F8 catch 0.02 s after the trick, body 6 deg from upright PASS
+   F11 leg lag at shape changes: mean 0.061 s (n=6) PASS
+   F9 camera roll max 0.3 deg PASS | camera - hero height med -1.18 m | hero px height p10/p50/p90 0.159/0.252/0.419 PASS
+-- trick 2: frontPikeSwan  t 4.88-7.10 (2.22 s)
+   F1 rotations: program 2.00, rendered 2.05; twist 0 deg
+   F2 mean 332 deg/s PASS | F3 peak 907 deg/s FAIL | F4 longest hold 0.49 s (Tuck@0.63) PASS | F5 ease ratio 33.7,36.9,11.1 PASS
+   F10 release->trick 0.000 s PASS
+   F8 catch 0.02 s after the trick, body 14 deg from upright PASS
+   F11 leg lag at shape changes: mean 0.083 s (n=7) PASS
+   F9 camera roll max 0.0 deg PASS | camera - hero height med -1.50 m | hero px height p10/p50/p90 0.148/0.263/0.441 PASS
+-- trick 3: barani  t 8.15-9.55 (1.40 s)
+   F1 rotations: program 1.34, rendered 1.30; twist 225 deg
+   F2 mean 333 deg/s  | F3 peak 739 deg/s PASS | F4 longest hold 0.11 s (Straddle@1.30) FAIL | F5 ease ratio 36.9,19.8 PASS
+   F7 twist 225 deg, body tilt while twisting med 121 deg FAIL
+   F10 release->trick 0.000 s PASS
+   F8 no web catch after this trick (landing / end of clip)
+   F11 leg lag at shape changes: mean 0.094 s (n=3) PASS
+   F9 camera roll max 0.0 deg PASS | camera - hero height med -1.21 m | hero px height p10/p50/p90 0.141/0.263/0.448 PASS
+-- trick 4: wallFront  t 10.53-10.83 (0.30 s)
+   F1 rotations: program 0.40, rendered 0.51; twist 0 deg
+   F2 mean 616 deg/s  | F3 peak 1589 deg/s FAIL | F4 longest hold 0.00 s () FAIL | F5 ease ratio 6.3 PASS
+   F10 release->trick 0.000 s PASS
+   F8 catch 0.02 s after the trick, body 121 deg from upright FAIL
+   F11 leg lag at shape changes: n/a
+   F9 camera roll max 0.0 deg PASS | camera - hero height med -1.60 m | hero px height p10/p50/p90 0.107/0.159/0.352 FAIL
+-- trick 5: backSingle  t 12.12-14.13 (2.02 s)
+   F1 rotations: program 1.00, rendered 0.85; twist 0 deg
+   F2 mean 189 deg/s  | F3 peak 553 deg/s PASS | F4 longest hold 0.54 s (Pencil@0.47) PASS | F5 ease ratio 27.6,9.8 PASS
+   F10 release->trick 0.000 s PASS
+   F8 catch 0.02 s after the trick, body 28 deg from upright PASS
+   F11 leg lag at shape changes: mean 0.089 s (n=3) PASS
+   F9 camera roll max 0.1 deg PASS | camera - hero height med -1.43 m | hero px height p10/p50/p90 0.152/0.315/0.430 PASS
+-- trick 6: barani  t 15.12-17.37 (2.25 s)
+   F1 rotations: program 2.00, rendered 2.00; twist 360 deg
+   F2 mean 331 deg/s PASS | F3 peak 895 deg/s FAIL | F4 longest hold 0.41 s (Straddle@1.23) PASS | F5 ease ratio 40.4,22.9,27.9 PASS
+   F7 twist 360 deg, body tilt while twisting med 120 deg FAIL
+   F10 release->trick 0.000 s PASS
+   F8 catch 0.02 s after the trick, body 22 deg from upright PASS
+   F11 leg lag at shape changes: mean 0.083 s (n=5) PASS
+   F9 camera roll max 0.1 deg PASS | camera - hero height med 0.58 m | hero px height p10/p50/p90 0.141/0.244/0.611 PASS
+-- trick 7: rudi  t 18.40-19.45 (1.05 s)
+   F1 rotations: program 0.92, rendered 0.87; twist 720 deg
+   F2 mean 297 deg/s  | F3 peak 832 deg/s FAIL | F4 longest hold 0.24 s (Twist@0.75) FAIL | F5 ease ratio 17.3 PASS
+   F7 twist 720 deg, body tilt while twisting med 57 deg FAIL
+   F10 release->trick 0.000 s PASS
+   F8 no web catch after this trick (landing / end of clip)
+   F11 leg lag at shape changes: mean 0.108 s (n=2) PASS
+   F9 camera roll max 1.1 deg PASS | camera - hero height med -1.23 m | hero px height p10/p50/p90 0.159/0.293/0.426 PASS
+SUMMARY s3_flip_chain: see FAIL lines
