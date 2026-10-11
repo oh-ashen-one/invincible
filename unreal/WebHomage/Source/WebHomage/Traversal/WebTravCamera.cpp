@@ -261,10 +261,18 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		bool bSeen = true;
 		const double HalfV = FMath::DegreesToRadians(FMath::Max(20.0, OutVFov)) * 0.5;
 		const double HalfH = FMath::Atan(FMath::Tan(HalfV) * 16.0 / 9.0);
+		const FRotationMatrix ERM(CamRot);
+		const double Zf = FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::X));
 		if (bChaseModes && Dh > 0.3)
 		{
-			const double CosA = FVector::DotProduct(ToH / Dh, CamRot.Vector());
-			if (CosA < FMath::Cos(FMath::Max(HalfV, HalfH) * 0.80)) bSeen = false; // out of the frustum (or behind the lens)
+			// While the trick view is in, test the rectangular frustum per axis. The wider horizontal cone called vertical
+			// exits "seen", suppressing recovery after a cancel / landing. Ordinary chase retains its existing cone test.
+			const double OffH = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Y)), Zf);
+			const double OffV = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Z)), Zf);
+			const bool bInView = FlipK > 1e-3
+				? Zf > 0.0 && FMath::Abs(OffH) <= HalfH * 0.80 && FMath::Abs(OffV) <= HalfV * 0.80
+				: Zf / Dh >= FMath::Cos(FMath::Max(HalfV, HalfH) * 0.80);
+			if (!bInView) bSeen = false;
 			else if (World.LineBlocked(CamPos, ChestW)) bSeen = false;            // a roof edge / facade between the lens and him
 		}
 		if (bSeen || !bChaseModes) UnseenT = FMath::Max(0.0, UnseenT - Dt * 1.5);
@@ -279,8 +287,6 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		double EdgeGoal = 0.0;
 		if (bChaseModes && Dh > 0.3)
 		{
-			const FRotationMatrix ERM(CamRot);
-			const double Zf = FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::X));
 			if (Zf > 0.3 * Dh)
 			{
 				const double OffH = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Y)), Zf);
