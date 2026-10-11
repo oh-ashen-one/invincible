@@ -173,6 +173,9 @@ float UWebTravAnimInstance::BlendTime(FName F, FName T)
 		{ NA_crawl, NA_wallRun, 0.3f }, { NA_crawl, NA_air, 0.32f }, { NA_crawl, NA_jumpLaunch, 0.26f }, { NA_crawl, NA_wallJump, 0.24f },
 		{ NA_wallRun, NA_crawl, 0.36f }, { NA_wallRun, NA_air, 0.34f }, { NA_wallRun, NA_jumpLaunch, 0.26f }, { NA_wallRun, NA_wallJump, 0.24f },
 		{ NA_wallRun, NA_ground, 0.3f }, { NA_wallJump, NA_air, 0.4f },
+		{ NA_wallJump, NA_swing, 0.42f } /* round 11 (r11 probe W4/A5: bare wallJump -> swing attaches read 548-759 deg/s on the chest -- the
+			wall-leap pose -> rope pose crossfade fell through to the 0.24 s default and outran the attach spring); a wall-exit catch
+			reads as a recovery, so it blends longer than a plain air catch (0.32) */,
 		{ NA_wallRun, NA_topOut, 0.16f }, { NA_topOut, NA_land, 0.12f }, { NA_topOut, NA_air, 0.3f },
 	};
 	for (const FRow& R : Rows) { if (R.From == F && R.To == T) return R.S; }

@@ -144,20 +144,24 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	else if (M == EWebTravMode::Perch) { WantDist = 4.3; WantH = 0.25; WantSide = 0.4; }
 	if (M == EWebTravMode::Land || bLandSub) WantDist = 4.2;
 	if (bLedgeSub) { WantH = 1.4; Pitch = Damp(Pitch, 0.42, 4, Dt); }
-	// round 07 (critic r06 axis 6: "no FOV kick ... momentum reads flat"): the speed term grows 6 -> 8 deg over 14-40 m/s and
+	// round 07 (critic r06 axis 6: "no FOV kick ... momentum reads flat"): the speed term grows over 14-40 m/s and
 	// fades out while the trick camera is in (TRICK_CAMERA_SPEC TC4/TC12 pin the trick FOV; T14's hFOV 100-110 band = vFOV
-	// 68-76 at 16:9 -- 58 + 8 = 66 sits just under it). The chase closed loop is FOV-normalized against exactly this term
+	// 68-76 at 16:9). The chase closed loop is FOV-normalized against exactly this term
 	// (see ComposeChase), so it holds the hero's size as if the kick never happened instead of fighting its transient (the
 	// r07-first-pass 9 deg unnormalized kick pushed the s4 swing p90 over the P1 band top; a saturated 8 deg kick on the
 	// fast chains shrank the s1 hero to the band floor -- 5 deg normalized keeps the cue inside the band)
-	const double WantFov = BaseVFov + 5.0 * Smooth(Speed, 14, 40) * (1.0 - Smooth(FlipK, 0.0, 1.0)) + (bDive ? 5.0 : 0.0) + WallFovAdd * WallK;
+	// round 11 (critic r10 gap 3: "no FOV kick / radial speed cue at peak velocity"; the r07 5 deg kick reads as nothing):
+	// 5 -> 10 deg at 40+ m/s (base ~50 + 10 + the 5 deg dive = ~65 vFOV peak, still under T14's 68-76 band; OutVFov is
+	// hard-capped at 75 below). The Fov spring quickens 0.7 -> 0.4 s so the kick actually arrives inside the ~0.4 s the
+	// bottom of the arc lasts (the closed loop is normalized against the CURRENT Fov, so the faster spring does not fight it).
+	const double WantFov = BaseVFov + 10.0 * Smooth(Speed, 14, 40) * (1.0 - Smooth(FlipK, 0.0, 1.0)) + (bDive ? 5.0 : 0.0) + WallFovAdd * WallK;
 	SD(Dist, DistV, WantDist, 0.55, Dt);
 	SD(HeightOff, HeightOffV, WantH, 0.5, Dt);
 	SD(SideOff, SideOffV, WantSide, 0.6, Dt);
 	// FOV punch / dip springs
 	PunchV += (-Punch * 140.0 - PunchV * 16.0) * Dt; Punch += PunchV * Dt;
 	DipV += (-Dip * 90.0 - DipV * 13.0) * Dt; Dip += DipV * Dt;
-	SD(Fov, FovV, WantFov, 0.7, Dt);   // round 07: 0.5 -> 0.7 s -- slow enough that the closed-loop distance tracks the speed kick (P1 band top)
+	SD(Fov, FovV, WantFov, 0.4, Dt);   // round 11: 0.7 -> 0.4 s (see above)
 	// launch kick spring
 	KickV += (-KickK * 55.0 - KickV * 11.0) * Dt; KickK += KickV * Dt;
 	// ---- roll: velocity yaw-rate + swing bank
@@ -189,7 +193,7 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	R.Pitch += FMath::RadiansToDegrees(Sh * 0.035 * Noise(Time * 25.0, 1.0));
 	R.Yaw += FMath::RadiansToDegrees(Sh * 0.035 * Noise(Time * 24.0, 7.0));
 	CamRot = R;
-	OutVFov = Fov + Punch + 9.0 * FMath::Max(0.0, KickK) + FMath::RadiansToDegrees(AttachFov);
+	OutVFov = FMath::Min(Fov + Punch + 9.0 * FMath::Max(0.0, KickK) + FMath::RadiansToDegrees(AttachFov), 75.0);   // round 11: T14 caps the swing lens at hFOV 110 = vFOV 76; stay 1 deg under
 	(void)LookAt;
 	// ---- round 13: output slew limit (see the header): never a cut
 	SlewFlags = 0;
@@ -377,7 +381,7 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		// inside TC11's constraints -- dolly IN along the held axis (never a yaw / side re-pick), and past the grace of a fully
 		// unseen hero the trick view falls back to the plain chase (the watchdog's distance / lift / slew boost then owns the
 		// recovery; TC-G hero-visible beats the held view)
-		const double Want = FMath::Clamp(Want0 * FlipFbK * (1.0 - 0.45 * VisBoostK), 2.8, FMath::Max(FlipDistSel, FlipDistMax) * 1.1);
+		const double Want = FMath::Clamp(Want0 * FlipFbK * (1.0 - 0.45 * VisBoostK), 2.8, FMath::Max(FlipDistSel, FlipDistMax) * 1.03);   // round 11: headroom x1.1 -> x1.03 (worst case 6.49 m, TC4's 6.5)
 		double HitD = 0.0, ObsGoal = 1e9;
 		if (!World.SphereOverlaps(Chest, 0.22) && World.SphereSweep(Chest, Hero + Uc * Want, 0.3, HitD)) ObsGoal = HitD - 0.25;
 		const double Goal = FMath::Min(Want, ObsGoal);

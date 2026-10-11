@@ -1093,7 +1093,7 @@ void AWebTravCharacter::PoseFigure(float Dt)
 	bool bSpringUsed = false;
 	{ // round 01 (W4): at the attach (the pendulum starts when the tip lands) the body orientation follows the rope frame through a critically damped spring (~0.3 s, never a one-frame turn)
 		const bool bSw = A.Mode == EWebTravMode::Swing;
-		if (bSw && !bPrevSwingMode) AttachT = 0.0;
+		if (bSw && !bPrevSwingMode) { AttachT = 0.0; SpringResid0 = bBodySpringInit ? BodySpringQ.AngularDistance(Body) : 0.0; }
 		if (bSw) { AttachT += Dt; OffSwingT = 0.0; }
 		else { if (bPrevSwingMode) OffSwingT = 0.0; else OffSwingT += Dt; }
 		bPrevSwingMode = bSw;
@@ -1105,11 +1105,18 @@ void AWebTravCharacter::PoseFigure(float Dt)
 		// nullrhi probe at t=14.00): the 0.45 s window expired with the spring still ~20-50 deg off (a wall-entry frame is far from
 		// the rope frame and the traversal's own rate gate (Sw.T < 0.4) ends at the same time) -- the residual landed in one frame.
 		// The spring now runs until CONVERGED (residual <= 2 deg), capped at 0.9 s, same 320 deg/s step limit throughout.
-		const bool bSpring = (bSw && (AttachT < 0.45 || (AttachT < 0.9 && BodySpringQ.AngularDistance(Body) > FMath::DegreesToRadians(2.0))))
+		// round 11 (r11 probe: bare wallJump -> swing attaches measured 548-759 deg/s on the chest -- the route's wall exits
+		// start the spring 60-180 deg off the rope frame; the r10 ramp (omega 10 -> 40 at 0.3 s, cap 260) sums with the clip
+		// crossfade past the 700 line): a big-gap attach (> 60 deg) runs a gentler, longer ramp (omega 10 until 0.45 s, then
+		// -> 30; step cap 200) and its convergence window extends to 1.3 s so the cap never expires unconverged (the r09 bug
+		// class). Plain chain catches (gap <= 60 deg) keep the r10 behaviour.
+		const bool bBigAttach = SpringResid0 > FMath::DegreesToRadians(60.0);
+		const double SpringCapT = bBigAttach ? 1.3 : 0.9;
+		const bool bSpring = (bSw && (AttachT < 0.45 || (AttachT < SpringCapT && BodySpringQ.AngularDistance(Body) > FMath::DegreesToRadians(2.0))))
 			|| (A.Mode == EWebTravMode::Wall && OffSwingT < 0.5 && BodySpringQ.AngularDistance(Body) > FMath::DegreesToRadians(2.0));
 		if (bSpring)
 		{
-			const double Omega = bSw ? (AttachT < 0.3 ? 10.0 : FMath::Lerp(10.0, 40.0, Smooth01((AttachT - 0.3) / 0.15))) : 10.0;
+			const double Omega = bSw ? (AttachT < (bBigAttach ? 0.45 : 0.3) ? 10.0 : FMath::Lerp(10.0, bBigAttach ? 30.0 : 40.0, Smooth01((AttachT - (bBigAttach ? 0.45 : 0.3)) / 0.15))) : 10.0;
 			FQuat D = Body * BodySpringQ.Inverse();   // spring state -> target, as a rotation vector
 			if (D.W < 0) D = FQuat(-D.X, -D.Y, -D.Z, -D.W);
 			FVector X = -D.ToRotationVector();       // the spring's offset from the target
@@ -1119,8 +1126,9 @@ void AWebTravCharacter::PoseFigure(float Dt)
 			X = (X + Tmp) * Ex;
 			FQuat NewQ = (FQuat::MakeFromRotationVector(X) * Body).GetNormalized();
 			{ // the turn onto the rope never exceeds 260 deg/s (a head-down attach is up to 150 deg away; round 10: 320 -> 280 -> 260 --
-				// it stacks with the hips-align slew and the clip crossfade at the catch, and the spring now runs until converged)
-				const double Step = BodySpringQ.AngularDistance(NewQ), MaxStep = FMath::DegreesToRadians(260.0) * Dt;
+				// it stacks with the hips-align slew and the clip crossfade at the catch, and the spring now runs until converged);
+				// round 11: a big-gap attach (wall exit, SpringResid0 > 60 deg) caps at 200
+				const double Step = BodySpringQ.AngularDistance(NewQ), MaxStep = FMath::DegreesToRadians(bBigAttach ? 200.0 : 260.0) * Dt;
 				if (Step > MaxStep) NewQ = FQuat::Slerp(BodySpringQ, NewQ, MaxStep / Step).GetNormalized();
 			}
 			BodySpringQ = NewQ;
@@ -1397,6 +1405,7 @@ void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 		bRopeDrawn[SI] = false;
 		const FWebTravStrand& St = Traversal->Strands[SI];
 		const bool bReleased = St.bActive && St.ReleaseT >= 0.f;
+		const bool bInFlight = St.bActive && !bReleased && St.Age < St.ShootDur;   // round 11: the shot is still flying
 		const FVector Hand = PalmWorldCm(St.bRightHand);
 		if (bReleased && !bWasReleased[SI]) ReleaseHandCm[SI] = Hand;
 		bWasReleased[SI] = bReleased;
@@ -1430,6 +1439,7 @@ void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 		}
 		const FVector D = B - A;
 		const FVector Perp = FVector::CrossProduct(D.GetSafeNormal(), FVector::UpVector).GetSafeNormal();
+		bool bPrefixHide = true;   // round 11: the lens-hide is a contiguous hand-end prefix rule (see below)
 		for (int32 K = 0; K < SEGS_PER_STRAND; ++K)
 		{
 			UStaticMeshComponent* C = WebSegs[SI * SEGS_PER_STRAND + K];
@@ -1457,9 +1467,17 @@ void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 			// round 08 (critic r07: thick blooming beam): world width 1.2 cm, never thinner than ~1.2 px at 1080p
 			const double CamD = FVector::Dist(Mid, CamPosCm);
 			{ // never draw a strand segment on the lens (round 01: the nearest point of the segment, 1.2 m; the segments are up to 4 m long, the midpoint test hid the hand end)
+			  // round 11 (critic r10 gap 1, orchestrator-verified on s2 t=2.76-2.80: the strand read as a mid-air segment starting
+			  // 70-87 px off the palm): hiding ANY segment inside the zone punched holes mid-strand (a drawn hand stub, then a gap,
+			  // then the rest), and during the shot's flight it detached the growing strand from the palm. Now the hide applies only
+			  // as a CONTIGUOUS prefix from the hand end -- once a segment is drawn every later segment draws too (no mid-air holes);
+			  // and while the shot flies the zone shrinks 120 -> 45 cm so the strand reads hand->tip on every flight frame. The width
+			  // is screen-space clamped either way, so a near-lens pass is a thin line, never a blob.
+				const double HideR = bInFlight ? 45.0 : 120.0;
 				const FVector Sg = P1 - P0; const double SgL2 = FMath::Max(Sg.SizeSquared(), 1.0);
 				const double Tn = FMath::Clamp(FVector::DotProduct(CamPosCm - P0, Sg) / SgL2, 0.0, 1.0);
-				if (FVector::Dist(CamPosCm, P0 + Sg * Tn) < 120.0) { HideSeg(C); continue; }
+				if (bPrefixHide && FVector::Dist(CamPosCm, P0 + Sg * Tn) < HideR) { HideSeg(C); continue; }
+				bPrefixHide = false;
 			}
 			double W = FMath::Max(1.6, 0.0025 * CamD) * Fade; // round 09: 1.6 cm, >= ~2 px at 1080p (TRAVERSAL-SPEC T6: 2-4 px)
 			if (bTwoTone)
@@ -1772,7 +1790,13 @@ void AWebTravCharacter::PushTelemetry(double T, const FWebTravInput& I)
 		const double Fy = FMath::DegreesToRadians(A.FacingDeg);
 		const FVector Fw(FMath::Cos(Fy), FMath::Sin(Fy), 0.0), Rt(-FMath::Sin(Fy), FMath::Cos(Fy), 0.0);
 		BodyAxis = FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(Ax.Z, -1.0, 1.0)));
-		BodyPitch = FMath::RadiansToDegrees(FMath::Atan2(FVector::DotProduct(Ax, Fw), Ax.Z));
+		// round 11 (r10 NOTES: rudi's 1964 deg/s rendered "peak" at flip_t 0.13-0.17 is a measurement artifact): the pitch reading
+		// atan2(Ax.Fw, Ax.Z) is singular where the body axis points along +/- Rt (a fast twist carrying the body through the banked
+		// sideways-horizontal cone): atan2(~0, ~0) flips ~180 deg in 1-2 frames while the true axis rate is ~700 deg/s. Inside the
+		// cone the facing-plane pitch is ill-defined, so hold the last pre-cone reading; the series stays continuous through it.
+		const double LatA = FVector::DotProduct(Ax, Rt);
+		if (FMath::Abs(LatA) > 0.97 && bBodyPitchHold) BodyPitch = BodyPitchHold;
+		else { BodyPitch = FMath::RadiansToDegrees(FMath::Atan2(FVector::DotProduct(Ax, Fw), Ax.Z)); BodyPitchHold = BodyPitch; bBodyPitchHold = true; }
 		BodyRoll = FMath::RadiansToDegrees(FMath::Atan2(FVector::DotProduct(Ax, Rt), Ax.Z));
 	}
 	float FlipTNow = 0.f;

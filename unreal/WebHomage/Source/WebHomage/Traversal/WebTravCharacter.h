@@ -118,6 +118,7 @@ private:
 	FQuat SwayDeltaQ = FQuat::Identity;
 		FQuat BodySpringQ = FQuat::Identity; FVector BodySpringVel = FVector::ZeroVector; double AttachT = 9.0; bool bPrevSwingMode = false; bool bBodySpringInit = false;
 		double OffSwingT = 9.0;   // round 08: time since the swing mode was left (the attach spring stays live into a fresh wall entry)
+		double SpringResid0 = 0.0;   // round 11: the attach-frame spring gap (rad) -- big-gap catches (wall exits) take the gentler ramp
 	FQuat FlipOffQ = FQuat::Identity;   // round 11: flip rotation relative to the body frame (springs back when a program is cut)
 	FWebFlipPose LastFlip;              // round 11: telemetry
 	FName LastFlipName;
@@ -231,6 +232,7 @@ private:
 	bool bRopeDrawn[2] = { false, false };
 	// final loop round 00: telemetry-only state (read-only bone samples; never feeds back into the sim, the camera or the pose)
 	bool bFwBones = false; FName FwShoulder[2], FwChest; FQuat FwChestPrev = FQuat::Identity; double FwChestPrevT = -1.0; bool FwChestHas = false;
+	double BodyPitchHold = 0.0; bool bBodyPitchHold = false;   // round 11: body_pitch_deg holds through the sideways cone (see the telemetry row)
 	FString FinalSwingCols(double T);
 	// round 01: post-pose strand tick + palm origin
 	FWebTravPostTick PostTickFn, EndTickFn;

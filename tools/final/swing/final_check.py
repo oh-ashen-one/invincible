@@ -65,20 +65,28 @@ if N and R[0]['mode'] == 'swing': attaches.insert(0, 0)
 # ---- W1 origin: strand start vs the firing hand as rendered in the same frame (release-phase frames reported separately: the strand there retracts from the hand toward the anchor)
 errs, errs_same, first, relv, spd = [], [], [], [], []
 lens_hidden = 0
+flight_measured = 0
 for i in range(N):
     for s in (0, 1):
         if f(R[i], 'fw_s%d_drawn' % s) < 0.5: continue
         right = f(R[i], 'fw_s%d_hand' % s) > 0.5
         st = v3(R[i], 'fw_s%d_s' % s)
-        if has_palm and nrm(sub(palm(i, right), v3(R[i], 'cam_'))) < 3.5 and nrm(sub(st, palm(i, right))) > 1.0: lens_hidden += 1; continue   # the first segments inside the 3 m lens-hide zone are not drawn
+        # round 11 (critic r10 gap 1): the lens-hide is now a contiguous hand-end prefix rule (120 cm, 45 cm during the shot's
+        # flight) -- a drawn start off the palm is possible only while the palm itself is inside the zone. Exclusions tightened
+        # to match (was: palm within 3.5 m, all phases): flight frames with the palm >= 1.0 m from the lens are MEASURED (the
+        # strand must draw hand->tip on every flight frame), taut frames with the palm >= 1.8 m are measured.
+        flight = f(R[i], 'fw_s%d_age' % s) < f(R[i], 'fw_s%d_shoot' % s) and f(R[i], 'fw_s%d_rel' % s) < 0
+        zone = 1.0 if flight else 1.8
+        if has_palm and nrm(sub(palm(i, right), v3(R[i], 'cam_'))) < zone and nrm(sub(st, palm(i, right))) > 1.0: lens_hidden += 1; continue   # the palm-end prefix inside the lens zone is not drawn
         e = nrm(sub(st, palm(i, right) if has_palm else hand(nxt(i), right))) * 100   # round 01: the palm of the final pose of the same frame (end-of-frame bone read); round 00: the next row's hand bone
+        if flight: flight_measured += 1
         if f(R[i], 'fw_s%d_rel' % s) >= 0: relv.append(e); continue
         errs.append(e); errs_same.append(nrm(sub(st, hand(i, right))) * 100); spd.append(f(R[i], 'speed_mps'))
         if f(R[i], 'fw_s%d_age' % s) < DT * 1.5: first.append(e)
 if errs:
     ok = sum(1 for e in errs if e <= 8.0) / len(errs)
-    line('W1', 'strand start within 8 cm of the firing hand (rendered same frame; web-on frames before release)', '%.1f %% of %d frames; error p50 %.1f p95 %.1f max %.1f cm (hero speed median %.0f m/s); press/attach frame median %.1f cm; same-row bone read max %.1f cm; release-phase frames (%d): median %.0f cm; frames whose first segments sit inside the 3 m lens-hide zone (excluded): %d' % (
-        100 * ok, len(errs), pct(errs, 50), pct(errs, 95), max(errs), pct(spd, 50), pct(first, 50) if first else float('nan'), max(errs_same), len(relv), pct(relv, 50) if relv else float('nan'), lens_hidden), ok >= 0.999)
+    line('W1', 'strand start within 8 cm of the firing hand (rendered same frame; web-on frames before release)', '%.1f %% of %d frames; error p50 %.1f p95 %.1f max %.1f cm (hero speed median %.0f m/s); press/attach frame median %.1f cm; same-row bone read max %.1f cm; release-phase frames (%d): median %.0f cm; flight frames measured (palm outside the 45 cm flight hide zone): %d; palm-prefix inside the lens zone (excluded): %d' % (
+        100 * ok, len(errs), pct(errs, 50), pct(errs, 95), max(errs), pct(spd, 50), pct(first, 50) if first else float('nan'), max(errs_same), len(relv), pct(relv, 50) if relv else float('nan'), flight_measured, lens_hidden), ok >= 0.999)
 else:
     line('W1', 'strand start within 8 cm of the firing hand', 'no strand drawn', False)
 
