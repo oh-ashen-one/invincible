@@ -1,3 +1,17 @@
+## Preservation checkpoint — 2026-10-11
+
+**WIP saved after Kimi's weekly usage limit.** Resume from `codex/preserve-kimi-spiderman-20261011` in `oh-ashen-one/spider-man-2`. This branch retains the two previously unpushed round-13 commits (`8b382fb7`, `10aa01fc`), two unfinished source edits, and five completed round-13 clips with metadata/telemetry. The original checkout, index, branch and session remain intact.
+
+Round 13 is unfinished and unjudged. s2_press_variety stopped at s2_c9_trees after eight completed cases; partial telemetry is saved in `docs/night1/final/swing/round-13/partial-s2/`. No complete s2 video, final CHECK/NOTES or round-13 CRITIC verdict existed. Existing captures may span the camera-fix builds; match the intended source/build before validating or recapturing.
+
+Read `docs/night1/final/swing/round-13/PRESERVATION.md` and `preservation-manifest.json` for saved files, hashes, gaps and local resume-cache paths. Generated Unreal Content/build/raw-frame caches remain local per CONTENT.md. Source and builders are preserved. No engine or gameplay validation was performed during preservation.
+
+Live host: `midirstudio.local`, `Mac15,14`, Apple M3 Ultra. Earlier M5 notes below are migration history. Check host and ownership before launches. The owner requested a pause at the next milestone for a playtest; preservation does not resume the loop.
+
+Resume command: `Fetch oh-ashen-one/spider-man-2 branch codex/preserve-kimi-spiderman-20261011 into a session-owned checkout, read HANDOFF.md and docs/night1/final/swing/round-13/PRESERVATION.md, and inspect the interrupted round-13 work before taking further action.`
+
+---
+
 # M5 Spider-Man showcase — rolling handoff (started 2026-10-06)
 
 Owner direction: a polished 4K Manhattan swinging showcase. Night look = the original author's newer night mode (~/spiderbench @ 64d957f9), translated into Unreal. Full island is the target. Launches/tests are owner-authorized under the shared GPU rules (2026-10-06 prompt supersedes "keep closed").

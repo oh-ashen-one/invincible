@@ -99,9 +99,9 @@ public:
 	// never blooms, no fog) whose core share follows the luminance of the scene behind the strand -- sampled UNIFORMLY per strand
 	// (final round 13, critic r12: per-pixel taps beaded / flickered against mixed facades): 4 taps at two fixed screen points along the
 	// line (BgUV0 / BgUV1 vector params, pushed per strand per frame by UpdateWebs): over a dark background the bright core fills
-	// RopeCoreDark of the width, over a bright one only RopeCoreBright (the dark rim carries the line), mid backgrounds sit on a ~0.68
-	// plateau so a mixed facade keeps both tones; the ramps sit at RopePivot x (0.55-1.05) / x (1.30-2.10); screen-space width clamp
-	// RopePxMin..RopePxMax px.
+	// RopeCoreDark of the width, over a bright one only RopeCoreBright (the dark rim carries the line); the step is binary in the
+	// strand-average luminance and biased BRIGHT (RopePivot x 1.2-1.4), so a mixed facade gets one continuous bright-carrying line
+	// (a mid plateau averaged the strand to the facade's own level -- r13 build 2 probe); screen-space width clamp RopePxMin..RopePxMax px.
 	// 0 = r24 (lit dark M_TravColor line, world width 1.6 cm / 0.25 % of the distance).
 	// r25 build 2: RopeSolid 1 = ONE tone over the whole strand width (bright over a dark background, near-black over a bright one; the
 	// two-tone core/rim averaged back to the background's level in the resolved 3-4 px line: 18/65 frames passed), drawn after motion

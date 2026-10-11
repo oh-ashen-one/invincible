@@ -11,9 +11,9 @@
 # the whole strand (final round 13: 4 taps at two fixed screen points along the strand, 35 % / 70 % hand -> anchor, passed as the BgUV0 /
 # BgUV1 vector params per strand per frame -- the r08-r12 per-pixel taps beaded / flickered against mixed facades, critic r12): over a dark
 # background (glass, shadow) the bright core fills CoreDark of the width, over a bright one (sky, pale stone) only CoreBright and the dark
-# rim carries the line, and mid backgrounds sit on a ~0.68 plateau so a mixed facade keeps both tones (transitions at Pivot x 0.55-1.05 and
-# x 1.30-2.10). The output is divided by the eye adaptation (EyeAdaptationInverse), so the displayed level is CoreLvl / RimLvl whatever
-# the exposure: no HDR emissive, no bloom.
+# rim carries the line; the step is biased BRIGHT (Pivot x 1.2-1.4) so every facade below a genuinely bright background gets the
+# bright-carrying line (a mid plateau resolved the strand's mean to the facade's own level -- r13 build 2). The output is divided by the
+# eye adaptation (EyeAdaptationInverse), so the displayed level is CoreLvl / RimLvl whatever the exposure: no HDR emissive, no bloom.
 # No fog on the strand (Apply Fogging off), responsive AA (thin moving line), not lit, casts no shadow (set on the component).
 #
 # Run from build_traversal.py (materials section), or alone as a commandlet with your editor closed:
@@ -44,18 +44,18 @@ float inv = max(Inv.x, 1e-8);
 // passed per strand per frame as BgUV0 / BgUV1 vector parameters by AWebTravCharacter::UpdateWebs): lb is one value for
 // every fragment of the strand, so the tone is UNIFORM hand -> anchor and evolves smoothly (no dashes, no flicker).
 float lb = dot((S0.rgb + S1.rgb + S2.rgb + S3.rgb) * 0.25, float3(0.2126, 0.7152, 0.0722)) / inv;
-// three-zone core share, continuous in lb: dark background -> the bright core carries (CoreDark of the width); bright ->
-// the dark rim carries (CoreBright); mid backgrounds -> a ~0.68 plateau, so a mixed background (windows + pale grid) keeps
-// BOTH tones present instead of sitting exactly on the step (a hard step at a mixed facade dashed the line at the
-// facade's own checker period)
-float m1 = smoothstep(Pivot * 0.55, Pivot * 1.05, lb);
-float m2 = smoothstep(Pivot * 1.30, Pivot * 2.10, lb);
-float c = lerp(lerp(CoreDark, 0.68, m1), CoreBright, m2);
+// the core share is binary in the strand-average lb, biased BRIGHT (step at Pivot x 1.2-1.4, displayed ~160-170): every facade
+// below that gets the bright-carrying line (its mean ~230 sits >= 45 off both dark windows AND pale grid), only genuinely
+// bright backgrounds (sky, sunlit stone) get the dark-carrying line. (r13 build 1's ~0.68 mid plateau resolved the strand's
+// mean to ~126-150/255 over mid facades of 140-145 -- locally invisible.) lb is one value per strand, so the line is
+// uniform hand -> anchor and flips polarity only as a whole, when its average background crosses the step
+float dark = 1.0 - smoothstep(Pivot * 1.20, Pivot * 1.40, lb);
+float c = lerp(CoreBright, CoreDark, dark);
 float lvl;
 if (Solid > 0.5)
 {
 	// build 2: ONE tone across the whole strand -- bright over a dark background, near-black over a bright one
-	lvl = lerp(CoreLvl, RimLvl, 0.5 * (m1 + m2));
+	lvl = lerp(RimLvl, CoreLvl, dark);
 }
 else
 {
