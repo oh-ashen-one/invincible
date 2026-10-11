@@ -1,0 +1,20 @@
+{
+  "source_commit": "21e43450c772292c6d9bc51b3ce1c3397ec1ae77",
+  "artifact_path": "/Users/midir/SpiderMan-R13-OwnerPlaytest-20261011",
+  "verified_utc": "2026-10-11T20:12:59.488654+00:00",
+  "runtime_verified": true,
+  "verification_scope": "Relocated UnrealEditor -game scripted offscreen launch; Manhattan_Island, Tessera, 1920x1080 and 100% scale. Two screenshots viewed; clean self-exit at WHQuitAt=8. Not manual controls, gameplay acceptance or realtime performance evidence.",
+  "exit_code": 0,
+  "wall_seconds": 46.2,
+  "files_verified_after_runtime": 51168,
+  "hash_mismatches": [],
+  "screenshots": {
+    "staged-smoke_00_t003.0.png": "277fbf83365539754dddd38f0234c18f9dad192da40bab15395de4a319081f11",
+    "staged-smoke_01_t005.0.png": "441277d0a213a997bea337cd2b08d289bbd03a973d12e8615e369869a0dfae44"
+  },
+  "known_nonfatal_log_diagnostics": [
+    "Existing distance-field DoubleFloat matrix precision ensure",
+    "Editor-only Python toolset types unavailable under -game",
+    "Non-Mac SDK validation warnings"
+  ]
+}

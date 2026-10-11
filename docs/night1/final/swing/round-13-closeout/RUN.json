@@ -12,7 +12,7 @@
     "tooling_scout": "gpt-6-sol high",
     "critic_planned": "gpt-6.1-sol xhigh, fresh context"
   },
-  "phase": "final build frozen; final six-clip capture set starting",
+  "phase": "All six final captures complete; relocated owner artifact smoke passed; one independent critic running",
   "native_mcp": {
     "engine_plugins_present": true,
     "task_project_AllToolsets_enabled": true,
@@ -53,19 +53,20 @@
     "duration_seconds": 8.93,
     "module_sha256": "f94a190b6dc0673aff8535db3af608a88addab369252c20c7f2babd9c01b2d5b",
     "log_local": "unreal/WebHomage/Saved/Round13Closeout/build-camera-probe.log",
-    "runtime_verified": false
+    "runtime_verified": true
   },
   "builder_commit": "5516d9f66cabfec99b726252a3ae019568125f7e",
   "source_fixes": [
     "Freeze open held clip phases before Pencil leg scaling; settle Straddle at authored straight split",
-    "Use separate horizontal/vertical frustum margins while trick camera blends in/out"
+    "Use separate horizontal/vertical frustum margins while trick camera blends in/out",
+    "Defer ordinary ground crane until trick view blends out; residual brief landing loss remains"
   ],
   "source_checks": {
     "cache_tests": 2,
     "asset_check": "ready_on_disk; no missing",
     "secret_scan": "5 commits; no leaks",
     "builder_program_math": "13 programs, uniform tempo .95/1/1.01; peaks576.6-754.2deg/s; slow windows.350-.508s; excludes jitter/rendered blending",
-    "held_pose_limitation": "F4 rendered hold>=.3s remains unverified; a .42s segment yields .294s individual plateau and .159s bothlayers fully unblended/frozen"
+    "held_pose_limitation": "Seven primary open holds inspected in probe: .4067-.4900s at <=147.1deg/s; excludes Kickout/Reach. Secondary wallFront tail truncated; no all-eight pass. Strict rendered F3 peak failures retained."
   },
   "desktop_clear_confirmed": true,
   "focused_camera_probe": {
@@ -73,5 +74,33 @@
     "missing_hero_mask_frames_before": 4,
     "missing_hero_mask_frames_after": 3,
     "note": "Improved but not eliminated; retain as a known limit for independent review. No further source iteration in this pass."
+  },
+  "critic_actual": {
+    "task": "round13_independent_critic",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "fresh_context": true,
+    "review_budget_minutes": 30,
+    "status": "running"
+  },
+  "owner_playtest": {
+    "source_commit": "21e43450c772292c6d9bc51b3ce1c3397ec1ae77",
+    "artifact_path": "/Users/midir/SpiderMan-R13-OwnerPlaytest-20261011",
+    "verified_utc": "2026-10-11T20:12:59.488654+00:00",
+    "runtime_verified": true,
+    "verification_scope": "Relocated UnrealEditor -game scripted offscreen launch; Manhattan_Island, Tessera, 1920x1080 and 100% scale. Two screenshots viewed; clean self-exit at WHQuitAt=8. Not manual controls, gameplay acceptance or realtime performance evidence.",
+    "exit_code": 0,
+    "wall_seconds": 46.2,
+    "files_verified_after_runtime": 51168,
+    "hash_mismatches": [],
+    "screenshots": {
+      "staged-smoke_00_t003.0.png": "277fbf83365539754dddd38f0234c18f9dad192da40bab15395de4a319081f11",
+      "staged-smoke_01_t005.0.png": "441277d0a213a997bea337cd2b08d289bbd03a973d12e8615e369869a0dfae44"
+    },
+    "known_nonfatal_log_diagnostics": [
+      "Existing distance-field DoubleFloat matrix precision ensure",
+      "Editor-only Python toolset types unavailable under -game",
+      "Non-Mac SDK validation warnings"
+    ]
   }
 }
