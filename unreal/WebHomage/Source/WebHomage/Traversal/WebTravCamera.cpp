@@ -253,7 +253,8 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	// along the held axis, lift, abort to the boosted chase past the unseen grace -- TC11's constraints, TC-G beats the held
 	// view). UnseenT decays at 1.5 x so the recovery eases off instead of snapping.
 	{
-		const bool bChaseModes = M == EWebTravMode::Swing || M == EWebTravMode::Air || M == EWebTravMode::Zip || M == EWebTravMode::Wall;   // round 09: wall too (the s3 20.0 blend-out onto the wall-run camera left him out of frame 0.4 s)
+		const bool bChaseModes = M == EWebTravMode::Swing || M == EWebTravMode::Air || M == EWebTravMode::Zip || M == EWebTravMode::Wall   // round 09: wall too (the s3 20.0 blend-out onto the wall-run camera left him out of frame 0.4 s)
+			|| ((M == EWebTravMode::Ground || M == EWebTravMode::Land) && FlipK > 0.05f);   // round 13 (critic r12 gap 3, s3b_c6 t=3.0-3.25: a cut trick LANDS while the trick camera is still fully in; ground frames never fed the watchdog / EdgeK, so the hero sat out of the bottom of the frame 0.25 s)
 		const FVector ChestW = P.Pos + FVector(0, 0, 0.4);
 		const FVector ToH = ChestW - CamPos;
 		const double Dh = ToH.Size();
