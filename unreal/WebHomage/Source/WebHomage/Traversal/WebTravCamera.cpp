@@ -730,7 +730,8 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 	// (raised at once, lowered once the unraised spot has been clear for 0.5 s)
 	{
 		double Goal = 0.0;
-		if (bGndCam)
+		// A landing starts the ordinary ground crane only after the trick view has blended out.
+		if (bGndCam && FlipK <= 0.05)
 		{
 			const double R = GndMinDist + 0.2, D0 = FVector::Dist(Cam, Hero);
 			const double Hd = FVector2D(Cam.X - Hero.X, Cam.Y - Hero.Y).Size(), Dz = Cam.Z - Hero.Z;
