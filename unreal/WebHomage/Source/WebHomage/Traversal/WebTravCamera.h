@@ -251,6 +251,8 @@ private:
 	double CamZ = 0.0, CamZV = 0.0, FrameSV = 0.0, OccYawOff = 0.0, OccYawOffV = 0.0, OccUp = 0.0, OccUpV = 0.0;
 	// Roof clearance is composed before the chest sweep, so that sweep cannot turn a floor crossing into a close-up.
 	double RoofLift = 0.0, RoofLiftV = 0.0;
+	// Frustum loss needs room / re-aiming; only a blocked sightline may use the occlusion pull-in and lift.
+	double OcclBoostK = 0.0;
 	double OccYawGoal = 0.0, OccUpGoal = 0.0, UserPitch = 0.0, AttachLook = 0.0, AttachLookV = 0.0, AttachFov = 0.0, AttachFovV = 0.0, AttachYaw = 0.0, AttachYawV = 0.0;
 	bool bOccGoal = false;
 	double WallKV = 0.0;

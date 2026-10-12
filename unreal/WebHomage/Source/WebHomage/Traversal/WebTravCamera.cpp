@@ -67,6 +67,7 @@ void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
 	bOutInit = false; // round 13: a teleport / reset is allowed to move the view at once
 	bHaveComposeHero = false;
 	RoofLift = RoofLiftV = 0.0;
+	OcclBoostK = 0.0;
 }
 
 void FWebTravCamera::ApplyLook(const FVector2D& Look)
@@ -288,6 +289,7 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		const FVector ToH = ChestW - CamPos;
 		const double Dh = ToH.Size();
 		bool bSeen = true;
+		bool bSightBlocked = false;
 		const double HalfV = FMath::DegreesToRadians(FMath::Max(20.0, OutVFov)) * 0.5;
 		const double HalfH = FMath::Atan(FMath::Tan(HalfV) * 16.0 / 9.0);
 		const FRotationMatrix ERM(CamRot);
@@ -300,11 +302,13 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 				? BodyFrameEdge(BodyEnvelope(P), CamPos, CamRot, HalfV, HalfH) <= 0.96
 				: Zf / Dh >= FMath::Cos(FMath::Max(HalfV, HalfH) * 0.80);
 			if (!bInView) bSeen = false;
-			else if (World.LineBlocked(CamPos, ChestW)) bSeen = false;            // a roof edge / facade between the lens and him
+			bSightBlocked = World.LineBlocked(CamPos, ChestW);
+			if (bSightBlocked) bSeen = false; // a roof edge / facade between the lens and him
 		}
 		if (bSeen || !bChaseModes) UnseenT = FMath::Max(0.0, UnseenT - Dt * 1.5);
 		else UnseenT += Dt;
 		VisBoostK = FMath::Clamp(UnseenT / FMath::Max(0.05, VisBoostT), 0.0, 1.0);
+		OcclBoostK = bSightBlocked ? VisBoostK : 0.0;
 		// round 12 (critic r11 gap 3 / F9: the hero exits the right frame edge ~0.6 s on s3b t=7.4-7.8; TC wants him inside the
 		// central 60 %): the watchdog fires only ~20 % PAST the frustum cone, so a hero crossing the edge inside a slew-capped
 		// turn crawls back for half a second. Edge containment: measure the chest's angle off the view axis per axis; past
@@ -454,7 +458,22 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		// inside TC11's constraints -- dolly IN along the held axis (never a yaw / side re-pick), and past the grace of a fully
 		// unseen hero the trick view falls back to the plain chase (the watchdog's distance / lift / slew boost then owns the
 		// recovery; TC-G hero-visible beats the held view)
-		const double Want = FMath::Clamp(Want0 * FlipFbK * (1.0 - 0.45 * VisBoostK), 2.8, FMath::Max(FlipDistSel, FlipDistMax) * 1.03);   // round 11: headroom x1.1 -> x1.03 (worst case 6.49 m, TC4's 6.5)
+		double Want = FMath::Clamp(Want0 * FlipFbK * (1.0 - 0.45 * OcclBoostK), 2.8, FMath::Max(FlipDistSel, FlipDistMax) * 1.03);
+		// An edge-clipped open pose needs a longer radius, not the old visibility pull-IN. Bound the held-axis goal by the
+		// complete current / anticipated body at its intended framing, before the distance spring or obstruction probe.
+		const double HalfV = FMath::DegreesToRadians(FMath::Max(20.0, FMath::Min(Fov + Punch + 9.0 * FMath::Max(0.0, KickK) + FMath::RadiansToDegrees(AttachFov), 75.0))) * 0.5;
+		const double HalfH = FMath::Atan(FMath::Tan(HalfV) * 16.0 / 9.0);
+		const FBox Bounds = BodyEnvelope(P);
+		for (double Radius : { 4.0, 4.5, 5.0, 5.5, 6.0, 6.48 })
+		{
+			FVector Spot = Hero + Uc * Radius;
+			Spot.Z = FMath::Max(Spot.Z, World.GroundHeight(Spot.X, Spot.Y, Hero.Z + 4.0) + 0.4);
+			FRotator Aim = (Hero - Spot).Rotation();
+			Aim.Pitch = FMath::Min(Aim.Pitch + FMath::RadiansToDegrees(FMath::Atan((FlipSFrame - 0.5) * 2.0 * FMath::Tan(HalfV))), FlipPitchUpMax);
+			Aim.Yaw -= FlipSide * FlipLeadDeg;
+			Want = FMath::Max(Want, Radius);
+			if (BodyFrameEdge(Bounds, Spot, Aim, HalfV, HalfH) <= 0.92) break;
+		}
 		double HitD = 0.0, ObsGoal = 1e9;
 		FVector HeldSpot = Hero + Uc * Want;
 		// Measure the same floor-safe spot that composition will use. Testing the old below-roof endpoint here still
@@ -465,7 +484,7 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		// TC11: no room to keep the trick view (under FlipDistMin for FlipAbortGrace s running -- a trunk or a canopy edge passing the
 		// axis for a few frames is dollied through, r16 probe: one tree at a 13 m flip ended the whole trick camera) -> plain chase over FlipOutT
 		// round 09: the same fallback when the hero has been fully out of view for the grace (the watchdog's UnseenT)
-		FlipObsT = (ObsGoal < FlipDistMin || UnseenT > 0.25) ? FlipObsT + Dt : 0.0;
+		FlipObsT = (ObsGoal < FlipDistMin || (UnseenT > 0.25 && OcclBoostK > 0.01)) ? FlipObsT + Dt : 0.0;
 		if (FlipObsT > FlipAbortGrace) bFlipAbort = true;
 		else
 		{ // obstruction: in fast, out slow (0.6 s, and for 0.6 s after the last hit); pose-driven distance changes: 0.12 s in / 0.2 s out on top of the 0.25 s compactness spring
@@ -516,7 +535,10 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 			const double X = FMath::Clamp((FlipOutClock - FlipAzHold) / FMath::Max(0.05, FlipOutT), 0.0, 1.0), S = X * X * (3.0 - 2.0 * X), Dv = X > 0.0 && X < 1.0 ? 6.0 * X * (1.0 - X) / FMath::Max(0.05, FlipOutT) : 0.0;
 			FlipK = FlipOutK0 * (1.0 - S); FlipKV = -FlipOutK0 * Dv;
 			// round 07: the radius lets go at once (the azimuth keeps its FlipAzHold; TC10/TC-K measure the VIEW blend-out)
-			const double Xr = FMath::Clamp(FlipOutClock / FMath::Max(0.05, FlipOutT * 0.6), 0.0, 1.0), Sr = Xr * Xr * (3.0 - 2.0 * Xr);
+			// A landing retains its radius while azimuth / height are still held. Releasing only the radius here produced a
+			// roof close-up during the ground transition, before the view could settle under its existing angular slew.
+			const double RadiusHold = P.Mode == EWebTravMode::Ground || P.Mode == EWebTravMode::Land ? FlipAzHold : 0.0;
+			const double Xr = FMath::Clamp((FlipOutClock - RadiusHold) / FMath::Max(0.05, FlipOutT * 0.6), 0.0, 1.0), Sr = Xr * Xr * (3.0 - 2.0 * Xr);
 			FlipKr = FlipOutK0 * (1.0 - Sr);
 			// the height weight holds FlipZHold s after the catch before it follows (TC6: the lens stays under the hips through the 0.5 s tail)
 			const double Xz = FMath::Clamp((FlipOutClock - FlipZHold) / FMath::Max(0.05, FlipOutT), 0.0, 1.0), Sz = Xz * Xz * (3.0 - 2.0 * Xz);
@@ -623,7 +645,8 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		const double RC = FMath::Sqrt(DxC * DxC + DyC * DyC), RF = FMath::Sqrt(DxF * DxF + DyF * DyF);
 		// round 07 (s3/s3b P1 swing): while blending out the trick distance springs to the live chase radius (the chase
 		// closed loop owns the hero's size again) and the radius weight FlipKr decays ahead of the azimuth's
-		if (!bFlipCam && FlipKr > 1e-4) SD(FlipDistNow, FlipDistV, RC, 0.18, Dt);
+		const bool bLandingRadiusHold = (P.Mode == EWebTravMode::Ground || P.Mode == EWebTravMode::Land) && FlipOutClock <= FlipAzHold;
+		if (!bFlipCam && FlipKr > 1e-4 && !bLandingRadiusHold) SD(FlipDistNow, FlipDistV, RC, 0.18, Dt);
 		const double AB = AC + WrapA(AF - AC) * FlipK, RB = FMath::Lerp(RC, RF, FlipKr);
 		Cam = FVector(Hero.X + RB * FMath::Cos(AB), Hero.Y + RB * FMath::Sin(AB), Hero.Z + FMath::Lerp(Cam.Z - Hero.Z, FlipSpot.Z - Hero.Z, FlipZK));
 	}
@@ -882,10 +905,10 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 	// round 05: watchdog-driven lift while the hero is out of view (roof edges) -- the probe search above only covers BLOCKED lines,
 	// not an off-frame hero; the distance gain and slew boost do the horizontal part
 	// round 09: also in trick mode (the watchdog runs there now)
-	if (VisBoostK > 0.01)
+	if (OcclBoostK > 0.01)
 	{
-		VisUpGoal = FMath::Max(VisUpGoal, VisBoostUp * VisBoostK);
-		FVector C4 = Cam + FVector(0, 0, VisBoostUp * VisBoostK * 0.5);
+		VisUpGoal = FMath::Max(VisUpGoal, VisBoostUp * OcclBoostK);
+		FVector C4 = Cam + FVector(0, 0, VisBoostUp * OcclBoostK * 0.5);
 		ClearFrom(From, C4, C4);
 		if (FVector::Dist(C4, Hero) >= FVector::Dist(Cam, Hero) - 0.2) Cam = C4;
 	}
