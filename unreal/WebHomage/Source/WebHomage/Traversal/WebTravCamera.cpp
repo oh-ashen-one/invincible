@@ -25,6 +25,34 @@ namespace
 	}
 	double Noise(double T, double S) { return FMath::Sin(T * 1.7 + S) * 0.5 + FMath::Sin(T * 3.1 + S * 2.3) * 0.3 + FMath::Sin(T * 5.3 + S * 4.1) * 0.2; }
 	FName N_vault(TEXT("vault")), N_wallRun(TEXT("wallRun")), N_topOut(TEXT("topOut"));
+	FBox BodyEnvelope(const FTravCamInput& P)
+	{
+		FBox B = P.BodyBounds.IsValid ? P.BodyBounds : FBox(FVector(-0.65, -0.65, -1.05), FVector(0.65, 0.65, 1.15));
+		// FlipExtent also contains the next open shape: the preceding frame's compact skeleton alone cannot protect its limbs.
+		if (P.FlipExtent > 0.f)
+		{
+			const double Half = double(P.FlipExtent) * 0.5;
+			B.Min.Z = FMath::Min(B.Min.Z, -Half); B.Max.Z = FMath::Max(B.Max.Z, Half);
+		}
+		return B.ShiftBy(P.Pos);
+	}
+	// Largest per-axis angle of the FULL body, normalized by the rectangular frustum's half angles.
+	// A chest can be inside the frame while a foot is already past its edge, especially after a collision pull-in.
+	double BodyFrameEdge(const FBox& B, const FVector& C, const FRotator& R, double HalfV, double HalfH)
+	{
+		const FRotationMatrix M(R);
+		double Edge = 0.0;
+		for (int32 I = 0; I < 8; ++I)
+		{
+			const FVector Q(I & 1 ? B.Max.X : B.Min.X, I & 2 ? B.Max.Y : B.Min.Y, I & 4 ? B.Max.Z : B.Min.Z);
+			const FVector D = Q - C;
+			const double Depth = FVector::DotProduct(D, M.GetUnitAxis(EAxis::X));
+			if (Depth <= 0.25) return 2.0;
+			Edge = FMath::Max(Edge, FMath::Max(FMath::Abs(FMath::Atan2(FVector::DotProduct(D, M.GetUnitAxis(EAxis::Y)), Depth)) / HalfH,
+				FMath::Abs(FMath::Atan2(FVector::DotProduct(D, M.GetUnitAxis(EAxis::Z)), Depth)) / HalfV));
+		}
+		return Edge;
+	}
 }
 
 void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
@@ -38,6 +66,7 @@ void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
 	GndCrane = GndCraneV = GndCraneGoal = GndClearT = 0.0; bGndLensHold = false; GndStopped = 0; // round 24
 	bOutInit = false; // round 13: a teleport / reset is allowed to move the view at once
 	bHaveComposeHero = false;
+	RoofLift = RoofLiftV = 0.0;
 }
 
 void FWebTravCamera::ApplyLook(const FVector2D& Look)
@@ -247,7 +276,7 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	bLensTouch = World.SphereOverlaps(CamPos, 0.25);
 	bCamEnclosed = World.Enclosed(CamPos);
 	// ---- round 05: visibility watchdog (critic r04: hero fully hidden ~0.8 s in s1/s5; never > 0.25 s unseen during swings).
-	// Seen = the hero's chest sits inside the frustum with margin AND the lens->chest line is clear.
+	// Seen = the full body sits inside the trick frustum with margin AND the lens->chest line is clear.
 	// round 09 (critic r08: the trick camera lost the hero ~1.6 s in s3 -- this watchdog explicitly did NOT run while the trick
 	// camera was in): the watchdog runs in trick mode too now; the trick camera's own response lives in ComposeChase (dolly in
 	// along the held axis, lift, abort to the boosted chase past the unseen grace -- TC11's constraints, TC-G beats the held
@@ -265,12 +294,10 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		const double Zf = FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::X));
 		if (bChaseModes && Dh > 0.3)
 		{
-			// While the trick view is in, test the rectangular frustum per axis. The wider horizontal cone called vertical
-			// exits "seen", suppressing recovery after a cancel / landing. Ordinary chase retains its existing cone test.
-			const double OffH = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Y)), Zf);
-			const double OffV = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Z)), Zf);
+			// While the trick view is in, test every body-box corner against the rectangular frustum. A chest-only check
+			// missed clipped limbs after a cancel / landing. Ordinary chase retains its existing cone test.
 			const bool bInView = FlipK > 1e-3
-				? Zf > 0.0 && FMath::Abs(OffH) <= HalfH * 0.80 && FMath::Abs(OffV) <= HalfV * 0.80
+				? BodyFrameEdge(BodyEnvelope(P), CamPos, CamRot, HalfV, HalfH) <= 0.96
 				: Zf / Dh >= FMath::Cos(FMath::Max(HalfV, HalfH) * 0.80);
 			if (!bInView) bSeen = false;
 			else if (World.LineBlocked(CamPos, ChestW)) bSeen = false;            // a roof edge / facade between the lens and him
@@ -289,9 +316,7 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		{
 			if (Zf > 0.3 * Dh)
 			{
-				const double OffH = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Y)), Zf);
-				const double OffV = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Z)), Zf);
-				EdgeGoal = Smooth(FMath::Max(FMath::Abs(OffH) / FMath::Max(1e-3, HalfH), FMath::Abs(OffV) / FMath::Max(1e-3, HalfV)), 0.68, 0.98);
+				EdgeGoal = Smooth(BodyFrameEdge(BodyEnvelope(P), CamPos, CamRot, HalfV, HalfH), 0.68, 0.98);
 			}
 			else EdgeGoal = 1.0; // beside / behind the lens: full boost (the watchdog's frustum test covers the same case)
 		}
@@ -427,7 +452,11 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		// recovery; TC-G hero-visible beats the held view)
 		const double Want = FMath::Clamp(Want0 * FlipFbK * (1.0 - 0.45 * VisBoostK), 2.8, FMath::Max(FlipDistSel, FlipDistMax) * 1.03);   // round 11: headroom x1.1 -> x1.03 (worst case 6.49 m, TC4's 6.5)
 		double HitD = 0.0, ObsGoal = 1e9;
-		if (!World.SphereOverlaps(Chest, 0.22) && World.SphereSweep(Chest, Hero + Uc * Want, 0.3, HitD)) ObsGoal = HitD - 0.25;
+		FVector HeldSpot = Hero + Uc * Want;
+		// Measure the same floor-safe spot that composition will use. Testing the old below-roof endpoint here still
+		// shrank FlipDistNow even when the later sweep had been fixed, turning a landing into a pose-feedback close-up.
+		HeldSpot.Z = FMath::Max(HeldSpot.Z, World.GroundHeight(HeldSpot.X, HeldSpot.Y, Hero.Z + 4.0) + 0.4);
+		if (!World.SphereOverlaps(Chest, 0.22) && World.SphereSweep(Chest, HeldSpot, 0.3, HitD)) ObsGoal = HitD - 0.25;
 		const double Goal = FMath::Min(Want, ObsGoal);
 		// TC11: no room to keep the trick view (under FlipDistMin for FlipAbortGrace s running -- a trunk or a canopy edge passing the
 		// axis for a few frames is dollied through, r16 probe: one tree at a 13 m flip ended the whole trick camera) -> plain chase over FlipOutT
@@ -593,6 +622,29 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		if (!bFlipCam && FlipKr > 1e-4) SD(FlipDistNow, FlipDistV, RC, 0.18, Dt);
 		const double AB = AC + WrapA(AF - AC) * FlipK, RB = FMath::Lerp(RC, RF, FlipKr);
 		Cam = FVector(Hero.X + RB * FMath::Cos(AB), Hero.Y + RB * FMath::Sin(AB), Hero.Z + FMath::Lerp(Cam.Z - Hero.Z, FlipSpot.Z - Hero.Z, FlipZK));
+	}
+	// A descending trick lens can hit the roof BEFORE the body lands. Sweeping the below-roof spot first shortened the
+	// c6 radius from 6.3 to 2.7 m; the later floor / minimum-distance lifts then overtook the slew-limited view angle.
+	// Prepare floor clearance at the held XY spot before the sweep. Anticipate 0.2 s of travel and stop the predicted body
+	// at its landing surface, rather than extrapolating it through the roof. The spring preserves position / velocity;
+	// the output still obeys its existing slew and all collision queries remain active.
+	{
+		double WantLift = 0.0;
+		if (FlipK > 0.05 || FlipZK > 0.05)
+		{
+			const double AheadT = 0.20;
+			const FVector AheadHero = Hero + P.Vel * AheadT;
+			const double AheadFloor = World.GroundHeight(AheadHero.X, AheadHero.Y, Hero.Z + 4.0);
+			const double AheadZ = FMath::Max(AheadHero.Z, AheadFloor + 0.95);
+			const FVector AheadCam = Cam + FVector(P.Vel.X * AheadT, P.Vel.Y * AheadT, AheadZ - Hero.Z);
+			const double FloorNow = World.GroundHeight(Cam.X, Cam.Y, Hero.Z + 4.0) + 0.4;
+			const double FloorAhead = World.GroundHeight(AheadCam.X, AheadCam.Y, FMath::Max(Hero.Z, AheadZ) + 4.0) + 0.4;
+			WantLift = FMath::Max(0.0, FMath::Max(FloorNow - Cam.Z, FloorAhead - AheadCam.Z));
+		}
+		SD(RoofLift, RoofLiftV, WantLift, WantLift > RoofLift ? 0.12 : 0.4, Dt);
+		Cam.Z += FMath::Max(0.0, RoofLift);
+		if (FlipK > 0.05 || FlipZK > 0.05)
+			Cam.Z = FMath::Max(Cam.Z, World.GroundHeight(Cam.X, Cam.Y, Hero.Z + 4.0) + 0.4);
 	}
 	// ---- collision: sphere-sweep from the chest; if the clear distance would drop under MinHeroDist, search raised /
 	// rotated positions and move there smoothly (held ~1 s so the camera does not flicker)

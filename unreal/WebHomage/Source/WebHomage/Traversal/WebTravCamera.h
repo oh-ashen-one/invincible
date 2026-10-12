@@ -38,6 +38,9 @@ struct FTravCamInput
 	// round 18: the hero's vertical extent (m: joints + 0.2 m pad, max of the posed body now and the program's shape table 0.1-0.25 s ahead);
 	// 0 = unknown. The trick camera's distance follows it (FlipExtK x extent within FlipDist..FlipDistMax) so TC-C holds at TC4 distances.
 	float FlipExtent = 0.f;
+	// Previous skeletal pose, in metres relative to its body centre, along WORLD axes. Rebased onto Pos by the camera.
+	// Includes every bone plus the mesh pad; valid on the landing / wall frames after a flip as well as in the air.
+	FBox BodyBounds = FBox(ForceInit);
 	bool bFlipPre = false;   // round 18: a flow flip release is predicted (autoChain rule / trick held while swinging): the trick camera pre-blends
 };
 
@@ -246,6 +249,8 @@ private:
 	bool bChaseInit = false;
 	FVector CamXY = FVector::ZeroVector, CamXYV = FVector::ZeroVector;
 	double CamZ = 0.0, CamZV = 0.0, FrameSV = 0.0, OccYawOff = 0.0, OccYawOffV = 0.0, OccUp = 0.0, OccUpV = 0.0;
+	// Roof clearance is composed before the chest sweep, so that sweep cannot turn a floor crossing into a close-up.
+	double RoofLift = 0.0, RoofLiftV = 0.0;
 	double OccYawGoal = 0.0, OccUpGoal = 0.0, UserPitch = 0.0, AttachLook = 0.0, AttachLookV = 0.0, AttachFov = 0.0, AttachFovV = 0.0, AttachYaw = 0.0, AttachYawV = 0.0;
 	bool bOccGoal = false;
 	double WallKV = 0.0;
