@@ -100,6 +100,7 @@ void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
 	OcclBoostK = 0.0;
 	bFlipObstacleOut = bHaveFlipVelocity = false; ForecastGravity = 10.8;
 	FlipFrameTail = 0.0;
+	StartupFrameTail = 1.0;
 }
 
 void FWebTravCamera::ApplyLook(const FVector2D& Look)
@@ -114,6 +115,7 @@ void FWebTravCamera::ApplyLook(const FVector2D& Look)
 void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWorld& World)
 {
 	Dt = FMath::Min(Dt, 0.1);
+	StartupFrameTail = FMath::Max(0.0, StartupFrameTail - Dt);
 	FlipFrameTail = P.bFlip ? 0.5 : FMath::Max(0.0, FlipFrameTail - Dt);
 	if (P.bFlip && bHaveFlipVelocity && Dt > 1e-5)
 		ForecastGravity = FMath::Clamp((LastFlipVz - P.Vel.Z) / Dt, 0.0, 24.0);
@@ -310,11 +312,13 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 			if (CamRot.Pitch > CapUpDeg + 0.5) CamRot.Pitch = CapUpDeg + 0.5;
 			SlewFlags |= 16;
 		}
-		// During the trick/catch view, placement must be feasible for the FINAL capped angle. A collision re-seat on c3
+		// During the trick/catch view and reset startup, placement must be feasible for the FINAL capped angle. A collision re-seat on c3
 		// moved the lens 3 m around the hero in one frame while yaw was still catching up: the body crossed the right edge
 		// despite an active watchdog. Keep the requested angle panning, but advance the lens only as far as the full body
 		// fits that angle. Every retained spot needs a clear lens, a swept path from the previous output and a clear sightline.
-		if (FlipK > 1e-3 || FlipFrameTail > 0.0)
+		// A roof-start floor/collision lift can outrun pitch just like a trick re-seat; retain the same safety through
+		// its first landing instead of dropping it on the air -> ground transition. Collision and slew tests stay active.
+		if (FlipK > 1e-3 || FlipFrameTail > 0.0 || StartupFrameTail > 0.0)
 		{
 			const double HalfV = FMath::DegreesToRadians(FMath::Max(20.0, OutVFov)) * 0.5;
 			const double HalfH = FMath::Atan(FMath::Tan(HalfV) * 16.0 / 9.0);
@@ -345,7 +349,7 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	// along the held axis, lift, abort to the boosted chase past the unseen grace -- TC11's constraints, TC-G beats the held
 	// view). UnseenT decays at 1.5 x so the recovery eases off instead of snapping.
 	{
-		const bool bBodySafety = FlipK > 1e-3 || FlipFrameTail > 0.0;
+		const bool bBodySafety = FlipK > 1e-3 || FlipFrameTail > 0.0 || StartupFrameTail > 0.0;
 		const bool bChaseModes = M == EWebTravMode::Swing || M == EWebTravMode::Air || M == EWebTravMode::Zip || M == EWebTravMode::Wall   // round 09: wall too (the s3 20.0 blend-out onto the wall-run camera left him out of frame 0.4 s)
 			|| ((M == EWebTravMode::Ground || M == EWebTravMode::Land) && bBodySafety);
 		const FVector ChestW = P.Pos + FVector(0, 0, 0.4);
