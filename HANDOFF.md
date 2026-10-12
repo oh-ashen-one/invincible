@@ -1,3 +1,15 @@
+## Owner feedback and music complete — 2026-10-12
+
+Continue PR4, `codex/manual-camera-20261012`; runtime source `e9a8120c`. Owner has NOT approved merging. Read `docs/controls/playtest-feedback-20261012/RESULTS.md` / `RUN.json` / `metrics.json` for exact scope and evidence. Previous manual-camera repairs remain included.
+
+Implemented clean gameplay screen (render features retained), settings-only help and hidden inactive VSync control, smoother optional shake, strict Swing-only white web visibility, Q/L1 camera-directed speed boost separate from E/Triangle perch zip, and crouched rest/settle. User supplied `/Users/midir/Downloads/Curious Groove.mp3`; unmodified source is tracked under assets/audio, prepared 147.07-second loop imported into `/Game/Audio/Music/SW_CuriousGroove`. Native playback crossed the loop boundary while paused, with one persistent music component. No generated payment or external music API was used.
+
+Final native build passed. Every captured non-Swing frame has hidden web telemetry; Q accelerated an active flip 24.290→36.162m/s without interrupting it; E reached perch and crouched; shake on/off has identical physics with 0.45/0.25/0.59 degree peak pitch/yaw/roll differences. Settings and crouch screenshots inspected. Independent source reviews found no blockers. Shared coordinator cap 2 respected alongside the protected ARK reservation; all tests are behavioral, not performance claims. A sound-import commandlet emitted pre-existing GameFeatureData initialization errors (exit 1) but saved the verified playable SoundWave; do not label that commandlet clean.
+
+Owner build: `/Users/midir/SpiderMan-Playtest-Feedback-20261012/Play.command`. Prior owner builds and original dirty Kimi checkout are protected. Saved settings preserved. Physical controller feel, sound balance and acceptance remain with owner. Task worktree/cache are disposable after verified push and final relocated artifact validation. Stop here; no automatic refinement or merge.
+
+---
+
 ## Manual camera repair complete — 2026-10-12
 
 Owner scope: tricks must preserve player camera direction; high mouse/gamepad sensitivity must remain stable. Runtime source `bb945b1ee60c5c8044c562e7a702018c83e451b4`, branch `codex/manual-camera-20261012`, based on main `9eb3a5a7`. Read `docs/controls/manual-camera-20261012/RESULTS.md` and `metrics.json` for build-labeled before/final evidence. This supersedes the older held three-quarter trick-camera requirement only.

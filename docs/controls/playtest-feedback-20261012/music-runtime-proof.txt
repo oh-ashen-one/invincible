@@ -1,0 +1,5 @@
+[2026.10.12-18.11.59:607][  0]LogWebHomage: Display: WH_MUSIC started asset=/Game/Audio/Music/SW_CuriousGroove.SW_CuriousGroove duration=147.070 start=145.000 volume=0.25 loop=1 persistent=1 ui=1
+[2026.10.12-18.12.10:770][  1]LogWebHomage: Display: WH_SETTINGS menu open (paused 0)
+[2026.10.12-18.12.13:393][ 46]LogWebHomage: Display: WH_EXEC t=3.00 pause
+[2026.10.12-18.12.14:596][ 47]LogWebHomage: Display: WH_MUSIC loop verified progress=1.00870 playing=1
+[2026.10.12-18.12.17:397][106]LogWebHomage: Display: WH_EXEC t=7.01 pause

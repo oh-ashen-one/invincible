@@ -1,0 +1,28 @@
+{
+  "source_commit": "e9a8120c6b7678f430f4f45d1a0fc4207abf8905",
+  "branch": "codex/manual-camera-20261012",
+  "pull_request": "https://github.com/oh-ashen-one/spider-man-2/pull/4",
+  "merge_approved": false,
+  "music": "Curious Groove",
+  "music_loop_seconds": 147.07,
+  "controls": {
+    "Q/L1": "camera-directed boost",
+    "E/Triangle": "targeted perch zip",
+    "F/Square": "trick",
+    "RMB/R2": "swing"
+  },
+  "runtime_verification": {
+    "verified_utc": "2026-10-12T18:17:06.174975+00:00",
+    "exit_code": 0,
+    "output": [
+      1920,
+      1080
+    ],
+    "music_loop_verified": true,
+    "native_image_inspected": true,
+    "runtime_files": 51168,
+    "source_copy_hash_mismatches": [],
+    "performance_claim": false
+  },
+  "dylib_sha256": "0dee486023e6b9116dc5afad4b68b21f053682371acc6ccee672c0b7d7be1571"
+}
