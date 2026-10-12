@@ -65,6 +65,16 @@ int main(){
      const FVector root=centre-q.RotateVector(FVector(0,0,95));assert((root+q.RotateVector(FVector(0,0,95))-centre).Size()<1e-8);
     }
    }
+   // Compare the angle table's finite differences with the reported rate on the real 240Hz grid.
+   // A telemetry-only ceiling or normalization that forgot the clipped integral fails this parity check.
+   for(int grid=0;grid<int(p->Dur()*240)-2;grid++){
+    const float a=float(grid)/240.f,b=float(grid+1)/240.f,m=(float(grid)+.5f)/240.f;
+    const auto pa=WebFlips::Sample(*p,a),pb=WebFlips::Sample(*p,b),pm=WebFlips::Sample(*p,m);
+    const float derivative=(pb.PitchDeg-pa.PitchDeg)/(b-a);
+    assert(std::abs(derivative-pm.PitchRate)<.2f);
+    if(p->EntryRateLimit>0&&m<p->Segs[0].Dur)assert(std::abs(pm.PitchRate)<=p->EntryRateLimit);
+   }
+   assert(std::abs(WebFlips::Sample(*p,p->Dur()-.001f).PitchDeg-p->PitchDeg)<.2f);
    const auto e=WebFlips::Sample(*p,p->Dur());const auto pre=WebFlips::Sample(*p,p->Dur()-1.e-5f);const auto post=WebFlips::Sample(*p,p->Dur()+.5f);
    assert(e.PitchDeg==p->PitchDeg&&post.PitchDeg==p->PitchDeg&&post.PitchRate==0);
    maxErr=std::max(maxErr,std::abs(e.PitchDeg-pre.PitchDeg));
