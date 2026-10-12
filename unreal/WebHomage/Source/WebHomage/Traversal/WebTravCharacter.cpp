@@ -886,6 +886,17 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 	if (!bPre && !(Script && Script->IsActive())) WatchInput(Cast<APlayerController>(GetController()), I, DeltaSeconds);
 	FTravCamInput CI;
 	CI.Pos = Traversal->PosM(); CI.Vel = Traversal->VelM(); CI.Mode = Traversal->Anim.Mode; CI.Sub = Traversal->Sub(); CI.ModeT = Traversal->ModeT();
+	if (bHeroMesh && GetMesh())
+	{
+		// The mesh still has the preceding frame's pose/location here. Store world-axis offsets from THAT body
+		// centre; the camera rebases them onto current traversal Pos so fast travel cannot leave the bounds behind.
+		const FVector PrevBody = GetActorLocation() / 100.0
+			+ FVector(0, 0, UWebTraversalComponent::H - GetCapsuleComponent()->GetScaledCapsuleHalfHeight() / 100.0);
+		const FTransform MeshToWorld = GetMesh()->GetComponentTransform();
+		for (const FTransform& Bone : GetMesh()->GetComponentSpaceTransforms())
+			CI.BodyBounds += MeshToWorld.TransformPosition(Bone.GetLocation()) / 100.0 - PrevBody;
+		if (CI.BodyBounds.IsValid) CI.BodyBounds = CI.BodyBounds.ExpandBy(0.10);
+	}
 	CI.bHasAnchor = Traversal->IsSwinging(); CI.Anchor = Traversal->SwingAnchor();
 	CI.bHasSwingDir = Traversal->IsSwinging(); CI.SwingDir = Traversal->SwingDir();
 	CI.WallNormal = Traversal->WallNormal(); CI.Facing = Traversal->Facing(); CI.bDive = Traversal->IsDiving();

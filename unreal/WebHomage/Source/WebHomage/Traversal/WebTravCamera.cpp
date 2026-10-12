@@ -316,7 +316,11 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		{
 			if (Zf > 0.3 * Dh)
 			{
-				EdgeGoal = Smooth(BodyFrameEdge(BodyEnvelope(P), CamPos, CamRot, HalfV, HalfH), 0.68, 0.98);
+				const double OffH = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Y)), Zf);
+				const double OffV = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Z)), Zf);
+				const double Edge = FlipK > 1e-3 ? BodyFrameEdge(BodyEnvelope(P), CamPos, CamRot, HalfV, HalfH)
+					: FMath::Max(FMath::Abs(OffH) / FMath::Max(1e-3, HalfH), FMath::Abs(OffV) / FMath::Max(1e-3, HalfV));
+				EdgeGoal = Smooth(Edge, 0.68, 0.98);
 			}
 			else EdgeGoal = 1.0; // beside / behind the lens: full boost (the watchdog's frustum test covers the same case)
 		}
