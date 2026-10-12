@@ -63,8 +63,8 @@ struct FWebFlipPose
 
 namespace WebFlips
 {
-	// Ease authored-lean compensation through the entry crossfade, independently of the momentum timeline.
-	constexpr float PoseEntryS = 0.25f;
+	// Settle authored-lean compensation before the first fast tuck plateau, independently of the momentum timeline.
+	constexpr float PoseEntryS = 0.10f;
 	/** Blender clip name of a shape (flipTuck ...). */
 	const TCHAR* ShapeClip(EWebFlipShape S);
 	const TCHAR* ShapeName(EWebFlipShape S);
