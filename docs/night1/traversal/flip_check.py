@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
 # P3 round 11: flips vs FLIPS_SPEC.md (owner clip numbers). usage: flip_check.py <telemetry.csv> <label>
-# Per trick (rows with flip_prog set): program, duration, rotations, and from the RENDERED body axis (hips->head from the bones,
-# shifted one row like every bone column): rate over 0.04 s windows (peak / mean / slowest), holds (<= 150 deg/s), ease ratio,
+# Per trick (rows with flip_prog set): program, duration, rotations, and from the RENDERED body axis (hips->head from the bones;
+# post-animation columns are same-row, legacy bone columns shift one row within each case): rate over 0.04 s windows,
+# (peak / mean / slowest), holds (<= 150 deg/s), ease ratio,
 # twist + body tilt, release->trick delay, catch continuity, leg lag at shape changes; camera roll / hero size / camera height.
 import csv
 import math
@@ -16,20 +17,33 @@ def f(r, k, d=0.0):
         return d
 
 
+def same_case(a, b):
+    """Legacy case-less CSVs are one run; named case resets are hard boundaries."""
+    return a.get("case", "") == b.get("case", "")
+
+
 def main(path, label):
-    R = list(csv.DictReader(open(path)))
+    with open(path, newline="") as stream:
+        R = list(csv.DictReader(stream))
     n = len(R)
     t = [f(r, "t") for r in R]
-    # rendered body pitch (bones sampled at the start of the next frame -> row i+1 describes row i)
-    bp = [f(R[min(i + 1, n - 1)], "body_pitch_deg") for i in range(n)]
-    bax = [f(R[min(i + 1, n - 1)], "body_axis_deg") for i in range(n)]
+    # New post-animation columns describe the row actually rendered. Legacy
+    # columns are one row late. Never borrow a new scripted case's spawn pose
+    # to complete a legacy flip window.
+    same_frame = bool(n) and all(f(row, "fw_body_pitch_deg", None) is not None and f(row, "fw_body_axis_deg", None) is not None for row in R)
+    if same_frame:
+        bp = [f(row, "fw_body_pitch_deg") for row in R]
+        bax = [f(row, "fw_body_axis_deg") for row in R]
+    else:
+        bp = [f(R[i + 1], "body_pitch_deg") if i + 1 < n and same_case(R[i], R[i + 1]) else None for i in range(n)]
+        bax = [f(R[i + 1], "body_axis_deg") if i + 1 < n and same_case(R[i], R[i + 1]) else None for i in range(n)]
     px_h = [(f(r, "px_bottom") - f(r, "px_top")) / 1080.0 if f(r, "px_bottom") > 0 else -1 for r in R]
     tricks = []
     i = 0
     while i < n:
         if R[i]["flip_prog"]:
             j = i
-            while j + 1 < n and R[j + 1]["flip_prog"] == R[i]["flip_prog"] and f(R[j + 1], "flip_t") >= f(R[j], "flip_t"):
+            while j + 1 < n and same_case(R[j], R[j + 1]) and R[j + 1]["flip_prog"] == R[i]["flip_prog"] and f(R[j + 1], "flip_t") >= f(R[j], "flip_t"):
                 j += 1
             tricks.append((i, j))
             i = j + 1
@@ -38,15 +52,23 @@ def main(path, label):
     out = []
     P = out.append
     P("FLIP CHECK %s (%s): %d tricks" % (label, path.split("/")[-1], len(tricks)))
+    P("rendered-axis phase: %s" % ("same-frame post-animation" if same_frame else "legacy case-bounded one-row shift"))
     allpass = True
     for k, (a, b) in enumerate(tricks):
         prog = R[a]["flip_prog"]
         dur = t[b] - t[a]
         prog_rot = abs(f(R[b], "flip_pitch_deg")) / 360.0
         twist = abs(f(R[b], "flip_twist_deg"))
-        # unwrap the rendered pitch over the trick
+        # Only the last rendered sample can be unavailable. All earlier 0.04 s
+        # windows still count, including genuine high-rate primary tuck peaks.
+        measured_end = b if bp[b] is not None else b - 1
+        if measured_end < a or bp[a] is None:
+            P("-- trick %d: %s  t %.2f-%.2f (%.2f s)" % (k + 1, prog, t[a], t[b], dur))
+            P("   rendered axis n/m: no same-case shifted pose samples")
+            allpass = False
+            continue
         un = [bp[a]]
-        for i in range(a + 1, b + 1):
+        for i in range(a + 1, measured_end + 1):
             d = bp[i] - bp[i - 1]
             d = (d + 180) % 360 - 180
             un.append(un[-1] + d)
@@ -59,7 +81,7 @@ def main(path, label):
             rt.append(t[a + i])
         peak = max(rates) if rates else 0
         # F2 over the program itself (a held final reach while waiting for the web is not rotation time)
-        pe = max([i for i in range(a, b + 1) if f(R[i], "flip_rate_dps") != 0.0] or [b])
+        pe = max([i for i in range(a, measured_end + 1) if f(R[i], "flip_rate_dps") != 0.0] or [measured_end])
         mean = abs(un[pe - a] - un[0]) / max(1e-3, t[pe] - t[a])
         # holds: longest run with the rate <= 150 deg/s (rendered), and its shape
         best, bs, cur, cs = 0.0, "", 0.0, None
@@ -82,7 +104,7 @@ def main(path, label):
                     eases.append(max(ch) / max(20.0, min(ch)))
                 start = i
         # twist tilt: body axis from vertical while the twist is turning
-        tilt = [bax[i] for i in range(a + 1, b + 1) if abs(f(R[i], "flip_twist_deg") - f(R[i - 1], "flip_twist_deg")) > 0.5]
+        tilt = [bax[i] for i in range(a + 1, measured_end + 1) if bax[i] is not None and abs(f(R[i], "flip_twist_deg") - f(R[i - 1], "flip_twist_deg")) > 0.5]
         # release -> trick start
         rel = None
         for i in range(a, max(-1, a - 120), -1):
@@ -92,6 +114,8 @@ def main(path, label):
         # catch: next swing row after the trick
         catch_dt, catch_ax = None, None
         for i in range(b + 1, min(n, b + 90)):
+            if not same_case(R[b], R[i]):
+                break
             if R[i]["mode"] in ("swing",):
                 catch_dt, catch_ax = t[i] - t[b], bax[i]
                 break
@@ -112,6 +136,8 @@ def main(path, label):
         hs = sorted(px_h[i] for i in range(a, b + 1) if px_h[i] > 0)
         q = lambda L, p: L[min(len(L) - 1, int(p * (len(L) - 1)))] if L else float("nan")
         P("-- trick %d: %s  t %.2f-%.2f (%.2f s)" % (k + 1, prog, t[a], t[b], dur))
+        if measured_end < b:
+            P("   rendered axis limit: final %.4f s sample has no same-case next-row pose; rates measured through %.4f s" % (t[b] - t[measured_end], t[measured_end]))
         P("   F1 rotations: program %.2f, rendered %.2f; twist %.0f deg" % (prog_rot, rend_rot, twist))
         f2 = 300 <= mean <= 500 if prog_rot >= 1.5 else None
         f3 = 450 <= peak <= 800
