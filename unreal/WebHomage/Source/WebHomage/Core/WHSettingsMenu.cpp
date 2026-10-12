@@ -14,6 +14,7 @@
 #include "Widgets/Input/SSlider.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
+#include "Widgets/Layout/SScrollBox.h"
 #include "Widgets/SBoxPanel.h"
 #include "Widgets/SOverlay.h"
 #include "Widgets/Text/STextBlock.h"
@@ -63,6 +64,12 @@ namespace
 		return SNew(STextBlock).Text(T).Font(Font("Bold", 14)).ColorAndOpacity(DimCol);
 	}
 
+	TSharedRef<SWidget> HelpText(const FText& T)
+	{
+		return SNew(STextBlock).Text(T).Font(Font("Regular", 17)).ColorAndOpacity(TextCol)
+			.AutoWrapText(true).LineHeightPercentage(1.2f);
+	}
+
 	bool IsAcceptKey(const FKeyEvent& E)
 	{
 		return FSlateApplication::Get().GetNavigationActionFromKey(E) == EUINavigationAction::Accept;
@@ -93,7 +100,7 @@ namespace
 				]
 				+ SHorizontalBox::Slot().FillWidth(1.f).HAlign(HAlign_Center).VAlign(VAlign_Center)
 				[
-					SNew(STextBlock).Font(Font("Bold", 20)).ColorAndOpacity(TextCol)
+					SNew(STextBlock).Font(Font("Bold", 18)).ColorAndOpacity(TextCol).AutoWrapText(true).Justification(ETextJustify::Center)
 					.Text_Lambda([this] { return Name(Get()); })
 				]
 				+ SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
@@ -130,6 +137,7 @@ void SWHSettingsMenu::Construct(const FArguments& InArgs)
 {
 	Owner = InArgs._Owner;
 	WHSettings().SyncFromCVars();
+	const bool bProfile = FWHSettings::ActiveProfile() != FWHSettings::EProfile::None;
 
 	auto Times = [](float V) { return FText::FromString(FString::Printf(TEXT("%.2fx"), V)); };
 	auto Deg = [](float V) { return FText::FromString(FString::Printf(TEXT("%.0f°"), V)); };
@@ -144,9 +152,19 @@ void SWHSettingsMenu::Construct(const FArguments& InArgs)
 		]
 		+ SOverlay::Slot().HAlign(HAlign_Center).VAlign(VAlign_Center).Padding(16.f)
 		[
-			SNew(SBox).WidthOverride(800.f)
+			SNew(SBox)
+			.WidthOverride_Lambda([this]
+			{
+				const float Available = GetCachedGeometry().GetLocalSize().X;
+				return FOptionalSize(Available > 0.f ? FMath::Min(800.f, FMath::Max(320.f, Available - 32.f)) : 800.f);
+			})
+			.HeightOverride_Lambda([this]
+			{
+				const float Available = GetCachedGeometry().GetLocalSize().Y;
+				return FOptionalSize(Available > 0.f ? FMath::Min(840.f, FMath::Max(240.f, Available - 32.f)) : 840.f);
+			})
 			[
-				SNew(SBorder).BorderImage(Panel()).Padding(FMargin(40.f, 28.f))
+				SNew(SBorder).BorderImage(Panel()).Padding(FMargin(24.f, 20.f))
 				[
 					SNew(SVerticalBox)
 					+ SVerticalBox::Slot().AutoHeight()
@@ -163,68 +181,98 @@ void SWHSettingsMenu::Construct(const FArguments& InArgs)
 					]
 					+ SVerticalBox::Slot().AutoHeight().Padding(0.f, 12.f, 0.f, 12.f) [ Separator() ]
 
-					+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 0.f, 0.f, 2.f) [ Section(LOCTEXT("SecControls", "CONTROLS")) ]
-					+ SVerticalBox::Slot().AutoHeight()
+					// The settings remain legible in small playtest windows; focus navigation scrolls the selected row into view.
+					+ SVerticalBox::Slot().FillHeight(1.f)
 					[
-						SliderRow(LOCTEXT("Mouse", "Mouse sensitivity"), FWHSettings::MouseSensMin, FWHSettings::MouseSensMax, 0.05f,
-							[] { return WHSettings().MouseSens; },
-							[](float V) { WHSettings().MouseSens = V; WHSettings().ApplyCVars(); }, Times, /*bFirst*/ true)
-					]
-					+ SVerticalBox::Slot().AutoHeight()
-					[
-						CheckRow(LOCTEXT("InvertY", "Invert Y (look)"),
-							[] { return WHSettings().bInvertY; }, [](bool b) { WHSettings().bInvertY = b; })
-					]
-					+ SVerticalBox::Slot().AutoHeight()
-					[
-						SliderRow(LOCTEXT("Pad", "Gamepad look sensitivity"), FWHSettings::PadSensMin, FWHSettings::PadSensMax, 0.05f,
-							[] { return WHSettings().PadSens; }, [](float V) { WHSettings().PadSens = V; }, Times)
-					]
+						SNew(SScrollBox)
+						.AllowOverscroll(EAllowOverscroll::No)
+						.ScrollWhenFocusChanges(EScrollWhenFocusChanges::InstantScroll)
+						+ SScrollBox::Slot().Padding(0.f, 0.f, 8.f, 0.f)
+						[
+							SNew(SVerticalBox)
+								+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 0.f, 0.f, 2.f) [ Section(LOCTEXT("SecControls", "CONTROLS")) ]
+								+ SVerticalBox::Slot().AutoHeight()
+								[
+									SliderRow(LOCTEXT("Mouse", "Mouse sensitivity"), FWHSettings::MouseSensMin, FWHSettings::MouseSensMax, 0.05f,
+										[] { return WHSettings().MouseSens; },
+										[](float V) { WHSettings().MouseSens = V; WHSettings().ApplyCVars(); }, Times, /*bFirst*/ true)
+								]
+								+ SVerticalBox::Slot().AutoHeight()
+								[
+									CheckRow(LOCTEXT("InvertY", "Invert Y (look)"),
+										[] { return WHSettings().bInvertY; }, [](bool b) { WHSettings().bInvertY = b; })
+								]
+								+ SVerticalBox::Slot().AutoHeight()
+								[
+									SliderRow(LOCTEXT("Pad", "Gamepad look sensitivity"), FWHSettings::PadSensMin, FWHSettings::PadSensMax, 0.05f,
+										[] { return WHSettings().PadSens; }, [](float V) { WHSettings().PadSens = V; }, Times)
+								]
 
-					+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 12.f, 0.f, 2.f) [ Section(LOCTEXT("SecCamera", "CAMERA")) ]
-					+ SVerticalBox::Slot().AutoHeight()
-					[
-						SliderRow(LOCTEXT("Fov", "Field of view"), FWHSettings::FovMin, FWHSettings::FovMax, 1.f,
-							[] { return WHSettings().FovH; }, [](float V) { WHSettings().FovH = V; }, Deg)
-					]
-					+ SVerticalBox::Slot().AutoHeight()
-					[
-						CheckRow(LOCTEXT("Shake", "Camera shake"),
-							[] { return WHSettings().bCameraShake; }, [](bool b) { WHSettings().bCameraShake = b; })
-					]
+								+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 12.f, 0.f, 2.f) [ Section(LOCTEXT("SecCamera", "CAMERA")) ]
+								+ SVerticalBox::Slot().AutoHeight()
+								[
+									SliderRow(LOCTEXT("Fov", "Field of view"), FWHSettings::FovMin, FWHSettings::FovMax, 1.f,
+										[] { return WHSettings().FovH; }, [](float V) { WHSettings().FovH = V; }, Deg)
+								]
+								+ SVerticalBox::Slot().AutoHeight()
+								[
+									CheckRow(LOCTEXT("Shake", "Camera shake"),
+										[] { return WHSettings().bCameraShake; }, [](bool b) { WHSettings().bCameraShake = b; })
+								]
 
-					+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 12.f, 0.f, 2.f) [ Section(LOCTEXT("SecHero", "HERO")) ]
-					+ SVerticalBox::Slot().AutoHeight()
-					[
-						ChoiceRow(LOCTEXT("HeroSuit", "Suit (T / D-pad Up in play)"), FMath::Max(1, WHHeroSuits::Count()),
-							[] { return WHHeroSuits::Current(); }, [](int32 I) { WHHeroSuits::Set(I, TEXT("menu")); },
-							[](int32 I) { return WHHeroSuits::Name(I); })
-					]
+								+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 12.f, 0.f, 2.f) [ Section(LOCTEXT("SecHero", "HERO")) ]
+								+ SVerticalBox::Slot().AutoHeight()
+								[
+									ChoiceRow(LOCTEXT("HeroSuit", "Suit"), FMath::Max(1, WHHeroSuits::Count()),
+										[] { return WHHeroSuits::Current(); }, [](int32 I) { WHHeroSuits::Set(I, TEXT("menu")); },
+										[](int32 I) { return WHHeroSuits::Name(I); })
+								]
 
-					+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 12.f, 0.f, 2.f) [ Section(LOCTEXT("SecGraphics", "GRAPHICS")) ]
-					+ SVerticalBox::Slot().AutoHeight()
-					[
-						ChoiceRow(LOCTEXT("Quality", "Quality preset"), FWHSettings::QualityMax + 1,
-							[] { return WHSettings().Quality; }, [](int32 Q) { WHSettings().Quality = Q; WHSettings().ApplyRender(); },
-							[](int32 Q) { return FWHSettings::QualityName(Q); })
-					]
-					+ SVerticalBox::Slot().AutoHeight()
-					[
-						SliderRow(LOCTEXT("ResScale", "Resolution scale"), float(FWHSettings::ResScaleMin), float(FWHSettings::ResScaleMax), 5.f,
-							[] { return float(WHSettings().ResScale); },
-							[](float V) { const int32 R = FMath::RoundToInt(V / 5.f) * 5; if (R != WHSettings().ResScale) { WHSettings().ResScale = R; WHSettings().ApplyRender(); } },
-							Pct)
-					]
-					+ SVerticalBox::Slot().AutoHeight()
-					[
-						ChoiceRow(LOCTEXT("Window", "Window mode"), 3,
-							[] { return WHSettings().WindowMode; }, [](int32 M) { WHSettings().WindowMode = M; WHSettings().ApplyWindow(); },
-							[](int32 M) { return FWHSettings::WindowModeName(M); })
-					]
-					+ SVerticalBox::Slot().AutoHeight()
-					[
-						CheckRow(LOCTEXT("VSync", "V-sync"),
-							[] { return WHSettings().bVSync; }, [](bool b) { WHSettings().bVSync = b; WHSettings().ApplyRender(); })
+								+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 12.f, 0.f, 2.f) [ Section(LOCTEXT("SecGraphics", "GRAPHICS")) ]
+								+ SVerticalBox::Slot().AutoHeight()
+								[
+									ChoiceRow(LOCTEXT("Quality", "Quality preset"), FWHSettings::QualityMax + 1,
+										[] { return WHSettings().Quality; }, [](int32 Q) { WHSettings().Quality = Q; WHSettings().ApplyRender(); },
+										[](int32 Q) { return FWHSettings::QualityName(Q); })
+								]
+								+ SVerticalBox::Slot().AutoHeight()
+								[
+									SliderRow(LOCTEXT("ResScale", "Resolution scale"), float(FWHSettings::ResScaleMin), float(FWHSettings::ResScaleMax), 5.f,
+										[] { return float(WHSettings().ResScale); },
+										[](float V) { const int32 R = FMath::RoundToInt(V / 5.f) * 5; if (R != WHSettings().ResScale) { WHSettings().ResScale = R; WHSettings().ApplyRender(); } },
+										Pct)
+								]
+								+ SVerticalBox::Slot().AutoHeight()
+								[
+									ChoiceRow(LOCTEXT("Window", "Window mode"), 3,
+										[] { return WHSettings().WindowMode; }, [](int32 M) { WHSettings().WindowMode = M; WHSettings().ApplyWindow(); },
+										[](int32 M) { return FWHSettings::WindowModeName(M); })
+								]
+								+ SVerticalBox::Slot().AutoHeight()
+								[
+									SNew(SBox).Visibility(bProfile ? EVisibility::Collapsed : EVisibility::Visible)
+									[
+										CheckRow(LOCTEXT("VSync", "V-sync"),
+											[] { return WHSettings().bVSync; }, [](bool b) { WHSettings().bVSync = b; WHSettings().ApplyRender(); })
+									]
+								]
+								+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 8.f, 10.f, 4.f)
+								[
+									SNew(STextBlock).Visibility(bProfile ? EVisibility::Visible : EVisibility::Collapsed)
+									.Text(LOCTEXT("ProfileVSync", "V-sync is off in this playtest profile to keep input responsive."))
+									.Font(Font("Regular", 16)).ColorAndOpacity(DimCol).AutoWrapText(true)
+								]
+								+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 16.f, 0.f, 6.f) [ Section(LOCTEXT("SecPlayControls", "PLAY CONTROLS")) ]
+								+ SVerticalBox::Slot().AutoHeight().Padding(10.f, 0.f, 10.f, 10.f)
+								[
+									HelpText(LOCTEXT("PlayControls",
+										"Swing: hold Right Mouse / R2.\n"
+										"Perch zip: E / Triangle targets a perch.\n"
+										"Forward boost: Q / L1 boosts where the camera faces.\n"
+										"Air trick: F / Square while airborne.\n"
+										"Change suit: T / D-pad Up."))
+								]
+							]
 					]
 
 					+ SVerticalBox::Slot().AutoHeight().Padding(0.f, 16.f, 0.f, 18.f) [ Separator() ]
@@ -244,11 +292,11 @@ void SWHSettingsMenu::Construct(const FArguments& InArgs)
 							MenuButton(LOCTEXT("Quit", "Quit game"), Danger, [this] { if (Owner.IsValid()) Owner->QuitFromMenu(); })
 						]
 					]
-					+ SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Center).Padding(0.f, 14.f, 0.f, 0.f)
+					+ SVerticalBox::Slot().AutoHeight().Padding(0.f, 14.f, 0.f, 0.f)
 					[
 						SNew(STextBlock)
 						.Text(LOCTEXT("Footer", "Left click in the game captures the mouse.  Escape releases it and opens this menu."))
-						.Font(Font("Regular", 13)).ColorAndOpacity(DimCol)
+						.Font(Font("Regular", 14)).ColorAndOpacity(DimCol).AutoWrapText(true).Justification(ETextJustify::Center)
 					]
 				]
 			]
@@ -269,12 +317,12 @@ TSharedRef<SWidget> SWHSettingsMenu::Row(const FText& Label, TSharedRef<SWidget>
 			return FSlateColor(bFocus ? FLinearColor(Accent.R, Accent.G, Accent.B, 0.20f) : FLinearColor::Transparent);
 		})
 		[
-			SNew(SBox).HeightOverride(RowH)
+			SNew(SBox).MinDesiredHeight(RowH)
 			[
 				SNew(SHorizontalBox)
 				+ SHorizontalBox::Slot().FillWidth(0.47f).VAlign(VAlign_Center)
 				[
-					SNew(STextBlock).Text(Label).Font(Font("Regular", 20)).ColorAndOpacity(TextCol)
+					SNew(STextBlock).Text(Label).Font(Font("Regular", 18)).ColorAndOpacity(TextCol).AutoWrapText(true)
 				]
 				+ SHorizontalBox::Slot().FillWidth(0.39f).VAlign(VAlign_Center).Padding(8.f, 0.f)
 				[
@@ -282,7 +330,7 @@ TSharedRef<SWidget> SWHSettingsMenu::Row(const FText& Label, TSharedRef<SWidget>
 				]
 				+ SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
 				[
-					SNew(SBox).WidthOverride(90.f).HAlign(HAlign_Right)
+					SNew(SBox).WidthOverride(90.f).HAlign(HAlign_Right).Visibility(Value.IsValid() ? EVisibility::Visible : EVisibility::Collapsed)
 					[
 						Value.IsValid() ? Value.ToSharedRef() : SNullWidget::NullWidget
 					]

@@ -1,3 +1,11 @@
+# Active owner playtest feedback — 2026-10-12
+
+Continue PR4 on `codex/manual-camera-20261012` from c7c07fb8 in `/Users/midir/spider-man-2-playtest-feedback-20261012`. Owner has NOT approved merge. Scope: remove all gameplay/debug screen text while retaining readable settings; keep ray tracing/geometry features enabled; remove confusing inactive VSync control in forced-playable profile; improve enabled camera shake; show white web only during active swinging; split camera-facing forward boost from targeted perch zip; stationary ground/perch rest must use spider crouch. Existing camera fixes stay.
+
+Existing bindings already separate E/Triangle zip and Q/L1 quick boost; retain these and make Q/L1 a true camera-direction boost with no nearest-anchor steering. E/Triangle remains targeted zip/perch. Root coordinates code ownership: UI worker Core/WHSettingsMenu.cpp/h + WebHomagePlayerController.cpp/h; traversal worker WebTraversalComponent.cpp/h + WebTravCharacter.cpp/h; rest worker Traversal/Anim/WebTravAnimInstance.cpp/h. Root owns WebTravCamera.cpp/h, build/runtime, docs and integration. Coordinate any cross-file edits. Workers use owner-selected GPT-6.1 Sol/xhigh; no worker engines/builds/Git mutations. Actual MacStudio M3Ultra, UE5.8, shared GPU cap2, root one guarded renderer. Current owner preview launcher76933/engine76943 belongs to this thread; root stops it gracefully before new runtime checks. Original dirty checkout and previous owner artifacts are protected. Use published Epic Unreal skills/routing at76b36ccd28a0; policy freshness live rechecked. Bounded corrections and playtest handoff only, no long polish loop.
+
+---
+
 # Active manual-camera repair — 2026-10-12
 
 Owner requested exactly two fixes: tricks must not select a different camera angle; high mouse/gamepad sensitivity must remain stable. This supersedes the historical held three-quarter trick-camera requirement. Preserve animation, traversal and collision behavior. No broader polish loop.

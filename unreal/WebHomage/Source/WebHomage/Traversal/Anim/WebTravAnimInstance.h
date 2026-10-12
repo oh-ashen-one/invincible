@@ -115,7 +115,7 @@ public:
 	void ResetForSequenceStart()
 	{
 		CurNode = NAME_None; Dominant = NAME_None; NodeT = 0.f; FadeT = 1.f; FadeDur = 0.2f; PrevLayers.Reset(); Frame.Layers.Reset();
-		Frame.ArmAimWeight = 0.f; LocoPhase = 0.f; WallRunPhase = 0.f; bInAirCycle = false; AirCycleT = 0.f; FlavorIdx = -1; CycleCount = 0;
+		Frame.ArmAimWeight = 0.f; LocoPhase = 0.f; WallRunPhase = 0.f; bGroundWInit = false; bInAirCycle = false; AirCycleT = 0.f; FlavorIdx = -1; CycleCount = 0;
 		Frame.ArmAimAge = 0.f; bWebAimPrev = false; PrevAimShotK = -1.f; VisualLaunchAge = 0.f;
 		bReachRight = true; LastMode = EWebTravMode::Ground; Frame.LegLayers.Reset(); Frame.LegW = 0.f; PendingLegs.Reset();
 	}
@@ -153,7 +153,8 @@ private:
 	float NodeT = 0.f, FadeT = 1.f, FadeDur = 0.2f, TotalWeight = 0.f;
 	TArray<FWebTravAnimLayer> PrevLayers;
 	float LocoPhase = 0.f, WallRunPhase = 0.f;
-	// round 22 (characters critic: idle -> run was a 1-frame weight pop): smoothed ground locomotion weights idle / walk / jog / run / sprint
+	// Smoothed ground locomotion weights: spider rest crouch / walk / jog / run / sprint.
+	// The existing blend prevents a one-frame rest -> run weight pop.
 	float GroundW[5] = { 1.f, 0.f, 0.f, 0.f, 0.f };
 	bool bGroundWInit = false;
 	float WallGaitPh = 0.f;

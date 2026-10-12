@@ -323,6 +323,13 @@ public:
 
 	// ---- read-only accessors for camera / telemetry (metres)
 	EWebTravMode Mode() const { return S.Mode; }
+	/** Owner playtest: white strands exist only during an active swing, never release/zip/boost tails. */
+	bool CanRenderSwingWeb(int32 StrandIndex) const
+	{
+		return StrandIndex >= 0 && StrandIndex < 2 && S.Mode == EWebTravMode::Swing
+			&& Strands[StrandIndex].bActive && Strands[StrandIndex].ReleaseT < 0.f;
+	}
+	const FVector& QuickBoostDir() const { return S.Q.Dir; }
 	FName Sub() const { return S.Sub; }
 	double ModeT() const { return S.ModeT; }
 	const FVector& PosM() const { return S.Pos; }
@@ -452,10 +459,10 @@ private:
 	};
 	struct FQuick
 	{
-		bool bActive = false, bRightHand = true, bApplied = false, bWebOn = false, bSky = false;
-		double T = 0, HitT = 0.08, Dist = 0, K = 1, Last = -9;
+		bool bActive = false, bRightHand = true;
+		double T = 0, K = 1, Last = -9;
 		int32 N = 0, Seq = 0;
-		FVector Anchor = FVector::ZeroVector, Normal = FVector::ForwardVector;
+		FVector Dir = FVector::ForwardVector;
 	};
 	struct FState
 	{
@@ -586,7 +593,6 @@ private:
 	void PointLaunch(const FVector& Normal, const FVector& TravelV);
 	void WebDash();
 	// ---- quick boost
-	void QuickAnchor(FVector& Out, FVector& NOut, double& Dist, bool& bSky);
 	void QuickBoostStart();
 	void QuickImpulse();
 	void StepQuickBoost(double Dt);

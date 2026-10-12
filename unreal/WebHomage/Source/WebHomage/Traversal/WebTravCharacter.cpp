@@ -1366,12 +1366,11 @@ void AWebTravCharacter::PoseFigure(float Dt)
 	{
 		for (int32 S = 0; S < 2; ++S) { const double Sd = S == 0 ? -1.0 : 1.0; Arm[S] = FVector(0.7, 0.3 * Sd, -0.6); Leg[S] = FVector(0.9, 0.3 * Sd, -0.35); }
 	}
-	// quick web boost: the web hand reaches for its anchor
-	if (A.bQuickActive && A.QuickT < 0.4f)
+	// Keep the ordinary boost reach camera-directed; an active flip keeps its authored arm shape.
+	if (M == EWebTravMode::Air && A.Sub != N_trick && A.bQuickActive && A.QuickT < 0.4f)
 	{
 		const int32 H = A.bQuickRightHand ? 1 : 0;
-		const FWebTravStrand& St = Traversal->Strands[0];
-		if (St.bActive) Arm[H] = ToLocal(St.Anchor * 100.0 - ArmPivot[H]->GetComponentLocation());
+		Arm[H] = ToLocal(Traversal->QuickBoostDir());
 	}
 	const double K = 1.0 - FMath::Exp(-18.0 * Dt);
 	for (int32 S = 0; S < 2; ++S)
@@ -1385,6 +1384,15 @@ void AWebTravCharacter::PoseFigure(float Dt)
 
 void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 {
+	// Owner playtest visibility invariant: the white web exists ONLY while actually swinging.
+	// Explicitly hide every legacy segment/proxy, including the second zip strand, on release,
+	// cancel, boost, perch, wall and idle. A tiny visible RopeKeepProxy still violates this rule.
+	if (!Traversal || Traversal->Mode() != EWebTravMode::Swing)
+	{
+		for (int32 SI = 0; SI < 2; ++SI) { bRopeDrawn[SI] = false; bWasReleased[SI] = false; }
+		for (UStaticMeshComponent* C : WebSegs) if (C) C->SetVisibility(false);
+		return;
+	}
 	// round 25: the rope look (RopeLook 1 = unlit two-tone M_TravWeb with a screen-space width clamp; 0 = r24 lit dark line)
 	const bool bTwoTone = Traversal->RopeLook > 0.5f && WebMatTwoTone[0] != nullptr && WebMatTwoTone[1] != nullptr;
 	if (WebLookNow != (bTwoTone ? 1 : 0))
@@ -1419,6 +1427,13 @@ void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 	{
 		bRopeDrawn[SI] = false;
 		const FWebTravStrand& St = Traversal->Strands[SI];
+		if (!Traversal->CanRenderSwingWeb(SI))
+		{
+			bWasReleased[SI] = false;
+			for (int32 K = 0; K < SEGS_PER_STRAND; ++K)
+				if (UStaticMeshComponent* C = WebSegs[SI * SEGS_PER_STRAND + K]) C->SetVisibility(false);
+			continue;
+		}
 		const bool bReleased = St.bActive && St.ReleaseT >= 0.f;
 		const bool bInFlight = St.bActive && !bReleased && St.Age < St.ShootDur;   // round 11: the shot is still flying
 		const FVector Hand = PalmWorldCm(St.bRightHand);
@@ -1469,12 +1484,9 @@ void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 		for (int32 K = 0; K < SEGS_PER_STRAND; ++K)
 		{
 			UStaticMeshComponent* C = WebSegs[SI * SEGS_PER_STRAND + K];
-			// r25 build 3: with RopeKeepProxy an unused segment stays "visible" at a 1e-4 scale instead of being hidden -- a segment
-			// switched visible on the attach frame rendered one frame late (rope_r25_check: no strand in the frame of the first web_on row)
 			auto HideSeg = [&](UStaticMeshComponent* Seg)
 			{
-				if (bTwoTone && Traversal->RopeKeepProxy > 0.5f) { Seg->SetWorldScale3D(FVector(1e-4)); Seg->SetVisibility(true); }
-				else Seg->SetVisibility(false);
+				if (Seg) Seg->SetVisibility(false);
 			};
 			if (!St.bActive || Fade <= 0.01 || D.Size() < 5.0) { HideSeg(C); continue; }
 			auto P = [&](double U)
@@ -1905,7 +1917,7 @@ void AWebTravCharacter::PushTelemetry(double T, const FWebTravInput& I)
 		Cam.bCamInGeometry ? 1 : 0, Cam.FrameS, I.bTrick ? 1 : 0, *Node, *ClipN, AW, Flav, *Sig,
 		PcmLoc.X / 100.0, PcmLoc.Y / 100.0, PcmLoc.Z / 100.0, PcmRot.Pitch, PcmRot.Yaw, PcmFov, PxTop, PxBottom, PxLeft, PxRight,
 		HeadHipDz, LimbZ.IsEmpty() ? TEXT("-") : *LimbZ, BodyRope,
-		(Traversal->Strands[0].bActive && Traversal->Strands[0].ReleaseT < 0.f) || (Traversal->Strands[1].bActive && Traversal->Strands[1].ReleaseT < 0.f) ? 1 : 0, WallFrac, HeroOccl, bBehind ? -1.0 : 0.5 * (MinX + MaxX), PcmRot.Roll);
+		(Traversal->CanRenderSwingWeb(0) || Traversal->CanRenderSwingWeb(1)) ? 1 : 0, WallFrac, HeroOccl, bBehind ? -1.0 : 0.5 * (MinX + MaxX), PcmRot.Roll);
 	// round 12: armed apex flip, flip camera view search (yaw offset from behind, elevation below the hero, ring sky share of the
 	// chosen view), tallest roof near the last sky launch's flip and its solved peak (m over the street)
 	// round 13: camera output slew-limit flags (1 position, 2 pitch, 4 yaw) and the hero fill light (cd)

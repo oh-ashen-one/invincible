@@ -118,6 +118,8 @@ void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
 	bFlipObstacleOut = bHaveFlipVelocity = false; ForecastGravity = 10.8;
 	FlipFrameTail = 0.0;
 	StartupFrameTail = 1.0;
+	Trauma = ShakeEnvelope = ShakeEnvelopeV = 0.0; bWasSwinging = false;
+	Punch = PunchV = Dip = DipV = KickK = KickV = 0.0;
 }
 
 void FWebTravCamera::ApplyLook(const FVector2D& Look)
@@ -145,6 +147,14 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	const double Speed = Vel.Size(), HS = FVector2D(Vel.X, Vel.Y).Size();
 	const EWebTravMode M = P.Mode;
 	const bool bSwinging = M == EWebTravMode::Swing, bAir = M == EWebTravMode::Air || M == EWebTravMode::Zip, bDive = P.bDive;
+	// Off takes effect immediately, including impulses already in flight. Catch and speed feedback only run when enabled.
+	if (!bJolts)
+	{
+		Trauma = ShakeEnvelope = ShakeEnvelopeV = 0.0;
+		Punch = PunchV = Dip = DipV = KickK = KickV = 0.0;
+	}
+	else if (bSwinging && !bWasSwinging) Shake(0.10 + 0.10 * Smooth(Speed, 10.0, 35.0));
+	bWasSwinging = bSwinging;
 	const FString SubS = P.Sub.ToString();
 	const bool bLandSub = SubS.StartsWith(TEXT("land")), bLedgeSub = SubS.StartsWith(TEXT("ledge"));
 
@@ -274,13 +284,17 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	const FVector PrevComposeHero = bHaveComposeHero ? LastComposeHero : P.Pos;
 	ComposeChase(Dt, P, World, Fwd);
 	const FVector LookAt = CamPos + CamRot.Vector() * 10.0;
-	// shake
-	Trauma = FMath::Max(0.0, Trauma - Dt * 1.5);
-	const double Sh = Trauma * Trauma;
+	// Small events used to be squared and disappear in one or two frames. A smooth envelope gives catches/boosts
+	// a short readable beat; gentle speed feedback keeps enabled shake perceptible during the swing itself.
+	const double SpeedShake = bJolts && bSwinging ? 0.18 * Smooth(Speed, 12.0, 38.0) : 0.0;
+	const double ShakeTarget = bJolts ? FMath::Min(0.75, Trauma + SpeedShake) : 0.0;
+	SD(ShakeEnvelope, ShakeEnvelopeV, ShakeTarget, ShakeTarget > ShakeEnvelope ? 0.055 : 0.15, Dt);
+	Trauma = bJolts ? Trauma * FMath::Exp(-5.0 * Dt) : 0.0;
+	const double Sh = FMath::Clamp(ShakeEnvelope, 0.0, 0.75);
 	FRotator R = CamRot;
-	R.Roll = FMath::RadiansToDegrees(Roll + Sh * 0.045 * Noise(Time * 22.0, 3.0));
-	R.Pitch += FMath::RadiansToDegrees(Sh * 0.035 * Noise(Time * 25.0, 1.0));
-	R.Yaw += FMath::RadiansToDegrees(Sh * 0.035 * Noise(Time * 24.0, 7.0));
+	R.Roll = FMath::RadiansToDegrees(Roll) + Sh * 1.7 * Noise(Time * 8.0, 3.0);
+	R.Pitch += Sh * 1.15 * Noise(Time * 9.0, 1.0);
+	R.Yaw += Sh * 0.7 * Noise(Time * 8.5, 7.0);
 	CamRot = R;
 	OutVFov = FMath::Min(Fov + Punch + 9.0 * FMath::Max(0.0, KickK) + FMath::RadiansToDegrees(AttachFov), 75.0);   // round 11: T14 caps the swing lens at hFOV 110 = vFOV 76; stay 1 deg under
 	(void)LookAt;

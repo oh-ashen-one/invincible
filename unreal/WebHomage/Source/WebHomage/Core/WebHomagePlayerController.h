@@ -60,6 +60,8 @@ private:
 	bool bForceSettings = false;     // -WHShowSettings (debug / screenshot)
 	bool bForcedShown = false;
 	bool bPausedByMenu = false;
+	bool bPreviousScreenMessagesEnabled = true;
+	bool bOwnsScreenMessageDisplay = false;
 	TSharedPtr<class SWHSettingsMenu> SettingsMenu;
 	void RemoveMenuWidget();
 };
