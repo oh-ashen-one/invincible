@@ -1,7 +1,7 @@
 {
   "runtime_source_commit": "19521659",
   "dylib_sha256": "01f9374b288464524637249c55ddb0535688e471572526dd161549f85792f596",
-  "status": "final core captures and relocated runtime verified; independent visual review pending",
+  "status": "historical full-suite build; superseded by scoped camera/launch closeouts ending at2db14214",
   "fixed_step_hz": 60,
   "files": {
     "unreal/WebHomage/Binaries/Mac/libUnrealEditor-WebHomage.dylib": "01f9374b288464524637249c55ddb0535688e471572526dd161549f85792f596",

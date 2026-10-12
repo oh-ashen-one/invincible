@@ -1,0 +1,9 @@
+# Review protocol and build boundaries
+
+A fresh GPT-6.1 Sol/xhigh critic inspected authentic references, then locked five anonymous A/B choices before named native candidate review. AB_IDENTITIES.json maps the choices after locking: newbuild won flip-progress andchain-progress; press-progress narrowly favored thepriorbuild; authenticreferences won bothreferencepairs. The original CRITIC.md judges runtime19521659 and remains unchanged. Its camera and launch findings triggered two narrow closing patches. CAMERA_DELTA.md and LAUNCH_DELTA.md judge their targeted native replays separately.
+
+The three full clips in this folder belong to19521659(5246frames/17cases). Camera-only4220b33b is in ../round-13-four-fixes-camera-closeout/(3targetedcases). Finalruntime5b7b9074, including launch synchronization, is in ../round-13-four-fixes-launch-closeout/(rooflaunch,cancel,repress). The full suite must not be relabeled as a complete replay of5b7b9074. Gameplay/catch timing and flip program/pose sources are unchanged by the closing patches; selected regression captures validate their affected paths. Final local-owner runtime verification is recorded separately.
+
+Private reference footage and normalized comparison videos stay out ofGitHub and the owner artifact. Temporary extracts may be cleaned after retaining source movies, locked choices, timestamps and reports. Numerical and native-pixel evidence are complementary; noqualitythreshold wasweakened. Physicalinput,realtimeperformance andowneracceptance are not certified by offlinecapture.
+
+Final source2db14214 uses a100ms reach with shortvelocityendcaps and40ms reservedvisibleflight. Its roof/repress closeout and finalowner runtime are in ../round-13-four-fixes-reach-closeout/. FINAL_REACH.md is the last independent arm verdict; the original and intermediate reports remain unchanged.

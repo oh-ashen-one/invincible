@@ -14,7 +14,7 @@
     "rotation spikes"
   ],
   "capture_status": "PASS: three final clips,5246frames,17cases",
-  "acceptance": "independent native visual review pending; manual owner acceptance not claimed",
+  "acceptance": "see RESULTS.md and build-specific delta reports; final firingarm visuallyfixed, partialparapetocclusion remains, owneracceptance unclaimed",
   "checker_unit_tests": {
     "count": 4,
     "status": "PASS"
@@ -23,5 +23,6 @@
     "files": 51169,
     "mismatches": 0
   },
-  "owner_artifact_runtime_verified": true
+  "owner_artifact_runtime_verified": true,
+  "final_runtime_source_commit": "2db142143bc60709a1db726a445d17aee2a57aca"
 }
