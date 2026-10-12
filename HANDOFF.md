@@ -1,3 +1,15 @@
+## Manual camera repair complete — 2026-10-12
+
+Owner scope: tricks must preserve player camera direction; high mouse/gamepad sensitivity must remain stable. Runtime source `bb945b1ee60c5c8044c562e7a702018c83e451b4`, branch `codex/manual-camera-20261012`, based on main `9eb3a5a7`. Read `docs/controls/manual-camera-20261012/RESULTS.md` and `metrics.json` for build-labeled before/final evidence. This supersedes the older held three-quarter trick-camera requirement only.
+
+The automatic trick view is disabled while actual trick animation and containment remain. Manual orbit position, spring velocity and aim budgets now move together; live controller input uses the bounded simulation timestep. Ordinary framing stays above the emergency minimum distance, preventing false upward collision corrections in empty air. Maximum-controller-speed replay: horizontal aim error 38.061→0.016 degrees, yaw-limited frames 215→0, full-body frame misses 52→0. Mouse and extreme mouse horizontal replays also have zero yaw-limit or reverse-orbit frames. Native final evidence is fixed60Hz; extracted production math covers30/60/120Hz. Existing air-to-wall reseat and intentional upward-look body cropping remain explicitly documented.
+
+Local playable copy: `/Users/midir/SpiderMan-CameraFixes-OwnerPlaytest-20261012/Play.command`; module SHA256 `b8e257dca01fd996e46fdf53963d26124f09c52952100af3388453295c5931ef`. Owner sensitivity/FOV/suit/settings preserved. Physical controller feel and owner acceptance are not claimed. Original Kimi checkout and prior owner copies remain untouched. Task source is pushed; main merge requires owner approval. No continuing loop or next polish round.
+
+Task worktree `/Users/midir/spider-man-2-manual-camera-20261012` and `/Users/midir/sm2-manual-camera-cache` are disposable after publication and final artifact verification; the independent owner artifact and remote branch remain. Shared policy76b36ccd28a0 was live-verified; native Epic routing and shared GPU guard used. Engineering and independent source review used owner-selected GPT-6.1 Sol/xhigh; root model is app-controlled.
+
+---
+
 ## Four-fix checkpoint complete — 2026-10-12
 
 Final runtime source: `2db142143bc60709a1db726a445d17aee2a57aca`, merged into `main` from `codex/round13-closeout-20261011`. Read `docs/night1/final/swing/round-13-four-fixes-final/RESULTS.md` for the outcomes, build boundaries and remaining limits. This finite owner-requested pass is complete. Do not automatically start another refinement round.

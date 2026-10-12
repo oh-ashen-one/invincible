@@ -1,3 +1,11 @@
+# Active manual-camera repair — 2026-10-12
+
+Owner requested exactly two fixes: tricks must not select a different camera angle; high mouse/gamepad sensitivity must remain stable. This supersedes the historical held three-quarter trick-camera requirement. Preserve animation, traversal and collision behavior. No broader polish loop.
+
+Task branch `codex/manual-camera-20261012`, base main `9eb3a5a7`, worktree `/Users/midir/spider-man-2-manual-camera-20261012`. Original checkout and prior owner artifacts are read-only. Root owns builds and one guarded renderer; engineer owns WebTravCamera.cpp/h and the input timestep hunk in WebTravCharacter.cpp. Follow verified Epic Unreal routing and shared GPU admission. Evidence: `docs/controls/manual-camera-20261012/`; cache `/Users/midir/sm2-manual-camera-cache/`. Push task branch, stop after focused validation and an updated owner build. No new main merge is authorized by this repair request.
+
+---
+
 # Active four-fix pass — 2026-10-11 evening (UTC 2026-10-12)
 
 Owner explicitly requested ONLY: fix camera loss, abrupt firing arm, repetitive catch poses and rotation-rate spikes from the round-13 critic. This supersedes the previous stop for exactly these four repairs. Stay on the existing round13 continuation thread; no city, lighting, web rendering, suit, progression or broad polish changes. Stop after focused verification, independent review and a pushed owner playtest checkpoint.

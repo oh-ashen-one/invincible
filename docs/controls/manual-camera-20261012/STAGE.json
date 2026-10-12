@@ -1,0 +1,23 @@
+{
+  "source_commit": "bb945b1ee60c5c8044c562e7a702018c83e451b4",
+  "branch": "codex/manual-camera-20261012",
+  "created_utc": "2026-10-12T17:28:00.460452+00:00",
+  "engine": "installed UE5.8 on this Mac",
+  "scope": [
+    "tricks preserve player camera",
+    "stable high-sensitivity look"
+  ],
+  "dylib_sha256": "b8e257dca01fd996e46fdf53963d26124f09c52952100af3388453295c5931ef",
+  "runtime_verification": {
+    "verified_utc": "2026-10-12T17:33:30.996108+00:00",
+    "exit_code": 0,
+    "frames": 359,
+    "output": [
+      1920,
+      1080
+    ],
+    "description": "Final relocated installed-engine game, saved owner settings, scripted maximum-speed look/reversal; native screenshot inspected. Physical controller feel not claimed.",
+    "runtime_files_verified": 51167,
+    "hash_mismatches": []
+  }
+}
