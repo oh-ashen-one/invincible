@@ -1,6 +1,6 @@
 # WebHomage — Unreal Engine 5.8 continuation
 
-This is the Unreal project for the Spiderbench fork. The current integrated source is on `codex/round13-closeout-20261011` and the latest verified runtime source is `2db14214`.
+This is the Unreal project for the Spiderbench fork. The current integrated source is on `main`; the latest verified runtime source is `2db14214`.
 
 Read the [project overview](../../README.md), [current Unreal setup and playtest guide](../../docs/UNREAL_PLAYTEST.md), and [generated content policy](CONTENT.md) before building or launching. The clone contains source and reproducible builders; generated Unreal assets and compiled binaries are excluded from Git.
 

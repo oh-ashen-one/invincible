@@ -1,11 +1,11 @@
 # Unreal Engine setup and playtest
 
-The current Unreal implementation is on [`codex/round13-closeout-20261011`](https://github.com/oh-ashen-one/spider-man-2/tree/codex/round13-closeout-20261011). The verified runtime checkpoint is `2db14214`; its public source and evidence are preserved at `9ad990d6`.
+The current Unreal implementation is on [`main`](https://github.com/oh-ashen-one/spider-man-2/tree/main). It includes the integrated continuation branch. The verified runtime source is `2db14214`; its source and evidence were preserved at `9ad990d6` before the merge.
 
 ## Get the correct source
 
 ```bash
-git clone --branch codex/round13-closeout-20261011 https://github.com/oh-ashen-one/spider-man-2.git
+git clone https://github.com/oh-ashen-one/spider-man-2.git
 cd spider-man-2
 ```
 

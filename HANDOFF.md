@@ -1,6 +1,6 @@
 ## Four-fix checkpoint complete — 2026-10-12
 
-Final runtime source: `2db142143bc60709a1db726a445d17aee2a57aca`, on `codex/round13-closeout-20261011`. Read `docs/night1/final/swing/round-13-four-fixes-final/RESULTS.md` for the outcomes, build boundaries and remaining limits. This finite owner-requested pass is complete. Do not automatically start another refinement round.
+Final runtime source: `2db142143bc60709a1db726a445d17aee2a57aca`, merged into `main` from `codex/round13-closeout-20261011`. Read `docs/night1/final/swing/round-13-four-fixes-final/RESULTS.md` for the outcomes, build boundaries and remaining limits. This finite owner-requested pass is complete. Do not automatically start another refinement round.
 
 The reported off-screen camera losses are repaired. The firing-arm snap decreased from 131.6 to 27.48 degrees per frame, with the beam following the raised hand. Three distinct catch silhouettes are established, and the primary rotation spikes are corrected while counts and holds remain. The final independent arm review marks the inspected firing-arm window FIXED visually. Two frames of lower-body parapet occlusion, fast visible web extension and broader pre-existing quality failures remain documented. Full reference quality and owner acceptance are not claimed.
 
