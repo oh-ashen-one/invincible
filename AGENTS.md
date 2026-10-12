@@ -1,3 +1,15 @@
+# Active four-fix pass — 2026-10-11 evening (UTC 2026-10-12)
+
+Owner explicitly requested ONLY: fix camera loss, abrupt firing arm, repetitive catch poses and rotation-rate spikes from the round-13 critic. This supersedes the previous stop for exactly these four repairs. Stay on the existing round13 continuation thread; no city, lighting, web rendering, suit, progression or broad polish changes. Stop after focused verification, independent review and a pushed owner playtest checkpoint.
+
+Integration: `/Users/midir/spider-man-2-r13-fixes`, branch `codex/round13-closeout-20261011`, baseline `ecb68aad`. Original checkout `/Users/midir/spider-man-2` and previous owner playtest `/Users/midir/SpiderMan-R13-OwnerPlaytest-20261011` are read-only. Actual host M3 Ultra Mac15,14 (`midirstudio.local`). Shared brain revision76b36ccd28a0 is live verified. Use Unreal router and Epic MCP skill for every worker; source edits/builds are appropriate for C++ changes. Only root launches engines through existing shared GPU guards; one task renderer, cap2 globally. Never clear PAUSED or operate foreign instances.
+
+Models remain owner-selected: GPT-6 Astra/high orchestration; GPT-6.1 Sol/xhigh engineering and fresh critic; GPT-6 Sol/high scout/tooling. Engineering workers use task-owned sparse worktrees; do not modify integration directly. Camera worker owns WebTravCamera.cpp/h. Flip/catch worker owns WebTravFlips.cpp/h plus explicitly coordinated pose/catch hunks. Root owns firing-arm animation and integration. Scout is read-only until assigned tooling paths. Do not weaken specs/checkers, fake case results, or obtain variety solely by relabeling identical poses.
+
+Output: `docs/night1/final/swing/round-13-four-fixes/`; task cache `/Users/midir/sm2-r13-fourfix-cache/`. Preserve previous clips as before evidence. Verification must reproduce the cited roof case (s3_c6), press case (s2_c1), all seven primary flips and secondary wall tail; inspect actual pixels as well as telemetry. Owner subjective input acceptance remains separate.
+
+---
+
 # Active round-13 closeout — 2026-10-11
 
 Owner explicitly authorized this continuation on the verified M3 Ultra (`midirstudio.local`, Mac15,14). This worktree is task-owned on `codex/round13-closeout-20261011`; `/Users/midir/spider-man-2` is the preserved original and must remain untouched. Existing M5 migration instructions below are historical, not this host identity.

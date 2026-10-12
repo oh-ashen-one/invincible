@@ -1,3 +1,9 @@
+## Active follow-up: four exact fixes
+
+Owner reopened the round13 thread to repair camera loss, firing-arm snap, repetitive catch endings and rotation spikes. Baseline is `ecb68aad`; previous owner artifact remains intact. New integration checkout `/Users/midir/spider-man-2-r13-fixes` uses the same task branch. No engine currently owned/launched for this follow-up. See AGENTS.md for file ownership and `docs/night1/final/swing/round-13-four-fixes/RUN.json` for live state. Previous completion notes below describe the baseline, not completion of this follow-up.
+
+---
+
 ## Bounded round-13 closeout — 2026-10-11
 
 Branch `codex/round13-closeout-20261011` continues the preserved round13 only. Runtime source is frozen at `21e43450c772292c6d9bc51b3ce1c3397ec1ae77`. Read `docs/night1/final/swing/round-13-closeout/RUN.json` for scope, models, deadline and current phase. The owner authorized this finite implementation/build/capture/review pass, then a stop for playtest; no automatic round14. The original dirty checkout and Kimi session are untouched. Preservation remains on `codex/preserve-kimi-spiderman-20261011` at `4f2a10da`.

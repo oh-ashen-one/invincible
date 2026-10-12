@@ -1,0 +1,14 @@
+{
+  "scope": [
+    "camera loss",
+    "firing-arm snap",
+    "catch ending repetition",
+    "rotation-rate spikes"
+  ],
+  "baseline": "ecb68aade62ea2eb5ae201d3ac1a60b28b9d3899",
+  "started_utc": "2026-10-12T02:04:46.113381+00:00",
+  "phase": "diagnosis and scoped source fixes",
+  "automatic_broad_loop": false,
+  "task_renderer_limit": 1,
+  "global_renderer_limit": 2
+}
