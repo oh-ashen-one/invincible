@@ -4,6 +4,28 @@
 #include <set>
 #include <cassert>
 int main(){
+ // A held author-local pose gives the exact final aiming frame; one frame of the existing
+ // 60deg/s BodyAlign slew should leave only about one degree of prediction error, not a static
+ // 9-21deg error. This tests the actual PoseRotation helper, independently of world-pitch feedback.
+ double maxPredictionError=0;
+ for(double forward : {0., .3, .65}) for(double lateral : {0., .2, .4}) {
+  const FVector previousAxis=FVector(forward,lateral,1.).Unit();
+  const FVector currentAxis=FQuat(FVector(0,1,0),3.14159265358979323846/180.).RotateVector(previousAxis);
+  for(float pitch : {-540.f,0.f,720.f}) for(float twist : {0.f,180.f,360.f,720.f}) {
+   FWebFlipPose pose;pose.PitchDeg=pitch;pose.TwistDeg=twist;
+   for(int side : {-1,1}) {
+    const FQuat predicted=WebFlips::PoseRotation(pose,previousAxis,1.f,float(side));
+    const FQuat final=WebFlips::PoseRotation(pose,currentAxis,1.f,float(side));
+    const double dot=std::abs(predicted.X*final.X+predicted.Y*final.Y+predicted.Z*final.Z+predicted.W*final.W);
+    const double error=2*std::acos(std::min(1.,dot))*180./3.14159265358979323846;
+    maxPredictionError=std::max(maxPredictionError,error);assert(error<1.3);
+    const FQuat held=WebFlips::PoseRotation(pose,previousAxis,1.f,float(side));
+    assert((predicted.RotateVector(previousAxis)-held.RotateVector(previousAxis)).Size()<1e-9);
+   }
+  }
+ }
+ std::cout<<"held-pose one-frame BodyAlign prediction error="<<maxPredictionError<<"deg\n";
+
  // Actual PostAnimTick composition is extracted by run.py, so dropping, duplicating or reordering
  // residual air sway in the character fails this noncommuting-rotation regression.
  const FQuat body(FVector(0,0,1),.7), flip(FVector(0,1,0),1.3);
