@@ -63,6 +63,8 @@ struct FWebFlipPose
 
 namespace WebFlips
 {
+	// Ease authored-lean compensation through the entry crossfade, independently of the momentum timeline.
+	constexpr float PoseEntryS = 0.25f;
 	/** Blender clip name of a shape (flipTuck ...). */
 	const TCHAR* ShapeClip(EWebFlipShape S);
 	const TCHAR* ShapeName(EWebFlipShape S);

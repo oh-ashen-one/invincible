@@ -1100,7 +1100,7 @@ void AWebTravCharacter::PostAnimTick(float Dt)
 		if (!WorldAxis.IsNearlyZero())
 		{
 			const FVector PoseAxis = FigureRoot->GetComponentQuat().UnrotateVector(WorldAxis);
-			FlipOffQ = WebFlips::PoseRotation(LastFlip, PoseAxis, float(Smooth01(FlipT / 0.15)), Traversal->Anim.TrickSide);
+			FlipOffQ = WebFlips::PoseRotation(LastFlip, PoseAxis, float(Smooth01(FlipT / WebFlips::PoseEntryS)), Traversal->Anim.TrickSide);
 			// PoseFigure has already advanced the residual air sway. Preserve it once, after the flip
 			// offset in the original multiplication order; dropping it here snapped the trick entry.
 			const FQuat Q = (FlipBodyFrame * FlipOffQ * SwayDeltaQ).GetNormalized();
@@ -1180,9 +1180,9 @@ void AWebTravCharacter::PoseFigure(float Dt)
 	if (FP)
 	{
 		const FWebFlipPose FPo = WebFlips::Sample(*FP, FlipT);
-		// round 14: minus the shape's own hips->head lean (ramped in over the first 0.15 s while the anim crossfades into the first
+		// Minus the shape's own hips->head lean (using the shared entry ramp while the anim crossfades into the first
 		// shape), so the visible body axis turns at the program's eased rate instead of spiking at every shape change
-		const double AxisOff = FPo.AxisOffDeg * Smooth01(FlipT / 0.15);
+		const double AxisOff = FPo.AxisOffDeg * Smooth01(FlipT / WebFlips::PoseEntryS);
 		FlipBodyFrame = Body;
 		// The same-frame evaluated pose replaces this provisional authored-shape compensation in PostAnimTick.
 		FlipOffQ = FQuat(FVector(0, 1, 0), FMath::DegreesToRadians(double(FPo.PitchDeg) - AxisOff))
