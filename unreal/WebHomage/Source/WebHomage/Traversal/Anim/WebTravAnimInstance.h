@@ -112,6 +112,7 @@ public:
 	{
 		CurNode = NAME_None; Dominant = NAME_None; NodeT = 0.f; FadeT = 1.f; FadeDur = 0.2f; PrevLayers.Reset(); Frame.Layers.Reset();
 		Frame.ArmAimWeight = 0.f; LocoPhase = 0.f; WallRunPhase = 0.f; bInAirCycle = false; AirCycleT = 0.f; FlavorIdx = -1; CycleCount = 0;
+		Frame.ArmAimAge = 0.f; bWebAimPrev = false; PrevAimShotK = -1.f;
 		bReachRight = true; LastMode = EWebTravMode::Ground; Frame.LegLayers.Reset(); Frame.LegW = 0.f; PendingLegs.Reset();
 	}
 
@@ -137,6 +138,8 @@ private:
 	UPROPERTY(Transient) TMap<FName, TObjectPtr<UAnimSequence>> Clips;
 	FWebTravAnim A;
 	bool bWebActive = false, bWebRight = true, bSwingHeld = false;
+	bool bWebAimPrev = false;
+	float PrevAimShotK = -1.f;
 	FVector WebAnchorWorld = FVector::ZeroVector;
 
 	FName CurNode, Dominant;

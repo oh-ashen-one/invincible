@@ -562,6 +562,9 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 	// (round 07: also in the air — a web stuck on the rise before its swing starts, dash / boost webs)
 	const bool bAim = bWebActive && (A.Mode == EWebTravMode::Swing || A.Mode == EWebTravMode::Zip || A.Mode == EWebTravMode::Air) && Mesh;
 	const bool bReach = !bAim && A.NoAnchorT >= 0.f && Mesh;   // round 01 (W10): reach-and-miss gesture of a press with no anchor
+	const bool bNewShot = bAim && (!bWebAimPrev || Frame.bArmRight != bWebRight
+		|| (A.WebShotK >= 0.f && (PrevAimShotK < 0.f || A.WebShotK + 0.25f < PrevAimShotK)));
+	if (bNewShot) { Frame.ArmAimAge = 0.f; Frame.ArmAimWeight = 0.f; }
 	Frame.bArmAim = bAim || bReach;
 	Frame.bArmRight = bReach ? A.bNoAnchorRight : bWebRight;
 	if (bReach)
@@ -573,11 +576,15 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 	}
 	else
 	{
-	// round 01 (W2): the firing arm is on its way to the anchor from the press frame and fully aimed within 0.04 s (was a 0.15 s ramp: the arm was ~half-way when the tip landed)
-	Frame.ArmAimWeight = bAim ? FMath::Clamp(Frame.ArmAimWeight + Dt / 0.025f, 0.f, 1.f) : FMath::Clamp(Frame.ArmAimWeight - Dt / 0.2f, 0.f, 1.f);
+	// Begin on the press frame but ease the actual pose over several frames, rather than applying two 25 ms ramps.
+	// Short flights finish the reach before tip arrival; long flights use the 100 ms shoulder/elbow anticipation.
 	Frame.ArmAimAge = bAim ? Frame.ArmAimAge + Dt : 0.f;
+	const float AimProgress = FMath::Max(Frame.ArmAimAge / 0.10f, A.WebShotK >= 0.f ? A.WebShotK / 0.80f : 0.f);
+	Frame.ArmAimWeight = bAim ? Smooth01(AimProgress) : FMath::Max(0.f, Frame.ArmAimWeight - Dt / 0.2f);
 	if (Mesh) Frame.ArmTargetCS = Mesh->GetComponentTransform().InverseTransformPosition(WebAnchorWorld);
 	}
+	bWebAimPrev = bAim;
+	PrevAimShotK = A.WebShotK;
 	{ // round 01 (W4): the bank follows the arc through a 0.12 s smoothing (it was applied as a one-frame step at the attach: a 20 deg chest roll in one frame)
 		const float BankT = A.Mode == EWebTravMode::Swing ? -0.35f * A.Swing.Bank : 0.f;
 		Frame.SpineBank += (BankT - Frame.SpineBank) * (1.f - FMath::Exp(-Dt / 0.12f));
@@ -973,7 +980,8 @@ bool FWebTravAnimProxy::Evaluate(FPoseContext& Output)
 		}
 	}
 	};
-	ApplyArmAim();
+	// Apply aim once, after the procedural pose. Applying it here AND at the end compounds the blend
+	// (a 2/3 first-frame weight becomes 8/9), causing the visible hip-to-overhead launch snap.
 	// ---------------------------------------------------------------- round 19 procedural layers (component space, cm)
 	auto SetCS = [&](FCompactPoseBoneIndex B, const FQuat& NewCSRot)
 	{
