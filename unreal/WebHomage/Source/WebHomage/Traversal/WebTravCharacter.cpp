@@ -1004,7 +1004,7 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 		{
 			const FWebTravStrand& St = Traversal->Strands[0];
 			const bool bWeb = St.bActive && St.ReleaseT < 0.f;
-			AI->SetDrive(Traversal->Anim, bWeb, St.Anchor * 100.0, St.bRightHand, I.bSwing);
+			AI->SetDrive(Traversal->Anim, bWeb, St.Anchor * 100.0, St.bRightHand, I.bSwing, St.ShootDur, St.Age);
 		}
 		for (UStaticMeshComponent* C : FigureParts) { if (C) C->SetVisibility(false); }
 	}

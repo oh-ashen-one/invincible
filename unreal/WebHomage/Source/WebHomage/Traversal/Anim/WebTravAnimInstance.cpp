@@ -133,13 +133,16 @@ UAnimSequence* UWebTravAnimInstance::Clip(FName Name)
 	return S ? S->Get() : nullptr;
 }
 
-void UWebTravAnimInstance::SetDrive(const FWebTravAnim& InAnim, bool bInWebActive, const FVector& InWebAnchorWorldCm, bool bInWebRight, bool bInSwingHeld)
+void UWebTravAnimInstance::SetDrive(const FWebTravAnim& InAnim, bool bInWebActive, const FVector& InWebAnchorWorldCm, bool bInWebRight, bool bInSwingHeld,
+	float InWebShootDuration, float InWebDrawAge)
 {
 	A = InAnim;
 	bWebActive = bInWebActive;
 	WebAnchorWorld = InWebAnchorWorldCm;
 	bWebRight = bInWebRight;
 	bSwingHeld = bInSwingHeld;
+	WebShootDuration = InWebShootDuration;
+	WebDrawAge = InWebDrawAge;
 }
 
 FName UWebTravAnimInstance::Category(FName Node)
@@ -567,7 +570,15 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 	const bool bReach = !bAim && A.NoAnchorT >= 0.f && Mesh;   // round 01 (W10): reach-and-miss gesture of a press with no anchor
 	const bool bNewShot = bAim && (!bWebAimPrev || Frame.bArmRight != bWebRight
 		|| (A.WebShotK >= 0.f && (PrevAimShotK < 0.f || A.WebShotK + 0.25f < PrevAimShotK)));
-	if (bNewShot) { Frame.ArmAimAge = 0.f; Frame.ArmAimWeight = 0.f; }
+	if (bNewShot)
+	{
+		Frame.ArmAimAge = 0.f; Frame.ArmAimWeight = 0.f;
+		ArmStartWorld = (Mesh->GetBoneLocation(bWebRight ? TEXT("hand_R") : TEXT("hand_L"))
+			- Mesh->GetBoneLocation(bWebRight ? TEXT("upperArm_R") : TEXT("upperArm_L"))).GetSafeNormal();
+		// Use the real remaining visual flight, including its anticipation, rather than the ballistic pending-state clock.
+		ArmAimDuration = FMath::Clamp(WebShootDuration + FMath::Max(0.f, -WebDrawAge), 0.05f, 0.12f);
+	}
+	Frame.ArmStartCS = bAim ? Mesh->GetComponentTransform().InverseTransformVectorNoScale(ArmStartWorld).GetSafeNormal() : FVector::ZeroVector;
 	Frame.bArmAim = bAim || bReach;
 	Frame.bArmRight = bReach ? A.bNoAnchorRight : bWebRight;
 	if (bReach)
@@ -580,9 +591,9 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 	else
 	{
 	// Begin on the press frame but ease the actual pose over several frames, rather than applying two 25 ms ramps.
-	// Short flights finish the reach before tip arrival; long flights use the 100 ms shoulder/elbow anticipation.
+	// Short flights finish the reach before tip arrival; longer flights can use the whole shoulder/elbow anticipation.
 	Frame.ArmAimAge = bAim ? Frame.ArmAimAge + Dt : 0.f;
-	const float AimProgress = FMath::Max(Frame.ArmAimAge / 0.10f, A.WebShotK >= 0.f ? A.WebShotK / 0.80f : 0.f);
+	const float AimProgress = Frame.ArmAimAge / ArmAimDuration;
 	Frame.ArmAimWeight = bAim ? Smooth01(AimProgress) : FMath::Max(0.f, Frame.ArmAimWeight - Dt / 0.2f);
 	if (Mesh) Frame.ArmTargetCS = Mesh->GetComponentTransform().InverseTransformPosition(WebAnchorWorld);
 	}
@@ -917,7 +928,8 @@ bool FWebTravAnimProxy::Evaluate(FPoseContext& Output)
 		{
 			// Blend the complete hand direction once. Shoulder anticipation and elbow extension may reshape the
 			// arm, but must not add their own angular steps on top of the launch's aim interpolation.
-			const FVector BaseDirection = (CS(BH).GetLocation() - CS(BU).GetLocation()).GetSafeNormal();
+			const FVector BaseDirection = Frame.ArmStartCS.IsNearlyZero()
+				? (CS(BH).GetLocation() - CS(BU).GetLocation()).GetSafeNormal() : Frame.ArmStartCS;
 			{ // anticipation: the shoulder girdle raises toward the head and eases back (sin over 0.14 s)
 				const FCompactPoseBoneIndex BHd = Idx(TEXT("head")), BHp = Idx(TEXT("hips"));
 				const float An = Frame.ArmAimAge < 0.14f ? FMath::Sin(PI * Frame.ArmAimAge / 0.14f) : 0.f;

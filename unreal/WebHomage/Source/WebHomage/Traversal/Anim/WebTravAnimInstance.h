@@ -32,6 +32,7 @@ struct FWebTravAnimFrame
 	float ArmAimWeight = 0.f;
 	float ArmAimAge = 0.f;   // s since the firing arm started aiming (anticipation: shoulder raise)
 	FVector ArmTargetCS = FVector::ZeroVector;   // component space (cm)
+	FVector ArmStartCS = FVector::ZeroVector;    // launch direction held in world space, rebased for this evaluation
 	float SpineBank = 0.f;                        // rad
 	float BodyAlignW = 0.f;                       // round 07: hips->head turned onto the web (hips->anchor), 0..1
 	// round 11 (flip programs, overlapping action): the legs follow their own shape layers (sampled FlipLag behind the upper
@@ -95,7 +96,8 @@ class WEBHOMAGE_API UWebTravAnimInstance : public UAnimInstance
 
 public:
 	/** Drive data from the character (game thread, before the mesh ticks). */
-	void SetDrive(const FWebTravAnim& InAnim, bool bInWebActive, const FVector& InWebAnchorWorldCm, bool bInWebRight, bool bInSwingHeld);
+	void SetDrive(const FWebTravAnim& InAnim, bool bInWebActive, const FVector& InWebAnchorWorldCm, bool bInWebRight, bool bInSwingHeld,
+		float InWebShootDuration, float InWebDrawAge);
 
 	/** Name of the node / dominant clip of the last update (telemetry). */
 	FName CurrentNode() const { return CurNode; }
@@ -140,6 +142,8 @@ private:
 	bool bWebActive = false, bWebRight = true, bSwingHeld = false;
 	bool bWebAimPrev = false;
 	float PrevAimShotK = -1.f;
+	float WebShootDuration = 0.1f, WebDrawAge = 0.f, ArmAimDuration = 0.1f;
+	FVector ArmStartWorld = FVector::ZeroVector;
 	FVector WebAnchorWorld = FVector::ZeroVector;
 
 	FName CurNode, Dominant;
