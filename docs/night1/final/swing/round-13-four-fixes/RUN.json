@@ -7,7 +7,7 @@
   ],
   "baseline": "ecb68aade62ea2eb5ae201d3ac1a60b28b9d3899",
   "started_utc": "2026-10-12T02:04:46.113381+00:00",
-  "phase": "source frozen; final four-clip regression captures",
+  "phase": "completion candidate; three final core clips and focused independent review",
   "automatic_broad_loop": false,
   "task_renderer_limit": 1,
   "global_renderer_limit": 2,
@@ -24,7 +24,10 @@
     "entry_ramp": "327e793f",
     "stable_arm_flight": "4c8b8c0b",
     "camera3": "ceb750f8",
-    "entry_final": "1e85f2cc"
+    "entry_final": "1e85f2cc",
+    "catch_prediction": "d85d7039",
+    "front_double_headroom": "50920fdf",
+    "camera_coupled_placement": "19521659"
   },
   "validated_probes": {
     "arm_c1": {
@@ -104,5 +107,6 @@
     ],
     "rng": "matched to installed UE5.8; supersedes initial temporary adapter numbers"
   },
-  "runtime_source_commit": "ef263be2"
+  "runtime_source_commit": "195216591f5cd597467d097954f18b0a89c686e9",
+  "final_evidence_directory": "../round-13-four-fixes-final"
 }
