@@ -1,0 +1,18 @@
+{
+ "g7_s2_4k_d1600_00_t028.0.jpg": {
+  "people": 4,
+  "people_left": 4,
+  "people_right": 0,
+  "people_h3": 0,
+  "people_h10": 0,
+  "vehicles": 18,
+  "buses": 0,
+  "trucks": 3,
+  "ph": [
+   0.027,
+   0.025,
+   0.024,
+   0.022
+  ]
+ }
+}

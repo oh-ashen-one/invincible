@@ -1,0 +1,162 @@
+{
+ "config": "native100",
+ "screen_percentage": "100",
+ "extra_cvars": [],
+ "map": "/Game/Tests/Look/Look_Midtown",
+ "script": "tools/perf_ue/scripts/city_swing_avenue.json",
+ "res": "3840x2160",
+ "window_s": "22:52",
+ "command": "<wt>/unreal/WebHomage/Scripts/run_game.sh <wt>/docs/night1/look/round-01/perf_c/native100 -map /Game/Tests/Look/Look_Midtown -res 3840x2160 -perf 22:52 -name native100 -timeout 900 -exec r.ScreenPercentage 100 -- -WHTravScript=<wt>/tools/perf_ue/scripts/city_swing_avenue.json -WHTravCsv=<wt>/docs/night1/look/round-01/perf_c/native100/trav_telemetry.csv -csvGpuStats",
+ "gpu_util_before_pct": [
+  17,
+  47,
+  16
+ ],
+ "gpu_util_during_pct": {
+  "mean": 95.84057971014492,
+  "max": 100,
+  "n": 69
+ },
+ "foreign_gpu_procs": [
+  {
+   "pid": 83077,
+   "cpu": 20.6,
+   "cmd": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --no-startup-window --origin-trial-disabled-features=Canvas"
+  }
+ ],
+ "wh_perf": {
+  "frames": 653,
+  "seconds": 30.015,
+  "avg_ms": 45.964,
+  "avg_fps": 21.76,
+  "p50_ms": 45.501,
+  "p95_ms": 55.458,
+  "p99_ms": 62.682,
+  "max_ms": 66.977,
+  "frames_over_16_67ms": 653,
+  "gpu_avg_ms": 42.53,
+  "gpu_p95_ms": 50.873,
+  "output_w": 3840,
+  "output_h": 2160,
+  "r_ScreenPercentage": 100.0,
+  "screen_percentage_mode": "manual",
+  "internal_w": 3840,
+  "internal_h": 2160,
+  "rhi": "Metal"
+ },
+ "csv": {
+  "csv_frames": 653,
+  "avg_ms": 45.965020980091886,
+  "p50_ms": 45.4637,
+  "p95_ms": 55.29488,
+  "p99_ms": 61.722036000000024,
+  "max_ms": 66.8288,
+  "fps_avg": 21.755673742281427,
+  "over_16_7ms": 653,
+  "over_33_3ms": 651,
+  "hitches": 0,
+  "hitch_rule": "frame > 25 ms and > 2x the median frame",
+  "blocks_5s_avg_ms": [
+   43.95,
+   46.16,
+   41.69,
+   47.56,
+   48.39
+  ],
+  "best_5s_block_ms": 41.69,
+  "game_thread_ms": {
+   "avg": 1.6705759571209802,
+   "p95": 1.9848999999999999,
+   "max": 9.2637
+  },
+  "render_thread_ms": {
+   "avg": 45.9657124042879,
+   "p95": 55.2357,
+   "max": 66.7544
+  },
+  "gpu_ms": {
+   "avg": 42.530535222052066,
+   "p95": 50.782219999999995,
+   "max": 61.8368
+  },
+  "rhi_thread_ms": {
+   "avg": 2.664966462480858,
+   "p95": 3.1182,
+   "max": 9.34
+  },
+  "gpu_passes_avg_ms": {
+   "GPU/LumenScreenProbeGather": 11.060732771822359,
+   "GPU/Unaccounted": 6.801783767228177,
+   "GPU/Basepass": 3.673033996937213,
+   "GPU/ShadowDepths": 3.1954278713629405,
+   "GPU/VolumetricFog": 1.8980517611026033,
+   "GPU/ShadowProjection": 1.5307395099540582,
+   "GPU/RenderDeferredLighting": 1.473633843797856,
+   "GPU/DistanceFieldShadows": 1.4136358346094946,
+   "GPU/LumenSceneLighting": 1.3938905053598776,
+   "GPU/NaniteVisBuffer": 0.9527934272588056,
+   "GPU/Prepass": 0.8717793139356814,
+   "GPU/VolumetricCloud": 0.8353440903522206,
+   "GPU/Postprocessing": 0.7977483920367534,
+   "GPU/LumenSceneUpdate": 0.7659593415007657,
+   "GPU/CaptureConvolveSkyEnvMap": 0.6556184410413476,
+   "GPU/LumenReflections": 0.6085914241960184,
+   "GPU/MotionBlur": 0.523113169984686,
+   "GPU/NaniteBasePass": 0.5206159264931087,
+   "GPU/Lights": 0.4762825421133231,
+   "GPU/LensFlare": 0.3865296967840735,
+   "GPU/VolCloudComposeOverScene": 0.27524104134762634,
+   "GPU/Fog": 0.18912358346094946,
+   "GPU/SkyAtmosphere": 0.16934241960183768,
+   "GPU/HZB": 0.16077932618683002,
+   "GPU/RenderVelocities": 0.14274606431852985
+  }
+ },
+ "contaminated": true,
+ "contamination_reason": "GPU utilisation before the run [17, 47, 16] % (>= 10); foreign processes: 1",
+ "hero": {
+  "rows": 1046,
+  "columns": [
+   "frame",
+   "t",
+   "mode",
+   "sub",
+   "x_m",
+   "y_m",
+   "z_m",
+   "vx",
+   "vy",
+   "vz",
+   "speed_mps",
+   "hspeed_mps",
+   "height_above_floor_m",
+   "anchor_x",
+   "anchor_y",
+   "anchor_z",
+   "rope_m",
+   "tension",
+   "chain",
+   "trick",
+   "zip_target",
+   "zt_x",
+   "zt_y",
+   "zt_z",
+   "cam_x",
+   "cam_y",
+   "cam_z",
+   "cam_yaw_deg",
+   "cam_pitch_deg",
+   "cam_vfov_deg",
+   "cam_dist_m",
+   "motion_blur",
+   "in_move_x",
+   "in_move_y",
+   "in_swing",
+   "in_jump",
+   "in_sprint",
+   "in_zip",
+   "in_drop",
+   "in_quick"
+  ]
+ }
+}

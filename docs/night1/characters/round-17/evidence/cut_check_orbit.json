@@ -1,0 +1,32 @@
+{
+ "clip": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-17/orbit_all_suits.mp4",
+ "frames": 684,
+ "fps": 60.0,
+ "duration": 11.4,
+ "median": 0.6,
+ "p99": 0.97,
+ "top": [
+  {
+   "t": 5.433,
+   "diff": 3.32
+  },
+  {
+   "t": 8.433,
+   "diff": 3.21
+  },
+  {
+   "t": 6.933,
+   "diff": 3.07
+  },
+  {
+   "t": 9.933,
+   "diff": 2.3
+  },
+  {
+   "t": 0.933,
+   "diff": 1.58
+  }
+ ],
+ "cuts": [],
+ "pass": true
+}

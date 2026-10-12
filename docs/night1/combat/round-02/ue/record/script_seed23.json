@@ -1,0 +1,334 @@
+{
+ "spec": "mmgmbmgmm",
+ "reserve": "mmgmmmbmmgmmm",
+ "keep": 9,
+ "dist": 6,
+ "seed": 23,
+ "start": 1.0,
+ "quit": 32.0,
+ "hero_min_hp": 30,
+ "note": "r02 30 s fight: 9 enemies + 13 reinforcements (keep 9 up), reflex dodges of telegraphed blows; chained beats (rel / react air / launcher key) so a hit or a moving target cannot break a combo; hero_armor + hero_min_hp are capture aids",
+ "beats": [
+  {
+   "t": 1.5,
+   "key": "attack",
+   "label": "combo A 1",
+   "toward": "e4"
+  },
+  {
+   "t": 1.9,
+   "key": "attack",
+   "label": "combo A 2",
+   "rel": 0.4
+  },
+  {
+   "t": 2.3,
+   "key": "attack",
+   "label": "combo A 3",
+   "rel": 0.4
+  },
+  {
+   "t": 2.7,
+   "key": "attack",
+   "label": "combo A 4",
+   "rel": 0.4
+  },
+  {
+   "t": 3.6,
+   "key": "attack",
+   "label": "combo B 1",
+   "react": "free",
+   "window": 1.2
+  },
+  {
+   "t": 4.0,
+   "key": "attack",
+   "label": "combo B 2",
+   "rel": 0.4
+  },
+  {
+   "t": 4.4,
+   "key": "attack",
+   "label": "combo B 3",
+   "rel": 0.4
+  },
+  {
+   "t": 4.8,
+   "key": "attack",
+   "label": "combo B 4",
+   "rel": 0.4
+  },
+  {
+   "t": 5.7,
+   "key": "launcher",
+   "label": "launcher 1",
+   "react": "free",
+   "window": 1.6,
+   "guard": 1,
+   "toward": "e2"
+  },
+  {
+   "t": 6.6,
+   "key": "attack",
+   "label": "launcher 1 juggle 1",
+   "react": "air",
+   "window": 1.3,
+   "rel": 0.3,
+   "guard": 1
+  },
+  {
+   "t": 7.0,
+   "key": "attack",
+   "label": "launcher 1 juggle 2",
+   "react": "air",
+   "window": 1.3,
+   "rel": 0.3,
+   "guard": 1
+  },
+  {
+   "t": 7.4,
+   "key": "attack",
+   "label": "launcher 1 juggle 3",
+   "react": "air",
+   "window": 1.3,
+   "rel": 0.3,
+   "guard": 1
+  },
+  {
+   "t": 8.6,
+   "key": "web",
+   "label": "web gunman 1a",
+   "toward": "e3",
+   "react": "free",
+   "window": 1.2
+  },
+  {
+   "t": 8.95,
+   "key": "web",
+   "label": "web gunman 1b",
+   "toward": "e3",
+   "rel": 0.35
+  },
+  {
+   "t": 9.9,
+   "key": "strike",
+   "label": "web strike",
+   "toward": "e7",
+   "react": "free",
+   "window": 1.0
+  },
+  {
+   "t": 10.9,
+   "key": "attack",
+   "label": "combo C 1",
+   "react": "free",
+   "window": 1.2
+  },
+  {
+   "t": 11.3,
+   "key": "attack",
+   "label": "combo C 2",
+   "rel": 0.4
+  },
+  {
+   "t": 11.7,
+   "key": "attack",
+   "label": "combo C 3",
+   "rel": 0.4
+  },
+  {
+   "t": 12.1,
+   "key": "attack",
+   "label": "combo C 4",
+   "rel": 0.4
+  },
+  {
+   "t": 13.0,
+   "key": "attack",
+   "label": "combo D 1",
+   "react": "free",
+   "window": 1.2
+  },
+  {
+   "t": 13.4,
+   "key": "attack",
+   "label": "combo D 2",
+   "rel": 0.4
+  },
+  {
+   "t": 13.9,
+   "key": "focus",
+   "label": "focus fill (scripted: guarantees the finisher meter)",
+   "guard": 1
+  },
+  {
+   "t": 14.0,
+   "key": "finisher",
+   "label": "finisher 1",
+   "react": "free",
+   "window": 1.5,
+   "guard": 1,
+   "rel": 0.1
+  },
+  {
+   "t": 16.8,
+   "key": "web",
+   "label": "web brute a",
+   "toward": "e5",
+   "react": "free",
+   "window": 1.4
+  },
+  {
+   "t": 17.15,
+   "key": "web",
+   "label": "web brute b",
+   "toward": "e5",
+   "rel": 0.35
+  },
+  {
+   "t": 17.6,
+   "key": "launcher",
+   "label": "launcher 2",
+   "react": "free",
+   "window": 1.6,
+   "guard": 1,
+   "toward": "e5"
+  },
+  {
+   "t": 18.5,
+   "key": "attack",
+   "label": "launcher 2 juggle 1",
+   "react": "air",
+   "window": 1.3,
+   "rel": 0.3,
+   "guard": 1
+  },
+  {
+   "t": 18.9,
+   "key": "attack",
+   "label": "launcher 2 juggle 2",
+   "react": "air",
+   "window": 1.3,
+   "rel": 0.3,
+   "guard": 1
+  },
+  {
+   "t": 19.3,
+   "key": "attack",
+   "label": "launcher 2 juggle 3",
+   "react": "air",
+   "window": 1.3,
+   "rel": 0.3,
+   "guard": 1
+  },
+  {
+   "t": 20.8,
+   "key": "attack",
+   "label": "combo E 1",
+   "react": "free",
+   "window": 1.2
+  },
+  {
+   "t": 21.2,
+   "key": "attack",
+   "label": "combo E 2",
+   "rel": 0.4
+  },
+  {
+   "t": 21.6,
+   "key": "attack",
+   "label": "combo E 3",
+   "rel": 0.4
+  },
+  {
+   "t": 22.0,
+   "key": "attack",
+   "label": "combo E 4",
+   "rel": 0.4
+  },
+  {
+   "t": 22.9,
+   "key": "launcher",
+   "label": "launcher 3",
+   "react": "free",
+   "window": 1.6,
+   "guard": 1
+  },
+  {
+   "t": 23.8,
+   "key": "attack",
+   "label": "launcher 3 juggle 1",
+   "react": "air",
+   "window": 1.3,
+   "rel": 0.3,
+   "guard": 1
+  },
+  {
+   "t": 24.2,
+   "key": "attack",
+   "label": "launcher 3 juggle 2",
+   "react": "air",
+   "window": 1.3,
+   "rel": 0.3,
+   "guard": 1
+  },
+  {
+   "t": 24.6,
+   "key": "attack",
+   "label": "launcher 3 juggle 3",
+   "react": "air",
+   "window": 1.3,
+   "rel": 0.3,
+   "guard": 1
+  },
+  {
+   "t": 25.8,
+   "key": "focus",
+   "label": "focus fill 2 (scripted)",
+   "guard": 1
+  },
+  {
+   "t": 25.9,
+   "key": "finisher",
+   "label": "finisher 2",
+   "react": "free",
+   "window": 1.5,
+   "guard": 1,
+   "rel": 0.1
+  },
+  {
+   "t": 28.4,
+   "key": "attack",
+   "label": "combo F 1",
+   "react": "free",
+   "window": 1.2
+  },
+  {
+   "t": 28.8,
+   "key": "attack",
+   "label": "combo F 2",
+   "rel": 0.4
+  },
+  {
+   "t": 29.2,
+   "key": "attack",
+   "label": "combo F 3",
+   "rel": 0.4
+  },
+  {
+   "t": 29.6,
+   "key": "attack",
+   "label": "combo F 4",
+   "rel": 0.4
+  },
+  {
+   "t": 30.5,
+   "key": "web",
+   "label": "web last",
+   "react": "free",
+   "window": 1.0
+  }
+ ],
+ "reflex": 0.8,
+ "hero_armor": 1
+}

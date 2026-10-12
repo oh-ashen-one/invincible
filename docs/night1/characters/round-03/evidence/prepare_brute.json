@@ -1,0 +1,17 @@
+{
+ "pompom_verts": 167,
+ "dome_centre": [
+  0.001,
+  1.644,
+  -0.021
+ ],
+ "dome_radius": 0.118,
+ "beanie_px": 634285,
+ "plaid_px": 2613206,
+ "head_shrink": 0.758,
+ "name": "StreetBrute",
+ "verts": 8153,
+ "tris": 8427,
+ "bandana_tris": 2016,
+ "seconds": 8.8
+}

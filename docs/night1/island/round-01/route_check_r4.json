@@ -1,0 +1,57 @@
+{
+ "summary": {
+  "routes": 1,
+  "seconds": 30.4,
+  "fall_through": 0,
+  "stuck": 0,
+  "mid_air_frames": 0,
+  "wall_air_frames": 0,
+  "anchors": 39,
+  "web_air": 0,
+  "facadeLod_min_dist_m": 784.3,
+  "boxes": 56816,
+  "facadeLod_tiles": 86
+ },
+ "routes": [
+  {
+   "csv": "r4_wallrun_roofs_telemetry.csv",
+   "frames": 1823,
+   "seconds": 30.37,
+   "path_m": 669.4,
+   "modes": {
+    "swing": 483,
+    "air": 644,
+    "wall": 196,
+    "land": 42,
+    "ground": 308,
+    "zip": 25,
+    "perch": 125
+   },
+   "supported_frames": 475,
+   "fall_through": 0,
+   "stuck": 0,
+   "mid_air_frames": 0,
+   "wall_air_frames": 0,
+   "anchors": 39,
+   "web_air": 0,
+   "facadeLod_min_dist_m": 784.3,
+   "events": {
+    "fall_through": [],
+    "stuck": [],
+    "mid_air": [],
+    "wall_air": [],
+    "web_air": []
+   },
+   "start": [
+    250.05,
+    239.717,
+    21.853
+   ],
+   "end": [
+    258.105,
+    -251.568,
+    11.454
+   ]
+  }
+ ]
+}

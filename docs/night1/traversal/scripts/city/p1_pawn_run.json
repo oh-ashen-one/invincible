@@ -1,0 +1,9 @@
+{
+ "name": "p1_pawn_run_city",
+ "note": "Round 25 (director hard line: pawn run cadence, head-top FFT 3.2-3.8 Hz over 1.5-11 s): full-stick RUN (no sprint) north up the Midtown avenue (x 250, from y 244, d's street spawn) for 12 s, chase camera, no look input.",
+ "seed": 1234,
+ "spawn": { "pos": [250, 244, 0.95], "yaw": -90, "camPitch": 0.14 },
+ "keys": [
+  { "t": 0.0, "move": [0, 1], "heading": -90, "sprint": false }
+ ]
+}

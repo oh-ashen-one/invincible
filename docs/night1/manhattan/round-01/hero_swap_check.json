@@ -1,0 +1,19 @@
+{
+ "herodev": true,
+ "p2_hero": true,
+ "herodev_skeleton": "/Game/Traversal/HeroDev/HeroDev/SkeletalMeshes/Lenses_Skeleton.Lenses_Skeleton",
+ "p2_skeleton": "/Game/Characters/Hero/SK_Hero_Skeleton.SK_Hero_Skeleton",
+ "same_skeleton_asset": false,
+ "herodev_bones": 58,
+ "p2_bones": 58,
+ "same_bone_names_ci": true,
+ "bone_name_diff": [],
+ "p3_code_bones_present_in_p2": {
+  "hips": true,
+  "head": true,
+  "toe_L": true,
+  "foot_L": true,
+  "hand_L": true,
+  "upperArm_R": true
+ }
+}

@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/perf/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/c1/warmC -map /Game/Maps/Manhattan -res 3840x2160 -perf 15:45 -name warmC -timeout 900 -exec  -- -WHTravScript=/Users/midir/sm2-n1/perf/docs/night1/manhattan/scripts/route_30s_warmup15.json -WHTravCsv=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/c1/warmC/trav_telemetry.csv -csvGpuStats -benchmark -fps=60 -notraceserver
+
+run_game: out=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/c1/warmC res=3840x2160 quit=46.0 window=0 movie=0
+WH_PERF_START t=15.00
+WH_PERF frames=1800 avg_ms=16.59 fps=60.3 p95_ms=19.53 p99_ms=21.61 gpu_avg_ms=15.30 out=3840x2160 internal=1766x994 (manual) -> /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/c1/warmC/warmC_perf.json
+WH_QUIT t=46.00
+

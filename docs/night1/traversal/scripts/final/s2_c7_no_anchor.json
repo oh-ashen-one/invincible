@@ -1,0 +1,46 @@
+{
+ "name": "s2_c7_no_anchor",
+ "note": "high above the roofline (z 330 m, 6 m/s north): nothing to attach to, swing pressed 0.3 s and 1.4 s in",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   150,
+   330
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -6,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.3,
+   "swing": true
+  },
+  {
+   "t": 0.7,
+   "swing": false
+  },
+  {
+   "t": 1.4,
+   "swing": true
+  },
+  {
+   "t": 1.8,
+   "swing": false
+  }
+ ]
+}

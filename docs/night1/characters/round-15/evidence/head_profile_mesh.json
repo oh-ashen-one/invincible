@@ -1,0 +1,79 @@
+{
+ "head_height_mm": 239.1,
+ "crown_y": 1.7866,
+ "chin_y": 1.5475,
+ "brow": {
+  "y": 1.706,
+  "z_mm": 107.1
+ },
+ "nose_tip": {
+  "y": 1.644,
+  "z_mm": 124.8
+ },
+ "nasion": {
+  "y": 1.681,
+  "z_mm": 97.0
+ },
+ "T1_bridge_recess_mm": 17.3,
+ "T1_pct_HH": 7.24,
+ "T2_brow_over_rim_top_mm": 16.62,
+ "T2_pct_HH": 6.95,
+ "T2_brow_over_lens_top_mm": 18.91,
+ "T2b_brow_over_every_rim_vertex_mm": 12.6,
+ "T2b_pct_HH": 5.27,
+ "lens_y": [
+  1.6586,
+  1.6867
+ ],
+ "rim_y": [
+  1.6547,
+  1.6906
+ ],
+ "T3_nose_bump_mm": 47.86,
+ "T3_nose_bump_pct_HH": 20.02,
+ "mouth": {
+  "y": 1.6115,
+  "z_mm": 108.8
+ },
+ "chin_front": {
+  "y": 1.5795,
+  "z_mm": 106.4
+ },
+ "mouth_chin_groove_mm": 6.89,
+ "relief": {
+  "-4 mm": {
+   "extrema": 5,
+   "swing": 169.3
+  },
+  "+0 mm": {
+   "extrema": 9,
+   "swing": 175.1
+  },
+  "+6 mm": {
+   "extrema": 15,
+   "swing": 142.0
+  },
+  "+12 mm": {
+   "extrema": 11,
+   "swing": 151.5
+  },
+  "+18 mm": {
+   "extrema": 11,
+   "swing": 124.9
+  },
+  "+24 mm": {
+   "extrema": 11,
+   "swing": 155.8
+  }
+ },
+ "H6_clearance_px": {
+  "12.0": {
+   "glass": 39.2,
+   "rim": 24.0
+  },
+  "-12.0": {
+   "glass": 39.1,
+   "rim": 23.2
+  }
+ }
+}

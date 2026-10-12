@@ -1,0 +1,98 @@
+{
+ "crowd_key_a_4k.png": {
+  "key_rgb": [
+   10,
+   236,
+   4
+  ],
+  "person_components": 11,
+  "components_le_max": 3,
+  "over_4px": 0,
+  "list": [
+   {
+    "px": 2,
+    "x": 469,
+    "y": 1202,
+    "w": 1,
+    "h": 2
+   },
+   {
+    "px": 2,
+    "x": 331,
+    "y": 1230,
+    "w": 2,
+    "h": 1
+   },
+   {
+    "px": 2,
+    "x": 328,
+    "y": 1231,
+    "w": 2,
+    "h": 1
+   }
+  ]
+ },
+ "crowd_key_c_4k.png": {
+  "key_rgb": [
+   8,
+   235,
+   3
+  ],
+  "person_components": 8,
+  "components_le_max": 0,
+  "over_4px": 0,
+  "list": []
+ },
+ "crowd_key_tracking_4k.png": {
+  "key_rgb": [
+   10,
+   236,
+   4
+  ],
+  "person_components": 11,
+  "components_le_max": 2,
+  "over_4px": 0,
+  "list": [
+   {
+    "px": 2,
+    "x": 770,
+    "y": 881,
+    "w": 1,
+    "h": 2
+   },
+   {
+    "px": 1,
+    "x": 769,
+    "y": 871,
+    "w": 1,
+    "h": 1
+   }
+  ]
+ },
+ "crowd_key_wide_4k.png": {
+  "key_rgb": [
+   6,
+   235,
+   2
+  ],
+  "person_components": 12,
+  "components_le_max": 2,
+  "over_4px": 1,
+  "list": [
+   {
+    "px": 15,
+    "x": 1879,
+    "y": 974,
+    "w": 5,
+    "h": 12
+   },
+   {
+    "px": 2,
+    "x": 3408,
+    "y": 963,
+    "w": 2,
+    "h": 1
+   }
+  ]
+ }
+}

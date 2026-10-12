@@ -1,0 +1,6 @@
+{
+  "runtime_source_commit": "2db142143bc60709a1db726a445d17aee2a57aca",
+  "dylib_sha256": "9fb64bb667e7be2bcf35114fc2231ed0207ce684c78a5be049b61ef493ede502",
+  "scope": "100ms reach with15percent velocityendcaps;40ms reservedvisibleflight; unchangedphysics,input,camera,catch",
+  "status": "526-row targeted native replay and final relocated runtime PASS; independent firing-arm verdict FIXED within inspected window"
+}

@@ -1,0 +1,362 @@
+[
+ {
+  "id": "suit-full-tessera",
+  "x": "docs/night1/characters/round-17/stills/skin_tessera_front_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-idle-street-og__og_0000.jpg",
+  "note": "masked acrobat hero in a fitted suit, full body, standing: judge the suit as a 4K render (fabric, raised piping / seams, line work, shading, texture sharpness, any seam, fold or smear) and the hero's size in frame. ALSO say whether the suit design resembles any existing licensed costume"
+ },
+ {
+  "id": "suit-full-cinder",
+  "x": "docs/night1/characters/round-17/stills/skin_cinder_front_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-idle-crosswalk-night__nt_0945.jpg",
+  "note": "masked acrobat hero in a fitted suit, full body, standing: judge the suit as a 4K render (fabric, raised piping / seams, line work, shading, texture sharpness, any seam, fold or smear) and the hero's size in frame. ALSO say whether the suit design resembles any existing licensed costume"
+ },
+ {
+  "id": "suit-full-saffron",
+  "x": "docs/night1/characters/round-17/stills/skin_saffron_front_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-rooftop-miles__gr_0202.jpg",
+  "note": "masked acrobat hero in a fitted suit, full body, standing: judge the suit as a 4K render (fabric, raised piping / seams, line work, shading, texture sharpness, any seam, fold or smear) and the hero's size in frame. ALSO say whether the suit design resembles any existing licensed costume"
+ },
+ {
+  "id": "suit-full-ash",
+  "x": "docs/night1/characters/round-17/stills/skin_ash_front_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-run-street-dn__dn_1115.jpg",
+  "note": "masked acrobat hero in a fitted suit, full body, standing: judge the suit as a 4K render (fabric, raised piping / seams, line work, shading, texture sharpness, any seam, fold or smear) and the hero's size in frame. ALSO say whether the suit design resembles any existing licensed costume"
+ },
+ {
+  "id": "suit-back-plum",
+  "x": "docs/night1/characters/round-17/stills/skin_plum_back_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-run-street-dn__dn_1115.jpg",
+  "note": "masked hero seen from behind, in a fitted suit: judge suit texture quality, raised line work, seams, shading; any resemblance to an existing licensed costume?"
+ },
+ {
+  "id": "suit-back-glacier",
+  "x": "docs/night1/characters/round-17/stills/skin_glacier_back_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-run-street-dn__dn_1115.jpg",
+  "note": "masked hero seen from behind, in a fitted suit: judge suit texture quality, raised line work, seams, shading; any resemblance to an existing licensed costume?"
+ },
+ {
+  "id": "suit-back-sage",
+  "x": "docs/night1/characters/round-17/stills/skin_sage_back_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-run-street-dn__dn_1115.jpg",
+  "note": "masked hero seen from behind, in a fitted suit: judge suit texture quality, raised line work, seams, shading; any resemblance to an existing licensed costume?"
+ },
+ {
+  "id": "suit-back-tessera",
+  "x": "docs/night1/characters/round-17/stills/skin_tessera_back_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-run-street-dn__dn_1115.jpg",
+  "note": "masked hero seen from behind, in a fitted suit: judge suit texture quality, raised line work, seams, shading; any resemblance to an existing licensed costume?"
+ },
+ {
+  "id": "suit-chest-tessera",
+  "x": "docs/night1/characters/round-17/stills/skin_tessera_chest_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/press-suit-closeup-fire__psblog_14.jpg",
+  "note": "suit chest close-up at 4K: is the line work RAISED (lit edge + shadow edge on every line) or flat print; is EVERY end of the sash / chevron panel finished (border cord, stitching, piping) or raw; any faceted shading patches, folds, zigzag stitches or stair-stepped edges near the armpit; faceted shoulder silhouette; weave continuity"
+ },
+ {
+  "id": "suit-chest-ash",
+  "x": "docs/night1/characters/round-17/stills/skin_ash_chest_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/suits-duo-closeup__gr_1003.jpg",
+  "note": "suit chest close-up at 4K: is the line work RAISED (lit edge + shadow edge on every line) or flat print; is EVERY end of the sash / chevron panel finished (border cord, stitching, piping) or raw; any faceted shading patches, folds, zigzag stitches or stair-stepped edges near the armpit; faceted shoulder silhouette; weave continuity"
+ },
+ {
+  "id": "suit-chest-cinder",
+  "x": "docs/night1/characters/round-17/stills/skin_cinder_chest_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/suits-duo-closeup-2__gr_1010.jpg",
+  "note": "suit chest close-up at 4K: is the line work RAISED (lit edge + shadow edge on every line) or flat print; is EVERY end of the sash / chevron panel finished (border cord, stitching, piping) or raw; any faceted shading patches, folds, zigzag stitches or stair-stepped edges near the armpit; faceted shoulder silhouette; weave continuity"
+ },
+ {
+  "id": "suit-chest-verdant",
+  "x": "docs/night1/characters/round-17/stills/skin_verdant_chest_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/suits-duo-closeup-2__gr_1010.jpg",
+  "note": "suit chest close-up at 4K: is the line work RAISED (lit edge + shadow edge on every line) or flat print; is EVERY end of the sash / chevron panel finished (border cord, stitching, piping) or raw; any faceted shading patches, folds, zigzag stitches or stair-stepped edges near the armpit; faceted shoulder silhouette; weave continuity"
+ },
+ {
+  "id": "suit-head-tessera",
+  "x": "docs/night1/characters/round-17/stills/skin_tessera_headfront_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-face-closeup__gr_0230.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (a brow ridge that overhangs the lenses, eye sockets, a recessed nose bridge and a nose, cheek bones, a mouth bulge, a chin plane) or a smooth sock; are the lenses large and seated under the brow with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; does the relief READ on this hood colour; any resemblance to an existing licensed mask? (straight on)"
+ },
+ {
+  "id": "suit-head-tessera-12deg",
+  "x": "docs/night1/characters/round-17/stills/skin_tessera_head_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-closeup-trailer__st_0106.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (a brow ridge that overhangs the lenses, eye sockets, a recessed nose bridge and a nose, cheek bones, a mouth bulge, a chin plane) or a smooth sock; are the lenses large and seated under the brow with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; does the relief READ on this hood colour; any resemblance to an existing licensed mask?"
+ },
+ {
+  "id": "suit-head-cinder",
+  "x": "docs/night1/characters/round-17/stills/skin_cinder_headfront_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/press-suit-closeup-fire__psblog_14.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (a brow ridge that overhangs the lenses, eye sockets, a recessed nose bridge and a nose, cheek bones, a mouth bulge, a chin plane) or a smooth sock; are the lenses large and seated under the brow with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; does the relief READ on this hood colour; any resemblance to an existing licensed mask? (formerly a near-black hood: does the relief read now?)"
+ },
+ {
+  "id": "suit-head-cinder-25deg",
+  "x": "docs/night1/characters/round-17/stills/skin_cinder_head34_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-face-closeup__gr_0230.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (a brow ridge that overhangs the lenses, eye sockets, a recessed nose bridge and a nose, cheek bones, a mouth bulge, a chin plane) or a smooth sock; are the lenses large and seated under the brow with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; does the relief READ on this hood colour; any resemblance to an existing licensed mask?"
+ },
+ {
+  "id": "suit-head-glacier",
+  "x": "docs/night1/characters/round-17/stills/skin_glacier_head_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/suits-duo-closeup__gr_1003.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (a brow ridge that overhangs the lenses, eye sockets, a recessed nose bridge and a nose, cheek bones, a mouth bulge, a chin plane) or a smooth sock; are the lenses large and seated under the brow with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; does the relief READ on this hood colour; any resemblance to an existing licensed mask?"
+ },
+ {
+  "id": "suit-head-plum",
+  "x": "docs/night1/characters/round-17/stills/skin_plum_head_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/symbiote-lens-extreme-closeup__gr_1016.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (a brow ridge that overhangs the lenses, eye sockets, a recessed nose bridge and a nose, cheek bones, a mouth bulge, a chin plane) or a smooth sock; are the lenses large and seated under the brow with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; does the relief READ on this hood colour; any resemblance to an existing licensed mask?"
+ },
+ {
+  "id": "suit-head-sage-34",
+  "x": "docs/night1/characters/round-17/stills/skin_sage_head34_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-face-closeup__gr_0230.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (a brow ridge that overhangs the lenses, eye sockets, a recessed nose bridge and a nose, cheek bones, a mouth bulge, a chin plane) or a smooth sock; are the lenses large and seated under the brow with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; does the relief READ on this hood colour; any resemblance to an existing licensed mask? ALSO the neck / trapezius at the bottom: any torn creases or grooves?"
+ },
+ {
+  "id": "suit-head-verdant-profile",
+  "x": "docs/night1/characters/round-17/stills/skin_verdant_headside_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-closeup-trailer__st_0106.jpg",
+  "note": "masked head in PROFILE: does the silhouette show a brow ridge, a recessed nose bridge (a notch between brow and nose), a nose, a mouth, a chin plane, or a smooth egg with a ramp?"
+ },
+ {
+  "id": "suit-head-tessera-profile",
+  "x": "docs/night1/characters/round-17/stills/skin_tessera_headside_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-face-closeup__gr_0230.jpg",
+  "note": "masked head in PROFILE: does the silhouette show a brow ridge, a recessed nose bridge (a notch between brow and nose), a nose, a mouth, a chin plane, or a smooth egg with a ramp?"
+ },
+ {
+  "id": "suit-head-cinder-profile",
+  "x": "docs/night1/characters/round-17/stills/skin_cinder_headside_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-closeup-trailer__st_0106.jpg",
+  "note": "masked head in PROFILE: does the silhouette show a brow ridge, a recessed nose bridge (a notch between brow and nose), a nose, a mouth, a chin plane, or a smooth egg with a ramp? (dark mask)"
+ },
+ {
+  "id": "swatch-sheet",
+  "x": "docs/night1/characters/round-17/SWATCH_SHEET.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/suits-render-trailer__eny_0200.jpg",
+  "note": "a set of hero suit designs shown side by side: judge variety and polish; is any design a copy of an existing licensed costume, emblem or colour scheme?"
+ },
+ {
+  "id": "suit-swap-clip",
+  "x": "docs/night1/characters/round-17/swap_pawn_T_key.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-crosswalk__dn_0329-0337.mp4",
+  "note": "the PLAYABLE hero running, its suit changed by key presses: judge suit render quality in motion, how clean each change looks, the run cadence and any pose pop at the start"
+ },
+ {
+  "id": "hero-run-side",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-15/hero_run_side.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-crosswalk__dn_0329-0337.mp4",
+  "note": "a masked hero running past a side-tracking camera: judge step cadence, torso lean, arm swing, foot planting, transitions, suit quality in motion"
+ },
+ {
+  "id": "hero-run-chase",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-15/hero_run_chase.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-toward-camera__dn_0418-0425.mp4",
+  "note": "a masked hero running, gameplay chase camera: judge cadence, lean, framing (hero size in frame), blends, suit in motion"
+ },
+ {
+  "id": "orbit-all-suits",
+  "x": "docs/night1/characters/round-17/orbit_all_suits.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/streets/clips/street-life-pedestrians__dn_0712-0721.mp4",
+  "note": "a masked hero in a fitted suit seen in 3D, the suit design changing every 1.5 s: judge render quality, sharpness, raised line work, folds at the armpit, faceted shoulders, stray objects"
+ },
+ {
+  "id": "enemy-lineup",
+  "x": "docs/night1/characters/round-17/enemy_lineup_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thugs-close-nm__nm_0947.jpg",
+  "note": "a lineup of street enemies: judge variety of outfits / silhouettes / weapons, modelled faces, hands, cloth, shoes, image quality at 4K"
+ },
+ {
+  "id": "fight-clip",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-15/street_fight_wide.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/plaza-fight__dn_0818-0828.mp4",
+  "note": "a staged street fight, hero vs a group: judge enemy count / size in frame, hit reactions, knockdowns, choreography readability, animation quality"
+ },
+ {
+  "id": "crowd-clip",
+  "x": "docs/night1/characters/round-17/crowd_tracking.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/streets/clips/street-life-pedestrians__dn_0712-0721.mp4",
+  "note": "pedestrians on a sidewalk, tracking camera: judge density, variety of people, gait (no gliding / lockstep), clothing, faces"
+ },
+ {
+  "id": "progress-back-tessera",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_tessera_back_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_tessera_back_4k.png",
+  "note": "two renders of the same suit from BEHIND, same camera: which is better? Does either show the FRONT emblem or the front sash repeated on the back, as if projected through the torso? judge line work, seams, shading"
+ },
+ {
+  "id": "progress-back-plum",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_plum_back_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_plum_back_4k.png",
+  "note": "two renders of the same suit from BEHIND, same camera: which is better? Does either show the FRONT emblem or the front sash repeated on the back, as if projected through the torso? judge line work, seams, shading"
+ },
+ {
+  "id": "progress-back-verdant",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_verdant_back_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_verdant_back_4k.png",
+  "note": "two renders of the same suit from BEHIND, same camera: which is better? Does either show the FRONT emblem or the front sash repeated on the back, as if projected through the torso? judge line work, seams, shading"
+ },
+ {
+  "id": "progress-back-cinder",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_cinder_back_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_cinder_back_4k.png",
+  "note": "two renders of the same suit from BEHIND, same camera: which is better? Does either show the FRONT emblem or the front sash repeated on the back, as if projected through the torso? judge line work, seams, shading"
+ },
+ {
+  "id": "progress-back-ash",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_ash_back_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_ash_back_4k.png",
+  "note": "two renders of the same suit from BEHIND, same camera: which is better? Does either show the FRONT emblem or the front sash repeated on the back, as if projected through the torso? judge line work, seams, shading"
+ },
+ {
+  "id": "progress-back-saffron",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_saffron_back_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_saffron_back_4k.png",
+  "note": "two renders of the same suit from BEHIND, same camera: which is better? Does either show the FRONT emblem or the front sash repeated on the back, as if projected through the torso? judge line work, seams, shading"
+ },
+ {
+  "id": "progress-back-glacier",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_glacier_back_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_glacier_back_4k.png",
+  "note": "two renders of the same suit from BEHIND, same camera: which is better? Does either show the FRONT emblem or the front sash repeated on the back, as if projected through the torso? judge line work, seams, shading"
+ },
+ {
+  "id": "progress-back-sage",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_sage_back_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_sage_back_4k.png",
+  "note": "two renders of the same suit from BEHIND, same camera: which is better? Does either show the FRONT emblem or the front sash repeated on the back, as if projected through the torso? judge line work, seams, shading"
+ },
+ {
+  "id": "progress-chest-verdant",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_verdant_chest_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_verdant_chest_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (look at the torso side under the arm: does any cord or groove line make a stair-step / jog where it crosses the side, or meets a panel border? any smear or notch?)"
+ },
+ {
+  "id": "progress-chest-ash",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_ash_chest_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_ash_chest_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (look at the torso side under the arm: does any cord or groove line make a stair-step / jog where it crosses the side, or meets a panel border? any smear or notch?)"
+ },
+ {
+  "id": "progress-chest-cinder",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_cinder_chest_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_cinder_chest_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (look at the torso side under the arm: does any cord or groove line make a stair-step / jog where it crosses the side, or meets a panel border? any smear or notch?)"
+ },
+ {
+  "id": "progress-chest-tessera",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_tessera_chest_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_tessera_chest_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (look at the torso side under the arm: does any cord or groove line make a stair-step / jog where it crosses the side, or meets a panel border? any smear or notch?)"
+ },
+ {
+  "id": "progress-headfront-cinder",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_cinder_headfront_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_cinder_headfront_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (straight-on face: is the centre seam a straight line or does it zig-zag / jog at the brow, the nose, the mouth?)"
+ },
+ {
+  "id": "progress-headfront-tessera",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_tessera_headfront_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_tessera_headfront_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (straight-on face: is the centre seam a straight line or does it zig-zag / jog at the brow, the nose, the mouth?)"
+ },
+ {
+  "id": "progress-headfront-plum",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_plum_headfront_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_plum_headfront_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (straight-on face: is the centre seam a straight line or does it zig-zag / jog at the brow, the nose, the mouth?)"
+ },
+ {
+  "id": "progress-headfront-glacier",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_glacier_headfront_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_glacier_headfront_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (straight-on face: is the centre seam a straight line or does it zig-zag / jog at the brow, the nose, the mouth?)"
+ },
+ {
+  "id": "progress-headfront-verdant",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_verdant_headfront_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_verdant_headfront_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (straight-on face: is the centre seam a straight line or does it zig-zag / jog at the brow, the nose, the mouth?)"
+ },
+ {
+  "id": "progress-head-tessera",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_tessera_head_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_tessera_head_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs"
+ },
+ {
+  "id": "progress-profile-verdant",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_verdant_headside_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_verdant_headside_4k.png",
+  "note": "two profile renders of the same head from the same camera: in which does the brow overhang the lens rim (the rim sits BEHIND the brow, not proud of it), and in which is the hood trim over the brow sharp rather than smeared"
+ },
+ {
+  "id": "progress-head-sage",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_sage_head34_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r14/chain1/run/stills/skin_sage_head34_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (look at the neck / trapezius creases too)"
+ },
+ {
+  "id": "progress-swap-pawn",
+  "x": "docs/night1/characters/round-17/swap_pawn_T_key.mp4",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-14/swap_pawn_T_key.mp4",
+  "note": "two captures of the playable hero starting to run: which has a smoother start (no pose pop in the first 0.3 s, no snap from idle to run), and judge the suit render quality in motion"
+ },
+ {
+  "id": "progress-lineup",
+  "x": "docs/night1/characters/round-17/enemy_lineup_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-14/enemy_lineup_4k.jpg",
+  "note": "two versions of the same enemy lineup: count the enemies, judge the weapons in their hands, the lighting / exposure, the variety of outfits"
+ },
+ {
+  "id": "r16-lineup",
+  "x": "docs/night1/characters/round-17/enemy_lineup_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-16/enemy_lineup_4k.jpg",
+  "note": "two versions of the same enemy lineup, same camera: which one is clean (no copper blotches on the garments, no halos around the silhouettes, no ghost / duplicate weapons)? count the enemies and weapons"
+ },
+ {
+  "id": "r16-chest-ash",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_ash_chest_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r16/chain3/run/stills/skin_ash_chest_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (look at the torso side under the arm: does any cord or groove line make a stair-step / jog where it crosses the side, or meets a panel border? any smear or notch?) ALSO follow the lower edge of the diagonal sash: does it stay on one straight line or does it step sideways (a shelf)?"
+ },
+ {
+  "id": "r16-chest-verdant",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_verdant_chest_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r16/chain3/run/stills/skin_verdant_chest_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (look at the torso side under the arm: does any cord or groove line make a stair-step / jog where it crosses the side, or meets a panel border? any smear or notch?) (the Verdant colours changed deliberately in this round: judge the line work, not the hue)"
+ },
+ {
+  "id": "r16-headfront-cinder",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_cinder_headfront_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r16/chain3/run/stills/skin_cinder_headfront_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (straight-on face: is the centre seam a straight line or does it zig-zag / jog at the brow, the nose, the mouth?) ALSO follow the seam through the chin onto the throat: continuous or broken / jogged? and the free ends of the cheek cords: raw cut or finished?"
+ },
+ {
+  "id": "r16-headfront-glacier",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_glacier_headfront_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r16/chain3/run/stills/skin_glacier_headfront_4k.png",
+  "note": "two renders of the same suit from the same camera: which one is better (sculpted brow / nose bridge / cheeks / chin, lenses and rim, seam, sash ends, armpit, shoulders, trapezius), and say what differs (straight-on face: is the centre seam a straight line or does it zig-zag / jog at the brow, the nose, the mouth?) ALSO the chin and the free ends of the cheek cords"
+ },
+ {
+  "id": "r16-back-tessera",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_tessera_back_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r16/chain3/run/stills/skin_tessera_back_4k.png",
+  "note": "two renders of the same suit from BEHIND, same camera: which is better? Does either show the FRONT emblem or the front sash repeated on the back, as if projected through the torso? judge line work, seams, shading"
+ },
+ {
+  "id": "verdant-front",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_verdant_front_4k.png",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r16/chain3/run/stills/skin_verdant_front_4k.png",
+  "note": "two renders of the same suit design family from the same camera (the second may use different colours): judge only whether either one looks like an existing licensed costume (colour scheme + layout), and the render quality"
+ },
+ {
+  "id": "enemy-lineup-34",
+  "x": "docs/night1/characters/round-17/enemy_lineup_34_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thugs-group-nm__nm_0049.jpg",
+  "note": "a lineup of street enemies seen three-quarter: judge variety, weapons held in the hands (gripped or floating / piercing the fingers), faces, cloth, lighting"
+ }
+]

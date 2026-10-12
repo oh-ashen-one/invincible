@@ -1,0 +1,17 @@
+WH_LIFE_OCC blocked at 39.4 of 82.4 m by StaticMeshActor_74 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 40.1 of 74.4 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 57.0 of 72.6 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 25.9 of 80.1 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 21.9 of 84.9 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 31.3 of 76.9 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_FRAME t=8.0 res=1920x1080 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=5 (taxi 1) parked=4 (taxi 1) total=9 | >=44px: moving=2 parked=2 (taxi 1) total=4 | people unoccluded >=28px: 13 (models 13, identical looks in frame 0) | >=56px: 5 (models 5) | projected only (no size / occlusion test): vehicles moving=340 parked=634 people=85
+WH_LIFE_TRAFFIC [life] moving 654 (stopped 308) parked 1197 (taxis 140) sim 0.15 ms push 0.08 ms clock 95.2
+WH_LIFE_CROWD [crowd] walkers 1458 live 277 waiting 66 models 60 sim+apply 0.16 ms
+WH_LIFE_FOOT watching 14 walkers
+WH_LIFE_FRAME t=14.0 res=1920x1080 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=5 (taxi 2) parked=4 (taxi 1) total=9 | >=44px: moving=4 parked=2 (taxi 1) total=6 | people unoccluded >=28px: 12 (models 12, identical looks in frame 0) | >=56px: 5 (models 5) | projected only (no size / occlusion test): vehicles moving=348 parked=634 people=87
+WH_LIFE_TRAFFIC [life] moving 664 (stopped 364) parked 1197 (taxis 140) sim 0.06 ms push 0.09 ms clock 100.9
+WH_LIFE_CROWD [crowd] walkers 1458 live 280 waiting 68 models 60 sim+apply 0.57 ms
+WH_LIFE_FRAME t=20.0 res=1920x1080 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=6 (taxi 2) parked=4 (taxi 1) total=10 | >=44px: moving=3 parked=2 (taxi 1) total=5 | people unoccluded >=28px: 10 (models 10, identical looks in frame 0) | >=56px: 5 (models 5) | projected only (no size / occlusion test): vehicles moving=352 parked=634 people=87
+WH_LIFE_TRAFFIC [life] moving 668 (stopped 371) parked 1197 (taxis 140) sim 0.06 ms push 0.07 ms clock 106.6
+WH_LIFE_CROWD [crowd] walkers 1458 live 281 waiting 6 models 60 sim+apply 0.43 ms
+WH_LIFE_FOOT walkers=14 stance phases=305 | ankle world displacement during a planted stance (cm; ~20-25 = heel-toe roll, a stride is ~55) median 21.7 p95 41.9 max 58.6 | stances > 45 cm (sliding) 11 (3.6 %)

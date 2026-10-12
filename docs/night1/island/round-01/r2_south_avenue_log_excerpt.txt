@@ -1,0 +1,5 @@
+[2026.10.01-22.40.30:133][  0]LogWorldPartition: UWorldPartition::Initialize Context : World NetMode = Standalone, IsServer = 0, IsDedicatedServer = 0, IsServerStreamingEnabled = 0, IsServerStreamingOutEnabled = 0, IsUsingMakingVisibleTransaction = 0, IsUsingMakingInvisibleTransaction = 0
+GenerateStreaming for 'Manhattan_WP' started...
+GenerateStreaming for 'Manhattan_WP' took 6.98 sec
+WebTravWorld: 56534 building boxes indexed (0 instanced components -> 0 instance boxes, 0 foliage/traffic instances skipped, 0 far-skyline/giant components de-collided; per-building boxes only 1, 1 wide merged meshes made visual-only)
+WH_QUIT t=30.40

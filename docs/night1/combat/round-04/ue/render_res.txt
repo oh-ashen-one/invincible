@@ -1,0 +1,6 @@
+movie A:
+WH_CMB_RES output 1920x1080 r.ScreenPercentage 100.0 mode manual internal 1920x1080 (pre-TSR) TSR upscale 1.00
+movie B:
+WH_CMB_RES output 1920x1080 r.ScreenPercentage 100.0 mode manual internal 1920x1080 (pre-TSR) TSR upscale 1.00
+stills:
+WH_CMB_RES output 3840x2160 r.ScreenPercentage 100.0 mode manual internal 3840x2160 (pre-TSR) TSR upscale 1.00

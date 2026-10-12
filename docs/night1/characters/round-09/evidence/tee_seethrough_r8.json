@@ -1,0 +1,1 @@
+{"image": "docs/night1/characters/round-08/captures/tee_face_4k.jpg", "mask_px": 666668, "light": [{"px": 188, "cx": 2249, "cy": 1076, "ring_cloth": 1.0}, {"px": 72, "cx": 2333, "cy": 1070, "ring_cloth": 0.97}, {"px": 22, "cx": 2058, "cy": 1261, "ring_cloth": 1.0}], "light_px_total": 282, "dark": [], "dark_px_total": 0, "light_components_ge_20_px": 3}

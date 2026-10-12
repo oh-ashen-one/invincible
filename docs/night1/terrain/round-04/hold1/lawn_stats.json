@@ -1,0 +1,100 @@
+{
+ "scale": 1.0,
+ "crops": [
+  {
+   "image": "p4_greatlawn.jpg",
+   "box_xywh": [
+    1700,
+    1000,
+    512,
+    400
+   ],
+   "label": "critic p4_greatlawn",
+   "hp6_sd": 7.34,
+   "hp3_sd": 5.11,
+   "mean_hsv_sat": 0.646,
+   "mean_luma": 141.6,
+   "mean_rgb": [
+    145.5,
+    156.1,
+    56.2
+   ]
+  },
+  {
+   "image": "p10_lawn_eye.jpg",
+   "box_xywh": [
+    1300,
+    1700,
+    512,
+    460
+   ],
+   "label": "critic p10_lawn_eye",
+   "hp6_sd": 9.77,
+   "hp3_sd": 6.93,
+   "mean_hsv_sat": 0.582,
+   "mean_luma": 102.0,
+   "mean_rgb": [
+    96.7,
+    114.9,
+    49.2
+   ]
+  },
+  {
+   "image": "p10_lawn_eye.jpg",
+   "box_xywh": [
+    2240,
+    1856,
+    512,
+    512
+   ],
+   "label": "guard p10",
+   "hp6_sd": 8.75,
+   "hp3_sd": 6.13,
+   "mean_hsv_sat": 0.623,
+   "mean_luma": 93.0,
+   "mean_rgb": [
+    89.3,
+    105.0,
+    40.6
+   ]
+  },
+  {
+   "image": "p4_greatlawn.jpg",
+   "box_xywh": [
+    3520,
+    1856,
+    512,
+    512
+   ],
+   "label": "guard p4",
+   "hp6_sd": 4.72,
+   "hp3_sd": 3.11,
+   "mean_hsv_sat": 0.747,
+   "mean_luma": 104.8,
+   "mean_rgb": [
+    105.9,
+    118.7,
+    30.1
+   ]
+  },
+  {
+   "image": "p9_park_panorama.jpg",
+   "box_xywh": [
+    512,
+    1856,
+    512,
+    512
+   ],
+   "label": "guard p9",
+   "hp6_sd": 5.38,
+   "hp3_sd": 3.45,
+   "mean_hsv_sat": 0.721,
+   "mean_luma": 82.2,
+   "mean_rgb": [
+    84.3,
+    92.0,
+    26.0
+   ]
+  }
+ ]
+}

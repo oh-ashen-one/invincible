@@ -1,0 +1,35 @@
+{"name": "12_sundress_mom", "tris": 253, "centre_rest": [-0.182, 0.8, -0.002], "rest_dist_cm": 5.1, "max_drift_cm": 11.8, "at": ["walkBrisk", 16], "bones": [9, 10]}
+{"name": "12_sundress_mom", "tris": 253, "centre_rest": [0.182, 0.8, -0.002], "rest_dist_cm": 4.7, "max_drift_cm": 12.1, "at": ["walkBrisk", 2], "bones": [6, 7]}
+{"name": "13_construction_worker", "tris": 317, "centre_rest": [-0.204, 0.773, 0.006], "rest_dist_cm": 1.8, "max_drift_cm": 19.5, "at": ["walkF", 28], "bones": [9, 10]}
+{"name": "13_construction_worker", "tris": 317, "centre_rest": [0.204, 0.773, 0.006], "rest_dist_cm": 1.8, "max_drift_cm": 19.4, "at": ["walkF", 13], "bones": [6, 7]}
+{"name": "15_executive", "tris": 286, "centre_rest": [-0.184, 0.77, 0.005], "rest_dist_cm": 2.6, "max_drift_cm": 8.5, "at": ["walkBrisk", 0], "bones": [9, 10]}
+{"name": "15_executive", "tris": 286, "centre_rest": [0.184, 0.77, 0.005], "rest_dist_cm": 2.8, "max_drift_cm": 8.3, "at": ["walkBrisk", 15], "bones": [6, 7]}
+{"name": "04_blue_sweatshirt", "tris": 279, "centre_rest": [-0.182, 0.751, 0.007], "rest_dist_cm": 3.4, "max_drift_cm": 4.6, "at": ["walkOld", 10], "bones": [9, 10]}
+{"name": "04_blue_sweatshirt", "tris": 279, "centre_rest": [0.182, 0.751, 0.007], "rest_dist_cm": 3.5, "max_drift_cm": 4.5, "at": ["walk", 23], "bones": [6, 7]}
+{"name": "10_silver_tie", "tris": 248, "centre_rest": [-0.205, 0.765, 0.006], "rest_dist_cm": 2.2, "max_drift_cm": 7.7, "at": ["walk", 8], "bones": [9, 10]}
+{"name": "10_silver_tie", "tris": 248, "centre_rest": [0.205, 0.765, 0.006], "rest_dist_cm": 1.3, "max_drift_cm": 8.8, "at": ["walkBrisk", 9], "bones": [6, 7]}
+{"name": "14_teen_skater", "tris": 240, "centre_rest": [-0.203, 0.754, 0.008], "rest_dist_cm": 5.8, "max_drift_cm": 5.3, "at": ["walk", 11], "bones": [9, 10]}
+{"name": "14_teen_skater", "tris": 240, "centre_rest": [0.203, 0.754, 0.008], "rest_dist_cm": 5.8, "max_drift_cm": 4.9, "at": ["walkBrisk", 23], "bones": [6, 7]}
+{"name": "01_retired_gent", "tris": 18, "centre_rest": [0.22, 0.74, -0.005], "rest_dist_cm": 0.3, "max_drift_cm": 4.6, "at": ["walkF", 21], "bones": [0, 11]}
+{"name": "01_retired_gent", "tris": 22, "centre_rest": [0.22, 0.725, -0.008], "rest_dist_cm": 0.5, "max_drift_cm": 3.2, "at": ["walkF", 15], "bones": [0, 11]}
+{"name": "20_punk_artist", "tris": 34, "centre_rest": [-0.123, 0.198, -0.022], "rest_dist_cm": 47.9, "max_drift_cm": 6.2, "at": ["walkF", 25], "bones": [15]}
+{"name": "20_punk_artist", "tris": 12, "centre_rest": [-0.116, 0.186, -0.016], "rest_dist_cm": 49.1, "max_drift_cm": 6.0, "at": ["walkF", 25], "bones": [15]}
+{"name": "20_punk_artist", "tris": 12, "centre_rest": [-0.11, 0.176, -0.101], "rest_dist_cm": 51.2, "max_drift_cm": 4.4, "at": ["walkF", 22], "bones": [15]}
+{"name": "20_punk_artist", "tris": 12, "centre_rest": [-0.099, 0.217, -0.013], "rest_dist_cm": 46.3, "max_drift_cm": 5.7, "at": ["walkBrisk", 24], "bones": [15]}
+{"name": "20_punk_artist", "tris": 12, "centre_rest": [-0.083, 0.187, -0.01], "rest_dist_cm": 49.5, "max_drift_cm": 5.6, "at": ["walkStroll", 32], "bones": [15]}
+{"name": "20_punk_artist", "tris": 33, "centre_rest": [-0.077, 0.196, -0.014], "rest_dist_cm": 48.8, "max_drift_cm": 5.5, "at": ["walkBrisk", 24], "bones": [15]}
+{"name": "20_punk_artist", "tris": 12, "centre_rest": [-0.051, 0.213, -0.057], "rest_dist_cm": 48.1, "max_drift_cm": 4.5, "at": ["walk", 25], "bones": [15]}
+{"name": "20_punk_artist", "tris": 12, "centre_rest": [0.051, 0.213, -0.057], "rest_dist_cm": 48.1, "max_drift_cm": 3.9, "at": ["walkStroll", 11], "bones": [12]}
+{"name": "20_punk_artist", "tris": 33, "centre_rest": [0.077, 0.196, -0.014], "rest_dist_cm": 48.8, "max_drift_cm": 5.0, "at": ["walkStroll", 13], "bones": [12]}
+{"name": "20_punk_artist", "tris": 12, "centre_rest": [0.083, 0.187, -0.01], "rest_dist_cm": 49.5, "max_drift_cm": 5.3, "at": ["walkStroll", 13], "bones": [12]}
+{"name": "20_punk_artist", "tris": 12, "centre_rest": [0.099, 0.217, -0.013], "rest_dist_cm": 46.3, "max_drift_cm": 5.7, "at": ["walkStroll", 13], "bones": [12]}
+{"name": "20_punk_artist", "tris": 12, "centre_rest": [0.116, 0.186, -0.016], "rest_dist_cm": 49.1, "max_drift_cm": 5.8, "at": ["walk", 11], "bones": [12]}
+{"name": "20_punk_artist", "tris": 32, "centre_rest": [0.122, 0.199, -0.021], "rest_dist_cm": 47.8, "max_drift_cm": 5.8, "at": ["walkF", 10], "bones": [12]}
+{"name": "20_punk_artist", "tris": 12, "centre_rest": [0.11, 0.176, -0.101], "rest_dist_cm": 51.2, "max_drift_cm": 4.4, "at": ["walk", 9], "bones": [12]}
+{"name": "06_chrome_shades", "tris": 203, "centre_rest": [-0.205, 0.769, 0.001], "rest_dist_cm": 2.4, "max_drift_cm": 5.1, "at": ["walkBrisk", 10], "bones": [9, 10]}
+{"name": "06_chrome_shades", "tris": 195, "centre_rest": [0.205, 0.763, 0.005], "rest_dist_cm": 2.0, "max_drift_cm": 5.9, "at": ["walkBrisk", 22], "bones": [6, 7]}
+{"name": "09_kurta_waistcoat", "tris": 613, "centre_rest": [-0.005, 0.509, -0.006], "rest_dist_cm": 24.7, "max_drift_cm": 8.2, "at": ["walkF", 23], "bones": [0, 11, 12, 14, 15]}
+{"name": "09_kurta_waistcoat", "tris": 172, "centre_rest": [-0.097, 0.05, 0.007], "rest_dist_cm": 63.9, "max_drift_cm": 10.9, "at": ["walkBrisk", 24], "bones": [15, 16]}
+{"name": "09_kurta_waistcoat", "tris": 172, "centre_rest": [0.096, 0.05, 0.007], "rest_dist_cm": 63.9, "max_drift_cm": 10.6, "at": ["walkBrisk", 10], "bones": [12, 13]}
+{"name": "17_hijabi_student", "tris": 211, "centre_rest": [-0.188, 0.788, 0.001], "rest_dist_cm": 4.7, "max_drift_cm": 3.1, "at": ["walkBrisk", 9], "bones": [9, 10]}
+islands drifting more than 3 cm: 34

@@ -1,0 +1,74 @@
+{
+ "gA_perf.json": {
+  "internal_w": 3840,
+  "internal_h": 2160,
+  "screen_percentage_mode": "manual",
+  "avg_ms": 58.834,
+  "p95_ms": 58.27,
+  "frames": 239
+ },
+ "gB_perf.json": {
+  "internal_w": 3840,
+  "internal_h": 2160,
+  "screen_percentage_mode": "manual",
+  "avg_ms": 38.386,
+  "p95_ms": 55.13,
+  "frames": 128
+ },
+ "gC_perf.json": {
+  "internal_w": 3840,
+  "internal_h": 2160,
+  "screen_percentage_mode": "manual",
+  "avg_ms": 42.663,
+  "p95_ms": 36.655,
+  "frames": 190
+ },
+ "gD_perf.json": {
+  "internal_w": 3840,
+  "internal_h": 2160,
+  "screen_percentage_mode": "manual",
+  "avg_ms": 56.951,
+  "p95_ms": 52.427,
+  "frames": 229
+ },
+ "gE2_perf.json": {
+  "internal_w": 3840,
+  "internal_h": 2160,
+  "screen_percentage_mode": "manual",
+  "avg_ms": 2224.454,
+  "p95_ms": 2224.454,
+  "frames": 1
+ },
+ "gE3_perf.json": {
+  "internal_w": 3840,
+  "internal_h": 2160,
+  "screen_percentage_mode": "manual",
+  "avg_ms": 2174.309,
+  "p95_ms": 2174.309,
+  "frames": 1
+ },
+ "gE4_perf.json": {
+  "internal_w": 3840,
+  "internal_h": 2160,
+  "screen_percentage_mode": "manual",
+  "avg_ms": 2217.408,
+  "p95_ms": 2217.408,
+  "frames": 1
+ },
+ "gE_perf.json": {
+  "internal_w": 3840,
+  "internal_h": 2160,
+  "screen_percentage_mode": "manual",
+  "avg_ms": 66.249,
+  "p95_ms": 56.593,
+  "frames": 91
+ },
+ "gF_perf.json": {
+  "internal_w": 3840,
+  "internal_h": 2160,
+  "screen_percentage_mode": "manual",
+  "avg_ms": 71.969,
+  "p95_ms": 87.936,
+  "frames": 148
+ }
+}

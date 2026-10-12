@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/perf/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/perf/docs/night1/perf/round-05/perf/g1/ship_a -map /Game/Maps/Manhattan -res 3840x2160 -perf 15:45 -name ship_a -timeout 900 -exec  -- -WHTravScript=/Users/midir/sm2-n1/perf/docs/night1/manhattan/scripts/route_30s_warmup15.json -WHTravCsv=/Users/midir/sm2-n1/perf/docs/night1/perf/round-05/perf/g1/ship_a/trav_telemetry.csv -csvGpuStats -benchmark -fps=60 -notraceserver
+
+run_game: out=/Users/midir/sm2-n1/perf/docs/night1/perf/round-05/perf/g1/ship_a res=3840x2160 quit=46.0 window=0 movie=0
+WH_PERF_START t=15.00
+WH_PERF frames=1800 avg_ms=15.67 fps=63.8 p95_ms=17.81 p99_ms=19.08 gpu_avg_ms=14.39 out=3840x2160 internal=1920x1080 (manual) -> /Users/midir/sm2-n1/perf/docs/night1/perf/round-05/perf/g1/ship_a/ship_a_perf.json
+WH_QUIT t=46.00
+

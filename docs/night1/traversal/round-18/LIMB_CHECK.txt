@@ -1,0 +1,15 @@
+# P3 round 18 LIMB CHECK (limb_check.py = the critic r17 single-gap test: in every trick window one limb_z component changes >= 0.10 per 0.1 s sample; r17 31 of 242 failed) + the critic's pose.py still count (pose_sig < .06 per 0.1 s)
+# Homage fan game; not affiliated with Marvel, Sony or Insomniac.
+f1_flow_backDouble_telemetry.csv   samples  46  limb_z slow  0  pose_sig still 0
+f2_flow_pikeSwan_telemetry.csv     samples  41  limb_z slow  0  pose_sig still 0
+f3_flow_corkscrew_telemetry.csv    samples  44  limb_z slow  0  pose_sig still 0
+f4_chain_flips_telemetry.csv       samples  60  limb_z slow  0  pose_sig still 0
+f5_canyon_backDouble_telemetry.csv samples  47  limb_z slow  0  pose_sig still 0
+TOTAL limb_z slow samples: 0 of 238
+
+# informative: a, b, c (trick windows in the other clips)
+a_swing_chain_telemetry.csv        samples  29  limb_z slow  0  pose_sig still 0
+b_release_trick_dive_zip_telemetry.csv samples  14  limb_z slow  0  pose_sig still 0
+c_wallrun_perch_telemetry.csv      samples   8  limb_z slow  0  pose_sig still 0
+d_sprint_jump_first_swing_telemetry.csv samples   0  limb_z slow  0  pose_sig still 0
+TOTAL limb_z slow samples: 0 of 51

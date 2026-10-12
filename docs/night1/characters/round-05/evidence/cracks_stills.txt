@@ -1,0 +1,15 @@
+crowd_tracking_4k.jpg dark-clothed people 6 bright sliver comps total 37
+  bbox (np.int64(645), np.int64(823), np.int64(811), np.int64(1229)) slivers 17 px 18365
+  bbox (np.int64(3489), np.int64(816), np.int64(350), np.int64(1098)) slivers 11 px 39087
+  bbox (np.int64(1451), np.int64(889), np.int64(272), np.int64(454)) slivers 4 px 5721
+  bbox (np.int64(3472), np.int64(913), np.int64(140), np.int64(347)) slivers 2 px 846
+  bbox (np.int64(1579), np.int64(894), np.int64(85), np.int64(377)) slivers 2 px 1515
+  bbox (np.int64(3268), np.int64(909), np.int64(182), np.int64(340)) slivers 1 px 2387
+crowd_wide_4k.jpg dark-clothed people 7 bright sliver comps total 10
+  bbox (np.int64(0), np.int64(979), np.int64(254), np.int64(686)) slivers 4 px 8552
+  bbox (np.int64(2316), np.int64(955), np.int64(68), np.int64(186)) slivers 2 px 515
+  bbox (np.int64(3267), np.int64(955), np.int64(111), np.int64(293)) slivers 1 px 3145
+  bbox (np.int64(3722), np.int64(979), np.int64(117), np.int64(534)) slivers 1 px 3107
+  bbox (np.int64(3395), np.int64(959), np.int64(169), np.int64(419)) slivers 1 px 4625
+  bbox (np.int64(1523), np.int64(957), np.int64(112), np.int64(291)) slivers 1 px 1378
+  bbox (np.int64(3569), np.int64(964), np.int64(185), np.int64(439)) slivers 0 px 3946

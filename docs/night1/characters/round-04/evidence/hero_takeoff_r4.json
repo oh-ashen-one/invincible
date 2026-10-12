@@ -1,0 +1,11 @@
+{
+ "clip": "round-04/captures/hero_run_jump_side.mp4 (1080p60, -movie fixed 1/60 s step)",
+ "method": "head top = highest square-ish red blob in the upper 30 % of the suit mask (tools/ue_char/eval/video_checks.py _red + head_bob logic); lift-off hand-read on evidence/hero_liftoff_strip_1500-1667ms.jpg (frames 1.500-1.650 s)",
+ "running_head_top_px": {"p5": 314, "p50": 328, "p95": 338, "window_s": [0.1, 1.0]},
+ "crouch_start_s": 1.350,
+ "deepest_s": 1.517, "deepest_head_top_px": 482,
+ "head_back_at_running_level_s": 1.600,
+ "liftoff_s": [1.533, 1.550],
+ "anticipation_frames_60fps": [11, 12],
+ "clip_level": "runTakeoff: 0.12 s gather + sink to 0.25 s, hips -17.2 cm (+3 cm), actor leaves the ground at 0.25 s = 15 frames (tools/ue_char/heroanim/hero_run_r4.py)"
+}

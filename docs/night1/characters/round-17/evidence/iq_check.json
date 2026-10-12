@@ -1,0 +1,387 @@
+{
+ "Q5_ash_pipe": {
+  "r15": {
+   "ok": true,
+   "pipe_rows": [
+    818,
+    1076
+   ],
+   "pipe_x": [
+    1540,
+    1561
+   ],
+   "pipe_width_px": 4.0,
+   "panel_x_min": 1571,
+   "gap_to_border_median_px": 1.0,
+   "gap_to_border_p90_px": 2.0,
+   "gap_to_border_max_px": 20,
+   "critic_box_accent_pixels": 35,
+   "pipe_center_x": 1550,
+   "Q5_pipe_joins_end_le_5px": true
+  },
+  "r14": {
+   "ok": true,
+   "pipe_rows": [
+    822,
+    1192
+   ],
+   "pipe_x": [
+    1609,
+    1633
+   ],
+   "pipe_width_px": 4.0,
+   "panel_x_min": 1647,
+   "gap_to_border_median_px": 1.0,
+   "gap_to_border_p90_px": 2.0,
+   "gap_to_border_max_px": 80,
+   "critic_box_accent_pixels": 0,
+   "pipe_center_x": 1621,
+   "Q5_pipe_joins_end_le_5px": true
+  }
+ },
+ "Q6_verdant_armpit": {
+  "r15": {
+   "box": [
+    1160,
+    1150,
+    1270,
+    1270
+   ],
+   "cord_found": true,
+   "cord_columns": 95,
+   "first_col": 1080,
+   "last_col": 1176,
+   "cord_ends_before_box_right_edge": true,
+   "median_thickness_px": 11.0,
+   "min_thickness_px": 3,
+   "pinch_ratio": 0.27,
+   "gap_columns_in_run": 0,
+   "Q6_unpinched_ge_0p5": false
+  },
+  "r14": {
+   "box": [
+    1160,
+    1150,
+    1270,
+    1270
+   ],
+   "cord_found": true,
+   "cord_columns": 34,
+   "first_col": 1080,
+   "last_col": 1113,
+   "cord_ends_before_box_right_edge": true,
+   "median_thickness_px": 4.0,
+   "min_thickness_px": 3,
+   "pinch_ratio": 0.75,
+   "gap_columns_in_run": 0,
+   "Q6_unpinched_ge_0p5": true
+  }
+ },
+ "Q7_brow_stretch": {
+  "tessera": {
+   "r15": {
+    "ok": true,
+    "brow_front_x": 2295,
+    "brow": {
+     "columns": 170,
+     "slope": -0.579,
+     "thickness_perp_px": 20.77,
+     "edge_rise_perp_px": 5.62
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.604,
+     "thickness_perp_px": 14.55,
+     "edge_rise_perp_px": 4.28
+    },
+    "edge_rise_ratio": 1.31,
+    "thickness_ratio": 1.43,
+    "windows_sane": true,
+    "brow_temple_ratio_le_1p5": true
+   },
+   "r14": {
+    "ok": true,
+    "brow_front_x": 2281,
+    "brow": {
+     "columns": 170,
+     "slope": -0.545,
+     "thickness_perp_px": 22.82,
+     "edge_rise_perp_px": 7.9
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.614,
+     "thickness_perp_px": 15.34,
+     "edge_rise_perp_px": 4.26
+    },
+    "edge_rise_ratio": 1.85,
+    "thickness_ratio": 1.49,
+    "windows_sane": true,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "brow_edge_rise_r15_over_r14": 0.71,
+   "brow_thickness_r15_over_r14": 0.91
+  },
+  "verdant": {
+   "r15": {
+    "ok": false,
+    "brow": {
+     "columns": 61,
+     "slope": 7.396,
+     "thickness_perp_px": 3.22,
+     "edge_rise_perp_px": 0.27
+    },
+    "temple": null
+   },
+   "r14": {
+    "ok": false,
+    "brow": null,
+    "temple": null
+   }
+  },
+  "plum": {
+   "r15": {
+    "ok": true,
+    "brow_front_x": 2399,
+    "brow": {
+     "columns": 170,
+     "slope": -0.555,
+     "thickness_perp_px": 13.11,
+     "edge_rise_perp_px": 9.18
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.538,
+     "thickness_perp_px": 14.97,
+     "edge_rise_perp_px": 2.64
+    },
+    "edge_rise_ratio": 3.48,
+    "thickness_ratio": 0.88,
+    "windows_sane": true,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "r14": {
+    "ok": true,
+    "brow_front_x": 2283,
+    "brow": {
+     "columns": 170,
+     "slope": -0.639,
+     "thickness_perp_px": 16.85,
+     "edge_rise_perp_px": 8.43
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.606,
+     "thickness_perp_px": 14.54,
+     "edge_rise_perp_px": 2.57
+    },
+    "edge_rise_ratio": 3.28,
+    "thickness_ratio": 1.16,
+    "windows_sane": true,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "brow_edge_rise_r15_over_r14": 1.09,
+   "brow_thickness_r15_over_r14": 0.78
+  },
+  "cinder": {
+   "r15": {
+    "ok": true,
+    "brow_front_x": 2253,
+    "brow": {
+     "columns": 168,
+     "slope": -0.639,
+     "thickness_perp_px": 18.54,
+     "edge_rise_perp_px": 8.0
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.627,
+     "thickness_perp_px": 16.1,
+     "edge_rise_perp_px": 2.97
+    },
+    "edge_rise_ratio": 2.69,
+    "thickness_ratio": 1.15,
+    "windows_sane": true,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "r14": {
+    "ok": true,
+    "brow_front_x": 2291,
+    "brow": {
+     "columns": 168,
+     "slope": -0.634,
+     "thickness_perp_px": 17.74,
+     "edge_rise_perp_px": 8.03
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.607,
+     "thickness_perp_px": 16.24,
+     "edge_rise_perp_px": 2.99
+    },
+    "edge_rise_ratio": 2.69,
+    "thickness_ratio": 1.09,
+    "windows_sane": true,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "brow_edge_rise_r15_over_r14": 1.0,
+   "brow_thickness_r15_over_r14": 1.05
+  },
+  "glacier": {
+   "r15": {
+    "ok": true,
+    "brow_front_x": 2323,
+    "brow": {
+     "columns": 170,
+     "slope": -0.67,
+     "thickness_perp_px": 22.43,
+     "edge_rise_perp_px": 9.14
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.583,
+     "thickness_perp_px": 18.15,
+     "edge_rise_perp_px": 4.75
+    },
+    "edge_rise_ratio": 1.92,
+    "thickness_ratio": 1.24,
+    "windows_sane": true,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "r14": {
+    "ok": true,
+    "brow_front_x": 2399,
+    "brow": {
+     "columns": 170,
+     "slope": -0.562,
+     "thickness_perp_px": 24.41,
+     "edge_rise_perp_px": 9.59
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.549,
+     "thickness_perp_px": 19.29,
+     "edge_rise_perp_px": 4.82
+    },
+    "edge_rise_ratio": 1.99,
+    "thickness_ratio": 1.27,
+    "windows_sane": true,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "brow_edge_rise_r15_over_r14": 0.95,
+   "brow_thickness_r15_over_r14": 0.92
+  },
+  "ash": {
+   "r15": {
+    "ok": true,
+    "brow_front_x": 2308,
+    "brow": {
+     "columns": 170,
+     "slope": -0.63,
+     "thickness_perp_px": 17.77,
+     "edge_rise_perp_px": 9.31
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.597,
+     "thickness_perp_px": 13.74,
+     "edge_rise_perp_px": 5.58
+    },
+    "edge_rise_ratio": 1.67,
+    "thickness_ratio": 1.29,
+    "windows_sane": true,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "r14": {
+    "ok": true,
+    "brow_front_x": 2255,
+    "brow": {
+     "columns": 170,
+     "slope": -0.602,
+     "thickness_perp_px": 17.13,
+     "edge_rise_perp_px": 10.28
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.624,
+     "thickness_perp_px": 14.42,
+     "edge_rise_perp_px": 5.09
+    },
+    "edge_rise_ratio": 2.02,
+    "thickness_ratio": 1.19,
+    "windows_sane": true,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "brow_edge_rise_r15_over_r14": 0.91,
+   "brow_thickness_r15_over_r14": 1.04
+  },
+  "saffron": {
+   "r15": {
+    "ok": false,
+    "brow": {
+     "columns": 100,
+     "slope": -2.474,
+     "thickness_perp_px": 5.25,
+     "edge_rise_perp_px": 1.69
+    },
+    "temple": null
+   },
+   "r14": {
+    "ok": false,
+    "brow": {
+     "columns": 101,
+     "slope": -1.825,
+     "thickness_perp_px": 6.73,
+     "edge_rise_perp_px": 1.68
+    },
+    "temple": null
+   },
+   "brow_edge_rise_r15_over_r14": 1.01,
+   "brow_thickness_r15_over_r14": 0.78
+  },
+  "sage": {
+   "r15": {
+    "ok": true,
+    "brow_front_x": 2400,
+    "brow": {
+     "columns": 170,
+     "slope": 3.36,
+     "thickness_perp_px": 2.85,
+     "edge_rise_perp_px": 1.71
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.558,
+     "thickness_perp_px": 15.72,
+     "edge_rise_perp_px": 7.42
+    },
+    "edge_rise_ratio": 0.23,
+    "thickness_ratio": 0.18,
+    "windows_sane": false,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "r14": {
+    "ok": true,
+    "brow_front_x": 2279,
+    "brow": {
+     "columns": 170,
+     "slope": 2.881,
+     "thickness_perp_px": 3.28,
+     "edge_rise_perp_px": 2.62
+    },
+    "temple": {
+     "columns": 260,
+     "slope": -0.615,
+     "thickness_perp_px": 16.19,
+     "edge_rise_perp_px": 7.24
+    },
+    "edge_rise_ratio": 0.36,
+    "thickness_ratio": 0.2,
+    "windows_sane": false,
+    "brow_temple_ratio_le_1p5": false
+   },
+   "brow_edge_rise_r15_over_r14": 0.65,
+   "brow_thickness_r15_over_r14": 0.87
+  }
+ }
+}

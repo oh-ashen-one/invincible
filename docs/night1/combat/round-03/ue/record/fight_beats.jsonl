@@ -1,0 +1,59 @@
+{"t":1.500,"rt":1.500,"gt":1.404,"key":"attack","hold":0.00,"toward":"e4","label":"combo A 1","move_before":"free","react":""}
+{"t":1.900,"rt":1.900,"gt":1.796,"key":"attack","hold":0.00,"toward":"","label":"combo A 2","move_before":"strike","react":""}
+{"t":2.000,"rt":2.000,"gt":1.896,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 2.00","move_before":"strike","react":"reflex e6 in 0.220"}
+{"t":2.300,"rt":2.300,"gt":2.008,"key":"attack","hold":0.00,"toward":"","label":"combo A 3","move_before":"dodge","react":""}
+{"t":2.700,"rt":2.700,"gt":2.380,"key":"attack","hold":0.00,"toward":"","label":"combo A 4","move_before":"strike","react":""}
+{"t":2.900,"rt":2.900,"gt":2.580,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 2.90","move_before":"strike","react":"reflex e5 in 0.100"}
+{"t":3.600,"rt":3.600,"gt":3.280,"key":"attack","hold":0.00,"toward":"","label":"combo B 1","move_before":"free","react":"hero free"}
+{"t":4.000,"rt":4.000,"gt":3.680,"key":"attack","hold":0.00,"toward":"","label":"combo B 2","move_before":"hit","react":""}
+{"t":4.367,"rt":4.367,"gt":4.046,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 4.37","move_before":"strike","react":"reflex e2 in 0.217"}
+{"t":4.400,"rt":4.400,"gt":4.080,"key":"attack","hold":0.00,"toward":"","label":"combo B 3","move_before":"dodge","react":""}
+{"t":4.800,"rt":4.800,"gt":4.480,"key":"attack","hold":0.00,"toward":"","label":"combo B 4","move_before":"strike","react":""}
+{"t":5.183,"rt":5.183,"gt":4.863,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 5.18","move_before":"strike","react":"reflex e1 in 0.150"}
+{"t":5.700,"rt":6.550,"gt":6.013,"key":"launcher","hold":0.00,"toward":"e2","label":"launcher 1","move_before":"free","react":"hero free"}
+{"t":6.600,"rt":7.433,"gt":6.896,"key":"attack","hold":0.00,"toward":"","label":"launcher 1 juggle 1","move_before":"air","react":"hero waits in the air"}
+{"t":7.000,"rt":7.733,"gt":7.196,"key":"attack","hold":0.00,"toward":"","label":"launcher 1 juggle 2","move_before":"air","react":"hero waits in the air"}
+{"t":7.400,"rt":8.033,"gt":7.496,"key":"attack","hold":0.00,"toward":"","label":"launcher 1 juggle 3","move_before":"air","react":"hero waits in the air"}
+{"t":8.600,"rt":9.017,"gt":8.480,"key":"web","hold":0.00,"toward":"e3","label":"web gunman 1a","move_before":"free","react":"hero free"}
+{"t":9.183,"rt":9.183,"gt":8.646,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 9.18","move_before":"free","react":"reflex e4 in 0.220"}
+{"t":8.950,"rt":9.367,"gt":8.711,"key":"web","hold":0.00,"toward":"e3","label":"web gunman 1b","move_before":"dodge","react":""}
+{"t":9.900,"rt":10.100,"gt":9.346,"key":"strike","hold":0.00,"toward":"e7","label":"web strike","move_before":"free","react":"hero free"}
+{"t":10.900,"rt":11.200,"gt":10.446,"key":"attack","hold":0.00,"toward":"","label":"combo C 1","move_before":"free","react":"hero free"}
+{"t":11.317,"rt":11.317,"gt":10.563,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 11.32","move_before":"strike","react":"reflex e8 in 0.220"}
+{"t":11.300,"rt":11.600,"gt":10.846,"key":"attack","hold":0.00,"toward":"","label":"combo C 2","move_before":"dodge","react":""}
+{"t":11.700,"rt":12.000,"gt":11.246,"key":"attack","hold":0.00,"toward":"","label":"combo C 3","move_before":"hit","react":""}
+{"t":12.100,"rt":12.400,"gt":11.646,"key":"attack","hold":0.00,"toward":"","label":"combo C 4","move_before":"strike","react":""}
+{"t":12.683,"rt":12.683,"gt":11.930,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 12.68","move_before":"strike","react":"reflex e1 in 0.220"}
+{"t":13.000,"rt":13.600,"gt":12.630,"key":"attack","hold":0.00,"toward":"","label":"combo D 1","move_before":"free","react":"hero free"}
+{"t":13.900,"rt":13.900,"gt":12.930,"key":"focus","hold":0.00,"toward":"","label":"focus fill (scripted: guarantees the finisher meter)","move_before":"strike","react":""}
+{"t":13.400,"rt":14.000,"gt":13.030,"key":"attack","hold":0.00,"toward":"","label":"combo D 2","move_before":"strike","react":""}
+{"t":14.000,"rt":14.867,"gt":13.896,"key":"finisher","hold":0.00,"toward":"","label":"finisher 1","move_before":"free","react":"hero free"}
+{"t":17.083,"rt":17.083,"gt":15.319,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 17.08","move_before":"free","react":"reflex e3 in 0.186"}
+{"t":16.800,"rt":17.083,"gt":15.319,"key":"web","hold":0.00,"toward":"e5","label":"web brute a","move_before":"free","react":"hero free"}
+{"t":17.150,"rt":17.433,"gt":15.463,"key":"web","hold":0.00,"toward":"e5","label":"web brute b","move_before":"dodge","react":""}
+{"t":17.600,"rt":18.000,"gt":16.019,"key":"launcher","hold":0.00,"toward":"e5","label":"launcher 2","move_before":"free","react":"hero free"}
+{"t":18.500,"rt":18.933,"gt":16.953,"key":"attack","hold":0.00,"toward":"","label":"launcher 2 juggle 1","move_before":"air","react":"hero waits in the air"}
+{"t":18.900,"rt":19.233,"gt":17.253,"key":"attack","hold":0.00,"toward":"","label":"launcher 2 juggle 2","move_before":"air","react":"hero waits in the air"}
+{"t":19.300,"rt":19.533,"gt":17.553,"key":"attack","hold":0.00,"toward":"","label":"launcher 2 juggle 3","move_before":"air","react":"hero waits in the air"}
+{"t":20.167,"rt":20.167,"gt":18.186,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 20.17","move_before":"landing","react":"reflex e7 in 0.217"}
+{"t":20.800,"rt":21.217,"gt":19.236,"key":"attack","hold":0.00,"toward":"","label":"combo E 1","move_before":"free","react":"hero free"}
+{"t":21.517,"rt":21.517,"gt":19.536,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 21.52","move_before":"strike","react":"reflex e6 in 0.217"}
+{"t":21.200,"rt":21.617,"gt":19.571,"key":"attack","hold":0.00,"toward":"","label":"combo E 2","move_before":"dodge","react":""}
+{"t":21.600,"rt":22.017,"gt":19.819,"key":"attack","hold":0.00,"toward":"","label":"combo E 3","move_before":"strike","react":""}
+{"t":22.350,"rt":22.350,"gt":20.153,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 22.35","move_before":"strike","react":"reflex e11 in 0.220"}
+{"t":22.000,"rt":22.417,"gt":20.219,"key":"attack","hold":0.00,"toward":"","label":"combo E 4","move_before":"dodge","react":""}
+{"t":22.900,"rt":23.017,"gt":20.819,"key":"launcher","hold":0.00,"toward":"","label":"launcher 3","move_before":"free","react":"hero free"}
+{"t":23.800,"rt":23.983,"gt":21.786,"key":"attack","hold":0.00,"toward":"","label":"launcher 3 juggle 1","move_before":"air","react":"hero waits in the air"}
+{"t":24.200,"rt":24.283,"gt":22.086,"key":"attack","hold":0.00,"toward":"","label":"launcher 3 juggle 2","move_before":"air","react":"hero waits in the air"}
+{"t":24.600,"rt":24.583,"gt":22.386,"key":"attack","hold":0.00,"toward":"","label":"launcher 3 juggle 3","move_before":"air","react":"hero waits in the air"}
+{"t":25.800,"rt":25.800,"gt":23.603,"key":"focus","hold":0.00,"toward":"","label":"focus fill 2 (scripted)","move_before":"free","react":""}
+{"t":25.900,"rt":25.900,"gt":23.703,"key":"finisher","hold":0.00,"toward":"","label":"finisher 2","move_before":"free","react":"hero free"}
+{"t":28.217,"rt":28.217,"gt":25.171,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 28.22","move_before":"free","react":"reflex e7 in 0.218"}
+{"t":28.400,"rt":29.150,"gt":25.887,"key":"attack","hold":0.00,"toward":"","label":"combo F 1","move_before":"free","react":"hero free"}
+{"t":29.467,"rt":29.467,"gt":26.204,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 29.47","move_before":"strike","react":"reflex e6 in 0.217"}
+{"t":28.800,"rt":29.550,"gt":26.287,"key":"attack","hold":0.00,"toward":"","label":"combo F 2","move_before":"dodge","react":""}
+{"t":29.200,"rt":29.950,"gt":26.687,"key":"attack","hold":0.00,"toward":"","label":"combo F 3","move_before":"strike","react":""}
+{"t":29.600,"rt":30.350,"gt":27.087,"key":"attack","hold":0.00,"toward":"","label":"combo F 4","move_before":"hit","react":""}
+{"t":30.750,"rt":30.750,"gt":27.487,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 30.75","move_before":"strike","react":"reflex e3 in 0.217"}
+{"t":30.500,"rt":31.500,"gt":28.237,"key":"web","hold":0.00,"toward":"","label":"web last","move_before":"hit","react":"window timeout"}
+{"t":31.967,"rt":31.967,"gt":28.704,"key":"dodge","hold":0.00,"toward":"","label":"reflex dodge 31.97","move_before":"free","react":"reflex e2 in 0.217"}

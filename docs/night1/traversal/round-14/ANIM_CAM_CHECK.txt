@@ -1,0 +1,120 @@
+# P3 round 14 anim / camera safety (anim_check.py, cam_check.py)
+  air cycles: 7; consecutive identical cycles: 0
+    cycle 1: air_tuck > air_rise
+    cycle 2: air_fallCalm > air_tuck
+    cycle 3: flip_backDouble
+    cycle 4: air_spread > air_fallCalm
+    cycle 5: air_fallCalm > air_tuck
+    cycle 6: flip_frontPikeSwan
+    cycle 7: air_spread > air_fallCalm
+  swing 3 t0  4.65s  hero centre-Y 0.46..0.60  travel 14.2% <20%
+  swing 4 t0  7.27s  hero centre-Y 0.38..0.59  travel 20.7% ok
+  swing 5 t0  9.15s  hero centre-Y 0.44..0.56  travel 11.3% <20%
+  swing 6 t0 10.92s  hero centre-Y 0.43..0.60  travel 17.6% <20%
+  swing 7 t0 13.35s  hero centre-Y 0.35..0.53  travel 18.1% <20%
+  swing 8 t0 15.03s  hero centre-Y 0.46..0.56  travel 10.0% <20%
+b_release_trick_dive_zip: 418 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 8 consecutive air pairs, 0 with the same silhouette (min distance 0.215 m, threshold 0.08 m)
+  air cycles: 1; consecutive identical cycles: 0
+    cycle 1: flip_frontPikeSwan
+  hero fully in frame        408/419 frames; out: 4.58-4.75s
+  camera-hero distance m     min 2.52  max 6.05   frames < 2 m: 0 (none)
+  camera pitch (deg down)    min -0.4  max 52.5   swing/air frames: 0.3..21.7
+  camera height over hero m  min -0.30  max 4.60
+  camera in geometry         0 frames (none)
+  swing 1 t0  0.00s  hero centre-Y 0.32..0.58  travel 26.2% ok
+c_wallrun_perch: 628 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 5 consecutive air pairs, 0 with the same silhouette (min distance 0.130 m, threshold 0.08 m)
+  air cycles: 1; consecutive identical cycles: 0
+    cycle 1: air_rise
+  hero fully in frame        594/629 frames; out: 2.18s, 7.83-8.07s, 9.55-9.85s
+  camera-hero distance m     min 2.60  max 7.65   frames < 2 m: 0 (none)
+  camera pitch (deg down)    min -56.1  max 37.4   swing/air frames: -56.1..17.7
+  camera height over hero m  min -2.20  max 5.77
+  camera in geometry         0 frames (none)
+  swing 1 t0  0.00s  hero centre-Y 0.36..0.74  travel 37.9% ok
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 18 consecutive air pairs, 0 with the same silhouette (min distance 0.162 m, threshold 0.08 m)
+  air cycles: 5; consecutive identical cycles: 0
+    cycle 1: air_tuck > air_rise
+    cycle 2: air_fallCalm > air_tuck
+    cycle 3: air_rise > air_spread
+    cycle 4: air_spread > air_fallCalm
+    cycle 5: air_fallCalm
+  camera in geometry         0 frames (none)
+  swing 1 t0  2.68s  hero centre-Y 0.48..0.63  travel 14.8% <20%
+  swing 2 t0  4.75s  hero centre-Y 0.40..0.65  travel 24.4% ok
+  swing 3 t0  6.88s  hero centre-Y 0.46..0.60  travel 14.0% <20%
+  swing 4 t0  8.72s  hero centre-Y 0.49..1.21  travel 71.4% ok
+  swing 5 t0 10.50s  hero centre-Y 0.43..0.56  travel 12.4% <20%
+f1_flow_backDouble: 478 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 18 consecutive air pairs, 0 with the same silhouette (min distance 0.216 m, threshold 0.08 m)
+  air cycles: 3; consecutive identical cycles: 0
+    cycle 1: air_tuck > air_rise
+    cycle 2: flip_backDouble
+    cycle 3: air_rise > air_spread
+  camera height over hero m  min -1.54  max 1.80
+  camera in geometry         0 frames (none)
+  swing 1 t0  0.40s  hero centre-Y 0.39..0.56  travel 16.9% <20%
+  swing 2 t0  2.42s  hero centre-Y 0.43..0.58  travel 15.6% <20%
+  swing 3 t0  5.00s  hero centre-Y 0.38..0.56  travel 17.6% <20%
+  swing 4 t0  6.93s  hero centre-Y 0.44..0.56  travel 11.8% <20%
+f2_flow_pikeSwan: 478 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 16 consecutive air pairs, 0 with the same silhouette (min distance 0.136 m, threshold 0.08 m)
+  air cycles: 4; consecutive identical cycles: 0
+    cycle 1: air_tuck > air_rise
+    cycle 2: flip_frontPikeSwan
+    cycle 3: air_rise > air_spread
+    cycle 4: air_spread
+  camera height over hero m  min -1.54  max 2.22
+  camera in geometry         0 frames (none)
+  swing 1 t0  0.40s  hero centre-Y 0.39..0.56  travel 17.9% <20%
+  swing 2 t0  2.37s  hero centre-Y 0.43..0.58  travel 15.6% <20%
+  swing 3 t0  4.78s  hero centre-Y 0.34..0.54  travel 19.6% <20%
+  swing 4 t0  6.67s  hero centre-Y 0.44..0.78  travel 33.5% ok
+f3_flow_corkscrew: 478 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 18 consecutive air pairs, 0 with the same silhouette (min distance 0.107 m, threshold 0.08 m)
+  air cycles: 4; consecutive identical cycles: 0
+    cycle 1: flip_corkscrew
+    cycle 2: air_fallCalm > air_tuck > air_fall
+    cycle 3: air_rise > air_spread
+    cycle 4: air_spread
+  camera height over hero m  min -1.54  max 3.26
+  camera in geometry         43 frames (4.57-4.82s, 4.95s, 5.03-5.25s, 5.32-5.50s)
+  swing 1 t0  0.40s  hero centre-Y 0.42..0.56  travel 13.9% <20%
+  swing 2 t0  2.85s  hero centre-Y 0.33..0.56  travel 22.2% ok
+  swing 3 t0  4.78s  hero centre-Y 0.49..1.51  travel 102.1% ok
+  swing 4 t0  6.62s  hero centre-Y 0.46..0.74  travel 27.8% ok
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 34 consecutive air pairs, 0 with the same silhouette (min distance 0.164 m, threshold 0.08 m)
+  air cycles: 5; consecutive identical cycles: 0
+    cycle 1: flip_backDouble
+    cycle 2: flip_frontPikeSwan
+    cycle 3: flip_corkscrew
+    cycle 4: flip_backDouble
+    cycle 5: flip_frontPikeSwan
+  camera in geometry         0 frames (none)
+  swing 1 t0  0.40s  hero centre-Y 0.44..0.56  travel 12.4% <20%
+  swing 2 t0  2.93s  hero centre-Y 0.35..0.52  travel 16.8% <20%
+  swing 3 t0  5.35s  hero centre-Y 0.32..0.56  travel 24.5% ok
+  swing 4 t0  7.88s  hero centre-Y 0.31..0.57  travel 25.9% ok
+  swing 5 t0 10.45s  hero centre-Y 0.38..0.57  travel 18.4% <20%
+f5_canyon_backDouble: 478 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 18 consecutive air pairs, 0 with the same silhouette (min distance 0.192 m, threshold 0.08 m)
+  air cycles: 4; consecutive identical cycles: 0
+    cycle 1: air_tuck > air_rise
+    cycle 2: flip_backDouble
+    cycle 3: air_rise > air_spread
+    cycle 4: flip_backDouble
+  camera height over hero m  min -0.46  max 1.80
+  camera in geometry         0 frames (none)
+  swing 1 t0  0.40s  hero centre-Y 0.41..0.57  travel 16.3% <20%
+  swing 2 t0  2.33s  hero centre-Y 0.43..0.62  travel 19.1% <20%
+  swing 3 t0  4.92s  hero centre-Y 0.39..0.53  travel 13.3% <20%
+  swing 4 t0  6.70s  hero centre-Y 0.44..0.59  travel 15.3% <20%

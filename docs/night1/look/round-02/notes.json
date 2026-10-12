@@ -1,0 +1,1223 @@
+[
+ {
+  "kind": "still",
+  "file": "stills/golden_S3_3840x2160.jpg",
+  "preset": "golden",
+  "view": "S3_rooftop_watertower",
+  "desc": "rooftop with water tower, towers behind",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   166,
+   48.5,
+   -122
+  ],
+  "camera_target_m": [
+   158,
+   51,
+   -150
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 18,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S1_1920x1080.jpg",
+  "preset": "golden",
+  "view": "S1_avenue_street",
+  "desc": "avenue canyon, street level, looking north up the 5th-Av-like avenue",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   246,
+   2.0,
+   150
+  ],
+  "camera_target_m": [
+   251,
+   16,
+   -300
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S1_3840x2160.jpg",
+  "preset": "golden",
+  "view": "S1_avenue_street",
+  "desc": "avenue canyon, street level, looking north up the 5th-Av-like avenue",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   246,
+   2.0,
+   150
+  ],
+  "camera_target_m": [
+   251,
+   16,
+   -300
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S2_1920x1080.jpg",
+  "preset": "golden",
+  "view": "S2_avenue_swing",
+  "desc": "mid-height swing view down the avenue",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   243,
+   42,
+   185
+  ],
+  "camera_target_m": [
+   252,
+   18,
+   -350
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S2_3840x2160.jpg",
+  "preset": "golden",
+  "view": "S2_avenue_swing",
+  "desc": "mid-height swing view down the avenue",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   243,
+   42,
+   185
+  ],
+  "camera_target_m": [
+   252,
+   18,
+   -350
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S1_1920x1080.jpg",
+  "preset": "midday",
+  "view": "S1_avenue_street",
+  "desc": "avenue canyon, street level, looking north up the 5th-Av-like avenue",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   246,
+   2.0,
+   150
+  ],
+  "camera_target_m": [
+   251,
+   16,
+   -300
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S1_3840x2160.jpg",
+  "preset": "midday",
+  "view": "S1_avenue_street",
+  "desc": "avenue canyon, street level, looking north up the 5th-Av-like avenue",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   246,
+   2.0,
+   150
+  ],
+  "camera_target_m": [
+   251,
+   16,
+   -300
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S2_1920x1080.jpg",
+  "preset": "midday",
+  "view": "S2_avenue_swing",
+  "desc": "mid-height swing view down the avenue",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   243,
+   42,
+   185
+  ],
+  "camera_target_m": [
+   252,
+   18,
+   -350
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S2_3840x2160.jpg",
+  "preset": "midday",
+  "view": "S2_avenue_swing",
+  "desc": "mid-height swing view down the avenue",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   243,
+   42,
+   185
+  ],
+  "camera_target_m": [
+   252,
+   18,
+   -350
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S3_1920x1080.jpg",
+  "preset": "midday",
+  "view": "S3_rooftop_watertower",
+  "desc": "rooftop with water tower, towers behind",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   166,
+   48.5,
+   -122
+  ],
+  "camera_target_m": [
+   158,
+   51,
+   -150
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S3_3840x2160.jpg",
+  "preset": "midday",
+  "view": "S3_rooftop_watertower",
+  "desc": "rooftop with water tower, towers behind",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   166,
+   48.5,
+   -122
+  ],
+  "camera_target_m": [
+   158,
+   51,
+   -150
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S4_1920x1080.jpg",
+  "preset": "midday",
+  "view": "S4_perch_skyline",
+  "desc": "high perch on a glass tower top, skyline to the north-west",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   182,
+   306,
+   -92
+  ],
+  "camera_target_m": [
+   -120,
+   150,
+   -470
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S4_3840x2160.jpg",
+  "preset": "midday",
+  "view": "S4_perch_skyline",
+  "desc": "high perch on a glass tower top, skyline to the north-west",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   182,
+   306,
+   -92
+  ],
+  "camera_target_m": [
+   -120,
+   150,
+   -470
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S5_1920x1080.jpg",
+  "preset": "midday",
+  "view": "S5_timessq_south",
+  "desc": "Times-Square-like bowtie, from the steps looking south at the tower",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   -12,
+   6,
+   -255
+  ],
+  "camera_target_m": [
+   0,
+   48,
+   -40
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S5_3840x2160.jpg",
+  "preset": "midday",
+  "view": "S5_timessq_south",
+  "desc": "Times-Square-like bowtie, from the steps looking south at the tower",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   -12,
+   6,
+   -255
+  ],
+  "camera_target_m": [
+   0,
+   48,
+   -40
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S6_1920x1080.jpg",
+  "preset": "midday",
+  "view": "S6_timessq_street",
+  "desc": "Times-Square-like bowtie at street level looking north",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   8,
+   1.8,
+   -110
+  ],
+  "camera_target_m": [
+   -4,
+   26,
+   -330
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S6_3840x2160.jpg",
+  "preset": "midday",
+  "view": "S6_timessq_street",
+  "desc": "Times-Square-like bowtie at street level looking north",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   8,
+   1.8,
+   -110
+  ],
+  "camera_target_m": [
+   -4,
+   26,
+   -330
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S7_1920x1080.jpg",
+  "preset": "midday",
+  "view": "S7_sunset_crosstown",
+  "desc": "sunset, mid-height looking west down a cross street into the sun",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   300,
+   30,
+   -160
+  ],
+  "camera_target_m": [
+   -300,
+   22,
+   -160
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S7_3840x2160.jpg",
+  "preset": "midday",
+  "view": "S7_sunset_crosstown",
+  "desc": "sunset, mid-height looking west down a cross street into the sun",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   300,
+   30,
+   -160
+  ],
+  "camera_target_m": [
+   -300,
+   22,
+   -160
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S8_1920x1080.jpg",
+  "preset": "midday",
+  "view": "S8_aerial_midtown",
+  "desc": "high swing / aerial over midtown toward the park",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   420,
+   160,
+   220
+  ],
+  "camera_target_m": [
+   0,
+   20,
+   -320
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/midday_S8_3840x2160.jpg",
+  "preset": "midday",
+  "view": "S8_aerial_midtown",
+  "desc": "high swing / aerial over midtown toward the park",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   420,
+   160,
+   220
+  ],
+  "camera_target_m": [
+   0,
+   20,
+   -320
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": null,
+  "wall_s": null
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S3_1920x1080.jpg",
+  "preset": "golden",
+  "view": "S3_rooftop_watertower",
+  "desc": "rooftop with water tower, towers behind",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   166,
+   48.5,
+   -122
+  ],
+  "camera_target_m": [
+   158,
+   51,
+   -150
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S4_3840x2160.jpg",
+  "preset": "golden",
+  "view": "S4_perch_skyline",
+  "desc": "high perch on a glass tower top, skyline to the north-west",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   182,
+   306,
+   -92
+  ],
+  "camera_target_m": [
+   -120,
+   150,
+   -470
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 37
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S4_1920x1080.jpg",
+  "preset": "golden",
+  "view": "S4_perch_skyline",
+  "desc": "high perch on a glass tower top, skyline to the north-west",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   182,
+   306,
+   -92
+  ],
+  "camera_target_m": [
+   -120,
+   150,
+   -470
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 0,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S5_3840x2160.jpg",
+  "preset": "golden",
+  "view": "S5_timessq_south",
+  "desc": "Times-Square-like bowtie, from the steps looking south at the tower",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   -12,
+   6,
+   -255
+  ],
+  "camera_target_m": [
+   0,
+   48,
+   -40
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 10,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S5_1920x1080.jpg",
+  "preset": "golden",
+  "view": "S5_timessq_south",
+  "desc": "Times-Square-like bowtie, from the steps looking south at the tower",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   -12,
+   6,
+   -255
+  ],
+  "camera_target_m": [
+   0,
+   48,
+   -40
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 0,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S6_3840x2160.jpg",
+  "preset": "golden",
+  "view": "S6_timessq_street",
+  "desc": "Times-Square-like bowtie at street level looking north",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   8,
+   1.8,
+   -110
+  ],
+  "camera_target_m": [
+   -4,
+   26,
+   -330
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S6_1920x1080.jpg",
+  "preset": "golden",
+  "view": "S6_timessq_street",
+  "desc": "Times-Square-like bowtie at street level looking north",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   8,
+   1.8,
+   -110
+  ],
+  "camera_target_m": [
+   -4,
+   26,
+   -330
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S7_3840x2160.jpg",
+  "preset": "golden",
+  "view": "S7_sunset_crosstown",
+  "desc": "sunset, mid-height looking west down a cross street into the sun",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   300,
+   30,
+   -160
+  ],
+  "camera_target_m": [
+   -300,
+   22,
+   -160
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 0,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S7_1920x1080.jpg",
+  "preset": "golden",
+  "view": "S7_sunset_crosstown",
+  "desc": "sunset, mid-height looking west down a cross street into the sun",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   300,
+   30,
+   -160
+  ],
+  "camera_target_m": [
+   -300,
+   22,
+   -160
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 15,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S8_3840x2160.jpg",
+  "preset": "golden",
+  "view": "S8_aerial_midtown",
+  "desc": "high swing / aerial over midtown toward the park",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   420,
+   160,
+   220
+  ],
+  "camera_target_m": [
+   0,
+   20,
+   -320
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/golden_S8_1920x1080.jpg",
+  "preset": "golden",
+  "view": "S8_aerial_midtown",
+  "desc": "high swing / aerial over midtown toward the park",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   420,
+   160,
+   220
+  ],
+  "camera_target_m": [
+   0,
+   20,
+   -320
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S1_3840x2160.jpg",
+  "preset": "night",
+  "view": "S1_avenue_street",
+  "desc": "avenue canyon, street level, looking north up the 5th-Av-like avenue",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   246,
+   2.0,
+   150
+  ],
+  "camera_target_m": [
+   251,
+   16,
+   -300
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 4,
+  "wall_s": 41,
+  "tests": {
+   "mean_luma": 52.68,
+   "pct_below_10": 0.17,
+   "distinct_pools_bottom_third": 4
+  }
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S1_1920x1080.jpg",
+  "preset": "night",
+  "view": "S1_avenue_street",
+  "desc": "avenue canyon, street level, looking north up the 5th-Av-like avenue",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   246,
+   2.0,
+   150
+  ],
+  "camera_target_m": [
+   251,
+   16,
+   -300
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39,
+  "tests": {
+   "mean_luma": 52.98,
+   "pct_below_10": 0.13,
+   "distinct_pools_bottom_third": 4
+  }
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S2_3840x2160.jpg",
+  "preset": "night",
+  "view": "S2_avenue_swing",
+  "desc": "mid-height swing view down the avenue",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   243,
+   42,
+   185
+  ],
+  "camera_target_m": [
+   252,
+   18,
+   -350
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 0,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S2_1920x1080.jpg",
+  "preset": "night",
+  "view": "S2_avenue_swing",
+  "desc": "mid-height swing view down the avenue",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   243,
+   42,
+   185
+  ],
+  "camera_target_m": [
+   252,
+   18,
+   -350
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 0,
+  "wall_s": 41
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S3_3840x2160.jpg",
+  "preset": "night",
+  "view": "S3_rooftop_watertower",
+  "desc": "rooftop with water tower, towers behind",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   166,
+   48.5,
+   -122
+  ],
+  "camera_target_m": [
+   158,
+   51,
+   -150
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 0,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S3_1920x1080.jpg",
+  "preset": "night",
+  "view": "S3_rooftop_watertower",
+  "desc": "rooftop with water tower, towers behind",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   166,
+   48.5,
+   -122
+  ],
+  "camera_target_m": [
+   158,
+   51,
+   -150
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S4_3840x2160.jpg",
+  "preset": "night",
+  "view": "S4_perch_skyline",
+  "desc": "high perch on a glass tower top, skyline to the north-west",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   182,
+   306,
+   -92
+  ],
+  "camera_target_m": [
+   -120,
+   150,
+   -470
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 0,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S4_1920x1080.jpg",
+  "preset": "night",
+  "view": "S4_perch_skyline",
+  "desc": "high perch on a glass tower top, skyline to the north-west",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   182,
+   306,
+   -92
+  ],
+  "camera_target_m": [
+   -120,
+   150,
+   -470
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S5_3840x2160.jpg",
+  "preset": "night",
+  "view": "S5_timessq_south",
+  "desc": "Times-Square-like bowtie, from the steps looking south at the tower",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   -12,
+   6,
+   -255
+  ],
+  "camera_target_m": [
+   0,
+   48,
+   -40
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S5_1920x1080.jpg",
+  "preset": "night",
+  "view": "S5_timessq_south",
+  "desc": "Times-Square-like bowtie, from the steps looking south at the tower",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   -12,
+   6,
+   -255
+  ],
+  "camera_target_m": [
+   0,
+   48,
+   -40
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 3,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S6_3840x2160.jpg",
+  "preset": "night",
+  "view": "S6_timessq_street",
+  "desc": "Times-Square-like bowtie at street level looking north",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   8,
+   1.8,
+   -110
+  ],
+  "camera_target_m": [
+   -4,
+   26,
+   -330
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39,
+  "tests": {
+   "mean_luma": 47.68,
+   "pct_below_10": 0.22,
+   "distinct_pools_bottom_third": 4
+  }
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S6_1920x1080.jpg",
+  "preset": "night",
+  "view": "S6_timessq_street",
+  "desc": "Times-Square-like bowtie at street level looking north",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   8,
+   1.8,
+   -110
+  ],
+  "camera_target_m": [
+   -4,
+   26,
+   -330
+  ],
+  "fov_deg": 80,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39,
+  "tests": {
+   "mean_luma": 47.69,
+   "pct_below_10": 0.16,
+   "distinct_pools_bottom_third": 4
+  }
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S7_3840x2160.jpg",
+  "preset": "night",
+  "view": "S7_sunset_crosstown",
+  "desc": "sunset, mid-height looking west down a cross street into the sun",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   300,
+   30,
+   -160
+  ],
+  "camera_target_m": [
+   -300,
+   22,
+   -160
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 0,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S7_1920x1080.jpg",
+  "preset": "night",
+  "view": "S7_sunset_crosstown",
+  "desc": "sunset, mid-height looking west down a cross street into the sun",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   300,
+   30,
+   -160
+  ],
+  "camera_target_m": [
+   -300,
+   22,
+   -160
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S8_3840x2160.jpg",
+  "preset": "night",
+  "view": "S8_aerial_midtown",
+  "desc": "high swing / aerial over midtown toward the park",
+  "output": "3840x2160",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   420,
+   160,
+   220
+  ],
+  "camera_target_m": [
+   0,
+   20,
+   -320
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 0,
+  "wall_s": 39
+ },
+ {
+  "kind": "still",
+  "file": "stills/night_S8_1920x1080.jpg",
+  "preset": "night",
+  "view": "S8_aerial_midtown",
+  "desc": "high swing / aerial over midtown toward the park",
+  "output": "1920x1080",
+  "internal": "100% of output",
+  "camera_pos_m": [
+   420,
+   160,
+   220
+  ],
+  "camera_target_m": [
+   0,
+   20,
+   -320
+  ],
+  "fov_deg": 75,
+  "game_time_s": 20.0,
+  "gpu_util_before_pct": 100,
+  "wall_s": 39
+ },
+ {
+  "kind": "clip",
+  "file": "swing_night.mp4",
+  "preset": "night",
+  "map": "/Game/Tests/Look/Look_Midtown_night",
+  "output": "1920x1080 60 fps H.264",
+  "internal": "100% of output (1920x1080)",
+  "frames": 719,
+  "seconds": 11.98,
+  "bytes": 14657131,
+  "script": "tools/perf_ue/scripts/city_swing_clip.json (P3 traversal hero, -WHTravScript, 0.8 s pre-roll trimmed)",
+  "time_step": "fixed 1/60 s (-benchmark -fps=60 -dumpmovie)",
+  "gpu_util_before_pct": 100,
+  "wall_s": 297,
+  "hero_bbox_mean_luma": {
+   "frames_measured": 718,
+   "frames_without_hero_pixels": 0,
+   "bbox_mean_luma_min": 71.4,
+   "bbox_mean_luma_p5": 83.4,
+   "bbox_mean_luma_mean": 103.6,
+   "bbox_mean_luma_max": 138.9,
+   "threshold": 40.0,
+   "frames_below_threshold": 0,
+   "first_frames_below": [],
+   "p10_of_bbox_mean": 34.5,
+   "p90_of_bbox_mean": 213.7
+  }
+ },
+ {
+  "kind": "clip",
+  "file": "swing_golden.mp4",
+  "preset": "golden",
+  "map": "/Game/Tests/Look/Look_Midtown_golden",
+  "output": "1920x1080 60 fps H.264",
+  "internal": "100% of output (1920x1080)",
+  "frames": 719,
+  "seconds": 11.98,
+  "bytes": 14326611,
+  "script": "tools/perf_ue/scripts/city_swing_clip.json (P3 traversal hero, -WHTravScript, 0.8 s pre-roll trimmed)",
+  "time_step": "fixed 1/60 s (-benchmark -fps=60 -dumpmovie)",
+  "gpu_util_before_pct": 100,
+  "wall_s": 276,
+  "hero_bbox_mean_luma": {
+   "frames_measured": 718,
+   "frames_without_hero_pixels": 0,
+   "bbox_mean_luma_min": 73.0,
+   "bbox_mean_luma_p5": 82.4,
+   "bbox_mean_luma_mean": 121.9,
+   "bbox_mean_luma_max": 158.6,
+   "threshold": 40.0,
+   "frames_below_threshold": 0,
+   "first_frames_below": [],
+   "p10_of_bbox_mean": 57.9,
+   "p90_of_bbox_mean": 186.8
+  }
+ },
+ {
+  "kind": "clip",
+  "file": "swing_midday.mp4",
+  "preset": "midday",
+  "map": "/Game/Tests/Look/Look_Midtown",
+  "output": "1920x1080 60 fps H.264",
+  "internal": "100% of output (1920x1080)",
+  "frames": 719,
+  "seconds": 11.98,
+  "bytes": 14564909,
+  "script": "tools/perf_ue/scripts/city_swing_clip.json (P3 traversal hero, -WHTravScript, 0.8 s pre-roll trimmed)",
+  "time_step": "fixed 1/60 s (-benchmark -fps=60 -dumpmovie)",
+  "gpu_util_before_pct": 0,
+  "wall_s": 301,
+  "hero_bbox_mean_luma": {
+   "frames_measured": 718,
+   "frames_without_hero_pixels": 0,
+   "bbox_mean_luma_min": 30.5,
+   "bbox_mean_luma_p5": 34.0,
+   "bbox_mean_luma_mean": 78.6,
+   "bbox_mean_luma_max": 144.6,
+   "threshold": 40.0,
+   "frames_below_threshold": 64,
+   "first_frames_below": [
+    3,
+    278,
+    279,
+    280,
+    281,
+    282,
+    283,
+    284,
+    285,
+    286,
+    287,
+    288
+   ],
+   "p10_of_bbox_mean": 23.5,
+   "p90_of_bbox_mean": 159.2
+  }
+ }
+]

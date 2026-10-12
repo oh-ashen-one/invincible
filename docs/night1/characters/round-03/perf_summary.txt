@@ -1,0 +1,1 @@
+GPU-LOCK: class=perf exclusive=yes util_before=1% util_after=92% util_during_avg=67.6% wait_s=670.94 instances_before=0 instances_max=2 contaminated=true (foreign-capture-process-during-run)

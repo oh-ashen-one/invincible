@@ -1,0 +1,599 @@
+{
+ "round": "/Users/midir/sm2-n1/city/docs/night1/city/round-10",
+ "regions_version": 3,
+ "facades": [
+  {
+   "view": "S1_avenue_street",
+   "region": "s1_left_stone",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    0,
+    0,
+    190,
+    235
+   ],
+   "pct_above_204": 0.0,
+   "p95": 94.9,
+   "p99": 105.5,
+   "mean_Y": 75.1,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S1_avenue_street",
+   "region": "s1_right_brick",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    1075,
+    0,
+    1335,
+    230
+   ],
+   "pct_above_204": 0.0,
+   "p95": 139.7,
+   "p99": 164.4,
+   "mean_Y": 73.7,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S1_avenue_street",
+   "region": "s1_right_dark",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    1360,
+    0,
+    1690,
+    290
+   ],
+   "pct_above_204": 0.0,
+   "p95": 92.9,
+   "p99": 108.1,
+   "mean_Y": 64.8,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S2_avenue_swing",
+   "region": "s2_left_stone",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    150,
+    100,
+    600,
+    900
+   ],
+   "pct_above_204": 0.0,
+   "p95": 176.0,
+   "p99": 178.9,
+   "mean_Y": 102.4,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S2_avenue_swing",
+   "region": "s2_gold_glass",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    1475,
+    60,
+    1900,
+    900
+   ],
+   "pct_above_204": 0.0,
+   "p95": 153.0,
+   "p99": 171.4,
+   "mean_Y": 95.6,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S2_avenue_swing",
+   "region": "s2_white_tower",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    1345,
+    80,
+    1455,
+    700
+   ],
+   "pct_above_204": 0.03,
+   "p95": 125.1,
+   "p99": 151.6,
+   "mean_Y": 75.0,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S2_avenue_swing",
+   "region": "s2_dark_tower",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    1220,
+    60,
+    1330,
+    900
+   ],
+   "pct_above_204": 0.0,
+   "p95": 109.0,
+   "p99": 114.1,
+   "mean_Y": 54.3,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S5_timessq_south",
+   "region": "s5_left_dark",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    290,
+    30,
+    450,
+    250
+   ],
+   "pct_above_204": 0.49,
+   "p95": 149.4,
+   "p99": 188.9,
+   "mean_Y": 59.8,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S5_timessq_south",
+   "region": "s5_grey_tower",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    660,
+    20,
+    820,
+    300
+   ],
+   "pct_above_204": 3.73,
+   "p95": 184.9,
+   "p99": 225.9,
+   "mean_Y": 98.5,
+   "C1_pass": false,
+   "C2_pass": true
+  },
+  {
+   "view": "S5_timessq_south",
+   "region": "s5_teal_glass",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    1100,
+    230,
+    1330,
+    480
+   ],
+   "pct_above_204": 0.36,
+   "p95": 126.8,
+   "p99": 160.3,
+   "mean_Y": 79.2,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S6_timessq_street",
+   "region": "s6_left_brown",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    0,
+    20,
+    270,
+    180
+   ],
+   "pct_above_204": 0.2,
+   "p95": 100.2,
+   "p99": 141.9,
+   "mean_Y": 61.9,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S7_sunset_crosstown",
+   "region": "s7_left_glass",
+   "res": "1080",
+   "daylight": false,
+   "box": [
+    0,
+    0,
+    490,
+    1000
+   ],
+   "pct_above_204": 0.0,
+   "p95": 97.6,
+   "p99": 105.6,
+   "mean_Y": 71.5,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S7_sunset_crosstown",
+   "region": "s7_mid_dark",
+   "res": "1080",
+   "daylight": false,
+   "box": [
+    635,
+    340,
+    830,
+    940
+   ],
+   "pct_above_204": 0.09,
+   "p95": 118.4,
+   "p99": 154.9,
+   "mean_Y": 56.3,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S7_sunset_crosstown",
+   "region": "s7_right_masonry",
+   "res": "1080",
+   "daylight": false,
+   "box": [
+    1300,
+    0,
+    1900,
+    700
+   ],
+   "pct_above_204": 0.0,
+   "p95": 93.3,
+   "p99": 122.8,
+   "mean_Y": 69.0,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S8_aerial_midtown",
+   "region": "s8_glass_right",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    1270,
+    350,
+    1600,
+    1000
+   ],
+   "pct_above_204": 0.23,
+   "p95": 167.1,
+   "p99": 187.4,
+   "mean_Y": 80.3,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S8_aerial_midtown",
+   "region": "s8_pale_glass",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    370,
+    300,
+    560,
+    700
+   ],
+   "pct_above_204": 0.0,
+   "p95": 164.2,
+   "p99": 175.2,
+   "mean_Y": 108.9,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S8_aerial_midtown",
+   "region": "s8_brick_a",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    720,
+    580,
+    960,
+    900
+   ],
+   "pct_above_204": 0.0,
+   "p95": 103.8,
+   "p99": 134.1,
+   "mean_Y": 60.9,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S8_aerial_midtown",
+   "region": "s8_brick_b",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    1000,
+    620,
+    1240,
+    900
+   ],
+   "pct_above_204": 0.66,
+   "p95": 188.0,
+   "p99": 202.6,
+   "mean_Y": 104.9,
+   "C1_pass": true,
+   "C2_pass": true
+  },
+  {
+   "view": "S8_aerial_midtown",
+   "region": "s8_grey_tower",
+   "res": "1080",
+   "daylight": true,
+   "box": [
+    910,
+    290,
+    1160,
+    520
+   ],
+   "pct_above_204": 0.0,
+   "p95": 176.1,
+   "p99": 189.0,
+   "mean_Y": 97.9,
+   "C1_pass": true,
+   "C2_pass": true
+  }
+ ],
+ "far": [
+  {
+   "res": "1080",
+   "regions": {
+    "sky": {
+     "Y": 229.009,
+     "BR": 9.789,
+     "R": 223.763,
+     "G": 230.11,
+     "B": 233.552,
+     "p95": 235.503,
+     "p99": 236.932,
+     "pct204": 100.0,
+     "rms": 0.019,
+     "lap": 0.822,
+     "flat": 89.223,
+     "px": 132000
+    },
+    "far_shore": {
+     "Y": 190.532,
+     "BR": 8.108,
+     "R": 186.308,
+     "G": 191.395,
+     "B": 194.416,
+     "p95": 225.068,
+     "p99": 229.276,
+     "pct204": 36.063,
+     "rms": 0.138,
+     "lap": 17.134,
+     "flat": 4.107,
+     "px": 39600
+    },
+    "river": {
+     "Y": 173.635,
+     "BR": 16.012,
+     "R": 164.66,
+     "G": 175.592,
+     "B": 180.672,
+     "p95": 186.21,
+     "p99": 213.713,
+     "pct204": 2.295,
+     "rms": 0.054,
+     "lap": 4.179,
+     "flat": 30.857,
+     "px": 11200
+    },
+    "mid_city": {
+     "Y": 156.127,
+     "BR": -7.631,
+     "R": 154.542,
+     "G": 157.528,
+     "B": 146.912,
+     "p95": 216.846,
+     "p99": 226.877,
+     "pct204": 14.39,
+     "rms": 0.283,
+     "lap": 27.469,
+     "flat": 0.643,
+     "px": 90000
+    },
+    "near_city": {
+     "Y": 83.729,
+     "BR": 1.395,
+     "R": 83.071,
+     "G": 83.851,
+     "B": 84.465,
+     "p95": 167.766,
+     "p99": 178.409,
+     "pct204": 0.014,
+     "rms": 0.565,
+     "lap": 20.183,
+     "flat": 2.393,
+     "px": 125000
+    },
+    "horizon_far": {
+     "Y": 205.903,
+     "BR": 7.284,
+     "R": 203.033,
+     "G": 206.31,
+     "B": 210.317,
+     "p95": 228.932,
+     "p99": 232.574,
+     "pct204": 59.925,
+     "rms": 0.109,
+     "lap": 11.822,
+     "flat": 9.836,
+     "px": 29400
+    }
+   },
+   "lines": {
+    "C11 far_shore lap / sky lap": {
+     "value": 20.84,
+     "target": ">= 6.0",
+     "passed": true
+    },
+    "C11 far_shore flat 8x8 blocks %": {
+     "value": 4.11,
+     "target": "<= 40",
+     "passed": true
+    },
+    "C12 far_shore (B-R) - sky (B-R)": {
+     "value": -1.68,
+     "target": "+-10",
+     "passed": true
+    },
+    "C13 far_shore Y - sky Y": {
+     "value": -38.48,
+     "target": "-35..-25",
+     "passed": false
+    },
+    "C13 far_shore Y > near_city Y": {
+     "value": 106.8,
+     "target": "> 0",
+     "passed": true
+    },
+    "C14 far_shore Y - river Y": {
+     "value": 16.9,
+     "target": "5..35",
+     "passed": true
+    },
+    "C15 rms far_shore / near_city": {
+     "value": 0.24,
+     "target": "0.25..0.45",
+     "passed": false
+    },
+    "T1 silhouette-top std (min of 3 defs, px)": {
+     "value": 18.98,
+     "target": ">= 12",
+     "passed": true
+    }
+   }
+  }
+ ],
+ "crit": [
+  {
+   "view": "S4_perch_skyline",
+   "region": "s4_far_band",
+   "res": "1080",
+   "box": [
+    0,
+    150,
+    1300,
+    300
+   ],
+   "pct_above_204": 29.55,
+   "max_pct204": 10.0,
+   "p95": 227.9,
+   "mean_Y": 182.4,
+   "passed": false
+  },
+  {
+   "view": "S5_timessq_south",
+   "region": "s5_mid_tower",
+   "res": "1080",
+   "box": [
+    640,
+    40,
+    880,
+    700
+   ],
+   "pct_above_204": 5.65,
+   "max_pct204": 1.5,
+   "p95": 208.3,
+   "mean_Y": 101.9,
+   "passed": false
+  },
+  {
+   "view": "S6_timessq_street",
+   "region": "s6_curb_plaza",
+   "res": "1080",
+   "box": [
+    1150,
+    760,
+    1920,
+    1080
+   ],
+   "pct_above_204": 14.65,
+   "max_pct204": 1.5,
+   "p95": 238.0,
+   "mean_Y": 80.0,
+   "passed": false
+  },
+  {
+   "view": "S8_aerial_midtown",
+   "region": "s8_glass_upper",
+   "res": "1080",
+   "box": [
+    1270,
+    0,
+    1640,
+    300
+   ],
+   "pct_above_204": 70.37,
+   "max_pct204": 1.5,
+   "p95": 231.5,
+   "mean_Y": 208.1,
+   "passed": false
+  }
+ ],
+ "yolo": {
+  "S1_avenue_street": {
+   "people": 0,
+   "vehicles": 17,
+   "cars": 17,
+   "traffic_lights": 0,
+   "vehicles_c35": 16,
+   "conf": 0.3,
+   "C4_cars_pass": true,
+   "C4_people_pass": false,
+   "C4_lights_pass": false
+  },
+  "S2_avenue_swing": {
+   "people": 0,
+   "vehicles": 15,
+   "cars": 13,
+   "traffic_lights": 0,
+   "vehicles_c35": 13,
+   "conf": 0.3,
+   "C6_vehicles_pass": true
+  },
+  "S6_timessq_street": {
+   "people": 1,
+   "vehicles": 18,
+   "cars": 16,
+   "traffic_lights": 0,
+   "vehicles_c35": 17,
+   "conf": 0.3,
+   "C4_cars_pass": true,
+   "C4_people_pass": false,
+   "C4_lights_pass": false
+  }
+ },
+ "ip": {
+  "S1_avenue_street_1920x1080.jpg": [],
+  "S2_avenue_swing_1920x1080.jpg": [],
+  "S3_rooftop_watertower_1920x1080.jpg": [],
+  "S4_perch_skyline_1920x1080.jpg": [],
+  "S5_timessq_south_1920x1080.jpg": [],
+  "S6_timessq_street_1920x1080.jpg": [],
+  "S7_sunset_crosstown_1920x1080.jpg": [],
+  "S8_aerial_midtown_1920x1080.jpg": []
+ },
+ "manual": {
+  "C3": "window-opening depth (frames/sills/recess, varied interior states): judged side by side with the named refs",
+  "C5": "night street frame: no night view in the S-set",
+  "C7": "S1 trees >= 3, signed storefronts >= 2 per side: hand count",
+  "C8": "per-20 m clutter checklist: presence list, not numeric",
+  "C9": "S3 wooden water towers >= 2: hand count",
+  "C10": "clutter per rooftop: judged",
+  "C16": "shore embankment strip vs water: unmeasured in the spec"
+ }
+}

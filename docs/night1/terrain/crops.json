@@ -1,0 +1,8 @@
+{
+ "_note": "Hand-picked 512 x 512 pure-lawn crops (pixel boxes on the 3840x2160 stills; verified by eye in crops previews: no sky, building, tree crown or water). The automatic grass classifier of crop_stats.py cannot separate golden-lit olive lawn from foliage.",
+ "crops": {
+  "p10_lawn_eye.jpg": [[100, 1648]],
+  "p9_park_panorama.jpg": [[1500, 1620], [1750, 1640]],
+  "p4_greatlawn.jpg": [[900, 1400]]
+ }
+}

@@ -1,0 +1,98 @@
+[
+ {
+  "frame": "stills/r2_south_avenue_t26s_1920x1080.jpg",
+  "size": [
+   1920,
+   1080
+  ],
+  "paint_band": [
+   0.4,
+   1.0,
+   0.0,
+   1.0
+  ],
+  "std_band": [
+   0.6,
+   1.0,
+   0.25,
+   0.75
+  ],
+  "lane_paint_pct": 7.38,
+  "luma_mean": 59.6,
+  "luma_std": 25.7,
+  "pass_paint_ge_1pct": true,
+  "pass_std_ge_35": false
+ },
+ {
+  "frame": "stills/r2_south_avenue_t28s_1920x1080.jpg",
+  "size": [
+   1920,
+   1080
+  ],
+  "paint_band": [
+   0.4,
+   1.0,
+   0.0,
+   1.0
+  ],
+  "std_band": [
+   0.6,
+   1.0,
+   0.25,
+   0.75
+  ],
+  "lane_paint_pct": 0.68,
+  "luma_mean": 111.9,
+  "luma_std": 37.8,
+  "pass_paint_ge_1pct": false,
+  "pass_std_ge_35": true
+ },
+ {
+  "frame": "stills/r2_south_avenue_t12s_1920x1080.jpg",
+  "size": [
+   1920,
+   1080
+  ],
+  "paint_band": [
+   0.4,
+   1.0,
+   0.0,
+   1.0
+  ],
+  "std_band": [
+   0.6,
+   1.0,
+   0.25,
+   0.75
+  ],
+  "lane_paint_pct": 0.36,
+  "luma_mean": 84.8,
+  "luma_std": 35.9,
+  "pass_paint_ge_1pct": false,
+  "pass_std_ge_35": true
+ },
+ {
+  "frame": "stills/r2_south_avenue_t20s_1920x1080.jpg",
+  "size": [
+   1920,
+   1080
+  ],
+  "paint_band": [
+   0.4,
+   1.0,
+   0.0,
+   1.0
+  ],
+  "std_band": [
+   0.6,
+   1.0,
+   0.25,
+   0.75
+  ],
+  "lane_paint_pct": 0.15,
+  "luma_mean": 88.1,
+  "luma_std": 41.0,
+  "pass_paint_ge_1pct": false,
+  "pass_std_ge_35": true
+ }
+]

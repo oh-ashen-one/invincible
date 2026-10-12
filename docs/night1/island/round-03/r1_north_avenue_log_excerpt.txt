@@ -1,0 +1,6 @@
+[2026.10.02-16.21.16:490][  0]LogWorldPartition: UWorldPartition::Initialize Context : World NetMode = Standalone, IsServer = 0, IsDedicatedServer = 0, IsServerStreamingEnabled = 0, IsServerStreamingOutEnabled = 0, IsUsingMakingVisibleTransaction = 0, IsUsingMakingInvisibleTransaction = 0
+GenerateStreaming for 'Manhattan_WP' started...
+GenerateStreaming for 'Manhattan_WP' took 16.3 sec
+WebTravWorld: solid mode 2 (visual triangles: every visible building / roof / ground mesh, traced complex; WHBox cubes index only; per-building boxes found 1)
+WebTravWorld: 172553 building boxes indexed (0 instanced components -> 0 instance boxes, 0 foliage/traffic instances skipped, 72 far-skyline/giant components de-collided; 775 visible solids, 0 with collision re-enabled (QueryOnly), 9738 excluded by name, 0 hidden de-collided, 173097 WHBox cubes de-collided, 1092 traversal solids total, 317 ground boxes)
+(island r03) capture stopped at t=29.1 s by docs/night1/island hold guard (stop_ue.sh, SIGTERM) 55 s before gpu_slot's 2,400 s max hold; 1,751 frames (29.2 s) kept

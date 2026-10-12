@@ -1,0 +1,40 @@
+[
+ {
+  "name": "t5_avenue_to_park_telemetry",
+  "frames": 299,
+  "run_end_s": 15.37,
+  "in_park": 1.0,
+  "in_park_25_40": 0.829,
+  "in_park_20_45": 0.987,
+  "cam_in_park": 0.997,
+  "haf_min_in_park": 18.6,
+  "haf_median_in_park": 35.4,
+  "hero_end_xy": [
+   135.0,
+   -708.0
+  ],
+  "hero_start_window_xy": [
+   229.3,
+   -572.4
+  ]
+ },
+ {
+  "name": "t4_lawn_sprint_telemetry",
+  "frames": 179,
+  "run_end_s": 13.37,
+  "in_park": 1.0,
+  "in_park_25_40": 0.0,
+  "in_park_20_45": 0.0,
+  "cam_in_park": 1.0,
+  "haf_min_in_park": 1.8,
+  "haf_median_in_park": 1.8,
+  "hero_end_xy": [
+   -69.9,
+   -769.9
+  ],
+  "hero_start_window_xy": [
+   -69.9,
+   -740.9
+  ]
+ }
+]

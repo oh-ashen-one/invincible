@@ -1,0 +1,100 @@
+{
+ "name": "r5_m2_avenue_alt0",
+ "note": "Island r03 route 5 (30 s): airborne swing chain SOUTH down the x 0 avenue (+Y) from y 1010 at 45 m over the M2 tiles (the tiles that were bare facadeLod masses before M2; y 1010..~2290, 1,480 m). Swing held, autoChain gap 0.3 s, releasePhase 0.65, no tricks. Needs the WH_StreamSrc_M2 streaming source on Manhattan_WP (Scripts/island_wp_sources.py): the traversal indexes only the cells loaded at BeginPlay, see round-03/README.md. Camera: brief pitch-down look pulses (look keys) ending 0.3 s before 12 / 20 / 26 / 28 s; they do not change the trajectory (probe: 0.0000 m). (island r04) variant: same spawn and input, traversal tune AltChain=0 (the r23 swing chain without the r24 altitude releases) -- the island's re-web / anchor-availability check on the merged branch; the default-traversal route is r5_m2_avenue.json",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   0,
+   1010,
+   45
+  ],
+  "yaw": 90,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   24,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 90,
+   "swing": false
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.65,
+   "gap": 0.3,
+   "repressVz": 99.0,
+   "trickEvery": 0,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  },
+  {
+   "t": 11.0,
+   "look": [
+    0,
+    14.0
+   ]
+  },
+  {
+   "t": 11.7,
+   "look": [
+    0,
+    0
+   ]
+  },
+  {
+   "t": 19.0,
+   "look": [
+    0,
+    14.0
+   ]
+  },
+  {
+   "t": 19.7,
+   "look": [
+    0,
+    0
+   ]
+  },
+  {
+   "t": 25.0,
+   "look": [
+    0,
+    14.0
+   ]
+  },
+  {
+   "t": 25.7,
+   "look": [
+    0,
+    0
+   ]
+  },
+  {
+   "t": 26.9,
+   "look": [
+    0,
+    22.0
+   ]
+  },
+  {
+   "t": 27.7,
+   "look": [
+    0,
+    0
+   ]
+  }
+ ],
+ "tune": "AltChain=0"
+}

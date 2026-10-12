@@ -1,0 +1,29 @@
+# wall-run stride / lateral knee gap (r21_checks.py W21)
+== W21  wall-run stride (sprint): along-run foot separation peaks >= .35 m every cycle; lateral knee gap <= .35 m; a foot touches down every <= .18 s;
+         swing knee off the wall; vertical body within 15 deg of wall-up; side body 10-40 deg above the run line (head leading); limbs (hands / toes) <= .3 m
+  c_wallrun_perch wallRun: 101 rows | along-run foot sep med 0.21 max 0.41 m, per-step peaks min 0.40 (7/7 steps >= .35) | lateral knee gap med 0.20 max 0.32 m | knee off wall med 0.62 max 0.76 m | hands/toes off surface max 0.76 m (p90 0.55) | touchdowns 11, longest gap 0.200 s (med 0.200) | body-to-wall-up <= 15 deg 84 % (med 7.0)
+  r1_roofrun_zip wallRun: 101 rows | along-run foot sep med 0.21 max 0.41 m, per-step peaks min 0.40 (7/7 steps >= .35) | lateral knee gap med 0.20 max 0.32 m | knee off wall med 0.62 max 0.76 m | hands/toes off surface max 0.76 m (p90 0.55) | touchdowns 11, longest gap 0.200 s (med 0.200) | body-to-wall-up <= 15 deg 84 % (med 7.0)
+  s1_high_swing wallRun: 12 rows | along-run foot sep med 0.28 max 0.40 m, per-step peaks min 0.40 (2/2 steps >= .35) | lateral knee gap med 0.21 max 0.45 m | knee off wall med 0.30 max 0.69 m | hands/toes off surface max 0.49 m (p90 0.49) | touchdowns 2, longest gap 0.100 s (med 0.100) | body-to-wall-up <= 15 deg 55 % (med 14.0)
+  w1_wallrun_tall_zip wallRun: 153 rows | along-run foot sep med 0.27 max 0.40 m, per-step peaks min 0.40 (12/12 steps >= .35) | lateral knee gap med 0.20 max 0.31 m | knee off wall med 0.60 max 0.69 m | hands/toes off surface max 0.55 m (p90 0.55) | touchdowns 14, longest gap 0.200 s (med 0.200) | body-to-wall-up <= 15 deg 100 % (med 7.0)
+  w2_wallrun_side_zip wallRun: 108 rows | along-run foot sep med 0.27 max 0.40 m, per-step peaks min 0.40 (8/8 steps >= .35) | lateral knee gap med 0.20 max 0.31 m | knee off wall med 0.62 max 0.69 m | hands/toes off surface max 0.55 m (p90 0.55) | touchdowns 9, longest gap 0.200 s (med 0.200) | body-to-wall-up <= 15 deg 99 % (med 7.0)
+  w2_wallrun_side_zip wallRunSide: 69 rows | along-run foot sep med 0.46 max 0.86 m, per-step peaks min 0.84 (6/6 steps >= .35) | lateral knee gap med 0.18 max 0.40 m | knee off wall med 0.37 max 0.62 m | hands/toes off surface max 0.59 m (p90 0.59) | touchdowns 8, longest gap 0.183 s (med 0.150) | body above run line 10-40 deg 3 % (med 78.1, min 31.2, max 78.4)
+  x2_rmb_cancel_wall wallRunSide: 15 rows | along-run foot sep med 0.61 max 0.79 m, per-step peaks min 0.76 (2/2 steps >= .35) | lateral knee gap med 0.07 max 0.23 m | knee off wall med 0.40 max 0.58 m | hands/toes off surface max 0.58 m (p90 0.58) | touchdowns 2, longest gap 0.167 s (med 0.167) | body above run line 10-40 deg 79 % (med 38.3, min 24.6, max 40.8)
+
+w1_wallrun_tall_zip: wall-run 0.95-3.58 s (2.63 s, 16 samples at 6 fps)
+  distinct limb phases at 6 fps: 6 (need >= 4)  PASS
+  head above hips: 16/16 samples  PASS
+  steps (foot L/R height crossings): 14 in 2.63 s = 5.32 steps/s
+  hero fully in frame 0.95-7.45 s (wall-run + top-out + landing): 391/391 frames  PASS
+  camera on the wall: pitch -19.0..27.7 deg (+ = up), below the hero -1.19..1.60 m, distance 4.09..4.50 m
+w2_wallrun_side_zip: wall-run 0.95-3.98 s (3.03 s, 19 samples at 6 fps)
+  distinct limb phases at 6 fps: 10 (need >= 4)  PASS
+  head above hips: 19/19 samples  PASS
+  steps (foot L/R height crossings): 18 in 3.03 s = 5.93 steps/s
+  hero fully in frame 0.95-6.95 s (wall-run + top-out + landing): 361/361 frames  PASS
+  camera on the wall: pitch -14.8..27.7 deg (+ = up), below the hero -1.12..1.60 m, distance 4.10..4.50 m
+c_wallrun_perch: wall-run 2.55-4.32 s (1.77 s, 11 samples at 6 fps)
+  distinct limb phases at 6 fps: 8 (need >= 4)  PASS
+  head above hips: 11/11 samples  PASS
+  steps (foot L/R height crossings): 10 in 1.77 s = 5.66 steps/s
+  hero fully in frame 2.55-5.85 s (wall-run + top-out + landing): 199/199 frames  PASS
+  camera on the wall: pitch -8.5..27.6 deg (+ = up), below the hero -0.54..1.60 m, distance 4.10..4.50 m

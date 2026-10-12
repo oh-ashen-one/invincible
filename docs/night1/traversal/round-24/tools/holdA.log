@@ -1,0 +1,166 @@
+gpu_slot[capture/traversal]: stale-recovered kind=waiter dead_pid=39557 dead_class=capture dead_label=terrain dead_slot= orphan_child=
+gpu_slot[capture/traversal]: acquire slot=0 waited_s=1979.0 phase=lock
+gpu_slot[capture/traversal]: run child_pid=44564 max_hold_s=2400.0 cmd=/Users/midir/sm2-n1/_scratch/traversal/r24/holdA.sh
+== holdA acquired 07:11:39
+== holdA body 07:11:39
+== a variants 07:11:39
+WH_QUIT t=16.00
+WH_QUIT t=16.00
+WH_QUIT t=16.00
+WH_QUIT t=16.00
+WH_QUIT t=16.00
+a_rv6: T7 98 %  web_on 41.1 %  T1 True T2 True T4 True  score 158.1
+a_rv12: T7 100 %  web_on 41.1 %  T1 True T2 True T4 True  score 160.0
+a_rv18: T7 66 %  web_on 40.0 %  T1 True T2 False T4 True  score 116.3
+a_rv12h: T7 99 %  web_on 41.1 %  T1 True T2 True T4 True  score 159.0
+a_rv18h: T7 67 %  web_on 38.6 %  T1 True T2 True T4 True  score 127.3
+BEST a_rv12
+---- a_rv6
+== T7 / T3 / T1 / T2 / T4 on a_rv6 (959 rows, 15.97 s)
+     1.67   9.0  32.8  33.0  33.8  23.4   9.1   4.80  23.8  -0.5   27 0.000  release      OK
+     4.97   9.9  33.7  35.5  33.8  29.2   8.3   7.90  25.4  -4.5   21 0.000  release      OK (low off-centre)
+     7.92   8.5  35.2  38.0  23.9  37.6   9.8  11.42  25.4   0.0   26 0.000  backDouble   OK
+    11.85  13.8  34.1  34.2  31.1  28.0   8.0  14.87  26.1  -1.0   26 0.000  release      OK
+    14.98   8.5  30.1   (no next swing: ends in air)
+  T7 4 s windows from the first release 1.67 s to 15.97 s: 102/104 hold a qualifying release; failing window starts 11.9..12.0 (2) -> FAIL
+  T3 web_on 41.1 % of the clip, 42.1 % from the first attach (0.40 s) (25-45) -> PASS
+  T1 rope held per swing (s): [1.27, 1.38, 1.03, 1.57, 1.32] (0.5-1.6) -> PASS
+  T2 attaches per 8 s window: [3, 2, 2, 2, 2, 3, 3, 3, 2, 2, 2, 2, 3, 3, 2, 2] (2-4) -> PASS
+  T4 -> PASS
+---- a_rv12
+== T7 / T3 / T1 / T2 / T4 on a_rv12 (959 rows, 15.97 s)
+     1.67   9.0  32.8  33.0  33.8  23.4   9.1   4.82  23.7  -0.5   27 0.000  release      OK
+     5.15  12.0  35.4  35.5  33.4  25.4   8.2   8.25  27.2  -2.5   21 0.000  release      OK
+     8.27   8.4  35.1  38.0  24.0  37.6   9.2  11.87  25.9   0.0   26 0.000  backDouble   OK
+    12.37  14.8  34.1  34.2  30.4  28.1   6.4  15.47  27.7   0.5   17 0.000  release      OK
+    15.63   7.2  17.1   (no next swing: ends in air)
+  T7 4 s windows from the first release 1.67 s to 15.97 s: 104/104 hold a qualifying release -> PASS
+  T3 web_on 41.1 % of the clip, 42.1 % from the first attach (0.40 s) (25-45) -> PASS
+  T1 rope held per swing (s): [1.27, 1.38, 1.03, 1.57, 1.32] (0.5-1.6) -> PASS
+  T2 attaches per 8 s window: [3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2] (2-4) -> PASS
+  T4 -> PASS
+---- a_rv18
+== T7 / T3 / T1 / T2 / T4 on a_rv18 (959 rows, 15.97 s)
+     1.67   9.0  32.8  33.0  33.8  23.4   9.6   4.85  23.2   4.0   26 0.000  release      OK
+     5.32  15.0  35.4  35.5  31.2  27.2   6.0   8.48  29.3   2.5   21 0.000  release      OK
+     8.50   6.2  33.7  38.0  24.9  38.2   9.2  12.12  24.5   0.0   16 0.000  backDouble   OK
+    12.68  16.3  34.1  34.2  29.2  28.7   6.4  15.80  27.7   6.5   21 0.000  release      no: swing runs past the clip end (low off-centre)
+  T7 4 s windows from the first release 1.67 s to 15.97 s: 69/104 hold a qualifying release; failing window starts 8.6..12.0 (35) -> FAIL
+  T3 web_on 40.0 % of the clip, 41.1 % from the first attach (0.40 s) (25-45) -> PASS
+  T1 rope held per swing (s): [1.27, 1.38, 1.03, 1.48] (0.5-1.6) -> PASS
+  T2 attaches per 8 s window: [3, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 1] (2-4) -> FAIL [(7.5, 1)]
+  T4 -> PASS
+---- a_rv12h
+== T7 / T3 / T1 / T2 / T4 on a_rv12h (959 rows, 15.97 s)
+     1.67   9.0  32.9  36.0  33.8  23.4   9.6   4.78  23.2   4.0   26 0.000  release      OK
+     5.15  13.0  36.8  38.5  33.8  24.8   9.7   8.27  27.2  -1.5   21 0.000  release      OK
+     8.28   9.9  37.7  41.0  24.6  37.5  10.0  11.98  27.7   0.5   27 0.000  backDouble   OK
+    12.42  14.0  37.1  37.2  33.2  25.4   9.3  15.68  27.8   1.5   21 0.000  release      OK
+    15.82   9.9  14.7   (no next swing: ends in air)
+  T7 4 s windows from the first release 1.67 s to 15.97 s: 103/104 hold a qualifying release; failing window starts 8.4..8.4 (1) -> FAIL
+  T3 web_on 41.1 % of the clip, 42.1 % from the first attach (0.40 s) (25-45) -> PASS
+  T1 rope held per swing (s): [1.27, 1.38, 1.03, 1.57, 1.32] (0.5-1.6) -> PASS
+  T2 attaches per 8 s window: [3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 2, 3, 2] (2-4) -> PASS
+  T4 -> PASS
+---- a_rv18h
+== T7 / T3 / T1 / T2 / T4 on a_rv18h (959 rows, 15.97 s)
+     1.67   9.0  32.9  36.0  33.8  23.4   9.1   4.87  23.7  -0.5   27 0.000  release      OK
+     5.32  14.0  37.8  38.5  33.8  24.2   7.7   8.60  30.1   1.0   26 0.000  release      OK
+     8.62   7.9  36.4  41.0  25.4  38.0   9.6  12.33  26.8   4.0   16 0.000  backDouble   OK
+    12.88  16.6  37.1  37.2  31.4  26.3   8.1  15.97  29.0   6.5   21 0.000  release      no: swing runs past the clip end (low off-centre)
+  T7 4 s windows from the first release 1.67 s to 15.97 s: 70/104 hold a qualifying release; failing window starts 8.7..12.0 (34) -> FAIL
+  T3 web_on 38.6 % of the clip, 39.6 % from the first attach (0.40 s) (25-45) -> PASS
+  T1 rope held per swing (s): [1.27, 1.38, 1.03, 1.53] (0.5-1.6) -> PASS
+  T2 attaches per 8 s window: [3, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2] (2-4) -> PASS
+  T4 -> PASS
+== c camera variants 07:12:50
+WH_QUIT t=10.50
+== CAM hard gate (critic r23 secondary 1)
+  c_wallrun_perch 7.7-8.5 s (49 rows): hero_in_frame 13/49, hero_occl max -1.000, cam-hero min 1.95 m, yaw -97.8 -> 2.1 (turn -), max backtrack 105.0 deg, crane max 2.58 m -> FAIL
+  c zip 8.5000 -> perch 9.6333 (last perch/perchIdle)
+WH_QUIT t=10.50
+== CAM hard gate (critic r23 secondary 1)
+  c_wallrun_perch 7.7-8.5 s (49 rows): hero_in_frame 19/49, hero_occl max -1.000, cam-hero min 1.95 m, yaw -97.8 -> -156.1 (turn -), max backtrack 47.2 deg, crane max 2.09 m -> FAIL
+  c zip 8.5000 -> perch 9.6333 (last perch/perchIdle)
+a script repressVz -> -12.0
+== regression probes at 102 s
+WH_QUIT t=16.00
+WH_QUIT t=7.60
+WH_QUIT t=7.50
+== r24 checks on /Users/midir/sm2-n1/_scratch/traversal/r24/probe
+== T7 / T3 / T1 / T2 / T4 on a_swing_chain (959 rows, 15.97 s)
+  a_swing_chain: releases 5
+    t_rel h_rel  apex  want    vz    hs   low  t_low  drop   off span  occl  kind / verdict
+     1.67   9.0  32.8  33.0  33.8  23.4   9.1   4.82  23.7  -0.5   27 0.000  release      OK
+     5.15  12.0  35.4  35.5  33.4  25.4   8.2   8.25  27.2  -2.5   21 0.000  release      OK
+     8.27   8.4  35.1  38.0  24.0  37.6   9.2  11.87  25.9   0.0   26 0.000  backDouble   OK
+    12.37  14.8  34.1  34.2  30.4  28.1   6.4  15.47  27.7   0.5   17 0.000  release      OK
+    15.63   7.2  17.1   (no next swing: ends in air)
+  T7 4 s windows from the first release 1.67 s to 15.97 s: 104/104 hold a qualifying release -> PASS
+  low points of the qualifying drops: lateral offset from the street centre 0.0-2.5 m (span 17-27 m)
+  T3 web_on 41.1 % of the clip, 42.1 % from the first attach (0.40 s) (25-45) -> PASS
+  T1 rope held per swing (s): [1.27, 1.38, 1.03, 1.57, 1.32] (0.5-1.6) -> PASS
+  T2 attaches per 8 s window: [3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2] (2-4) -> PASS
+  T4 web-less 1.67-3.75 2.08 s: pose changes 20/20 at 0.1 s  subs ['apex', 'dive', 'fall', 'release', 'rise'] -> ok
+  T4 web-less 5.15-7.22 2.07 s: pose changes 20/20 at 0.1 s  subs ['apex', 'dive', 'fall', 'release', 'rise'] -> ok
+  T4 web-less 8.27-10.78 2.52 s: pose changes 25/25 at 0.1 s  subs ['apex', 'dive', 'fall', 'rise', 'trick'] -> ok
+  T4 web-less 12.37-14.30 1.93 s: pose changes 19/19 at 0.1 s  subs ['apex', 'dive', 'fall', 'release', 'rise'] -> ok
+  T4 -> PASS
+== CAM hard gate (critic r23 secondary 1)
+  c_wallrun_perch 7.7-8.5 s (49 rows): hero_in_frame 13/49, hero_occl max -1.000, cam-hero min 1.95 m, yaw -97.8 -> 2.1 (turn -), max backtrack 105.0 deg, crane max 2.58 m -> FAIL
+  c zip 8.5000 -> perch 9.6333 (last perch/perchIdle)
+== V23  r22 critic tests on the vertical run (verbatim), both windows
+    a) foot_sep_run crossings 22 in 1.80 s = 12.2/s (>= 4) -> PASS
+    b) bbox_w 0.111-0.150; 0.4 s windows with >= 25 % change 85/85, worst 26 % -> PASS
+    c) 12 fps frames from 1.20 s, 3D ankle sep >= .30 m: 10/10 [1.20:0.41 1.28:0.48 1.37:0.41 1.45:0.47 1.53:0.41 1.62:0.47 1.70:0.42 1.78:0.46 1.87:0.44 1.95:0.46] -> PASS (proxy; see the sheet)
+    a) foot_sep_run crossings 12 in 1.50 s = 8.0/s (>= 4) -> PASS
+    b) bbox_w 0.087-1.000; 0.4 s windows with >= 25 % change 67/67, worst 45 % -> PASS
+    c) 12 fps frames from 2.85 s, 3D ankle sep >= .30 m: 10/10 [2.85:0.49 2.93:0.41 3.02:0.49 3.10:0.40 3.18:0.47 3.27:0.42 3.35:0.47 3.43:0.43 3.52:0.46 3.60:0.43] -> PASS (proxy; see the sheet)
+== Z23  w2 zip: fire 4.00 s (nearFar2), perch 5.70 s at z 96.2 -> 1.70 s PASS
+V23 overall (a, b, c proxy on both windows): PASS
+== capture a_swing_chain at 151 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/a_swing_chain/a_swing_chain.mp4
+frames 985, telemetry rows 935 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/a_swing_chain.mp4 13438382 bytes, 15.583333s
+== capture c_wallrun_perch at 450 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/c_wallrun_perch/c_wallrun_perch.mp4
+frames 679, telemetry rows 629 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/c_wallrun_perch.mp4 13063198 bytes, 10.483333s
+== capture w2_wallrun_side_zip at 649 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/w2_wallrun_side_zip/w2_wallrun_side_zip.mp4
+frames 469, telemetry rows 419 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/w2_wallrun_side_zip.mp4 12881957 bytes, 6.983333s
+== capture w1_wallrun_tall_zip at 798 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/w1_wallrun_tall_zip/w1_wallrun_tall_zip.mp4
+frames 499, telemetry rows 449 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/w1_wallrun_tall_zip.mp4 12226568 bytes, 7.483333s
+== capture f1_flow_backDouble at 959 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/f1_flow_backDouble/f1_flow_backDouble.mp4
+frames 589, telemetry rows 539 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/f1_flow_backDouble.mp4 14028951 bytes, 8.983333s
+== capture f4_chain_flips at 1143 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/f4_chain_flips/f4_chain_flips.mp4
+frames 847, telemetry rows 797 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/f4_chain_flips.mp4 13929186 bytes, 13.283008s
+== capture x2_rmb_cancel_wall at 1397 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/x2_rmb_cancel_wall/x2_rmb_cancel_wall.mp4
+frames 349, telemetry rows 299 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/x2_rmb_cancel_wall.mp4 10549841 bytes, 4.983333s
+== capture x1_rmb_cancel_flip at 1506 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/x1_rmb_cancel_flip/x1_rmb_cancel_flip.mp4
+frames 289, telemetry rows 239 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/x1_rmb_cancel_flip.mp4 11971435 bytes, 3.983333s
+== capture m1_mouse_swing at 1604 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/m1_mouse_swing/m1_mouse_swing.mp4
+frames 409, telemetry rows 359 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/m1_mouse_swing.mp4 13480257 bytes, 5.983008s
+== capture s1_high_swing at 1734 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/s1_high_swing/s1_high_swing.mp4
+frames 409, telemetry rows 359 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/s1_high_swing.mp4 13511738 bytes, 5.983008s
+== capture r1_roofrun_zip at 1871 s (GPU "Device Utilization %"=0)
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/r1_roofrun_zip/r1_roofrun_zip.mp4
+frames 619, telemetry rows 569 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/r1_roofrun_zip.mp4 12860268 bytes, 9.483333s
+== hold A done 07:45:51, left: 
+gpu_slot[capture/traversal]: release exit=0 hold_s=2052.29 wait_s=1978.99 util_before=0 util_after=0 instances_before=2 instances_max=3 contaminated=true reasons=no-exclusive-lock

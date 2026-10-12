@@ -1,0 +1,118 @@
+{
+ "name": "trick_probe",
+ "note": "owner r27 flip choice check: falls from 400 m over the avenue (x 249) heading north at 30 m/s and presses F at 0.5 / 2.5 / 4.5 / 6.5 / 8.5 / 10.5 s with the stick forward / back / right / neutral / left / back",
+ "seed": 1,
+ "spawn": {
+  "pos": [
+   249,
+   176,
+   400
+  ],
+  "yaw": -90,
+  "camPitch": 0.0,
+  "vel": [
+   0,
+   -30,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ]
+  },
+  {
+   "t": 0.45,
+   "move": [
+    0,
+    1
+   ]
+  },
+  {
+   "t": 0.5,
+   "trick": true
+  },
+  {
+   "t": 0.6,
+   "trick": false
+  },
+  {
+   "t": 2.45,
+   "move": [
+    0,
+    -1
+   ]
+  },
+  {
+   "t": 2.5,
+   "trick": true
+  },
+  {
+   "t": 2.6,
+   "trick": false
+  },
+  {
+   "t": 4.45,
+   "move": [
+    1,
+    0
+   ]
+  },
+  {
+   "t": 4.5,
+   "trick": true
+  },
+  {
+   "t": 4.6,
+   "trick": false
+  },
+  {
+   "t": 6.45,
+   "move": [
+    0,
+    0
+   ]
+  },
+  {
+   "t": 6.5,
+   "trick": true
+  },
+  {
+   "t": 6.6,
+   "trick": false
+  },
+  {
+   "t": 8.45,
+   "move": [
+    -1,
+    0
+   ]
+  },
+  {
+   "t": 8.5,
+   "trick": true
+  },
+  {
+   "t": 8.6,
+   "trick": false
+  },
+  {
+   "t": 10.45,
+   "move": [
+    0,
+    -1
+   ]
+  },
+  {
+   "t": 10.5,
+   "trick": true
+  },
+  {
+   "t": 10.6,
+   "trick": false
+  }
+ ]
+}

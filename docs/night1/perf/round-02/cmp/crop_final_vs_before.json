@@ -1,0 +1,60 @@
+{
+ "ref": "refl1/before",
+ "thr": 0.97,
+ "crops": {
+  "S1": {
+   "S1_glass": [
+    485,
+    0,
+    710,
+    490
+   ]
+  },
+  "S2": {
+   "S2_windows": [
+    0,
+    38,
+    576,
+    960
+   ],
+   "S2_gold": [
+    1459,
+    0,
+    1920,
+    1056
+   ]
+  }
+ },
+ "tests": {
+  "final/after": {
+   "S1_glass": {
+    "ssim": 0.9212,
+    "ssim_full": 0.9163,
+    "psnr_db": 30.28,
+    "warm_ref_pct": 0.83,
+    "warm_test_pct": 0.6,
+    "meanY_ref": 91.6,
+    "meanY_test": 89.8
+   },
+   "S2_windows": {
+    "ssim": 0.9862,
+    "ssim_full": 0.9787,
+    "psnr_db": 34.77,
+    "warm_ref_pct": 4.77,
+    "warm_test_pct": 4.48,
+    "meanY_ref": 88.6,
+    "meanY_test": 85.9
+   },
+   "S2_gold": {
+    "ssim": 0.9473,
+    "ssim_full": 0.9486,
+    "psnr_db": 31.27,
+    "warm_ref_pct": 41.64,
+    "warm_test_pct": 37.07,
+    "meanY_ref": 80.8,
+    "meanY_test": 79.2
+   },
+   "_pass": false
+  }
+ }
+}

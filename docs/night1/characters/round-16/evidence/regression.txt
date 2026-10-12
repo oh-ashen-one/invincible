@@ -1,0 +1,7 @@
+legacy r8    suit_basecolor_r8.png    66e3b691813cc83cd9dc7bd20bdf0c59 OK
+legacy r8    suit_normal_r8.png       09f0c6554c3a706529387e78ea4ff2e8 OK
+legacy r8    suit_orm_r8.png          ad1be27f39d2b4d5bb77f124125d5a8f OK
+default r16  suit_basecolor_r8.png    5b92fdc4c78f4d997cc309a05c3b4e6d OK
+default r16  suit_normal_r8.png       5b60ae0a7afd4ed48b6e48448d6e7657 OK
+default r16  suit_orm_r8.png          bb8b6990dbb16bf03aea7bdc432151fb OK
+REGRESSION PASS

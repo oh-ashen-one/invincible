@@ -1,0 +1,52 @@
+{
+ "name": "t5_avenue_to_park",
+ "note": "heading -140 from 9 s, hang 0.15",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   -300,
+   0.95
+  ],
+  "yaw": -90,
+  "camPitch": 0.14
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "sprint": true
+  },
+  {
+   "t": 1.8,
+   "jump": true
+  },
+  {
+   "t": 2.2,
+   "jump": false
+  },
+  {
+   "t": 2.6,
+   "swing": true,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.8,
+   "repressVz": 99.0,
+   "trickEvery": 0,
+   "skyEvery": 1,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  },
+  {
+   "t": 9.0,
+   "heading": -140
+  }
+ ],
+ "tune": "SkyPeakMin=30,SkyPeakMax=36,SkyHangK=0.15,SkyHangVz=9"
+}

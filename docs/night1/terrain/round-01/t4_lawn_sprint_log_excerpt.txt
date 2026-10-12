@@ -1,0 +1,2 @@
+WebTravWorld: 6683 building boxes indexed (0 instanced components -> 0 instance boxes, 0 foliage/traffic instances skipped, 0 far-skyline/giant components de-collided; per-building boxes only 1, 533 wide merged meshes made visual-only)
+WH_QUIT t=13.40

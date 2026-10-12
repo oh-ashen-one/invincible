@@ -1,0 +1,91 @@
+{
+ "ref": "/Users/midir/sm2-n1/_scratch/perf/r03/before",
+ "test": "/Users/midir/sm2-n1/_scratch/perf/r03/final",
+ "label": "final_vs_before",
+ "stills": {
+  "route_t20": {
+   "lt10_ref": 0.0,
+   "lt10_test": 0.0,
+   "clip_ref": 1.53,
+   "clip_test": 0.6,
+   "psnr_db": 16.6,
+   "ssim_luma": 0.8173,
+   "mean_abs_dY": 30.12,
+   "frac_dY_gt12": 0.6842,
+   "meanY_ref": 89.5,
+   "meanY_test": 101.7
+  },
+  "route_t28": {
+   "lt10_ref": 0.0,
+   "lt10_test": 0.0,
+   "clip_ref": 2.34,
+   "clip_test": 2.16,
+   "psnr_db": 25.97,
+   "ssim_luma": 0.9505,
+   "mean_abs_dY": 7.46,
+   "frac_dY_gt12": 0.2049,
+   "meanY_ref": 60.0,
+   "meanY_test": 55.4
+  },
+  "route_t38": {
+   "lt10_ref": 0.0,
+   "lt10_test": 0.0,
+   "clip_ref": 0.5,
+   "clip_test": 0.64,
+   "psnr_db": 23.86,
+   "ssim_luma": 0.9509,
+   "mean_abs_dY": 9.75,
+   "frac_dY_gt12": 0.2791,
+   "meanY_ref": 69.6,
+   "meanY_test": 65.1
+  },
+  "route_t42": {
+   "lt10_ref": 0.0,
+   "lt10_test": 0.0,
+   "clip_ref": 0.14,
+   "clip_test": 0.14,
+   "psnr_db": 20.27,
+   "ssim_luma": 0.8396,
+   "mean_abs_dY": 19.53,
+   "frac_dY_gt12": 0.4257,
+   "meanY_ref": 98.7,
+   "meanY_test": 114.1
+  },
+  "view_S1": {
+   "lt10_ref": 0.0,
+   "lt10_test": 0.0,
+   "clip_ref": 0.74,
+   "clip_test": 0.33,
+   "psnr_db": 18.74,
+   "ssim_luma": 0.8556,
+   "mean_abs_dY": 19.23,
+   "frac_dY_gt12": 0.2926,
+   "meanY_ref": 92.1,
+   "meanY_test": 103.6
+  },
+  "view_S2": {
+   "lt10_ref": 0.0,
+   "lt10_test": 0.0,
+   "clip_ref": 2.01,
+   "clip_test": 1.66,
+   "psnr_db": 29.24,
+   "ssim_luma": 0.9682,
+   "mean_abs_dY": 4.51,
+   "frac_dY_gt12": 0.0772,
+   "meanY_ref": 96.6,
+   "meanY_test": 97.7
+  },
+  "view_S7": {
+   "lt10_ref": 0.0,
+   "lt10_test": 0.0,
+   "clip_ref": 2.46,
+   "clip_test": 2.37,
+   "psnr_db": 35.15,
+   "ssim_luma": 0.9788,
+   "mean_abs_dY": 2.04,
+   "frac_dY_gt12": 0.0299,
+   "meanY_ref": 55.4,
+   "meanY_test": 56.3
+  }
+ }
+}

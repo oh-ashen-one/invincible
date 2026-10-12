@@ -1,0 +1,11 @@
+[
+ {
+  "clip": "run",
+  "duration": 0.5667,
+  "natural_speed_mps": 5.952,
+  "eval_speed_mps": 5.7,
+  "foot_slide_per_plant_cm_max": 2.81,
+  "foot_slide_per_plant_cm_median": 2.74,
+  "plants": 2
+ }
+]

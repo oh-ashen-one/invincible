@@ -1,0 +1,13 @@
+# hold 1: baseline of the r10 code on the fresh export, then the r11 materials / towers / fabric, S4 atmosphere variants, S8 glass sweep
+cap base S4_perch_skyline
+score base S4_perch_skyline
+build tex,mat,fsky,map
+variants names=f1,f2,f3 fog_f1=0.0012 fogc_f1=0.64,0.66,0.69 fog_f2=0.0012 fogc_f2=0.56,0.58,0.62 fog_f3=0.0009 fogc_f3=0.60,0.62,0.66
+cap A S4_perch_skyline
+score A S4_perch_skyline
+cap A S4vf1
+score A S4vf1
+cap A S4vf2
+score A S4vf2
+cap A S4vf3
+score A S4vf3

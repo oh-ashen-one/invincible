@@ -23,9 +23,10 @@ The original foundation already included web swinging, wall running, zipping, a 
 
 ## Kimi preservation and continuation
 
-The interrupted Kimi session was preserved at [4f2a10da](https://github.com/oh-ashen-one/spider-man-2/commit/4f2a10daa1281db9c6816028544b104449bd9eb1). That commit is an ancestor of the enhanced checkpoint [9ad990d6](https://github.com/oh-ashen-one/spider-man-2/commit/9ad990d6ab482d5b1946b0bc9a60244eac8e320a); there are 44 subsequent commits in that continuation. The current branch contains the saved starting point and the later enhancements together. The separate preservation branch is an archive of the starting state.
+The interrupted Kimi session was preserved at [4f2a10da](https://github.com/oh-ashen-one/spider-man-2/commit/4f2a10daa1281db9c6816028544b104449bd9eb1). That commit is an ancestor of the enhanced checkpoint [9ad990d6](https://github.com/oh-ashen-one/spider-man-2/commit/9ad990d6ab482d5b1946b0bc9a60244eac8e320a); there are 44 subsequent commits in that continuation. The integrated continuation contained the saved starting point and the later enhancements together. **`main` now contains that complete history and source.** The separate preservation branch archives the starting state.
 
-- **Use this:** [integrated enhanced branch](https://github.com/oh-ashen-one/spider-man-2/tree/codex/round13-closeout-20261011).
+- **Use this:** [current `main` branch](https://github.com/oh-ashen-one/spider-man-2/tree/main).
+- **Merged checkpoint:** [integrated enhanced branch](https://github.com/oh-ashen-one/spider-man-2/tree/codex/round13-closeout-20261011).
 - **Historical backup:** [Kimi preservation branch](https://github.com/oh-ashen-one/spider-man-2/tree/codex/preserve-kimi-spiderman-20261011).
 - **Runtime code:** [2db14214](https://github.com/oh-ashen-one/spider-man-2/commit/2db142143bc60709a1db726a445d17aee2a57aca).
 - **What was preserved:** [preservation record](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13/PRESERVATION.md).

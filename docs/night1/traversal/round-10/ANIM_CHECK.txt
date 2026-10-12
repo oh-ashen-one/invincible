@@ -1,0 +1,30 @@
+# Animation check, round 10 (anim_check.py)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# lit /Game/Maps/Manhattan (golden), 1080p60 captures
+
+a_swing_chain: 934 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 49 consecutive air pairs, 0 with the same silhouette (min distance 0.090 m, threshold 0.08 m)
+  air cycles: 5; consecutive identical cycles: 0
+    cycle 1: trick_scissor > air_rise > trick_layout > air_fall > air_fallCalm > air_dive
+    cycle 2: air_fallCalm > air_tuck
+    cycle 3: trick_corkscrew > air_spread > trick_scissor > air_fall > air_fallCalm > air_dive
+    cycle 4: air_spread > air_fallCalm
+    cycle 5: trick_tuckFlip > air_fall > trick_layout
+b_release_trick_dive_zip: 418 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 14 consecutive air pairs, 0 with the same silhouette (min distance 0.165 m, threshold 0.08 m)
+  air cycles: 1; consecutive identical cycles: 0
+    cycle 1: trick_scissor > air_spread > trick_layout > air_dive
+c_wallrun_perch: 628 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 5 consecutive air pairs, 0 with the same silhouette (min distance 0.198 m, threshold 0.08 m)
+  air cycles: 1; consecutive identical cycles: 0
+    cycle 1: air_rise
+d_sprint_jump_first_swing: 718 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 29 consecutive air pairs, 0 with the same silhouette (min distance 0.144 m, threshold 0.08 m)
+  air cycles: 3; consecutive identical cycles: 0
+    cycle 1: air_tuck > trick_corkscrew > air_rise > trick_tuckFlip > air_fallCalm > air_fall > air_dive
+    cycle 2: air_fallCalm > air_tuck
+    cycle 3: trick_layout > air_fallCalm > trick_scissor

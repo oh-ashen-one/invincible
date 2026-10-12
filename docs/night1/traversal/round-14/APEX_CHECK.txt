@@ -1,0 +1,47 @@
+# P3 round 14 apex / flip-camera check (apex_check.py; flow flips start at the release, so 'over the tallest roof' is n/a)
+== f1_flow_backDouble: 1 flip programs
+ backDouble 3.42-4.98 s (release 3.40, +0.02 s): feet over street start 6.3 / max 11.1 / end 9.3 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 86 deg, look-up elev p50 27 deg (max 28), predicted ring sky share min 0.19 p50 0.38
+    next web: 5.00 s (0.02 s after the program)
+== f2_flow_pikeSwan: 1 flip programs
+ frontPikeSwan 3.37-4.77 s (release 3.35, +0.02 s): feet over street start 6.6 / max 10.9 / end 9.6 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 89 deg, look-up elev p50 25 deg (max 28), predicted ring sky share min 0.19 p50 0.38
+    next web: 4.78 s (0.02 s after the program)
+== f3_flow_corkscrew: 1 flip programs
+ corkscrew 1.35-2.83 s (release 1.33, +0.02 s): feet over street start 16.6 / max 21.2 / end 19.6 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 80 deg, look-up elev p50 26 deg (max 28), predicted ring sky share min 0.31 p50 0.59
+    next web: 2.85 s (0.02 s after the program)
+== f4_chain_flips: 5 flip programs
+ backDouble 1.35-2.92 s (release 1.33, +0.02 s): feet over street start 11.7 / max 16.5 / end 14.7 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 -80 deg, look-up elev p50 26 deg (max 27), predicted ring sky share min 0.00 p50 0.38
+    next web: 2.93 s (0.02 s after the program)
+ frontPikeSwan 3.93-5.33 s (release 3.92, +0.02 s): feet over street start 15.5 / max 19.7 / end 18.4 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 -90 deg, look-up elev p50 20 deg (max 28), predicted ring sky share min 0.00 p50 0.38
+    next web: 5.35 s (0.02 s after the program)
+ corkscrew 6.38-7.87 s (release 6.37, +0.02 s): feet over street start 12.2 / max 16.7 / end 15.0 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 -82 deg, look-up elev p50 4 deg (max 7), predicted ring sky share min 0.00 p50 0.00
+    next web: 7.88 s (0.02 s after the program)
+ backDouble 8.87-10.43 s (release 8.85, +0.02 s): feet over street start 12.6 / max 17.4 / end 15.6 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 -82 deg, look-up elev p50 4 deg (max 22), predicted ring sky share min 0.00 p50 0.00
+    next web: 10.45 s (0.02 s after the program)
+ frontPikeSwan 11.42-11.57 s (release 11.40, +0.02 s): feet over street start 9.6 / max 10.8 / end 10.8 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 -18 deg, look-up elev p50 -1 deg (max 0), predicted ring sky share min 0.00 p50 0.00
+    next web: none in clip
+== f5_canyon_backDouble: 2 flip programs
+ backDouble 3.33-4.90 s (release 3.32, +0.02 s): feet over street start 9.3 / max 14.1 / end 12.3 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 -82 deg, look-up elev p50 4 deg (max 6), predicted ring sky share min 0.00 p50 0.00
+    next web: 4.92 s (0.02 s after the program)
+ backDouble 7.78-7.97 s (release 7.77, +0.02 s): feet over street start 7.0 / max 8.5 / end 8.5 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 -18 deg, look-up elev p50 2 deg (max 7), predicted ring sky share min -1.00 p50 -1.00
+    next web: none in clip
+== a_swing_chain: 2 flip programs
+ backDouble 5.68-7.25 s (release 5.67, +0.02 s): feet over street start 10.3 / max 15.0 / end 13.1 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 82 deg, look-up elev p50 4 deg (max 14), predicted ring sky share min 0.00 p50 0.00
+    next web: 7.27 s (0.02 s after the program)
+ frontPikeSwan 11.93-13.33 s (release 11.92, +0.02 s): feet over street start 8.3 / max 12.2 / end 10.7 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 76 deg, look-up elev p50 4 deg (max 4), predicted ring sky share min 0.00 p50 0.00
+    next web: 13.35 s (0.02 s after the program)
+== b_release_trick_dive_zip: 1 flip programs
+ frontPikeSwan 1.40-2.87 s (release 1.38, +0.02 s): feet over street start 31.1 / max 35.3 / end 33.7 m; solver tallest roof -1.0 m, peak want 0.0 -> start +nan m over that roof
+    flip cam: yaw off p50 78 deg, look-up elev p50 4 deg (max 4), predicted ring sky share min 0.00 p50 0.00
+    next web: none in clip

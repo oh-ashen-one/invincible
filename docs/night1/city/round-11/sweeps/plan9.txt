@@ -1,0 +1,10 @@
+# hold 9: final 1080p set (internal 1399x787), MPC reset to the final defaults
+mpc fin DebugMode=0 FarLitK=0.30 FarFill=0.12 F0Scale=0.25
+cap f1080 S1_avenue_street
+cap f1080 S2_avenue_swing
+cap f1080 S3_rooftop_watertower
+cap f1080 S4_perch_skyline
+cap f1080 S5_timessq_south
+cap f1080 S6_timessq_street
+cap f1080 S7_sunset_crosstown
+cap f1080 S8_aerial_midtown

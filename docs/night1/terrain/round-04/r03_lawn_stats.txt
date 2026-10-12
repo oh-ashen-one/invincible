@@ -1,0 +1,5 @@
+p4_greatlawn.jpg [1700, 1000, 512, 400] r03 critic p4_greatlawn hp6 4.40 hp3 2.86 sat 0.582 luma 142.5 rgb [143.6, 156.7, 66.1]
+p10_lawn_eye.jpg [1300, 1700, 512, 460] r03 critic p10_lawn_eye hp6 7.95 hp3 5.32 sat 0.541 luma 104.4 rgb [100.7, 116.0, 54.6]
+p10_lawn_eye.jpg [2240, 1856, 512, 512] r03 guard p10 hp6 6.34 hp3 4.31 sat 0.609 luma 94.7 rgb [85.7, 109.4, 42.8]
+p4_greatlawn.jpg [3520, 1856, 512, 512] r03 guard p4 hp6 1.41 hp3 0.94 sat 0.639 luma 104.8 rgb [103.2, 117.6, 42.5]
+p9_park_panorama.jpg [512, 1856, 512, 512] r03 guard p9 hp6 2.63 hp3 1.62 sat 0.649 luma 82.8 rgb [82.5, 92.7, 32.5]

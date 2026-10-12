@@ -1,0 +1,2790 @@
+{
+  "tool": "fourfix_check.py",
+  "source": "existing CSV telemetry; no video inference",
+  "thresholds_unchanged": {
+    "TC_C_size_top_h": 0.36,
+    "F3_projected_peak_top_dps": 800,
+    "primary_open_hold_rate_top_dps": 150,
+    "primary_open_hold_min_s": 0.3
+  },
+  "measurement_limits": [
+    "Pose signatures are camera-plane joint offsets, not visible pose classes.",
+    "Launch arm direction includes body motion and a one-row rendered-pose delay.",
+    "The standard telemetry lacks raw world head and hip xyz; true 3D body-axis rate is unavailable.",
+    "At a scripted case boundary the final shifted pose sample is unavailable; preceding full rate windows remain measured."
+  ],
+  "before": {
+    "s1_swing_chain": {
+      "csv": "s1_swing_chain_telemetry.csv",
+      "frames": 1199,
+      "cases": {
+        "s1_swing_chain": {
+          "flip_windows": [],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 0.4,
+              "shoot_time_s": 0.1513,
+              "first_pose_angle_deg": 1.1,
+              "peak_near_launch_angle_deg": 51.9,
+              "peak_near_launch_rate_dps": 3108.9,
+              "peak_at": 0.4167,
+              "aim_error_at_shot_deg": 9.1,
+              "tip_arrival_at": 0.5833,
+              "aim_error_at_tip_arrival_deg": 10.3
+            },
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 9.6,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 6.4,
+              "peak_near_launch_angle_deg": 73.0,
+              "peak_near_launch_rate_dps": 4370.1,
+              "peak_at": 9.6167,
+              "aim_error_at_shot_deg": 30.7,
+              "tip_arrival_at": 9.8167,
+              "aim_error_at_tip_arrival_deg": 0.5
+            }
+          ]
+        }
+      }
+    },
+    "s2_press_variety": {
+      "csv": "s2_press_variety_telemetry.csv",
+      "frames": 2031,
+      "cases": {
+        "s2_c1_roof_jump": {
+          "flip_windows": [
+            {
+              "program": "wallFront",
+              "start": 0.6833,
+              "end": 1.7333,
+              "camera_through_catch": {
+                "frames": 94,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 0.6833,
+                    "last": 0.75,
+                    "frames": 5
+                  },
+                  {
+                    "first": 1.6,
+                    "last": 1.7833,
+                    "frames": 12
+                  }
+                ],
+                "max_projected_size_h": 0.5215,
+                "max_size_at": 1.65,
+                "min_camera_distance_m": 2.808,
+                "max_yaw_pitch_delta_dps": 168.4,
+                "max_camera_rate_at": 1.6167
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 669.7,
+                "f3_le_800": true,
+                "peak_at": 1.3167,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 1.7333,
+                "program_rate_at_peak_dps": 410.5,
+                "primary_open_hold_longest": {
+                  "shape": "Throne",
+                  "first": 1.55,
+                  "last": 1.7,
+                  "seconds": 0.19
+                },
+                "primary_open_hold_ge_0_30s": false,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Throne",
+                    "first": 1.55,
+                    "last": 1.7,
+                    "seconds": 0.19
+                  },
+                  {
+                    "shape": "Layout",
+                    "first": 1.1667,
+                    "last": 1.1833,
+                    "seconds": 0.0566
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 1.7333,
+                "end_shape": "Throne",
+                "end_pose_camera_plane": [
+                  0.04,
+                  0.584,
+                  -0.48,
+                  0.837,
+                  0.556,
+                  0.845,
+                  -0.495,
+                  -0.362,
+                  0.108,
+                  -0.357
+                ],
+                "catch_at": null,
+                "catch_pose_camera_plane": null,
+                "catch_gap_s": null,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 2.35,
+              "shoot_time_s": 0.1123,
+              "first_pose_angle_deg": 11.2,
+              "peak_near_launch_angle_deg": 131.6,
+              "peak_near_launch_rate_dps": 7883.1,
+              "peak_at": 2.3667,
+              "aim_error_at_shot_deg": 10.3,
+              "tip_arrival_at": 2.4833,
+              "aim_error_at_tip_arrival_deg": 1.3
+            }
+          ]
+        },
+        "s2_c2_midfall": {
+          "flip_windows": [],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 5.4834,
+              "shoot_time_s": 0.1896,
+              "first_pose_angle_deg": 1.9,
+              "peak_near_launch_angle_deg": 38.8,
+              "peak_near_launch_rate_dps": 2320.4,
+              "peak_at": 5.5001,
+              "aim_error_at_shot_deg": 34.4,
+              "tip_arrival_at": 5.7001,
+              "aim_error_at_tip_arrival_deg": 12.5
+            }
+          ]
+        },
+        "s2_c3_wallrun": {
+          "flip_windows": [],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 11.1667,
+              "shoot_time_s": 0.08,
+              "first_pose_angle_deg": 13.2,
+              "peak_near_launch_angle_deg": 65.0,
+              "peak_near_launch_rate_dps": 3894.7,
+              "peak_at": 11.1834,
+              "aim_error_at_shot_deg": 40.9,
+              "tip_arrival_at": 11.2667,
+              "aim_error_at_tip_arrival_deg": 14.0
+            }
+          ]
+        },
+        "s2_c4_flip_cancel": {
+          "flip_windows": [
+            {
+              "program": "backDouble",
+              "start": 13.8001,
+              "end": 14.8668,
+              "camera_through_catch": {
+                "frames": 95,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 13.8001,
+                    "last": 13.8168,
+                    "frames": 2
+                  },
+                  {
+                    "first": 14.3168,
+                    "last": 14.3334,
+                    "frames": 2
+                  },
+                  {
+                    "first": 14.4501,
+                    "last": 14.5334,
+                    "frames": 6
+                  },
+                  {
+                    "first": 14.8001,
+                    "last": 14.8668,
+                    "frames": 5
+                  }
+                ],
+                "max_projected_size_h": 0.4619,
+                "max_size_at": 14.4834,
+                "min_camera_distance_m": 3.464,
+                "max_yaw_pitch_delta_dps": 169.9,
+                "max_camera_rate_at": 15.3501
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 820.4,
+                "f3_le_800": false,
+                "peak_at": 14.6334,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 14.8668,
+                "program_rate_at_peak_dps": -731.7,
+                "primary_open_hold_longest": {
+                  "shape": "Pencil",
+                  "first": 14.8334,
+                  "last": 14.8334,
+                  "seconds": 0.04
+                },
+                "primary_open_hold_ge_0_30s": false,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Pencil",
+                    "first": 14.8334,
+                    "last": 14.8334,
+                    "seconds": 0.04
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 14.8668,
+                "end_shape": "Pencil",
+                "end_pose_camera_plane": [
+                  0.074,
+                  -0.457,
+                  -0.613,
+                  -0.191,
+                  0.633,
+                  -0.311,
+                  -0.099,
+                  0.803,
+                  0.12,
+                  0.741
+                ],
+                "catch_at": 14.8834,
+                "catch_pose_camera_plane": [
+                  0.046,
+                  -0.451,
+                  -0.636,
+                  -0.18,
+                  0.645,
+                  -0.373,
+                  -0.106,
+                  0.765,
+                  0.087,
+                  0.698
+                ],
+                "catch_gap_s": 0.0166,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 14.7001,
+              "shoot_time_s": 0.1564,
+              "first_pose_angle_deg": 9.1,
+              "peak_near_launch_angle_deg": 49.3,
+              "peak_near_launch_rate_dps": 2952.0,
+              "peak_at": 14.7168,
+              "aim_error_at_shot_deg": 30.5,
+              "tip_arrival_at": 14.8834,
+              "aim_error_at_tip_arrival_deg": 1.8
+            }
+          ]
+        },
+        "s2_c5_repress": {
+          "flip_windows": [],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 17.7335,
+              "shoot_time_s": 0.1722,
+              "first_pose_angle_deg": 0.4,
+              "peak_near_launch_angle_deg": 33.2,
+              "peak_near_launch_rate_dps": 1987.9,
+              "peak_at": 17.7502,
+              "aim_error_at_shot_deg": 6.8,
+              "tip_arrival_at": 17.9335,
+              "aim_error_at_tip_arrival_deg": 0.9
+            }
+          ]
+        },
+        "s2_c6_side_anchor": {
+          "flip_windows": [],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 21.6168,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 4.7,
+              "peak_near_launch_angle_deg": 64.0,
+              "peak_near_launch_rate_dps": 3829.7,
+              "peak_at": 21.6335,
+              "aim_error_at_shot_deg": 11.1,
+              "tip_arrival_at": 21.8335,
+              "aim_error_at_tip_arrival_deg": 0.6
+            }
+          ]
+        },
+        "s2_c7_no_anchor": {
+          "flip_windows": [],
+          "launches": []
+        },
+        "s2_c8_close_facade": {
+          "flip_windows": [],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 27.7836,
+              "shoot_time_s": 0.194,
+              "first_pose_angle_deg": 3.8,
+              "peak_near_launch_angle_deg": 41.1,
+              "peak_near_launch_rate_dps": 2463.0,
+              "peak_at": 27.8003,
+              "aim_error_at_shot_deg": 4.5,
+              "tip_arrival_at": 28.0003,
+              "aim_error_at_tip_arrival_deg": 1.4
+            }
+          ]
+        },
+        "s2_c9_trees": {
+          "flip_windows": [],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 30.8669,
+              "shoot_time_s": 0.08,
+              "first_pose_angle_deg": 4.2,
+              "peak_near_launch_angle_deg": 55.9,
+              "peak_near_launch_rate_dps": 3350.2,
+              "peak_at": 30.8836,
+              "aim_error_at_shot_deg": 12.6,
+              "tip_arrival_at": 30.9669,
+              "aim_error_at_tip_arrival_deg": 11.4
+            }
+          ]
+        }
+      }
+    },
+    "s3_flip_chain": {
+      "csv": "s3_flip_chain_telemetry.csv",
+      "frames": 1439,
+      "cases": {
+        "s3_flip_flow": {
+          "flip_windows": [
+            {
+              "program": "frontDouble",
+              "start": 1.9167,
+              "end": 3.9167,
+              "camera_through_catch": {
+                "frames": 151,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [
+                  {
+                    "first": 1.9167,
+                    "last": 1.9167,
+                    "frames": 1
+                  }
+                ],
+                "size_over_0_36h": [
+                  {
+                    "first": 2.3167,
+                    "last": 2.4,
+                    "frames": 6
+                  },
+                  {
+                    "first": 3.0667,
+                    "last": 3.3167,
+                    "frames": 16
+                  },
+                  {
+                    "first": 3.6833,
+                    "last": 4.1667,
+                    "frames": 30
+                  }
+                ],
+                "max_projected_size_h": 0.5009,
+                "max_size_at": 3.2,
+                "min_camera_distance_m": 3.058,
+                "max_yaw_pitch_delta_dps": 109.2,
+                "max_camera_rate_at": 1.9333
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 1021.0,
+                "f3_le_800": false,
+                "peak_at": 2.0333,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 3.9167,
+                "program_rate_at_peak_dps": 673.3,
+                "primary_open_hold_longest": {
+                  "shape": "Throne",
+                  "first": 2.8667,
+                  "last": 3.2333,
+                  "seconds": 0.4066
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Throne",
+                    "first": 2.8667,
+                    "last": 3.2333,
+                    "seconds": 0.4066
+                  },
+                  {
+                    "shape": "Throne",
+                    "first": 3.2667,
+                    "last": 3.2833,
+                    "seconds": 0.0566
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 3.9167,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  0.041,
+                  0.589,
+                  -0.373,
+                  0.714,
+                  0.37,
+                  0.929,
+                  -0.191,
+                  -0.776,
+                  0.143,
+                  -0.582
+                ],
+                "catch_at": 3.9333,
+                "catch_pose_camera_plane": [
+                  0.02,
+                  0.593,
+                  -0.418,
+                  0.707,
+                  0.331,
+                  0.926,
+                  -0.159,
+                  -0.728,
+                  0.163,
+                  -0.622
+                ],
+                "catch_gap_s": 0.0166,
+                "visible_pose_classes": null
+              }
+            },
+            {
+              "program": "frontPikeSwan",
+              "start": 4.8833,
+              "end": 7.1,
+              "camera_through_catch": {
+                "frames": 164,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 5.6167,
+                    "last": 5.85,
+                    "frames": 15
+                  },
+                  {
+                    "first": 6.3667,
+                    "last": 6.55,
+                    "frames": 12
+                  },
+                  {
+                    "first": 6.85,
+                    "last": 7.2,
+                    "frames": 22
+                  }
+                ],
+                "max_projected_size_h": 0.5158,
+                "max_size_at": 6.9833,
+                "min_camera_distance_m": 4.411,
+                "max_yaw_pitch_delta_dps": 138.2,
+                "max_camera_rate_at": 7.5833
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 906.9,
+                "f3_le_800": false,
+                "peak_at": 5.0167,
+                "peak_shape": "Pike",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 7.1,
+                "program_rate_at_peak_dps": 607.9,
+                "primary_open_hold_longest": {
+                  "shape": "Pencil",
+                  "first": 5.5333,
+                  "last": 5.9667,
+                  "seconds": 0.4734
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Pencil",
+                    "first": 5.5333,
+                    "last": 5.9667,
+                    "seconds": 0.4734
+                  },
+                  {
+                    "shape": "Straddle",
+                    "first": 6.2833,
+                    "last": 6.45,
+                    "seconds": 0.2067
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 7.1,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  -0.089,
+                  0.56,
+                  -0.124,
+                  0.43,
+                  0.258,
+                  0.895,
+                  0.216,
+                  -0.673,
+                  0.506,
+                  -0.705
+                ],
+                "catch_at": 7.1167,
+                "catch_pose_camera_plane": [
+                  -0.082,
+                  0.558,
+                  -0.118,
+                  0.424,
+                  0.273,
+                  0.88,
+                  0.236,
+                  -0.699,
+                  0.442,
+                  -0.772
+                ],
+                "catch_gap_s": 0.0167,
+                "visible_pose_classes": null
+              }
+            },
+            {
+              "program": "barani",
+              "start": 8.15,
+              "end": 9.55,
+              "camera_through_catch": {
+                "frames": 115,
+                "absent": [],
+                "out_of_frame": [
+                  {
+                    "first": 9.5167,
+                    "last": 9.55,
+                    "frames": 3
+                  }
+                ],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 8.5833,
+                    "last": 8.7333,
+                    "frames": 10
+                  },
+                  {
+                    "first": 9.45,
+                    "last": 9.7333,
+                    "frames": 18
+                  },
+                  {
+                    "first": 9.9167,
+                    "last": 9.9667,
+                    "frames": 4
+                  }
+                ],
+                "max_projected_size_h": 0.6288,
+                "max_size_at": 9.5333,
+                "min_camera_distance_m": 3.777,
+                "max_yaw_pitch_delta_dps": 127.7,
+                "max_camera_rate_at": 8.1667
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 738.7,
+                "f3_le_800": true,
+                "peak_at": 9.1667,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 9.55,
+                "program_rate_at_peak_dps": 629.9,
+                "primary_open_hold_longest": {
+                  "shape": "Straddle",
+                  "first": 9.45,
+                  "last": 9.5167,
+                  "seconds": 0.1067
+                },
+                "primary_open_hold_ge_0_30s": false,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Straddle",
+                    "first": 9.45,
+                    "last": 9.5167,
+                    "seconds": 0.1067
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 9.55,
+                "end_shape": "Straddle",
+                "end_pose_camera_plane": [
+                  0.082,
+                  -0.37,
+                  0.37,
+                  0.106,
+                  -0.312,
+                  -0.838,
+                  0.011,
+                  0.92,
+                  -0.444,
+                  0.164
+                ],
+                "catch_at": null,
+                "catch_pose_camera_plane": null,
+                "catch_gap_s": null,
+                "visible_pose_classes": null
+              }
+            },
+            {
+              "program": "wallFront",
+              "start": 10.5333,
+              "end": 10.8333,
+              "camera_through_catch": {
+                "frames": 49,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 11.3,
+                    "last": 11.3333,
+                    "frames": 3
+                  }
+                ],
+                "max_projected_size_h": 0.417,
+                "max_size_at": 11.3333,
+                "min_camera_distance_m": 2.875,
+                "max_yaw_pitch_delta_dps": 158.3,
+                "max_camera_rate_at": 11.2167
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 1588.6,
+                "f3_le_800": false,
+                "peak_at": 10.8,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 10.8333,
+                "program_rate_at_peak_dps": 448.7,
+                "primary_open_hold_longest": null,
+                "primary_open_hold_ge_0_30s": false,
+                "primary_open_hold_intervals": []
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 10.8333,
+                "end_shape": "Layout",
+                "end_pose_camera_plane": [
+                  0.138,
+                  -0.521,
+                  -0.249,
+                  -0.334,
+                  0.256,
+                  -0.493,
+                  -0.228,
+                  -0.036,
+                  0.037,
+                  -0.043
+                ],
+                "catch_at": 10.85,
+                "catch_pose_camera_plane": [
+                  0.129,
+                  -0.486,
+                  -0.322,
+                  -0.214,
+                  0.361,
+                  -0.605,
+                  -0.252,
+                  -0.061,
+                  0.032,
+                  -0.08
+                ],
+                "catch_gap_s": 0.0167,
+                "visible_pose_classes": null
+              }
+            },
+            {
+              "program": "backSingle",
+              "start": 12.1167,
+              "end": 14.1333,
+              "camera_through_catch": {
+                "frames": 152,
+                "absent": [],
+                "out_of_frame": [
+                  {
+                    "first": 13.5167,
+                    "last": 13.6167,
+                    "frames": 7
+                  },
+                  {
+                    "first": 14.6,
+                    "last": 14.6333,
+                    "frames": 3
+                  }
+                ],
+                "edge_clipped": [
+                  {
+                    "first": 12.1167,
+                    "last": 12.1167,
+                    "frames": 1
+                  }
+                ],
+                "size_over_0_36h": [
+                  {
+                    "first": 12.6167,
+                    "last": 12.85,
+                    "frames": 15
+                  },
+                  {
+                    "first": 13.5,
+                    "last": 13.7333,
+                    "frames": 15
+                  },
+                  {
+                    "first": 13.7667,
+                    "last": 13.9,
+                    "frames": 9
+                  },
+                  {
+                    "first": 13.95,
+                    "last": 13.95,
+                    "frames": 1
+                  },
+                  {
+                    "first": 14.0333,
+                    "last": 14.1,
+                    "frames": 5
+                  },
+                  {
+                    "first": 14.25,
+                    "last": 14.4,
+                    "frames": 10
+                  }
+                ],
+                "max_projected_size_h": 0.5119,
+                "max_size_at": 13.5833,
+                "min_camera_distance_m": 3.89,
+                "max_yaw_pitch_delta_dps": 135.2,
+                "max_camera_rate_at": 14.6333
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 552.6,
+                "f3_le_800": true,
+                "peak_at": 13.2,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 14.1333,
+                "program_rate_at_peak_dps": -483.8,
+                "primary_open_hold_longest": {
+                  "shape": "Pencil",
+                  "first": 12.5833,
+                  "last": 13.05,
+                  "seconds": 0.5067
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Pencil",
+                    "first": 12.5833,
+                    "last": 13.05,
+                    "seconds": 0.5067
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 14.1333,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  -0.211,
+                  0.507,
+                  0.379,
+                  0.395,
+                  -0.235,
+                  0.984,
+                  0.699,
+                  -0.345,
+                  0.51,
+                  -0.529
+                ],
+                "catch_at": 14.15,
+                "catch_pose_camera_plane": [
+                  -0.207,
+                  0.5,
+                  0.376,
+                  0.385,
+                  -0.229,
+                  0.982,
+                  0.676,
+                  -0.322,
+                  0.546,
+                  -0.453
+                ],
+                "catch_gap_s": 0.0167,
+                "visible_pose_classes": null
+              }
+            },
+            {
+              "program": "barani",
+              "start": 15.1167,
+              "end": 17.3667,
+              "camera_through_catch": {
+                "frames": 166,
+                "absent": [
+                  {
+                    "first": 15.4667,
+                    "last": 15.5333,
+                    "frames": 5
+                  }
+                ],
+                "out_of_frame": [
+                  {
+                    "first": 15.4333,
+                    "last": 15.5833,
+                    "frames": 10
+                  }
+                ],
+                "edge_clipped": [
+                  {
+                    "first": 15.45,
+                    "last": 15.45,
+                    "frames": 1
+                  },
+                  {
+                    "first": 15.55,
+                    "last": 15.6,
+                    "frames": 4
+                  }
+                ],
+                "size_over_0_36h": [
+                  {
+                    "first": 15.25,
+                    "last": 15.5,
+                    "frames": 16
+                  },
+                  {
+                    "first": 15.5333,
+                    "last": 15.9667,
+                    "frames": 27
+                  },
+                  {
+                    "first": 16.45,
+                    "last": 16.6,
+                    "frames": 10
+                  },
+                  {
+                    "first": 17.3333,
+                    "last": 17.4667,
+                    "frames": 9
+                  }
+                ],
+                "max_projected_size_h": 3.8367,
+                "max_size_at": 15.4833,
+                "min_camera_distance_m": 1.296,
+                "max_yaw_pitch_delta_dps": 1324.6,
+                "max_camera_rate_at": 15.5833
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 894.9,
+                "f3_le_800": false,
+                "peak_at": 16.2,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 17.3667,
+                "program_rate_at_peak_dps": 674.1,
+                "primary_open_hold_longest": {
+                  "shape": "Straddle",
+                  "first": 16.35,
+                  "last": 16.7167,
+                  "seconds": 0.4067
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Straddle",
+                    "first": 16.35,
+                    "last": 16.7167,
+                    "seconds": 0.4067
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 17.3667,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  0.206,
+                  0.555,
+                  -0.271,
+                  0.789,
+                  0.747,
+                  0.512,
+                  -0.375,
+                  -0.571,
+                  -0.165,
+                  -0.874
+                ],
+                "catch_at": 17.3833,
+                "catch_pose_camera_plane": [
+                  0.206,
+                  0.555,
+                  -0.315,
+                  0.744,
+                  0.752,
+                  0.512,
+                  -0.391,
+                  -0.642,
+                  -0.172,
+                  -0.887
+                ],
+                "catch_gap_s": 0.0166,
+                "visible_pose_classes": null
+              }
+            },
+            {
+              "program": "rudi",
+              "start": 18.4,
+              "end": 19.45,
+              "camera_through_catch": {
+                "frames": 94,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 18.4333,
+                    "last": 18.4333,
+                    "frames": 1
+                  },
+                  {
+                    "first": 18.75,
+                    "last": 18.85,
+                    "frames": 7
+                  },
+                  {
+                    "first": 19.1333,
+                    "last": 19.15,
+                    "frames": 2
+                  },
+                  {
+                    "first": 19.2,
+                    "last": 19.35,
+                    "frames": 10
+                  },
+                  {
+                    "first": 19.5833,
+                    "last": 19.95,
+                    "frames": 23
+                  }
+                ],
+                "max_projected_size_h": 0.5213,
+                "max_size_at": 19.2833,
+                "min_camera_distance_m": 3.657,
+                "max_yaw_pitch_delta_dps": 186.3,
+                "max_camera_rate_at": 18.4167
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 831.8,
+                "f3_le_800": false,
+                "peak_at": 18.55,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 19.45,
+                "program_rate_at_peak_dps": 732.9,
+                "primary_open_hold_longest": {
+                  "shape": "Straddle",
+                  "first": 19.1667,
+                  "last": 19.35,
+                  "seconds": 0.2233
+                },
+                "primary_open_hold_ge_0_30s": false,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Straddle",
+                    "first": 19.1667,
+                    "last": 19.35,
+                    "seconds": 0.2233
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 19.45,
+                "end_shape": "Tuck",
+                "end_pose_camera_plane": [
+                  -0.105,
+                  0.557,
+                  0.468,
+                  0.455,
+                  0.131,
+                  0.356,
+                  0.694,
+                  -0.129,
+                  0.116,
+                  -0.619
+                ],
+                "catch_at": null,
+                "catch_pose_camera_plane": null,
+                "catch_gap_s": null,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 0.4,
+              "shoot_time_s": 0.1253,
+              "first_pose_angle_deg": 1.7,
+              "peak_near_launch_angle_deg": 81.2,
+              "peak_near_launch_rate_dps": 4864.0,
+              "peak_at": 0.4167,
+              "aim_error_at_shot_deg": 16.6,
+              "tip_arrival_at": 0.55,
+              "aim_error_at_tip_arrival_deg": 1.0
+            },
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 3.8167,
+              "shoot_time_s": 0.0859,
+              "first_pose_angle_deg": 10.2,
+              "peak_near_launch_angle_deg": 38.8,
+              "peak_near_launch_rate_dps": 2336.8,
+              "peak_at": 3.8333,
+              "aim_error_at_shot_deg": 5.0,
+              "tip_arrival_at": 3.9333,
+              "aim_error_at_tip_arrival_deg": 2.5
+            },
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 6.9333,
+              "shoot_time_s": 0.1516,
+              "first_pose_angle_deg": 8.7,
+              "peak_near_launch_angle_deg": 43.9,
+              "peak_near_launch_rate_dps": 2629.2,
+              "peak_at": 6.95,
+              "aim_error_at_shot_deg": 6.4,
+              "tip_arrival_at": 7.1167,
+              "aim_error_at_tip_arrival_deg": 2.4
+            },
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 9.5833,
+              "shoot_time_s": 0.1965,
+              "first_pose_angle_deg": 4.1,
+              "peak_near_launch_angle_deg": 121.1,
+              "peak_near_launch_rate_dps": 7251.9,
+              "peak_at": 9.6,
+              "aim_error_at_shot_deg": 14.1,
+              "tip_arrival_at": 9.8,
+              "aim_error_at_tip_arrival_deg": 12.0
+            },
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 10.7333,
+              "shoot_time_s": 0.08,
+              "first_pose_angle_deg": 5.7,
+              "peak_near_launch_angle_deg": 107.4,
+              "peak_near_launch_rate_dps": 6430.8,
+              "peak_at": 10.75,
+              "aim_error_at_shot_deg": 41.6,
+              "tip_arrival_at": 10.8333,
+              "aim_error_at_tip_arrival_deg": 1.0
+            },
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 13.95,
+              "shoot_time_s": 0.1752,
+              "first_pose_angle_deg": 9.8,
+              "peak_near_launch_angle_deg": 49.0,
+              "peak_near_launch_rate_dps": 2934.6,
+              "peak_at": 13.9667,
+              "aim_error_at_shot_deg": 0.9,
+              "tip_arrival_at": 14.15,
+              "aim_error_at_tip_arrival_deg": 0.7
+            },
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 17.15,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 6.1,
+              "peak_near_launch_angle_deg": 34.1,
+              "peak_near_launch_rate_dps": 2041.2,
+              "peak_at": 17.1667,
+              "aim_error_at_shot_deg": 10.4,
+              "tip_arrival_at": 17.3667,
+              "aim_error_at_tip_arrival_deg": 0.2
+            },
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 19.4833,
+              "shoot_time_s": 0.08,
+              "first_pose_angle_deg": 10.1,
+              "peak_near_launch_angle_deg": 103.1,
+              "peak_near_launch_rate_dps": 6172.7,
+              "peak_at": 19.5,
+              "aim_error_at_shot_deg": 11.0,
+              "tip_arrival_at": 19.5833,
+              "aim_error_at_tip_arrival_deg": 0.5
+            }
+          ]
+        }
+      }
+    },
+    "s3b_flip_cases": {
+      "csv": "s3b_flip_cases_telemetry.csv",
+      "frames": 1776,
+      "cases": {
+        "s3_c1_fwd": {
+          "flip_windows": [
+            {
+              "program": "frontSingle",
+              "start": 0.4,
+              "end": 2.8,
+              "camera_through_catch": {
+                "frames": 175,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 0.95,
+                    "last": 1.1333,
+                    "frames": 12
+                  },
+                  {
+                    "first": 1.4167,
+                    "last": 1.7667,
+                    "frames": 22
+                  },
+                  {
+                    "first": 2.1833,
+                    "last": 2.4333,
+                    "frames": 16
+                  },
+                  {
+                    "first": 2.4667,
+                    "last": 2.5,
+                    "frames": 3
+                  }
+                ],
+                "max_projected_size_h": 0.5433,
+                "max_size_at": 1.5167,
+                "min_camera_distance_m": 3.466,
+                "max_yaw_pitch_delta_dps": 192.3,
+                "max_camera_rate_at": 3.2833
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 810.8,
+                "f3_le_800": false,
+                "peak_at": 1.1,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 2.8,
+                "program_rate_at_peak_dps": 589.1,
+                "primary_open_hold_longest": {
+                  "shape": "Throne",
+                  "first": 1.3667,
+                  "last": 1.75,
+                  "seconds": 0.4233
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Throne",
+                    "first": 1.3667,
+                    "last": 1.75,
+                    "seconds": 0.4233
+                  },
+                  {
+                    "shape": "Throne",
+                    "first": 1.7833,
+                    "last": 1.7833,
+                    "seconds": 0.04
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 2.8,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  -0.243,
+                  0.539,
+                  -0.82,
+                  0.651,
+                  -0.346,
+                  0.841,
+                  -0.17,
+                  -0.683,
+                  0.082,
+                  -0.785
+                ],
+                "catch_at": 2.8167,
+                "catch_pose_camera_plane": [
+                  -0.24,
+                  0.541,
+                  -0.805,
+                  0.618,
+                  -0.346,
+                  0.838,
+                  -0.151,
+                  -0.692,
+                  0.065,
+                  -0.768
+                ],
+                "catch_gap_s": 0.0167,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 2.6667,
+              "shoot_time_s": 0.1185,
+              "first_pose_angle_deg": 10.0,
+              "peak_near_launch_angle_deg": 59.3,
+              "peak_near_launch_rate_dps": 3574.0,
+              "peak_at": 2.6833,
+              "aim_error_at_shot_deg": 6.8,
+              "tip_arrival_at": 2.8167,
+              "aim_error_at_tip_arrival_deg": 1.5
+            }
+          ]
+        },
+        "s3_c2_back": {
+          "flip_windows": [
+            {
+              "program": "backSingle",
+              "start": 4.65,
+              "end": 6.65,
+              "camera_through_catch": {
+                "frames": 151,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 5.0333,
+                    "last": 5.2167,
+                    "frames": 12
+                  },
+                  {
+                    "first": 5.7667,
+                    "last": 6.5,
+                    "frames": 45
+                  },
+                  {
+                    "first": 6.7167,
+                    "last": 6.8333,
+                    "frames": 8
+                  }
+                ],
+                "max_projected_size_h": 0.4848,
+                "max_size_at": 5.9167,
+                "min_camera_distance_m": 4.565,
+                "max_yaw_pitch_delta_dps": 246.4,
+                "max_camera_rate_at": 7.15
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 811.4,
+                "f3_le_800": false,
+                "peak_at": 5.4833,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 6.65,
+                "program_rate_at_peak_dps": -655.8,
+                "primary_open_hold_longest": {
+                  "shape": "Pencil",
+                  "first": 5.0,
+                  "last": 5.3667,
+                  "seconds": 0.4067
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Pencil",
+                    "first": 5.0,
+                    "last": 5.3667,
+                    "seconds": 0.4067
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 6.65,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  -0.14,
+                  0.521,
+                  0.562,
+                  0.305,
+                  -0.145,
+                  0.499,
+                  0.501,
+                  -0.733,
+                  0.104,
+                  -0.853
+                ],
+                "catch_at": 6.6667,
+                "catch_pose_camera_plane": [
+                  -0.131,
+                  0.522,
+                  0.526,
+                  0.237,
+                  -0.118,
+                  0.504,
+                  0.503,
+                  -0.72,
+                  0.088,
+                  -0.855
+                ],
+                "catch_gap_s": 0.0167,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 6.4333,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 2.4,
+              "peak_near_launch_angle_deg": 28.2,
+              "peak_near_launch_rate_dps": 1687.9,
+              "peak_at": 6.45,
+              "aim_error_at_shot_deg": 2.3,
+              "tip_arrival_at": 6.65,
+              "aim_error_at_tip_arrival_deg": 0.2
+            }
+          ]
+        },
+        "s3_c3_right": {
+          "flip_windows": [
+            {
+              "program": "corkscrew",
+              "start": 8.2166,
+              "end": 10.8166,
+              "camera_through_catch": {
+                "frames": 187,
+                "absent": [],
+                "out_of_frame": [
+                  {
+                    "first": 8.7333,
+                    "last": 8.7333,
+                    "frames": 1
+                  },
+                  {
+                    "first": 10.2833,
+                    "last": 10.3833,
+                    "frames": 7
+                  }
+                ],
+                "edge_clipped": [
+                  {
+                    "first": 10.2833,
+                    "last": 10.3666,
+                    "frames": 6
+                  }
+                ],
+                "size_over_0_36h": [
+                  {
+                    "first": 8.6333,
+                    "last": 8.8833,
+                    "frames": 16
+                  },
+                  {
+                    "first": 9.6833,
+                    "last": 9.7999,
+                    "frames": 8
+                  },
+                  {
+                    "first": 10.2333,
+                    "last": 11.0499,
+                    "frames": 50
+                  }
+                ],
+                "max_projected_size_h": 0.6742,
+                "max_size_at": 10.3166,
+                "min_camera_distance_m": 3.195,
+                "max_yaw_pitch_delta_dps": 227.0,
+                "max_camera_rate_at": 11.3166
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 753.8,
+                "f3_le_800": true,
+                "peak_at": 9.8333,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 10.8166,
+                "program_rate_at_peak_dps": 251.8,
+                "primary_open_hold_longest": {
+                  "shape": "Straddle",
+                  "first": 9.3166,
+                  "last": 9.7666,
+                  "seconds": 0.49
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Straddle",
+                    "first": 9.3166,
+                    "last": 9.7666,
+                    "seconds": 0.49
+                  },
+                  {
+                    "shape": "Layout",
+                    "first": 8.2166,
+                    "last": 8.2499,
+                    "seconds": 0.0733
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 10.8166,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  -0.173,
+                  0.529,
+                  0.131,
+                  0.704,
+                  -0.512,
+                  0.642,
+                  0.362,
+                  -0.666,
+                  0.118,
+                  -0.888
+                ],
+                "catch_at": 10.8333,
+                "catch_pose_camera_plane": [
+                  -0.168,
+                  0.532,
+                  0.15,
+                  0.711,
+                  -0.503,
+                  0.648,
+                  0.362,
+                  -0.698,
+                  0.113,
+                  -0.892
+                ],
+                "catch_gap_s": 0.0167,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 10.5999,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 8.6,
+              "peak_near_launch_angle_deg": 100.3,
+              "peak_near_launch_rate_dps": 6005.1,
+              "peak_at": 10.6166,
+              "aim_error_at_shot_deg": 12.1,
+              "tip_arrival_at": 10.8166,
+              "aim_error_at_tip_arrival_deg": 0.2
+            }
+          ]
+        },
+        "s3_c4_left": {
+          "flip_windows": [
+            {
+              "program": "barani",
+              "start": 12.5833,
+              "end": 15.1,
+              "camera_through_catch": {
+                "frames": 182,
+                "absent": [],
+                "out_of_frame": [
+                  {
+                    "first": 13.9666,
+                    "last": 13.9833,
+                    "frames": 2
+                  }
+                ],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 13.0,
+                    "last": 13.2333,
+                    "frames": 15
+                  },
+                  {
+                    "first": 13.8833,
+                    "last": 14.1666,
+                    "frames": 18
+                  },
+                  {
+                    "first": 14.6833,
+                    "last": 15.3,
+                    "frames": 38
+                  }
+                ],
+                "max_projected_size_h": 0.6861,
+                "max_size_at": 13.9833,
+                "min_camera_distance_m": 3.69,
+                "max_yaw_pitch_delta_dps": 120.5,
+                "max_camera_rate_at": 15.55
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 819.8,
+                "f3_le_800": false,
+                "peak_at": 13.5,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 15.1,
+                "program_rate_at_peak_dps": 665.6,
+                "primary_open_hold_longest": {
+                  "shape": "Straddle",
+                  "first": 13.7833,
+                  "last": 14.1833,
+                  "seconds": 0.44
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Straddle",
+                    "first": 13.7833,
+                    "last": 14.1833,
+                    "seconds": 0.44
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 15.1,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  0.143,
+                  0.573,
+                  0.052,
+                  -0.075,
+                  0.244,
+                  0.725,
+                  0.329,
+                  -0.687,
+                  0.199,
+                  -0.832
+                ],
+                "catch_at": 15.1166,
+                "catch_pose_camera_plane": [
+                  0.134,
+                  0.576,
+                  0.114,
+                  -0.054,
+                  0.224,
+                  0.734,
+                  0.329,
+                  -0.652,
+                  0.277,
+                  -0.803
+                ],
+                "catch_gap_s": 0.0166,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 14.8833,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 0.9,
+              "peak_near_launch_angle_deg": 52.1,
+              "peak_near_launch_rate_dps": 3120.5,
+              "peak_at": 14.9,
+              "aim_error_at_shot_deg": 9.5,
+              "tip_arrival_at": 15.1,
+              "aim_error_at_tip_arrival_deg": 0.3
+            }
+          ]
+        },
+        "s3_c5_neutral": {
+          "flip_windows": [
+            {
+              "program": "frontPikeSwan",
+              "start": 16.8667,
+              "end": 19.3,
+              "camera_through_catch": {
+                "frames": 177,
+                "absent": [],
+                "out_of_frame": [
+                  {
+                    "first": 19.7834,
+                    "last": 19.8,
+                    "frames": 2
+                  }
+                ],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 17.6,
+                    "last": 17.7334,
+                    "frames": 9
+                  },
+                  {
+                    "first": 18.35,
+                    "last": 18.55,
+                    "frames": 13
+                  },
+                  {
+                    "first": 18.8167,
+                    "last": 18.8334,
+                    "frames": 2
+                  },
+                  {
+                    "first": 18.8667,
+                    "last": 19.0667,
+                    "frames": 13
+                  }
+                ],
+                "max_projected_size_h": 0.4544,
+                "max_size_at": 18.4,
+                "min_camera_distance_m": 3.964,
+                "max_yaw_pitch_delta_dps": 184.0,
+                "max_camera_rate_at": 19.8
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 741.7,
+                "f3_le_800": true,
+                "peak_at": 17.4167,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 19.3,
+                "program_rate_at_peak_dps": 699.0,
+                "primary_open_hold_longest": {
+                  "shape": "Pencil",
+                  "first": 17.5167,
+                  "last": 17.9334,
+                  "seconds": 0.4567
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Pencil",
+                    "first": 17.5167,
+                    "last": 17.9334,
+                    "seconds": 0.4567
+                  },
+                  {
+                    "shape": "Straddle",
+                    "first": 18.2834,
+                    "last": 18.4334,
+                    "seconds": 0.19
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 19.3,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  -0.242,
+                  0.531,
+                  -0.834,
+                  0.658,
+                  -0.333,
+                  0.79,
+                  -0.09,
+                  -0.877,
+                  0.435,
+                  -0.796
+                ],
+                "catch_at": 19.3167,
+                "catch_pose_camera_plane": [
+                  -0.242,
+                  0.53,
+                  -0.822,
+                  0.622,
+                  -0.33,
+                  0.791,
+                  -0.124,
+                  -0.86,
+                  0.427,
+                  -0.802
+                ],
+                "catch_gap_s": 0.0167,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 19.1667,
+              "shoot_time_s": 0.1144,
+              "first_pose_angle_deg": 6.9,
+              "peak_near_launch_angle_deg": 29.8,
+              "peak_near_launch_rate_dps": 1784.1,
+              "peak_at": 19.1834,
+              "aim_error_at_shot_deg": 3.8,
+              "tip_arrival_at": 19.3,
+              "aim_error_at_tip_arrival_deg": 1.4
+            }
+          ]
+        },
+        "s3_c6_fwd_right": {
+          "flip_windows": [
+            {
+              "program": "rudi",
+              "start": 21.15,
+              "end": 23.7833,
+              "camera_through_catch": {
+                "frames": 189,
+                "absent": [
+                  {
+                    "first": 23.8667,
+                    "last": 23.9,
+                    "frames": 3
+                  }
+                ],
+                "out_of_frame": [
+                  {
+                    "first": 23.75,
+                    "last": 23.9,
+                    "frames": 10
+                  }
+                ],
+                "edge_clipped": [
+                  {
+                    "first": 23.7667,
+                    "last": 23.85,
+                    "frames": 6
+                  },
+                  {
+                    "first": 23.9167,
+                    "last": 23.9167,
+                    "frames": 1
+                  },
+                  {
+                    "first": 24.05,
+                    "last": 24.05,
+                    "frames": 1
+                  }
+                ],
+                "size_over_0_36h": [
+                  {
+                    "first": 21.5167,
+                    "last": 21.6333,
+                    "frames": 8
+                  },
+                  {
+                    "first": 21.9333,
+                    "last": 22.0,
+                    "frames": 5
+                  },
+                  {
+                    "first": 22.5167,
+                    "last": 22.8167,
+                    "frames": 19
+                  },
+                  {
+                    "first": 23.2667,
+                    "last": 23.9167,
+                    "frames": 40
+                  },
+                  {
+                    "first": 24.0167,
+                    "last": 24.2833,
+                    "frames": 17
+                  }
+                ],
+                "max_projected_size_h": 3.7816,
+                "max_size_at": 23.85,
+                "min_camera_distance_m": 1.821,
+                "max_yaw_pitch_delta_dps": 1099.6,
+                "max_camera_rate_at": 23.9
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 871.3,
+                "f3_le_800": false,
+                "peak_at": 22.1833,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 23.7833,
+                "program_rate_at_peak_dps": 401.0,
+                "primary_open_hold_longest": {
+                  "shape": "Pencil",
+                  "first": 22.4,
+                  "last": 22.8,
+                  "seconds": 0.44
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Pencil",
+                    "first": 22.4,
+                    "last": 22.8,
+                    "seconds": 0.44
+                  },
+                  {
+                    "shape": "Straddle",
+                    "first": 21.9,
+                    "last": 22.0667,
+                    "seconds": 0.2067
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 23.7833,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  0.089,
+                  0.553,
+                  -0.004,
+                  0.515,
+                  0.426,
+                  0.907,
+                  0.361,
+                  -0.734,
+                  0.111,
+                  -0.786
+                ],
+                "catch_at": null,
+                "catch_pose_camera_plane": null,
+                "catch_gap_s": null,
+                "visible_pose_classes": null
+              }
+            },
+            {
+              "program": "wallFront",
+              "start": 24.3333,
+              "end": 25.15,
+              "camera_through_catch": {
+                "frames": 50,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 24.3333,
+                    "last": 24.4333,
+                    "frames": 7
+                  }
+                ],
+                "max_projected_size_h": 0.4745,
+                "max_size_at": 24.3833,
+                "min_camera_distance_m": 4.41,
+                "max_yaw_pitch_delta_dps": 146.0,
+                "max_camera_rate_at": 25.15
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 672.7,
+                "f3_le_800": true,
+                "peak_at": 24.4667,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": true,
+                "unmeasured_tail_frames": 1,
+                "last_rate_window_ends_at": 25.1333,
+                "program_rate_at_peak_dps": 583.2,
+                "primary_open_hold_longest": {
+                  "shape": "Layout",
+                  "first": 24.8167,
+                  "last": 24.8333,
+                  "seconds": 0.0566
+                },
+                "primary_open_hold_ge_0_30s": false,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Layout",
+                    "first": 24.8167,
+                    "last": 24.8333,
+                    "seconds": 0.0566
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 25.15,
+                "end_shape": "Tuck",
+                "end_pose_camera_plane": [
+                  -0.022,
+                  0.521,
+                  -0.626,
+                  0.687,
+                  0.195,
+                  0.329,
+                  -0.086,
+                  0.044,
+                  0.246,
+                  0.074
+                ],
+                "catch_at": null,
+                "catch_pose_camera_plane": null,
+                "catch_gap_s": null,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 23.5833,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 8.5,
+              "peak_near_launch_angle_deg": 67.4,
+              "peak_near_launch_rate_dps": 4037.5,
+              "peak_at": 23.6,
+              "aim_error_at_shot_deg": 5.8,
+              "tip_arrival_at": 23.8,
+              "aim_error_at_tip_arrival_deg": 3.4
+            }
+          ]
+        },
+        "s3_c7_back_left": {
+          "flip_windows": [
+            {
+              "program": "fullTwist",
+              "start": 25.5667,
+              "end": 28.2334,
+              "camera_through_catch": {
+                "frames": 191,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 26.0,
+                    "last": 26.1,
+                    "frames": 7
+                  },
+                  {
+                    "first": 26.4,
+                    "last": 26.7667,
+                    "frames": 23
+                  },
+                  {
+                    "first": 27.65,
+                    "last": 27.9834,
+                    "frames": 21
+                  },
+                  {
+                    "first": 28.5167,
+                    "last": 28.5334,
+                    "frames": 2
+                  }
+                ],
+                "max_projected_size_h": 0.5429,
+                "max_size_at": 26.5167,
+                "min_camera_distance_m": 3.418,
+                "max_yaw_pitch_delta_dps": 172.7,
+                "max_camera_rate_at": 28.7
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "legacy_case_bounded_shift",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 867.9,
+                "f3_le_800": false,
+                "peak_at": 27.3334,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 28.2334,
+                "program_rate_at_peak_dps": -702.0,
+                "primary_open_hold_longest": {
+                  "shape": "Straddle",
+                  "first": 26.6,
+                  "last": 27.0334,
+                  "seconds": 0.4734
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Straddle",
+                    "first": 26.6,
+                    "last": 27.0334,
+                    "seconds": 0.4734
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": false,
+                "reason": "no world body-axis xyz; body_pitch/axis/roll are moving-frame projections"
+              },
+              "catch": {
+                "end_at": 28.2334,
+                "end_shape": "Reach",
+                "end_pose_camera_plane": [
+                  -0.141,
+                  0.421,
+                  -0.146,
+                  0.246,
+                  0.17,
+                  0.693,
+                  0.358,
+                  -0.76,
+                  0.41,
+                  -0.593
+                ],
+                "catch_at": 28.25,
+                "catch_pose_camera_plane": [
+                  -0.135,
+                  0.424,
+                  -0.12,
+                  0.254,
+                  0.183,
+                  0.689,
+                  0.355,
+                  -0.78,
+                  0.349,
+                  -0.577
+                ],
+                "catch_gap_s": 0.0166,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 28.0167,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 1.5,
+              "peak_near_launch_angle_deg": 94.8,
+              "peak_near_launch_rate_dps": 5678.7,
+              "peak_at": 28.0334,
+              "aim_error_at_shot_deg": 10.7,
+              "tip_arrival_at": 28.2334,
+              "aim_error_at_tip_arrival_deg": 0.2
+            }
+          ]
+        }
+      }
+    },
+    "s4_release_float": {
+      "csv": "s4_release_float_telemetry.csv",
+      "frames": 1199,
+      "cases": {
+        "s4_release_float": {
+          "flip_windows": [],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 0.4,
+              "shoot_time_s": 0.1704,
+              "first_pose_angle_deg": 1.5,
+              "peak_near_launch_angle_deg": 76.7,
+              "peak_near_launch_rate_dps": 4591.7,
+              "peak_at": 0.4167,
+              "aim_error_at_shot_deg": 18.1,
+              "tip_arrival_at": 0.6,
+              "aim_error_at_tip_arrival_deg": 7.1
+            },
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 3.25,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 3.1,
+              "peak_near_launch_angle_deg": 70.7,
+              "peak_near_launch_rate_dps": 4231.3,
+              "peak_at": 3.2667,
+              "aim_error_at_shot_deg": 36.4,
+              "tip_arrival_at": 3.4667,
+              "aim_error_at_tip_arrival_deg": 12.0
+            },
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 6.05,
+              "shoot_time_s": 0.1589,
+              "first_pose_angle_deg": 3.1,
+              "peak_near_launch_angle_deg": 44.8,
+              "peak_near_launch_rate_dps": 2680.6,
+              "peak_at": 6.0667,
+              "aim_error_at_shot_deg": 23.0,
+              "tip_arrival_at": 6.2333,
+              "aim_error_at_tip_arrival_deg": 0.7
+            },
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 8.8333,
+              "shoot_time_s": 0.1574,
+              "first_pose_angle_deg": 3.4,
+              "peak_near_launch_angle_deg": 44.3,
+              "peak_near_launch_rate_dps": 2654.2,
+              "peak_at": 8.85,
+              "aim_error_at_shot_deg": 25.3,
+              "tip_arrival_at": 9.0167,
+              "aim_error_at_tip_arrival_deg": 0.9
+            },
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 11.5667,
+              "shoot_time_s": 0.1624,
+              "first_pose_angle_deg": 2.6,
+              "peak_near_launch_angle_deg": 46.5,
+              "peak_near_launch_rate_dps": 2799.5,
+              "peak_at": 11.5833,
+              "aim_error_at_shot_deg": 23.9,
+              "tip_arrival_at": 11.75,
+              "aim_error_at_tip_arrival_deg": 0.5
+            },
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 14.3167,
+              "shoot_time_s": 0.1862,
+              "first_pose_angle_deg": 2.8,
+              "peak_near_launch_angle_deg": 36.3,
+              "peak_near_launch_rate_dps": 2187.3,
+              "peak_at": 14.3333,
+              "aim_error_at_shot_deg": 20.2,
+              "tip_arrival_at": 14.5333,
+              "aim_error_at_tip_arrival_deg": 12.2
+            },
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 17.0833,
+              "shoot_time_s": 0.1576,
+              "first_pose_angle_deg": 3.0,
+              "peak_near_launch_angle_deg": 43.9,
+              "peak_near_launch_rate_dps": 2625.9,
+              "peak_at": 17.1,
+              "aim_error_at_shot_deg": 23.6,
+              "tip_arrival_at": 17.2667,
+              "aim_error_at_tip_arrival_deg": 0.8
+            },
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 19.8,
+              "shoot_time_s": 0.1653,
+              "first_pose_angle_deg": 2.9,
+              "peak_near_launch_angle_deg": 44.8,
+              "peak_near_launch_rate_dps": 2682.2,
+              "peak_at": 19.8167,
+              "aim_error_at_shot_deg": 23.8,
+              "tip_arrival_at": null,
+              "aim_error_at_tip_arrival_deg": null
+            }
+          ]
+        }
+      }
+    },
+    "s5_night_swing": {
+      "csv": "s5_night_swing_telemetry.csv",
+      "frames": 1199,
+      "cases": {
+        "s5_night_swing": {
+          "flip_windows": [],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 0.4,
+              "shoot_time_s": 0.1513,
+              "first_pose_angle_deg": 1.1,
+              "peak_near_launch_angle_deg": 51.9,
+              "peak_near_launch_rate_dps": 3108.9,
+              "peak_at": 0.4167,
+              "aim_error_at_shot_deg": 9.1,
+              "tip_arrival_at": 0.5833,
+              "aim_error_at_tip_arrival_deg": 10.3
+            },
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 9.6,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 6.4,
+              "peak_near_launch_angle_deg": 73.0,
+              "peak_near_launch_rate_dps": 4370.1,
+              "peak_at": 9.6167,
+              "aim_error_at_shot_deg": 30.7,
+              "tip_arrival_at": 9.8167,
+              "aim_error_at_tip_arrival_deg": 0.5
+            }
+          ]
+        }
+      }
+    }
+  },
+  "after": {
+    "s2_press_variety": {
+      "csv": "s2_press_variety_telemetry.csv",
+      "frames": 299,
+      "cases": {
+        "s2_c1_roof_jump": {
+          "flip_windows": [
+            {
+              "program": "wallFront",
+              "start": 0.6833,
+              "end": 1.7333,
+              "camera_through_catch": {
+                "frames": 94,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 0.6833,
+                    "last": 0.75,
+                    "frames": 5
+                  },
+                  {
+                    "first": 1.6,
+                    "last": 1.8167,
+                    "frames": 14
+                  }
+                ],
+                "max_projected_size_h": 0.5318,
+                "max_size_at": 1.65,
+                "min_camera_distance_m": 2.791,
+                "max_yaw_pitch_delta_dps": 182.0,
+                "max_camera_rate_at": 1.7833
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "same_frame_post_animation",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 652.6,
+                "f3_le_800": true,
+                "peak_at": 0.75,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 1.7333,
+                "program_rate_at_peak_dps": 425.1,
+                "primary_open_hold_longest": {
+                  "shape": "Throne",
+                  "first": 1.55,
+                  "last": 1.7,
+                  "seconds": 0.19
+                },
+                "primary_open_hold_ge_0_30s": false,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Throne",
+                    "first": 1.55,
+                    "last": 1.7,
+                    "seconds": 0.19
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": true,
+                "source": "same_frame_post_animation_world_axis",
+                "window_frames": 2,
+                "peak_3d_axis_dps": 652.7,
+                "peak_at": 0.75
+              },
+              "catch": {
+                "end_at": 1.7333,
+                "end_shape": "Throne",
+                "end_pose_camera_plane": [
+                  0.03,
+                  0.588,
+                  -0.494,
+                  0.842,
+                  0.542,
+                  0.849,
+                  -0.489,
+                  -0.383,
+                  0.114,
+                  -0.379
+                ],
+                "catch_at": null,
+                "catch_pose_camera_plane": null,
+                "catch_gap_s": null,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "right",
+              "shot_on": 2.35,
+              "shoot_time_s": 0.1123,
+              "first_pose_angle_deg": 11.1,
+              "peak_near_launch_angle_deg": 26.0,
+              "peak_near_launch_rate_dps": 1559.6,
+              "peak_at": 2.4,
+              "aim_error_at_shot_deg": 131.9,
+              "tip_arrival_at": 2.4833,
+              "aim_error_at_tip_arrival_deg": 2.1
+            }
+          ]
+        }
+      }
+    },
+    "s3b_flip_cases": {
+      "csv": "s3b_flip_cases_telemetry.csv",
+      "frames": 266,
+      "cases": {
+        "s3_c7_back_left": {
+          "flip_windows": [
+            {
+              "program": "fullTwist",
+              "start": 0.4,
+              "end": 3.0667,
+              "camera_through_catch": {
+                "frames": 191,
+                "absent": [],
+                "out_of_frame": [],
+                "edge_clipped": [],
+                "size_over_0_36h": [
+                  {
+                    "first": 0.8333,
+                    "last": 0.9,
+                    "frames": 5
+                  },
+                  {
+                    "first": 1.2,
+                    "last": 1.5833,
+                    "frames": 24
+                  },
+                  {
+                    "first": 2.5167,
+                    "last": 3.0167,
+                    "frames": 31
+                  },
+                  {
+                    "first": 3.0833,
+                    "last": 3.2167,
+                    "frames": 9
+                  }
+                ],
+                "max_projected_size_h": 0.507,
+                "max_size_at": 1.35,
+                "min_camera_distance_m": 3.181,
+                "max_yaw_pitch_delta_dps": 163.3,
+                "max_camera_rate_at": 0.5833
+              },
+              "rotation": {
+                "available": true,
+                "rendered_axis_source": "same_frame_post_animation",
+                "window_frames": 2,
+                "projected_f3_peak_dps": 812.4,
+                "f3_le_800": false,
+                "peak_at": 0.5333,
+                "peak_shape": "Tuck",
+                "case_boundary_pose_excluded": false,
+                "unmeasured_tail_frames": 0,
+                "last_rate_window_ends_at": 3.0667,
+                "program_rate_at_peak_dps": -697.2,
+                "primary_open_hold_longest": {
+                  "shape": "Straddle",
+                  "first": 2.4667,
+                  "last": 3.0333,
+                  "seconds": 0.6066
+                },
+                "primary_open_hold_ge_0_30s": true,
+                "primary_open_hold_intervals": [
+                  {
+                    "shape": "Straddle",
+                    "first": 2.4667,
+                    "last": 3.0333,
+                    "seconds": 0.6066
+                  },
+                  {
+                    "shape": "Straddle",
+                    "first": 1.4333,
+                    "last": 1.8667,
+                    "seconds": 0.4734
+                  }
+                ]
+              },
+              "world_3d_axis_rate": {
+                "available": true,
+                "source": "same_frame_post_animation_world_axis",
+                "window_frames": 2,
+                "peak_3d_axis_dps": 835.5,
+                "peak_at": 0.5667
+              },
+              "catch": {
+                "end_at": 3.0667,
+                "end_shape": "Straddle",
+                "end_pose_camera_plane": [
+                  -0.102,
+                  0.379,
+                  -0.146,
+                  0.201,
+                  0.488,
+                  0.741,
+                  -0.443,
+                  -0.867,
+                  0.758,
+                  0.0
+                ],
+                "catch_at": 3.0833,
+                "catch_pose_camera_plane": [
+                  -0.164,
+                  0.467,
+                  -0.246,
+                  0.416,
+                  0.436,
+                  0.801,
+                  -0.417,
+                  -0.864,
+                  0.821,
+                  -0.11
+                ],
+                "catch_gap_s": 0.0166,
+                "visible_pose_classes": null
+              }
+            }
+          ],
+          "launches": [
+            {
+              "strand": 0,
+              "hand": "left",
+              "shot_on": 2.85,
+              "shoot_time_s": 0.2,
+              "first_pose_angle_deg": 0.8,
+              "peak_near_launch_angle_deg": 6.9,
+              "peak_near_launch_rate_dps": 411.4,
+              "peak_at": 2.9,
+              "aim_error_at_shot_deg": 34.8,
+              "tip_arrival_at": 3.0667,
+              "aim_error_at_tip_arrival_deg": 15.3
+            }
+          ]
+        }
+      }
+    }
+  },
+  "comparison": {
+    "s1_swing_chain": {
+      "status": "clip missing on one side"
+    },
+    "s2_press_variety": {
+      "s2_c1_roof_jump": {
+        "flips": [
+          {
+            "program": "wallFront",
+            "absent_frames": [
+              0,
+              0
+            ],
+            "out_of_frame_frames": [
+              0,
+              0
+            ],
+            "max_projected_size_h": [
+              0.5215,
+              0.5318
+            ],
+            "projected_f3_peak_dps": [
+              669.7,
+              652.6
+            ],
+            "primary_open_hold_s": [
+              0.19,
+              0.19
+            ],
+            "catch_pose_signatures": [
+              null,
+              null
+            ]
+          }
+        ],
+        "launch_peak_angle_deg": [
+          [
+            131.6
+          ],
+          [
+            26.0
+          ]
+        ],
+        "launch_aim_error_at_arrival_deg": [
+          [
+            1.3
+          ],
+          [
+            2.1
+          ]
+        ]
+      },
+      "s2_c2_midfall": {
+        "status": "case missing on one side"
+      },
+      "s2_c3_wallrun": {
+        "status": "case missing on one side"
+      },
+      "s2_c4_flip_cancel": {
+        "status": "case missing on one side"
+      },
+      "s2_c5_repress": {
+        "status": "case missing on one side"
+      },
+      "s2_c6_side_anchor": {
+        "status": "case missing on one side"
+      },
+      "s2_c7_no_anchor": {
+        "status": "case missing on one side"
+      },
+      "s2_c8_close_facade": {
+        "status": "case missing on one side"
+      },
+      "s2_c9_trees": {
+        "status": "case missing on one side"
+      }
+    },
+    "s3_flip_chain": {
+      "status": "clip missing on one side"
+    },
+    "s3b_flip_cases": {
+      "s3_c1_fwd": {
+        "status": "case missing on one side"
+      },
+      "s3_c2_back": {
+        "status": "case missing on one side"
+      },
+      "s3_c3_right": {
+        "status": "case missing on one side"
+      },
+      "s3_c4_left": {
+        "status": "case missing on one side"
+      },
+      "s3_c5_neutral": {
+        "status": "case missing on one side"
+      },
+      "s3_c6_fwd_right": {
+        "status": "case missing on one side"
+      },
+      "s3_c7_back_left": {
+        "flips": [
+          {
+            "program": "fullTwist",
+            "absent_frames": [
+              0,
+              0
+            ],
+            "out_of_frame_frames": [
+              0,
+              0
+            ],
+            "max_projected_size_h": [
+              0.5429,
+              0.507
+            ],
+            "projected_f3_peak_dps": [
+              867.9,
+              812.4
+            ],
+            "primary_open_hold_s": [
+              0.4734,
+              0.6066
+            ],
+            "catch_pose_signatures": [
+              [
+                -0.135,
+                0.424,
+                -0.12,
+                0.254,
+                0.183,
+                0.689,
+                0.355,
+                -0.78,
+                0.349,
+                -0.577
+              ],
+              [
+                -0.164,
+                0.467,
+                -0.246,
+                0.416,
+                0.436,
+                0.801,
+                -0.417,
+                -0.864,
+                0.821,
+                -0.11
+              ]
+            ]
+          }
+        ],
+        "launch_peak_angle_deg": [
+          [
+            94.8
+          ],
+          [
+            6.9
+          ]
+        ],
+        "launch_aim_error_at_arrival_deg": [
+          [
+            0.2
+          ],
+          [
+            15.3
+          ]
+        ]
+      }
+    },
+    "s4_release_float": {
+      "status": "clip missing on one side"
+    },
+    "s5_night_swing": {
+      "status": "clip missing on one side"
+    }
+  }
+}

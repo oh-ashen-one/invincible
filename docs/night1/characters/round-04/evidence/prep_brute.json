@@ -1,0 +1,32 @@
+{
+ "landmarks": {
+  "eye": 1.616,
+  "nose": 1.587,
+  "ear_lobe": 1.563,
+  "chin": 1.472,
+  "nose_r": 0.1631
+ },
+ "pompom_verts": 167,
+ "dome_centre": [
+  0.001,
+  1.644,
+  -0.021
+ ],
+ "dome_radius": 0.118,
+ "mask_subdivided_tris": 515,
+ "tris_after_subdiv": 8105,
+ "tris_before": 6411,
+ "draped_verts": 908,
+ "drape_max_cm": 6.43,
+ "beanie_px": 630032,
+ "plaid_px": 2584405,
+ "plaid_remnant_px": 396861,
+ "seam_blend_px": 966631,
+ "mask_px": 445837,
+ "head_shrink": 0.758,
+ "name": "StreetBrute",
+ "verts": 8181,
+ "tris": 8105,
+ "variants": [],
+ "seconds": 15.6
+}

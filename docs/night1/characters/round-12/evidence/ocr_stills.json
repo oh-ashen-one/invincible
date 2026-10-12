@@ -1,0 +1,483 @@
+{
+ "total_hits": 0,
+ "deny_terms": 42,
+ "images": {
+  "skin_ash_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_ash_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AGING",
+    "ALTE",
+    "BEST",
+    "BIEL",
+    "BLIR",
+    "DIEL",
+    "EITPTH",
+    "FADS",
+    "FEEL",
+    "FEELIN",
+    "FETT",
+    "FIAT",
+    "FIFI",
+    "FIGS",
+    "FRAT",
+    "FRET",
+    "GAYI",
+    "GIRA",
+    "GRBS",
+    "HIGH",
+    "HILIES",
+    "HITE",
+    "IEEE",
+    "INDI",
+    "INLINE",
+    "INTE",
+    "INTI",
+    "IPAI",
+    "IPALY",
+    "IPTIY",
+    "IRENE",
+    "ITHE",
+    "ITING",
+    "ITIS",
+    "JARS",
+    "LIGE",
+    "LINT",
+    "MINT",
+    "MIRI",
+    "NAHI"
+   ]
+  },
+  "skin_ash_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_ash_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "FIFA",
+    "FIRST",
+    "JELL",
+    "LIFE",
+    "LILY",
+    "TIRETE",
+    "VSSSE",
+    "VSSSH",
+    "WELL",
+    "YJLY"
+   ]
+  },
+  "skin_cinder_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_cinder_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AERE",
+    "AGFL",
+    "AIIAHS",
+    "AITAHS",
+    "ALTE",
+    "ALTS",
+    "BITS",
+    "BOAT",
+    "ERAY",
+    "ERNST",
+    "ETISSAIY",
+    "FALL",
+    "IGRI",
+    "INTIAL",
+    "ITHE",
+    "ITIS",
+    "IVES",
+    "LIEF",
+    "LIES",
+    "LIETYY",
+    "LIRDIJ",
+    "MIHI",
+    "NETI",
+    "PAIT",
+    "RAAT",
+    "RAPE",
+    "ROOM",
+    "SATAY",
+    "SATE",
+    "SEAL",
+    "SENILE",
+    "SINA",
+    "SIPS",
+    "SIRE",
+    "TATEENAE",
+    "TEEPE",
+    "TESTY",
+    "TETE",
+    "WESE",
+    "YELL"
+   ]
+  },
+  "skin_cinder_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_cinder_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_glacier_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_glacier_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AATI",
+    "ABSA",
+    "AGLI",
+    "AIEERE",
+    "ATEERE",
+    "ATLE",
+    "BEAS",
+    "BETT",
+    "BINT",
+    "CANES",
+    "CISE",
+    "CREEL",
+    "ELEIN",
+    "ETEY",
+    "FASE",
+    "FEAT",
+    "GARD",
+    "HEIN",
+    "IHYS",
+    "INTE",
+    "INTEINE",
+    "IPICE",
+    "ISED",
+    "ITER",
+    "ITIES",
+    "ITTY",
+    "JIST",
+    "LELE",
+    "NEES",
+    "NIIN",
+    "PAIRS",
+    "PARI",
+    "PATS",
+    "PEDALS",
+    "PEDIS",
+    "PILI",
+    "PISS",
+    "PURIC",
+    "RAHE",
+    "RARY"
+   ]
+  },
+  "skin_glacier_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_glacier_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "ABROST",
+    "AIEOST",
+    "ALII",
+    "BEND",
+    "BETTY",
+    "BPSSHR",
+    "EREHK",
+    "IETT",
+    "IPSTIR",
+    "ITES",
+    "ITET",
+    "PADA",
+    "PEED",
+    "PEIRSTIE",
+    "PELPALFALI",
+    "PENE",
+    "PETS",
+    "RATS",
+    "SONE",
+    "TEASE",
+    "TEHRTT",
+    "TENTS",
+    "TETIS",
+    "TITE"
+   ]
+  },
+  "skin_plum_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_plum_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "CALS",
+    "ESTE",
+    "FRAT",
+    "GALS",
+    "INAL",
+    "INTE",
+    "RETE",
+    "TALLY",
+    "TEST",
+    "WENN"
+   ]
+  },
+  "skin_plum_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "COEEE",
+    "EEEE"
+   ]
+  },
+  "skin_plum_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "NSSE",
+    "SSSSQ",
+    "VSSSQ"
+   ]
+  },
+  "skin_saffron_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_saffron_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AGAIN",
+    "ANIEY",
+    "ANNS",
+    "ASECG",
+    "ASNECE",
+    "ASSIERCAS",
+    "ASSNIEREAS",
+    "ATEN",
+    "ATID",
+    "BAER",
+    "BAYS",
+    "BENS",
+    "BIER",
+    "BISCE",
+    "BSNS",
+    "BSSCCES",
+    "BSSSCTS",
+    "CHEE",
+    "CITI",
+    "CITY",
+    "CNIS",
+    "CONSE",
+    "CTTETA",
+    "DDAKS",
+    "DOSSAIIT",
+    "ESEERMEA",
+    "ESKERMEAERNEE",
+    "FIELD",
+    "FRALIE",
+    "GEET",
+    "GILE",
+    "HABIT",
+    "HAPTEN",
+    "HEPATO",
+    "IPADPTIY",
+    "ITINTH",
+    "JAIY",
+    "JASN",
+    "JITI",
+    "LIGT"
+   ]
+  },
+  "skin_saffron_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_saffron_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_sage_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_sage_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AAIT",
+    "AJETJ",
+    "ALYY",
+    "ASSN",
+    "ASTHE",
+    "ATES",
+    "BAAS",
+    "BESSER",
+    "BISS",
+    "BITS",
+    "CHAO",
+    "CONEAEE",
+    "DALY",
+    "DIAS",
+    "DSSS",
+    "EATS",
+    "FELLI",
+    "FILLY",
+    "FINETH",
+    "FRAIS",
+    "FRALTET",
+    "HALT",
+    "HENS",
+    "HIFI",
+    "IPATR",
+    "IPES",
+    "LEES",
+    "LINEN",
+    "LITA",
+    "MIDI",
+    "MINI",
+    "MISTI",
+    "MITT",
+    "MYLIYY",
+    "NITIN",
+    "NITS",
+    "ORCS",
+    "PADS",
+    "PIAS",
+    "POLIS"
+   ]
+  },
+  "skin_sage_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "EEEE",
+    "EEEEE"
+   ]
+  },
+  "skin_sage_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "ATTR",
+    "ATYET",
+    "EINE",
+    "ENNA",
+    "FEES",
+    "FRAKPAE",
+    "FREEBIES",
+    "FRETS",
+    "IHRE",
+    "IRAITE",
+    "IRET",
+    "IRIS",
+    "IRRE",
+    "MITE",
+    "REAT",
+    "RELI",
+    "RINE",
+    "RITY",
+    "SHIT",
+    "SIGATY",
+    "SIGH",
+    "SIRE",
+    "SRIIE",
+    "STIG",
+    "STIR",
+    "TATTS",
+    "THIS",
+    "TIRE",
+    "TISE",
+    "TITE",
+    "TRAIT",
+    "TRALY",
+    "TRAY",
+    "TROT"
+   ]
+  },
+  "skin_tessera_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_tessera_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "CAML",
+    "FELT",
+    "HIFI",
+    "HIGH",
+    "HIGLEY",
+    "HIPPEL",
+    "IRET",
+    "LIYL",
+    "LIYLT",
+    "MYTH",
+    "PALLE",
+    "PATT",
+    "RAKE",
+    "RITE",
+    "STIRS",
+    "TAPE",
+    "TESS",
+    "TRAIT",
+    "WEES",
+    "WIAM"
+   ]
+  },
+  "skin_tessera_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_tessera_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "OFVN",
+    "OFVVRY"
+   ]
+  },
+  "skin_verdant_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_verdant_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "BEDI",
+    "FRET",
+    "ITTY",
+    "LITT",
+    "MCMAMA",
+    "PALL",
+    "SAEED",
+    "SARA",
+    "SERA",
+    "TEGD",
+    "TETE",
+    "WDLCDBEDDL",
+    "WEDDED"
+   ]
+  },
+  "skin_verdant_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "SATS"
+   ]
+  },
+  "skin_verdant_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AITC",
+    "DAEIINDINE",
+    "EREASTEANL",
+    "ETIC",
+    "PABSAIIC",
+    "RANE",
+    "SDAEIINDINE",
+    "TEASEAN",
+    "TETRA",
+    "TITIES",
+    "TOTES"
+   ]
+  }
+ }
+}

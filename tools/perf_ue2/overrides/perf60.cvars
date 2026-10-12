@@ -1,0 +1,5 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# PIECE F PERF PRESET "perf60" (round 1): 3840x2160 output at r.ScreenPercentage 50 (1920x1080 internal, TSR). Apply at startup (-dpcvars / -ExecCmds / device profile),
+# never in DefaultEngine.ini (integrator-owned). Measured in docs/night1/perf/round-01/TABLE.md. Order matters: later lines win.
+set:cand1
+set:extra

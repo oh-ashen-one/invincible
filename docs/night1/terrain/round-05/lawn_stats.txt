@@ -1,0 +1,11 @@
+p10_lawn_eye.jpg [1300, 1700, 512, 460] critic p10_lawn_eye (eye level, >= 8, R/G 0.85-0.95) hp6 18.68 hp3 13.29 sat 0.917 luma 78.6 rgb [83.0, 90.2, 7.5]
+p10_lawn_eye.jpg [2240, 1856, 512, 512] guard p10 (eye level, >= 8) hp6 16.31 hp3 11.41 sat 0.900 luma 61.1 rgb [65.6, 69.5, 6.6]
+p4_greatlawn.jpg [1700, 1000, 512, 400] critic p4_greatlawn (aerial, <= 5) hp6 5.48 hp3 3.94 sat 0.777 luma 123.8 rgb [138.8, 134.1, 31.2]
+p4_greatlawn.jpg [3520, 1856, 512, 512] guard p4 (aerial, info) hp6 3.45 hp3 2.74 sat 0.949 luma 82.8 rgb [93.2, 92.7, 4.7]
+p9_park_panorama.jpg [512, 1856, 512, 512] guard p9 (aerial, info) hp6 2.05 hp3 1.33 sat 0.700 luma 49.0 rgb [54.0, 53.0, 15.5]
+critic p10_lawn_eye (eye level, >= 8, R/G 0.85-0.95) hp6 18.68  R/G 0.920  sat 0.917
+guard p10 (eye level, >= 8)                  hp6 16.31  R/G 0.944  sat 0.900
+critic p4_greatlawn (aerial, <= 5)           hp6  5.48  R/G 1.035  sat 0.777
+guard p4 (aerial, info)                      hp6  3.45  R/G 1.005  sat 0.949
+guard p9 (aerial, info)                      hp6  2.05  R/G 1.019  sat 0.700
+E1 reconciled (r05 target 5): FAIL

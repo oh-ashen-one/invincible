@@ -1,0 +1,19 @@
+{"name": "03_white_tee", "pairs": 40, "worst_mm": 15.5, "p95_mm": 11.6, "over_5mm": 21, "over_10mm": 4}
+12_sundress_mom no cross-shell pairs
+13_construction_worker no cross-shell pairs
+{"name": "15_executive", "pairs": 28, "worst_mm": 103.8, "p95_mm": 100.8, "over_5mm": 19, "over_10mm": 16}
+{"name": "04_blue_sweatshirt", "pairs": 80, "worst_mm": 13.5, "p95_mm": 6.4, "over_5mm": 9, "over_10mm": 3}
+{"name": "08_black_suit", "pairs": 15, "worst_mm": 23.3, "p95_mm": 22.9, "over_5mm": 8, "over_10mm": 5}
+{"name": "10_silver_tie", "pairs": 53, "worst_mm": 16.3, "p95_mm": 14.1, "over_5mm": 24, "over_10mm": 8}
+{"name": "14_teen_skater", "pairs": 4, "worst_mm": 4.1, "p95_mm": 4.1, "over_5mm": 0, "over_10mm": 0}
+18_dapper_elder no cross-shell pairs
+{"name": "19_marathon_runner", "pairs": 370, "worst_mm": 20.5, "p95_mm": 7.6, "over_5mm": 44, "over_10mm": 15}
+{"name": "01_retired_gent", "pairs": 18, "worst_mm": 29.6, "p95_mm": 27.9, "over_5mm": 10, "over_10mm": 8}
+{"name": "20_punk_artist", "pairs": 340, "worst_mm": 13.2, "p95_mm": 0.5, "over_5mm": 8, "over_10mm": 8}
+02_leather_jacket no cross-shell pairs
+{"name": "05_black_tee", "pairs": 30, "worst_mm": 29.8, "p95_mm": 26.3, "over_5mm": 15, "over_10mm": 10}
+06_chrome_shades no cross-shell pairs
+{"name": "09_kurta_waistcoat", "pairs": 53, "worst_mm": 61.1, "p95_mm": 39.7, "over_5mm": 24, "over_10mm": 15}
+{"name": "16_lumberjack_hipster", "pairs": 1930, "worst_mm": 11.2, "p95_mm": 5.2, "over_5mm": 114, "over_10mm": 1}
+{"name": "17_hijabi_student", "pairs": 67, "worst_mm": 24.3, "p95_mm": 20.9, "over_5mm": 62, "over_10mm": 38}
+TOTAL over_5mm 358 over_10mm 131 worst_mm 103.8

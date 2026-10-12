@@ -1,0 +1,1 @@
+VOID: sessions p1 and f1 ran WITHOUT the hero (the Interchange complex collision of the hidden tree proxies blocked the PlayerStart: 'FindPlayerStart: NO PLAYERSTART with positive rating', 'Couldn't spawn Pawn'), so the camera never swung (route stills = a static street view). Kept only as evidence of the mistake; never use these numbers.

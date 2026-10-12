@@ -1,0 +1,6 @@
+{
+  "runtime_source_commit": "4220b33bc15e0f4fd44c60453d7ea75be7225705",
+  "dylib_sha256": "efa892cc6776f2698e8193035c338a9284ae60fded784ad3210ce0368d35b0c9",
+  "scope": "one-second camera reset guard; all animation and flip motion source unchanged from19521659",
+  "status": "targeted camera and regression native replays PASS"
+}

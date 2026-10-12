@@ -1,0 +1,10 @@
+[final2 15:23:46 +0s] build: skins,skinsmap (bias default in build_characters.py)
+[final2 15:24:24 +38s] exposure bias for every run: 10.0
+[final2 15:24:24 +38s] stills stills_a: 4K, internal 3840x2160, EV 10.0
+[final2 15:26:59 +193s] floor luma of the tessera front still: 172.2
+[final2 15:26:59 +193s] pawn swap movie (1080p -movie, fixed 1/60 s), EV 10.0
+[final2 15:29:59 +373s] floor luma of the pawn movie, frame 30: 141.1
+[final2 15:29:59 +373s] persist relaunch (960x540 still at 3 s)
+[final2 15:30:17 +391s] settings menu (1080p still at 4 s)
+[final2 15:30:36 +410s] orbit movie (1080p -movie)
+[final2 15:33:45 +599s] final2 done (hold used 599 s), EV 10.0, crashes 0

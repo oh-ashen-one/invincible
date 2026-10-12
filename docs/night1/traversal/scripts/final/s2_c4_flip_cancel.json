@@ -1,0 +1,47 @@
+{
+ "name": "s2_c4_flip_cancel",
+ "note": "a backDouble flip requested at the start, swing pressed 0.9 s into the flip",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   200,
+   50
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   4
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false,
+   "flip": "backDouble"
+  },
+  {
+   "t": 0.05,
+   "trick": true
+  },
+  {
+   "t": 0.15,
+   "trick": false
+  },
+  {
+   "t": 0.95,
+   "swing": true
+  },
+  {
+   "t": 2.8,
+   "swing": false
+  }
+ ]
+}

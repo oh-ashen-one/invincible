@@ -1,0 +1,47 @@
+{
+ "name": "s2_c1_roof_jump",
+ "note": "sprint west across the roof of E x266..291 z125..151 (h 68), jump at the edge, swing 0.2 s after the jump",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   287,
+   138,
+   69.2
+  ],
+  "yaw": 180,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   0,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 180,
+   "sprint": true,
+   "swing": false
+  },
+  {
+   "t": 1.9,
+   "jump": true
+  },
+  {
+   "t": 2.05,
+   "jump": false
+  },
+  {
+   "t": 2.25,
+   "swing": true
+  },
+  {
+   "t": 4.2,
+   "swing": false
+  }
+ ]
+}

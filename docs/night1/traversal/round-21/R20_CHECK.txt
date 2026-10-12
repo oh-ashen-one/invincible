@@ -1,0 +1,114 @@
+== F  world parity: traversal floor (GroundHeight from 600 m) vs a top-down orthographic scene-depth render, 5 m grid
+  no depth audit csv ( docs/night1/traversal/round-21/depth_audit.csv )
+
+== C  camera: hero_occl >= 0.5, camera in geometry (sphere 0.15) / enclosed (rays), mean frame luma < 25 with the hero on screen (y range = 8 bit)
+  a_swing_chain: 935 frames | hero_occl >= .5: 0 (max 0.01) | cam in geometry 0, enclosed 0 | probe points < 3 visible 0 | luma: 0 dark frames (min luma 51.7, mean 77.6)
+  c_wallrun_perch: 629 frames | hero_occl >= .5: 0 (max 0.33) | cam in geometry 0, enclosed 0 | probe points < 3 visible 1 | luma: 0 dark frames (min luma 63.6, mean 88.2)
+  f1_flow_backDouble: 539 frames | hero_occl >= .5: 0 (max 0.00) | cam in geometry 0, enclosed 0 | probe points < 3 visible 0 | luma: 0 dark frames (min luma 65.5, mean 85.3)
+  f4_chain_flips: 797 frames | hero_occl >= .5: 0 (max 0.00) | cam in geometry 0, enclosed 0 | probe points < 3 visible 0 | luma: 0 dark frames (min luma 66.4, mean 85.4)
+  m1_mouse_swing: 359 frames | hero_occl >= .5: 0 (max 0.00) | cam in geometry 0, enclosed 0 | probe points < 3 visible 0 | luma: 0 dark frames (min luma 67.3, mean 83.0)
+  r1_roofrun_zip: 569 frames | hero_occl >= .5: 0 (max 0.33) | cam in geometry 0, enclosed 0 | probe points < 3 visible 1 | luma: 0 dark frames (min luma 63.6, mean 91.2)
+  s1_high_swing: 359 frames | hero_occl >= .5: 2 (max 0.70) | cam in geometry 0, enclosed 0 | probe points < 3 visible 0 | luma: 0 dark frames (min luma 57.7, mean 77.2)
+  w1_wallrun_tall_zip: 449 frames | hero_occl >= .5: 0 (max 0.19) | cam in geometry 0, enclosed 0 | probe points < 3 visible 6 | luma: 0 dark frames (min luma 28.1, mean 64.5)
+  w2_wallrun_side_zip: 419 frames | hero_occl >= .5: 0 (max 0.29) | cam in geometry 0, enclosed 0 | probe points < 3 visible 7 | luma: 0 dark frames (min luma 28.8, mean 55.9)
+  x1_rmb_cancel_flip: 239 frames | hero_occl >= .5: 0 (max 0.00) | cam in geometry 0, enclosed 0 | probe points < 3 visible 0 | luma: 0 dark frames (min luma 66.5, mean 79.9)
+  x2_rmb_cancel_wall: 299 frames | hero_occl >= .5: 0 (max 0.18) | cam in geometry 0, enclosed 0 | probe points < 3 visible 3 | luma: 5 dark frames (min luma 24.4, mean 53.6) first at 3.48 s
+
+== Y  street-axis hold (f1 / f4: hero y within +-6 m of the y -560 street axis while swinging)
+  f1_flow_backDouble: y -560.5 .. -560.0, x -224.6 .. 95.1 -> PASS (f1/f4 axis y -560)
+  f4_chain_flips: y -560.5 .. -555.2, x -239.6 .. 289.4 -> PASS (f1/f4 axis y -560)
+  a_swing_chain: y -418.0 .. 239.6, x 240.4 .. 258.1
+
+== K  perch camera: hero_occl <= 0.3 within 0.3 s of the perch landing
+  c_wallrun_perch: perch at 8.80 s; occl <= .3 first at 8.80 s; max occl after +0.3 s 0.00 -> PASS
+  r1_roofrun_zip: perch at 6.53 s; occl <= .3 first at 6.53 s; max occl after +0.3 s 0.00 -> PASS
+  w1_wallrun_tall_zip: perch at 5.02 s; occl <= .3 first at 5.02 s; max occl after +0.3 s 0.00 -> PASS
+  w2_wallrun_side_zip: perch at 5.38 s; occl <= .3 first at 5.38 s; max occl after +0.3 s 0.00 -> PASS
+
+== W  wall run: top-outs / setbacks, posture (vertical: body within 15 deg of the wall up axis; side: body within 20 deg of the run direction), silhouette w/h <= .55 (rendered mask), knee gap <= .35 m, alternate contacts every <= .18 s
+  c_wallrun_perch: top-outs 1, setbacks mantled 1 | vertical rows 107: body-to-wall-up <= 15 deg 77 % (med 6.9, max 61.8) | side rows 0: body-to-run <= 20 deg nan % (med nan) | vertical w/h med 0.58 p90 0.69 | side thin/long med nan | knee gap med 0.35 max 0.75 m | longest contact hold 0.13 s
+  r1_roofrun_zip: top-outs 1, setbacks mantled 1 | vertical rows 107: body-to-wall-up <= 15 deg 77 % (med 6.9, max 61.8) | side rows 0: body-to-run <= 20 deg nan % (med nan) | vertical w/h med 0.58 p90 0.69 | side thin/long med nan | knee gap med 0.35 max 0.75 m | longest contact hold 0.13 s
+  s1_high_swing: top-outs 1, setbacks mantled 0 | vertical rows 24: body-to-wall-up <= 15 deg 27 % (med 31.2, max 54.4) | side rows 0: body-to-run <= 20 deg nan % (med nan) | vertical w/h med 0.50 p90 1.06 | side thin/long med nan | knee gap med 0.40 max 0.55 m | longest contact hold 0.07 s
+  w1_wallrun_tall_zip: top-outs 0, setbacks mantled 0 | vertical rows 0: body-to-wall-up <= 15 deg nan % (med nan, max nan) | side rows 45: body-to-run <= 20 deg 0 % (med 25.0) | vertical w/h med nan p90 nan | side thin/long med 0.89 | knee gap med 0.32 max 0.60 m | longest contact hold 0.07 s
+  w2_wallrun_side_zip: top-outs 0, setbacks mantled 0 | vertical rows 3: body-to-wall-up <= 15 deg 67 % (med 13.6, max 17.4) | side rows 41: body-to-run <= 20 deg 0 % (med 31.6) | vertical w/h med 0.77 p90 1.06 | side thin/long med 0.74 | knee gap med 0.36 max 0.66 m | longest contact hold 0.08 s
+  x2_rmb_cancel_wall: top-outs 0, setbacks mantled 0 | vertical rows 0: body-to-wall-up <= 15 deg nan % (med nan, max nan) | side rows 21: body-to-run <= 20 deg 0 % (med 26.0) | vertical w/h med nan p90 nan | side thin/long med 0.79 | knee gap med 0.41 max 0.60 m | longest contact hold 0.07 s
+
+== Z  E presses -> where he ends (0.4 s later and at the end of the zip)
+  c_wallrun_perch: t 8.50 from ground/idle why=nearest: zip/zipFire > zip/zipFlight > zip/zipCatch > perch/perchLand -> perch at 8.80 s, z 49.4
+  r1_roofrun_zip: t 6.20 from ground/run why=nearest: zip/zipFire > zip/zipFlight > zip/zipCatch > perch/perchLand -> perch at 6.53 s, z 49.4
+  w1_wallrun_tall_zip: t 3.60 from wall/wallRunSide why=facadeTop: zip/zipFire > zip/zipFlight > zip/zipCatch > perch/perchLand -> perch at 5.02 s, z 99.0
+  w1_wallrun_tall_zip: t 6.20 from perch/perchIdle why=pointLaunch: air/pointLaunch > air/rise > air/apex > air/fall -> no perch / roof within 4 s
+  w2_wallrun_side_zip: t 3.85 from wall/wallRunSide why=facadeTop: zip/zipFire > zip/zipFlight > zip/zipCatch > perch/perchLand -> perch at 5.38 s, z 99.0
+
+== A  air at speed: body axis (hips -> head) within 30 deg of the velocity when speed >= 30 m/s in air (not trick / launch subs)
+  a_swing_chain: 240 rows >= 30 m/s in air, within 30 deg 61 % (median 12.9 deg); first misses at 1.67, 1.68, 1.70, 1.72, 1.73 s
+  m1_mouse_swing: 96 rows >= 30 m/s in air, within 30 deg 49 % (median 34.6 deg); first misses at 1.67, 1.68, 1.70, 1.72, 1.73 s
+  s1_high_swing: 12 rows >= 30 m/s in air, within 30 deg 58 % (median 23.5 deg); first misses at 5.00, 5.02, 5.03, 5.05 s
+  a_swing_chain @ 4.25 s: air/rise speed 42.1 m/s, body-to-velocity 12.5 deg
+  a_swing_chain @ 10.25 s: air/release speed 53.1 m/s, body-to-velocity 4.6 deg
+
+== R  zip flight reach (w1 3.8-4.4 s): zip_reach_w and hand height over the hips
+  w1_wallrun_tall_zip: zipFlight 3.67-4.72 s, reach weight >= .9 on 59/64 rows; limb_z (hands L R, feet L R over the hips, m) mid-flight: 0.941 0.919 -0.866 -0.719
+  c_wallrun_perch: zipFlight 8.55-8.63 s, reach weight >= .9 on 1/6 rows; limb_z (hands L R, feet L R over the hips, m) mid-flight: 0.269 0.421 -0.784 -0.716
+  r1_roofrun_zip: zipFlight 6.25-6.38 s, reach weight >= .9 on 4/9 rows; limb_z (hands L R, feet L R over the hips, m) mid-flight: 0.326 0.308 -0.695 -0.340
+  w2_wallrun_side_zip: zipFlight 3.92-5.08 s, reach weight >= .9 on 66/71 rows; limb_z (hands L R, feet L R over the hips, m) mid-flight: 0.932 0.932 -0.881 -0.696
+
+== X  RMB response (owner bug 1): every fresh RMB press during a trick / top-out flip / wall run -> time to the swing (target <= 0.1 s)
+  a_swing_chain: press at 0.40 s from air/fall -> swing at 0.40 s (+0.00 s) (not busy: info)
+  a_swing_chain: press at 2.47 s from air/apex -> swing at 2.47 s (+0.00 s) (not busy: info)
+  a_swing_chain: press at 4.65 s from air/apex -> swing at 4.65 s (+0.00 s) (not busy: info)
+  a_swing_chain: press at 7.03 s from air/trick -> swing at 7.03 s (+0.00 s) -> PASS
+  a_swing_chain: press at 8.88 s from air/apex -> swing at 8.88 s (+0.00 s) (not busy: info)
+  a_swing_chain: press at 10.72 s from air/apex -> swing at 10.72 s (+0.00 s) (not busy: info)
+  a_swing_chain: press at 12.93 s from air/trick -> swing at 12.93 s (+0.00 s) -> PASS
+  a_swing_chain: press at 14.68 s from air/apex -> swing at 14.68 s (+0.00 s) (not busy: info)
+  f1_flow_backDouble: press at 0.40 s from air/fall -> swing at 0.40 s (+0.00 s) (not busy: info)
+  f1_flow_backDouble: press at 2.77 s from air/trick -> swing at 2.77 s (+0.00 s) -> PASS
+  f1_flow_backDouble: press at 5.15 s from air/trick -> swing at 5.15 s (+0.00 s) -> PASS
+  f1_flow_backDouble: press at 7.30 s from air/trick -> swing at 7.30 s (+0.00 s) -> PASS
+  f4_chain_flips: press at 0.40 s from air/fall -> swing at 0.40 s (+0.00 s) (not busy: info)
+  f4_chain_flips: press at 2.77 s from air/trick -> swing at 2.77 s (+0.00 s) -> PASS
+  f4_chain_flips: press at 5.00 s from air/trick -> swing at 5.00 s (+0.00 s) -> PASS
+  f4_chain_flips: press at 7.10 s from air/trick -> swing at 7.10 s (+0.00 s) -> PASS
+  f4_chain_flips: press at 9.65 s from air/trick -> swing at 9.65 s (+0.00 s) -> PASS
+  f4_chain_flips: press at 11.93 s from air/trick -> swing at 11.93 s (+0.00 s) -> PASS
+  m1_mouse_swing: press at 0.40 s from air/fall -> swing at 0.40 s (+0.00 s) (not busy: info)
+  m1_mouse_swing: press at 2.47 s from air/apex -> swing at 2.47 s (+0.00 s) (not busy: info)
+  m1_mouse_swing: press at 4.65 s from air/apex -> swing at 4.65 s (+0.00 s) (not busy: info)
+  s1_high_swing: press at 0.20 s from air/apex -> swing at 0.20 s (+0.00 s) (not busy: info)
+  s1_high_swing: press at 2.70 s from air/release -> swing at 2.70 s (+0.00 s) (not busy: info)
+  s1_high_swing: press at 5.30 s from wall/wallRun -> swing at 5.30 s (+0.00 s) -> PASS
+  x1_rmb_cancel_flip: press at 0.40 s from air/fall -> swing at 0.40 s (+0.00 s) (not busy: info)
+  x1_rmb_cancel_flip: press at 1.75 s from air/trick -> swing at 1.75 s (+0.00 s) -> PASS
+  x2_rmb_cancel_wall: press at 3.20 s from wall/wallRunSide -> swing at 3.20 s (+0.00 s) -> PASS
+
+== S  air pose by speed (air rows, not trick / launch subs): hands / feet height over the hips (limb_z, m), body-to-velocity, procedural weights
+  a_swing_chain  20-30 m/s:   24 rows | hands +0.64 m, feet -0.60 m over the hips | body-to-velocity med 90 deg | air_fast_w med 0.12, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  a_swing_chain  30-44 m/s:   83 rows | hands -0.21 m, feet +0.06 m over the hips | body-to-velocity med 46 deg | air_fast_w med 0.31, track_k med 0.28 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  a_swing_chain   >=44 m/s:  157 rows | hands +0.04 m, feet -0.04 m over the hips | body-to-velocity med 11 deg | air_fast_w med 1.00, track_k med 1.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 3
+  c_wallrun_perch  20-30 m/s:   49 rows | hands +0.32 m, feet -0.20 m over the hips | body-to-velocity med 52 deg | air_fast_w med 0.48, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  f1_flow_backDouble  20-30 m/s:   24 rows | hands +0.19 m, feet +0.06 m over the hips | body-to-velocity med 34 deg | air_fast_w med 0.67, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  f4_chain_flips  20-30 m/s:   24 rows | hands +0.19 m, feet +0.07 m over the hips | body-to-velocity med 34 deg | air_fast_w med 0.67, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  m1_mouse_swing  20-30 m/s:   24 rows | hands +0.64 m, feet -0.60 m over the hips | body-to-velocity med 90 deg | air_fast_w med 0.12, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  m1_mouse_swing  30-44 m/s:   81 rows | hands -0.22 m, feet +0.07 m over the hips | body-to-velocity med 50 deg | air_fast_w med 0.30, track_k med 0.24 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  m1_mouse_swing   >=44 m/s:   15 rows | hands +0.13 m, feet -0.33 m over the hips | body-to-velocity med 9 deg | air_fast_w med 0.61, track_k med 0.91 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  r1_roofrun_zip    <20 m/s:   27 rows | hands +0.50 m, feet -0.63 m over the hips | body-to-velocity med 110 deg | air_fast_w med 0.00, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 13
+  r1_roofrun_zip  20-30 m/s:   49 rows | hands +0.32 m, feet -0.20 m over the hips | body-to-velocity med 52 deg | air_fast_w med 0.48, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  s1_high_swing  20-30 m/s:   30 rows | hands +0.36 m, feet -0.43 m over the hips | body-to-velocity med 80 deg | air_fast_w med 0.00, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  s1_high_swing  30-44 m/s:   12 rows | hands +0.39 m, feet -0.26 m over the hips | body-to-velocity med 24 deg | air_fast_w med 0.53, track_k med 0.08 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  w1_wallrun_tall_zip    <20 m/s:   86 rows | hands +0.26 m, feet -0.47 m over the hips | body-to-velocity med 100 deg | air_fast_w med 0.00, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 2
+  w1_wallrun_tall_zip  20-30 m/s:   32 rows | hands +0.21 m, feet +0.08 m over the hips | body-to-velocity med 32 deg | air_fast_w med 0.74, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  w2_wallrun_side_zip    <20 m/s:   53 rows | hands +0.21 m, feet -0.51 m over the hips | body-to-velocity med 141 deg | air_fast_w med 0.00, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 27
+  w2_wallrun_side_zip  20-30 m/s:   32 rows | hands +0.21 m, feet +0.08 m over the hips | body-to-velocity med 32 deg | air_fast_w med 0.74, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+  x1_rmb_cancel_flip  20-30 m/s:   47 rows | hands +0.36 m, feet -0.36 m over the hips | body-to-velocity med 52 deg | air_fast_w med 0.65, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 14
+  x2_rmb_cancel_wall    <20 m/s:   36 rows | hands +0.25 m, feet -0.48 m over the hips | body-to-velocity med 142 deg | air_fast_w med 0.00, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 2
+  x2_rmb_cancel_wall  20-30 m/s:   32 rows | hands +0.21 m, feet +0.08 m over the hips | body-to-velocity med 32 deg | air_fast_w med 0.74, track_k med 0.00 | upright fallCalm rows (node air_fallCalm, body-to-vel > 60): 0
+
+== I  mouse look injection (-WHTravInputTest=mouseLook)
+
+== L  landings: where each air -> ground / land happened, floor source, frame luma
+  c_wallrun_perch: landing at 2.37 s (idle) z 25.3, over floor 19.22 m, floor src 3, frame luma 81.6
+  c_wallrun_perch: landing at 5.50 s (landTopOut) z 45.8, over floor 10.80 m, floor src 3, frame luma 66.1
+  r1_roofrun_zip: landing at 2.37 s (idle) z 25.3, over floor 19.22 m, floor src 3, frame luma 81.4
+  r1_roofrun_zip: landing at 5.50 s (landTopOut) z 45.8, over floor 10.80 m, floor src 3, frame luma 66.1
+  r1_roofrun_zip: landing at 7.40 s (idle) z 49.4, over floor 3.60 m, floor src 3, frame luma 92.8

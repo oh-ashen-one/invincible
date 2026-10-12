@@ -1,0 +1,6 @@
+# hold 8: grazing-angle curtain glass (zone N.V 0.25-0.5, Specular 0.04), S8 check + the grazing weight as a debug image
+build mat
+cap G S8_aerial_midtown
+mpc dbg DebugMode=13
+cap Gd S8_aerial_midtown
+mpc dbg0 DebugMode=0

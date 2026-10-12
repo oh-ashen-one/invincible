@@ -1,0 +1,1398 @@
+{
+ "lag_frames": 2,
+ "lag_calib_mean_diff": 0.256,
+ "frames_measured": 1831,
+ "fight_start_rt": 1.0,
+ "contacts": 48,
+ "contacts_frozen_ge3": 47,
+ "contacts_push_ge_0_3": 38,
+ "hero_contacts": 39,
+ "spark_area_max_pct": 3.2,
+ "spark_area_f6_max_pct": 3.95,
+ "attack_starts": 65,
+ "first_attack_after_start_s": 0.0,
+ "max_attack_gap_s": 0.817,
+ "top_gaps": [
+  [
+   0.817,
+   21.53
+  ],
+  [
+   0.8,
+   30.07
+  ],
+  [
+   0.8,
+   26.88
+  ],
+  [
+   0.8,
+   25.72
+  ],
+  [
+   0.8,
+   24.22
+  ]
+ ],
+ "min_warning_lead_s": 0.42,
+ "enemies_ge5_frac": 0.957,
+ "enemies_in_frame_median": 8.0,
+ "hero_margin_ge5_frac": 1.0,
+ "hero_margin_min": 0.057,
+ "occluder_max_pct": 6.0,
+ "occluder_gt15_frames": 0,
+ "snaps": [
+  [
+   3.62,
+   25.2
+  ],
+  [
+   3.63,
+   28.3
+  ],
+  [
+   3.65,
+   27.7
+  ],
+  [
+   3.68,
+   25.4
+  ],
+  [
+   3.7,
+   26.7
+  ],
+  [
+   3.72,
+   26.7
+  ],
+  [
+   3.73,
+   26.1
+  ],
+  [
+   13.13,
+   25.7
+  ],
+  [
+   13.15,
+   25.2
+  ],
+  [
+   14.95,
+   25.9
+  ],
+  [
+   14.97,
+   35.3
+  ],
+  [
+   14.98,
+   28.1
+  ],
+  [
+   21.55,
+   26.4
+  ],
+  [
+   21.57,
+   27.0
+  ],
+  [
+   21.58,
+   26.4
+  ],
+  [
+   21.6,
+   25.8
+  ],
+  [
+   21.62,
+   25.2
+  ],
+  [
+   22.42,
+   26.6
+  ],
+  [
+   22.43,
+   33.0
+  ],
+  [
+   22.45,
+   28.2
+  ],
+  [
+   24.98,
+   26.6
+  ],
+  [
+   25.0,
+   27.9
+  ],
+  [
+   25.02,
+   28.8
+  ],
+  [
+   29.1,
+   28.4
+  ],
+  [
+   32.0,
+   27.2
+  ]
+ ],
+ "whole_diff_median": 7.49,
+ "warn_frames_frac": 0.917,
+ "contact_rows": [
+  {
+   "rt": 1.833,
+   "label": "hero->e4 light",
+   "frame": 111,
+   "crop": [
+    252,
+    83,
+    289,
+    203
+   ],
+   "diffs": [
+    2.21,
+    0.53,
+    0.25,
+    0.3,
+    0.29,
+    17.45,
+    20.91,
+    21.65
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 60.57,
+   "push_m": 0.65,
+   "spark_area": 1.05,
+   "spark_area_f6": 1.64
+  },
+  {
+   "rt": 2.217,
+   "label": "hero->e4 light",
+   "frame": 133,
+   "crop": [
+    234,
+    82,
+    283,
+    194
+   ],
+   "diffs": [
+    18.29,
+    3.37,
+    0.43,
+    0.4,
+    0.22,
+    0.07,
+    15.73,
+    13.94
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 18.57,
+   "push_m": 0.46,
+   "spark_area": 0.6,
+   "spark_area_f6": 1.16
+  },
+  {
+   "rt": 3.133,
+   "label": "hero->e4 ender",
+   "frame": 189,
+   "crop": [
+    233,
+    56,
+    279,
+    177
+   ],
+   "diffs": [
+    1.83,
+    0.16,
+    0.15,
+    0.14,
+    0.08,
+    0.06,
+    24.05,
+    20.62
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 28.96,
+   "push_m": 2.65,
+   "spark_area": 0.66,
+   "spark_area_f6": 0.67
+  },
+  {
+   "rt": 4.483,
+   "label": "hero->e3 ender",
+   "frame": 270,
+   "crop": [
+    265,
+    59,
+    321,
+    162
+   ],
+   "diffs": [
+    6.79,
+    0.19,
+    0.16,
+    0.14,
+    0.1,
+    0.06,
+    35.06,
+    37.07
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 39.53,
+   "push_m": 1.81,
+   "spark_area": 0.99,
+   "spark_area_f6": 0.99
+  },
+  {
+   "rt": 4.833,
+   "label": "hero->e3 light",
+   "frame": 291,
+   "crop": [
+    295,
+    52,
+    351,
+    169
+   ],
+   "diffs": [
+    3.21,
+    0.23,
+    0.24,
+    0.22,
+    0.08,
+    18.72,
+    18.15,
+    17.09
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 23.62,
+   "push_m": 1.6,
+   "spark_area": 0.96,
+   "spark_area_f6": 1.69
+  },
+  {
+   "rt": 5.65,
+   "label": "hero->e10 ender",
+   "frame": 340,
+   "crop": [
+    287,
+    74,
+    321,
+    181
+   ],
+   "diffs": [
+    1.06,
+    0.16,
+    0.19,
+    0.09,
+    0.14,
+    0.15,
+    27.83,
+    29.83
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 26.33,
+   "push_m": 2.65,
+   "spark_area": 0.25,
+   "spark_area_f6": 0.25
+  },
+  {
+   "rt": 6.35,
+   "label": "hero->e3 launch",
+   "frame": 382,
+   "crop": [
+    214,
+    61,
+    252,
+    192
+   ],
+   "diffs": [
+    0.27,
+    0.14,
+    0.22,
+    0.11,
+    0.12,
+    0.16,
+    25.22,
+    28.97
+   ],
+   "frozen_run": 6,
+   "flinch_diff": 36.16,
+   "push_m": 2.11,
+   "spark_area": 0.74,
+   "spark_area_f6": 0.74
+  },
+  {
+   "rt": 6.95,
+   "label": "hero->e3 air",
+   "frame": 418,
+   "crop": [
+    198,
+    87,
+    282,
+    143
+   ],
+   "diffs": [
+    11.74,
+    0.35,
+    0.22,
+    0.23,
+    0.06,
+    30.81,
+    25.71,
+    25.35
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 23.23,
+   "push_m": 0.43,
+   "spark_area": 1.1,
+   "spark_area_f6": 2.14
+  },
+  {
+   "rt": 7.2,
+   "label": "hero->e3 air",
+   "frame": 432,
+   "crop": [
+    204,
+    83,
+    272,
+    163
+   ],
+   "diffs": [
+    14.67,
+    4.34,
+    0.19,
+    0.11,
+    0.15,
+    0.06,
+    17.81,
+    14.87
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 14.86,
+   "push_m": 0.45,
+   "spark_area": 1.1,
+   "spark_area_f6": 1.69
+  },
+  {
+   "rt": 7.583,
+   "label": "hero->e3 slam",
+   "frame": 456,
+   "crop": [
+    219,
+    86,
+    263,
+    191
+   ],
+   "diffs": [
+    8.6,
+    0.35,
+    0.42,
+    0.14,
+    0.21,
+    0.18,
+    29.51,
+    31.27
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 34.28,
+   "push_m": 2.43,
+   "spark_area": 1.0,
+   "spark_area_f6": 1.03
+  },
+  {
+   "rt": 7.917,
+   "label": "hero->e3 ender",
+   "frame": 475,
+   "crop": [
+    205,
+    162,
+    274,
+    191
+   ],
+   "diffs": [
+    48.07,
+    24.27,
+    0.33,
+    0.24,
+    0.16,
+    0.09,
+    0.14,
+    46.08
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 52.55,
+   "push_m": 2.84,
+   "spark_area": 2.57,
+   "spark_area_f6": 3.04
+  },
+  {
+   "rt": 7.917,
+   "label": "hero->e5 ender",
+   "frame": 475,
+   "crop": [
+    240,
+    85,
+    282,
+    186
+   ],
+   "diffs": [
+    39.71,
+    13.36,
+    0.11,
+    0.12,
+    0.14,
+    0.06,
+    0.04,
+    31.59
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 41.95,
+   "push_m": 0.5,
+   "spark_area": 2.57,
+   "spark_area_f6": 3.04
+  },
+  {
+   "rt": 7.917,
+   "label": "hero->e6 ender",
+   "frame": 475,
+   "crop": [
+    153,
+    115,
+    186,
+    191
+   ],
+   "diffs": [
+    44.72,
+    1.84,
+    0.11,
+    0.12,
+    0.11,
+    0.05,
+    0.09,
+    36.34
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 54.23,
+   "push_m": 2.64,
+   "spark_area": 2.57,
+   "spark_area_f6": 3.04
+  },
+  {
+   "rt": 7.917,
+   "label": "hero->e8 ender",
+   "frame": 476,
+   "crop": [
+    211,
+    116,
+    240,
+    190
+   ],
+   "diffs": [
+    10.31,
+    0.25,
+    0.21,
+    0.15,
+    0.12,
+    0.21,
+    48.86,
+    48.15
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 53.2,
+   "push_m": 2.65,
+   "spark_area": 1.81,
+   "spark_area_f6": 1.82
+  },
+  {
+   "rt": 10.433,
+   "label": "hero->e9 strike",
+   "frame": 627,
+   "crop": [
+    196,
+    100,
+    234,
+    197
+   ],
+   "diffs": [
+    20.52,
+    0.63,
+    0.38,
+    0.37,
+    0.22,
+    0.06,
+    35.32,
+    36.34
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 44.31,
+   "push_m": 2.51,
+   "spark_area": 1.62,
+   "spark_area_f6": 1.54
+  },
+  {
+   "rt": 10.733,
+   "label": "e1 thugPunch1 ->hero",
+   "frame": 645,
+   "crop": [
+    210,
+    100,
+    269,
+    210
+   ],
+   "diffs": [
+    4.91,
+    0.23,
+    0.15,
+    0.11,
+    0.05,
+    21.3,
+    17.69,
+    15.26
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 35.97,
+   "push_m": 0.6,
+   "spark_area": 0.72,
+   "spark_area_f6": 1.08
+  },
+  {
+   "rt": 11.733,
+   "label": "hero->e5 ender",
+   "frame": 704,
+   "crop": [
+    222,
+    32,
+    290,
+    202
+   ],
+   "diffs": [
+    12.08,
+    3.16,
+    0.31,
+    0.25,
+    0.15,
+    0.06,
+    15.51,
+    18.01
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 16.27,
+   "push_m": 0.21,
+   "spark_area": 0.44,
+   "spark_area_f6": 0.74
+  },
+  {
+   "rt": 12.367,
+   "label": "hero->e5 ender",
+   "frame": 743,
+   "crop": [
+    231,
+    104,
+    303,
+    205
+   ],
+   "diffs": [
+    0.68,
+    0.33,
+    0.17,
+    0.16,
+    0.09,
+    13.66,
+    13.43,
+    19.58
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 23.84,
+   "push_m": 0.48,
+   "spark_area": 0.63,
+   "spark_area_f6": 0.87
+  },
+  {
+   "rt": 12.767,
+   "label": "hero->e5 ender",
+   "frame": 766,
+   "crop": [
+    232,
+    45,
+    307,
+    214
+   ],
+   "diffs": [
+    17.66,
+    1.54,
+    0.12,
+    0.09,
+    0.11,
+    0.05,
+    18.31,
+    24.13
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 17.75,
+   "push_m": 0.66,
+   "spark_area": 0.97,
+   "spark_area_f6": 1.67
+  },
+  {
+   "rt": 13.65,
+   "label": "e11 thugKick ->hero",
+   "frame": 819,
+   "crop": [
+    239,
+    60,
+    292,
+    218
+   ],
+   "diffs": [
+    29.84,
+    20.4,
+    0.38,
+    0.23,
+    0.13,
+    0.09,
+    28.94,
+    33.19
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 32.42,
+   "push_m": 0.47,
+   "spark_area": 1.17,
+   "spark_area_f6": 1.86
+  },
+  {
+   "rt": 14.267,
+   "label": "hero->e8 light",
+   "frame": 857,
+   "crop": [
+    225,
+    58,
+    296,
+    198
+   ],
+   "diffs": [
+    4.37,
+    0.49,
+    0.17,
+    1.13,
+    0.15,
+    10.03,
+    9.39,
+    8.57
+   ],
+   "frozen_run": 2,
+   "flinch_diff": 16.52,
+   "push_m": 0.52,
+   "spark_area": 0.56,
+   "spark_area_f6": 1.15
+  },
+  {
+   "rt": 15.267,
+   "label": "hero->e8 finisher",
+   "frame": 917,
+   "crop": [
+    206,
+    65,
+    282,
+    204
+   ],
+   "diffs": [
+    0.38,
+    0.26,
+    0.3,
+    0.15,
+    0.15,
+    0.15,
+    0.07,
+    17.25
+   ],
+   "frozen_run": 6,
+   "flinch_diff": 26.83,
+   "push_m": 0.91,
+   "spark_area": 1.15,
+   "spark_area_f6": 1.24
+  },
+  {
+   "rt": 18.617,
+   "label": "e1 thugPunch2 ->hero",
+   "frame": 1118,
+   "crop": [
+    223,
+    89,
+    266,
+    254
+   ],
+   "diffs": [
+    0.35,
+    0.37,
+    0.15,
+    0.14,
+    0.2,
+    14.97,
+    25.05,
+    21.81
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 12.07,
+   "push_m": 0.12,
+   "spark_area": 0.22,
+   "spark_area_f6": 0.45
+  },
+  {
+   "rt": 19.35,
+   "label": "hero->e1 launch",
+   "frame": 1162,
+   "crop": [
+    177,
+    49,
+    211,
+    204
+   ],
+   "diffs": [
+    2.46,
+    0.49,
+    0.25,
+    0.24,
+    0.2,
+    0.14,
+    28.64,
+    34.0
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 35.2,
+   "push_m": 1.91,
+   "spark_area": 0.86,
+   "spark_area_f6": 0.86
+  },
+  {
+   "rt": 19.65,
+   "label": "e6 thugPunch1 ->hero",
+   "frame": 1180,
+   "crop": [
+    208,
+    41,
+    264,
+    199
+   ],
+   "diffs": [
+    19.9,
+    10.63,
+    0.31,
+    0.26,
+    0.19,
+    0.65,
+    42.82,
+    46.33
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 35.3,
+   "push_m": 1.38,
+   "spark_area": 1.36,
+   "spark_area_f6": 1.4
+  },
+  {
+   "rt": 19.667,
+   "label": "e2 thugPunch2 ->hero",
+   "frame": 1180,
+   "crop": [
+    205,
+    36,
+    265,
+    192
+   ],
+   "diffs": [
+    18.84,
+    10.04,
+    0.3,
+    0.26,
+    0.18,
+    0.61,
+    41.08,
+    43.49
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 34.86,
+   "push_m": 1.34,
+   "spark_area": 1.36,
+   "spark_area_f6": 1.4
+  },
+  {
+   "rt": 20.05,
+   "label": "hero->e1 air",
+   "frame": 1204,
+   "crop": [
+    183,
+    86,
+    262,
+    147
+   ],
+   "diffs": [
+    8.03,
+    0.15,
+    0.16,
+    0.16,
+    0.08,
+    29.6,
+    27.29,
+    25.4
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 27.65,
+   "push_m": 0.4,
+   "spark_area": 1.05,
+   "spark_area_f6": 1.5
+  },
+  {
+   "rt": 20.217,
+   "label": "hero->e1 air",
+   "frame": 1213,
+   "crop": [
+    181,
+    83,
+    261,
+    169
+   ],
+   "diffs": [
+    20.68,
+    7.2,
+    0.44,
+    0.16,
+    0.13,
+    0.18,
+    20.79,
+    21.17
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 21.36,
+   "push_m": 0.37,
+   "spark_area": 0.85,
+   "spark_area_f6": 1.3
+  },
+  {
+   "rt": 21.3,
+   "label": "hero->e1 slam",
+   "frame": 1279,
+   "crop": [
+    180,
+    96,
+    258,
+    209
+   ],
+   "diffs": [
+    2.61,
+    0.33,
+    0.33,
+    0.34,
+    0.26,
+    0.09,
+    28.68,
+    26.61
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 37.83,
+   "push_m": 2.18,
+   "spark_area": 1.46,
+   "spark_area_f6": 1.48
+  },
+  {
+   "rt": 21.633,
+   "label": "hero->e1 ender",
+   "frame": 1298,
+   "crop": [
+    174,
+    168,
+    250,
+    199
+   ],
+   "diffs": [
+    59.12,
+    14.04,
+    0.52,
+    0.56,
+    0.38,
+    0.43,
+    0.53,
+    65.4
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 64.07,
+   "push_m": 2.84,
+   "spark_area": 2.73,
+   "spark_area_f6": 3.22
+  },
+  {
+   "rt": 21.633,
+   "label": "hero->e4 ender",
+   "frame": 1298,
+   "crop": [
+    185,
+    108,
+    222,
+    179
+   ],
+   "diffs": [
+    47.01,
+    0.88,
+    0.45,
+    0.42,
+    0.37,
+    0.37,
+    0.38,
+    50.49
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 61.74,
+   "push_m": 2.83,
+   "spark_area": 2.73,
+   "spark_area_f6": 3.22
+  },
+  {
+   "rt": 21.633,
+   "label": "hero->e9 ender",
+   "frame": 1298,
+   "crop": [
+    270,
+    113,
+    297,
+    192
+   ],
+   "diffs": [
+    47.35,
+    1.65,
+    0.5,
+    0.36,
+    0.15,
+    0.21,
+    0.21,
+    40.43
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 57.44,
+   "push_m": 2.65,
+   "spark_area": 2.73,
+   "spark_area_f6": 3.22
+  },
+  {
+   "rt": 22.667,
+   "label": "hero->e5 light",
+   "frame": 1361,
+   "crop": [
+    203,
+    67,
+    264,
+    198
+   ],
+   "diffs": [
+    2.43,
+    0.43,
+    0.36,
+    0.22,
+    0.17,
+    15.29,
+    15.9,
+    13.99
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 27.43,
+   "push_m": 1.2,
+   "spark_area": 0.89,
+   "spark_area_f6": 1.74
+  },
+  {
+   "rt": 22.983,
+   "label": "hero->e5 light",
+   "frame": 1380,
+   "crop": [
+    213,
+    55,
+    264,
+    180
+   ],
+   "diffs": [
+    0.39,
+    0.24,
+    0.37,
+    0.23,
+    0.14,
+    9.5,
+    9.11,
+    12.41
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 15.88,
+   "push_m": 0.73,
+   "spark_area": 0.2,
+   "spark_area_f6": 0.44
+  },
+  {
+   "rt": 23.433,
+   "label": "hero->e6 launch",
+   "frame": 1407,
+   "crop": [
+    250,
+    87,
+    306,
+    198
+   ],
+   "diffs": [
+    0.37,
+    0.16,
+    0.16,
+    0.19,
+    0.14,
+    0.14,
+    29.8,
+    31.87
+   ],
+   "frozen_run": 6,
+   "flinch_diff": 26.87,
+   "push_m": 2.11,
+   "spark_area": 0.78,
+   "spark_area_f6": 0.78
+  },
+  {
+   "rt": 24.067,
+   "label": "hero->e6 air",
+   "frame": 1445,
+   "crop": [
+    208,
+    98,
+    303,
+    144
+   ],
+   "diffs": [
+    4.0,
+    0.18,
+    0.14,
+    0.16,
+    0.09,
+    26.99,
+    21.38,
+    18.43
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 21.15,
+   "push_m": 0.43,
+   "spark_area": 1.23,
+   "spark_area_f6": 1.9
+  },
+  {
+   "rt": 24.317,
+   "label": "hero->e6 air",
+   "frame": 1460,
+   "crop": [
+    212,
+    105,
+    302,
+    155
+   ],
+   "diffs": [
+    5.87,
+    0.33,
+    0.18,
+    0.16,
+    0.05,
+    21.72,
+    16.83,
+    14.39
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 18.19,
+   "push_m": 0.41,
+   "spark_area": 0.86,
+   "spark_area_f6": 1.77
+  },
+  {
+   "rt": 24.7,
+   "label": "hero->e6 slam",
+   "frame": 1483,
+   "crop": [
+    214,
+    103,
+    297,
+    178
+   ],
+   "diffs": [
+    2.83,
+    0.48,
+    0.23,
+    0.21,
+    0.2,
+    0.1,
+    43.62,
+    37.56
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 43.96,
+   "push_m": 2.52,
+   "spark_area": 1.26,
+   "spark_area_f6": 1.27
+  },
+  {
+   "rt": 25.033,
+   "label": "hero->e5 ender",
+   "frame": 1502,
+   "crop": [
+    189,
+    88,
+    223,
+    181
+   ],
+   "diffs": [
+    37.88,
+    3.03,
+    0.19,
+    0.16,
+    0.18,
+    0.1,
+    0.11,
+    27.36
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 58.69,
+   "push_m": 0.84,
+   "spark_area": 3.2,
+   "spark_area_f6": 3.95
+  },
+  {
+   "rt": 25.033,
+   "label": "hero->e6 ender",
+   "frame": 1502,
+   "crop": [
+    226,
+    170,
+    310,
+    212
+   ],
+   "diffs": [
+    54.49,
+    6.16,
+    0.42,
+    0.29,
+    0.27,
+    0.24,
+    0.2,
+    48.35
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 61.27,
+   "push_m": 2.84,
+   "spark_area": 3.2,
+   "spark_area_f6": 3.95
+  },
+  {
+   "rt": 25.033,
+   "label": "hero->e9 ender",
+   "frame": 1503,
+   "crop": [
+    279,
+    144,
+    312,
+    185
+   ],
+   "diffs": [
+    1.21,
+    0.34,
+    0.33,
+    0.31,
+    0.28,
+    0.27,
+    53.3,
+    46.24
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 64.42,
+   "push_m": 2.65,
+   "spark_area": 1.86,
+   "spark_area_f6": 1.84
+  },
+  {
+   "rt": 25.033,
+   "label": "hero->e11 ender",
+   "frame": 1502,
+   "crop": [
+    266,
+    123,
+    293,
+    201
+   ],
+   "diffs": [
+    50.25,
+    1.2,
+    0.2,
+    0.24,
+    0.29,
+    0.23,
+    0.21,
+    45.59
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 55.83,
+   "push_m": 2.65,
+   "spark_area": 3.2,
+   "spark_area_f6": 3.95
+  },
+  {
+   "rt": 26.967,
+   "label": "hero->e10 finisher",
+   "frame": 1619,
+   "crop": [
+    217,
+    64,
+    296,
+    209
+   ],
+   "diffs": [
+    0.47,
+    0.18,
+    0.15,
+    0.25,
+    0.13,
+    0.13,
+    0.14,
+    20.83
+   ],
+   "frozen_run": 6,
+   "flinch_diff": 26.57,
+   "push_m": 0.91,
+   "spark_area": 0.99,
+   "spark_area_f6": 0.96
+  },
+  {
+   "rt": 28.667,
+   "label": "e13 thugPunch2 ->hero",
+   "frame": 1720,
+   "crop": [
+    235,
+    78,
+    286,
+    223
+   ],
+   "diffs": [
+    14.45,
+    4.36,
+    0.66,
+    0.56,
+    0.17,
+    0.09,
+    15.86,
+    18.64
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 17.84,
+   "push_m": 2.04,
+   "spark_area": 0.28,
+   "spark_area_f6": 0.64
+  },
+  {
+   "rt": 29.5,
+   "label": "e13 thugPunch1 ->hero",
+   "frame": 1771,
+   "crop": [
+    235,
+    109,
+    276,
+    197
+   ],
+   "diffs": [
+    32.04,
+    0.49,
+    0.3,
+    0.31,
+    0.07,
+    49.63,
+    50.32,
+    37.92
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 40.77,
+   "push_m": 0.16,
+   "spark_area": 0.66,
+   "spark_area_f6": 1.04
+  },
+  {
+   "rt": 30.133,
+   "label": "hero->e13 light",
+   "frame": 1809,
+   "crop": [
+    211,
+    82,
+    253,
+    203
+   ],
+   "diffs": [
+    7.95,
+    0.45,
+    0.24,
+    0.13,
+    0.14,
+    15.64,
+    14.44,
+    13.38
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 33.33,
+   "push_m": 0.5,
+   "spark_area": 0.32,
+   "spark_area_f6": 0.48
+  },
+  {
+   "rt": 30.133,
+   "label": "e14 thugPunch1 ->hero",
+   "frame": 1809,
+   "crop": [
+    220,
+    75,
+    298,
+    229
+   ],
+   "diffs": [
+    8.28,
+    0.39,
+    0.19,
+    0.09,
+    0.1,
+    19.32,
+    15.36,
+    17.73
+   ],
+   "frozen_run": 4,
+   "flinch_diff": 23.14,
+   "push_m": 3.08,
+   "spark_area": 0.32,
+   "spark_area_f6": 0.48
+  },
+  {
+   "rt": 31.383,
+   "label": "e14 thugKick ->hero",
+   "frame": 1884,
+   "crop": [
+    252,
+    97,
+    307,
+    227
+   ],
+   "diffs": [
+    0.42,
+    0.12,
+    0.13,
+    0.15,
+    0.07,
+    12.95,
+    17.73,
+    14.48
+   ],
+   "frozen_run": 5,
+   "flinch_diff": 10.28,
+   "push_m": 0.84,
+   "spark_area": 0.13,
+   "spark_area_f6": 0.2
+  }
+ ]
+}

@@ -1,0 +1,77 @@
+# Round 11 flip checks (FLIPS_SPEC.md lines; flip_check.py on the rendered 1080p60 telemetry, lit Manhattan golden)
+FLIP CHECK f1_sky_backDouble (f1_sky_backDouble_telemetry.csv): 1 tricks
+-- trick 1: backDouble  t 1.40-3.95 (2.55 s)
+   F1 rotations: program 2.00, rendered 1.99; twist 0 deg
+   F2 mean 309 deg/s PASS | F3 peak 772 deg/s PASS | F4 longest hold 0.56 s (Throne@2.00) PASS | F5 ease ratio 38.6,38.0,28.8 PASS
+   F10 release->trick 0.000 s PASS
+   F8 catch 0.43 s after the trick, body 51 deg from upright FAIL
+   F11 leg lag at shape changes: mean 0.110 s (n=8) PASS
+   F9 camera roll max 2.0 deg PASS | camera - hero height med -1.19 m | hero px height p10/p50/p90 0.156/0.296/0.381 PASS
+SUMMARY f1_sky_backDouble: core lines PASS
+
+FLIP CHECK f2_sky_pikeSwan (f2_sky_pikeSwan_telemetry.csv): 1 tricks
+-- trick 1: frontPikeSwan  t 1.40-3.10 (1.70 s)
+   F1 rotations: program 0.94, rendered 0.96; twist 0 deg
+   F2 mean 202 deg/s  | F3 peak 619 deg/s PASS | F4 longest hold 1.06 s (Pike@0.30) PASS | F5 ease ratio 30.9 PASS
+   F10 release->trick 0.000 s PASS
+   F8 catch 0.02 s after the trick, body 12 deg from upright PASS
+   F11 leg lag at shape changes: mean 0.111 s (n=3) PASS
+   F9 camera roll max 2.0 deg PASS | camera - hero height med -1.29 m | hero px height p10/p50/p90 0.159/0.244/0.389 PASS
+SUMMARY f2_sky_pikeSwan: core lines PASS
+
+FLIP CHECK f3_sky_corkscrew (f3_sky_corkscrew_telemetry.csv): 1 tricks
+-- trick 1: corkscrew  t 1.40-2.97 (1.57 s)
+   F1 rotations: program 0.91, rendered 0.95; twist 360 deg
+   F2 mean 218 deg/s  | F3 peak 709 deg/s PASS | F4 longest hold 0.61 s (Twist@0.63) PASS | F5 ease ratio 35.4 PASS
+   F7 twist 360 deg, body tilt while twisting med 82 deg PASS
+   F10 release->trick 0.000 s PASS
+   F8 catch 0.02 s after the trick, body 12 deg from upright PASS
+   F11 leg lag at shape changes: mean 0.100 s (n=3) PASS
+   F9 camera roll max 2.0 deg PASS | camera - hero height med -1.31 m | hero px height p10/p50/p90 0.167/0.307/0.374 PASS
+SUMMARY f3_sky_corkscrew: core lines PASS
+
+FLIP CHECK f4_chain_flips (f4_chain_flips_telemetry.csv): 3 tricks
+-- trick 1: backDouble  t 1.67-4.02 (2.35 s)
+   F1 rotations: program 2.00, rendered 1.95; twist 0 deg
+   F2 mean 302 deg/s PASS | F3 peak 772 deg/s PASS | F4 longest hold 0.36 s (Throne@2.00) PASS | F5 ease ratio 38.6,37.9,22.1 PASS
+   F10 release->trick 0.000 s PASS
+   F8 catch 0.45 s after the trick, body 60 deg from upright FAIL
+   F11 leg lag at shape changes: mean 0.110 s (n=8) PASS
+   F9 camera roll max 0.1 deg PASS | camera - hero height med -1.28 m | hero px height p10/p50/p90 0.119/0.219/0.293 PASS
+-- trick 2: corkscrew  t 7.80-9.63 (1.83 s)
+   F1 rotations: program 1.00, rendered 1.06; twist 360 deg
+   F2 mean 209 deg/s  | F3 peak 712 deg/s PASS | F4 longest hold 0.61 s (Twist@0.63) PASS | F5 ease ratio 35.6,34.1 PASS
+   F7 twist 360 deg, body tilt while twisting med 81 deg PASS
+   F10 release->trick 0.000 s PASS
+   F8 catch 0.77 s after the trick, body 82 deg from upright FAIL
+   F11 leg lag at shape changes: mean 0.100 s (n=4) PASS
+   F9 camera roll max 0.9 deg PASS | camera - hero height med -1.30 m | hero px height p10/p50/p90 0.133/0.256/0.296 PASS
+-- trick 3: backSingle  t 11.97-12.97 (1.00 s)
+   F1 rotations: program 0.84, rendered 0.70; twist 0 deg
+   F2 mean 253 deg/s  | F3 peak 722 deg/s PASS | F4 longest hold 0.39 s (Pencil@0.35) PASS | F5 ease ratio 36.1 PASS
+   F10 release->trick 0.000 s PASS
+   F8 no web catch after this trick (landing / end of clip)
+   F11 leg lag at shape changes: mean 0.108 s (n=2) PASS
+   F9 camera roll max 0.4 deg PASS | camera - hero height med -1.46 m | hero px height p10/p50/p90 0.126/0.267/0.293 PASS
+SUMMARY f4_chain_flips: core lines PASS
+
+FLIP CHECK c_wallrun_perch (c_wallrun_perch_telemetry.csv): 1 tricks
+-- trick 1: wallFront  t 3.85-4.75 (0.90 s)
+   F1 rotations: program 0.97, rendered 0.87; twist 0 deg
+   F2 mean 347 deg/s  | F3 peak 643 deg/s PASS | F4 longest hold 0.12 s (Tuck@0.78) FAIL | F5 ease ratio 12.6 PASS
+   F10 release->trick 0.000 s PASS
+   F8 no web catch after this trick (landing / end of clip)
+   F11 leg lag at shape changes: mean 0.100 s (n=2) PASS
+   F9 camera roll max 0.0 deg PASS | camera - hero height med -2.20 m | hero px height p10/p50/p90 0.152/0.241/0.374 PASS
+SUMMARY c_wallrun_perch: see FAIL lines
+
+FLIP CHECK b_release_trick_dive_zip (b_release_trick_dive_zip_telemetry.csv): 1 tricks
+-- trick 1: backDouble  t 1.40-3.75 (2.35 s)
+   F1 rotations: program 2.00, rendered 1.99; twist 0 deg
+   F2 mean 307 deg/s PASS | F3 peak 772 deg/s PASS | F4 longest hold 0.36 s (Throne@2.00) PASS | F5 ease ratio 38.6,36.2,24.6 PASS
+   F10 release->trick 0.000 s PASS
+   F8 no web catch after this trick (landing / end of clip)
+   F11 leg lag at shape changes: mean 0.110 s (n=8) PASS
+   F9 camera roll max 2.0 deg PASS | camera - hero height med -1.23 m | hero px height p10/p50/p90 0.152/0.259/0.363 PASS
+SUMMARY b_release_trick_dive_zip: core lines PASS
+

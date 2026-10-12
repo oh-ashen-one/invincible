@@ -1,0 +1,27 @@
+{"crown_crops": 24, "min_hp_sd": 5.41, "median_hp_sd": 8.34, "max_hp_sd": 13.66, "pass_crown_sd_ge_9": false, "reference_hp_sd": [], "max_flat_width_px": {"p1_south.jpg": 108.3, "p10_lawn_eye.jpg": 12.2}, "pass_no_flat_hull_face_gt_40px": false}
+p1_south.jpg             [1800, 450]    hp_sd  10.25  luma 140.4
+p1_south.jpg             [2100, 450]    hp_sd  11.00  luma 151.5
+p1_south.jpg             [2400, 450]    hp_sd  13.66  luma 154.0
+p1_south.jpg             [1200, 600]    hp_sd   9.78  luma  93.1
+p1_south.jpg             [1500, 600]    hp_sd   9.60  luma  92.3
+p1_south.jpg             [1800, 600]    hp_sd  10.30  luma  95.5
+p1_south.jpg             [2100, 600]    hp_sd  10.30  luma  97.3
+p1_south.jpg             [2700, 600]    hp_sd   8.67  luma  88.5
+p1_south.jpg             [3000, 750]    hp_sd  13.09  luma 126.0
+p1_south.jpg             [1350, 750]    hp_sd   8.08  luma  74.2
+p1_south.jpg             [1800, 750]    hp_sd   9.08  luma  77.6
+p1_south.jpg             [3000, 900]    hp_sd  10.78  luma 121.2
+p1_south.jpg             [3300, 900]    hp_sd   8.59  luma  82.9
+p1_south.jpg             [3150, 1050]   hp_sd   7.97  luma  55.9
+p1_south.jpg             [3450, 1200]   hp_sd   5.41  luma  74.9
+p1_south.jpg             [450, 1350]    hp_sd   6.28  luma 129.2
+p1_south.jpg             [450, 1500]    hp_sd   6.34  luma  96.9
+p1_south.jpg             [1200, 1800]   hp_sd   7.49  luma 125.3
+p1_south.jpg             [1350, 1800]   hp_sd   6.94  luma 114.6
+p1_south.jpg             [1950, 1800]   hp_sd   7.03  luma 115.6
+p1_south.jpg             [2400, 1650]   hp_sd   6.76  luma  89.3
+p1_south.jpg             [2250, 1800]   hp_sd   7.24  luma  53.7
+p1_south.jpg             [1500, 1950]   hp_sd   7.24  luma  55.1
+p1_south.jpg             [2100, 1950]   hp_sd   6.65  luma  76.0
+flat p1_south.jpg max_flat_width 108.3 patches>40: 2 flat% of foliage 5.82
+flat p10_lawn_eye.jpg max_flat_width 12.2 patches>40: 0 flat% of foliage 0.13

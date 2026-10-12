@@ -1,0 +1,68 @@
+{
+ "name": "c_wallrun_perch_city",
+ "note": "Round 10, Manhattan: airborne swing north up the avenue, steer east (stick into the 45 m loft facade at x = 266 m) -> the swing lets go onto the wall and runs up it, tops out on the roof, camera turn, zip to a roof edge, perch. (A street-level sprint into this block hits the storefront awnings at 4-5 m; see HANDOFF.)",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   240,
+   22
+  ],
+  "yaw": -90,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": true
+  },
+  {
+   "t": 0.9,
+   "heading": 0
+  },
+  {
+   "t": 1.7,
+   "swing": false
+  },
+  {
+   "t": 6.6,
+   "move": [
+    0,
+    0
+   ],
+   "heading": false
+  },
+  {
+   "t": 7.1,
+   "look": [
+    -150.0,
+    -10.0
+   ]
+  },
+  {
+   "t": 8.3,
+   "look": [
+    0,
+    0
+   ]
+  },
+  {
+   "t": 8.5,
+   "zip": true
+  },
+  {
+   "t": 8.6,
+   "zip": false
+  }
+ ]
+}

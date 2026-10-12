@@ -1,0 +1,6 @@
+== S4_perch_skyline_3840x2160.jpg
+  sky Y 228.9  far Y 162.7  river Y 136.3  near Y 81.3 | box(0,150,1300,300) mean Y 153.4  > 204: 6.9 %  (T2 <= 10: PASS)
+  C13 with the critic box (0,150,1300,215): far - sky Y = -55.6 (target -35..-25)
+  T4 flat bright 8x8 blocks in (540,110,900,260): 12 of 25 bright (810 blocks): 48.0 % of bright / 1.5 % of all  (<= 10 %: fail)
+  T1 silhouette-top std (px): first_Y_lt_215 23.6  first_absdY_gt_4 24.5  first_Y_lt_sky_minus_12 23.6  (>= 12: PASS)
+  C11 lap/sky 27.83 ok | C11 flat8 % 0.0 ok | C12 dBR 0.82 ok | C13 far-sky Y -66.28 FAIL | C13 far>near 81.33 ok | C14 far-river Y 26.38 ok | C15 rms far/near 0.31 ok

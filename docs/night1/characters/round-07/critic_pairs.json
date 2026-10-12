@@ -1,0 +1,116 @@
+[
+ {
+  "id": "hero-run",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/hero_run_side.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-crosswalk__dn_0329-0337.mp4",
+  "note": "hero running, full body"
+ },
+ {
+  "id": "hero-chase",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/hero_run_chase.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-toward-camera__dn_0418-0425.mp4",
+  "note": "hero running away from a chase camera behind"
+ },
+ {
+  "id": "hero-standing",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/hero_turntable_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-idle-street-og__og_0000.jpg",
+  "note": "hero full body on a street"
+ },
+ {
+  "id": "suit-close",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/suit_closeup_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/press-suit-closeup-fire__psblog_14.jpg",
+  "note": "suit fabric close-up"
+ },
+ {
+  "id": "hero-face",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/hero_face_lens_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-face-closeup__gr_0230.jpg",
+  "note": "mask and lens close-up"
+ },
+ {
+  "id": "thugs-group",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/street_fight_wide_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thugs-group-nm__nm_0049.jpg",
+  "note": "a group of street criminals around the hero"
+ },
+ {
+  "id": "fight-clip",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/street_fight_34.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/street-combo__nm_0214-0224.mp4",
+  "note": "hero among a group of thugs, mid camera above"
+ },
+ {
+  "id": "thug-close",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/thug_face_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thug-closeup-dn__dn_0523.jpg",
+  "note": "street criminal close-up"
+ },
+ {
+  "id": "citizens-clip",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/crowd_tracking.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/clips/street-npcs-idle__dn_0600-0608.mp4",
+  "note": "pedestrians near the camera"
+ },
+ {
+  "id": "citizens-still",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/crowd_tracking_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/npc-group-dn__dn_0725.jpg",
+  "note": "a group of pedestrians on a street"
+ },
+ {
+  "id": "progress-crowd-clip",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/crowd_tracking.mp4",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_tracking.mp4",
+  "note": "two versions of our pedestrians walking past a side camera (clip): judge whether any two people pass through each other or overlap"
+ },
+ {
+  "id": "progress-crowd-still",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/crowd_tracking_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_tracking_4k.jpg",
+  "note": "two versions of our pedestrians (still)"
+ },
+ {
+  "id": "progress-key-a",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/crowd_key_a_4k.png",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_key_a_4k.jpg",
+  "note": "two versions of the same pedestrians with the street replaced by one flat green colour: judge green showing through or tinting any person, people overlapping, stray floating shapes"
+ },
+ {
+  "id": "progress-key-c",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/crowd_key_c_4k.png",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_key_c_4k.jpg",
+  "note": "two versions of the same pedestrians with the street replaced by one flat green colour: judge green showing through or tinting any person, people overlapping, stray floating shapes"
+ },
+ {
+  "id": "progress-avoid",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-07/captures/crowd_avoidance_demo.mp4",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_tracking.mp4",
+  "note": "the same crowd lanes in two versions (clip): judge whether people pass through each other or step around each other"
+ },
+ {
+  "id": "jeans-leg",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r7/crops_final/r7_jeans-leg.jpg",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r7/crops_final/r6_jeans-leg.jpg",
+  "note": "lower legs of a walker in light jeans and white shoes, close-up on a flat green backdrop: judge any green showing through or tinting the trousers (two versions of our pedestrian)"
+ },
+ {
+  "id": "overlap-near",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r7/crops_final/r7_overlap-near.jpg",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r7/crops_final/r6_overlap-near.jpg",
+  "note": "two pedestrians who cross paths, close-up on a flat green backdrop: judge whether they pass through each other (two versions)"
+ },
+ {
+  "id": "ankle-close",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r7/crops_final/r7_ankle-close.jpg",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r7/crops_final/r6_ankle-close.jpg",
+  "note": "a pedestrian trouser cuff and shoe, close-up on a flat green backdrop: judge slivers of background between cuff and shoe (two versions)"
+ },
+ {
+  "id": "floating-shape",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r7/crops_final/r7_floating-shape.jpg",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r7/crops_final/r6_floating-shape.jpg",
+  "note": "an empty patch of the flat green backdrop: judge any floating polygon (two versions)"
+ }
+]

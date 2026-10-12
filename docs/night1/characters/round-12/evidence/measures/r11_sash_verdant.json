@@ -1,0 +1,1 @@
+{"image": "docs/night1/characters/round-11/stills/skin_verdant_chest_4k.jpg", "accent": "#d4a843", "panel_px": 379197, "panel_luma_median": 203.7, "longest_dark_run_px": 9, "longest_run_at": [1548, 1816], "dark_components_gt10px": 0, "worst_components": [], "probes": [{"x": 1412, "y": 1240, "luma": 42.5, "local_panel_median": 0.0, "inside_panel": false}], "verdict": "PASS"}

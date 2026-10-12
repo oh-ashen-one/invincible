@@ -1,0 +1,5 @@
+[2026.10.02-05.38.09:295][  0]LogWorldPartition: UWorldPartition::Initialize Context : World NetMode = Standalone, IsServer = 0, IsDedicatedServer = 0, IsServerStreamingEnabled = 0, IsServerStreamingOutEnabled = 0, IsUsingMakingVisibleTransaction = 0, IsUsingMakingInvisibleTransaction = 0
+GenerateStreaming for 'Manhattan_WP' started...
+GenerateStreaming for 'Manhattan_WP' took 7.13 sec
+WebTravWorld: solid mode 2 (visual triangles: every visible building / roof / ground mesh, traced complex; WHBox cubes index only; per-building boxes found 1)
+WebTravWorld: 56534 building boxes indexed (0 instanced components -> 0 instance boxes, 0 foliage/traffic instances skipped, 72 far-skyline/giant components de-collided; 642 visible solids, 0 with collision re-enabled (QueryOnly), 5411 excluded by name, 0 hidden de-collided, 56816 WHBox cubes de-collided, 760 traversal solids total, 118 ground boxes)

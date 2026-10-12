@@ -1,0 +1,18 @@
+== round 23
+  x1_rmb_cancel_flip: swings (start, s) [(0.4, 0.95), (1.75, 1.85)] | hero in frame 1.00 | hero_occl max 0.000
+  x2_rmb_cancel_wall: swings (start, s) [(0.0, 1.7), (3.2, 1.78)] | hero in frame 0.98 | hero_occl max 0.055
+  m1_mouse_swing: swings (start, s) [(0.4, 1.27), (2.47, 1.38), (4.65, 1.03)] | hero in frame 1.00 | hero_occl max 0.000
+  s1_high_swing: swings (start, s) [(0.2, 2.2), (2.7, 0.15), (3.43, 1.57), (5.3, 0.68)] | hero in frame 1.00 | hero_occl max 0.700
+  c_wallrun_perch: zip 8.5000 -> perch 8.9000 | perch rows 95, hero_occl max on the perch 0.000
+  w1_wallrun_tall_zip: zip 3.6000 -> perch 5.0500 | perch rows 125, hero_occl max on the perch 0.130
+  w2_wallrun_side_zip: zip 4.0000 -> perch 5.7000 | perch rows 77, hero_occl max on the perch 0.000
+  r1_roofrun_zip: zip 6.2000 -> perch 6.5333 | perch rows 15, hero_occl max on the perch 0.000
+== round 24
+  x1_rmb_cancel_flip: swings (start, s) [(0.4, 0.95), (1.75, 1.85)] | hero in frame 1.00 | hero_occl max 0.000
+  x2_rmb_cancel_wall: swings (start, s) [(0.0, 1.7), (3.2, 1.78)] | hero in frame 0.98 | hero_occl max 0.055
+  m1_mouse_swing: swings (start, s) [(0.4, 1.27), (3.52, 1.38)] | hero in frame 1.00 | hero_occl max 0.000
+  s1_high_swing: swings (start, s) [(0.2, 2.2), (2.7, 0.15), (3.43, 1.57), (5.3, 0.68)] | hero in frame 1.00 | hero_occl max 0.700
+  c_wallrun_perch: zip 8.5000 -> perch 8.9167 | perch rows 94, hero_occl max on the perch 1.000
+  w1_wallrun_tall_zip: zip 3.6000 -> perch 5.0500 | perch rows 125, hero_occl max on the perch 0.130
+  w2_wallrun_side_zip: zip 4.0000 -> perch 5.7000 | perch rows 77, hero_occl max on the perch 0.000
+  r1_roofrun_zip: zip 6.2000 -> perch 6.5333 | perch rows 15, hero_occl max on the perch 0.000

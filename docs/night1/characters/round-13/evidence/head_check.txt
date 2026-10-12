@@ -1,0 +1,8 @@
+tessera {"H1_nose_extrema_ge3_swing_ge20": true, "H2_nose_bump_ge_2pct": true, "H3_lens_ge_1.6x_r12": true, "H4_rim_ge_6px_closed": false, "H5_seam_pair_ge_20_no_black_12": true, "H6_lens_inside_silhouette": true}
+verdant {"H1_nose_extrema_ge3_swing_ge20": true, "H2_nose_bump_ge_2pct": true, "H3_lens_ge_1.6x_r12": true, "H4_rim_ge_6px_closed": false, "H5_seam_pair_ge_20_no_black_12": true, "H6_lens_inside_silhouette": true}
+plum {"H1_nose_extrema_ge3_swing_ge20": true, "H2_nose_bump_ge_2pct": true, "H3_lens_ge_1.6x_r12": true, "H4_rim_ge_6px_closed": true, "H5_seam_pair_ge_20_no_black_12": true, "H6_lens_inside_silhouette": true}
+cinder {"H1_nose_extrema_ge3_swing_ge20": false, "H2_nose_bump_ge_2pct": true, "H3_lens_ge_1.6x_r12": true, "H4_rim_ge_6px_closed": true, "H5_seam_pair_ge_20_no_black_12": true, "H6_lens_inside_silhouette": true}
+glacier {"H1_nose_extrema_ge3_swing_ge20": true, "H2_nose_bump_ge_2pct": true, "H3_lens_ge_1.6x_r12": true, "H4_rim_ge_6px_closed": true, "H5_seam_pair_ge_20_no_black_12": true, "H6_lens_inside_silhouette": true}
+ash {"H1_nose_extrema_ge3_swing_ge20": true, "H2_nose_bump_ge_2pct": true, "H3_lens_ge_1.6x_r12": true, "H4_rim_ge_6px_closed": false, "H5_seam_pair_ge_20_no_black_12": true, "H6_lens_inside_silhouette": true}
+saffron {"H1_nose_extrema_ge3_swing_ge20": false, "H2_nose_bump_ge_2pct": true, "H3_lens_ge_1.6x_r12": true, "H4_rim_ge_6px_closed": false, "H5_seam_pair_ge_20_no_black_12": true, "H6_lens_inside_silhouette": true}
+sage {"H1_nose_extrema_ge3_swing_ge20": true, "H2_nose_bump_ge_2pct": true, "H3_lens_ge_1.6x_r12": true, "H4_rim_ge_6px_closed": true, "H5_seam_pair_ge_20_no_black_12": true, "H6_lens_inside_silhouette": true}

@@ -1,0 +1,10 @@
+# Wall-run check, round 10 (wall_check.py)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# lit /Game/Maps/Manhattan (golden), 1080p60 captures
+
+c_wallrun_perch: wall-run 2.08-3.83 s (1.75 s, 11 samples at 6 fps)
+  distinct limb phases at 6 fps: 11 (need >= 4)  PASS
+  head above hips: 11/11 samples  PASS
+  steps (foot L/R height crossings): 5 in 1.75 s = 2.86 steps/s
+  hero fully in frame 2.08-5.12 s (wall-run + top-out + landing): 183/183 frames  PASS
+  camera on the wall: pitch -10.5..55.8 deg (+ = up), below the hero -0.57..2.20 m, distance 2.66..4.34 m

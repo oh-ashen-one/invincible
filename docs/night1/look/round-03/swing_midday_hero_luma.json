@@ -1,0 +1,13 @@
+{
+ "frames_measured": 718,
+ "frames_without_hero_pixels": 0,
+ "bbox_mean_luma_min": 45.2,
+ "bbox_mean_luma_p5": 57.4,
+ "bbox_mean_luma_mean": 100.8,
+ "bbox_mean_luma_max": 144.9,
+ "threshold": 40.0,
+ "frames_below_threshold": 0,
+ "first_frames_below": [],
+ "p10_of_bbox_mean": 38.5,
+ "p90_of_bbox_mean": 168.1
+}

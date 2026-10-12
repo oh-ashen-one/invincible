@@ -1,0 +1,6 @@
+[2026.10.01-19.30.10:356][  0]LogWebHomage: Display: WH_SUIT 8 suits loaded: tessera verdant plum cinder glacier ash saffron sage 
+[2026.10.01-19.30.11:094][  0]LogWebHomage: Display: WH_SUIT 8 suits loaded: tessera verdant plum cinder glacier ash saffron sage 
+[2026.10.01-19.30.13:092][  1]LogWebHomage: Display: WH_SETTINGS suit read from GameUserSettings: HeroSuit=1 HeroSuitId=verdant
+[2026.10.01-19.30.13:106][  1]LogWebHomage: Display: WH_SUIT set 1/8 verdant (settings) changed=1 t=0.311 frame=1 apply_ms=13.44
+[2026.10.01-19.30.13:106][  1]LogWebHomage: Display: WH_SUIT start suit 1 (verdant) from settings, persist=1 live=0
+[2026.10.01-19.30.13:177][  4]LogWebHomage: Display: WH_SUIT swap_done 1 verdant wall_ms=84.2 frames=3 textures_resident=3/4

@@ -1,0 +1,63 @@
+p10_lawn_eye.jpg [1300, 1700, 512, 460] critic p10_lawn_eye (eye level, >= 8, R/G 0.85-0.95) hp6 18.68 hp3 13.29 sat 0.917 luma 78.6 rgb [83.0, 90.2, 7.5]
+p10_lawn_eye.jpg [2240, 1856, 512, 512] guard p10 (eye level, >= 8) hp6 16.31 hp3 11.41 sat 0.900 luma 61.1 rgb [65.6, 69.5, 6.6]
+p4_greatlawn.jpg [1700, 1000, 512, 400] critic p4_greatlawn (aerial, <= 5) hp6 5.48 hp3 3.94 sat 0.777 luma 123.8 rgb [138.8, 134.1, 31.2]
+p4_greatlawn.jpg [3520, 1856, 512, 512] guard p4 (aerial, info) hp6 3.45 hp3 2.74 sat 0.949 luma 82.8 rgb [93.2, 92.7, 4.7]
+p9_park_panorama.jpg [512, 1856, 512, 512] guard p9 (aerial, info) hp6 2.05 hp3 1.33 sat 0.700 luma 49.0 rgb [54.0, 53.0, 15.5]
+critic p10_lawn_eye (eye level, >= 8, R/G 0.85-0.95) hp6 18.68  R/G 0.920  sat 0.917
+guard p10 (eye level, >= 8)                  hp6 16.31  R/G 0.944  sat 0.900
+critic p4_greatlawn (aerial, <= 5)           hp6  5.48  R/G 1.035  sat 0.777
+guard p4 (aerial, info)                      hp6  3.45  R/G 1.005  sat 0.949
+guard p9 (aerial, info)                      hp6  2.05  R/G 1.019  sat 0.700
+E1 reconciled (r05 target 5): FAIL
+{"crown_crops": 24, "min_hp_sd": 6.11, "median_hp_sd": 12.06, "max_hp_sd": 14.88, "pass_crown_sd_ge_9": false, "median_hsv_sat": 0.636, "pass_r05_crowns": false, "reference_hp_sd": [], "max_flat_width_px": {"p1_south.jpg": 18.9, "p10_lawn_eye.jpg": 21.3}, "pass_no_flat_hull_face_gt_40px": true, "crops_ge_9": 19, "longest_straight_silhouette_px": {"p10_lawn_eye.jpg": 40.3, "p1_south.jpg": 75.7}, "pass_no_straight_silhouette_gt_40px_p10": false}
+p1_south.jpg             [1800, 450]    hp_sd  12.70  luma 140.1  sat 0.562
+p1_south.jpg             [2100, 450]    hp_sd  12.12  luma 136.1  sat 0.541
+p1_south.jpg             [2400, 450]    hp_sd  12.10  luma 150.0  sat 0.574
+p1_south.jpg             [1200, 600]    hp_sd  13.40  luma 130.1  sat 0.628
+p1_south.jpg             [1500, 600]    hp_sd  12.50  luma 121.1  sat 0.623
+p1_south.jpg             [1800, 600]    hp_sd  14.88  luma 132.9  sat 0.665
+p1_south.jpg             [2100, 600]    hp_sd  13.57  luma 137.0  sat 0.630
+p1_south.jpg             [2700, 600]    hp_sd  12.02  luma 123.9  sat 0.606
+p1_south.jpg             [3000, 750]    hp_sd  12.97  luma 133.9  sat 0.649
+p1_south.jpg             [1350, 750]    hp_sd  12.01  luma 115.5  sat 0.632
+p1_south.jpg             [1800, 750]    hp_sd  12.71  luma 106.9  sat 0.599
+p1_south.jpg             [3000, 900]    hp_sd  13.54  luma 100.9  sat 0.653
+p1_south.jpg             [3300, 900]    hp_sd  12.55  luma 116.4  sat 0.710
+p1_south.jpg             [3150, 1050]   hp_sd  11.48  luma  92.8  sat 0.630
+p1_south.jpg             [3450, 1200]   hp_sd   8.14  luma  73.2  sat 0.607
+p1_south.jpg             [450, 1350]    hp_sd  11.96  luma 115.6  sat 0.834
+p1_south.jpg             [450, 1500]    hp_sd   9.93  luma  83.0  sat 0.754
+p1_south.jpg             [1200, 1800]   hp_sd  11.66  luma 108.7  sat 0.756
+p1_south.jpg             [1350, 1800]   hp_sd  12.38  luma 106.1  sat 0.686
+p1_south.jpg             [1950, 1800]   hp_sd  11.14  luma  91.3  sat 0.712
+p1_south.jpg             [2400, 1650]   hp_sd   8.25  luma  66.7  sat 0.625
+p1_south.jpg             [2250, 1800]   hp_sd   7.12  luma  59.7  sat 0.723
+p1_south.jpg             [1500, 1950]   hp_sd   6.11  luma  52.4  sat 0.640
+p1_south.jpg             [2100, 1950]   hp_sd   8.34  luma  61.3  sat 0.650
+flat p1_south.jpg max_flat_width 18.9 patches>40: 0 flat% of foliage 0.86 dark pockets 3.55%
+flat p10_lawn_eye.jpg max_flat_width 21.3 patches>40: 0 flat% of foliage 0.29 dark pockets 4.49%
+silhouette p10_lawn_eye.jpg longest straight 40.3 px; segments > 40 px: 1 sky 20.2% foliage 79.5% [{'len_px': 40.3, 'from': [3671, 339], 'to': [3632, 349]}, {'len_px': 39.1, 'from': [3570, 407], 'to': [3532, 416]}, {'len_px': 34.2, 'from': [3154, 469], 'to': [3122, 481]}]
+silhouette p1_south.jpg longest straight 75.7 px; segments > 40 px: 2 sky 9.0% foliage 90.7% [{'len_px': 75.7, 'from': [248, 114], 'to': [258, 189]}, {'len_px': 48.7, 'from': [3297, 119], 'to': [3249, 127]}, {'len_px': 39.1, 'from': [777, 198], 'to': [780, 237]}]
+{"movie": "t4_lawn_sprint.mp4", "frames_at_4fps": 54, "flat_sd_threshold": 0.9, "pass": false, "components_wider_than_100px": 1}
+{'t_s': 1.0, 'bbox_xywh': [957, 533, 109, 52], 'area_px': 3337, 'fill': 0.59, 'mean_rgb': [202.8, 194.1, 174.4]}
+{"frames_in_25_40m_band": 16, "median_in_25_40m_band": 9.16, "min_in_25_40m_band": 5.75, "pass_band_ge_5": true, "frames_with_lawn_ge_10pct": 20, "median_over_lawn_frames": 9.16, "min_over_lawn_frames": 3.5, "window_s": [10.4, 15.4], "frames": 20, "frames_over_park": 20, "median_over_frames": 9.16, "min_over_frames": 3.5, "pass_ge_5": false}
+{'t_s': 10.4, 'hero_over_park': True, 'hero_haf_m': 18.6, 'lawn_pct': 52.5, 'windows': 293, 'median_sd3': 3.5, 'p10_sd3': 1.87}
+{'t_s': 10.65, 'hero_over_park': True, 'hero_haf_m': 24.3, 'lawn_pct': 33.3, 'windows': 147, 'median_sd3': 4.85, 'p10_sd3': 2.18}
+{'t_s': 10.9, 'hero_over_park': True, 'hero_haf_m': 28.5, 'lawn_pct': 23.9, 'windows': 71, 'median_sd3': 5.75, 'p10_sd3': 3.13}
+{'t_s': 11.15, 'hero_over_park': True, 'hero_haf_m': 31.3, 'lawn_pct': 18.7, 'windows': 27, 'median_sd3': 6.42, 'p10_sd3': 5.36}
+{'t_s': 11.4, 'hero_over_park': True, 'hero_haf_m': 33.6, 'lawn_pct': 15.6, 'windows': 23, 'median_sd3': 7.21, 'p10_sd3': 6.12}
+{'t_s': 11.65, 'hero_over_park': True, 'hero_haf_m': 35.6, 'lawn_pct': 16.1, 'windows': 26, 'median_sd3': 7.51, 'p10_sd3': 6.51}
+{'t_s': 11.9, 'hero_over_park': True, 'hero_haf_m': 37.4, 'lawn_pct': 17.1, 'windows': 25, 'median_sd3': 7.45, 'p10_sd3': 6.0}
+{'t_s': 12.15, 'hero_over_park': True, 'hero_haf_m': 38.8, 'lawn_pct': 18.3, 'windows': 26, 'median_sd3': 7.76, 'p10_sd3': 5.48}
+{'t_s': 12.4, 'hero_over_park': True, 'hero_haf_m': 40.0, 'lawn_pct': 17.4, 'windows': 25, 'median_sd3': 9.16, 'p10_sd3': 7.17}
+{'t_s': 12.65, 'hero_over_park': True, 'hero_haf_m': 40.5, 'lawn_pct': 17.8, 'windows': 24, 'median_sd3': 10.48, 'p10_sd3': 7.64}
+{'t_s': 12.9, 'hero_over_park': True, 'hero_haf_m': 40.2, 'lawn_pct': 18.3, 'windows': 18, 'median_sd3': 10.37, 'p10_sd3': 7.37}
+{'t_s': 13.15, 'hero_over_park': True, 'hero_haf_m': 39.7, 'lawn_pct': 18.9, 'windows': 22, 'median_sd3': 10.08, 'p10_sd3': 7.22}
+{'t_s': 13.4, 'hero_over_park': True, 'hero_haf_m': 38.8, 'lawn_pct': 20.0, 'windows': 24, 'median_sd3': 9.79, 'p10_sd3': 6.42}
+{'t_s': 13.65, 'hero_over_park': True, 'hero_haf_m': 36.7, 'lawn_pct': 24.0, 'windows': 35, 'median_sd3': 9.6, 'p10_sd3': 5.72}
+{'t_s': 13.9, 'hero_over_park': True, 'hero_haf_m': 36.5, 'lawn_pct': 27.2, 'windows': 47, 'median_sd3': 9.26, 'p10_sd3': 6.54}
+{'t_s': 14.15, 'hero_over_park': True, 'hero_haf_m': 35.2, 'lawn_pct': 28.9, 'windows': 61, 'median_sd3': 10.12, 'p10_sd3': 5.21}
+{'t_s': 14.4, 'hero_over_park': True, 'hero_haf_m': 33.9, 'lawn_pct': 28.9, 'windows': 52, 'median_sd3': 11.13, 'p10_sd3': 6.9}
+{'t_s': 14.65, 'hero_over_park': True, 'hero_haf_m': 32.4, 'lawn_pct': 29.9, 'windows': 55, 'median_sd3': 9.98, 'p10_sd3': 6.22}
+{'t_s': 14.9, 'hero_over_park': True, 'hero_haf_m': 30.9, 'lawn_pct': 32.0, 'windows': 71, 'median_sd3': 9.16, 'p10_sd3': 4.76}
+{'t_s': 15.15, 'hero_over_park': True, 'hero_haf_m': 29.2, 'lawn_pct': 33.9, 'windows': 97, 'median_sd3': 7.46, 'p10_sd3': 3.97}

@@ -1,0 +1,116 @@
+[
+ {
+  "id": "hero-run",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/hero_run_side.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-crosswalk__dn_0329-0337.mp4",
+  "note": "hero running, full body"
+ },
+ {
+  "id": "hero-chase",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/hero_run_chase.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-toward-camera__dn_0418-0425.mp4",
+  "note": "hero running away from a chase camera behind"
+ },
+ {
+  "id": "hero-standing",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/hero_turntable_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-idle-street-og__og_0000.jpg",
+  "note": "hero full body on a street"
+ },
+ {
+  "id": "suit-close",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/suit_closeup_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/press-suit-closeup-fire__psblog_14.jpg",
+  "note": "suit fabric close-up"
+ },
+ {
+  "id": "hero-face",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/hero_face_lens_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-face-closeup__gr_0230.jpg",
+  "note": "mask and lens close-up"
+ },
+ {
+  "id": "thugs-group",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/street_fight_wide_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thugs-group-nm__nm_0049.jpg",
+  "note": "a group of street criminals around the hero"
+ },
+ {
+  "id": "fight-clip",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/street_fight_34.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/street-combo__nm_0214-0224.mp4",
+  "note": "hero among a group of thugs, mid camera above"
+ },
+ {
+  "id": "thug-close",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/thug_face_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thug-closeup-dn__dn_0523.jpg",
+  "note": "street criminal close-up"
+ },
+ {
+  "id": "citizens-clip",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_tracking.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/clips/street-npcs-idle__dn_0600-0608.mp4",
+  "note": "pedestrians near the camera"
+ },
+ {
+  "id": "citizens-still",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_tracking_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/npc-group-dn__dn_0725.jpg",
+  "note": "a group of pedestrians on a street"
+ },
+ {
+  "id": "progress-crowd-still",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_tracking_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-05/captures/crowd_tracking_4k.jpg",
+  "note": "two versions of our pedestrians (still)"
+ },
+ {
+  "id": "progress-crowd-clip",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_tracking.mp4",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-05/captures/crowd_tracking.mp4",
+  "note": "two versions of our pedestrians (clip)"
+ },
+ {
+  "id": "progress-run",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/hero_run_side.mp4",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-05/captures/hero_run_side.mp4",
+  "note": "two versions of our hero run"
+ },
+ {
+  "id": "progress-key-a",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_key_a_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-05/captures/crowd_key_a_4k.jpg",
+  "note": "two versions of the same pedestrians in front of a flat green backdrop: judge holes and see-through gaps INSIDE torsos and sleeves, spikes and stretched fingers"
+ },
+ {
+  "id": "progress-key-c",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-06/captures/crowd_key_c_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-05/captures/crowd_key_c_4k.jpg",
+  "note": "two versions of the same pedestrians in front of a flat green backdrop: judge holes and see-through gaps INSIDE torsos and sleeves, spikes and stretched fingers"
+ },
+ {
+  "id": "coat-close",
+  "x": "/Users/midir/sm2-n1/_scratch/critic-P2-r06/crops/r6_coat-close.jpg",
+  "y": "/Users/midir/sm2-n1/_scratch/critic-P2-r06/crops/r5_coat-close.jpg",
+  "note": "a pedestrian in an olive coat, hem and thigh, close-up: judge tears, flaps, spikes (two versions of our pedestrians / enemy)"
+ },
+ {
+  "id": "hand-close",
+  "x": "/Users/midir/sm2-n1/_scratch/critic-P2-r06/crops/r6_hand-close.jpg",
+  "y": "/Users/midir/sm2-n1/_scratch/critic-P2-r06/crops/r5_hand-close.jpg",
+  "note": "a pedestrian hand and cuff, close-up: judge stretched or torn fingers (two versions of our pedestrians / enemy)"
+ },
+ {
+  "id": "armpit-close",
+  "x": "/Users/midir/sm2-n1/_scratch/critic-P2-r06/crops/r6_armpit-close.jpg",
+  "y": "/Users/midir/sm2-n1/_scratch/critic-P2-r06/crops/r5_armpit-close.jpg",
+  "note": "a pedestrian torso and sleeve on a flat green backdrop: judge any green showing through the cloth (two versions of our pedestrians / enemy)"
+ },
+ {
+  "id": "collar-close",
+  "x": "/Users/midir/sm2-n1/_scratch/critic-P2-r06/crops/r6_collar-close.jpg",
+  "y": "/Users/midir/sm2-n1/_scratch/critic-P2-r06/crops/r5_collar-close.jpg",
+  "note": "a masked man, jacket collar and neck: judge geometry spikes or shards (two versions of our pedestrians / enemy)"
+ }
+]

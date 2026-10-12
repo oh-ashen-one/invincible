@@ -1,0 +1,24 @@
+# Swing arc test, round 07 (drop >= 10 m per swing)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+## a_swing_chain
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   0.40   21.0   19.6    5.0   16.1   15.7   29.9  1.75      0.4%   19.1%  ok (first swing exempt)
+ 2   2.53   19.0   18.7    5.2   13.7   17.3   32.9  1.53     12.4%   24.1%  ok
+ 3   4.40   20.0   20.0    7.8   12.2   18.8   31.8  1.35     21.2%   29.5%  ok
+ 4   6.40   21.8   21.5    5.1   16.7   17.7   34.0  1.42     11.5%   18.4%  ok
+ 5   8.15   20.3   19.9    8.6   11.7   19.7   30.4  1.10     29.3%   37.2%  ok
+ 6   9.52   21.6   21.7    6.6   15.0   18.2   31.3  1.15     19.6%   25.5%  ok
+ 7  11.32   21.4   21.0    7.0   14.4   18.5   32.1  1.08     26.7%   35.5%  ok
+ 8  12.70   20.8   20.8    5.7   15.1   17.4   33.8  1.15     25.7%   32.5%  ok
+ 9  14.18   20.1   19.8    7.8   12.3   18.5   32.7  1.13     26.5%   32.7%  ok
+DROP TEST: PASS (9 swings)
+
+## d_sprint_jump_first_swing
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   2.68    5.0    4.9    2.2    2.8    9.7   20.0  1.38     36.7%   39.9%  DROP<10 (first swing exempt)
+ 2   4.55   14.5   14.4    3.5   11.0   14.0   30.1  1.83      3.1%   24.8%  ok
+ 3   6.82   18.0   17.8    7.3   10.6   20.6   31.8  1.63     17.6%   30.2%  ok
+ 4   9.10   23.1   22.7    6.1   17.0   18.2   33.0  1.42      8.8%   16.8%  ok
+ 5  10.83   20.6   20.3    8.7   11.9   19.8   30.4  1.12     29.7%   37.1%  ok
+DROP TEST: PASS (5 swings)

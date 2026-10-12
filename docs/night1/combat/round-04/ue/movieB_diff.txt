@@ -1,0 +1,1 @@
+events 381 vs 377, identical (text + time within 0.020 s): 150; first difference (11.05, 'threat e5 heavy lead 0.85', 11.067, 'shot e3 missed (invulnerable)')

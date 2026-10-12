@@ -1,0 +1,147 @@
+{
+ "RTvD": {
+  "props_components_in_rt": 136,
+  "props_instances_in_rt": 136,
+  "props_components_out": 0,
+  "geo_saved": true,
+  "maps": {
+   "Manhattan": {
+    "saved": true,
+    "levels": [
+     "Manhattan",
+     "Manhattan_Actors",
+     "Look_Rig_golden",
+     "Look_Boxes",
+     "City_Midtown_Geo"
+    ]
+   },
+   "Manhattan_View_S1": {
+    "saved": true,
+    "levels": [
+     "Manhattan_View_S1",
+     "Manhattan_Actors",
+     "Look_Rig_golden",
+     "Look_Boxes",
+     "City_Midtown_Geo"
+    ]
+   },
+   "Manhattan_View_S2": {
+    "saved": true,
+    "levels": [
+     "Manhattan_View_S2",
+     "Manhattan_Actors",
+     "Look_Rig_golden",
+     "Look_Boxes",
+     "City_Midtown_Geo"
+    ]
+   },
+   "View_S7": {
+    "saved": true,
+    "levels": [
+     "View_S7",
+     "Look_Boxes",
+     "Manhattan_Actors",
+     "Look_Rig_golden",
+     "City_Midtown_Geo"
+    ]
+   }
+  }
+ },
+ "RTvE": {
+  "props_components_in_rt": 1,
+  "props_instances_in_rt": 28965,
+  "props_components_out": 0,
+  "geo_saved": true,
+  "maps": {
+   "Manhattan": {
+    "saved": true,
+    "levels": [
+     "Manhattan",
+     "Look_Boxes",
+     "Manhattan_Actors",
+     "Look_Rig_golden",
+     "City_Midtown_Geo"
+    ]
+   },
+   "Manhattan_View_S1": {
+    "saved": true,
+    "levels": [
+     "Manhattan_View_S1",
+     "Look_Rig_golden",
+     "Manhattan_Actors",
+     "Look_Boxes",
+     "City_Midtown_Geo"
+    ]
+   },
+   "Manhattan_View_S2": {
+    "saved": true,
+    "levels": [
+     "Manhattan_View_S2",
+     "Manhattan_Actors",
+     "Look_Boxes",
+     "Look_Rig_golden",
+     "City_Midtown_Geo"
+    ]
+   },
+   "View_S7": {
+    "saved": true,
+    "levels": [
+     "View_S7",
+     "Manhattan_Actors",
+     "Look_Rig_golden",
+     "Look_Boxes",
+     "City_Midtown_Geo"
+    ]
+   }
+  }
+ },
+ "RTvF": {
+  "props_components_in_rt": 137,
+  "props_instances_in_rt": 29101,
+  "props_components_out": 0,
+  "geo_saved": true,
+  "maps": {
+   "Manhattan": {
+    "saved": true,
+    "levels": [
+     "Manhattan",
+     "Manhattan_Actors",
+     "Look_Rig_golden",
+     "Look_Boxes",
+     "City_Midtown_Geo"
+    ]
+   },
+   "Manhattan_View_S1": {
+    "saved": true,
+    "levels": [
+     "Manhattan_View_S1",
+     "Look_Rig_golden",
+     "Manhattan_Actors",
+     "Look_Boxes",
+     "City_Midtown_Geo"
+    ]
+   },
+   "Manhattan_View_S2": {
+    "saved": true,
+    "levels": [
+     "Manhattan_View_S2",
+     "Look_Rig_golden",
+     "Manhattan_Actors",
+     "Look_Boxes",
+     "City_Midtown_Geo"
+    ]
+   },
+   "View_S7": {
+    "saved": true,
+    "levels": [
+     "View_S7",
+     "Manhattan_Actors",
+     "Look_Rig_golden",
+     "Look_Boxes",
+     "City_Midtown_Geo"
+    ]
+   }
+  }
+ },
+ "secs": 39.4
+}

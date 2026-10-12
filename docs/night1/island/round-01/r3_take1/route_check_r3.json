@@ -1,0 +1,54 @@
+{
+ "summary": {
+  "routes": 1,
+  "seconds": 30.4,
+  "fall_through": 0,
+  "stuck": 0,
+  "mid_air_frames": 0,
+  "wall_air_frames": 0,
+  "anchors": 17,
+  "web_air": 0,
+  "facadeLod_min_dist_m": 383.8,
+  "boxes": 56816,
+  "facadeLod_tiles": 86
+ },
+ "routes": [
+  {
+   "csv": "r3_crosstown_east_telemetry.csv",
+   "frames": 1823,
+   "seconds": 30.37,
+   "path_m": 355.5,
+   "modes": {
+    "air": 236,
+    "swing": 76,
+    "land": 26,
+    "ground": 1485
+   },
+   "supported_frames": 1511,
+   "fall_through": 0,
+   "stuck": 0,
+   "mid_air_frames": 0,
+   "wall_air_frames": 0,
+   "anchors": 17,
+   "web_air": 0,
+   "facadeLod_min_dist_m": 383.8,
+   "events": {
+    "fall_through": [],
+    "stuck": [],
+    "mid_air": [],
+    "wall_air": [],
+    "web_air": []
+   },
+   "start": [
+    -559.6,
+    640.0,
+    29.997
+   ],
+   "end": [
+    -337.813,
+    633.866,
+    1.104
+   ]
+  }
+ ]
+}

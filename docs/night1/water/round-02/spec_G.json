@@ -1,0 +1,128 @@
+{
+ "S4_golden_1080.jpg": {
+  "file": "S4_golden_1080.jpg",
+  "C14": 14.5,
+  "far_shore_Y": 150.5,
+  "river_Y": 136.0,
+  "farfield_json": "S4_golden_1080.jpg.farfield.json"
+ },
+ "S4_golden_4k.jpg": {
+  "file": "S4_golden_4k.jpg",
+  "C14": 15.5,
+  "far_shore_Y": 150.7,
+  "river_Y": 135.2,
+  "farfield_json": "S4_golden_4k.jpg.farfield.json"
+ },
+ "harbour_high_1080.jpg": {
+  "file": "harbour_high_1080.jpg",
+  "src_width": 1920,
+  "mean_Y": 90.2,
+  "rgb": [
+   101.1,
+   89.3,
+   67.0
+  ],
+  "p1": 67.8,
+  "p99_5": 119.3,
+  "highpass_sd": 3.03,
+  "glint_pct_ge140": 0.0,
+  "glint_pct_ge130": 0.0,
+  "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame"
+ },
+ "harbour_high_4k.jpg": {
+  "file": "harbour_high_4k.jpg",
+  "src_width": 3840,
+  "mean_Y": 90.1,
+  "rgb": [
+   101.0,
+   89.2,
+   67.1
+  ],
+  "p1": 67.0,
+  "p99_5": 121.0,
+  "highpass_sd": 4.26,
+  "glint_pct_ge140": 0.0,
+  "glint_pct_ge130": 0.04,
+  "note": ""
+ },
+ "river_low_1080.jpg": {
+  "file": "river_low_1080.jpg",
+  "src_width": 1920,
+  "mean_Y": 95.5,
+  "rgb": [
+   103.3,
+   95.5,
+   72.8
+  ],
+  "p1": 62.8,
+  "p99_5": 139.1,
+  "highpass_sd": 5.66,
+  "glint_pct_ge140": 0.48,
+  "glint_pct_ge130": 1.07,
+  "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame"
+ },
+ "river_low_4k.jpg": {
+  "file": "river_low_4k.jpg",
+  "src_width": 3840,
+  "mean_Y": 99.8,
+  "rgb": [
+   107.6,
+   99.7,
+   77.2
+  ],
+  "p1": 61.6,
+  "p99_5": 144.2,
+  "highpass_sd": 7.95,
+  "glint_pct_ge140": 0.68,
+  "glint_pct_ge130": 2.43,
+  "note": ""
+ },
+ "river_low_dolly.mp4": {
+  "file": "river_low_dolly.mp4",
+  "frames": 600,
+  "sampled": 100,
+  "autocorr_80px": 0.026,
+  "autocorr_80px_max": 0.087,
+  "water_dT_per_sample": 3.31
+ },
+ "river_sun_1080.jpg": {
+  "file": "river_sun_1080.jpg",
+  "src_width": 1920,
+  "mean_Y": 161.2,
+  "rgb": [
+   194.2,
+   157.8,
+   97.5
+  ],
+  "p1": 64.7,
+  "p99_5": 251.7,
+  "highpass_sd": 11.13,
+  "glint_pct_ge140": 59.65,
+  "glint_pct_ge130": 63.76,
+  "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame"
+ },
+ "river_sun_4k.jpg": {
+  "file": "river_sun_4k.jpg",
+  "src_width": 3840,
+  "mean_Y": 161.5,
+  "rgb": [
+   193.9,
+   158.1,
+   99.6
+  ],
+  "p1": 65.1,
+  "p99_5": 252.6,
+  "highpass_sd": 16.89,
+  "glint_pct_ge140": 59.75,
+  "glint_pct_ge130": 64.47,
+  "note": ""
+ },
+ "river_sun_dolly.mp4": {
+  "file": "river_sun_dolly.mp4",
+  "frames": 600,
+  "sampled": 100,
+  "autocorr_80px": 0.031,
+  "autocorr_80px_max": 0.112,
+  "water_dT_per_sample": 4.18
+ }
+}

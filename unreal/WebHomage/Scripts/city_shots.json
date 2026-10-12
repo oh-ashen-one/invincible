@@ -1,0 +1,196 @@
+[
+ {
+  "id": "S1_avenue_street",
+  "desc": "avenue canyon, street level, looking north up the 5th-Av-like avenue",
+  "pos": [
+   246,
+   2.0,
+   150
+  ],
+  "target": [
+   251,
+   16,
+   -300
+  ],
+  "fov": 75,
+  "player": [
+   249,
+   0.15,
+   178
+  ],
+  "sun": [
+   -40,
+   -45
+  ]
+ },
+ {
+  "id": "S2_avenue_swing",
+  "desc": "mid-height swing view down the avenue",
+  "pos": [
+   243,
+   42,
+   185
+  ],
+  "target": [
+   252,
+   18,
+   -350
+  ],
+  "fov": 80,
+  "player": [
+   249,
+   0.15,
+   178
+  ],
+  "sun": [
+   -40,
+   -45
+  ]
+ },
+ {
+  "id": "S3_rooftop_watertower",
+  "desc": "rooftop with water tower, towers behind",
+  "pos": [
+   166,
+   48.5,
+   -122
+  ],
+  "target": [
+   158,
+   51,
+   -150
+  ],
+  "fov": 75,
+  "player": [
+   249,
+   0.15,
+   178
+  ],
+  "sun": [
+   -40,
+   -45
+  ]
+ },
+ {
+  "id": "S4_perch_skyline",
+  "desc": "high perch on a glass tower top, skyline to the north-west",
+  "pos": [
+   182,
+   306,
+   -92
+  ],
+  "target": [
+   -120,
+   150,
+   -470
+  ],
+  "fov": 75,
+  "player": [
+   249,
+   0.15,
+   178
+  ],
+  "sun": [
+   -40,
+   -45
+  ],
+  "fog": 0.004, "fogstart": 4500, "fogc": [0.60, 0.62, 0.66]
+ },
+ {
+  "id": "S5_timessq_south",
+  "desc": "Times-Square-like bowtie, from the steps looking south at the tower",
+  "pos": [
+   -12,
+   6,
+   -255
+  ],
+  "target": [
+   0,
+   48,
+   -40
+  ],
+  "fov": 80,
+  "player": [
+   -20,
+   0.3,
+   -230
+  ],
+  "sun": [
+   -40,
+   -45
+  ]
+ },
+ {
+  "id": "S6_timessq_street",
+  "desc": "Times-Square-like bowtie at street level looking north",
+  "pos": [
+   8,
+   1.8,
+   -110
+  ],
+  "target": [
+   -4,
+   26,
+   -330
+  ],
+  "fov": 80,
+  "player": [
+   2,
+   0.15,
+   -125
+  ],
+  "sun": [
+   -40,
+   -45
+  ]
+ },
+ {
+  "id": "S7_sunset_crosstown",
+  "desc": "sunset, mid-height looking west down a cross street into the sun",
+  "pos": [
+   300,
+   30,
+   -160
+  ],
+  "target": [
+   -300,
+   22,
+   -160
+  ],
+  "fov": 75,
+  "player": [
+   249,
+   0.15,
+   178
+  ],
+  "sun": [
+   -7,
+   0
+  ],
+  "sunset": true
+ },
+ {
+  "id": "S8_aerial_midtown",
+  "desc": "high swing / aerial over midtown toward the park",
+  "pos": [
+   420,
+   160,
+   220
+  ],
+  "target": [
+   0,
+   20,
+   -320
+  ],
+  "fov": 75,
+  "player": [
+   249,
+   0.15,
+   178
+  ],
+  "sun": [
+   -40,
+   -45
+  ]
+ }
+]

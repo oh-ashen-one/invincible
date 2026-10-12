@@ -1,0 +1,26 @@
+[
+  {
+    "sample_xy": [
+      562.0234741784037,
+      100
+    ],
+    "luma_threshold": 160,
+    "approx_bright_core_width_px": 3.25
+  },
+  {
+    "sample_xy": [
+      627.0469483568075,
+      200
+    ],
+    "luma_threshold": 160,
+    "approx_bright_core_width_px": 3.25
+  },
+  {
+    "sample_xy": [
+      692.0704225352113,
+      300
+    ],
+    "luma_threshold": 160,
+    "approx_bright_core_width_px": 3.25
+  }
+]

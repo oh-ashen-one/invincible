@@ -1,0 +1,62 @@
+[  1]LogTemp: Display: WH_PROBE tick=1 frame=1 world=0.401 stage_T=27.500 dt_ms=400.0 textures_not_resident=0 () assets_compiling=28 shaders_compiling=1
+[  2]LogTemp: Display: WH_PROBE tick=2 frame=2 world=0.556 stage_T=27.900 dt_ms=155.4 textures_not_resident=0 () assets_compiling=26 shaders_compiling=0
+[  3]LogTemp: Display: WH_PROBE tick=3 frame=3 world=0.738 stage_T=28.055 dt_ms=182.2 textures_not_resident=0 () assets_compiling=27 shaders_compiling=1
+[  3]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0003.png requested at frame 3 (target 3) world=0.738 assets_compiling=27 shaders_compiling=1 textures_not_resident=0
+[  4]LogTemp: Display: WH_PROBE tick=4 frame=4 world=1.138 stage_T=28.238 dt_ms=400.0 textures_not_resident=0 () assets_compiling=24 shaders_compiling=0
+[  5]LogTemp: Display: WH_PROBE tick=5 frame=5 world=1.319 stage_T=28.638 dt_ms=181.3 textures_not_resident=0 () assets_compiling=23 shaders_compiling=0
+[  5]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0005.png requested at frame 5 (target 5) world=1.319 assets_compiling=23 shaders_compiling=0 textures_not_resident=0
+[  6]LogTemp: Display: WH_PROBE tick=6 frame=6 world=1.719 stage_T=28.819 dt_ms=400.0 textures_not_resident=0 () assets_compiling=21 shaders_compiling=0
+[  7]LogTemp: Display: WH_PROBE tick=7 frame=7 world=1.858 stage_T=29.219 dt_ms=138.7 textures_not_resident=0 () assets_compiling=20 shaders_compiling=0
+[  8]LogTemp: Display: WH_PROBE tick=8 frame=8 world=2.013 stage_T=29.357 dt_ms=154.6 textures_not_resident=0 () assets_compiling=18 shaders_compiling=0
+[  8]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0008.png requested at frame 8 (target 8) world=2.013 assets_compiling=18 shaders_compiling=0 textures_not_resident=0
+[  9]LogTemp: Display: WH_PROBE tick=9 frame=9 world=2.413 stage_T=29.512 dt_ms=400.0 textures_not_resident=0 () assets_compiling=16 shaders_compiling=0
+[ 10]LogTemp: Display: WH_PROBE tick=10 frame=10 world=2.546 stage_T=29.912 dt_ms=133.0 textures_not_resident=0 () assets_compiling=15 shaders_compiling=0
+[ 10]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0010.png requested at frame 10 (target 10) world=2.546 assets_compiling=15 shaders_compiling=0 textures_not_resident=0
+[ 11]LogTemp: Display: WH_PROBE tick=11 frame=11 world=2.946 stage_T=30.045 dt_ms=400.0 textures_not_resident=0 () assets_compiling=13 shaders_compiling=0
+[ 12]LogTemp: Display: WH_PROBE tick=12 frame=12 world=3.073 stage_T=30.445 dt_ms=127.1 textures_not_resident=0 () assets_compiling=12 shaders_compiling=0
+[ 12]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0012.png requested at frame 12 (target 12) world=3.073 assets_compiling=12 shaders_compiling=0 textures_not_resident=0
+[ 13]LogTemp: Display: WH_PROBE tick=13 frame=13 world=3.473 stage_T=30.572 dt_ms=400.0 textures_not_resident=0 () assets_compiling=11 shaders_compiling=0
+[ 14]LogTemp: Display: WH_PROBE tick=14 frame=14 world=3.640 stage_T=30.972 dt_ms=167.6 textures_not_resident=0 () assets_compiling=10 shaders_compiling=0
+[ 14]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0014.png requested at frame 14 (target 14) world=3.640 assets_compiling=10 shaders_compiling=0 textures_not_resident=0
+[ 15]LogTemp: Display: WH_PROBE tick=15 frame=15 world=4.040 stage_T=31.140 dt_ms=400.0 textures_not_resident=0 () assets_compiling=9 shaders_compiling=0
+[ 16]LogTemp: Display: WH_PROBE tick=16 frame=16 world=4.229 stage_T=31.540 dt_ms=188.8 textures_not_resident=0 () assets_compiling=8 shaders_compiling=0
+[ 16]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0016.png requested at frame 16 (target 16) world=4.229 assets_compiling=8 shaders_compiling=0 textures_not_resident=0
+[ 17]LogTemp: Display: WH_PROBE tick=17 frame=17 world=4.629 stage_T=31.729 dt_ms=400.0 textures_not_resident=0 () assets_compiling=7 shaders_compiling=0
+[ 18]LogTemp: Display: WH_PROBE tick=18 frame=18 world=4.825 stage_T=32.129 dt_ms=196.4 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 19]LogTemp: Display: WH_PROBE tick=19 frame=19 world=5.044 stage_T=32.325 dt_ms=218.4 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 20]LogTemp: Display: WH_PROBE tick=20 frame=20 world=5.266 stage_T=32.543 dt_ms=222.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 20]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0020.png requested at frame 20 (target 20) world=5.266 assets_compiling=0 shaders_compiling=0 textures_not_resident=0
+[ 21]LogTemp: Display: WH_PROBE tick=21 frame=21 world=5.666 stage_T=32.765 dt_ms=400.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 22]LogTemp: Display: WH_PROBE tick=22 frame=22 world=5.884 stage_T=33.165 dt_ms=217.6 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 23]LogTemp: Display: WH_PROBE tick=23 frame=23 world=6.105 stage_T=33.383 dt_ms=221.6 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 24]LogTemp: Display: WH_PROBE tick=24 frame=24 world=6.319 stage_T=33.605 dt_ms=213.6 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 24]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0024.png requested at frame 24 (target 24) world=6.319 assets_compiling=0 shaders_compiling=0 textures_not_resident=0
+[ 25]LogTemp: Display: WH_PROBE tick=25 frame=25 world=6.719 stage_T=33.818 dt_ms=400.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 26]LogTemp: Display: WH_PROBE tick=26 frame=26 world=6.940 stage_T=34.218 dt_ms=220.8 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 27]LogTemp: Display: WH_PROBE tick=27 frame=27 world=7.139 stage_T=34.439 dt_ms=199.8 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 28]LogTemp: Display: WH_PROBE tick=28 frame=28 world=7.356 stage_T=34.639 dt_ms=216.3 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 29]LogTemp: Display: WH_PROBE tick=29 frame=29 world=7.536 stage_T=34.855 dt_ms=180.2 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 30]LogTemp: Display: WH_PROBE tick=30 frame=30 world=7.674 stage_T=35.035 dt_ms=138.3 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 31]LogTemp: Display: WH_PROBE tick=31 frame=31 world=7.827 stage_T=35.174 dt_ms=152.5 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 32]LogTemp: Display: WH_PROBE tick=32 frame=32 world=8.049 stage_T=35.326 dt_ms=222.6 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 32]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0032.png requested at frame 32 (target 32) world=8.049 assets_compiling=0 shaders_compiling=0 textures_not_resident=0
+[ 33]LogTemp: Display: WH_PROBE tick=33 frame=33 world=8.449 stage_T=35.549 dt_ms=400.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 34]LogTemp: Display: WH_PROBE tick=34 frame=34 world=8.594 stage_T=35.949 dt_ms=144.9 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 35]LogTemp: Display: WH_PROBE tick=35 frame=35 world=8.769 stage_T=36.094 dt_ms=174.7 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 36]LogTemp: Display: WH_PROBE tick=36 frame=36 world=8.910 stage_T=36.268 dt_ms=141.6 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 37]LogTemp: Display: WH_PROBE tick=37 frame=37 world=9.036 stage_T=36.410 dt_ms=125.1 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 38]LogTemp: Display: WH_PROBE tick=38 frame=38 world=9.241 stage_T=36.535 dt_ms=205.1 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 39]LogTemp: Display: WH_PROBE tick=39 frame=39 world=9.383 stage_T=36.740 dt_ms=142.4 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 40]LogTemp: Display: WH_PROBE tick=40 frame=40 world=9.516 stage_T=36.883 dt_ms=133.1 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 44]LogTemp: Display: WH_PROBE tick=44 frame=44 world=10.175 stage_T=37.455 dt_ms=218.9 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 48]LogTemp: Display: WH_PROBE tick=48 frame=48 world=10.816 stage_T=38.182 dt_ms=134.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 48]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0048.png requested at frame 48 (target 48) world=10.816 assets_compiling=0 shaders_compiling=0 textures_not_resident=0
+[ 52]LogTemp: Display: WH_PROBE tick=52 frame=52 world=11.741 stage_T=39.081 dt_ms=159.5 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 56]LogTemp: Display: WH_PROBE tick=56 frame=56 world=12.397 stage_T=39.712 dt_ms=184.3 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 60]LogTemp: Display: WH_PROBE tick=60 frame=60 world=13.257 stage_T=40.551 dt_ms=205.3 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 64]LogTemp: Display: WH_PROBE tick=64 frame=64 world=14.015 stage_T=41.296 dt_ms=218.7 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 68]LogTemp: Display: WH_PROBE tick=68 frame=68 world=14.723 stage_T=42.006 dt_ms=216.2 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 72]LogTemp: Display: WH_PROBE tick=72 frame=72 world=15.339 stage_T=42.616 dt_ms=222.5 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 72]LogTemp: Display: WH_SHOTFRAME /Users/midir/sm2-n1/_scratch/characters/r17/chainH/run/lineupx0/x0_f0072.png requested at frame 72 (target 72) world=15.339 assets_compiling=0 shaders_compiling=0 textures_not_resident=0
+[ 76]LogTemp: Display: WH_PROBE tick=76 frame=76 world=16.249 stage_T=43.605 dt_ms=143.4 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 76]LogTemp: Display: WH_QUIT frame 76 (director: after the last of 12 -WHShotFrames shots)

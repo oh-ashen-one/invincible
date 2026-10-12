@@ -1,0 +1,82 @@
+GPU0-Graphics0 top-level events (ms from the first SceneRender start):
+    -10.72 ->    -9.43    1.29  BasePass
+     -9.26 ->    -8.88    0.38  VirtualShadowMapMarkPages
+     -8.88 ->    -6.92    1.97  ShadowDepths
+     -6.92 ->    -4.47    2.44  RenderDeferredLighting
+     -4.46 ->    -3.75    0.71  Lights
+     -3.45 ->    -2.86    0.59  VolumetricCloud
+     -2.66 ->    -0.14    2.52  PostProcessing
+      0.00 ->    10.76   10.76  SceneRender
+     10.90 ->    11.47    0.56  VolumetricCloud
+     11.65 ->    14.17    2.52  PostProcessing
+     14.29 ->    28.54   14.25  SceneRender
+     28.64 ->    32.02    3.38  SceneRender
+     32.02 ->    32.60    0.58  LumenSceneLighting%s
+     32.61 ->    33.97    1.36  BasePass
+     34.14 ->    34.53    0.39  VirtualShadowMapMarkPages
+     34.53 ->    36.40    1.87  ShadowDepths
+     36.40 ->    38.91    2.51  RenderDeferredLighting
+     38.92 ->    39.64    0.72  Lights
+     39.94 ->    40.52    0.58  VolumetricCloud
+     40.70 ->    43.21    2.51  PostProcessing
+     43.35 ->    47.00    3.65  SceneRender
+     47.00 ->    47.51    0.51  LumenSceneLighting%s
+     47.52 ->    48.83    1.32  BasePass
+     49.00 ->    49.38    0.38  VirtualShadowMapMarkPages
+     49.38 ->    51.70    2.32  ShadowDepths
+     51.70 ->    54.33    2.63  RenderDeferredLighting
+     54.34 ->    55.07    0.73  Lights
+     55.37 ->    55.93    0.56  VolumetricCloud
+     56.13 ->    58.64    2.51  PostProcessing
+     58.77 ->    69.92   11.15  SceneRender
+
+RenderThread 0 long scopes (>4 ms):
+  d0    16.71 ms  Frame
+  d1    16.47 ms  SceneRender
+  d0    15.93 ms  Frame
+  d1    15.58 ms  SceneRender
+  d2    14.88 ms  FDeferredShadingSceneRenderer_Render
+  d3    14.03 ms  Scene
+  d4    12.22 ms  VisibilityCommands
+  d5    12.22 ms  FDeferredShadingSceneRenderer_InitViews
+  d6    12.15 ms  ProcessVisibilityTasks
+  d7    12.14 ms  WaitForVisibilityTasks
+  d8    12.14 ms  WaitUntilTasksComplete
+  d9    12.14 ms  WaitForTasks
+  d0    14.19 ms  Frame
+  d1    13.89 ms  SceneRender
+
+GameThread long scopes (>4 ms):
+  d0    16.74 ms  FEngineLoop::Tick
+  d1    16.74 ms  Frame
+  d2    14.37 ms  Sync_RenderingThread
+  d3    14.36 ms  GameThreadWaitForTask
+  d0    15.88 ms  FEngineLoop::Tick
+  d1    15.87 ms  Frame
+  d2    14.23 ms  Sync_RenderingThread
+  d3    14.22 ms  GameThreadWaitForTask
+  d0    14.20 ms  FEngineLoop::Tick
+  d1    14.19 ms  Frame
+  d2    12.55 ms  Sync_RenderingThread
+  d3    12.55 ms  GameThreadWaitForTask
+  d0    14.29 ms  FEngineLoop::Tick
+  d1    14.29 ms  Frame
+
+RHIThread long scopes (>4 ms):
+  d0     9.47 ms  WaitForTasks
+  d0     7.94 ms  WaitForTasks
+  d0     7.32 ms  WaitForTasks
+  d0     7.70 ms  WaitForTasks
+  d0     8.99 ms  WaitForTasks
+
+worker-thread long tasks (>4 ms):
+  Background Worker #1     d0    12.35 ms  ExecuteForegroundTask
+  Background Worker #1     d1    12.35 ms  OcclusionCullPipe
+  Background Worker #1     d2    12.34 ms  GPUBound_WaitingForGPUForOcclusionQueries_SeeGPUTrack
+  Background Worker #1     d3    12.34 ms  RHIGetRenderQueryResult_GPU_Wait
+  Background Worker #1     d4    12.34 ms  SyncPoint_Wait
+  Background Worker #1     d5    12.34 ms  FTaskBase::WaitWithNamedThreadsSupport
+  Background Worker #1     d6    12.33 ms  FTaskBase::WaitImpl_StateChangeEvent_WaitFor
+  Background Worker #1     d7    12.33 ms  Oversubscription
+  Foreground Worker #0     d0    11.99 ms  ExecuteForegroundTask
+  Foreground Worker #0     d1    11.99 ms  OcclusionCullPipe

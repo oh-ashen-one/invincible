@@ -1,0 +1,6 @@
+{
+  "runtime_source_commit": "ceb750f8",
+  "dylib_sha256": "ee06071d55e139fcd4a5ab280183daf6fa38131e9763132ea9ca972d069dddd2",
+  "scope": "c1 entry, c3/c4 camera regression before recent-trick guard",
+  "fixed_step_hz": 60
+}

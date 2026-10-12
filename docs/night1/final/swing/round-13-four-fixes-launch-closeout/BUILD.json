@@ -1,0 +1,6 @@
+{
+  "runtime_source_commit": "5b7b90740dff0e360660b29db7ca548a0313d061",
+  "dylib_sha256": "de94b9820e4f257cc329dd19b837a4e65ec09e5697ac33d7ba92c240f7901510",
+  "scope": "smooth80msreach plusvisibleflightremap; physics,input,catch,camera unchanged",
+  "status": "targeted753-frame launch/cancel/repress and relocated runtime verification PASS"
+}

@@ -1,0 +1,4 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# TSR history at 100 % of the 3840x2160 output instead of the Epic-tier 200 % (sg.AntiAliasingQuality 3 sets r.TSR.History.ScreenPercentage=200,
+# i.e. a 7680x4320 history buffer). Round 01: ~-1.6 ms at TSR 50 %; see docs/night1/perf/round-01/TABLE.md for the control-corrected number.
+r.TSR.History.ScreenPercentage=100

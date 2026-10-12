@@ -1,0 +1,772 @@
+{
+ "source": "/Users/midir/sm2-n1/_scratch/characters/r9/cap9b/fight_bones.csv",
+ "window": [
+  8.0,
+  16.0
+ ],
+ "walkers": {
+  "Fight_Hero": {
+   "knockdown_runs_s": [],
+   "longest_knockdown_s": 0.0,
+   "guard_baseline_cms_p95_first_second": 5.8,
+   "peak_bone_cms": 984.3,
+   "active_fraction_window": 0.657
+  },
+  "Fight_Thug": {
+   "knockdown_runs_s": [
+    [
+     12.733,
+     15.65
+    ]
+   ],
+   "longest_knockdown_s": 2.917,
+   "guard_baseline_cms_p95_first_second": 390.6,
+   "peak_bone_cms": 1156.6,
+   "active_fraction_window": 0.391
+  },
+  "Fight_Brute": {
+   "knockdown_runs_s": [
+    [
+     16.917,
+     20.716
+    ]
+   ],
+   "longest_knockdown_s": 3.799,
+   "guard_baseline_cms_p95_first_second": 5.4,
+   "peak_bone_cms": 1584.6,
+   "active_fraction_window": 0.299
+  },
+  "Fight_Hood": {
+   "knockdown_runs_s": [],
+   "longest_knockdown_s": 0.0,
+   "guard_baseline_cms_p95_first_second": 424.1,
+   "peak_bone_cms": 758.5,
+   "active_fraction_window": 0.441
+  },
+  "Fight_Tee": {
+   "knockdown_runs_s": [
+    [
+     9.017,
+     11.95
+    ]
+   ],
+   "longest_knockdown_s": 2.933,
+   "guard_baseline_cms_p95_first_second": 9.2,
+   "peak_bone_cms": 1215.0,
+   "active_fraction_window": 0.557
+  },
+  "Fight_Beard": {
+   "knockdown_runs_s": [],
+   "longest_knockdown_s": 0.0,
+   "guard_baseline_cms_p95_first_second": 9.2,
+   "peak_bone_cms": 900.3,
+   "active_fraction_window": 0.283
+  },
+  "Fight_Oxblood": {
+   "knockdown_runs_s": [
+    [
+     20.166,
+     22.95
+    ]
+   ],
+   "longest_knockdown_s": 2.784,
+   "guard_baseline_cms_p95_first_second": 9.2,
+   "peak_bone_cms": 1215.0,
+   "active_fraction_window": 0.239
+  }
+ },
+ "idle_windows_all_walkers_inactive": [],
+ "min_walkers_active_in_any_1s_window": 3,
+ "active_walkers_per_window_start": [
+  [
+   8.0,
+   4
+  ],
+  [
+   8.5,
+   4
+  ],
+  [
+   9.0,
+   3
+  ],
+  [
+   9.5,
+   5
+  ],
+  [
+   10.0,
+   5
+  ],
+  [
+   10.5,
+   5
+  ],
+  [
+   11.0,
+   5
+  ],
+  [
+   11.5,
+   4
+  ],
+  [
+   12.0,
+   4
+  ],
+  [
+   12.5,
+   4
+  ],
+  [
+   13.0,
+   3
+  ],
+  [
+   13.5,
+   5
+  ],
+  [
+   14.0,
+   5
+  ],
+  [
+   14.5,
+   6
+  ],
+  [
+   15.0,
+   5
+  ]
+ ],
+ "reactions": [
+  {
+   "walker": "Fight_Thug",
+   "clip": "fight:hitBack",
+   "start": 3.5,
+   "spine2_peak_cm": 31.8,
+   "head_peak_cm": 26.4,
+   "visible": true,
+   "in_window": false
+  },
+  {
+   "walker": "Fight_Thug",
+   "clip": "fight:down",
+   "start": 12.14,
+   "spine2_peak_cm": 138.6,
+   "head_peak_cm": 177.9,
+   "visible": true,
+   "in_window": true
+  },
+  {
+   "walker": "Fight_Thug",
+   "clip": "fight:hitLeft",
+   "start": 20.84,
+   "spine2_peak_cm": 29.7,
+   "head_peak_cm": 36.8,
+   "visible": true,
+   "in_window": false
+  },
+  {
+   "walker": "Fight_Hood",
+   "clip": "fight:hitLeft",
+   "start": 4.49,
+   "spine2_peak_cm": 29.8,
+   "head_peak_cm": 36.6,
+   "visible": true,
+   "in_window": false
+  },
+  {
+   "walker": "Fight_Hood",
+   "clip": "fight:hitRight",
+   "start": 13.47,
+   "spine2_peak_cm": 29.3,
+   "head_peak_cm": 38.4,
+   "visible": true,
+   "in_window": true
+  },
+  {
+   "walker": "Fight_Hood",
+   "clip": "fight:hitRight",
+   "start": 22.15,
+   "spine2_peak_cm": 26.4,
+   "head_peak_cm": 30.3,
+   "visible": true,
+   "in_window": false
+  },
+  {
+   "walker": "Fight_Tee",
+   "clip": "fight:down",
+   "start": 8.42,
+   "spine2_peak_cm": 136.8,
+   "head_peak_cm": 180.2,
+   "visible": true,
+   "in_window": true
+  },
+  {
+   "walker": "Fight_Tee",
+   "clip": "fight:hitBack",
+   "start": 18.3,
+   "spine2_peak_cm": 29.9,
+   "head_peak_cm": 35.4,
+   "visible": true,
+   "in_window": false
+  },
+  {
+   "walker": "Fight_Beard",
+   "clip": "fight:hitRight",
+   "start": 5.87,
+   "spine2_peak_cm": 25.7,
+   "head_peak_cm": 29.0,
+   "visible": true,
+   "in_window": false
+  },
+  {
+   "walker": "Fight_Beard",
+   "clip": "fight:hitBack",
+   "start": 14.8,
+   "spine2_peak_cm": 30.2,
+   "head_peak_cm": 35.0,
+   "visible": true,
+   "in_window": true
+  },
+  {
+   "walker": "Fight_Beard",
+   "clip": "fight:hitBack",
+   "start": 23.32,
+   "spine2_peak_cm": 30.8,
+   "head_peak_cm": 32.9,
+   "visible": true,
+   "in_window": false
+  },
+  {
+   "walker": "Fight_Oxblood",
+   "clip": "fight:hitLeft",
+   "start": 10.7,
+   "spine2_peak_cm": 26.1,
+   "head_peak_cm": 30.2,
+   "visible": true,
+   "in_window": true
+  },
+  {
+   "walker": "Fight_Oxblood",
+   "clip": "fight:down",
+   "start": 19.57,
+   "spine2_peak_cm": 131.2,
+   "head_peak_cm": 177.8,
+   "visible": true,
+   "in_window": false
+  },
+  {
+   "walker": "Fight_Brute",
+   "clip": "hero:hitReact",
+   "start": 7.14,
+   "spine2_peak_cm": 13.0,
+   "head_peak_cm": 16.4,
+   "visible": true,
+   "in_window": false
+  },
+  {
+   "walker": "Fight_Brute",
+   "clip": "fight:down",
+   "start": 16.32,
+   "spine2_peak_cm": 170.3,
+   "head_peak_cm": 220.9,
+   "visible": true,
+   "in_window": false
+  }
+ ],
+ "window_summary": {
+  "reactions": 5,
+  "visible": 5,
+  "distinct_clips": [
+   "fight:down",
+   "fight:hitBack",
+   "fight:hitLeft",
+   "fight:hitRight"
+  ],
+  "knockdowns_ge_1s_in_window": [
+   [
+    "Fight_Thug",
+    [
+     12.733,
+     15.65
+    ]
+   ],
+   [
+    "Fight_Tee",
+    [
+     9.017,
+     11.95
+    ]
+   ]
+  ]
+ },
+ "video_frame_diff_pct_per_1s_window": [
+  [
+   8.05,
+   1.48
+  ],
+  [
+   8.55,
+   1.39
+  ],
+  [
+   9.05,
+   0.94
+  ],
+  [
+   9.55,
+   1.58
+  ],
+  [
+   10.05,
+   1.97
+  ],
+  [
+   10.55,
+   1.13
+  ],
+  [
+   11.05,
+   1.6
+  ],
+  [
+   11.55,
+   2.51
+  ],
+  [
+   12.05,
+   2.83
+  ],
+  [
+   12.55,
+   2.5
+  ],
+  [
+   13.05,
+   1.57
+  ],
+  [
+   13.55,
+   1.8
+  ],
+  [
+   14.05,
+   2.06
+  ],
+  [
+   14.55,
+   1.7
+  ]
+ ],
+ "video_frame_diff_pct_min_window": 0.94,
+ "video_box_frame_diff_pct": {
+  "Fight_Hero": [
+   [
+    8.05,
+    12.88
+   ],
+   [
+    8.55,
+    14.64
+   ],
+   [
+    9.05,
+    10.9
+   ],
+   [
+    9.55,
+    13.87
+   ],
+   [
+    10.05,
+    13.31
+   ],
+   [
+    10.55,
+    5.56
+   ],
+   [
+    11.05,
+    9.65
+   ],
+   [
+    11.55,
+    21.3
+   ],
+   [
+    12.05,
+    22.82
+   ],
+   [
+    12.55,
+    19.31
+   ],
+   [
+    13.05,
+    14.28
+   ],
+   [
+    13.55,
+    16.05
+   ],
+   [
+    14.05,
+    18.18
+   ],
+   [
+    14.55,
+    10.65
+   ]
+  ],
+  "Fight_Thug": [
+   [
+    8.05,
+    5.35
+   ],
+   [
+    8.55,
+    3.46
+   ],
+   [
+    9.05,
+    2.67
+   ],
+   [
+    9.55,
+    9.41
+   ],
+   [
+    10.05,
+    11.79
+   ],
+   [
+    10.55,
+    6.34
+   ],
+   [
+    11.05,
+    11.45
+   ],
+   [
+    11.55,
+    20.92
+   ],
+   [
+    12.05,
+    17.04
+   ],
+   [
+    12.55,
+    11.45
+   ],
+   [
+    13.05,
+    1.6
+   ],
+   [
+    13.55,
+    1.64
+   ],
+   [
+    14.05,
+    1.56
+   ],
+   [
+    14.55,
+    6.22
+   ]
+  ],
+  "Fight_Brute": [
+   [
+    8.05,
+    8.57
+   ],
+   [
+    8.55,
+    12.59
+   ],
+   [
+    9.05,
+    12.27
+   ],
+   [
+    9.55,
+    8.88
+   ],
+   [
+    10.05,
+    7.31
+   ],
+   [
+    10.55,
+    3.24
+   ],
+   [
+    11.05,
+    3.96
+   ],
+   [
+    11.55,
+    8.34
+   ],
+   [
+    12.05,
+    10.44
+   ],
+   [
+    12.55,
+    11.24
+   ],
+   [
+    13.05,
+    10.36
+   ],
+   [
+    13.55,
+    11.81
+   ],
+   [
+    14.05,
+    20.7
+   ],
+   [
+    14.55,
+    9.71
+   ]
+  ],
+  "Fight_Hood": [
+   [
+    8.05,
+    6.42
+   ],
+   [
+    8.55,
+    7.74
+   ],
+   [
+    9.05,
+    4.37
+   ],
+   [
+    9.55,
+    5.31
+   ],
+   [
+    10.05,
+    7.4
+   ],
+   [
+    10.55,
+    4.67
+   ],
+   [
+    11.05,
+    1.72
+   ],
+   [
+    11.55,
+    3.81
+   ],
+   [
+    12.05,
+    7.58
+   ],
+   [
+    12.55,
+    11.82
+   ],
+   [
+    13.05,
+    12.09
+   ],
+   [
+    13.55,
+    12.41
+   ],
+   [
+    14.05,
+    12.17
+   ],
+   [
+    14.55,
+    6.24
+   ]
+  ],
+  "Fight_Tee": [
+   [
+    8.05,
+    17.01
+   ],
+   [
+    8.55,
+    6.15
+   ],
+   [
+    9.05,
+    4.01
+   ],
+   [
+    9.55,
+    11.78
+   ],
+   [
+    10.05,
+    14.02
+   ],
+   [
+    10.55,
+    5.67
+   ],
+   [
+    11.05,
+    11.86
+   ],
+   [
+    11.55,
+    21.17
+   ],
+   [
+    12.05,
+    20.99
+   ],
+   [
+    12.55,
+    12.81
+   ],
+   [
+    13.05,
+    13.4
+   ],
+   [
+    13.55,
+    12.72
+   ],
+   [
+    14.05,
+    11.02
+   ],
+   [
+    14.55,
+    8.57
+   ]
+  ],
+  "Fight_Beard": [
+   [
+    8.05,
+    1.42
+   ],
+   [
+    8.55,
+    2.06
+   ],
+   [
+    9.05,
+    0.61
+   ],
+   [
+    9.55,
+    1.08
+   ],
+   [
+    10.05,
+    4.56
+   ],
+   [
+    10.55,
+    5.38
+   ],
+   [
+    11.05,
+    2.53
+   ],
+   [
+    11.55,
+    0.96
+   ],
+   [
+    12.05,
+    2.64
+   ],
+   [
+    12.55,
+    2.58
+   ],
+   [
+    13.05,
+    2.16
+   ],
+   [
+    13.55,
+    6.65
+   ],
+   [
+    14.05,
+    13.64
+   ],
+   [
+    14.55,
+    7.69
+   ]
+  ],
+  "Fight_Oxblood": [
+   [
+    8.05,
+    1.63
+   ],
+   [
+    8.55,
+    1.73
+   ],
+   [
+    9.05,
+    1.73
+   ],
+   [
+    9.55,
+    8.2
+   ],
+   [
+    10.05,
+    13.45
+   ],
+   [
+    10.55,
+    7.53
+   ],
+   [
+    11.05,
+    12.66
+   ],
+   [
+    11.55,
+    15.42
+   ],
+   [
+    12.05,
+    9.62
+   ],
+   [
+    12.55,
+    6.2
+   ],
+   [
+    13.05,
+    2.32
+   ],
+   [
+    13.55,
+    2.12
+   ],
+   [
+    14.05,
+    2.43
+   ],
+   [
+    14.55,
+    4.89
+   ]
+  ]
+ }
+}

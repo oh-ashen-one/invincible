@@ -1,0 +1,26 @@
+{
+ "csv": "r2_south_avenue_telemetry.csv",
+ "route_check": "route_check_r2.json",
+ "t_end": 30.0,
+ "unanswered_release_at_s": null,
+ "pass_no_unanswered_release": true,
+ "n_gaps": 16,
+ "max_reweb_gap_s": 2.65,
+ "pass_max_gap_le_1_5": false,
+ "frac_gaps_le_0_5": 0.688,
+ "web_air_drawn": 0,
+ "pass_anchors_on_drawn": true,
+ "distinct_swing_anchors": 18,
+ "ground_land_frames_after_1s": 52,
+ "first_ground_land_t": 20.55,
+ "pass_no_ground_after_1s": false,
+ "path_m": 865.9,
+ "end": [
+  208.069,
+  816.915,
+  95.234
+ ],
+ "facadeLod_min_dist_m": null,
+ "pass_gaps_60pct_le_0_5": true,
+ "pass_all": false
+}

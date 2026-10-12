@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/perf/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/perf/docs/night1/perf/round-04/perf/v1/s2st -map /Game/Maps/Manhattan_View_S2 -res 3840x2160 -perf 15:45 -name s2st -timeout 900 -exec  -- -csvGpuStats -benchmark -fps=60 -notraceserver -csvCategories=VSM
+
+run_game: out=/Users/midir/sm2-n1/perf/docs/night1/perf/round-04/perf/v1/s2st res=3840x2160 quit=46.0 window=0 movie=0
+WH_PERF_START t=15.00
+WH_PERF frames=1800 avg_ms=14.71 fps=68.0 p95_ms=15.60 p99_ms=16.06 gpu_avg_ms=13.83 out=3840x2160 internal=1920x1080 (manual) -> /Users/midir/sm2-n1/perf/docs/night1/perf/round-04/perf/v1/s2st/s2st_perf.json
+WH_QUIT t=46.00
+

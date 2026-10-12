@@ -1,0 +1,96 @@
+{
+ "name": "d_sprint_jump_first_swing",
+ "spawn": {
+  "pos": [
+   -100,
+   0,
+   0.95
+  ],
+  "yaw": 0,
+  "camPitch": 0.14
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 0,
+   "sprint": true
+  },
+  {
+   "t": 0.0,
+   "trick": false
+  },
+  {
+   "t": 0.0,
+   "swing": false
+  },
+  {
+   "t": 1.8,
+   "jump": true
+  },
+  {
+   "t": 2.2,
+   "jump": false
+  },
+  {
+   "t": 2.595,
+   "swing": true
+  },
+  {
+   "t": 2.6,
+   "swing": true
+  },
+  {
+   "t": 4.1283,
+   "swing": false
+  },
+  {
+   "t": 4.2783,
+   "swing": true
+  },
+  {
+   "t": 6.4283,
+   "swing": false
+  },
+  {
+   "t": 6.5783,
+   "swing": true
+  },
+  {
+   "t": 8.1117,
+   "trick": true
+  },
+  {
+   "t": 8.1117,
+   "swing": false
+  },
+  {
+   "t": 8.1283,
+   "trick": false
+  },
+  {
+   "t": 8.2617,
+   "swing": true
+  },
+  {
+   "t": 10.1283,
+   "swing": false
+  },
+  {
+   "t": 10.2783,
+   "swing": true
+  },
+  {
+   "t": 11.795,
+   "swing": false
+  },
+  {
+   "t": 11.945,
+   "swing": true
+  }
+ ],
+ "baked_from": "d_auto.json"
+}

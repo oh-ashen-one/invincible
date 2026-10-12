@@ -1,0 +1,19 @@
+{
+  "source_commit": "195216591f5cd597467d097954f18b0a89c686e9",
+  "artifact_path": "/Users/midir/SpiderMan-FourFixes-OwnerPlaytest-20261012",
+  "verified_utc": "2026-10-12T04:29:05.680646+00:00",
+  "runtime_verified": true,
+  "verification_scope": "Relocated installed-UE5.8 -game scripted offscreen launch; Manhattan_Island, Tessera, native1920x1080 at100percent. Two rendered screenshots viewed; clean self-exit. Not manual-controls, realtime-performance or owner-acceptance evidence.",
+  "exit_code": 0,
+  "wall_seconds": 47.41,
+  "screenshots": [
+    "staged-smoke_00_t003.0.png",
+    "staged-smoke_01_t005.0.png"
+  ],
+  "files_verified_after_runtime": 51169,
+  "hash_mismatches": [],
+  "screenshot_sha256": {
+    "staged-smoke_00_t003.0.png": "36720895cb73a4e8323017d13f642a1a5e05da8b07e7cbb2c518f9b1cbaadf9b",
+    "staged-smoke_01_t005.0.png": "828ef351f4ae6b5e76e0c569a71225fbf8f26b40b9efa7272caa3c332c4401dd"
+  }
+}

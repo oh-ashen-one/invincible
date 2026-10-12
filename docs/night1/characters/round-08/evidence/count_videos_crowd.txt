@@ -1,0 +1,2 @@
+crowd_tracking.mp4 n 15 people med 10.0 p10 9.0 max 12 | >=3%H med 10.0 | height med 0.222 p90 0.527 max 0.576
+crowd_wide.mp4 n 12 people med 15.0 p10 15.0 max 17 | >=3%H med 15.0 | height med 0.160 p90 0.266 max 0.384

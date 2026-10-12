@@ -1,0 +1,140 @@
+{
+ "_note": "Terrain still cameras (piece E). UE metres: x east, y SOUTH (north = -y), z up. Park rectangle x -234..234, y -2151..-569. Built into /Game/Terrain/Maps/V_<id> (terrain) and VB_<id> (baseline = the city alone) by build_terrain.py step 'views'; captured by docs/night1/terrain/capture_round.sh.",
+ "shots": [
+  {
+   "id": "p1_south",
+   "pos": [
+    -20,
+    -560,
+    62
+   ],
+   "target": [
+    -30,
+    -780,
+    4
+   ],
+   "fov": 66,
+   "note": "swing height over the park's south end looking north: Sheep-Meadow-like lawn, paths, woods, skyline"
+  },
+  {
+   "id": "p2_reservoir",
+   "pos": [
+    -130,
+    -1320,
+    55
+   ],
+   "target": [
+    25,
+    -1520,
+    0
+   ],
+   "fov": 66,
+   "note": "over the Reservoir looking north-east: water edge + cinder track + fence"
+  },
+  {
+   "id": "p3_lake",
+   "pos": [
+    90,
+    -905,
+    55
+   ],
+   "target": [
+    -55,
+    -1040,
+    0
+   ],
+   "fov": 66,
+   "note": "over the Lake / Ramble woods: banks, reeds, paths through woodland (r02: raised from 40 m, the r02 first render had the camera inside a crown)"
+  },
+  {
+   "id": "p4_greatlawn",
+   "pos": [
+    190,
+    -1090,
+    105
+   ],
+   "target": [
+    -30,
+    -1265,
+    0
+   ],
+   "fov": 66,
+   "note": "high over the Great-Lawn-like meadow: ball fields, stripes, woods"
+  },
+  {
+   "id": "p6_west_shore",
+   "pos": [
+    -775,
+    -820,
+    26
+   ],
+   "target": [
+    -695,
+    -770,
+    2
+   ],
+   "fov": 70,
+   "note": "Hudson shore from over the river looking back at the seawall + esplanade (r02: the r01 camera sat above a pier shed roof: moved north of the pier at z -851..-891)"
+  },
+  {
+   "id": "p7_east_shore",
+   "pos": [
+    770,
+    -1270,
+    26
+   ],
+   "target": [
+    702,
+    -1215,
+    2
+   ],
+   "fov": 70,
+   "note": "East River shore from over the river looking back at the seawall + esplanade (r02 pass 3: the far-city masses of the browser export (farCity*) overhang the water up to 35 m along z -1080..-320, so the earlier cameras at z -720 / -690 sat in or against a building; z -1270 has no mass within 250 m of the shore)"
+  },
+  {
+   "id": "p8_pier",
+   "pos": [
+    -950,
+    -2200,
+    40
+   ],
+   "target": [
+    -790,
+    -2128,
+    -2
+   ],
+   "fov": 66,
+   "note": "piers on the Hudson side from over the river"
+  },
+  {
+   "id": "p9_park_panorama",
+   "pos": [
+    0,
+    -2080,
+    130
+   ],
+   "target": [
+    0,
+    -1400,
+    0
+   ],
+   "fov": 70,
+   "note": "from the park's north end looking south: the whole park, the Reservoir, Midtown behind"
+  },
+  {
+   "id": "p10_lawn_eye",
+   "pos": [
+    -70,
+    -700,
+    2.3
+   ],
+   "target": [
+    -62,
+    -745,
+    1.6
+   ],
+   "fov": 58,
+   "note": "eye level on the lawn: grass tufts, mowing stripes, path edge"
+  }
+ ]
+}

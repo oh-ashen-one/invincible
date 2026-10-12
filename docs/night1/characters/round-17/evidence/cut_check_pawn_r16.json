@@ -1,0 +1,45 @@
+{
+ "clip": "docs/night1/characters/round-16/swap_pawn_T_key.mp4",
+ "frames": 685,
+ "fps": 60.0,
+ "duration": 11.417,
+ "median": 3.48,
+ "p99": 5.13,
+ "top": [
+  {
+   "t": 9.933,
+   "diff": 15.49
+  },
+  {
+   "t": 7.733,
+   "diff": 5.4
+  },
+  {
+   "t": 10.183,
+   "diff": 5.29
+  },
+  {
+   "t": 11.167,
+   "diff": 5.27
+  },
+  {
+   "t": 10.683,
+   "diff": 5.23
+  }
+ ],
+ "cuts": [
+  {
+   "t": 9.933,
+   "diff": 15.49,
+   "neighbours": 3.48
+  }
+ ],
+ "pass": false,
+ "at": [
+  {
+   "t": 9.933,
+   "diff": 15.49,
+   "neighbours": 3.48
+  }
+ ]
+}

@@ -1,0 +1,138 @@
+#!/bin/bash
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# Round 17 capture chain (= chain_r17.sh; r17: the capture protocol -WHSettleFrames=32 (stills + lineups: every texture resident, then 32 static RENDERED frames, then the screenshot), -NoTextureStreaming, -WHPreload on the movies, pawn shot 16 s / crowd shot 12 s (no capture-side cuts), r17 skin weights; r16 text follows:  r16 content: front-only sash, tone back mark, geometric limb nets, motion-aware weights, head-locked headfront; r15: P2_FIRST_EXTRA = 9 s so the first still waits for the 24 suit textures to compile (the base colours are 8192 px), the pawn movie runs on the merged P3 r22 ground blend) (P2 hero skins): ONE gpu_slot hold per call, every engine run nested in it (one engine at a time, run_game.sh stops by SIGTERM only).
+#   /Users/midir/sm2-n1/_scratch/gpu/bin/gpu_slot.sh capture --label characters -- bash tools/ue_char/suits/chain_r17.sh <out_dir>
+#   STEPS (default "stills pawn orbit hero chase fight crowd lineup"; "build" first = the content build nested in the same hold):
+#     stills  4K real-time stills of every suit (Char_Skins: front / back framed for CH1 at 7.85 m, chest, head), EV bias $EV
+#     pawn    the playable pawn cycling the suits with real T presses (Char_SkinsPlay, 1080p -movie fixed 1/60 s)
+#     orbit   the stage hero orbit across every suit (1080p -movie)
+#     hero    Char_Hero shots 1-3 (run side, run 3/4, run -> leap side), 1080p60 -movie, as round 08
+#     chase   Char_Hero shots 6-7 (chase behind, run toward the camera), 1080p60 -movie, as round 08
+#     fight   Char_Fight shot 0 (wide), 1080p60 -movie, the round-10 scripted fight unchanged (0.6 s warm-up + 8 s)
+#     crowd   Char_Crowd shot 0 (tracking), 1080p60 -movie (8 s)
+#     lineup  Char_Lineup shot 5 (the 7-enemy lineup, wide), 4K real-time still at 3.0 s
+# (round 13: the lineup block runs right after the stills: the two most important results first, in case the 40 min hold limit ends the chain)
+# Two engine runs without WH_QUIT (crash) -> the chain stops (RULES.md).
+set -u
+WT="$(cd "$(dirname "$0")/../../.." && pwd)"
+export P2_SCRATCH="${P2_SCRATCH:-/Users/midir/sm2-n1/_scratch/characters}"
+OUT="${1:?out dir}"; mkdir -p "$OUT"
+STEPS="${STEPS:-lineup stills pawn orbit hero chase fight crowd}"
+EV="${EV:-10.0}"
+T0=$(date +%s); log() { echo "[r17 $(date +%H:%M:%S) +$(( $(date +%s) - T0 ))s] $*" | tee -a "$OUT/chain.log"; }
+has() { case " $STEPS " in *" $1 "*) return 0;; esac; return 1; }
+cd "$WT/unreal/WebHomage"
+MAP=/Game/Tests/Characters/Char_Skins; MAPP=/Game/Tests/Characters/Char_SkinsPlay
+HERO=/Game/Tests/Characters/Char_Hero; FIGHT=/Game/Tests/Characters/Char_Fight; CROWD=/Game/Tests/Characters/Char_Crowd; LINE=/Game/Tests/Characters/Char_Lineup
+SJ="$P2_SCRATCH/skins_shots.json"
+CFG="$WT/unreal/WebHomage/Saved/Config"
+CAL="$WT/tools/ue_char/suits/ev_calib.py"
+PAWN="-WHHeroMesh=/Game/Characters/Hero/SK_Hero -WHHeroLens=none -WHHeroClips=/Game/Characters/Hero/Anims -WHHeroClipPrefix=A_Hero_ -WHTravScript=$WT/tools/ue_char/suits/pawn_run.json -WHHeroFill=0,0"
+CRASHES=0
+check() {
+  if ! grep -q "WH_QUIT" "$1/$2.log" 2>/dev/null; then CRASHES=$((CRASHES + 1)); log "ENGINE RUN WITHOUT WH_QUIT ($1/$2): crash count $CRASHES"; fi
+  if [ "$CRASHES" -ge 2 ]; then log "two engine crashes: stopping the chain and reporting (RULES.md)"; exit 9; fi
+}
+gpu() { ioreg -r -d 1 -w 0 -c IOAccelerator | grep -o '"Device Utilization %"=[0-9]*' > "$OUT/gpu_util_before_$1.txt" || true; }
+movie() {   # name map shot quit
+  local D="$OUT/$1"; rm -rf "$D"; gpu "$1"
+  Scripts/run_game.sh "$D" -map "$2" -res 1920x1080 -quit "$4" -name "$1" -movie -exec "r.MotionBlurQuality 0" -timeout 1500 -- -WHCharShot="$3" -WHPreload -NoTextureStreaming < /dev/null | tail -3
+  check "$D" "$1"
+}
+log "steps: $STEPS, EV $EV"
+if [ -n "${REQUIRE_BUILD_LOG:-}" ]; then      # queued behind its own content build: refuse to render stale / broken content
+  if ! grep -q "skinsmap saved True True" "$REQUIRE_BUILD_LOG" 2>/dev/null || ! grep -q "map saved /Game/Tests/Characters/Char_Fight True" "$REQUIRE_BUILD_LOG" 2>/dev/null \
+     || { [ -n "${REQUIRE_NEWER:-}" ] && [ ! "$REQUIRE_BUILD_LOG" -nt "$REQUIRE_NEWER" ]; }; then
+    log "content build not finished OK ($REQUIRE_BUILD_LOG): no render"; exit 4; fi
+  if grep -q "M_Char_Suit weave-from-position FAILED" "$REQUIRE_BUILD_LOG"; then log "NOTE: weave-from-position failed in the build, UV weave in use"; fi
+fi
+
+if has build; then      # the content build nested in this hold (gpu_slot passes nested launches through): one queue turn for build + captures
+  log "build: clean,tex,mat,mesh,citizens,rename,fightclips,abp,map,maps5,skins,skinsmap"
+  BUILD_STDOUT="$OUT/build.stdout" bash "$WT/tools/ue_char/fight/build_fight.sh" clean,tex,mat,mesh,citizens,rename,fightclips,abp,map,maps5,skins,skinsmap 2>&1 | tail -3 | tee -a "$OUT/chain.log"
+  cp "$WT/unreal/WebHomage/Saved/Logs/characters_build.log" "$OUT/characters_build.log" 2>/dev/null
+  if ! grep -q "skinsmap saved True True" "$OUT/characters_build.log" || ! grep -q "map saved /Game/Tests/Characters/Char_Fight True" "$OUT/characters_build.log" || ! grep -q "skins ok: 8 suits" "$OUT/characters_build.log"; then log "build FAILED (or fewer than 8 suits): no render"; exit 5; fi
+  grep -E "skins: rim|frame instance failed|skins: suit .* FAILED" "$OUT/characters_build.log" | sed 's/^.*LogPython: //' | tee -a "$OUT/chain.log"
+  grep -E "weave from pre-skinned|weave-from-position FAILED" "$OUT/characters_build.log" | sed 's/^.*LogPython: //' | tee -a "$OUT/chain.log"
+fi
+
+if has lineup; then      # round 17: the shot is taken by the director's settle protocol (stage clock / poses / camera frozen, every texture resident, 32 static rendered frames, >= 4 world s of auto exposure)
+  for LS in 5 6; do
+    LN=lineup; [ "$LS" = 6 ] && LN=lineup34
+    log "Char_Lineup shot $LS 4K still ($LN), settle protocol"; gpu $LN
+    Scripts/run_game.sh "$OUT/$LN" -map $LINE -res 3840x2160 -exec "r.ScreenPercentage 100,r.MotionBlurQuality 0" -quit 3000 -name $LN -timeout 1500 \
+        -- -WHCharShot=$LS -WHStageShot=${LINEUP_T:-3.0} -WHStageShotRel -WHStageShotQuit -WHSettleFrames=${SETTLE_FRAMES:-32} -WHSettleSeconds=${LINEUP_SECONDS:-4.0} -NoTextureStreaming < /dev/null | tail -3
+    check "$OUT/$LN" $LN
+    grep -E "WH_STAGE_SHOT|WH_SETTLE|WH_QUIT" "$OUT/$LN/$LN.log" > "$OUT/$LN/settle_log.txt" 2>/dev/null
+    for f in "$OUT/$LN"/${LN}_00_t*.png; do [ -f "$f" ] && cp "$f" "$OUT/$LN/${LN}_4k.png"; done
+  done
+fi
+
+if has lineupx; then      # round 17: the corruption-cause experiment (same camera, same content, same lock load): E0 = the r16 command; E1 = settle protocol, texture streaming ON; E2 = settle protocol, -NoTextureStreaming; E1 / E2 dump the convergence curve
+  LX="$OUT/lineupx"; mkdir -p "$LX"
+  if [ -z "${LX_SKIP_E0:-}" ]; then
+  log "lineupx E0: the r16 protocol (-shots 3.0, no settle), probe"; gpu lx_e0
+  Scripts/run_game.sh "$LX/e0_r16" -map $LINE -res 3840x2160 -exec "r.ScreenPercentage 100,r.MotionBlurQuality 0" -shots 3.0 -perf 2:5 -quit 6 -name e0 -timeout 900 -- -WHCharShot=5 -WHProbeFrames=240 < /dev/null | tail -3
+  check "$LX/e0_r16" e0
+  fi
+  log "lineupx E1: settle protocol, texture streaming ON, convergence dump"; gpu lx_e1
+  Scripts/run_game.sh "$LX/e1_stream" -map $LINE -res 3840x2160 -exec "r.ScreenPercentage 100,r.MotionBlurQuality 0" -quit 3000 -name e1 -timeout 1200 \
+      -- -WHCharShot=5 -WHStageShot=3.0 -WHStageShotRel -WHStageShotQuit -WHSettleFrames=32 -WHSettleSeconds=4.0 -WHSettleDump=${LX_DUMP:-1,2,4,8,16,24} -WHProbeFrames=60 < /dev/null | tail -3
+  check "$LX/e1_stream" e1
+  log "lineupx E2: settle protocol, -NoTextureStreaming, convergence dump"; gpu lx_e2
+  Scripts/run_game.sh "$LX/e2_nostream" -map $LINE -res 3840x2160 -exec "r.ScreenPercentage 100,r.MotionBlurQuality 0" -quit 3000 -name e2 -timeout 1200 \
+      -- -WHCharShot=5 -WHStageShot=3.0 -WHStageShotRel -WHStageShotQuit -WHSettleFrames=32 -WHSettleSeconds=4.0 -WHSettleDump=${LX_DUMP:-1,2,4,8,16,24} -WHProbeFrames=60 -NoTextureStreaming < /dev/null | tail -3
+  check "$LX/e2_nostream" e2
+  for d in e0_r16 e1_stream e2_nostream; do n=${d%%_*}; [ -f "$LX/$d/$n.log" ] && grep -E "WH_PROBE|WH_SETTLE|WH_STAGE_SHOT|WH_SHOT|WH_QUIT|WH_PERF" "$LX/$d/$n.log" > "$LX/$d/probe_log.txt" 2>/dev/null; done
+fi
+
+if has stills; then
+  TIMES=$(python3 - <<PY
+import json
+d = json.load(open("$SJ")); t0 = 0.0; out = []; fe = d.get('first_extra', 1.0)
+for k in range(d['stills']):
+    out.append('%.1f' % (t0 + (fe + 2.7 if k == 0 else 2.2))); t0 += d['shot_s'] + (fe if k == 0 else 0.0)      # round 13: the FIRST still at 3.7 s (the first run's 2.2 s caught the 8192 px Tessera maps still streaming in: a white mannequin)
+print(','.join(out), end='')
+PY
+)
+  log "stills: 4K, internal 3840x2160, EV $EV"; gpu stills
+  NS=$(python3 -c "import json;d=json.load(open('$SJ'));print(int(d['stills']*d['shot_s']+d.get('first_extra',1.0)+8))")      # last still at stills*shot_s + 1 - 0.8 s of STAGE time; the quit time counts from process start (~35 s of start-up): +40 s (round 13 first run: quit at NS lost the last 7 stills, re-shot in the same hold)
+  # round 16: the director holds its stage clock until the suit textures are resident (-WHStageWaitTextures: hold 2's first-suit stills were a low mip at 1.4 fps) and quits 3 s (stage clock) after the last stage shot (-WHStageShotQuit); the process-time -quit is only a safety net now (r16 hold 1: a contended GPU ran the stage
+  # clock at ~1/3 of real time and the old -quit $((NS + 40)) cut the run after 23 of 56 stills)
+  Scripts/run_game.sh "$OUT/stills" -map $MAP -res 3840x2160 -exec "r.ScreenPercentage 100,r.MotionBlurQuality 0" -perf 3:$((NS + 25)) -quit 9000 -name skins -timeout 3000 \
+      -- -WHCharShot=0 -WHStageShot="$TIMES" -WHStageShotQuit -WHSettleFrames=${SETTLE_FRAMES:-32} -WHSettleSeconds=${SETTLE_SECONDS:-2.0} -NoTextureStreaming -WHExposure=$EV < /dev/null | tail -3
+  check "$OUT/stills" skins
+  python3 - <<PY
+import json, glob, subprocess, os
+d = json.load(open("$SJ")); views = d['views']
+files = sorted(glob.glob("$OUT/stills/skins_[0-9][0-9]_t*.png"))
+for f in files:
+    k = int(os.path.basename(f).split('_')[1]); suit = d['suits'][k // len(views)].lower(); view = views[k % len(views)]
+    os.replace(f, "$OUT/stills/skin_%s_%s_4k.png" % (suit, view))
+print("stills", len(files))
+PY
+  grep -E "WH_SUIT|WH_STAGE_SHOT|WH_EXPOSURE|WH_SETTLE" "$OUT/stills/skins.log" > "$OUT/stills/suit_log.txt" 2>/dev/null
+fi
+
+if has pawn; then
+  find "$CFG" -name GameUserSettings.ini -delete 2>/dev/null
+  log "pawn swap movie"; gpu pawn
+  Scripts/run_game.sh "$OUT/pawn" -map $MAPP -res 1920x1080 -quit 11.5 -name pawn -movie -exec "r.MotionBlurQuality 0,wh.Suit 2" -timeout 1500 \
+      -- -WHCharShot=0 -WHPreload -NoTextureStreaming $PAWN -WHSuitPersist -WHSuitKeyScript=1.5,2.7,3.9,5.1,6.3,7.5,8.7 -WHExposure=$EV < /dev/null | tail -3
+  check "$OUT/pawn" pawn
+  find "$CFG" -name GameUserSettings.ini -exec cp {} "$OUT/pawn/GameUserSettings_after_pawn.ini" \; 2>/dev/null
+  grep -E "WH_SUIT|WH_SETTINGS|WH_TRAV|WH_EXPOSURE" "$OUT/pawn/pawn.log" > "$OUT/pawn/suit_log.txt" 2>/dev/null
+fi
+
+if has orbit; then
+  FIRST=$(python3 -c "import json;print(json.load(open('$SJ'))['first_orbit'])")
+  log "orbit movie"; gpu orbit
+  Scripts/run_game.sh "$OUT/orbit" -map $MAP -res 1920x1080 -quit 12.6 -name orbit -movie -exec "r.MotionBlurQuality 0,r.ScreenPercentage 100" -timeout 1500 -- -WHCharShot=$FIRST -WHPreload -NoTextureStreaming -WHExposure=$EV < /dev/null | tail -3
+  check "$OUT/orbit" orbit
+fi
+
+has hero && { log "Char_Hero shots 1-3 movie"; movie hero $HERO 1 18.5; }
+has chase && { log "Char_Hero shots 6-7 movie"; movie chase $HERO 6 12.5; }
+has fight && { log "Char_Fight wide movie"; movie fight $FIGHT 0 9.4; }
+has crowd && { log "Char_Crowd tracking movie"; movie crowd $CROWD 0 8.6; }
+log "chain done (hold used $(( $(date +%s) - T0 )) s), crashes $CRASHES"

@@ -1,0 +1,54 @@
+== W  wall-run stride (rows in wall mode, sub wallRun / wallRunSide, IK weight >= 0.9)
+c_wallrun_perch: 96 rows 1.58 s, speed 14.6 m/s | contact share feet L 0.34 R 0.32, hands L 0.56 R 0.56; >= 1 limb on the wall 0.98; L-foot+R-hand together 0.33; farthest limb 1.28 m | cycles 4.3 -> 5.5 steps/s | head above hips (vertical rows) 96/96
+r1_roofrun_zip: 96 rows 1.58 s, speed 14.6 m/s | contact share feet L 0.34 R 0.32, hands L 0.56 R 0.56; >= 1 limb on the wall 0.98; L-foot+R-hand together 0.33; farthest limb 1.28 m | cycles 4.3 -> 5.5 steps/s | head above hips (vertical rows) 96/96
+s1_high_swing: 16 rows 0.23 s, speed 15.2 m/s | contact share feet L 0.12 R 0.44, hands L 0.56 R 0.62; >= 1 limb on the wall 1.00; L-foot+R-hand together 0.12; farthest limb 0.45 m | cycles 0.7 -> 5.6 steps/s | head above hips (vertical rows) 16/16
+w1_wallrun_tall_zip: 41 rows 0.67 s, speed 14.0 m/s | contact share feet L 0.24 R 0.46, hands L 0.68 R 0.63; >= 1 limb on the wall 1.00; L-foot+R-hand together 0.24; farthest limb 0.23 m | cycles 1.8 -> 5.4 steps/s | head above hips (vertical rows) 0/0
+w2_wallrun_side_zip: 19 rows 0.30 s, speed 16.6 m/s | contact share feet L 0.37 R 0.53, hands L 0.74 R 0.68; >= 1 limb on the wall 1.00; L-foot+R-hand together 0.37; farthest limb 0.27 m | cycles 0.9 -> 5.9 steps/s | head above hips (vertical rows) 0/0
+x2_rmb_cancel_wall: 17 rows 0.27 s, speed 14.0 m/s | contact share feet L 0.06 R 0.53, hands L 0.65 R 0.53; >= 1 limb on the wall 1.00; L-foot+R-hand together 0.06; farthest limb 0.23 m | cycles 0.7 -> 5.4 steps/s | head above hips (vertical rows) 0/0
+
+== Z  zip presses (in_zip rising edge) -> mode 0.4 s later, zip_why
+c_wallrun_perch: t 8.50 from zip/zipFire -> zip/zipFire > zip/zipFlight > zip/zipCatch > perch/perchLand  why=nearest  PASS
+r1_roofrun_zip: t 6.20 from zip/zipFire -> zip/zipFire > zip/zipFlight  why=highlighted  PASS
+w1_wallrun_tall_zip: t 3.60 from zip/zipFire -> zip/zipFire > zip/zipFlight  why=facadeTop  PASS
+w1_wallrun_tall_zip: t 6.20 from air/pointLaunch -> air/pointLaunch  why=pointLaunch  PASS
+w2_wallrun_side_zip: t 3.50 from zip/zipFire -> zip/zipFire > zip/zipFlight  why=facadeTop  PASS
+
+== V  same-type tricks differ by >= 40 deg/s in at least one 0.1 s rate sample
+f1_flow_backDouble: backDouble #1 (x0.881) vs #2 (x0.863): max |rate diff| 87 deg/s over 15 samples -> PASS
+f1_flow_backDouble: backDouble #1 (x0.881) vs #3 (x0.989): max |rate diff| 264 deg/s over 15 samples -> PASS
+f1_flow_backDouble: backDouble #1 (x0.881) vs #4 (x0.919): max |rate diff| 55 deg/s over 7 samples -> PASS
+f1_flow_backDouble: backDouble #2 (x0.863) vs #3 (x0.989): max |rate diff| 352 deg/s over 15 samples -> PASS
+f1_flow_backDouble: backDouble #2 (x0.863) vs #4 (x0.919): max |rate diff| 101 deg/s over 7 samples -> PASS
+f1_flow_backDouble: backDouble #3 (x0.989) vs #4 (x0.919): max |rate diff| 97 deg/s over 7 samples -> PASS
+f4_chain_flips: backDouble #1 (x0.879) vs #2 (x0.915): max |rate diff| 105 deg/s over 15 samples -> PASS
+f4_chain_flips: frontPikeSwan #1 (x0.864) vs #2 (x0.916): max |rate diff| 180 deg/s over 13 samples -> PASS
+f4_chain_flips: corkscrew #1 (x0.993) vs #2 (x0.906): max |rate diff| 24 deg/s over 7 samples -> FAIL
+across clips (same program type, first instance of each clip):
+  backDouble: 9 instances, scales [0.836, 0.841, 0.863, 0.879, 0.881, 0.915, 0.919, 0.989], sampled spans [0.3, 0.4, 0.6, 1.3, 1.4, 1.4, 1.4, 1.4, 1.6] s
+  frontPikeSwan: 3 instances, scales [0.84, 0.864, 0.916], sampled spans [1.2, 1.2, 1.3] s
+  wallFront: 3 instances, scales [0.0], sampled spans [0.3, 1.1, 1.1] s
+  corkscrew: 2 instances, scales [0.906, 0.993], sampled spans [0.6, 1.5] s
+
+== T  tight tuck: wrists <= 0.15 m from the shins and knees <= 0.25 m apart, held >= 0.25 s (rows with flip_shape tuck)
+a_swing_chain: tuck 1 at 5.68-6.65 s (backDouble): wrist-shin min 0.031 med 0.040, knee gap min 0.151 med 0.160; longest closed hold 0.88 s -> PASS
+a_swing_chain: tuck 2 at 12.52-12.80 s (frontPikeSwan): wrist-shin min 0.040 med 0.124, knee gap min 0.160 med 0.231; longest closed hold 0.17 s -> FAIL
+c_wallrun_perch: tuck 1 at 4.22-4.47 s (wallFront): wrist-shin min 0.020 med 0.199, knee gap min 0.135 med 0.160; longest closed hold 0.13 s -> FAIL
+c_wallrun_perch: tuck 2 at 4.78-5.03 s (wallFront): wrist-shin min 0.040 med 0.182, knee gap min 0.160 med 0.225; longest closed hold 0.13 s -> FAIL
+f1_flow_backDouble: tuck 1 at 1.35-2.37 s (backDouble): wrist-shin min 0.026 med 0.040, knee gap min 0.154 med 0.160; longest closed hold 0.92 s -> PASS
+f1_flow_backDouble: tuck 2 at 3.77-4.75 s (backDouble): wrist-shin min 0.040 med 0.040, knee gap min 0.154 med 0.160; longest closed hold 0.85 s -> PASS
+f1_flow_backDouble: tuck 3 at 5.72-6.88 s (backDouble): wrist-shin min 0.034 med 0.040, knee gap min 0.160 med 0.160; longest closed hold 1.10 s -> PASS
+f1_flow_backDouble: tuck 4 at 8.38-8.97 s (backDouble): wrist-shin min 0.035 med 0.040, knee gap min 0.155 med 0.160; longest closed hold 0.50 s -> PASS
+f4_chain_flips: tuck 1 at 1.35-2.35 s (backDouble): wrist-shin min 0.035 med 0.040, knee gap min 0.158 med 0.160; longest closed hold 0.90 s -> PASS
+f4_chain_flips: tuck 2 at 4.57-4.87 s (frontPikeSwan): wrist-shin min 0.040 med 0.101, knee gap min 0.160 med 0.220; longest closed hold 0.17 s -> FAIL
+f4_chain_flips: tuck 3 at 6.72-7.03 s (corkscrew): wrist-shin min 0.040 med 0.044, knee gap min 0.160 med 0.162; longest closed hold 0.23 s -> FAIL
+f4_chain_flips: tuck 4 at 8.18-9.27 s (backDouble): wrist-shin min 0.035 med 0.040, knee gap min 0.159 med 0.160; longest closed hold 0.98 s -> PASS
+f4_chain_flips: tuck 5 at 11.47-11.78 s (frontPikeSwan): wrist-shin min 0.040 med 0.154, knee gap min 0.160 med 0.230; longest closed hold 0.17 s -> FAIL
+m1_mouse_swing: tuck 1 at 5.68-5.97 s (backDouble): wrist-shin min 0.038 med 0.040, knee gap min 0.142 med 0.160; longest closed hold 0.20 s -> FAIL
+r1_roofrun_zip: tuck 1 at 4.22-4.47 s (wallFront): wrist-shin min 0.020 med 0.199, knee gap min 0.135 med 0.160; longest closed hold 0.13 s -> FAIL
+r1_roofrun_zip: tuck 2 at 4.78-5.03 s (wallFront): wrist-shin min 0.040 med 0.182, knee gap min 0.160 med 0.225; longest closed hold 0.13 s -> FAIL
+s1_high_swing: tuck 1 at 3.15-3.40 s (wallFront): wrist-shin min 0.024 med 0.210, knee gap min 0.130 med 0.160; longest closed hold 0.13 s -> FAIL
+x1_rmb_cancel_flip: tuck 1 at 1.35-1.73 s (backDouble): wrist-shin min 0.026 med 0.040, knee gap min 0.154 med 0.160; longest closed hold 0.28 s -> PASS
+
+== I  live-input repro (WH_INPUTTEST)
+inputtest_mouselook.log:
+   WH_INPUTTEST RESULT mouseLook: 958 px injected, camera yaw turned 7.2 deg, pitch now -1.6

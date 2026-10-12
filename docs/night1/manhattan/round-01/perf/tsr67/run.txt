@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/manhattan/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/manhattan/docs/night1/manhattan/round-01/perf/tsr67 -map /Game/Maps/Manhattan -res 3840x2160 -perf 15:45 -name tsr67 -timeout 1200 -exec r.ScreenPercentage 67 -- -WHTravScript=/Users/midir/sm2-n1/manhattan/docs/night1/manhattan/scripts/route_30s_warmup15.json -WHTravCsv=/Users/midir/sm2-n1/manhattan/docs/night1/manhattan/round-01/perf/tsr67/trav_telemetry.csv -csvGpuStats -benchmark -fps=60
+
+run_game: out=/Users/midir/sm2-n1/manhattan/docs/night1/manhattan/round-01/perf/tsr67 res=3840x2160 quit=46.0 window=0 movie=0
+WH_PERF_START t=15.00
+WH_PERF frames=1800 avg_ms=52.00 fps=19.2 p95_ms=59.00 p99_ms=62.79 gpu_avg_ms=42.16 out=3840x2160 internal=2573x1447 (manual) -> /Users/midir/sm2-n1/manhattan/docs/night1/manhattan/round-01/perf/tsr67/tsr67_perf.json
+WH_QUIT t=46.00
+

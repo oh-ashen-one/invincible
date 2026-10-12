@@ -1,0 +1,58 @@
+{
+ "name": "b_release_trick_dive_zip",
+ "spawn": {
+  "pos": [
+   150,
+   0,
+   58
+  ],
+  "yaw": 0,
+  "camPitch": 0.12,
+  "vel": [
+   26,
+   0,
+   2
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 0,
+   "swing": true
+  },
+  {
+   "t": 3.2,
+   "swing": false,
+   "trick": true
+  },
+  {
+   "t": 3.3,
+   "trick": false
+  },
+  {
+   "t": 4.4,
+   "drop": true
+  },
+  {
+   "t": 4.78,
+   "drop": false
+  },
+  {
+   "t": 4.8,
+   "zip": true,
+   "move": [
+    0,
+    0
+   ],
+   "heading": false
+  },
+  {
+   "t": 4.9,
+   "zip": false
+  }
+ ]
+}

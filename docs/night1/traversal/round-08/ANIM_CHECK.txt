@@ -1,0 +1,37 @@
+# Animation check, round 08
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+a_swing_chain: 934 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 13 consecutive air pairs, 0 with the same silhouette (min distance 0.271 m, threshold 0.08 m)
+  air cycles: 8; consecutive identical cycles: 0
+    cycle 1: air_tuck > air_reachR
+    cycle 2: air_fallCalm > air_reachL
+    cycle 3: trick_corkscrew
+    cycle 4: air_spread > air_reachL
+    cycle 5: air_fallCalm > air_reachR
+    cycle 6: trick_tuckFlip
+    cycle 7: air_spread > air_reachR
+    cycle 8: air_rise > air_reachL
+
+b_release_trick_dive_zip: 418 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 10 consecutive air pairs, 0 with the same silhouette (min distance 0.197 m, threshold 0.08 m)
+  air cycles: 1; consecutive identical cycles: 0
+    cycle 1: trick_corkscrew > air_spread > air_fallCalm > air_fall > air_dive > air_fall
+
+c_wallrun_perch: 598 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 6 consecutive air pairs, 0 with the same silhouette (min distance 0.124 m, threshold 0.08 m)
+  air cycles: 0; consecutive identical cycles: 0
+
+d_sprint_jump_first_swing: 718 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 9 consecutive air pairs, 0 with the same silhouette (min distance 0.219 m, threshold 0.08 m)
+  air cycles: 5; consecutive identical cycles: 0
+    cycle 1: air_tuck > air_reachR
+    cycle 2: air_fallCalm > air_reachL
+    cycle 3: trick_corkscrew
+    cycle 4: air_spread > air_reachL
+    cycle 5: air_fallCalm
+

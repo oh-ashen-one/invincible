@@ -1,0 +1,4 @@
+{
+  "_comment": "Lineup actor scale of the street brute (shared by prepare_person.py, build_characters.py, measure_build.py). girth = extra X/Y scale on the actor; prepare_person shrinks the brute's head by 1/girth so the head keeps natural proportions after the actor is widened.",
+  "brute": {"scale": 1.08, "girth": 1.32}
+}

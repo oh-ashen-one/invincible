@@ -1,0 +1,58 @@
+{
+ "name": "air_40_fwd_3",
+ "note": "airborne at 40 m, swing 0.2-1.3 s, F at release+0.3 s, stick fwd",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   560,
+   40
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.2,
+   "swing": true
+  },
+  {
+   "t": 1.3,
+   "swing": false,
+   "heading": false,
+   "move": [
+    0,
+    1
+   ]
+  },
+  {
+   "t": 1.55,
+   "move": [
+    0,
+    1
+   ]
+  },
+  {
+   "t": 1.6,
+   "trick": true
+  },
+  {
+   "t": 1.7000000000000002,
+   "trick": false
+  }
+ ]
+}

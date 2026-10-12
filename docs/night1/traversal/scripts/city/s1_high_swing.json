@@ -1,0 +1,50 @@
+{
+ "name": "s1_high_swing",
+ "note": "Round 19 repro (owner: RMB swing 'eventually breaks'): airborne 48 m over the y -560 cross street (above the anchor band: street + 30-40 m) heading west, RMB held from 0.2 s. Round 18 aimed its high-band search 1.5-2.5 m over the body and then refused every web under 3 m (TryStartSwing) -> no web; A/B flag -WHTravHighFix=0.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   180,
+   -560,
+   48
+  ],
+  "yaw": 180,
+  "camPitch": 0.12,
+  "vel": [
+   -20,
+   0,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 180,
+   "swing": false
+  },
+  {
+   "t": 0.2,
+   "swing": true
+  },
+  {
+   "t": 2.4,
+   "swing": false
+  },
+  {
+   "t": 2.7,
+   "swing": true
+  },
+  {
+   "t": 5.0,
+   "swing": false
+  },
+  {
+   "t": 5.3,
+   "swing": true
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "a": "docs/night1/characters/round-16/enemy_lineup_34_4k.jpg",
+ "ref": "docs/night1/characters/round-14/enemy_lineup_34_4k.jpg",
+ "thr": 20,
+ "size": [
+  3840,
+  2160
+ ],
+ "pct_over": 3.027,
+ "pct_over_in_band": 9.313,
+ "pct_over_outside_band": 0.297,
+ "p50": 8,
+ "p99": 41,
+ "mean_abs": 9.077,
+ "band": [
+  480,
+  640,
+  3400,
+  1500
+ ],
+ "tiles_over_20pct": 6,
+ "tiles": 144
+}

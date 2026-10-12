@@ -1,0 +1,16 @@
+[life] traffic disabled by command line
+[crowd] disabled by command line
+WH_LIFE_FRAME t=8.0 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=0 (taxi 0) parked=0 (taxi 0) total=0 | >=44px: moving=0 parked=0 (taxi 0) total=0 | people unoccluded >=28px: 0 (models 0, identical looks in frame 0) | >=56px: 0 (models 0) | projected only (no size / occlusion test): vehicles moving=0 parked=0 people=0
+WH_LIFE_TRAFFIC [life] moving 0 (stopped 0) parked 0 (taxis 0) sim 0.00 ms push 0.00 ms clock 0.0
+WH_LIFE_CROWD [crowd] walkers 0 live 0 waiting 0 models 60 sim+apply 0.00 ms
+WH_LIFE_FOOT watching 0 walkers
+WH_LIFE_FRAME t=14.0 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=0 (taxi 0) parked=0 (taxi 0) total=0 | >=44px: moving=0 parked=0 (taxi 0) total=0 | people unoccluded >=28px: 0 (models 0, identical looks in frame 0) | >=56px: 0 (models 0) | projected only (no size / occlusion test): vehicles moving=0 parked=0 people=0
+WH_LIFE_TRAFFIC [life] moving 0 (stopped 0) parked 0 (taxis 0) sim 0.00 ms push 0.00 ms clock 0.0
+WH_LIFE_CROWD [crowd] walkers 0 live 0 waiting 0 models 60 sim+apply 0.00 ms
+WH_LIFE_FRAME t=20.0 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=0 (taxi 0) parked=0 (taxi 0) total=0 | >=44px: moving=0 parked=0 (taxi 0) total=0 | people unoccluded >=28px: 0 (models 0, identical looks in frame 0) | >=56px: 0 (models 0) | projected only (no size / occlusion test): vehicles moving=0 parked=0 people=0
+WH_LIFE_TRAFFIC [life] moving 0 (stopped 0) parked 0 (taxis 0) sim 0.00 ms push 0.00 ms clock 0.0
+WH_LIFE_CROWD [crowd] walkers 0 live 0 waiting 0 models 60 sim+apply 0.00 ms
+WH_LIFE_FOOT walkers=0 stance phases=0 | ankle world displacement during a planted stance (cm; ~20-25 = heel-toe roll, a stride is ~55) median 0.0 p95 0.0 max 0.0 | stances > 45 cm (sliding) 0 (0.0 %)
+WH_LIFE_FRAME t=28.1 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=0 (taxi 0) parked=0 (taxi 0) total=0 | >=44px: moving=0 parked=0 (taxi 0) total=0 | people unoccluded >=28px: 0 (models 0, identical looks in frame 0) | >=56px: 0 (models 0) | projected only (no size / occlusion test): vehicles moving=0 parked=0 people=0
+WH_LIFE_TRAFFIC [life] moving 0 (stopped 0) parked 0 (taxis 0) sim 0.00 ms push 0.00 ms clock 0.0
+WH_LIFE_CROWD [crowd] walkers 0 live 0 waiting 0 models 60 sim+apply 0.00 ms

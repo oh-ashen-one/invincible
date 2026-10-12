@@ -1,0 +1,280 @@
+{
+ "regions": 6,
+ "straight_runs": 772,
+ "longest_run_px": 1110,
+ "max_step_px": 13.1,
+ "n_jogs": 29,
+ "jogs": [
+  {
+   "step": 13.1,
+   "x": 2129,
+   "y": 660,
+   "run_a": 40,
+   "run_b": 51,
+   "connector": 95,
+   "angle": 4.3
+  },
+  {
+   "step": 12.2,
+   "x": 2036,
+   "y": 646,
+   "run_a": 151,
+   "run_b": 46,
+   "connector": 82,
+   "angle": 6.0
+  },
+  {
+   "step": 10.2,
+   "x": 1691,
+   "y": 1188,
+   "run_a": 95,
+   "run_b": 55,
+   "connector": 64,
+   "angle": 3.0
+  },
+  {
+   "step": 9.6,
+   "x": 1650,
+   "y": 874,
+   "run_a": 64,
+   "run_b": 52,
+   "connector": 94,
+   "angle": 7.9
+  },
+  {
+   "step": 9.0,
+   "x": 2533,
+   "y": 664,
+   "run_a": 50,
+   "run_b": 54,
+   "connector": 66,
+   "angle": 7.4
+  },
+  {
+   "step": 9.0,
+   "x": 3019,
+   "y": 1628,
+   "run_a": 52,
+   "run_b": 41,
+   "connector": 80,
+   "angle": 3.4
+  },
+  {
+   "step": 8.2,
+   "x": 1765,
+   "y": 1300,
+   "run_a": 318,
+   "run_b": 132,
+   "connector": 98,
+   "angle": 1.5
+  },
+  {
+   "step": 8.0,
+   "x": 1137,
+   "y": 1538,
+   "run_a": 142,
+   "run_b": 42,
+   "connector": 89,
+   "angle": 0.4
+  },
+  {
+   "step": 7.7,
+   "x": 2347,
+   "y": 1966,
+   "run_a": 95,
+   "run_b": 47,
+   "connector": 101,
+   "angle": 7.6
+  },
+  {
+   "step": 7.5,
+   "x": 3047,
+   "y": 1076,
+   "run_a": 54,
+   "run_b": 64,
+   "connector": 101,
+   "angle": 2.4
+  },
+  {
+   "step": 6.8,
+   "x": 1308,
+   "y": 885,
+   "run_a": 48,
+   "run_b": 72,
+   "connector": 84,
+   "angle": 6.9
+  },
+  {
+   "step": 6.4,
+   "x": 937,
+   "y": 1663,
+   "run_a": 64,
+   "run_b": 53,
+   "connector": 40,
+   "angle": 5.6
+  },
+  {
+   "step": 6.1,
+   "x": 2677,
+   "y": 1984,
+   "run_a": 66,
+   "run_b": 56,
+   "connector": 39,
+   "angle": 4.1
+  },
+  {
+   "step": 6.0,
+   "x": 1195,
+   "y": 416,
+   "run_a": 70,
+   "run_b": 54,
+   "connector": 94,
+   "angle": 1.2
+  },
+  {
+   "step": 6.0,
+   "x": 3050,
+   "y": 1173,
+   "run_a": 101,
+   "run_b": 53,
+   "connector": 92,
+   "angle": 3.2
+  },
+  {
+   "step": 5.5,
+   "x": 2454,
+   "y": 875,
+   "run_a": 58,
+   "run_b": 40,
+   "connector": 70,
+   "angle": 7.4
+  },
+  {
+   "step": 5.3,
+   "x": 835,
+   "y": 1093,
+   "run_a": 59,
+   "run_b": 48,
+   "connector": 100,
+   "angle": 4.6
+  },
+  {
+   "step": 5.3,
+   "x": 985,
+   "y": 1410,
+   "run_a": 53,
+   "run_b": 50,
+   "connector": 69,
+   "angle": 7.2
+  },
+  {
+   "step": 5.0,
+   "x": 2405,
+   "y": 657,
+   "run_a": 128,
+   "run_b": 50,
+   "connector": 89,
+   "angle": 0.0
+  },
+  {
+   "step": 5.0,
+   "x": 1557,
+   "y": 654,
+   "run_a": 62,
+   "run_b": 98,
+   "connector": 62,
+   "angle": 2.3
+  },
+  {
+   "step": 4.6,
+   "x": 1731,
+   "y": 1687,
+   "run_a": 266,
+   "run_b": 67,
+   "connector": 63,
+   "angle": 1.2
+  },
+  {
+   "step": 4.5,
+   "x": 985,
+   "y": 1052,
+   "run_a": 47,
+   "run_b": 126,
+   "connector": 74,
+   "angle": 5.8
+  },
+  {
+   "step": 4.5,
+   "x": 2297,
+   "y": 1551,
+   "run_a": 111,
+   "run_b": 104,
+   "connector": 93,
+   "angle": 4.6
+  },
+  {
+   "step": 4.5,
+   "x": 1019,
+   "y": 1801,
+   "run_a": 46,
+   "run_b": 133,
+   "connector": 92,
+   "angle": 2.8
+  },
+  {
+   "step": 4.4,
+   "x": 3056,
+   "y": 1311,
+   "run_a": 53,
+   "run_b": 58,
+   "connector": 78,
+   "angle": 7.2
+  },
+  {
+   "step": 4.2,
+   "x": 894,
+   "y": 1037,
+   "run_a": 103,
+   "run_b": 61,
+   "connector": 97,
+   "angle": 4.3
+  },
+  {
+   "step": 4.1,
+   "x": 1548,
+   "y": 1357,
+   "run_a": 90,
+   "run_b": 86,
+   "connector": 73,
+   "angle": 6.8
+  },
+  {
+   "step": 4.1,
+   "x": 3038,
+   "y": 1528,
+   "run_a": 51,
+   "run_b": 56,
+   "connector": 50,
+   "angle": 1.6
+  },
+  {
+   "step": 4.1,
+   "x": 1233,
+   "y": 1987,
+   "run_a": 70,
+   "run_b": 110,
+   "connector": 75,
+   "angle": 1.6
+  }
+ ],
+ "image": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_tessera_chest_4k.png",
+ "gate": 4.0,
+ "run": 40,
+ "box": [
+  691,
+  259,
+  3148,
+  2095
+ ],
+ "pass": false
+}

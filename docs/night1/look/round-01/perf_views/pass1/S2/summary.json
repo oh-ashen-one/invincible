@@ -1,0 +1,105 @@
+[
+ {
+  "config": "tsr50",
+  "screen_percentage": "50",
+  "extra_cvars": [],
+  "map": "/Game/Tests/Look/Look_View_midday_S2",
+  "script": null,
+  "res": "3840x2160",
+  "window_s": "14:24",
+  "command": "<wt>/unreal/WebHomage/Scripts/run_game.sh <wt>/docs/night1/look/round-01/perf_views/pass1/S2/tsr50 -map /Game/Tests/Look/Look_View_midday_S2 -res 3840x2160 -perf 14:24 -name tsr50 -timeout 900 -exec r.ScreenPercentage 50 -- -WHNoMouseCapture -csvGpuStats",
+  "gpu_util_before_pct": [
+   99,
+   99,
+   90
+  ],
+  "gpu_util_during_pct": {
+   "mean": 97.07317073170732,
+   "max": 100,
+   "n": 41
+  },
+  "foreign_gpu_procs": [],
+  "wh_perf": {
+   "frames": 150,
+   "seconds": 10.029,
+   "avg_ms": 66.858,
+   "avg_fps": 14.96,
+   "p50_ms": 63.071,
+   "p95_ms": 100.418,
+   "p99_ms": 105.4,
+   "max_ms": 148.008,
+   "frames_over_16_67ms": 150,
+   "gpu_avg_ms": 60.491,
+   "gpu_p95_ms": 81.25,
+   "output_w": 3840,
+   "output_h": 2160,
+   "r_ScreenPercentage": 50.0,
+   "screen_percentage_mode": "manual",
+   "internal_w": 1920,
+   "internal_h": 1080,
+   "rhi": "Metal"
+  },
+  "csv": {
+   "csv_frames": 150,
+   "avg_ms": 66.841232,
+   "p50_ms": 63.6637,
+   "p95_ms": 95.43497500000001,
+   "p99_ms": 102.09663199999997,
+   "max_ms": 141.8849,
+   "fps_avg": 14.960825377964307,
+   "over_16_7ms": 150,
+   "over_33_3ms": 149,
+   "hitches": 1,
+   "hitch_rule": "frame > 25 ms and > 2x the median frame",
+   "game_thread_ms": {
+    "avg": 2.6774746666666664,
+    "p95": 7.596325000000004,
+    "max": 12.707
+   },
+   "render_thread_ms": {
+    "avg": 66.69885066666667,
+    "p95": 92.21646500000001,
+    "max": 139.8634
+   },
+   "gpu_ms": {
+    "avg": 60.65610133333333,
+    "p95": 80.70872500000002,
+    "max": 101.917
+   },
+   "rhi_thread_ms": {
+    "avg": 3.3744306666666666,
+    "p95": 6.905145000000001,
+    "max": 11.0307
+   },
+   "gpu_passes_avg_ms": {
+    "GPU/Unaccounted": 10.274861333333334,
+    "GPU/LumenScreenProbeGather": 8.515712666666667,
+    "GPU/ShadowDepths": 5.817633333333333,
+    "GPU/Basepass": 5.145123333333333,
+    "GPU/Postprocessing": 3.15386,
+    "GPU/Prepass": 2.8732166666666665,
+    "GPU/NaniteVisBuffer": 2.6894786666666666,
+    "GPU/DistanceFieldShadows": 2.662176,
+    "GPU/LumenSceneLighting": 2.029412,
+    "GPU/LumenSceneUpdate": 1.7740406666666666,
+    "GPU/RenderDeferredLighting": 1.6754826666666667,
+    "GPU/LensFlare": 1.546972,
+    "GPU/VolumetricCloudShadow": 1.518832,
+    "GPU/VolumetricFog": 1.1342213333333333,
+    "GPU/MotionBlur": 1.004296,
+    "GPU/NaniteBasePass": 0.92903478,
+    "GPU/VolumetricCloud": 0.913874,
+    "GPU/CaptureConvolveSkyEnvMap": 0.8236933333333334,
+    "GPU/ShadowProjection": 0.8122753333333333,
+    "GPU/LumenReflections": 0.790974,
+    "GPU/SlateUI": 0.47655272666666665,
+    "GPU/VolCloudReconstruction": 0.3445787866666667,
+    "GPU/RenderVelocities": 0.30847199333333336,
+    "GPU/FrameRenderFinish": 0.23719810666666666,
+    "GPU/Lights": 0.221208
+   }
+  },
+  "contaminated": true,
+  "contamination_reason": "GPU utilisation before the run [99, 99, 90] % (>= 10)"
+ }
+]

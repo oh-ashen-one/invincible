@@ -1,0 +1,7 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# Small extras measured on top of candidate 1 (p50 ms vs same-session control 16.6): smrt4 -0.3, skyslice -0.1, cld256 -0.1, vsmmov -0.1 (each within ~0.2 ms of noise
+# alone; kept together because they only touch shadow-ray count, sky-capture cadence, cloud sample cap and moving-view shadow resolution).
+r.Shadow.Virtual.SMRT.RayCountDirectional=4
+r.SkyLight.RealTimeReflectionCapture.TimeSlice=1
+r.VolumetricCloud.ViewRaySampleMaxCount=256
+r.Shadow.Virtual.ResolutionLodBiasDirectionalMoving=1

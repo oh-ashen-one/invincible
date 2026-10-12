@@ -1,0 +1,62 @@
+{
+ "csv": "route_30s_telemetry.csv",
+ "frames": 1798,
+ "t_first": 0.0,
+ "t_last": 29.95,
+ "duration_s": 29.95,
+ "t0": 0.0,
+ "min_z_m": 1.113,
+ "min_height_above_floor_m": 0.163,
+ "fall_through_frames": 0,
+ "fall_through_first_t": null,
+ "start_xy": [
+  249.0,
+  176.0
+ ],
+ "end_xy": [
+  262.1,
+  -869.3
+ ],
+ "path_length_m": 1084.8,
+ "max_z_m": 34.2,
+ "out_of_detail_block_frames": 444,
+ "out_of_detail_block_first_t": 22.5667,
+ "longest_slow_stretch_s": 0.0,
+ "longest_slow_stretch_at": null,
+ "low_progress_3s_windows": 0,
+ "low_progress_first_t": null,
+ "mode_seconds": {
+  "ground": 2.2,
+  "air": 7.28,
+  "swing": 20.45
+ },
+ "long_other_mode_segments": [],
+ "attaches": 18,
+ "max_speed_mps": 61.8,
+ "tpose_frames": 0,
+ "tpose_first_t": null,
+ "anim_nodes": [
+  "air_fallCalm",
+  "air_reachL",
+  "air_reachR",
+  "air_rise",
+  "air_spread",
+  "air_tuck",
+  "ground",
+  "jumpCharge",
+  "jumpLaunch",
+  "swing",
+  "trick_corkscrew",
+  "trick_layout",
+  "trick_scissor",
+  "trick_tuckFlip"
+ ],
+ "cam_in_geometry_frames": 0,
+ "hero_occluded_frames": 0,
+ "pass": {
+  "no_fall_through": true,
+  "no_stuck": true,
+  "no_tpose": true,
+  "in_detail_block": false
+ }
+}

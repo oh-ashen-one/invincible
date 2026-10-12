@@ -1,0 +1,45 @@
+{
+ "name": "probe_s1cam",
+ "note": "a skilled player holding RMB: release on the rising front, re-press 0.3 s later (r26 a_swing_chain rule, gap 0.3 / repressVz 99), bottoms >= 14 m: 20 s",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   560,
+   24
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.3,
+   "repressVz": 99.0,
+   "trickEvery": 0,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  }
+ ],
+ "tune": "ArcLowMin=15,ArcDropShallow=8,ArcDropDeep=12,WallClearance=14,AltChain=0,AnchorAltDeg=8,AnchorElevMin=0.1,AnchorAheadMin=-2",
+ "camTune": "ChaseFbSwing=0.28,ChaseFbAir=0.30,ChaseFbGain=4.0,ChaseFbMin=0.60"
+}

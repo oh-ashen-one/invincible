@@ -1,0 +1,8 @@
+{
+ "movie": "t4_lawn_sprint.mp4",
+ "frames_at_4fps": 54,
+ "flat_sd_threshold": 0.9,
+ "pass": true,
+ "components_wider_than_100px": 0,
+ "hits": []
+}

@@ -1,0 +1,250 @@
+[2026.10.03-01.11.07:300][  0]LogWebHomage: Display: WH_SUIT 8 suits loaded: tessera verdant plum cinder glacier ash saffron sage 
+[2026.10.03-01.11.10:924][  0]LogWebHomage: Display: WH_SUIT 8 suits loaded: tessera verdant plum cinder glacier ash saffron sage 
+[2026.10.03-01.11.11:753][  0]LogTemp: Display: WH_EXPOSURE bias 10.00 on PostProcessVolume_0
+[2026.10.03-01.11.11:753][  0]LogTemp: Display: WH_SETTLE protocol on: 32 static rendered frames + 2.0 world s after every texture of the visible actors is resident; 56 shots at stage T (rel=0)
+[2026.10.03-01.11.16:075][  1]LogWebHomage: Display: WH_SUIT set 0/8 tessera (default) changed=1 t=0.401 frame=1 apply_ms=0.05
+[2026.10.03-01.11.16:075][  1]LogWebHomage: Display: WH_SUIT start suit 0 (tessera) from default, persist=0 live=0
+[2026.10.03-01.11.16:075][  1]LogWebHomage: Display: WH_SUIT set 0/8 tessera (director shot) changed=0 t=0.401 frame=1 apply_ms=0.01
+[2026.10.03-01.11.16:649][  4]LogWebHomage: Display: WH_SUIT swap_done 0 tessera wall_ms=574.4 frames=3 textures_resident=4/4
+[2026.10.03-01.11.19:415][ 20]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.11.19:416][ 20]LogTemp: Display: WH_SETTLE shot 0: stage clock + animations + camera frozen at T=3.741 (frame 20); waiting for assets / textures
+[2026.10.03-01.11.19:542][ 21]LogTemp: Display: WH_SETTLE shot 0: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.11.25:373][ 56]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_00_t003.7.png stage T=3.741 world=9.699 settle_frames=34 static_world_s=5.64 resets=0 wall_s=6.0
+[2026.10.03-01.11.35:916][ 74]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.11.35:917][ 74]LogTemp: Display: WH_SETTLE shot 1: stage clock + animations + camera frozen at T=6.304 (frame 74); waiting for assets / textures
+[2026.10.03-01.11.36:121][ 75]LogTemp: Display: WH_SETTLE shot 1: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.11.42:214][110]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_01_t006.2.png stage T=6.304 world=19.282 settle_frames=34 static_world_s=5.88 resets=0 wall_s=6.3
+[2026.10.03-01.11.48:156][129]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.11.48:157][129]LogTemp: Display: WH_SETTLE shot 2: stage clock + animations + camera frozen at T=9.260 (frame 129); waiting for assets / textures
+[2026.10.03-01.11.48:362][130]LogTemp: Display: WH_SETTLE shot 2: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.11.54:396][165]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_02_t009.2.png stage T=9.260 world=29.263 settle_frames=34 static_world_s=5.91 resets=0 wall_s=6.2
+[2026.10.03-01.12.00:925][186]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.12.00:926][186]LogTemp: Display: WH_SETTLE shot 3: stage clock + animations + camera frozen at T=12.312 (frame 186); waiting for assets / textures
+[2026.10.03-01.12.01:077][187]LogTemp: Display: WH_SETTLE shot 3: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.12.07:134][222]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_03_t012.2.png stage T=12.312 world=39.364 settle_frames=34 static_world_s=5.83 resets=0 wall_s=6.2
+[2026.10.03-01.12.13:333][242]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.12.13:333][242]LogTemp: Display: WH_SETTLE shot 4: stage clock + animations + camera frozen at T=15.261 (frame 242); waiting for assets / textures
+[2026.10.03-01.12.13:468][243]LogTemp: Display: WH_SETTLE shot 4: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.12.19:584][278]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_04_t015.2.png stage T=15.261 world=49.318 settle_frames=34 static_world_s=5.96 resets=0 wall_s=6.3
+[2026.10.03-01.12.25:587][296]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.12.25:589][296]LogTemp: Display: WH_SETTLE shot 5: stage clock + animations + camera frozen at T=18.269 (frame 296); waiting for assets / textures
+[2026.10.03-01.12.25:778][297]LogTemp: Display: WH_SETTLE shot 5: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.12.31:957][332]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_05_t018.2.png stage T=18.269 world=59.428 settle_frames=34 static_world_s=6.01 resets=0 wall_s=6.4
+[2026.10.03-01.12.37:988][352]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.12.37:989][352]LogTemp: Display: WH_SETTLE shot 6: stage clock + animations + camera frozen at T=21.296 (frame 352); waiting for assets / textures
+[2026.10.03-01.12.38:203][353]LogTemp: Display: WH_SETTLE shot 6: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.12.44:449][388]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_06_t021.2.png stage T=21.296 world=69.658 settle_frames=34 static_world_s=6.03 resets=0 wall_s=6.5
+[2026.10.03-01.12.48:384][395]LogWebHomage: Display: WH_SUIT set 1/8 verdant (director shot) changed=1 t=71.162 frame=395 apply_ms=0.10
+[2026.10.03-01.12.48:988][398]LogWebHomage: Display: WH_SUIT swap_done 1 verdant wall_ms=604.0 frames=3 textures_resident=4/4
+[2026.10.03-01.12.50:504][407]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.12.50:505][407]LogTemp: Display: WH_SETTLE shot 7: stage clock + animations + camera frozen at T=24.207 (frame 407); waiting for assets / textures
+[2026.10.03-01.12.50:654][408]LogTemp: Display: WH_SETTLE shot 7: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.12.56:814][443]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_07_t024.2.png stage T=24.207 world=79.592 settle_frames=34 static_world_s=5.99 resets=0 wall_s=6.3
+[2026.10.03-01.13.03:012][463]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.13.03:013][463]LogTemp: Display: WH_SETTLE shot 8: stage clock + animations + camera frozen at T=27.367 (frame 463); waiting for assets / textures
+[2026.10.03-01.13.03:142][464]LogTemp: Display: WH_SETTLE shot 8: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.13.09:248][499]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_08_t027.2.png stage T=27.367 world=89.797 settle_frames=34 static_world_s=5.89 resets=0 wall_s=6.2
+[2026.10.03-01.13.15:065][519]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.13.15:066][519]LogTemp: Display: WH_SETTLE shot 9: stage clock + animations + camera frozen at T=30.277 (frame 519); waiting for assets / textures
+[2026.10.03-01.13.15:213][520]LogTemp: Display: WH_SETTLE shot 9: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.13.21:283][555]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_09_t030.2.png stage T=30.277 world=99.663 settle_frames=34 static_world_s=5.90 resets=0 wall_s=6.2
+[2026.10.03-01.13.27:456][575]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.13.27:457][575]LogTemp: Display: WH_SETTLE shot 10: stage clock + animations + camera frozen at T=33.257 (frame 575); waiting for assets / textures
+[2026.10.03-01.13.27:593][576]LogTemp: Display: WH_SETTLE shot 10: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.13.34:007][611]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_10_t033.2.png stage T=33.257 world=109.948 settle_frames=34 static_world_s=6.21 resets=0 wall_s=6.5
+[2026.10.03-01.13.40:198][631]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.13.40:199][631]LogTemp: Display: WH_SETTLE shot 11: stage clock + animations + camera frozen at T=36.332 (frame 631); waiting for assets / textures
+[2026.10.03-01.13.40:421][632]LogTemp: Display: WH_SETTLE shot 11: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.13.46:536][667]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_11_t036.2.png stage T=36.332 world=120.169 settle_frames=34 static_world_s=5.92 resets=0 wall_s=6.3
+[2026.10.03-01.13.52:789][687]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.13.52:790][687]LogTemp: Display: WH_SETTLE shot 12: stage clock + animations + camera frozen at T=39.338 (frame 687); waiting for assets / textures
+[2026.10.03-01.13.53:011][688]LogTemp: Display: WH_SETTLE shot 12: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.13.59:031][723]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_12_t039.2.png stage T=39.338 world=130.118 settle_frames=34 static_world_s=5.86 resets=0 wall_s=6.2
+[2026.10.03-01.14.05:347][743]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.14.05:348][743]LogTemp: Display: WH_SETTLE shot 13: stage clock + animations + camera frozen at T=42.313 (frame 743); waiting for assets / textures
+[2026.10.03-01.14.05:489][744]LogTemp: Display: WH_SETTLE shot 13: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.14.11:247][779]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_13_t042.2.png stage T=42.313 world=139.780 settle_frames=34 static_world_s=5.55 resets=0 wall_s=5.9
+[2026.10.03-01.14.15:232][787]LogWebHomage: Display: WH_SUIT set 2/8 plum (director shot) changed=1 t=141.335 frame=787 apply_ms=0.06
+[2026.10.03-01.14.15:697][790]LogWebHomage: Display: WH_SUIT swap_done 2 plum wall_ms=465.4 frames=3 textures_resident=4/4
+[2026.10.03-01.14.17:383][799]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.14.17:387][799]LogTemp: Display: WH_SETTLE shot 14: stage clock + animations + camera frozen at T=45.285 (frame 799); waiting for assets / textures
+[2026.10.03-01.14.17:541][800]LogTemp: Display: WH_SETTLE shot 14: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.14.23:650][835]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_14_t045.2.png stage T=45.285 world=149.753 settle_frames=34 static_world_s=5.97 resets=0 wall_s=6.3
+[2026.10.03-01.14.30:013][857]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.14.30:014][857]LogTemp: Display: WH_SETTLE shot 15: stage clock + animations + camera frozen at T=48.369 (frame 857); waiting for assets / textures
+[2026.10.03-01.14.30:232][858]LogTemp: Display: WH_SETTLE shot 15: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.14.36:604][893]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_15_t048.2.png stage T=48.369 world=160.121 settle_frames=34 static_world_s=6.24 resets=0 wall_s=6.6
+[2026.10.03-01.14.42:210][913]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.14.42:210][913]LogTemp: Display: WH_SETTLE shot 16: stage clock + animations + camera frozen at T=51.301 (frame 913); waiting for assets / textures
+[2026.10.03-01.14.42:336][914]LogTemp: Display: WH_SETTLE shot 16: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.14.48:342][949]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_16_t051.2.png stage T=51.301 world=169.971 settle_frames=34 static_world_s=5.88 resets=0 wall_s=6.1
+[2026.10.03-01.14.54:754][968]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.14.54:758][968]LogTemp: Display: WH_SETTLE shot 17: stage clock + animations + camera frozen at T=54.201 (frame 968); waiting for assets / textures
+[2026.10.03-01.14.54:922][969]LogTemp: Display: WH_SETTLE shot 17: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.15.01:392][  4]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_17_t054.2.png stage T=54.201 world=180.304 settle_frames=34 static_world_s=6.28 resets=0 wall_s=6.6
+[2026.10.03-01.15.07:618][ 25]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.15.07:618][ 25]LogTemp: Display: WH_SETTLE shot 18: stage clock + animations + camera frozen at T=57.383 (frame 1025); waiting for assets / textures
+[2026.10.03-01.15.07:834][ 26]LogTemp: Display: WH_SETTLE shot 18: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.15.14:227][ 61]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_18_t057.2.png stage T=57.383 world=190.811 settle_frames=34 static_world_s=6.26 resets=0 wall_s=6.6
+[2026.10.03-01.15.20:016][ 80]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.15.20:017][ 80]LogTemp: Display: WH_SETTLE shot 19: stage clock + animations + camera frozen at T=60.255 (frame 1080); waiting for assets / textures
+[2026.10.03-01.15.20:237][ 81]LogTemp: Display: WH_SETTLE shot 19: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.15.26:260][116]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_19_t060.2.png stage T=60.255 world=200.601 settle_frames=34 static_world_s=5.84 resets=0 wall_s=6.2
+[2026.10.03-01.15.32:469][136]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.15.32:496][137]LogTemp: Display: WH_SETTLE shot 20: stage clock + animations + camera frozen at T=63.351 (frame 1136); waiting for assets / textures
+[2026.10.03-01.15.32:589][137]LogTemp: Display: WH_SETTLE shot 20: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.15.38:957][172]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_20_t063.2.png stage T=63.351 world=210.944 settle_frames=34 static_world_s=6.16 resets=0 wall_s=6.5
+[2026.10.03-01.15.42:975][179]LogWebHomage: Display: WH_SUIT set 3/8 cinder (director shot) changed=1 t=212.494 frame=1179 apply_ms=0.06
+[2026.10.03-01.15.43:493][182]LogWebHomage: Display: WH_SUIT swap_done 3 cinder wall_ms=517.8 frames=3 textures_resident=4/4
+[2026.10.03-01.15.45:282][191]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.15.45:283][191]LogTemp: Display: WH_SETTLE shot 21: stage clock + animations + camera frozen at T=66.393 (frame 1191); waiting for assets / textures
+[2026.10.03-01.15.45:418][192]LogTemp: Display: WH_SETTLE shot 21: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.15.52:051][227]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_21_t066.2.png stage T=66.393 world=221.569 settle_frames=34 static_world_s=6.46 resets=0 wall_s=6.8
+[2026.10.03-01.15.58:270][246]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.15.58:271][246]LogTemp: Display: WH_SETTLE shot 22: stage clock + animations + camera frozen at T=69.301 (frame 1246); waiting for assets / textures
+[2026.10.03-01.15.58:423][248]LogTemp: Display: WH_SETTLE shot 22: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.16.04:611][282]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_22_t069.2.png stage T=69.301 world=231.619 settle_frames=34 static_world_s=6.04 resets=0 wall_s=6.3
+[2026.10.03-01.16.10:321][301]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.16.10:324][301]LogTemp: Display: WH_SETTLE shot 23: stage clock + animations + camera frozen at T=72.206 (frame 1301); waiting for assets / textures
+[2026.10.03-01.16.10:542][302]LogTemp: Display: WH_SETTLE shot 23: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.16.16:674][337]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_23_t072.2.png stage T=72.206 world=241.623 settle_frames=34 static_world_s=5.97 resets=0 wall_s=6.4
+[2026.10.03-01.16.23:308][357]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.16.23:309][357]LogTemp: Display: WH_SETTLE shot 24: stage clock + animations + camera frozen at T=75.399 (frame 1357); waiting for assets / textures
+[2026.10.03-01.16.23:526][358]LogTemp: Display: WH_SETTLE shot 24: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.16.30:064][393]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_24_t075.2.png stage T=75.399 world=252.273 settle_frames=34 static_world_s=6.32 resets=0 wall_s=6.8
+[2026.10.03-01.16.36:206][412]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.16.36:206][412]LogTemp: Display: WH_SETTLE shot 25: stage clock + animations + camera frozen at T=78.217 (frame 1412); waiting for assets / textures
+[2026.10.03-01.16.36:403][413]LogTemp: Display: WH_SETTLE shot 25: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.16.42:666][448]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_25_t078.2.png stage T=78.217 world=262.366 settle_frames=34 static_world_s=6.05 resets=0 wall_s=6.5
+[2026.10.03-01.16.48:786][469]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.16.48:787][469]LogTemp: Display: WH_SETTLE shot 26: stage clock + animations + camera frozen at T=81.279 (frame 1469); waiting for assets / textures
+[2026.10.03-01.16.49:000][470]LogTemp: Display: WH_SETTLE shot 26: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.16.55:124][505]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_26_t081.2.png stage T=81.279 world=272.508 settle_frames=34 static_world_s=5.91 resets=0 wall_s=6.3
+[2026.10.03-01.17.00:905][525]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.17.00:907][525]LogTemp: Display: WH_SETTLE shot 27: stage clock + animations + camera frozen at T=84.218 (frame 1525); waiting for assets / textures
+[2026.10.03-01.17.01:112][526]LogTemp: Display: WH_SETTLE shot 27: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.17.07:325][561]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_27_t084.2.png stage T=84.218 world=282.708 settle_frames=34 static_world_s=6.06 resets=0 wall_s=6.4
+[2026.10.03-01.17.18:546][570]LogWebHomage: Display: WH_SUIT set 4/8 glacier (director shot) changed=1 t=284.409 frame=1569 apply_ms=0.09
+[2026.10.03-01.17.19:108][573]LogWebHomage: Display: WH_SUIT swap_done 4 glacier wall_ms=568.8 frames=3 textures_resident=4/4
+[2026.10.03-01.17.20:635][579]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.17.21:103][579]LogTemp: Display: WH_SETTLE shot 28: stage clock + animations + camera frozen at T=87.258 (frame 1579); waiting for assets / textures
+[2026.10.03-01.17.21:107][580]LogTemp: Display: WH_SETTLE shot 28: resident after 0.5 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.17.27:823][615]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_28_t087.2.png stage T=87.258 world=293.640 settle_frames=34 static_world_s=6.49 resets=0 wall_s=7.2
+[2026.10.03-01.17.38:800][635]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.17.38:841][635]LogTemp: Display: WH_SETTLE shot 29: stage clock + animations + camera frozen at T=90.353 (frame 1635); waiting for assets / textures
+[2026.10.03-01.17.38:956][637]LogTemp: Display: WH_SETTLE shot 29: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.17.45:508][671]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_29_t090.2.png stage T=90.353 world=304.269 settle_frames=34 static_world_s=6.43 resets=0 wall_s=6.7
+[2026.10.03-01.18.00:180][690]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.18.00:182][690]LogTemp: Display: WH_SETTLE shot 30: stage clock + animations + camera frozen at T=93.227 (frame 1690); waiting for assets / textures
+[2026.10.03-01.18.00:306][691]LogTemp: Display: WH_SETTLE shot 30: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.18.06:584][726]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_30_t093.2.png stage T=93.227 world=314.255 settle_frames=34 static_world_s=6.09 resets=0 wall_s=6.4
+[2026.10.03-01.18.12:966][746]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.18.12:967][746]LogTemp: Display: WH_SETTLE shot 31: stage clock + animations + camera frozen at T=96.342 (frame 1746); waiting for assets / textures
+[2026.10.03-01.18.13:188][747]LogTemp: Display: WH_SETTLE shot 31: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.18.19:641][782]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_31_t096.2.png stage T=96.342 world=324.766 settle_frames=34 static_world_s=6.24 resets=0 wall_s=6.7
+[2026.10.03-01.18.26:597][801]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.18.26:598][801]LogTemp: Display: WH_SETTLE shot 32: stage clock + animations + camera frozen at T=99.305 (frame 1801); waiting for assets / textures
+[2026.10.03-01.18.26:724][802]LogTemp: Display: WH_SETTLE shot 32: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.18.32:659][837]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_32_t099.2.png stage T=99.305 world=334.512 settle_frames=34 static_world_s=5.77 resets=0 wall_s=6.1
+[2026.10.03-01.18.38:524][858]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.18.38:525][858]LogTemp: Display: WH_SETTLE shot 33: stage clock + animations + camera frozen at T=102.224 (frame 1858); waiting for assets / textures
+[2026.10.03-01.18.38:744][859]LogTemp: Display: WH_SETTLE shot 33: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.18.44:923][894]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_33_t102.2.png stage T=102.224 world=344.547 settle_frames=34 static_world_s=5.96 resets=0 wall_s=6.4
+[2026.10.03-01.18.51:232][917]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.18.51:233][917]LogTemp: Display: WH_SETTLE shot 34: stage clock + animations + camera frozen at T=105.252 (frame 1917); waiting for assets / textures
+[2026.10.03-01.18.51:454][919]LogTemp: Display: WH_SETTLE shot 34: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.18.57:337][953]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_34_t105.2.png stage T=105.252 world=354.425 settle_frames=34 static_world_s=5.74 resets=0 wall_s=6.1
+[2026.10.03-01.19.01:609][961]LogWebHomage: Display: WH_SUIT set 5/8 ash (director shot) changed=1 t=355.919 frame=1961 apply_ms=0.09
+[2026.10.03-01.19.02:136][964]LogWebHomage: Display: WH_SUIT swap_done 5 ash wall_ms=527.0 frames=3 textures_resident=4/4
+[2026.10.03-01.19.03:826][974]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.19.03:827][974]LogTemp: Display: WH_SETTLE shot 35: stage clock + animations + camera frozen at T=108.305 (frame 1974); waiting for assets / textures
+[2026.10.03-01.19.03:982][975]LogTemp: Display: WH_SETTLE shot 35: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.19.09:715][ 10]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_35_t108.2.png stage T=108.305 world=364.020 settle_frames=34 static_world_s=5.60 resets=0 wall_s=5.9
+[2026.10.03-01.19.15:945][ 31]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.19.15:950][ 31]LogTemp: Display: WH_SETTLE shot 36: stage clock + animations + camera frozen at T=111.306 (frame 2031); waiting for assets / textures
+[2026.10.03-01.19.16:070][ 32]LogTemp: Display: WH_SETTLE shot 36: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.19.21:999][ 67]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_36_t111.2.png stage T=111.306 world=373.812 settle_frames=34 static_world_s=5.77 resets=0 wall_s=6.1
+[2026.10.03-01.19.28:277][ 86]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.19.28:278][ 86]LogTemp: Display: WH_SETTLE shot 37: stage clock + animations + camera frozen at T=114.359 (frame 2086); waiting for assets / textures
+[2026.10.03-01.19.28:496][ 87]LogTemp: Display: WH_SETTLE shot 37: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.19.34:397][122]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_37_t114.2.png stage T=114.359 world=383.740 settle_frames=34 static_world_s=5.75 resets=0 wall_s=6.1
+[2026.10.03-01.19.40:614][141]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.19.40:614][141]LogTemp: Display: WH_SETTLE shot 38: stage clock + animations + camera frozen at T=117.219 (frame 2141); waiting for assets / textures
+[2026.10.03-01.19.40:785][142]LogTemp: Display: WH_SETTLE shot 38: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.19.46:811][177]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_38_t117.2.png stage T=117.219 world=393.586 settle_frames=34 static_world_s=5.82 resets=0 wall_s=6.2
+[2026.10.03-01.19.53:005][198]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.19.53:006][198]LogTemp: Display: WH_SETTLE shot 39: stage clock + animations + camera frozen at T=120.274 (frame 2198); waiting for assets / textures
+[2026.10.03-01.19.53:206][199]LogTemp: Display: WH_SETTLE shot 39: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.19.59:049][234]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_39_t120.2.png stage T=120.274 world=403.445 settle_frames=34 static_world_s=5.72 resets=0 wall_s=6.0
+[2026.10.03-01.20.05:129][255]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.20.05:131][255]LogTemp: Display: WH_SETTLE shot 40: stage clock + animations + camera frozen at T=123.243 (frame 2255); waiting for assets / textures
+[2026.10.03-01.20.05:351][256]LogTemp: Display: WH_SETTLE shot 40: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.20.11:119][291]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_40_t123.2.png stage T=123.243 world=413.165 settle_frames=34 static_world_s=5.60 resets=0 wall_s=6.0
+[2026.10.03-01.20.17:314][310]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.20.17:315][310]LogTemp: Display: WH_SETTLE shot 41: stage clock + animations + camera frozen at T=126.201 (frame 2310); waiting for assets / textures
+[2026.10.03-01.20.17:445][311]LogTemp: Display: WH_SETTLE shot 41: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.20.23:504][346]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_41_t126.2.png stage T=126.201 world=423.050 settle_frames=34 static_world_s=5.88 resets=0 wall_s=6.2
+[2026.10.03-01.20.27:370][354]LogWebHomage: Display: WH_SUIT set 6/8 saffron (director shot) changed=1 t=424.613 frame=2354 apply_ms=0.07
+[2026.10.03-01.20.27:941][357]LogWebHomage: Display: WH_SUIT swap_done 6 saffron wall_ms=571.4 frames=3 textures_resident=4/4
+[2026.10.03-01.20.29:640][366]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.20.29:641][366]LogTemp: Display: WH_SETTLE shot 42: stage clock + animations + camera frozen at T=129.288 (frame 2366); waiting for assets / textures
+[2026.10.03-01.20.29:795][367]LogTemp: Display: WH_SETTLE shot 42: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.20.35:985][402]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_42_t129.2.png stage T=129.288 world=433.229 settle_frames=34 static_world_s=6.03 resets=0 wall_s=6.3
+[2026.10.03-01.20.41:644][423]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.20.41:645][423]LogTemp: Display: WH_SETTLE shot 43: stage clock + animations + camera frozen at T=132.321 (frame 2423); waiting for assets / textures
+[2026.10.03-01.20.41:779][424]LogTemp: Display: WH_SETTLE shot 43: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.20.47:627][459]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_43_t132.2.png stage T=132.321 world=442.965 settle_frames=34 static_world_s=5.69 resets=0 wall_s=6.0
+[2026.10.03-01.20.53:209][480]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.20.53:210][480]LogTemp: Display: WH_SETTLE shot 44: stage clock + animations + camera frozen at T=135.228 (frame 2480); waiting for assets / textures
+[2026.10.03-01.20.53:375][481]LogTemp: Display: WH_SETTLE shot 44: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.20.59:903][516]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_44_t135.2.png stage T=135.228 world=453.338 settle_frames=34 static_world_s=6.31 resets=0 wall_s=6.7
+[2026.10.03-01.21.05:779][539]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.21.05:780][539]LogTemp: Display: WH_SETTLE shot 45: stage clock + animations + camera frozen at T=138.357 (frame 2539); waiting for assets / textures
+[2026.10.03-01.21.05:979][540]LogTemp: Display: WH_SETTLE shot 45: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.21.11:476][575]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_45_t138.2.png stage T=138.357 world=462.824 settle_frames=34 static_world_s=5.33 resets=0 wall_s=5.7
+[2026.10.03-01.21.17:486][596]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.21.17:487][596]LogTemp: Display: WH_SETTLE shot 46: stage clock + animations + camera frozen at T=141.265 (frame 2596); waiting for assets / textures
+[2026.10.03-01.21.17:675][597]LogTemp: Display: WH_SETTLE shot 46: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.21.23:307][632]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_46_t141.2.png stage T=141.265 world=472.386 settle_frames=34 static_world_s=5.50 resets=0 wall_s=5.8
+[2026.10.03-01.21.29:833][654]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.21.29:847][654]LogTemp: Display: WH_SETTLE shot 47: stage clock + animations + camera frozen at T=144.317 (frame 2654); waiting for assets / textures
+[2026.10.03-01.21.29:982][655]LogTemp: Display: WH_SETTLE shot 47: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.21.35:501][690]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_47_t144.2.png stage T=144.317 world=481.819 settle_frames=34 static_world_s=5.39 resets=0 wall_s=5.7
+[2026.10.03-01.21.41:341][710]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.21.41:342][710]LogTemp: Display: WH_SETTLE shot 48: stage clock + animations + camera frozen at T=147.332 (frame 2710); waiting for assets / textures
+[2026.10.03-01.21.41:560][711]LogTemp: Display: WH_SETTLE shot 48: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.21.47:459][746]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_48_t147.2.png stage T=147.332 world=491.612 settle_frames=34 static_world_s=5.72 resets=0 wall_s=6.1
+[2026.10.03-01.21.51:444][754]LogWebHomage: Display: WH_SUIT set 7/8 sage (director shot) changed=1 t=493.186 frame=2754 apply_ms=0.09
+[2026.10.03-01.21.52:016][757]LogWebHomage: Display: WH_SUIT swap_done 7 sage wall_ms=572.1 frames=3 textures_resident=4/4
+[2026.10.03-01.21.53:590][766]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.21.53:590][766]LogTemp: Display: WH_SETTLE shot 49: stage clock + animations + camera frozen at T=150.246 (frame 2766); waiting for assets / textures
+[2026.10.03-01.21.53:743][767]LogTemp: Display: WH_SETTLE shot 49: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.21.59:112][802]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_49_t150.2.png stage T=150.246 world=500.855 settle_frames=34 static_world_s=5.24 resets=0 wall_s=5.5
+[2026.10.03-01.22.05:085][824]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.22.05:086][824]LogTemp: Display: WH_SETTLE shot 50: stage clock + animations + camera frozen at T=153.352 (frame 2824); waiting for assets / textures
+[2026.10.03-01.22.05:268][825]LogTemp: Display: WH_SETTLE shot 50: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.22.11:118][860]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_50_t153.2.png stage T=153.352 world=510.729 settle_frames=34 static_world_s=5.66 resets=0 wall_s=6.0
+[2026.10.03-01.22.16:950][882]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.22.16:950][882]LogTemp: Display: WH_SETTLE shot 51: stage clock + animations + camera frozen at T=156.316 (frame 2882); waiting for assets / textures
+[2026.10.03-01.22.17:116][883]LogTemp: Display: WH_SETTLE shot 51: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.22.23:315][918]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_51_t156.2.png stage T=156.316 world=520.735 settle_frames=34 static_world_s=6.03 resets=0 wall_s=6.4
+[2026.10.03-01.22.29:157][939]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.22.29:158][939]LogTemp: Display: WH_SETTLE shot 52: stage clock + animations + camera frozen at T=159.321 (frame 2939); waiting for assets / textures
+[2026.10.03-01.22.29:311][940]LogTemp: Display: WH_SETTLE shot 52: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.22.35:159][975]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_52_t159.2.png stage T=159.321 world=530.401 settle_frames=34 static_world_s=5.67 resets=0 wall_s=6.0
+[2026.10.03-01.22.41:100][996]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.22.41:101][996]LogTemp: Display: WH_SETTLE shot 53: stage clock + animations + camera frozen at T=162.346 (frame 2996); waiting for assets / textures
+[2026.10.03-01.22.41:298][997]LogTemp: Display: WH_SETTLE shot 53: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.22.46:994][ 32]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_53_t162.2.png stage T=162.346 world=540.016 settle_frames=34 static_world_s=5.48 resets=0 wall_s=5.9
+[2026.10.03-01.22.52:972][ 53]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.22.52:972][ 53]LogTemp: Display: WH_SETTLE shot 54: stage clock + animations + camera frozen at T=165.274 (frame 3053); waiting for assets / textures
+[2026.10.03-01.22.53:097][ 54]LogTemp: Display: WH_SETTLE shot 54: resident after 0.1 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.22.58:966][ 89]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_54_t165.2.png stage T=165.274 world=549.676 settle_frames=34 static_world_s=5.66 resets=0 wall_s=6.0
+[2026.10.03-01.23.05:302][110]LogTemp: Display: WH_SETTLE froze 1 walker actors (Tick disabled while the shot settles)
+[2026.10.03-01.23.05:302][110]LogTemp: Display: WH_SETTLE shot 55: stage clock + animations + camera frozen at T=168.327 (frame 3110); waiting for assets / textures
+[2026.10.03-01.23.05:486][111]LogTemp: Display: WH_SETTLE shot 55: resident after 0.2 s wall (1 frames); counting static rendered frames
+[2026.10.03-01.23.11:175][146]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainD/run/stills/skins_55_t168.2.png stage T=168.327 world=559.364 settle_frames=34 static_world_s=5.47 resets=0 wall_s=5.9
+[2026.10.03-01.23.14:688][153]LogWebHomage: Display: WH_SUIT set 0/8 tessera (director shot) changed=1 t=560.848 frame=3153 apply_ms=0.06
+[2026.10.03-01.23.15:235][156]LogWebHomage: Display: WH_SUIT swap_done 0 tessera wall_ms=546.6 frames=3 textures_resident=4/4
+[2026.10.03-01.23.16:163][162]LogWebHomage: Display: WH_SUIT set 1/8 verdant (director shot) changed=1 t=562.322 frame=3162 apply_ms=0.11
+[2026.10.03-01.23.16:727][165]LogWebHomage: Display: WH_SUIT swap_done 1 verdant wall_ms=564.1 frames=3 textures_resident=4/4

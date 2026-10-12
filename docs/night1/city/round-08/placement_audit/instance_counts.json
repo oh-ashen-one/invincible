@@ -1,0 +1,46 @@
+{
+ "streetcars": {
+  "veh_sedan": 21,
+  "veh_suv": 25,
+  "veh_pickup": 22,
+  "veh_van": 8,
+  "veh_cross": 21,
+  "veh_hatch": 19,
+  "veh_taxi_mv": 9,
+  "veh_suv2": 23,
+  "veh_sedan2": 21,
+  "veh_taxi_hy": 20,
+  "veh_taxi_gr": 5,
+  "veh_taxi": 3
+ },
+ "streettraffic": {
+  "veh_cross": 24,
+  "veh_suv2": 16,
+  "veh_suv": 31,
+  "veh_taxi_mv": 8,
+  "veh_sedan": 24,
+  "veh_taxi": 5,
+  "veh_hatch": 20,
+  "veh_van": 8,
+  "veh_pickup": 27,
+  "veh_taxi_hy": 11,
+  "veh_sedan2": 18,
+  "veh_taxi_gr": 3
+ },
+ "streettrees": {
+  "ez-street2-l1-leaves": 38,
+  "ez-street2-l1-bark": 38,
+  "ez-street0-l0-leaves": 26,
+  "ez-street0-l0-bark": 26,
+  "ez-street2-l0-leaves": 17,
+  "ez-street2-l0-bark": 17,
+  "ez-street0-l1-leaves": 39,
+  "ez-street0-l1-bark": 39,
+  "ez-street1-l1-leaves": 50,
+  "ez-street1-l1-bark": 50,
+  "ez-street1-l0-leaves": 9,
+  "ez-street1-l0-bark": 9,
+  "pit": 130,
+  "_remove": 3
+ }
+}

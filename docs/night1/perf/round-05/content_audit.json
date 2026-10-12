@@ -1,0 +1,158 @@
+{
+ "folders": {
+  "City": {
+   "components": 1,
+   "instances": 1,
+   "rt_components": 1,
+   "rt_instances": 1
+  },
+  "City/Far": {
+   "components": 1,
+   "instances": 28965,
+   "rt_components": 0,
+   "rt_instances": 0
+  },
+  "City/Props": {
+   "components": 98,
+   "instances": 87887,
+   "rt_components": 0,
+   "rt_instances": 0
+  },
+  "City/RTProxy": {
+   "components": 402,
+   "instances": 402,
+   "rt_components": 402,
+   "rt_instances": 402
+  },
+  "City/Traffic": {
+   "components": 12,
+   "instances": 195,
+   "rt_components": 12,
+   "rt_instances": 195
+  },
+  "City/asphalt": {
+   "components": 9,
+   "instances": 9,
+   "rt_components": 9,
+   "rt_instances": 9
+  },
+  "City/detail": {
+   "components": 11,
+   "instances": 11,
+   "rt_components": 11,
+   "rt_instances": 11
+  },
+  "City/facade": {
+   "components": 201,
+   "instances": 201,
+   "rt_components": 201,
+   "rt_instances": 201
+  },
+  "City/far": {
+   "components": 136,
+   "instances": 136,
+   "rt_components": 0,
+   "rt_instances": 0
+  },
+  "City/generic": {
+   "components": 44,
+   "instances": 44,
+   "rt_components": 44,
+   "rt_instances": 44
+  },
+  "City/land": {
+   "components": 8,
+   "instances": 8,
+   "rt_components": 8,
+   "rt_instances": 8
+  },
+  "City/markings": {
+   "components": 9,
+   "instances": 9,
+   "rt_components": 9,
+   "rt_instances": 9
+  },
+  "City/roofs": {
+   "components": 9,
+   "instances": 9,
+   "rt_components": 9,
+   "rt_instances": 9
+  },
+  "City/sidewalk": {
+   "components": 9,
+   "instances": 9,
+   "rt_components": 9,
+   "rt_instances": 9
+  },
+  "City/signage": {
+   "components": 13,
+   "instances": 13,
+   "rt_components": 13,
+   "rt_instances": 13
+  },
+  "City/streetkit": {
+   "components": 9,
+   "instances": 9,
+   "rt_components": 9,
+   "rt_instances": 9
+  }
+ },
+ "geo": "/Game/Tests/City/City_Midtown_Geo",
+ "geo_total": {
+  "components": 972,
+  "instances": 117908,
+  "rt_components": 737,
+  "rt_instances": 920
+ },
+ "maps": {
+  "/Game/Maps/Manhattan": true,
+  "/Game/Maps/Manhattan_Actors": true,
+  "/Game/Maps/Manhattan_Midday": true,
+  "/Game/Maps/Manhattan_Night": true,
+  "/Game/Maps/Manhattan_View_S1": true,
+  "/Game/Maps/Manhattan_View_S2": true,
+  "/Game/Maps/Manhattan_View_S4": true
+ },
+ "people": {
+  "skeletal_components": 13,
+  "visible_in_ray_tracing": 13
+ },
+ "rigs": {
+  "golden": {
+   "cloud_tracing_max_distance_km": [
+    20.0
+   ]
+  },
+  "midday": {
+   "cloud_tracing_max_distance_km": [
+    20.0
+   ]
+  },
+  "night": {
+   "cloud_tracing_max_distance_km": [
+    20.0
+   ]
+  }
+ },
+ "summary": {
+  "cloud_km": {
+   "golden": [
+    20.0
+   ],
+   "midday": [
+    20.0
+   ],
+   "night": [
+    20.0
+   ]
+  },
+  "instances": 117908,
+  "maps_missing": [],
+  "people": {
+   "skeletal_components": 13,
+   "visible_in_ray_tracing": 13
+  },
+  "rt_instances": 920,
+  "secs": 0.8
+ }
+}

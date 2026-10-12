@@ -1,0 +1,47 @@
+{
+ "name": "d_sprint_jump_first_swing_city",
+ "note": "Round 13, lit city: street sprint north up the avenue, charged jump, first swing, then the chain rule with a flow flip on every 3rd release.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   244,
+   0.95
+  ],
+  "yaw": -90,
+  "camPitch": 0.14
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "sprint": true
+  },
+  {
+   "t": 1.8,
+   "jump": true
+  },
+  {
+   "t": 2.2,
+   "jump": false
+  },
+  {
+   "t": 2.6,
+   "swing": true,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.8,
+   "repressVz": 99.0,
+   "trickEvery": 3,
+   "skyEvery": 0,
+   "skyTricks": 2,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  }
+ ]
+}

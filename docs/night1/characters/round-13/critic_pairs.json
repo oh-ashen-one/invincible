@@ -1,0 +1,170 @@
+[
+ {
+  "id": "suit-full-tessera",
+  "x": "docs/night1/characters/round-13/stills/skin_tessera_front_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-idle-street-og__og_0000.jpg",
+  "note": "masked acrobat hero in a fitted suit, full body, standing: judge the suit as a 4K render (fabric, raised piping / seams, line work, shading, texture sharpness, any seam, fold or smear) and the hero's size in frame. ALSO say whether the suit design resembles any existing licensed costume"
+ },
+ {
+  "id": "suit-full-verdant",
+  "x": "docs/night1/characters/round-13/stills/skin_verdant_front_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-idle-crosswalk-night__nt_0945.jpg",
+  "note": "masked acrobat hero in a fitted suit, full body, standing: judge the suit as a 4K render (fabric, raised piping / seams, line work, shading, texture sharpness, any seam, fold or smear) and the hero's size in frame. ALSO say whether the suit design resembles any existing licensed costume"
+ },
+ {
+  "id": "suit-full-saffron",
+  "x": "docs/night1/characters/round-13/stills/skin_saffron_front_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-rooftop-miles__gr_0202.jpg",
+  "note": "masked acrobat hero in a fitted suit, full body, standing: judge the suit as a 4K render (fabric, raised piping / seams, line work, shading, texture sharpness, any seam, fold or smear) and the hero's size in frame. ALSO say whether the suit design resembles any existing licensed costume"
+ },
+ {
+  "id": "suit-full-ash",
+  "x": "docs/night1/characters/round-13/stills/skin_ash_front_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-run-street-dn__dn_1115.jpg",
+  "note": "masked acrobat hero in a fitted suit, full body, standing: judge the suit as a 4K render (fabric, raised piping / seams, line work, shading, texture sharpness, any seam, fold or smear) and the hero's size in frame. ALSO say whether the suit design resembles any existing licensed costume"
+ },
+ {
+  "id": "suit-back-plum",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r13/chainA/v2/stills/skin_plum_back_4k.png",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-run-street-dn__dn_1115.jpg",
+  "note": "masked hero seen from behind, in a fitted suit: judge suit texture quality, raised line work, seams, shading; any resemblance to an existing licensed costume?"
+ },
+ {
+  "id": "suit-back-glacier",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r13/chainA/v2/stills/skin_glacier_back_4k.png",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-run-street-dn__dn_1115.jpg",
+  "note": "masked hero seen from behind, in a fitted suit: judge suit texture quality, raised line work, seams, shading; any resemblance to an existing licensed costume?"
+ },
+ {
+  "id": "suit-back-sage",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r13/chainA/v2/stills/skin_sage_back_4k.png",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-run-street-dn__dn_1115.jpg",
+  "note": "masked hero seen from behind, in a fitted suit: judge suit texture quality, raised line work, seams, shading; any resemblance to an existing licensed costume?"
+ },
+ {
+  "id": "suit-back-tessera",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r13/chainA/v2/stills/skin_tessera_back_4k.png",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-run-street-dn__dn_1115.jpg",
+  "note": "masked hero seen from behind, in a fitted suit: judge suit texture quality, raised line work, seams, shading; any resemblance to an existing licensed costume?"
+ },
+ {
+  "id": "suit-chest-tessera",
+  "x": "docs/night1/characters/round-13/stills/skin_tessera_chest_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/press-suit-closeup-fire__psblog_14.jpg",
+  "note": "suit chest close-up at 4K: is the line work RAISED (lit edge + shadow edge on every line) or flat print; do any lines show through the sash / chevron panels; any faceted shading patches, folds or stair-stepped edges near the armpit; weave continuity"
+ },
+ {
+  "id": "suit-chest-ash",
+  "x": "docs/night1/characters/round-13/stills/skin_ash_chest_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/suits-duo-closeup__gr_1003.jpg",
+  "note": "suit chest close-up at 4K: is the line work RAISED (lit edge + shadow edge on every line) or flat print; do any lines show through the sash / chevron panels; any faceted shading patches, folds or stair-stepped edges near the armpit; weave continuity"
+ },
+ {
+  "id": "suit-chest-verdant",
+  "x": "docs/night1/characters/round-13/stills/skin_verdant_chest_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/suits-duo-closeup-2__gr_1010.jpg",
+  "note": "suit chest close-up at 4K: is the line work RAISED (lit edge + shadow edge on every line) or flat print; do any lines show through the sash / chevron panels; any faceted shading patches, folds or stair-stepped edges near the armpit; weave continuity"
+ },
+ {
+  "id": "suit-head-tessera",
+  "x": "docs/night1/characters/round-13/stills/skin_tessera_head_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-face-closeup__gr_0230.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (brow ridge, eye sockets, nose bridge and tip, cheek bones, mouth, chin) or a smooth sock; are the lenses large with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; any resemblance to an existing licensed mask?"
+ },
+ {
+  "id": "suit-head-glacier",
+  "x": "docs/night1/characters/round-13/stills/skin_glacier_head_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/suits-duo-closeup__gr_1003.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (brow ridge, eye sockets, nose bridge and tip, cheek bones, mouth, chin) or a smooth sock; are the lenses large with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; any resemblance to an existing licensed mask?"
+ },
+ {
+  "id": "suit-head-cinder",
+  "x": "docs/night1/characters/round-13/stills/skin_cinder_head34_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/press-suit-closeup-fire__psblog_14.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (brow ridge, eye sockets, nose bridge and tip, cheek bones, mouth, chin) or a smooth sock; are the lenses large with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; any resemblance to an existing licensed mask? (dark mask: does the relief still read?)"
+ },
+ {
+  "id": "suit-head-verdant-profile",
+  "x": "docs/night1/characters/round-13/stills/skin_verdant_headside_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-closeup-trailer__st_0106.jpg",
+  "note": "masked head in PROFILE: does the silhouette show a nose, a brow and a chin (a nose bump), or an egg?"
+ },
+ {
+  "id": "suit-head-plum",
+  "x": "docs/night1/characters/round-13/stills/skin_plum_head_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/symbiote-lens-extreme-closeup__gr_1016.jpg",
+  "note": "masked head close-up at 4K: is the head SCULPTED (brow ridge, eye sockets, nose bridge and tip, cheek bones, mouth, chin) or a smooth sock; are the lenses large with ONE closed raised rim and a curved glossy surface; is the face seam raised piping or black ink; any resemblance to an existing licensed mask?"
+ },
+ {
+  "id": "swatch-sheet",
+  "x": "docs/night1/characters/round-13/SWATCH_SHEET.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/suits-render-trailer__eny_0200.jpg",
+  "note": "a set of hero suit designs shown side by side: judge variety and polish; is any design a copy of an existing licensed costume, emblem or colour scheme?"
+ },
+ {
+  "id": "suit-swap-clip",
+  "x": "docs/night1/characters/round-13/swap_pawn_T_key.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-crosswalk__dn_0329-0337.mp4",
+  "note": "the PLAYABLE hero running, its suit changed by key presses: judge suit render quality in motion, how clean each change looks, the run cadence and any pose pop at the start"
+ },
+ {
+  "id": "hero-run-side",
+  "x": "docs/night1/characters/round-13/hero_run_side.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-crosswalk__dn_0329-0337.mp4",
+  "note": "a masked hero running past a side-tracking camera: judge step cadence, torso lean, arm swing, foot planting, transitions, suit quality in motion"
+ },
+ {
+  "id": "hero-run-chase",
+  "x": "docs/night1/characters/round-13/hero_run_chase.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-toward-camera__dn_0418-0425.mp4",
+  "note": "a masked hero running, gameplay chase camera: judge cadence, lean, framing (hero size in frame), blends, suit in motion"
+ },
+ {
+  "id": "orbit-all-suits",
+  "x": "docs/night1/characters/round-13/orbit_all_suits.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/streets/clips/street-life-pedestrians__dn_0712-0721.mp4",
+  "note": "a masked hero in a fitted suit seen in 3D, the suit design changing every 1.5 s: judge render quality, sharpness, raised line work, folds at the armpit, stray objects"
+ },
+ {
+  "id": "enemy-lineup",
+  "x": "docs/night1/characters/round-13/enemy_lineup_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thugs-close-nm__nm_0947.jpg",
+  "note": "a lineup of street enemies: judge variety of outfits / silhouettes / weapons, modelled faces, hands, cloth, shoes, image quality at 4K"
+ },
+ {
+  "id": "fight-clip",
+  "x": "docs/night1/characters/round-13/street_fight_wide.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/plaza-fight__dn_0818-0828.mp4",
+  "note": "a staged street fight, hero vs a group: judge enemy count / size in frame, hit reactions, knockdowns, choreography readability, animation quality"
+ },
+ {
+  "id": "crowd-clip",
+  "x": "docs/night1/characters/round-13/crowd_tracking.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/streets/clips/street-life-pedestrians__dn_0712-0721.mp4",
+  "note": "pedestrians on a sidewalk, tracking camera: judge density, variety of people, gait (no gliding / lockstep), clothing, faces"
+ },
+ {
+  "id": "progress-head-tessera",
+  "x": "docs/night1/characters/round-13/stills/skin_tessera_head34_4k.jpg",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r12/chain3/stills/skin_tessera_head_4k.png",
+  "note": "two renders of the same suit head from the same camera: which head is better sculpted (brow, nose, cheeks, chin), which has the better lenses and rim, which has the cleaner face seam"
+ },
+ {
+  "id": "progress-head-sage",
+  "x": "docs/night1/characters/round-13/stills/skin_sage_head34_4k.jpg",
+  "y": "/Users/midir/sm2-n1/_scratch/characters/r12/chain3/stills/skin_sage_head_4k.png",
+  "note": "two renders of the same suit head from the same camera: which head is better sculpted, which has the better lenses and rim, which has the cleaner face seam"
+ },
+ {
+  "id": "progress-lineup",
+  "x": "docs/night1/characters/round-13/enemy_lineup_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-12/enemy_lineup_4k.jpg",
+  "note": "two versions of the same enemy lineup: count the enemies, judge the weapons in their hands, the lighting / exposure, the variety of outfits"
+ },
+ {
+  "id": "enemy-lineup-34",
+  "x": "docs/night1/characters/round-13/enemy_lineup_34_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thugs-group-nm__nm_0049.jpg",
+  "note": "a lineup of street enemies seen three-quarter: judge variety, weapons held in the hands (gripped or floating / piercing the fingers), faces, cloth, lighting"
+ }
+]

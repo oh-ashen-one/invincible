@@ -1,0 +1,9 @@
+# Wall-run check, round 09
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+c_wallrun_perch: wall-run 1.33-4.15 s (2.82 s, 17 samples at 6 fps)
+  distinct limb phases at 6 fps: 14 (need >= 4)  PASS
+  head above hips: 17/17 samples  PASS
+  steps (foot L/R height crossings): 8 in 2.82 s = 2.84 steps/s
+  hero fully in frame 1.33-5.85 s (wall-run + top-out + landing): 272/272 frames  PASS
+  camera on the wall: pitch -2.7..55.7 deg (+ = up), below the hero -0.60..2.20 m, distance 3.13..4.40 m

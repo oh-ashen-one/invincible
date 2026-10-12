@@ -1,0 +1,24 @@
+{
+ "landmarks": {
+  "eye": 1.63,
+  "nose": 1.603,
+  "ear_lobe": 1.582,
+  "chin": 1.527,
+  "nose_r": 0.1788
+ },
+ "mask_subdivided_tris": 449,
+ "tris_after_subdiv": 7540,
+ "tris_before": 6083,
+ "draped_verts": 977,
+ "drape_max_cm": 5.64,
+ "seam_blend_px": 907515,
+ "mask_px": 290507,
+ "tint_Grey_px": 4355992,
+ "name": "StreetHood",
+ "verts": 7839,
+ "tris": 7540,
+ "variants": [
+  "Grey"
+ ],
+ "seconds": 14.4
+}

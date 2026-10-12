@@ -1,0 +1,163 @@
+{
+ "dump": "/Users/midir/sm2-n1/_scratch/island/prims_final.csv",
+ "rows": 63063,
+ "roles": {
+  "other": 4,
+  "box-index": 56816,
+  "far-off": 74,
+  "solid": 3955,
+  "ground": 118,
+  "excluded": 2096
+ },
+ "visible_solid_tiles": {
+  "detail_ok": 45,
+  "facade_ok": 45,
+  "fireescape_ok": 45,
+  "roofs_ok": 45
+ },
+ "bad_tiles": [],
+ "far_off_rows": 74,
+ "far_off_centre_inside_M1": 2,
+ "far_off_overlapping_M1": 5,
+ "far_off_overlapping_M1_meshes": [
+  "SM_farCityRoofs__t0_-1",
+  "SM_farCity__t0_-1",
+  "SM_farLand_east__t0_-1",
+  "SM_farLand_roos__t0_-1",
+  "SM_hinterland"
+ ],
+ "whbox_cubes": 56816,
+ "whbox_cubes_with_collision_after_init": 0,
+ "sheds_subway": {
+  "SM_shed / solid / 1 / 3": 46,
+  "SM_shedtop / solid / 1 / 3": 46,
+  "SM_subway / solid / 1 / 3": 16
+ },
+ "solid_rows_by_ctf_coll": {
+  "ctf3_coll1": 3955
+ },
+ "solid_rows_without_complex_ctf": [],
+ "excluded_by_mesh_prefix": [
+  [
+   "SM_ez_street2_l1_leaves",
+   248
+  ],
+  [
+   "SM_ez_street1_l1_leaves",
+   242
+  ],
+  [
+   "SM_ez_street0_l1_leaves",
+   239
+  ],
+  [
+   "SM_ez_small1_l1_leaves",
+   108
+  ],
+  [
+   "SM_ez_small0_l1_leaves",
+   108
+  ],
+  [
+   "SM_signage",
+   87
+  ],
+  [
+   "SM_ez_street1_l0_leaves",
+   59
+  ],
+  [
+   "SM_ez_street2_l0_leaves",
+   59
+  ],
+  [
+   "SM_ez_street0_l0_leaves",
+   59
+  ],
+  [
+   "SM_ez_small1_l0_leaves",
+   55
+  ],
+  [
+   "SM_signpole",
+   54
+  ],
+  [
+   "SM_ez_small0_l0_leaves",
+   54
+  ],
+  [
+   "SM_hydrant",
+   54
+  ],
+  [
+   "SM_lamp",
+   54
+  ],
+  [
+   "SM_markings",
+   47
+  ],
+  [
+   "SM_shedsign",
+   46
+  ],
+  [
+   "SM_streetkit",
+   45
+  ],
+  [
+   "SM_veh_cross",
+   27
+  ],
+  [
+   "SM_veh_suv2",
+   27
+  ],
+  [
+   "SM_parkLampPool",
+   26
+  ],
+  [
+   "SM_veh_sedan",
+   26
+  ],
+  [
+   "SM_parklamp",
+   26
+  ],
+  [
+   "SM_veh_pickup",
+   25
+  ],
+  [
+   "SM_veh_suv",
+   25
+  ],
+  [
+   "SM_veh_hatch",
+   23
+  ],
+  [
+   "SM_veh_sedan2",
+   22
+  ],
+  [
+   "SM_veh_taxi_hy",
+   21
+  ],
+  [
+   "SM_veh_van",
+   17
+  ],
+  [
+   "SM_veh_taxi_mv",
+   17
+  ],
+  [
+   "SM_trees_conifer_crownfar",
+   14
+  ]
+ ],
+ "pass": false
+}

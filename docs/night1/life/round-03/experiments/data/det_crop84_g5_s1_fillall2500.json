@@ -1,0 +1,102 @@
+{
+ "g5_s1_fillall2500_00_t012.0.jpg": {
+  "people": 30,
+  "people_left": 23,
+  "people_right": 7,
+  "people_h3": 26,
+  "people_h10": 2,
+  "vehicles": 14,
+  "buses": 0,
+  "trucks": 3,
+  "ph": [
+   0.132,
+   0.101,
+   0.089,
+   0.086,
+   0.084,
+   0.081,
+   0.079,
+   0.075
+  ]
+ },
+ "g5_s1_fillall2500_01_t016.0.jpg": {
+  "people": 30,
+  "people_left": 20,
+  "people_right": 10,
+  "people_h3": 25,
+  "people_h10": 0,
+  "vehicles": 10,
+  "buses": 0,
+  "trucks": 1,
+  "ph": [
+   0.089,
+   0.085,
+   0.083,
+   0.082,
+   0.079,
+   0.079,
+   0.078,
+   0.078
+  ]
+ },
+ "g5_s1_fillall2500_02_t020.0.jpg": {
+  "people": 29,
+  "people_left": 26,
+  "people_right": 3,
+  "people_h3": 24,
+  "people_h10": 1,
+  "vehicles": 9,
+  "buses": 0,
+  "trucks": 3,
+  "ph": [
+   0.116,
+   0.096,
+   0.093,
+   0.084,
+   0.082,
+   0.08,
+   0.077,
+   0.076
+  ]
+ },
+ "g5_s1_fillall2500_03_t024.0.jpg": {
+  "people": 34,
+  "people_left": 22,
+  "people_right": 12,
+  "people_h3": 25,
+  "people_h10": 1,
+  "vehicles": 10,
+  "buses": 0,
+  "trucks": 2,
+  "ph": [
+   0.138,
+   0.089,
+   0.088,
+   0.088,
+   0.088,
+   0.087,
+   0.08,
+   0.08
+  ]
+ },
+ "g5_s1_fillall2500_04_t028.0.jpg": {
+  "people": 40,
+  "people_left": 30,
+  "people_right": 10,
+  "people_h3": 31,
+  "people_h10": 1,
+  "vehicles": 10,
+  "buses": 0,
+  "trucks": 2,
+  "ph": [
+   0.157,
+   0.09,
+   0.089,
+   0.084,
+   0.083,
+   0.082,
+   0.081,
+   0.079
+  ]
+ }
+}

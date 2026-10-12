@@ -1,0 +1,20 @@
+Opening shared memory
+Existing instance is the same age or newer
+Setting up bundled DotNet SDK
+/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/ThirdParty/DotNet/10.0/mac-arm64
+Running dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll -Mode=ValidatePlatforms -OutputSDKs -AllPlatforms -project=/Users/midir/sm2-n1/manhattan/unreal/WebHomage/WebHomage.uproject -log=/Users/midir/Library/Logs/WebHomage/AutoSDKInfo.txt -verbose -timestamps
+Log file: /Users/midir/Library/Logs/WebHomage/AutoSDKInfo.txt
+##PlatformValidate: Win64 INVALID <UNKNOWN>
+##PlatformValidate: Mac VALID 26.1.1
+##PlatformValidate: IOS VALID 26.1.1
+##PlatformValidate: Android INVALID r27c
+##PlatformValidate: Linux INVALID <UNKNOWN>
+##PlatformValidate: LinuxArm64 INVALID <UNKNOWN>
+##PlatformValidate: TVOS VALID 26.1.1
+##PlatformValidate: VisionOS VALID 26.1.1
+Unable to find required SDK version 'MainVersion' for platform Win64. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform Linux. Check your SDK.json files
+Unable to find required SDK version 'MainVersion' for platform LinuxArm64. Check your SDK.json files
+Trace written to file /Users/midir/Library/Application Support/Epic/UnrealBuildTool/Trace.uba with size 325b
+2026-09-29 16:03:46.930 UnrealEditor[19819:7090610] [UE4] Shutdown handler: initialize.
+2026-09-29 16:06:20.840 UnrealEditor[19819:7090194] [UE4] Shutdown handler: cleanup.

@@ -1,0 +1,20 @@
+== drop_test.py --min 20 (first swing = the spawn drop, listed; --skip-first below)
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   0.40   23.0   21.7   11.2   11.9   16.6   21.2  1.25      0.3%   26.1%  DROP<20
+ 2   3.52   32.9   29.8    8.3   24.6   10.5   27.7  1.37      7.9%   26.2%  ok
+ 3   7.00   34.6   31.5    7.6   27.0    7.6   30.8  1.02      0.0%   37.1%  ok
+ 4  10.50   31.5   28.4    9.9   21.6   16.5   27.3  1.45      4.5%   22.9%  ok
+ 5  13.85   34.1   31.2    6.5   27.7    7.0   31.0  1.30      5.9%   25.6%  ok
+DROP TEST: FAIL (5 swings)
+DROP TEST: PASS (5 swings)
+== rhythm_check.py a
+/Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/a_swing_chain_telemetry.csv  window 0.00-15.57 s
+ swings (T1 held 0.5-1.6 s): 0.40-1.65 (1.25s, low 11.2 m, rel 16.6 m)  3.52-4.88 (1.37s, low 8.3 m, rel 10.5 m)  7.00-8.02 (1.02s, low 7.6 m, rel 7.6 m)  10.50-11.95 (1.45s, low 9.9 m, rel 16.5 m)  13.85-15.15 (1.30s, low 6.5 m, rel 7.0 m)
+ web-less phases (T4: > 0.6 s needs a changing silhouette at every 0.1 s; T7: peak at roofline -> 3-13 m low within 4 s):
+   1.67-3.50 1.83s  peak 32.9 m @2.93  next low 8.3 m @4.58 (peak->low 1.65s)  pose changes 1.00  roofs beside low/high None/None  [release > rise > apex > fall > dive]
+   4.90-6.98 2.08s  peak 34.6 m @6.42  next low 7.6 m @8.02 (peak->low 1.60s)  pose changes 1.00  roofs beside low/high None/None  [release > rise > apex > fall > dive]
+   8.03-10.48 2.45s  peak 31.5 m @9.92  next low 9.9 m @11.42 (peak->low 1.50s)  pose changes 1.00  roofs beside low/high None/None  [trick:backDouble > rise > apex > fall > dive]
+   11.97-13.83 1.87s  peak 34.1 m @13.28  next low 6.5 m @15.00 (peak->low 1.72s)  pose changes 1.00  roofs beside low/high None/None  [release > rise > apex > fall > dive]
+ 8 s windows (start: web_on share, attaches) [T2 2-4 attaches, T3 video 25-45 %]:
+   0.0:0.46/3 0.5:0.45/2 1.0:0.39/2 1.5:0.32/2 2.0:0.30/2 2.5:0.30/2 3.0:0.36/3 3.5:0.43/3 4.0:0.42/2 4.5:0.36/2 5.0:0.31/2 5.5:0.31/2 6.0:0.33/3 6.5:0.39/3 7.0:0.46/3 7.5:0.41/2
+ web_on whole window 0.41; max height 34.6 m, min in air 7.3 m

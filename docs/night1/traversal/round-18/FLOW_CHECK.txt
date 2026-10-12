@@ -1,0 +1,148 @@
+# P3 round 18 FLOW CHECK (flow_check.py) on the rendered 1080p60 telemetry + movies, lit /Game/Maps/Manhattan. 2026-10-01 01:15
+# Homage fan game; not affiliated with Marvel, Sony or Insomniac. Tests: release->first shape <= .25 s, reach->attach <= .3 s, T4 <= 3.1 s, T2 <= 3.3 s, per-frame camera <= 3 deg / 4 deg / 1.2 m, flip-camera blend-out >= .4 s, backDouble <= 2 shapes, hero V.
+
+a_swing_chain: 7 releases, 8 attaches, 2 flip programs (15.6 s)
+  5.68 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 7.28 -> attach 7.27 = -0.02 s PASS | program 1.80 s, ended 7.25 s, cut at t_prog 1.57 | shapes Tuck/Kickout S1 2 shapes PASS
+  11.93 s frontPikeSwan R1 release->shape 0.00 s PASS | R2 reach 13.25 -> attach 13.35 = +0.10 s PASS | program 1.59 s, ended 13.33 s, cut at t_prog 1.40 | shapes Pike/Swan/Tuck/Reach
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.58 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.62 s (<= 3.3) PASS   (attaches at 0.40, 2.47, 4.65, 7.27, 9.15, 10.92, 13.35, 15.03)
+  C1 per-frame camera: max |d pitch| 2.70 deg @2.52 s (<= 3), |d yaw| 3.60 deg @15.28 s (<= 4), |d pos| 1.10 m @12.60 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 5, pitch 24, yaw 2 frames (of 935)
+     camera in geometry: 0 frames
+  C2 7.25 s backDouble    flip camera k 1.00 at the program end -> < 0.02 after 1.08 s (>= 0.4) PASS
+  C2 13.33 s frontPikeSwan flip camera k 0.00 at the program end -> < 0.02 after 0.00 s (>= 0.4) FAIL
+  V1 hero brightness (median V, central 60 % of the pixel bbox): trick frames p10 68 / p50 100 / min 58; all frames p10 81 / p50 132
+  => FAIL (1 failing lines / frames)
+a_swing_chain.mp4 frames 935 diff median 14.71 p99 26.27 max 31.26 @ 13.53s
+ isolated spikes (>8 and >3x neighbours): none
+a_swing_chain_telemetry.csv frozen-camera frames (moved<1cm while hero>8 m/s): 0  max cam-hero dist 5.1 m @ 7.25 s
+
+b_release_trick_dive_zip: 1 releases, 1 attaches, 1 flip programs (7.0 s)
+  1.40 s frontPikeSwan R1 release->shape 0.00 s PASS | R2 reach 2.72 -> attach 2.88 = +0.17 s PASS | program 1.59 s, ended 2.87 s, cut at t_prog 1.47 | shapes Pike/Swan/Tuck/Reach
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.48 s (<= 3.1) PASS
+  T2 attach -> attach: max 0.00 s (<= 3.3) PASS   (attaches at 2.88)
+  C1 per-frame camera: max |d pitch| 2.70 deg @5.03 s (<= 3), |d yaw| 3.60 deg @4.97 s (<= 4), |d pos| 1.10 m @4.97 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 2, pitch 12, yaw 6 frames (of 419)
+     camera in geometry: 0 frames
+  C2 2.87 s frontPikeSwan flip camera k 1.00 at the program end -> < 0.02 after 1.08 s (>= 0.4) PASS
+  V1 hero brightness (median V, central 60 % of the pixel bbox): trick frames p10 86 / p50 93 / min 75; all frames p10 79 / p50 107
+  => PASS (0 failing lines / frames)
+b_release_trick_dive_zip.mp4 frames 419 diff median 12.44 p99 26.78 max 31.53 @ 0.02s
+ isolated spikes (>8 and >3x neighbours): none
+b_release_trick_dive_zip_telemetry.csv frozen-camera frames (moved<1cm while hero>8 m/s): 0  max cam-hero dist 5.4 m @ 6.45 s
+
+c_wallrun_perch: 1 releases, 1 attaches, 1 flip programs (10.5 s)
+  3.85-4.75 s wallFront (wall-run top-out; not a web release)
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 0.38 s (<= 3.1) PASS
+  T2 attach -> attach: max 0.00 s (<= 3.3) PASS   (attaches at 8.50)
+  C1 per-frame camera: max |d pitch| 2.70 deg @2.28 s (<= 3), |d yaw| 3.60 deg @1.35 s (<= 4), |d pos| 1.11 m @1.25 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 5, pitch 15, yaw 22 frames (of 629)
+     camera in geometry: 0 frames
+  V1 hero brightness (median V, central 60 % of the pixel bbox): trick frames p10 52 / p50 69 / min 30; all frames p10 51 / p50 76
+  => PASS (0 failing lines / frames)
+c_wallrun_perch.mp4 frames 629 diff median 15.15 p99 47.61 max 50.57 @ 2.28s
+ isolated spikes (>8 and >3x neighbours): none
+c_wallrun_perch_telemetry.csv frozen-camera frames (moved<1cm while hero>8 m/s): 0  max cam-hero dist 7.7 m @ 8.68 s
+
+d_sprint_jump_first_swing: 5 releases, 5 attaches, 0 flip programs (12.0 s)
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 0.80 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.13 s (<= 3.3) PASS   (attaches at 2.68, 4.75, 6.88, 8.72, 10.50)
+  C1 per-frame camera: max |d pitch| 2.70 deg @10.57 s (<= 3), |d yaw| 2.40 deg @8.98 s (<= 4), |d pos| 1.11 m @8.98 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 7, pitch 16, yaw 1 frames (of 719)
+     camera in geometry: 0 frames
+  => PASS (0 failing lines / frames)
+d_sprint_jump_first_swing.mp4 frames 719 diff median 13.52 p99 28.11 max 29.90 @ 8.98s
+ isolated spikes (>8 and >3x neighbours): none
+d_sprint_jump_first_swing_telemetry.csv frozen-camera frames (moved<1cm while hero>8 m/s): 0  max cam-hero dist 5.0 m @ 9.15 s
+
+f1_flow_backDouble: 3 releases, 4 attaches, 3 flip programs (9.0 s)
+  1.35 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 2.95 -> attach 2.93 = -0.02 s PASS | program 1.80 s, ended 2.92 s, cut at t_prog 1.57 | shapes Tuck/Kickout S1 2 shapes PASS
+  4.32 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 5.92 -> attach 5.90 = -0.02 s PASS | program 1.80 s, ended 5.88 s, cut at t_prog 1.57 | shapes Tuck/Kickout S1 2 shapes PASS
+  6.93 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 8.53 -> attach 8.52 = -0.02 s PASS | program 1.80 s, ended 8.50 s, cut at t_prog 1.57 | shapes Tuck/Kickout S1 2 shapes PASS
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.58 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.97 s (<= 3.3) PASS   (attaches at 0.40, 2.93, 5.90, 8.52)
+  C1 per-frame camera: max |d pitch| 2.70 deg @1.37 s (<= 3), |d yaw| 2.14 deg @1.03 s (<= 4), |d pos| 1.10 m @3.65 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 1, pitch 10, yaw 0 frames (of 539)
+     camera in geometry: 0 frames
+  C2 2.92 s backDouble: flip camera still blending at the clip end (not judged: the clip ends first)
+  C2 5.88 s backDouble: flip camera still blending at the clip end (not judged: the clip ends first)
+  C2 8.50 s backDouble: flip camera still blending at the clip end (not judged: the clip ends first)
+  V1 hero brightness (median V, central 60 % of the pixel bbox): trick frames p10 43 / p50 154 / min 28; all frames p10 41 / p50 118
+  => PASS (0 failing lines / frames)
+f1_flow_backDouble.mp4 frames 539 diff median 7.72 p99 21.20 max 24.75 @ 0.42s
+ isolated spikes (>8 and >3x neighbours): none
+f1_flow_backDouble_telemetry.csv frozen-camera frames (moved<1cm while hero>8 m/s): 0  max cam-hero dist 5.2 m @ 6.93 s
+
+f2_flow_pikeSwan: 3 releases, 4 attaches, 3 flip programs (9.0 s)
+  1.35 s frontPikeSwan R1 release->shape 0.00 s PASS | R2 reach 2.67 -> attach 2.77 = +0.10 s PASS | program 1.59 s, ended 2.75 s, cut at t_prog 1.40 | shapes Pike/Swan/Tuck/Reach
+  4.22 s frontPikeSwan R1 release->shape 0.00 s PASS | R2 reach 5.53 -> attach 5.63 = +0.10 s PASS | program 1.59 s, ended 5.62 s, cut at t_prog 1.40 | shapes Pike/Swan/Tuck/Reach
+  6.72 s frontPikeSwan R1 release->shape 0.00 s PASS | R2 reach 8.03 -> attach 8.13 = +0.10 s PASS | program 1.59 s, ended 8.12 s, cut at t_prog 1.40 | shapes Pike/Swan/Tuck/Reach
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.42 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.87 s (<= 3.3) PASS   (attaches at 0.40, 2.77, 5.63, 8.13)
+  C1 per-frame camera: max |d pitch| 2.70 deg @1.37 s (<= 3), |d yaw| 2.14 deg @1.03 s (<= 4), |d pos| 0.86 m @8.90 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 0, pitch 10, yaw 0 frames (of 539)
+     camera in geometry: 0 frames
+  C2 2.75 s frontPikeSwan: flip camera still blending at the clip end (not judged: the clip ends first)
+  C2 5.62 s frontPikeSwan: flip camera still blending at the clip end (not judged: the clip ends first)
+  C2 8.12 s frontPikeSwan: flip camera still blending at the clip end (not judged: the clip ends first)
+  V1 hero brightness (median V, central 60 % of the pixel bbox): trick frames p10 79 / p50 181 / min 32; all frames p10 38 / p50 171
+  => PASS (0 failing lines / frames)
+f2_flow_pikeSwan.mp4 frames 539 diff median 9.52 p99 26.43 max 31.41 @ 0.42s
+ isolated spikes (>8 and >3x neighbours): none
+f2_flow_pikeSwan_telemetry.csv frozen-camera frames (moved<1cm while hero>8 m/s): 0  max cam-hero dist 5.2 m @ 7.52 s
+
+f3_flow_corkscrew: 3 releases, 4 attaches, 3 flip programs (9.0 s)
+  1.35 s corkscrew     R1 release->shape 0.00 s PASS | R2 reach 2.77 -> attach 2.85 = +0.08 s PASS | program 1.67 s, ended 2.83 s, cut at t_prog 1.48 | shapes Layout/Twist/Straddle/Tuck/Reach
+  4.22 s corkscrew     R1 release->shape 0.00 s PASS | R2 reach 5.63 -> attach 5.72 = +0.08 s PASS | program 1.67 s, ended 5.70 s, cut at t_prog 1.48 | shapes Layout/Twist/Straddle/Tuck/Reach
+  6.75 s corkscrew     R1 release->shape 0.00 s PASS | R2 reach 8.17 -> attach 8.25 = +0.08 s PASS | program 1.67 s, ended 8.23 s, cut at t_prog 1.48 | shapes Layout/Twist/Straddle/Tuck/Reach
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.50 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.87 s (<= 3.3) PASS   (attaches at 0.40, 2.85, 5.72, 8.25)
+  C1 per-frame camera: max |d pitch| 2.70 deg @1.37 s (<= 3), |d yaw| 2.29 deg @3.50 s (<= 4), |d pos| 0.84 m @6.78 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 0, pitch 9, yaw 0 frames (of 539)
+     camera in geometry: 0 frames
+  C2 2.83 s corkscrew: flip camera still blending at the clip end (not judged: the clip ends first)
+  C2 5.70 s corkscrew: flip camera still blending at the clip end (not judged: the clip ends first)
+  C2 8.23 s corkscrew: flip camera still blending at the clip end (not judged: the clip ends first)
+  V1 hero brightness (median V, central 60 % of the pixel bbox): trick frames p10 40 / p50 168 / min 17; all frames p10 39 / p50 123
+  => PASS (0 failing lines / frames)
+f3_flow_corkscrew.mp4 frames 539 diff median 7.22 p99 18.33 max 22.71 @ 8.97s
+ isolated spikes (>8 and >3x neighbours): none
+f3_flow_corkscrew_telemetry.csv frozen-camera frames (moved<1cm while hero>8 m/s): 0  max cam-hero dist 5.1 m @ 7.73 s
+
+f4_chain_flips: 5 releases, 6 attaches, 4 flip programs (13.3 s)
+  1.35 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 2.95 -> attach 2.93 = -0.02 s PASS | program 1.80 s, ended 2.92 s, cut at t_prog 1.57 | shapes Tuck/Kickout S1 2 shapes PASS
+  4.32 s frontPikeSwan R1 release->shape 0.00 s PASS | R2 reach 5.63 -> attach 5.73 = +0.10 s PASS | program 1.59 s, ended 5.72 s, cut at t_prog 1.40 | shapes Pike/Swan/Tuck/Reach
+  6.63 s corkscrew     R1 release->shape 0.00 s PASS | R2 reach 8.05 -> attach 8.13 = +0.08 s PASS | program 1.67 s, ended 8.12 s, cut at t_prog 1.48 | shapes Layout/Twist/Straddle/Tuck/Reach
+  10.88 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 12.48 -> attach 12.47 = -0.02 s PASS | program 1.80 s, ended 12.45 s, cut at t_prog 1.57 | shapes Tuck/Kickout S1 2 shapes PASS
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.58 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.80 s (<= 3.3) PASS   (attaches at 0.40, 2.93, 5.73, 8.13, 9.92, 12.47)
+  C1 per-frame camera: max |d pitch| 2.70 deg @1.37 s (<= 3), |d yaw| 2.40 deg @10.55 s (<= 4), |d pos| 0.94 m @13.13 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 0, pitch 14, yaw 10 frames (of 797)
+     camera in geometry: 0 frames
+  C2 2.92 s backDouble    flip camera k 1.00 at the program end -> < 0.02 after 6.28 s (>= 0.4) PASS
+  C2 5.72 s frontPikeSwan flip camera k 1.00 at the program end -> < 0.02 after 3.48 s (>= 0.4) PASS
+  C2 8.12 s corkscrew     flip camera k 1.00 at the program end -> < 0.02 after 1.08 s (>= 0.4) PASS
+  C2 12.45 s backDouble: flip camera still blending at the clip end (not judged: the clip ends first)
+  V1 hero brightness (median V, central 60 % of the pixel bbox): trick frames p10 54 / p50 172 / min 27; all frames p10 44 / p50 144
+  => PASS (0 failing lines / frames)
+f4_chain_flips.mp4 frames 797 diff median 8.56 p99 28.97 max 30.07 @ 10.30s
+ isolated spikes (>8 and >3x neighbours): none
+f4_chain_flips_telemetry.csv frozen-camera frames (moved<1cm while hero>8 m/s): 0  max cam-hero dist 5.2 m @ 3.78 s
+
+f5_canyon_backDouble: 3 releases, 4 attaches, 3 flip programs (9.0 s)
+  1.35 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 2.95 -> attach 2.93 = -0.02 s PASS | program 1.80 s, ended 2.92 s, cut at t_prog 1.57 | shapes Tuck/Kickout S1 2 shapes PASS
+  3.93 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 5.53 -> attach 5.52 = -0.02 s PASS | program 1.80 s, ended 5.50 s, cut at t_prog 1.57 | shapes Tuck/Kickout S1 2 shapes PASS
+  6.55 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 8.15 -> attach 8.13 = -0.02 s PASS | program 1.80 s, ended 8.12 s, cut at t_prog 1.57 | shapes Tuck/Kickout S1 2 shapes PASS
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.58 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.62 s (<= 3.3) PASS   (attaches at 0.40, 2.93, 5.52, 8.13)
+  C1 per-frame camera: max |d pitch| 2.70 deg @1.37 s (<= 3), |d yaw| 2.14 deg @8.87 s (<= 4), |d pos| 0.66 m @8.42 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 0, pitch 11, yaw 0 frames (of 539)
+     camera in geometry: 0 frames
+  C2 2.92 s backDouble: flip camera still blending at the clip end (not judged: the clip ends first)
+  C2 5.50 s backDouble: flip camera still blending at the clip end (not judged: the clip ends first)
+  C2 8.12 s backDouble: flip camera still blending at the clip end (not judged: the clip ends first)
+  V1 hero brightness (median V, central 60 % of the pixel bbox): trick frames p10 79 / p50 138 / min 47; all frames p10 54 / p50 124
+  => PASS (0 failing lines / frames)
+f5_canyon_backDouble.mp4 frames 539 diff median 6.90 p99 20.14 max 27.55 @ 0.42s
+ isolated spikes (>8 and >3x neighbours): none
+f5_canyon_backDouble_telemetry.csv frozen-camera frames (moved<1cm while hero>8 m/s): 0  max cam-hero dist 5.2 m @ 3.93 s

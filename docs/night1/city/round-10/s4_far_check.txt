@@ -1,0 +1,4 @@
+== S4_perch_skyline_1920x1080.jpg
+  sky Y 229.0  far Y 190.5  river Y 173.6  near Y 83.7 | box(0,150,1300,300) mean Y 182.4  > 204: 29.5 %  (T2 <= 10: fail)
+  T1 silhouette-top std (px): first_Y_lt_215 21.4  first_absdY_gt_4 19.0  first_Y_lt_sky_minus_12 20.3  (>= 12: PASS)
+  C11 lap/sky 20.84 ok | C11 flat8 % 4.11 ok | C12 dBR -1.68 ok | C13 far-sky Y -38.48 FAIL | C13 far>near 106.8 ok | C14 far-river Y 16.9 ok | C15 rms far/near 0.24 FAIL

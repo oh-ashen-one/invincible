@@ -1,0 +1,39 @@
+Setting up bundled DotNet SDK
+/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/ThirdParty/DotNet/10.0/mac-arm64
+Running dotnet Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.dll WebHomageEditor Mac Development -Project=/Users/midir/spider-man-2-r13-fixes/unreal/WebHomage/WebHomage.uproject -WaitMutex -NoHotReload -MaxParallelActions=6
+Log file: /Users/midir/Library/Application Support/Epic/UnrealBuildTool/Log.txt
+Executing up to 6 actions based on MaxProcessorCount override
+UbaServer - Listening on 0.0.0.0:1345
+Invalidating makefile for WebHomageEditor (ispc deleted)
+Compiling with Mac SDK 27.0, minimum Target OS version 14.00
+Building WebHomageEditor...
+===== Toolchain Information =====
+Using Clang compiler 21.1.6 (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++)
+  Apple clang version 21.0.0 (clang-2100.3.34.2) Target: arm64-apple-darwin27.0.0 Thread model: posix InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+Using Clang archiver (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool)
+  Apple clang version 21.0.0 (clang-2100.3.34.2) Target: arm64-apple-darwin27.0.0 Thread model: posix InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+[Adaptive Build] Excluded from WebHomage unity file: WebHomage.cpp, WebHomagePlayerController.cpp, WebHomageAutomation.cpp, WHSettingsMenu.cpp, WebHomageCharacter.cpp, WebHomageGameMode.cpp, WHSettings.cpp, WHCombatHero.cpp, WHCombatSpidey.cpp, WHCombatDirector.cpp, WHCombatFx.cpp, WHCombatAnim.cpp, WHEnemy.cpp, WHClipStack.cpp, WHLifeProbe.cpp, WHLifeTraffic.cpp, WHLifeCrowd.cpp, WHLifeCamRig.cpp, WebTravFlips.cpp, WebTravCamera.cpp, WebTravAnchors.cpp, WebTravScript.cpp, WebTraversalComponent.cpp, WebTravWorld.cpp, WebTravCharacter.cpp, WebTravAnimInstance.cpp, WHCharAnimInstance.cpp, WHCharLoopWalker.cpp, WHCharShowDirector.cpp, WHHeroSuit.cpp, WHCityLights.cpp, WHLookTour.cpp, WHLookHeroLight.cpp, WHIslandRules.cpp
+=================================
+Using Unreal Build Accelerator local executor to run 9 action(s)
+  CPU 32 physical cores, 32 logical cores
+  Memory 256 GB physical, 74.92 GB/256 GB committed
+  UBA Storage capacity 40 GB
+[1/9] Compile [Apple] WebTravCamera.cpp
+[2/9] Compile [Apple] WHCombatHero.cpp
+[3/9] Compile [Apple] WHCombatSpidey.cpp
+[4/9] Compile [Apple] WebHomageAutomation.cpp
+[5/9] Compile [Apple] Module.WebHomage.cpp
+[6/9] Compile [Apple] WHCombatDirector.cpp
+[7/9] Compile [Apple] WebTraversalComponent.cpp
+[8/9] Compile [Apple] WebTravCharacter.cpp
+[9/9] Link [Apple] libUnrealEditor-WebHomage.dylib
+
+Total time in Unreal Build Accelerator local executor: 11.33 seconds
+Output binary: /Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor
+Deploying WebHomageEditor Mac Development...
+Deploying now!
+
+Result: Succeeded
+Total execution time: 15.25 seconds
+Trace written to file /Users/midir/Library/Application Support/Epic/UnrealBuildTool/Trace.uba with size 6.2kb
+OK: UnrealEditor.modules -> libUnrealEditor-WebHomage.dylib

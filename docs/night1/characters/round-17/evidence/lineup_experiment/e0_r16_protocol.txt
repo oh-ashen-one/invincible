@@ -1,0 +1,17 @@
+[  1]LogTemp: Display: WH_PROBE tick=1 frame=1 world=0.401 stage_T=27.500 dt_ms=400.0 textures_not_resident=0 () assets_compiling=27 shaders_compiling=0
+[  2]LogTemp: Display: WH_PROBE tick=2 frame=2 world=0.587 stage_T=27.900 dt_ms=186.8 textures_not_resident=0 () assets_compiling=26 shaders_compiling=0
+[  3]LogTemp: Display: WH_PROBE tick=3 frame=3 world=0.716 stage_T=28.087 dt_ms=128.2 textures_not_resident=0 () assets_compiling=27 shaders_compiling=1
+[  4]LogTemp: Display: WH_PROBE tick=4 frame=4 world=0.857 stage_T=28.215 dt_ms=141.3 textures_not_resident=0 () assets_compiling=24 shaders_compiling=0
+[  5]LogTemp: Display: WH_PROBE tick=5 frame=5 world=0.997 stage_T=28.356 dt_ms=140.1 textures_not_resident=0 () assets_compiling=23 shaders_compiling=0
+[  6]LogTemp: Display: WH_PROBE tick=6 frame=6 world=1.210 stage_T=28.497 dt_ms=212.6 textures_not_resident=0 () assets_compiling=21 shaders_compiling=0
+[  6]LogWebHomage: Display: WH_PERF_START t=2.07
+[  7]LogTemp: Display: WH_PROBE tick=7 frame=7 world=1.339 stage_T=28.709 dt_ms=129.7 textures_not_resident=0 () assets_compiling=20 shaders_compiling=0
+[  8]LogTemp: Display: WH_PROBE tick=8 frame=8 world=1.555 stage_T=28.839 dt_ms=215.2 textures_not_resident=0 () assets_compiling=18 shaders_compiling=0
+[  9]LogTemp: Display: WH_PROBE tick=9 frame=9 world=1.774 stage_T=29.054 dt_ms=219.3 textures_not_resident=0 () assets_compiling=17 shaders_compiling=0
+[ 10]LogTemp: Display: WH_PROBE tick=10 frame=10 world=1.956 stage_T=29.273 dt_ms=182.5 textures_not_resident=0 () assets_compiling=15 shaders_compiling=0
+[ 11]LogTemp: Display: WH_PROBE tick=11 frame=11 world=2.081 stage_T=29.456 dt_ms=125.0 textures_not_resident=0 () assets_compiling=14 shaders_compiling=0
+[ 12]LogTemp: Display: WH_PROBE tick=12 frame=12 world=2.240 stage_T=29.581 dt_ms=158.3 textures_not_resident=0 () assets_compiling=12 shaders_compiling=0
+[ 12]LogWebHomage: Display: WH_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainB/run/lineupx/e0_r16/e0_00_t003.0.png
+[ 13]LogTemp: Display: WH_PROBE tick=13 frame=13 world=2.640 stage_T=29.739 dt_ms=400.0 textures_not_resident=0 () assets_compiling=11 shaders_compiling=0
+[ 13]LogWebHomage: Display: WH_PERF frames=7 avg_ms=1068.45 fps=0.9 p95_ms=6449.42 p99_ms=6449.42 gpu_avg_ms=27.54 out=3840x2160 internal=3840x2160 (manual) -> /Users/midir/sm2-n1/_scratch/characters/r17/chainB/run/lineupx/e0_r16/e0_perf.json
+[ 13]LogWebHomage: Display: WH_QUIT t=9.55

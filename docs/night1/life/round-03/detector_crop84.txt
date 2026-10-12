@@ -1,0 +1,17 @@
+S1_street_1080p.jpg                      people 46 (left 29 right 17, right 37 %) (>=3%H 39, >=10%H 2) vehicles 11 (bus 0 truck 2)
+S1_street_4k.jpg                         people 50 (left 34 right 16, right 32 %) (>=3%H 40, >=10%H 1) vehicles 8 (bus 0 truck 2)
+S2_avenue_1080p.jpg                      people 1 (left 1 right 0, right 0 %) (>=3%H 1, >=10%H 0) vehicles 8 (bus 0 truck 2)
+S2_avenue_4k.jpg                         people 0 (left 0 right 0, right 0 %) (>=3%H 0, >=10%H 0) vehicles 13 (bus 0 truck 2)
+S1_00_t012.0.jpg                         people 38 (left 30 right 8, right 21 %) (>=3%H 34, >=10%H 2) vehicles 8 (bus 0 truck 1)
+S1_01_t016.0.jpg                         people 37 (left 28 right 9, right 24 %) (>=3%H 34, >=10%H 1) vehicles 6 (bus 0 truck 1)
+S1_02_t020.0.jpg                         people 38 (left 26 right 12, right 32 %) (>=3%H 30, >=10%H 2) vehicles 11 (bus 1 truck 2)
+S1_03_t024.0.jpg                         people 41 (left 31 right 10, right 24 %) (>=3%H 36, >=10%H 1) vehicles 10 (bus 0 truck 2)
+S1_04_t028.0.jpg                         people 46 (left 29 right 17, right 37 %) (>=3%H 39, >=10%H 2) vehicles 11 (bus 0 truck 2)
+S2_00_t012.0.jpg                         people 0 (left 0 right 0, right 0 %) (>=3%H 0, >=10%H 0) vehicles 12 (bus 0 truck 1)
+S2_01_t016.0.jpg                         people 0 (left 0 right 0, right 0 %) (>=3%H 0, >=10%H 0) vehicles 6 (bus 0 truck 0)
+S2_02_t020.0.jpg                         people 0 (left 0 right 0, right 0 %) (>=3%H 0, >=10%H 0) vehicles 5 (bus 0 truck 2)
+S2_03_t024.0.jpg                         people 0 (left 0 right 0, right 0 %) (>=3%H 0, >=10%H 0) vehicles 7 (bus 0 truck 1)
+S2_04_t028.0.jpg                         people 1 (left 1 right 0, right 0 %) (>=3%H 1, >=10%H 0) vehicles 8 (bus 0 truck 2)
+signal_clip_1080p60.mp4                  n25 people p10 37 med 42 p90 45 min 34 (left med 15 right med 27, right share med 63 % min 52 %) | >=3%H med 40 | vehicles p10 16 med 18 p90 20 max 22
+street_clip_1080p60.mp4                  n36 people p10 22 med 27 p90 31 min 20 (left med 16 right med 11, right share med 41 % min 19 %) | >=3%H med 24 | vehicles p10 4 med 9 p90 12 max 13
+swing_clip_1080p60.mp4                   n20 people p10 2 med 10 p90 19 min 0 (left med 6 right med 4, right share med 51 % min 0 %) | >=3%H med 9 | vehicles p10 17 med 24 p90 28 max 32

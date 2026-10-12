@@ -1,0 +1,72 @@
+{
+  "status": "incomplete_capture",
+  "clip": "s2_press_variety",
+  "cases": [
+    {
+      "case": "s2_c1_roof_jump",
+      "telemetry_rows": 299,
+      "cached_frame_count": 391,
+      "complete_case_cache": true,
+      "preserved_telemetry": "docs/night1/final/swing/round-13/partial-s2/s2_c1_roof_jump_telemetry.csv"
+    },
+    {
+      "case": "s2_c2_midfall",
+      "telemetry_rows": 215,
+      "cached_frame_count": 307,
+      "complete_case_cache": true,
+      "preserved_telemetry": "docs/night1/final/swing/round-13/partial-s2/s2_c2_midfall_telemetry.csv"
+    },
+    {
+      "case": "s2_c3_wallrun",
+      "telemetry_rows": 311,
+      "cached_frame_count": 403,
+      "complete_case_cache": true,
+      "preserved_telemetry": "docs/night1/final/swing/round-13/partial-s2/s2_c3_wallrun_telemetry.csv"
+    },
+    {
+      "case": "s2_c4_flip_cancel",
+      "telemetry_rows": 227,
+      "cached_frame_count": 319,
+      "complete_case_cache": true,
+      "preserved_telemetry": "docs/night1/final/swing/round-13/partial-s2/s2_c4_flip_cancel_telemetry.csv"
+    },
+    {
+      "case": "s2_c5_repress",
+      "telemetry_rows": 227,
+      "cached_frame_count": 319,
+      "complete_case_cache": true,
+      "preserved_telemetry": "docs/night1/final/swing/round-13/partial-s2/s2_c5_repress_telemetry.csv"
+    },
+    {
+      "case": "s2_c6_side_anchor",
+      "telemetry_rows": 191,
+      "cached_frame_count": 283,
+      "complete_case_cache": true,
+      "preserved_telemetry": "docs/night1/final/swing/round-13/partial-s2/s2_c6_side_anchor_telemetry.csv"
+    },
+    {
+      "case": "s2_c7_no_anchor",
+      "telemetry_rows": 179,
+      "cached_frame_count": 271,
+      "complete_case_cache": true,
+      "preserved_telemetry": "docs/night1/final/swing/round-13/partial-s2/s2_c7_no_anchor_telemetry.csv"
+    },
+    {
+      "case": "s2_c8_close_facade",
+      "telemetry_rows": 191,
+      "cached_frame_count": 283,
+      "complete_case_cache": true,
+      "preserved_telemetry": "docs/night1/final/swing/round-13/partial-s2/s2_c8_close_facade_telemetry.csv"
+    },
+    {
+      "case": "s2_c9_trees",
+      "telemetry_rows": 0,
+      "cached_frame_count": 0,
+      "complete_case_cache": false
+    }
+  ],
+  "missing_case": "s2_c9_trees",
+  "failure": "Engine ran but produced no telemetry and only two screenshot frames; the capture driver did not auto-relaunch. No complete s2 clip exists.",
+  "local_resume_cache": "/Users/midir/sm2-n1/_scratch/final/swing/round-13/s2_press_variety",
+  "build_caveat": "Kimi reported the camera fix was compiled during the capture batch. Final-build consistency and re-capture remain unverified."
+}

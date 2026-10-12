@@ -1,0 +1,31 @@
+# Pixel check, round 06 (px_check.py on the telemetry of the round-06 videos)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+a_swing_chain: 934 frames (t <= 15.55 s)
+  hero pixel height (1080p): min 112  median 260  max 460; >= 160 px in 845/934 frames (90.5%)
+  frames with no hero pixels: 0
+  attach 1 t= 0.40s anchor on screen at attach frame: no (x 0.79, y -0.18); first on screen after 0.10 s
+  attach 2 t= 4.00s anchor on screen at attach frame: yes (x 0.19, y 0.14); first on screen after 0.00 s
+  attach 3 t= 8.93s anchor on screen at attach frame: yes (x 0.39, y 0.17); first on screen after 0.00 s
+  attach 4 t=14.17s anchor on screen at attach frame: no (x -0.05, y 0.13); first on screen after 0.07 s
+  anchors on screen: 2/4 at the attach frame, 4/4 within 0.4 s
+
+b_release_trick_dive_zip: 418 frames (t <= 6.95 s)
+  hero pixel height (1080p): min 68  median 140  max 508; >= 160 px in 175/418 frames (41.9%)
+  frames with no hero pixels: 0
+  attach 1 t= 0.00s anchor on screen at attach frame: yes (x 0.32, y 0.25); first on screen after 0.00 s
+  anchors on screen: 1/1 at the attach frame, 1/1 within 0.4 s
+
+c_wallrun_perch: 598 frames (t <= 9.95 s)
+  hero pixel height (1080p): min 80  median 320  max 528; >= 160 px in 570/598 frames (95.3%)
+  frames with no hero pixels: 0
+  anchors on screen: 0/0 at the attach frame, 0/0 within 0.4 s
+
+d_sprint_jump_first_swing: 718 frames (t <= 11.95 s)
+  hero pixel height (1080p): min 124  median 272  max 492; >= 160 px in 678/718 frames (94.4%)
+  frames with no hero pixels: 0
+  attach 1 t= 2.60s anchor on screen at attach frame: no (x 1.08, y -0.74); first on screen after nan s
+  attach 2 t= 5.13s anchor on screen at attach frame: no (x 0.62, y -0.15); first on screen after 0.07 s
+  attach 3 t= 9.07s anchor on screen at attach frame: yes (x 0.96, y 0.12); first on screen after 0.00 s
+  anchors on screen: 1/3 at the attach frame, 2/3 within 0.4 s
+

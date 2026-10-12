@@ -1,0 +1,20 @@
+# hold 3: hinterland backdrop row (map step), then FarLitK x S4 haze (density, colour) variants, native-4K S3 billboard
+build map
+variants names=h1,h2,h3 fog_h1=0.0030 fogc_h1=0.64,0.66,0.69 fog_h2=0.0020 fogc_h2=0.64,0.66,0.69 fog_h3=0.0030 fogc_h3=0.60,0.62,0.66
+mpc k45 FarLitK=0.45
+cap B S4_perch_skyline
+score B S4_perch_skyline
+cap B S4vh1
+score B S4vh1
+mpc k60 FarLitK=0.60
+cap B2 S4_perch_skyline
+score B2 S4_perch_skyline
+cap B2 S4vh2
+score B2 S4vh2
+cap B2 S4vh3
+score B2 S4vh3
+mpc g3 F0Scale=0.25
+cap g3 S8_aerial_midtown
+mpc g4 F0Scale=0.18
+cap g4 S8_aerial_midtown
+cap bb S3_rooftop_watertower 3840x2160 100

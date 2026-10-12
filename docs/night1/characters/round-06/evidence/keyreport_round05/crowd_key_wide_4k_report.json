@@ -1,0 +1,582 @@
+{
+ "image": "crowd_key_wide_4k.jpg",
+ "person_px": 2328152,
+ "hole_components": 35,
+ "hole_px": 5832,
+ "interior_components": 31,
+ "interior_px": 5334,
+ "interior_thin_components": 24,
+ "interior_thin_px": 694,
+ "true_key_interior_components": 4,
+ "true_key_interior_px": 635,
+ "true_key_interior_thin_components": 3,
+ "bg_key_bgr": [
+  0,
+  230,
+  0
+ ],
+ "sliver_components": 4,
+ "sliver_px": 498,
+ "components": [
+  {
+   "id": 22,
+   "bbox": [
+    1781,
+    1319,
+    35,
+    118
+   ],
+   "px": 1717,
+   "width_px": 20.6,
+   "edge_dist_px": 8.5,
+   "kind": "interior",
+   "thin": false,
+   "key_dist": 119.8,
+   "true_key": false
+  },
+  {
+   "id": 20,
+   "bbox": [
+    1789,
+    1216,
+    25,
+    78
+   ],
+   "px": 961,
+   "width_px": 17.9,
+   "edge_dist_px": 27.0,
+   "kind": "interior",
+   "thin": false,
+   "key_dist": 121.0,
+   "true_key": false
+  },
+  {
+   "id": 32,
+   "bbox": [
+    1060,
+    1484,
+    18,
+    54
+   ],
+   "px": 785,
+   "width_px": 18.0,
+   "edge_dist_px": 4.0,
+   "kind": "interior",
+   "thin": false,
+   "key_dist": 114.9,
+   "true_key": false
+  },
+  {
+   "id": 7,
+   "bbox": [
+    3560,
+    1084,
+    18,
+    44
+   ],
+   "px": 516,
+   "width_px": 16.0,
+   "edge_dist_px": 40.0,
+   "kind": "interior",
+   "thin": false,
+   "key_dist": 18.2,
+   "true_key": true
+  },
+  {
+   "id": 33,
+   "bbox": [
+    1047,
+    1485,
+    12,
+    44
+   ],
+   "px": 277,
+   "width_px": 8.9,
+   "edge_dist_px": 22.4,
+   "kind": "interior",
+   "thin": false,
+   "key_dist": 112.4,
+   "true_key": false
+  },
+  {
+   "id": 3,
+   "bbox": [
+    3485,
+    984,
+    12,
+    32
+   ],
+   "px": 276,
+   "width_px": 10.0,
+   "edge_dist_px": 75.1,
+   "kind": "interior",
+   "thin": false,
+   "key_dist": 105.6,
+   "true_key": false
+  },
+  {
+   "id": 4,
+   "bbox": [
+    1773,
+    1003,
+    22,
+    32
+   ],
+   "px": 275,
+   "width_px": 10.8,
+   "edge_dist_px": 3.0,
+   "kind": "sliver",
+   "thin": false,
+   "key_dist": 99.0,
+   "true_key": false
+  },
+  {
+   "id": 17,
+   "bbox": [
+    3699,
+    1174,
+    12,
+    22
+   ],
+   "px": 169,
+   "width_px": 8.9,
+   "edge_dist_px": 3.0,
+   "kind": "sliver",
+   "thin": false,
+   "key_dist": 22.2,
+   "true_key": true
+  },
+  {
+   "id": 21,
+   "bbox": [
+    1813,
+    1264,
+    10,
+    31
+   ],
+   "px": 125,
+   "width_px": 5.7,
+   "edge_dist_px": 18.0,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 84.0,
+   "true_key": false
+  },
+  {
+   "id": 10,
+   "bbox": [
+    2199,
+    1137,
+    7,
+    21
+   ],
+   "px": 108,
+   "width_px": 7.2,
+   "edge_dist_px": 7.0,
+   "kind": "interior",
+   "thin": false,
+   "key_dist": 99.3,
+   "true_key": false
+  },
+  {
+   "id": 30,
+   "bbox": [
+    137,
+    1481,
+    6,
+    14
+   ],
+   "px": 62,
+   "width_px": 5.7,
+   "edge_dist_px": 70.8,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 37.3,
+   "true_key": true
+  },
+  {
+   "id": 23,
+   "bbox": [
+    3587,
+    1322,
+    11,
+    5
+   ],
+   "px": 49,
+   "width_px": 6.0,
+   "edge_dist_px": 7.1,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 123.6,
+   "true_key": false
+  },
+  {
+   "id": 11,
+   "bbox": [
+    1213,
+    1142,
+    8,
+    9
+   ],
+   "px": 48,
+   "width_px": 6.3,
+   "edge_dist_px": 18.0,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 127.5,
+   "true_key": false
+  },
+  {
+   "id": 16,
+   "bbox": [
+    2199,
+    1167,
+    9,
+    8
+   ],
+   "px": 45,
+   "width_px": 4.5,
+   "edge_dist_px": 3.0,
+   "kind": "sliver",
+   "thin": true,
+   "key_dist": 98.7,
+   "true_key": false
+  },
+  {
+   "id": 6,
+   "bbox": [
+    1961,
+    1046,
+    6,
+    10
+   ],
+   "px": 43,
+   "width_px": 5.7,
+   "edge_dist_px": 22.6,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 135.7,
+   "true_key": false
+  },
+  {
+   "id": 18,
+   "bbox": [
+    1787,
+    1201,
+    4,
+    11
+   ],
+   "px": 41,
+   "width_px": 4.0,
+   "edge_dist_px": 43.0,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 120.7,
+   "true_key": false
+  },
+  {
+   "id": 15,
+   "bbox": [
+    3545,
+    1162,
+    6,
+    9
+   ],
+   "px": 39,
+   "width_px": 5.7,
+   "edge_dist_px": 15.1,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 34.3,
+   "true_key": true
+  },
+  {
+   "id": 8,
+   "bbox": [
+    2209,
+    1106,
+    4,
+    9
+   ],
+   "px": 31,
+   "width_px": 4.0,
+   "edge_dist_px": 27.0,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 114.8,
+   "true_key": false
+  },
+  {
+   "id": 34,
+   "bbox": [
+    839,
+    1778,
+    9,
+    4
+   ],
+   "px": 30,
+   "width_px": 4.0,
+   "edge_dist_px": 6.0,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 132.0,
+   "true_key": false
+  },
+  {
+   "id": 5,
+   "bbox": [
+    3487,
+    1018,
+    4,
+    6
+   ],
+   "px": 22,
+   "width_px": 4.0,
+   "edge_dist_px": 67.6,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 125.5,
+   "true_key": false
+  },
+  {
+   "id": 12,
+   "bbox": [
+    1219,
+    1153,
+    4,
+    6
+   ],
+   "px": 22,
+   "width_px": 4.0,
+   "edge_dist_px": 24.0,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 134.7,
+   "true_key": false
+  },
+  {
+   "id": 2,
+   "bbox": [
+    3306,
+    980,
+    4,
+    5
+   ],
+   "px": 18,
+   "width_px": 4.0,
+   "edge_dist_px": 107.0,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 121.4,
+   "true_key": false
+  },
+  {
+   "id": 19,
+   "bbox": [
+    1991,
+    1212,
+    3,
+    6
+   ],
+   "px": 18,
+   "width_px": 4.0,
+   "edge_dist_px": 9.1,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 43.2,
+   "true_key": true
+  },
+  {
+   "id": 26,
+   "bbox": [
+    1775,
+    1380,
+    4,
+    5
+   ],
+   "px": 18,
+   "width_px": 4.0,
+   "edge_dist_px": 9.8,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 135.8,
+   "true_key": false
+  },
+  {
+   "id": 27,
+   "bbox": [
+    1781,
+    1418,
+    4,
+    5
+   ],
+   "px": 18,
+   "width_px": 4.0,
+   "edge_dist_px": 4.1,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 140.2,
+   "true_key": false
+  },
+  {
+   "id": 13,
+   "bbox": [
+    1212,
+    1154,
+    5,
+    5
+   ],
+   "px": 17,
+   "width_px": 4.0,
+   "edge_dist_px": 17.0,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 72.5,
+   "true_key": false
+  },
+  {
+   "id": 1,
+   "bbox": [
+    2346,
+    975,
+    4,
+    4
+   ],
+   "px": 15,
+   "width_px": 4.0,
+   "edge_dist_px": 87.1,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 108.0,
+   "true_key": false
+  },
+  {
+   "id": 14,
+   "bbox": [
+    2303,
+    1155,
+    3,
+    5
+   ],
+   "px": 15,
+   "width_px": 4.0,
+   "edge_dist_px": 12.6,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 47.2,
+   "true_key": false
+  },
+  {
+   "id": 29,
+   "bbox": [
+    1055,
+    1476,
+    3,
+    5
+   ],
+   "px": 15,
+   "width_px": 4.0,
+   "edge_dist_px": 24.4,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 135.7,
+   "true_key": false
+  },
+  {
+   "id": 35,
+   "bbox": [
+    857,
+    1779,
+    4,
+    3
+   ],
+   "px": 12,
+   "width_px": 4.0,
+   "edge_dist_px": 4.0,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 128.6,
+   "true_key": false
+  },
+  {
+   "id": 9,
+   "bbox": [
+    2314,
+    1107,
+    3,
+    3
+   ],
+   "px": 9,
+   "width_px": 4.0,
+   "edge_dist_px": 9.0,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 70.5,
+   "true_key": false
+  },
+  {
+   "id": 24,
+   "bbox": [
+    1773,
+    1370,
+    3,
+    3
+   ],
+   "px": 9,
+   "width_px": 4.0,
+   "edge_dist_px": 11.3,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 139.9,
+   "true_key": false
+  },
+  {
+   "id": 25,
+   "bbox": [
+    1196,
+    1376,
+    3,
+    3
+   ],
+   "px": 9,
+   "width_px": 4.0,
+   "edge_dist_px": 2.0,
+   "kind": "sliver",
+   "thin": true,
+   "key_dist": 125.9,
+   "true_key": false
+  },
+  {
+   "id": 28,
+   "bbox": [
+    1790,
+    1437,
+    3,
+    3
+   ],
+   "px": 9,
+   "width_px": 4.0,
+   "edge_dist_px": 6.3,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 131.1,
+   "true_key": false
+  },
+  {
+   "id": 31,
+   "bbox": [
+    1051,
+    1481,
+    3,
+    3
+   ],
+   "px": 9,
+   "width_px": 4.0,
+   "edge_dist_px": 27.5,
+   "kind": "interior",
+   "thin": true,
+   "key_dist": 126.3,
+   "true_key": false
+  }
+ ]
+}

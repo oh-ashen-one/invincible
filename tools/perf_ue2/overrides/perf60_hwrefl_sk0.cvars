@@ -1,0 +1,9 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# Round 03 shipped preset "perf60_hwrefl_sk0": perf60_hwrefl (hardware-RT reflections with software GI, Nanite error 6, RT-lite scene, cloud 4 km) + skeletal meshes
+# (the hero and the street people) OUT of the hardware ray-tracing scene. Measured on the rebuilt integrated map (docs/night1/perf/round-03/NOTES.md):
+# the animated hero is the whole dynamic ray-tracing cost of the moving route (GPU/RayTracingScene 1.5 ms every frame, 0.0 ms without it; frame p50 -1.6 ms; the 13 street people
+# alone are worth 0.1 ms; a dynamic-geometry update budget of 1 primitive changes nothing = the cost is the per-frame acceleration-structure build / encoder switch of a moving instance, not its triangle count).
+# Price: characters are not mirrored by the ray-traced (window-glass) reflections; they stay visible in Lumen's screen-space reflection traces and in every raster pass.
+# Applied with r.ScreenPercentage 48 (1843x1037 internal at 3840x2160 output) by tools/perf_ue2/build_map.py step perf_preset (SM2_PERF_PRESET_SP).
+set:perf60_hwrefl
+r.RayTracing.Geometry.SkeletalMeshes=0

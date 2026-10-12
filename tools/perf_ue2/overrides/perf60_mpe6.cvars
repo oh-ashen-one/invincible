@@ -1,0 +1,4 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# perf60 with Nanite cluster error 6 px (4K output) instead of 4: the reserve lever, about -0.65 ms p50. Look check pending (trees / street furniture only).
+set:perf60
+r.Nanite.MaxPixelsPerEdge=6

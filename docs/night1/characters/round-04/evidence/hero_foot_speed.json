@@ -1,0 +1,38 @@
+[
+ {
+  "clip": "walk",
+  "duration": 1.0667,
+  "natural_speed_mps": 1.142,
+  "eval_speed_mps": 1.142,
+  "foot_slide_per_plant_cm_max": 2.51,
+  "foot_slide_per_plant_cm_median": 2.51,
+  "plants": 2
+ },
+ {
+  "clip": "jog",
+  "duration": 0.7333,
+  "natural_speed_mps": 3.099,
+  "eval_speed_mps": 3.099,
+  "foot_slide_per_plant_cm_max": 0.67,
+  "foot_slide_per_plant_cm_median": 0.67,
+  "plants": 2
+ },
+ {
+  "clip": "run",
+  "duration": 0.5667,
+  "natural_speed_mps": 5.952,
+  "eval_speed_mps": 5.952,
+  "foot_slide_per_plant_cm_max": 3.44,
+  "foot_slide_per_plant_cm_median": 2.54,
+  "plants": 2
+ },
+ {
+  "clip": "sprint",
+  "duration": 0.5333,
+  "natural_speed_mps": 8.991,
+  "eval_speed_mps": 8.991,
+  "foot_slide_per_plant_cm_max": 0.02,
+  "foot_slide_per_plant_cm_median": 0.02,
+  "plants": 2
+ }
+]

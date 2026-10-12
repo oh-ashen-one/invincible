@@ -1,0 +1,53 @@
+{
+ "name": "t60_trick_reel",
+ "note": "Tricks C round 1: one 60 s chain with a flip program on every release, the 12 releasable programs cycled (a second lap repeats them, so same-type instances can be compared). Starts like traversal's f4 (y -560 cross street heading east, sun behind the view, P3 f4 arc tuning), then turns north up the x 250 avenue, west, and south (heading keys) to stay inside the detailed block.",
+ "seed": 4242,
+ "tune": "ArcLowMin=14,ArcDropShallow=8,ArcDropDeep=12,WallClearance=9",
+ "spawn": {
+  "pos": [
+   -240,
+   -560,
+   30
+  ],
+  "vel": [
+   26,
+   0,
+   0
+  ],
+  "yaw": 0,
+  "camPitch": 0.12
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 0,
+   "swing": false,
+   "flip": "backSingle,frontSingle,backPike,barani,backLayout,frontDouble,fullTwist,frontPikeSwan,backDouble,rudi,corkscrew,backTripleChain"
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.8,
+   "repressVz": 99.0,
+   "trickEvery": 1,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  },
+  {
+   "t": 12.63,
+   "heading": 90
+  },
+  {
+   "t": 28.0,
+   "heading": 92
+  }
+ ]
+}

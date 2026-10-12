@@ -1,0 +1,9 @@
+{
+ "name": "city_swing_clip",
+ "note": "P4 clip driver (frame-dumped movies start at frame 0, so no idle warm-up): airborne start 35 m over the avenue at 22 m/s northward, continuous autoChain swing chain (a_swing_chain.json of P3, moved into the city).",
+ "spawn": { "pos": [249, 150, 35], "yaw": -90, "camPitch": 0.12, "vel": [0, -22, 0] },
+ "keys": [
+  { "t": 0.0, "move": [0, 1], "heading": -90 },
+  { "t": 0.0, "swing": true, "autoChain": true, "releasePhase": 0.95, "gap": 0.3, "repressVz": 0.0, "trickEvery": 0 }
+ ]
+}

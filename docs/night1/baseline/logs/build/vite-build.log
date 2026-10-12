@@ -1,0 +1,24 @@
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 184 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                             12.97 kB │ gzip:   5.10 kB
+dist/assets/fracture.worker-DwdDOFAZ.js    174.35 kB
+dist/assets/systems-BWTJS7AK.css            35.11 kB │ gzip:   7.71 kB
+dist/assets/GLTFLoader-CGVtlDIO.js           0.06 kB │ gzip:   0.07 kB
+dist/assets/events-C_lqH4J9.js               0.47 kB │ gzip:   0.29 kB
+dist/assets/partmat-XLaIe4JM.js              3.81 kB │ gzip:   1.50 kB
+dist/assets/skeleton-CpuJZeBw.js             8.51 kB │ gzip:   3.55 kB
+dist/assets/destruction-L2lKLicn.js         23.19 kB │ gzip:  10.07 kB
+dist/assets/fracture.worker-8klalZZZ.js     33.85 kB │ gzip:  10.06 kB
+dist/assets/GLTFLoader-Ca65khyn.js          48.98 kB │ gzip:  14.32 kB
+dist/assets/combat-DIiPhqoD.js              86.46 kB │ gzip:  32.03 kB
+dist/assets/systems-L4Xhzx1F.js            213.94 kB │ gzip:  81.67 kB
+dist/assets/three.core-DtjtRha-.js         377.37 kB │ gzip: 100.67 kB
+dist/assets/preload-helper-BOXgZpvg.js     395.22 kB │ gzip: 100.42 kB
+dist/assets/fonts-CiG-18w5.js              876.86 kB │ gzip: 311.84 kB
+dist/assets/index-ueNBAyED.js            1,195.73 kB │ gzip: 462.50 kB
+
+✓ built in 662ms
+npx vite build  1.02s user 0.89s system 144% cpu 1.324 total

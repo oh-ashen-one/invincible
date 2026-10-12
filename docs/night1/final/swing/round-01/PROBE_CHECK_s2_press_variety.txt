@@ -1,0 +1,19 @@
+CHECK s2_press_variety: 2301 rows (38.4 s), 11 presses, 9 attaches, 9 releases, 9 strands
+line pass  value
+W1   PASS  strand start within 8 cm of the firing hand (rendered same frame; web-on frames before release) -- 100.0 % of 951 frames; error p50 0.0 p95 0.0 max 0.0 cm (hero speed median 26 m/s); press/attach frame median 0.0 cm; same-row bone read max 7.0 cm; release-phase frames (145): median 0 cm; frames whose first segments sit inside the 3 m lens-hide zone (excluded): 0
+W2   FAIL  firing arm: starts <= 0.05 s, <= 20 deg at tip arrival, <= 30 deg for the swing -- arrival median 3 deg (9/9 <= 20); max over swing median 6 deg (8/9 <= 30); motion start (angle -5 deg) median 0.017 s (9 of 9 strands started)
+W3   PASS  tip travels visibly 0.06-0.20 s at 150-400 m/s, not full length in frame 1, tension after landing -- 9/9 shots pass; shoot s median 0.155 (0.060-0.199); tip speed median 245 m/s; first-frame progress median 0.29; tension starts 0.03 s relative to tip landing (median; negative = before)
+W4   FAIL  attach: chest rate <= 400 deg/s on >= 90 %, never > 700; hand speed <= 2.5x -- chest rate max within -1..+9 frames of the attach: 56 % <= 400, worst 829 deg/s (>700: 1 of 9); hand speed ratio median 2.23, max 5.41 (> 2.5: 3 of 9)
+W5   FAIL  strand readability -- n/m: no movie given
+W6   PASS  in-flight wave, straight <= 0.10 s after landing (model wave cm, before the screen-space clamp) -- wave in flight median 16.5 cm (max 25.8); at landing median 7.8; 0.10 s after landing median 0.0 cm (max 0.0)
+W7   FAIL  hand->anchor line clear of building geometry (tree crowns: no collision, not measured) -- 5/1096 drawn frames blocked; min clear fraction 0.156
+W8   PASS  release: strand leaves the hand and retracts over 0.15-0.40 s (no vanish in one frame) -- 9 releases; drawn-after-release duration median 0.28 s (min 0.15 max 0.28)
+W9   FAIL  firing hand matches the anchor side on >= 90 % of attaches; alternates where the anchors alternate -- 8/9 attaches match (89 %); where the anchor side alternated the hand alternated 4/6
+W10  FAIL  every press: a strand within 0.05 s or a readable no-anchor reach; none to an anchor behind the hero -- 9/11 presses resolve; no visible response at t=[2.25, 1.4]; anchor behind the hero 0
+A1   PASS  pose signature changes >= 0.15 between 0.3 s samples during a swing (rms over the 10 values) -- 93 % of 43 sample pairs in 9 swings; median 0.24; (legs-lag 0.05-0.15 s: n/m, no per-bone timing logged)
+A2   PASS  >= 3 distinct swing body styles in any 6 consecutive swings (style = the clip at 40 % of the swing) -- 9 swings; distinct in 6-windows [3, 4, 4, 5]; styles ['swingBottom', 'swingBottomL', 'swingCornerBankL', 'swingHigh', 'swingLowL']
+A3   PASS  release: pose opens (>= 0.10 signature change) within 0.1 s; upward / forward momentum -- 9 releases; signature change in 0.1 s median 0.47 (9/9 >= 0.10); vz at release median 7.8 m/s, speed 25.7 m/s
+A4   PASS  no held identical air pose > 0.6 s (signature change < 0.03 per 0.1 s) -- longest held stretch 0.33 s over 26 air spans
+A5   FAIL  catch <= 0.25 s after the last shape; chest rate <= 400 deg/s through the catch on >= 90 % -- 3 tricks, 2 caught by a web; catch delay median 0.00 s (1/2 <= 0.25); chest-rate max through catch median 646 deg/s (0/2 <= 400)
+A6   n/a   >= 3 visibly different end poses across 6 tricks (end clip / node at the end of each trick) -- 3 tricks; distinct end clips 3: ['None/None', 'flipReach/flip_backSingle', 'flipThrone/flip_wallFront']
+A7   FAIL  each shape readable >= 3 frames at 25 fps (>= 8 frames at 60); pike hip angle / pencil straightness: n/m (no hip-angle column) -- 9 shape segments; 78 % >= 8 frames; shortest 2 frames

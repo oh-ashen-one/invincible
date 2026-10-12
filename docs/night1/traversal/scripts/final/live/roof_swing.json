@@ -1,0 +1,47 @@
+{
+ "name": "roof_swing",
+ "note": "roof run west, jump at the edge, hold RMB",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   287,
+   138,
+   69.2
+  ],
+  "yaw": 180,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   0,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 180,
+   "sprint": true,
+   "swing": false
+  },
+  {
+   "t": 1.9,
+   "jump": true
+  },
+  {
+   "t": 2.05,
+   "jump": false
+  },
+  {
+   "t": 2.2,
+   "swing": true
+  },
+  {
+   "t": 4.5,
+   "swing": false
+  }
+ ]
+}

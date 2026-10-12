@@ -1,0 +1,15 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# Round 03 shipped preset "perf60_hwl": FULL hardware-RT Lumen (GI + reflections) with the small RT-lite ray-tracing scene, Nanite error 8, skeletal meshes out of the ray-tracing scene,
+# cloud 4 km, TSR at 50 % (1920x1080 internal at 3840x2160 output = the internal resolution of the as-found look).
+# Why (docs/night1/perf/round-03/NOTES.md): with the RT-lite scene and no animated hero in it, hardware GI costs nothing measurable (p50 15.10 at TSR 48 with it vs 15.21-15.27 without);
+# it is what brings the S1 glass / S2 gold crops from SSIM 0.943 / 0.9425 to 0.973 / 0.980 together with TSR 50 % (the as-found internal resolution) and Nanite error 8
+# (the Nanite error itself does not move the crops: 0.9461 at error 1 vs 0.9427 at 6, glass / trees only).
+# The animated hero + street people in the ray-tracing scene cost 1.5 ms of GPU every frame (GPU/RayTracingScene) and 1.6 ms of frame time; out of it, they stay visible in Lumen's
+# screen-space reflection traces and in every raster pass, but they are not mirrored by the ray-traced (window-glass) reflections.
+# Applied by tools/perf_ue2/build_map.py step perf_preset (Config/Mac/MacEngine.ini, SM2_PERF_PRESET_SP = 50).
+set:perf60_mpe6
+r.Nanite.MaxPixelsPerEdge=8
+r.Lumen.HardwareRayTracing=1
+r.Lumen.ScreenProbeGather.HardwareRayTracing=1
+r.Lumen.Reflections.HardwareRayTracing=1
+r.RayTracing.Geometry.SkeletalMeshes=0

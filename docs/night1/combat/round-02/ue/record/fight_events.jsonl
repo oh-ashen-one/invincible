@@ -1,0 +1,377 @@
+{"rt":1.000,"gt":1.000,"ts":1.000,"move":"free","ev":"fight start e1:melee(-5.8,5.6) e2:melee(-3.7,5.8) e3:gunman(-0.1,6.2) e4:melee(-1.4,2.8) e5:brute(-2.1,0.8) e6:melee(-0.9,-1.0) e7:gunman(1.2,-3.9) e8:melee(-2.3,-4.5) e9:melee(-4.4,-4.8) "}
+{"rt":1.000,"gt":1.000,"ts":1.000,"move":"free","ev":"token melee e1"}
+{"rt":1.000,"gt":1.000,"ts":1.000,"move":"free","ev":"threat e3 gun lead 0.80"}
+{"rt":1.000,"gt":1.000,"ts":1.000,"move":"free","ev":"token gun e3"}
+{"rt":1.300,"gt":1.300,"ts":1.000,"move":"free","ev":"slowmo 0.28 s x0.45"}
+{"rt":1.500,"gt":1.404,"ts":0.739,"move":"strike","ev":"action attack: cross: strike flyingKick->e4 gap 5.3"}
+{"rt":1.800,"gt":1.696,"ts":1.000,"move":"strike","ev":"token melee e4"}
+{"rt":1.800,"gt":1.696,"ts":1.000,"move":"strike","ev":"threat e4 melee lead 0.42"}
+{"rt":1.800,"gt":1.696,"ts":1.000,"move":"strike","ev":"threat e7 gun lead 0.80"}
+{"rt":1.800,"gt":1.696,"ts":1.000,"move":"strike","ev":"token gun e7"}
+{"rt":1.833,"gt":1.730,"ts":1.000,"move":"strike","ev":"hit light -> e4 dmg 10 hp 40 stagger  combo 1 focus 0.08"}
+{"rt":1.983,"gt":1.797,"ts":1.000,"move":"strike","ev":"action attack: hook: strike punch3->e4 gap 0.1 run 0.00s"}
+{"rt":2.000,"gt":1.813,"ts":1.000,"move":"strike","ev":"shot e3 missed"}
+{"rt":2.100,"gt":1.913,"ts":1.000,"move":"strike","ev":"token melee e8"}
+{"rt":2.217,"gt":2.030,"ts":1.000,"move":"strike","ev":"hit light -> e4 dmg 11 hp 29 stagger  combo 2 focus 0.16"}
+{"rt":2.333,"gt":2.063,"ts":1.000,"move":"strike","ev":"action attack: kick: strike kick->e4 gap 0.0 run 0.00s"}
+{"rt":2.350,"gt":2.080,"ts":1.000,"move":"strike","ev":"token melee e1"}
+{"rt":2.350,"gt":2.080,"ts":1.000,"move":"strike","ev":"shot e3 missed"}
+{"rt":2.383,"gt":2.113,"ts":1.000,"move":"strike","ev":"threat e1 melee lead 0.42"}
+{"rt":2.550,"gt":2.280,"ts":1.000,"move":"dodge","ev":"slowmo 0.45 s x0.35"}
+{"rt":2.550,"gt":2.280,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":2.550,"gt":2.280,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e7"}
+{"rt":2.550,"gt":2.280,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":2.733,"gt":2.344,"ts":0.350,"move":"dodge","ev":"shot e3 missed (invulnerable)"}
+{"rt":2.750,"gt":2.350,"ts":0.350,"move":"strike","ev":"action attack: riser: strike uppercut->e4 gap 0.2 run 0.00s COUNTER"}
+{"rt":2.983,"gt":2.497,"ts":0.968,"move":"strike","ev":"shot e7 missed (invulnerable)"}
+{"rt":3.033,"gt":2.547,"ts":1.000,"move":"strike","ev":"enemy swing e1 thugPunch2 missed (invulnerable)"}
+{"rt":3.083,"gt":2.597,"ts":1.000,"move":"strike","ev":"token melee e4"}
+{"rt":3.133,"gt":2.647,"ts":1.000,"move":"strike","ev":"hit ender -> e4 dmg 27 hp 2 KNOCKED  combo 3 focus 0.68"}
+{"rt":3.133,"gt":2.647,"ts":1.000,"move":"strike","ev":"token melee e6"}
+{"rt":3.133,"gt":2.647,"ts":1.000,"move":"strike","ev":"threat e8 melee lead 0.42"}
+{"rt":3.250,"gt":2.664,"ts":1.000,"move":"strike","ev":"threat e6 melee lead 0.42"}
+{"rt":3.350,"gt":2.764,"ts":1.000,"move":"strike","ev":"shot e7 missed (invulnerable)"}
+{"rt":3.433,"gt":2.847,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":3.433,"gt":2.847,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e8"}
+{"rt":3.433,"gt":2.847,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":3.617,"gt":3.030,"ts":1.000,"move":"dodge","ev":"shot e7 missed (invulnerable)"}
+{"rt":3.667,"gt":3.080,"ts":1.000,"move":"dodge","ev":"enemy swing e8 thugPunch2 missed (invulnerable)"}
+{"rt":3.683,"gt":3.097,"ts":1.000,"move":"dodge","ev":"enemy swing e6 thugPunch2 missed (invulnerable)"}
+{"rt":3.850,"gt":3.264,"ts":1.000,"move":"dodge","ev":"token melee e2"}
+{"rt":3.867,"gt":3.280,"ts":1.000,"move":"dodge","ev":"token melee e1"}
+{"rt":3.867,"gt":3.280,"ts":1.000,"move":"dodge","ev":"threat e2 melee lead 0.42"}
+{"rt":3.883,"gt":3.297,"ts":1.000,"move":"dodge","ev":"threat e1 melee lead 0.50"}
+{"rt":3.917,"gt":3.330,"ts":1.000,"move":"dodge","ev":"reinforcement e10 m at 13.0 m"}
+{"rt":4.133,"gt":3.547,"ts":1.000,"move":"strike","ev":"action attack: cross: strike punch2->e3 gap 2.1 run 0.20s COUNTER"}
+{"rt":4.300,"gt":3.714,"ts":1.000,"move":"strike","ev":"enemy swing e2 thugPunch2 missed (out of reach)"}
+{"rt":4.400,"gt":3.814,"ts":1.000,"move":"strike","ev":"enemy swing e1 thugKick missed (out of reach)"}
+{"rt":4.483,"gt":3.897,"ts":1.000,"move":"strike","ev":"hit ender -> e3 dmg 16 hp 22 KNOCKED  combo 4 focus 1.21"}
+{"rt":4.483,"gt":3.897,"ts":1.000,"move":"strike","ev":"token melee e2"}
+{"rt":4.483,"gt":3.897,"ts":1.000,"move":"strike","ev":"threat e2 melee lead 0.55"}
+{"rt":4.533,"gt":3.897,"ts":0.002,"move":"strike","ev":"action attack: hook: strike punch3->e3 gap 0.1 run 0.00s"}
+{"rt":4.833,"gt":4.147,"ts":1.000,"move":"strike","ev":"hit light -> e3 dmg 11 hp 11 stagger  combo 5 focus 1.31"}
+{"rt":4.950,"gt":4.181,"ts":1.000,"move":"strike","ev":"action attack: jab: strike punch1->e3 gap 0.2 run 0.00s"}
+{"rt":5.000,"gt":4.231,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":5.000,"gt":4.231,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e2"}
+{"rt":5.000,"gt":4.231,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":5.033,"gt":4.264,"ts":1.000,"move":"dodge","ev":"token melee e5"}
+{"rt":5.183,"gt":4.414,"ts":1.000,"move":"dodge","ev":"token melee e10"}
+{"rt":5.233,"gt":4.464,"ts":1.000,"move":"dodge","ev":"enemy swing e2 thugPunch1 missed (invulnerable)"}
+{"rt":5.267,"gt":4.497,"ts":1.000,"move":"dodge","ev":"threat e10 melee lead 0.42"}
+{"rt":5.333,"gt":4.564,"ts":1.000,"move":"strike","ev":"action attack: roundhouse: strike kick->e10 gap 1.2 run 0.10s COUNTER"}
+{"rt":5.650,"gt":4.881,"ts":1.000,"move":"strike","ev":"hit ender -> e10 dmg 26 hp 24 KNOCKED  combo 6 focus 1.86"}
+{"rt":5.817,"gt":4.948,"ts":1.000,"move":"strike","ev":"token melee e6"}
+{"rt":5.967,"gt":5.098,"ts":1.000,"move":"strike","ev":"token melee e2"}
+{"rt":6.017,"gt":5.148,"ts":1.000,"move":"launch","ev":"action launcher: launcher -> e3"}
+{"rt":6.067,"gt":5.198,"ts":1.000,"move":"launch","ev":"threat e5 heavy lead 0.55"}
+{"rt":6.067,"gt":5.198,"ts":1.000,"move":"launch","ev":"threat e7 gun lead 0.80"}
+{"rt":6.067,"gt":5.198,"ts":1.000,"move":"launch","ev":"token gun e7"}
+{"rt":6.167,"gt":5.298,"ts":1.000,"move":"launch","ev":"threat e6 melee lead 0.50"}
+{"rt":6.283,"gt":5.414,"ts":1.000,"move":"launch","ev":"threat e2 melee lead 0.42"}
+{"rt":6.350,"gt":5.481,"ts":1.000,"move":"launch","ev":"hit launch -> e3 dmg 10 hp 1 LAUNCHED  combo 7 focus 2.06"}
+{"rt":6.733,"gt":5.764,"ts":1.000,"move":"launch","ev":"enemy swing e5 thugPunch1 missed (out of reach)"}
+{"rt":6.783,"gt":5.814,"ts":1.000,"move":"launch","ev":"enemy swing e6 thugKick missed (out of reach)"}
+{"rt":6.817,"gt":5.848,"ts":1.000,"move":"air","ev":"enemy swing e2 thugPunch2 missed (out of reach)"}
+{"rt":6.833,"gt":5.864,"ts":1.000,"move":"airStrike","ev":"action attack: airStrike seg 0 -> e3"}
+{"rt":6.950,"gt":5.981,"ts":1.000,"move":"airStrike","ev":"hit air -> e3 dmg 9 hp 0  combo 8 focus 2.18"}
+{"rt":6.967,"gt":5.981,"ts":0.002,"move":"airStrike","ev":"shot e7 missed"}
+{"rt":7.083,"gt":6.031,"ts":1.000,"move":"airStrike","ev":"token melee e8"}
+{"rt":7.083,"gt":6.031,"ts":1.000,"move":"airStrike","ev":"threat e8 melee lead 0.50"}
+{"rt":7.133,"gt":6.081,"ts":1.000,"move":"airStrike","ev":"action attack: airStrike seg 1 -> e3"}
+{"rt":7.200,"gt":6.148,"ts":1.000,"move":"airStrike","ev":"hit air -> e3 dmg 9 hp 0  combo 9 focus 2.30"}
+{"rt":7.383,"gt":6.248,"ts":1.000,"move":"airStrike","ev":"shot e7 HIT hp 94"}
+{"rt":7.433,"gt":6.298,"ts":1.000,"move":"airStrike","ev":"action attack: airStrike seg 2 -> e3"}
+{"rt":7.583,"gt":6.448,"ts":1.000,"move":"airStrike","ev":"hit slam -> e3 dmg 14 hp 0  combo 1 focus 2.45"}
+{"rt":7.750,"gt":6.515,"ts":1.000,"move":"slamDown","ev":"shot e7 missed"}
+{"rt":7.783,"gt":6.548,"ts":1.000,"move":"slamDown","ev":"enemy swing e8 thugKick missed (out of reach)"}
+{"rt":7.833,"gt":6.598,"ts":1.000,"move":"slamDown","ev":"reinforcement e11 m at 13.0 m"}
+{"rt":7.883,"gt":6.648,"ts":1.000,"move":"slamDown","ev":"token melee e2"}
+{"rt":7.883,"gt":6.648,"ts":1.000,"move":"slamDown","ev":"threat e2 melee lead 0.50"}
+{"rt":7.917,"gt":6.682,"ts":1.000,"move":"slamDown","ev":"hit ender -> e3 dmg 8 hp 0 KNOCKED  combo 1 focus 2.45"}
+{"rt":7.917,"gt":6.682,"ts":1.000,"move":"slamDown","ev":"hit ender -> e5 dmg 8 hp 146 ARMORED  combo 1 focus 2.45"}
+{"rt":7.917,"gt":6.682,"ts":1.000,"move":"slamDown","ev":"hit ender -> e6 dmg 8 hp 42 KNOCKED  combo 1 focus 2.45"}
+{"rt":7.917,"gt":6.682,"ts":1.000,"move":"slamDown","ev":"hit ender -> e8 dmg 8 hp 42 KNOCKED  combo 1 focus 2.45"}
+{"rt":7.917,"gt":6.682,"ts":1.000,"move":"slamDown","ev":"groundPound"}
+{"rt":8.250,"gt":6.915,"ts":1.000,"move":"landing","ev":"token melee e9"}
+{"rt":8.450,"gt":7.115,"ts":1.000,"move":"dodge","ev":"slowmo 0.45 s x0.35"}
+{"rt":8.450,"gt":7.115,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":8.450,"gt":7.115,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e2"}
+{"rt":8.450,"gt":7.115,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":8.533,"gt":7.144,"ts":0.350,"move":"dodge","ev":"enemy swing e2 thugKick missed (invulnerable)"}
+{"rt":8.583,"gt":7.162,"ts":0.350,"move":"dodge","ev":"token melee e1"}
+{"rt":8.683,"gt":7.197,"ts":0.358,"move":"dodge","ev":"threat e9 melee lead 0.42"}
+{"rt":8.683,"gt":7.197,"ts":0.358,"move":"dodge","ev":"threat e7 gun lead 0.80"}
+{"rt":8.683,"gt":7.197,"ts":0.358,"move":"dodge","ev":"token gun e7"}
+{"rt":8.933,"gt":7.382,"ts":1.000,"move":"dodge","ev":"reinforcement e12 g at 13.0 m"}
+{"rt":9.200,"gt":7.648,"ts":1.000,"move":"dodge","ev":"enemy swing e9 thugPunch2 missed (invulnerable)"}
+{"rt":9.367,"gt":7.815,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":9.367,"gt":7.815,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e7"}
+{"rt":9.367,"gt":7.815,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":9.383,"gt":7.832,"ts":1.000,"move":"dodge","ev":"token melee e9"}
+{"rt":9.383,"gt":7.832,"ts":1.000,"move":"dodge","ev":"threat e9 melee lead 0.55"}
+{"rt":9.450,"gt":7.898,"ts":1.000,"move":"dodge","ev":"action web: webShoot -> e9"}
+{"rt":9.550,"gt":7.998,"ts":1.000,"move":"dodge","ev":"web fired -> e9"}
+{"rt":9.567,"gt":8.015,"ts":1.000,"move":"dodge","ev":"shot e7 missed (invulnerable)"}
+{"rt":9.600,"gt":8.048,"ts":1.000,"move":"dodge","ev":"web hit e9 web 0.34 state attack"}
+{"rt":9.717,"gt":8.165,"ts":1.000,"move":"dodge","ev":"action web: webShoot -> e1"}
+{"rt":9.817,"gt":8.265,"ts":1.000,"move":"dodge","ev":"web fired -> e1"}
+{"rt":9.833,"gt":8.282,"ts":1.000,"move":"dodge","ev":"shot e7 missed (invulnerable)"}
+{"rt":9.867,"gt":8.315,"ts":1.000,"move":"dodge","ev":"web hit e1 web 0.34 state approach"}
+{"rt":9.950,"gt":8.398,"ts":1.000,"move":"dodge","ev":"enemy swing e9 thugPunch1 missed (out of reach)"}
+{"rt":10.017,"gt":8.465,"ts":1.000,"move":"dodge","ev":"out e3 ko"}
+{"rt":10.067,"gt":8.515,"ts":1.000,"move":"webStrike","ev":"action strike: webStrike -> e9 3.5 m"}
+{"rt":10.067,"gt":8.515,"ts":1.000,"move":"webStrike","ev":"threat e1 melee lead 0.55"}
+{"rt":10.100,"gt":8.548,"ts":1.000,"move":"webStrike","ev":"shot e7 missed"}
+{"rt":10.283,"gt":8.732,"ts":1.000,"move":"webStrike","ev":"threat e12 gun lead 0.80"}
+{"rt":10.283,"gt":8.732,"ts":1.000,"move":"webStrike","ev":"token gun e12"}
+{"rt":10.433,"gt":8.882,"ts":1.000,"move":"webStrike","ev":"hit strike -> e9 dmg 20 hp 30 KNOCKED  combo 2 focus 3.00"}
+{"rt":10.733,"gt":9.082,"ts":1.000,"move":"webStrike","ev":"token melee e4"}
+{"rt":10.733,"gt":9.082,"ts":1.000,"move":"webStrike","ev":"hero hit by e1 thugPunch1 dmg 9 hp 85"}
+{"rt":10.900,"gt":9.165,"ts":1.000,"move":"strike","ev":"action attack: cross: strike punch2->e9 gap 3.1 run 0.28s COUNTER"}
+{"rt":10.983,"gt":9.249,"ts":1.000,"move":"strike","ev":"token melee e5"}
+{"rt":10.983,"gt":9.249,"ts":1.000,"move":"strike","ev":"threat e4 melee lead 0.50"}
+{"rt":11.000,"gt":9.265,"ts":1.000,"move":"strike","ev":"threat e5 heavy lead 0.85"}
+{"rt":11.050,"gt":9.315,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":11.050,"gt":9.315,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e12"}
+{"rt":11.050,"gt":9.315,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":11.267,"gt":9.532,"ts":1.000,"move":"dodge","ev":"shot e12 missed (invulnerable)"}
+{"rt":11.300,"gt":9.565,"ts":1.000,"move":"strike","ev":"action attack: hook: strike punch3->e5 gap 2.7 run 0.25s COUNTER"}
+{"rt":11.500,"gt":9.765,"ts":1.000,"move":"strike","ev":"enemy swing e4 thugKick missed (invulnerable)"}
+{"rt":11.533,"gt":9.799,"ts":1.000,"move":"strike","ev":"shot e12 missed (invulnerable)"}
+{"rt":11.700,"gt":9.965,"ts":1.000,"move":"strike","ev":"token melee e11"}
+{"rt":11.733,"gt":9.999,"ts":1.000,"move":"strike","ev":"hit ender -> e5 dmg 18 hp 136 ARMORED  combo 0 focus 3.00"}
+{"rt":11.733,"gt":9.999,"ts":1.000,"move":"strike","ev":"threat e11 melee lead 0.42"}
+{"rt":11.850,"gt":10.032,"ts":1.000,"move":"dodge","ev":"slowmo 0.45 s x0.35"}
+{"rt":11.850,"gt":10.032,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":11.850,"gt":10.032,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e5"}
+{"rt":11.850,"gt":10.032,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":11.933,"gt":10.061,"ts":0.350,"move":"dodge","ev":"shot e12 missed (invulnerable)"}
+{"rt":12.050,"gt":10.102,"ts":0.350,"move":"strike","ev":"action attack: kick: strike kick->e5 gap 0.1 run 0.00s COUNTER"}
+{"rt":12.100,"gt":10.120,"ts":0.382,"move":"strike","ev":"enemy swing e5 bruteSlam missed (invulnerable)"}
+{"rt":12.367,"gt":10.332,"ts":1.000,"move":"strike","ev":"hit ender -> e5 dmg 18 hp 126 ARMORED  combo 0 focus 3.00"}
+{"rt":12.433,"gt":10.332,"ts":0.002,"move":"strike","ev":"token melee e10"}
+{"rt":12.483,"gt":10.366,"ts":1.000,"move":"strike","ev":"action attack: riser: strike uppercut->e5 gap 0.1 run 0.00s"}
+{"rt":12.500,"gt":10.382,"ts":1.000,"move":"strike","ev":"threat e10 melee lead 0.50"}
+{"rt":12.550,"gt":10.432,"ts":1.000,"move":"strike","ev":"enemy swing e11 thugPunch2 missed (invulnerable)"}
+{"rt":12.767,"gt":10.649,"ts":1.000,"move":"strike","ev":"hit ender -> e5 dmg 17 hp 117 ARMORED  combo 0 focus 3.00"}
+{"rt":12.867,"gt":10.666,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":12.867,"gt":10.666,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e10"}
+{"rt":12.867,"gt":10.666,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":13.067,"gt":10.866,"ts":1.000,"move":"dodge","ev":"token melee e11"}
+{"rt":13.100,"gt":10.899,"ts":1.000,"move":"dodge","ev":"enemy swing e10 thugKick missed (invulnerable)"}
+{"rt":13.133,"gt":10.933,"ts":1.000,"move":"dodge","ev":"threat e11 melee lead 0.50"}
+{"rt":13.567,"gt":11.366,"ts":1.000,"move":"strike","ev":"action attack: cross: strike punch2->e8 gap 1.5 run 0.16s COUNTER"}
+{"rt":13.650,"gt":11.449,"ts":1.000,"move":"hit","ev":"hero hit by e11 thugKick dmg 9 hp 76"}
+{"rt":13.683,"gt":11.449,"ts":0.002,"move":"hit","ev":"token melee e8"}
+{"rt":13.783,"gt":11.499,"ts":1.000,"move":"hit","ev":"threat e8 melee lead 0.55"}
+{"rt":14.050,"gt":11.766,"ts":1.000,"move":"strike","ev":"action attack: jab: strike punch1->e8 gap 0.4 run 0.10s"}
+{"rt":14.267,"gt":11.983,"ts":1.000,"move":"strike","ev":"hit light -> e8 dmg 9 hp 33 stagger  combo 1 focus 3.00"}
+{"rt":14.333,"gt":11.983,"ts":0.002,"move":"strike","ev":"token melee e6"}
+{"rt":14.350,"gt":11.983,"ts":0.002,"move":"strike","ev":"token melee e1"}
+{"rt":14.383,"gt":12.016,"ts":1.000,"move":"strike","ev":"threat e6 melee lead 0.42"}
+{"rt":14.400,"gt":12.033,"ts":1.000,"move":"strike","ev":"threat e1 melee lead 0.42"}
+{"rt":14.533,"gt":12.166,"ts":1.000,"move":"finisher","ev":"slowmo 0.45 s x0.55"}
+{"rt":14.533,"gt":12.166,"ts":1.000,"move":"finisher","ev":"cine finisher e8 1.45 s"}
+{"rt":14.533,"gt":12.166,"ts":1.000,"move":"finisher","ev":"action finisher: finisher -> e8"}
+{"rt":14.950,"gt":12.433,"ts":0.953,"move":"finisher","ev":"enemy swing e6 thugPunch2 missed (invulnerable)"}
+{"rt":14.967,"gt":12.450,"ts":0.978,"move":"finisher","ev":"enemy swing e1 thugPunch2 missed (invulnerable)"}
+{"rt":15.100,"gt":12.583,"ts":1.000,"move":"finisher","ev":"token melee e2"}
+{"rt":15.150,"gt":12.633,"ts":1.000,"move":"finisher","ev":"token melee e11"}
+{"rt":15.150,"gt":12.633,"ts":1.000,"move":"finisher","ev":"threat e11 melee lead 0.42"}
+{"rt":15.217,"gt":12.700,"ts":1.000,"move":"finisher","ev":"threat e7 gun lead 0.80"}
+{"rt":15.217,"gt":12.700,"ts":1.000,"move":"finisher","ev":"token gun e7"}
+{"rt":15.267,"gt":12.750,"ts":1.000,"move":"finisher","ev":"slowmo 1.10 s x0.25"}
+{"rt":15.267,"gt":12.750,"ts":1.000,"move":"finisher","ev":"hit finisher -> e8 dmg 999 hp 0 KNOCKED  combo 2 focus 2.08"}
+{"rt":15.917,"gt":12.883,"ts":0.260,"move":"finisher","ev":"token melee e4"}
+{"rt":15.917,"gt":12.883,"ts":0.260,"move":"finisher","ev":"threat e4 melee lead 0.42"}
+{"rt":16.233,"gt":13.051,"ts":0.838,"move":"finisher","ev":"enemy swing e11 thugPunch2 missed (invulnerable)"}
+{"rt":16.250,"gt":13.065,"ts":0.868,"move":"finisher","ev":"threat e2 melee lead 0.55"}
+{"rt":16.517,"gt":13.327,"ts":1.000,"move":"finisher","ev":"enemy swing e4 thugPunch2 missed (invulnerable)"}
+{"rt":16.700,"gt":13.510,"ts":1.000,"move":"finisher","ev":"shot e7 missed (invulnerable)"}
+{"rt":16.717,"gt":13.527,"ts":1.000,"move":"finisher","ev":"out e8 ground"}
+{"rt":16.800,"gt":13.610,"ts":1.000,"move":"free","ev":"action web: webShoot -> e11"}
+{"rt":16.800,"gt":13.610,"ts":1.000,"move":"free","ev":"token melee e4"}
+{"rt":16.817,"gt":13.627,"ts":1.000,"move":"hit","ev":"hero hit by e2 thugPunch1 dmg 9 hp 67"}
+{"rt":16.933,"gt":13.660,"ts":1.000,"move":"hit","ev":"threat e4 melee lead 0.50"}
+{"rt":16.983,"gt":13.710,"ts":1.000,"move":"hit","ev":"web fired -> e11"}
+{"rt":17.017,"gt":13.744,"ts":1.000,"move":"hit","ev":"web hit e11 web 0.34 state hold"}
+{"rt":17.050,"gt":13.777,"ts":1.000,"move":"hit","ev":"shot e7 missed (invulnerable)"}
+{"rt":17.217,"gt":13.944,"ts":1.000,"move":"hit","ev":"action web: webShoot -> e11"}
+{"rt":17.300,"gt":14.027,"ts":1.000,"move":"dodge","ev":"slowmo 0.45 s x0.35"}
+{"rt":17.300,"gt":14.027,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":17.300,"gt":14.027,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e4"}
+{"rt":17.300,"gt":14.027,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":17.333,"gt":14.039,"ts":0.350,"move":"dodge","ev":"shot e7 missed (invulnerable)"}
+{"rt":17.333,"gt":14.039,"ts":0.350,"move":"dodge","ev":"web fired -> e11"}
+{"rt":17.483,"gt":14.091,"ts":0.350,"move":"dodge","ev":"token melee e10"}
+{"rt":17.483,"gt":14.091,"ts":0.350,"move":"dodge","ev":"threat e10 melee lead 0.55"}
+{"rt":17.483,"gt":14.091,"ts":0.350,"move":"dodge","ev":"web hit e11 web 0.66 state hold"}
+{"rt":17.633,"gt":14.159,"ts":0.643,"move":"dodge","ev":"enemy swing e4 thugKick missed (invulnerable)"}
+{"rt":18.033,"gt":14.544,"ts":1.000,"move":"dodge","ev":"token melee e9"}
+{"rt":18.150,"gt":14.660,"ts":1.000,"move":"hit","ev":"hero hit by e10 thugPunch1 dmg 9 hp 58"}
+{"rt":18.183,"gt":14.661,"ts":0.002,"move":"hit","ev":"token melee e5"}
+{"rt":18.283,"gt":14.711,"ts":1.000,"move":"hit","ev":"threat e9 melee lead 0.50"}
+{"rt":18.283,"gt":14.711,"ts":1.000,"move":"hit","ev":"threat e7 gun lead 0.80"}
+{"rt":18.283,"gt":14.711,"ts":1.000,"move":"hit","ev":"token gun e7"}
+{"rt":18.633,"gt":15.061,"ts":1.000,"move":"launch","ev":"action launcher: launcher -> e10"}
+{"rt":18.800,"gt":15.227,"ts":1.000,"move":"launch","ev":"threat e5 heavy lead 0.85"}
+{"rt":18.800,"gt":15.227,"ts":1.000,"move":"launch","ev":"hero hit by e9 thugKick dmg 9 hp 49"}
+{"rt":19.050,"gt":15.394,"ts":1.000,"move":"launch","ev":"hit launch -> e10 dmg 16 hp 8 LAUNCHED  combo 1 focus 2.64"}
+{"rt":19.267,"gt":15.511,"ts":1.000,"move":"launch","ev":"shot e7 missed"}
+{"rt":19.533,"gt":15.778,"ts":1.000,"move":"airStrike","ev":"action attack: airStrike seg 0 -> e10"}
+{"rt":19.533,"gt":15.778,"ts":1.000,"move":"airStrike","ev":"shot e7 HIT hp 43"}
+{"rt":19.600,"gt":15.844,"ts":1.000,"move":"airStrike","ev":"token melee e9"}
+{"rt":19.600,"gt":15.844,"ts":1.000,"move":"airStrike","ev":"threat e9 melee lead 0.42"}
+{"rt":19.600,"gt":15.844,"ts":1.000,"move":"airStrike","ev":"threat e12 gun lead 0.80"}
+{"rt":19.600,"gt":15.844,"ts":1.000,"move":"airStrike","ev":"token gun e12"}
+{"rt":19.650,"gt":15.894,"ts":1.000,"move":"airStrike","ev":"hit air -> e10 dmg 9 hp 0  combo 1 focus 2.72"}
+{"rt":19.833,"gt":15.994,"ts":1.000,"move":"airStrike","ev":"action attack: airStrike seg 1 -> e10"}
+{"rt":19.883,"gt":16.044,"ts":1.000,"move":"airStrike","ev":"shot e7 missed"}
+{"rt":19.900,"gt":16.061,"ts":1.000,"move":"airStrike","ev":"hit air -> e10 dmg 9 hp 0  combo 2 focus 2.81"}
+{"rt":20.017,"gt":16.095,"ts":1.000,"move":"airStrike","ev":"enemy swing e5 bruteSlam missed (out of reach)"}
+{"rt":20.133,"gt":16.211,"ts":1.000,"move":"airStrike","ev":"action attack: airStrike seg 2 -> e10"}
+{"rt":20.200,"gt":16.278,"ts":1.000,"move":"airStrike","ev":"enemy swing e9 thugPunch2 missed (out of reach)"}
+{"rt":20.283,"gt":16.361,"ts":1.000,"move":"airStrike","ev":"hit slam -> e10 dmg 14 hp 0  combo 3 focus 2.98"}
+{"rt":20.400,"gt":16.378,"ts":1.000,"move":"slamDown","ev":"token melee e11"}
+{"rt":20.400,"gt":16.378,"ts":1.000,"move":"slamDown","ev":"threat e11 melee lead 0.50"}
+{"rt":20.400,"gt":16.378,"ts":1.000,"move":"slamDown","ev":"threat e7 gun lead 0.80"}
+{"rt":20.400,"gt":16.378,"ts":1.000,"move":"slamDown","ev":"token gun e7"}
+{"rt":20.617,"gt":16.595,"ts":1.000,"move":"slamDown","ev":"hit ender -> e5 dmg 8 hp 112 ARMORED  combo 3 focus 2.98"}
+{"rt":20.617,"gt":16.595,"ts":1.000,"move":"slamDown","ev":"hit ender -> e9 dmg 8 hp 22 KNOCKED  combo 3 focus 2.98"}
+{"rt":20.617,"gt":16.595,"ts":1.000,"move":"slamDown","ev":"hit ender -> e10 dmg 8 hp 0 KNOCKED  combo 3 focus 2.98"}
+{"rt":20.617,"gt":16.595,"ts":1.000,"move":"slamDown","ev":"hit ender -> e11 dmg 8 hp 42 KNOCKED  combo 3 focus 2.98"}
+{"rt":20.617,"gt":16.595,"ts":1.000,"move":"slamDown","ev":"groundPound"}
+{"rt":20.767,"gt":16.645,"ts":1.000,"move":"landing","ev":"shot e12 missed"}
+{"rt":20.917,"gt":16.795,"ts":1.000,"move":"landing","ev":"token melee e6"}
+{"rt":20.950,"gt":16.828,"ts":1.000,"move":"landing","ev":"token melee e4"}
+{"rt":21.033,"gt":16.912,"ts":1.000,"move":"landing","ev":"shot e12 missed"}
+{"rt":21.100,"gt":16.978,"ts":1.000,"move":"landing","ev":"token melee e1"}
+{"rt":21.100,"gt":16.978,"ts":1.000,"move":"landing","ev":"threat e4 melee lead 0.50"}
+{"rt":21.150,"gt":17.028,"ts":1.000,"move":"dodge","ev":"slowmo 0.45 s x0.35"}
+{"rt":21.150,"gt":17.028,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":21.150,"gt":17.028,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e7"}
+{"rt":21.150,"gt":17.028,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":21.150,"gt":17.028,"ts":1.000,"move":"dodge","ev":"threat e6 melee lead 0.42"}
+{"rt":21.350,"gt":17.098,"ts":0.350,"move":"strike","ev":"action attack: cross: strike punch2->e6 gap 1.7 run 0.17s COUNTER"}
+{"rt":21.500,"gt":17.172,"ts":0.707,"move":"strike","ev":"shot e12 missed (invulnerable)"}
+{"rt":21.517,"gt":17.185,"ts":0.771,"move":"strike","ev":"shot e7 missed (invulnerable)"}
+{"rt":21.550,"gt":17.214,"ts":0.886,"move":"strike","ev":"threat e1 melee lead 0.50"}
+{"rt":21.617,"gt":17.278,"ts":1.000,"move":"strike","ev":"reinforcement e13 m at 13.0 m"}
+{"rt":21.750,"gt":17.412,"ts":1.000,"move":"strike","ev":"hit ender -> e6 dmg 16 hp 26 KNOCKED  combo 4 focus 3.00"}
+{"rt":21.883,"gt":17.445,"ts":1.000,"move":"strike","ev":"action attack: hook: strike punch3->e6 gap 0.2 run 0.00s"}
+{"rt":21.883,"gt":17.445,"ts":1.000,"move":"strike","ev":"shot e7 missed (invulnerable)"}
+{"rt":21.933,"gt":17.495,"ts":1.000,"move":"strike","ev":"enemy swing e4 thugKick missed (invulnerable)"}
+{"rt":21.950,"gt":17.512,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":21.950,"gt":17.512,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e1"}
+{"rt":21.950,"gt":17.512,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":22.033,"gt":17.595,"ts":1.000,"move":"strike","ev":"action attack: jab: strike punch1->e6 gap 1.0 run 0.12s COUNTER"}
+{"rt":22.150,"gt":17.712,"ts":1.000,"move":"strike","ev":"shot e7 missed (invulnerable)"}
+{"rt":22.167,"gt":17.729,"ts":1.000,"move":"strike","ev":"enemy swing e1 thugKick missed (invulnerable)"}
+{"rt":22.250,"gt":17.812,"ts":1.000,"move":"strike","ev":"token melee e2"}
+{"rt":22.250,"gt":17.812,"ts":1.000,"move":"strike","ev":"threat e2 melee lead 0.42"}
+{"rt":22.267,"gt":17.829,"ts":1.000,"move":"strike","ev":"hit ender -> e6 dmg 14 hp 12 KNOCKED  combo 5 focus 3.00"}
+{"rt":22.400,"gt":17.862,"ts":1.000,"move":"strike","ev":"action attack: riser: strike uppercut->e6 gap 0.2 run 0.00s"}
+{"rt":22.417,"gt":17.879,"ts":1.000,"move":"strike","ev":"reinforcement e14 m at 13.0 m"}
+{"rt":22.683,"gt":18.145,"ts":1.000,"move":"strike","ev":"hit ender -> e6 dmg 17 hp 0 KNOCKED  combo 6 focus 3.00"}
+{"rt":22.800,"gt":18.162,"ts":1.000,"move":"strike","ev":"token melee e4"}
+{"rt":22.800,"gt":18.162,"ts":1.000,"move":"strike","ev":"threat e4 melee lead 0.50"}
+{"rt":22.883,"gt":18.246,"ts":1.000,"move":"strike","ev":"enemy swing e2 thugPunch2 missed (out of reach)"}
+{"rt":23.017,"gt":18.379,"ts":1.000,"move":"strike","ev":"out e10 ko"}
+{"rt":23.050,"gt":18.412,"ts":1.000,"move":"launch","ev":"action launcher: launcher -> e4"}
+{"rt":23.300,"gt":18.662,"ts":1.000,"move":"launch","ev":"token melee e5"}
+{"rt":23.317,"gt":18.679,"ts":1.000,"move":"launch","ev":"hero hit by e4 thugKick dmg 9 hp 34"}
+{"rt":23.467,"gt":18.746,"ts":1.000,"move":"launch","ev":"hit launch -> e4 dmg 10 hp 0 LAUNCHED  combo 1 focus 3.00"}
+{"rt":23.467,"gt":18.746,"ts":1.000,"move":"launch","ev":"token melee e1"}
+{"rt":23.467,"gt":18.746,"ts":1.000,"move":"launch","ev":"threat e1 melee lead 0.42"}
+{"rt":23.950,"gt":19.129,"ts":1.000,"move":"airStrike","ev":"action attack: airStrike seg 0 -> e4"}
+{"rt":24.000,"gt":19.179,"ts":1.000,"move":"airStrike","ev":"enemy swing e1 thugPunch2 missed (out of reach)"}
+{"rt":24.067,"gt":19.246,"ts":1.000,"move":"airStrike","ev":"hit air -> e4 dmg 9 hp 0  combo 2 focus 3.00"}
+{"rt":24.250,"gt":19.346,"ts":1.000,"move":"airStrike","ev":"action attack: airStrike seg 1 -> e4"}
+{"rt":24.267,"gt":19.363,"ts":1.000,"move":"airStrike","ev":"token melee e5"}
+{"rt":24.267,"gt":19.363,"ts":1.000,"move":"airStrike","ev":"threat e5 heavy lead 0.85"}
+{"rt":24.267,"gt":19.363,"ts":1.000,"move":"airStrike","ev":"threat e7 gun lead 0.80"}
+{"rt":24.267,"gt":19.363,"ts":1.000,"move":"airStrike","ev":"token gun e7"}
+{"rt":24.317,"gt":19.413,"ts":1.000,"move":"airStrike","ev":"hit air -> e4 dmg 9 hp 0  combo 3 focus 3.00"}
+{"rt":24.550,"gt":19.563,"ts":1.000,"move":"airStrike","ev":"action attack: airStrike seg 2 -> e4"}
+{"rt":24.700,"gt":19.713,"ts":1.000,"move":"airStrike","ev":"hit slam -> e4 dmg 14 hp 0  combo 4 focus 3.00"}
+{"rt":25.033,"gt":19.947,"ts":1.000,"move":"slamDown","ev":"hit ender -> e1 dmg 8 hp 42 KNOCKED  combo 4 focus 3.00"}
+{"rt":25.033,"gt":19.947,"ts":1.000,"move":"slamDown","ev":"hit ender -> e4 dmg 8 hp 0 KNOCKED  combo 4 focus 3.00"}
+{"rt":25.033,"gt":19.947,"ts":1.000,"move":"slamDown","ev":"hit ender -> e5 dmg 8 hp 108 ARMORED  combo 4 focus 3.00"}
+{"rt":25.033,"gt":19.947,"ts":1.000,"move":"slamDown","ev":"hit ender -> e11 dmg 8 hp 34 KNOCKED  combo 4 focus 3.00"}
+{"rt":25.033,"gt":19.947,"ts":1.000,"move":"slamDown","ev":"groundPound"}
+{"rt":25.033,"gt":19.947,"ts":1.000,"move":"landing","ev":"out e6 ko"}
+{"rt":25.050,"gt":19.947,"ts":0.002,"move":"landing","ev":"token melee e13"}
+{"rt":25.067,"gt":19.947,"ts":0.002,"move":"landing","ev":"token melee e2"}
+{"rt":25.067,"gt":19.947,"ts":0.002,"move":"landing","ev":"threat e2 melee lead 0.42"}
+{"rt":25.350,"gt":20.163,"ts":1.000,"move":"landing","ev":"shot e7 missed"}
+{"rt":25.417,"gt":20.230,"ts":1.000,"move":"hit","ev":"hero hit by e5 bruteSlam dmg 18 hp 30 HEAVY"}
+{"rt":25.433,"gt":20.230,"ts":0.002,"move":"dodge","ev":"dodge plain threat=e7"}
+{"rt":25.433,"gt":20.230,"ts":0.002,"move":"dodge","ev":"action dodge back"}
+{"rt":25.683,"gt":20.397,"ts":1.000,"move":"dodge","ev":"enemy swing e2 thugPunch2 missed (invulnerable)"}
+{"rt":25.717,"gt":20.430,"ts":1.000,"move":"dodge","ev":"shot e7 missed (invulnerable)"}
+{"rt":25.867,"gt":20.580,"ts":1.000,"move":"dodge","ev":"token melee e2"}
+{"rt":25.867,"gt":20.580,"ts":1.000,"move":"dodge","ev":"threat e2 melee lead 0.50"}
+{"rt":25.917,"gt":20.630,"ts":1.000,"move":"dodge","ev":"reinforcement e15 m at 13.0 m"}
+{"rt":25.983,"gt":20.697,"ts":1.000,"move":"dodge","ev":"shot e7 missed (invulnerable)"}
+{"rt":26.233,"gt":20.947,"ts":1.000,"move":"finisher","ev":"slowmo 0.45 s x0.55"}
+{"rt":26.233,"gt":20.947,"ts":1.000,"move":"finisher","ev":"cine finisher e2 1.45 s"}
+{"rt":26.233,"gt":20.947,"ts":1.000,"move":"finisher","ev":"action finisher: finisher -> e2"}
+{"rt":26.300,"gt":20.984,"ts":0.550,"move":"finisher","ev":"threat e13 melee lead 0.55"}
+{"rt":26.600,"gt":21.168,"ts":0.842,"move":"finisher","ev":"token melee e14"}
+{"rt":26.667,"gt":21.230,"ts":0.978,"move":"finisher","ev":"reinforcement e16 b at 13.0 m"}
+{"rt":26.967,"gt":21.530,"ts":1.000,"move":"finisher","ev":"slowmo 1.10 s x0.25"}
+{"rt":26.967,"gt":21.530,"ts":1.000,"move":"finisher","ev":"hit finisher -> e2 dmg 999 hp 0 KNOCKED  combo 1 focus 2.08"}
+{"rt":26.983,"gt":21.530,"ts":0.002,"move":"finisher","ev":"enemy swing e13 thugPunch1 missed (invulnerable)"}
+{"rt":27.000,"gt":21.530,"ts":0.002,"move":"finisher","ev":"token melee e5"}
+{"rt":27.100,"gt":21.535,"ts":0.250,"move":"finisher","ev":"threat e14 melee lead 0.55"}
+{"rt":27.100,"gt":21.535,"ts":0.250,"move":"finisher","ev":"threat e7 gun lead 0.80"}
+{"rt":27.100,"gt":21.535,"ts":0.250,"move":"finisher","ev":"token gun e7"}
+{"rt":27.800,"gt":21.736,"ts":0.550,"move":"finisher","ev":"out e4 ko"}
+{"rt":27.900,"gt":21.804,"ts":0.771,"move":"finisher","ev":"threat e5 heavy lead 0.55"}
+{"rt":28.217,"gt":22.108,"ts":1.000,"move":"finisher","ev":"enemy swing e14 thugPunch1 missed (invulnerable)"}
+{"rt":28.417,"gt":22.308,"ts":1.000,"move":"finisher","ev":"out e2 ground"}
+{"rt":28.467,"gt":22.358,"ts":1.000,"move":"strike","ev":"action attack: cross: strike punch2->e13 gap 1.7 run 0.17s"}
+{"rt":28.467,"gt":22.358,"ts":1.000,"move":"strike","ev":"shot e7 HIT hp 30"}
+{"rt":28.483,"gt":22.374,"ts":1.000,"move":"hit","ev":"hero hit by e5 thugPunch1 dmg 18 hp 30 HEAVY"}
+{"rt":28.600,"gt":22.391,"ts":1.000,"move":"hit","ev":"token melee e9"}
+{"rt":28.667,"gt":22.458,"ts":1.000,"move":"hit","ev":"token melee e14"}
+{"rt":28.667,"gt":22.458,"ts":1.000,"move":"hit","ev":"threat e14 melee lead 0.50"}
+{"rt":28.833,"gt":22.624,"ts":1.000,"move":"hit","ev":"shot e7 missed (invulnerable)"}
+{"rt":28.900,"gt":22.691,"ts":1.000,"move":"strike","ev":"action attack: jab: strike punch1->e13 gap 1.9 run 0.19s"}
+{"rt":28.950,"gt":22.741,"ts":1.000,"move":"dodge","ev":"slowmo 0.45 s x0.35"}
+{"rt":28.950,"gt":22.741,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":28.950,"gt":22.741,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e14"}
+{"rt":28.950,"gt":22.741,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":28.967,"gt":22.747,"ts":0.350,"move":"dodge","ev":"threat e9 melee lead 0.50"}
+{"rt":29.267,"gt":22.862,"ts":0.579,"move":"strike","ev":"action attack: cross: strike punch2->e13 gap 2.0 run 0.20s COUNTER"}
+{"rt":29.300,"gt":22.885,"ts":0.707,"move":"strike","ev":"shot e7 missed (invulnerable)"}
+{"rt":29.383,"gt":22.958,"ts":0.968,"move":"strike","ev":"enemy swing e14 thugKick missed (invulnerable)"}
+{"rt":29.633,"gt":23.208,"ts":1.000,"move":"strike","ev":"hit ender -> e13 dmg 16 hp 34 KNOCKED  combo 1 focus 2.58"}
+{"rt":29.667,"gt":23.208,"ts":0.002,"move":"strike","ev":"action attack: kick: strike kick->e13 gap 0.0 run 0.00s"}
+{"rt":29.667,"gt":23.208,"ts":0.002,"move":"strike","ev":"token melee e5"}
+{"rt":29.767,"gt":23.241,"ts":1.000,"move":"strike","ev":"threat e5 heavy lead 0.55"}
+{"rt":29.767,"gt":23.241,"ts":1.000,"move":"strike","ev":"threat e7 gun lead 0.80"}
+{"rt":29.767,"gt":23.241,"ts":1.000,"move":"strike","ev":"token gun e7"}
+{"rt":29.800,"gt":23.275,"ts":1.000,"move":"strike","ev":"enemy swing e9 thugKick missed (invulnerable)"}
+{"rt":29.967,"gt":23.441,"ts":1.000,"move":"strike","ev":"hit light -> e13 dmg 11 hp 23 stagger  combo 2 focus 2.66"}
+{"rt":30.183,"gt":23.575,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":30.183,"gt":23.575,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e5"}
+{"rt":30.183,"gt":23.575,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":30.317,"gt":23.708,"ts":1.000,"move":"dodge","ev":"token melee e15"}
+{"rt":30.367,"gt":23.758,"ts":1.000,"move":"dodge","ev":"threat e15 melee lead 0.55"}
+{"rt":30.417,"gt":23.808,"ts":1.000,"move":"dodge","ev":"enemy swing e5 thugPunch1 missed (invulnerable)"}
+{"rt":30.650,"gt":24.042,"ts":1.000,"move":"dodge","ev":"shot e7 missed (invulnerable)"}
+{"rt":30.883,"gt":24.275,"ts":1.000,"move":"free","ev":"action web: webShoot -> e16"}
+{"rt":30.917,"gt":24.308,"ts":1.000,"move":"free","ev":"token melee e16"}
+{"rt":30.917,"gt":24.308,"ts":1.000,"move":"hit","ev":"shot e7 HIT hp 30"}
+{"rt":30.917,"gt":24.308,"ts":1.000,"move":"hit","ev":"threat e16 heavy lead 0.85"}
+{"rt":30.933,"gt":24.325,"ts":1.000,"move":"hit","ev":"enemy swing e15 thugPunch1 missed (invulnerable)"}
+{"rt":30.983,"gt":24.375,"ts":1.000,"move":"hit","ev":"web fired -> e16"}
+{"rt":31.033,"gt":24.425,"ts":1.000,"move":"hit","ev":"web hit e16 web 0.34 state attack"}
+{"rt":31.183,"gt":24.575,"ts":1.000,"move":"hit","ev":"shot e7 missed (invulnerable)"}
+{"rt":31.467,"gt":24.858,"ts":1.000,"move":"free","ev":"token melee e1"}
+{"rt":31.467,"gt":24.858,"ts":1.000,"move":"free","ev":"threat e1 melee lead 0.55"}
+{"rt":31.550,"gt":24.942,"ts":1.000,"move":"dodge","ev":"banner PERFECT DODGE"}
+{"rt":31.550,"gt":24.942,"ts":1.000,"move":"dodge","ev":"dodge PERFECT threat=e16"}
+{"rt":31.550,"gt":24.942,"ts":1.000,"move":"dodge","ev":"action dodge back PERFECT"}
+{"rt":31.783,"gt":25.175,"ts":1.000,"move":"dodge","ev":"enemy swing e16 bruteSlam missed (invulnerable)"}

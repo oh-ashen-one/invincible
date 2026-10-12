@@ -1,0 +1,58 @@
+{
+ "name": "air_24_neutral_8",
+ "note": "airborne at 24 m, swing 0.2-1.3 s, F at release+0.8 s, stick neutral",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   560,
+   24
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.2,
+   "swing": true
+  },
+  {
+   "t": 1.3,
+   "swing": false,
+   "heading": false,
+   "move": [
+    0,
+    0
+   ]
+  },
+  {
+   "t": 2.0500000000000003,
+   "move": [
+    0,
+    0
+   ]
+  },
+  {
+   "t": 2.1,
+   "trick": true
+  },
+  {
+   "t": 2.2,
+   "trick": false
+  }
+ ]
+}

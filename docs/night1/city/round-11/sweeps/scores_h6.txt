@@ -1,0 +1,1 @@
+f1080 S4_perch_skyline {"file": "/Users/midir/sm2-n1/_scratch/city/r11/h6/f1080/S4_perch_skyline_1920x1080_01_t038.0.png", "score": 37.18, "all_pass": false, "T1": 23.54, "T2_pct": 6.61, "T4_bright": 50.0, "T4_all": 1.5, "sky": 228.8, "far": 160.6, "river": 137.3, "C13": -68.2, "C14": 23.3, "C15": 0.31, "pen": {"C13": 33.18, "T4": 4.0}}

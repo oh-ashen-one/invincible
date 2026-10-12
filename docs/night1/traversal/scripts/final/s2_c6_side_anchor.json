@@ -1,0 +1,37 @@
+{
+ "name": "s2_c6_side_anchor",
+ "note": "low and fast beside the east facade (x 262.5), stick held left (west) while pressing: the nearest face is the facade, the open anchors are across the avenue",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   262.5,
+   160,
+   22
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -20,
+   2
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    -1,
+    0.2
+   ],
+   "swing": false
+  },
+  {
+   "t": 0.3,
+   "swing": true
+  },
+  {
+   "t": 2.2,
+   "swing": false
+  }
+ ]
+}

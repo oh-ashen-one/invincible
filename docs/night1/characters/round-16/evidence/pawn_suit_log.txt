@@ -1,0 +1,42 @@
+[2026.10.02-17.12.37:234][  0]LogWebHomage: Display: WH_SUIT 8 suits loaded: tessera verdant plum cinder glacier ash saffron sage 
+[2026.10.02-17.12.37:244][  0]LogWebHomage: Display: WH_TRAV_SCRIPT 'pawn_run_straight_r15' keys=2 spawn=X=-40.000 Y=0.000 Z=0.950 yaw=0.0 seed=1234
+[2026.10.02-17.12.37:244][  0]LogWebHomage: Display: WH_TRAV_CSV /Users/midir/sm2-n1/_scratch/characters/r16/chain2/run/pawn/pawn_telemetry.csv
+[2026.10.02-17.12.40:811][  0]LogWebHomage: Display: WH_SUIT 8 suits loaded: tessera verdant plum cinder glacier ash saffron sage 
+[2026.10.02-17.12.41:557][  0]LogTemp: Display: WH_EXPOSURE bias 10.00 on PostProcessVolume_0
+[2026.10.02-17.12.41:642][  0]LogWebHomage: Display: WH_TRAV hero: mesh /Game/Characters/Hero/SK_Hero, lens (none), clips /Game/Characters/Hero/Anims/A_Hero_<clip>
+[2026.10.02-17.12.42:177][  0]LogWebHomage: Display: WH_TRAV hero suit: ORIGINAL (MI_Hero_Suit, slot SpiderSuit)
+[2026.10.02-17.12.42:177][  0]LogWebHomage: Display: WH_TRAV hero mesh: fwd(asset)=X=0.000 Y=1.000 Z=0.005 up(asset)=X=-0.000 Y=-0.005 Z=1.000 left-after-corr=X=0.000 Y=-1.000 Z=-0.000 footZ=2.1 headZ=157.2 cm
+[2026.10.02-17.12.42:178][  0]LogWebHomage: Display: WH_TRAV ready: 0 building boxes, spawn X=-40.000 Y=0.000 Z=0.950 m yaw 0.0
+[2026.10.02-17.12.59:552][  1]LogWebHomage: Display: WH_SETTINGS suit saved to GameUserSettings: HeroSuit=2 HeroSuitId=plum
+[2026.10.02-17.12.59:552][  1]LogWebHomage: Display: WH_SUIT set 2/8 plum (console) changed=1 t=0.017 frame=0 apply_ms=1.31
+[2026.10.02-17.12.59:554][  1]LogWebHomage: Display: WH_TRAV sun: DirectionalLight_0 (atmosphere sun), direction to the sun yaw -30.0 elevation 38.0 deg
+[2026.10.02-17.12.59:566][  1]LogWebHomage: Display: WH_SUIT start suit 2 (plum) was set before the first sync: kept
+[2026.10.02-17.13.02:706][  4]LogWebHomage: Display: WH_SUIT swap_done 2 plum wall_ms=3155.7 frames=4 textures_resident=3/4
+[2026.10.02-17.14.10:499][ 89]LogWebHomage: Display: WH_SUIT injected T press t=1.500 frame=89
+[2026.10.02-17.14.11:326][ 90]LogWebHomage: Display: WH_SETTINGS suit saved to GameUserSettings: HeroSuit=3 HeroSuitId=cinder
+[2026.10.02-17.14.11:326][ 90]LogWebHomage: Display: WH_SUIT set 3/8 cinder (key T) changed=1 t=1.517 frame=90 apply_ms=1.19
+[2026.10.02-17.14.13:420][ 92]LogWebHomage: Display: WH_SUIT swap_done 3 cinder wall_ms=2093.6 frames=2 textures_resident=4/4
+[2026.10.02-17.15.12:035][161]LogWebHomage: Display: WH_SUIT injected T press t=2.700 frame=161
+[2026.10.02-17.15.12:804][162]LogWebHomage: Display: WH_SETTINGS suit saved to GameUserSettings: HeroSuit=4 HeroSuitId=glacier
+[2026.10.02-17.15.12:804][162]LogWebHomage: Display: WH_SUIT set 4/8 glacier (key T) changed=1 t=2.717 frame=162 apply_ms=2.28
+[2026.10.02-17.15.14:398][164]LogWebHomage: Display: WH_SUIT swap_done 4 glacier wall_ms=1597.3 frames=2 textures_resident=4/4
+[2026.10.02-17.16.11:993][233]LogWebHomage: Display: WH_SUIT injected T press t=3.900 frame=233
+[2026.10.02-17.16.12:767][234]LogWebHomage: Display: WH_SETTINGS suit saved to GameUserSettings: HeroSuit=5 HeroSuitId=ash
+[2026.10.02-17.16.12:767][234]LogWebHomage: Display: WH_SUIT set 5/8 ash (key T) changed=1 t=3.917 frame=234 apply_ms=1.08
+[2026.10.02-17.16.14:218][236]LogWebHomage: Display: WH_SUIT swap_done 5 ash wall_ms=1450.0 frames=2 textures_resident=4/4
+[2026.10.02-17.17.12:449][305]LogWebHomage: Display: WH_SUIT injected T press t=5.100 frame=305
+[2026.10.02-17.17.13:326][306]LogWebHomage: Display: WH_SETTINGS suit saved to GameUserSettings: HeroSuit=6 HeroSuitId=saffron
+[2026.10.02-17.17.13:326][306]LogWebHomage: Display: WH_SUIT set 6/8 saffron (key T) changed=1 t=5.117 frame=306 apply_ms=0.77
+[2026.10.02-17.17.15:158][308]LogWebHomage: Display: WH_SUIT swap_done 6 saffron wall_ms=1832.8 frames=2 textures_resident=4/4
+[2026.10.02-17.18.12:298][377]LogWebHomage: Display: WH_SUIT injected T press t=6.300 frame=377
+[2026.10.02-17.18.13:080][378]LogWebHomage: Display: WH_SETTINGS suit saved to GameUserSettings: HeroSuit=7 HeroSuitId=sage
+[2026.10.02-17.18.13:080][378]LogWebHomage: Display: WH_SUIT set 7/8 sage (key T) changed=1 t=6.317 frame=378 apply_ms=1.05
+[2026.10.02-17.18.14:752][380]LogWebHomage: Display: WH_SUIT swap_done 7 sage wall_ms=1672.8 frames=2 textures_resident=4/4
+[2026.10.02-17.19.05:836][449]LogWebHomage: Display: WH_SUIT injected T press t=7.500 frame=449
+[2026.10.02-17.19.06:557][450]LogWebHomage: Display: WH_SETTINGS suit saved to GameUserSettings: HeroSuit=0 HeroSuitId=tessera
+[2026.10.02-17.19.06:557][450]LogWebHomage: Display: WH_SUIT set 0/8 tessera (key T) changed=1 t=7.517 frame=450 apply_ms=1.56
+[2026.10.02-17.19.07:937][452]LogWebHomage: Display: WH_SUIT swap_done 0 tessera wall_ms=1382.0 frames=2 textures_resident=4/4
+[2026.10.02-17.19.57:896][521]LogWebHomage: Display: WH_SUIT injected T press t=8.700 frame=521
+[2026.10.02-17.19.58:621][522]LogWebHomage: Display: WH_SETTINGS suit saved to GameUserSettings: HeroSuit=1 HeroSuitId=verdant
+[2026.10.02-17.19.58:622][522]LogWebHomage: Display: WH_SUIT set 1/8 verdant (key T) changed=1 t=8.717 frame=522 apply_ms=0.88
+[2026.10.02-17.20.00:116][524]LogWebHomage: Display: WH_SUIT swap_done 1 verdant wall_ms=1494.8 frames=2 textures_resident=4/4

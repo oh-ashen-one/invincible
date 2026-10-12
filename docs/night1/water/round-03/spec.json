@@ -1,0 +1,222 @@
+{
+ "S4_golden_1080.jpg": {
+  "file": "S4_golden_1080.jpg",
+  "C14": 15.9,
+  "far_shore_Y": 150.6,
+  "river_Y": 134.7,
+  "farfield_json": "S4_golden_1080.jpg.farfield.json"
+ },
+ "S4_golden_4k.jpg": {
+  "file": "S4_golden_4k.jpg",
+  "C14": 17.9,
+  "far_shore_Y": 150.7,
+  "river_Y": 132.9,
+  "farfield_json": "S4_golden_4k.jpg.farfield.json"
+ },
+ "harbour_high_1080.jpg": {
+  "file": "harbour_high_1080.jpg",
+  "src_width": 1920,
+  "mean_Y": 86.4,
+  "rgb": [
+   98.5,
+   84.5,
+   69.6
+  ],
+  "p1": 62.4,
+  "p99_5": 111.7,
+  "highpass_sd": 3.51,
+  "glint_pct_ge140": 0.0,
+  "glint_pct_ge130": 0.0,
+  "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame",
+  "harbour": {
+   "file": "harbour_high_1080.jpg",
+   "crop": "native 4K x0-2400 y1300-2100",
+   "mean_Y": 84.6,
+   "highpass_sd": 3.5,
+   "glint_pct_ge140": 0.0,
+   "pale_blobs_ge20px": 0,
+   "p1": 58.4,
+   "p99_5": 116.8
+  }
+ },
+ "harbour_high_4k.jpg": {
+  "file": "harbour_high_4k.jpg",
+  "src_width": 3840,
+  "mean_Y": 86.0,
+  "rgb": [
+   98.0,
+   84.2,
+   69.3
+  ],
+  "p1": 61.4,
+  "p99_5": 111.0,
+  "highpass_sd": 4.24,
+  "glint_pct_ge140": 0.0,
+  "glint_pct_ge130": 0.0,
+  "note": "",
+  "harbour": {
+   "file": "harbour_high_4k.jpg",
+   "crop": "native 4K x0-2400 y1300-2100",
+   "mean_Y": 84.3,
+   "highpass_sd": 4.3,
+   "glint_pct_ge140": 0.0,
+   "pale_blobs_ge20px": 2,
+   "p1": 57.5,
+   "p99_5": 117.0
+  }
+ },
+ "river_low_1080.jpg": {
+  "file": "river_low_1080.jpg",
+  "src_width": 1920,
+  "mean_Y": 78.6,
+  "rgb": [
+   85.4,
+   77.9,
+   65.1
+  ],
+  "p1": 44.6,
+  "p99_5": 110.6,
+  "highpass_sd": 6.98,
+  "glint_pct_ge140": 0.0,
+  "glint_pct_ge130": 0.0,
+  "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame"
+ },
+ "river_low_4k.jpg": {
+  "file": "river_low_4k.jpg",
+  "src_width": 3840,
+  "mean_Y": 78.5,
+  "rgb": [
+   85.3,
+   77.8,
+   65.1
+  ],
+  "p1": 41.3,
+  "p99_5": 112.3,
+  "highpass_sd": 9.93,
+  "glint_pct_ge140": 0.0,
+  "glint_pct_ge130": 0.0,
+  "note": ""
+ },
+ "river_low_dolly.mp4": {
+  "file": "river_low_dolly.mp4",
+  "frames": 600,
+  "sampled": 100,
+  "autocorr_80px": 0.053,
+  "autocorr_80px_max": 0.09,
+  "water_dT_per_sample": 3.7
+ },
+ "river_sun_1080.jpg": {
+  "file": "river_sun_1080.jpg",
+  "src_width": 1920,
+  "mean_Y": 150.9,
+  "rgb": [
+   185.3,
+   146.8,
+   90.3
+  ],
+  "p1": 52.5,
+  "p99_5": 248.8,
+  "highpass_sd": 18.8,
+  "glint_pct_ge140": 54.17,
+  "glint_pct_ge130": 57.62,
+  "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame",
+  "sparkle_width_pct": 37.7
+ },
+ "river_sun_4k.jpg": {
+  "file": "river_sun_4k.jpg",
+  "src_width": 3840,
+  "mean_Y": 148.4,
+  "rgb": [
+   181.3,
+   144.6,
+   90.1
+  ],
+  "p1": 43.1,
+  "p99_5": 249.2,
+  "highpass_sd": 26.5,
+  "glint_pct_ge140": 52.89,
+  "glint_pct_ge130": 56.4,
+  "note": "",
+  "sparkle_width_pct": 37.8
+ },
+ "river_sun_dolly.mp4": {
+  "file": "river_sun_dolly.mp4",
+  "frames": 600,
+  "sampled": 100,
+  "autocorr_80px": 0.015,
+  "autocorr_80px_max": 0.085,
+  "water_dT_per_sample": 6.97
+ },
+ "_checks_r03": [
+  [
+   "river_low near hp sd >= 12",
+   9.93,
+   false
+  ],
+  [
+   "river_low near p99.5 >= 150",
+   112.3,
+   false
+  ],
+  [
+   "river_low near glints >= 1 %",
+   0.0,
+   false
+  ],
+  [
+   "river_low near mean Y <= 80",
+   78.5,
+   true
+  ],
+  [
+   "river_low near p1 <= 25",
+   41.3,
+   false
+  ],
+  [
+   "river_sun sparkle width >= 50 %",
+   37.8,
+   false
+  ],
+  [
+   "river_sun near mean Y <= 90",
+   148.4,
+   false
+  ],
+  [
+   "river_sun near glints 3..15 %",
+   52.89,
+   false
+  ],
+  [
+   "harbour crop hp sd >= 10",
+   4.3,
+   false
+  ],
+  [
+   "harbour crop glints >= 2 %",
+   0.0,
+   false
+  ],
+  [
+   "harbour crop pale blobs (>= 20 px) == 0",
+   2,
+   false
+  ],
+  [
+   "river_low_dolly.mp4 autocorr at 80 px <= 0.10",
+   0.053,
+   true
+  ],
+  [
+   "river_sun_dolly.mp4 autocorr at 80 px <= 0.10",
+   0.015,
+   true
+  ],
+  [
+   "S4 C14 5..35",
+   17.9,
+   true
+  ]
+ ]
+}

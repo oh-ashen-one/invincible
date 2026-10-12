@@ -1,0 +1,19 @@
+{
+  "source_commit": "2db142143bc60709a1db726a445d17aee2a57aca",
+  "artifact_path": "/Users/midir/SpiderMan-FourFixes-OwnerPlaytest-20261012",
+  "verified_utc": "2026-10-12T05:15:59.415101+00:00",
+  "runtime_verified": true,
+  "verification_scope": "Final relocated installed-UE5.8 game; two fresh native1920x1080 screenshots viewed; clean self-exit. Physical controls,realtimeFPS andowneracceptance remain unverified.",
+  "exit_code": 0,
+  "wall_seconds": 43.93,
+  "screenshots": [
+    "staged-smoke_00_t003.0.png",
+    "staged-smoke_01_t005.0.png"
+  ],
+  "files_verified_after_runtime": 51169,
+  "hash_mismatches": [],
+  "screenshot_sha256": {
+    "staged-smoke_00_t003.0.png": "aafbfa071b2d5b47c42b31ca4ab3e532e7cd25d0b64858b71def71b55e432631",
+    "staged-smoke_01_t005.0.png": "e2034497612b911e1af04e3d4014e8f1d24975c30cd48114f1971f818bcf9afc"
+  }
+}

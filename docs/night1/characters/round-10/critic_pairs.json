@@ -1,0 +1,140 @@
+[
+ {
+  "id": "fight-clip-34",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/street_fight_34.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/street-combo__nm_0214-0224.mp4",
+  "note": "hero among a group of street criminals, mid camera above: judge hit reactions, knockdowns (how many enemies are down at once), the get-ups, and whether any enemy stands in one guard pose for seconds"
+ },
+ {
+  "id": "fight-clip-wide",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/street_fight_wide.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/plaza-fight__dn_0818-0828.mp4",
+  "note": "hero and a group of enemies trading blows, wide camera: judge hit reactions, knockdowns, get-ups and idle enemies"
+ },
+ {
+  "id": "fight-clip-cars",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/street_fight_34.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/street-fight-cars__nm_0500-0510.mp4",
+  "note": "hero fighting a group of criminals: judge enemy reactions to hits, knockdown and recovery"
+ },
+ {
+  "id": "fight-orbit",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/street_fight_orbit.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/street-fight-cars__nm_0500-0510.mp4",
+  "note": "orbiting camera around a hero fighting a group: judge reactions, knockdowns, get-ups, idle enemies"
+ },
+ {
+  "id": "enemy-knockdowns-still",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/street_fight_34_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/enemy-launched-og__og_0149.jpg",
+  "note": "enemies knocked to the ground by the hero: judge the poses, the contact with the ground, how many are down"
+ },
+ {
+  "id": "thugs-group",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/street_fight_wide_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thugs-group-nm__nm_0049.jpg",
+  "note": "a group of street criminals around the hero"
+ },
+ {
+  "id": "thug-close",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/thug_face_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thug-closeup-dn__dn_0523.jpg",
+  "note": "street criminal close-up"
+ },
+ {
+  "id": "citizens-clip",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/crowd_tracking.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/clips/street-npcs-idle__dn_0600-0608.mp4",
+  "note": "pedestrians near the camera"
+ },
+ {
+  "id": "hero-run",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-08/captures/hero_run_side.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-crosswalk__dn_0329-0337.mp4",
+  "note": "masked acrobat hero running, full body"
+ },
+ {
+  "id": "hero-standing",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-08/captures/hero_turntable_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-idle-street-og__og_0000.jpg",
+  "note": "hero full body on a street"
+ },
+ {
+  "id": "progress-fight-34",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/street_fight_34.mp4",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_34.mp4",
+  "note": "two versions of the same staged street fight (same camera): judge hit reactions, knockdowns, get-ups and idle enemies; is anything wrong with the hero (an untextured limb)?"
+ },
+ {
+  "id": "progress-fight-wide",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/street_fight_wide.mp4",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_wide.mp4",
+  "note": "two versions of the same wide shot of the staged fight: judge hit reactions, knockdowns and idle enemies"
+ },
+ {
+  "id": "progress-fight-still",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/street_fight_34_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_34_4k.jpg",
+  "note": "two versions of the same fight, one frame: judge what the enemies are doing"
+ },
+ {
+  "id": "progress-thug-collar",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/thug_face_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/thug_face_4k.jpg",
+  "note": "two versions of the same street criminal close-up: judge a skin-coloured / pale wedge at the jacket collar"
+ },
+ {
+  "id": "progress-beard",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/beard_face_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/beard_face_4k.jpg",
+  "note": "two versions of the same face close-up: judge the side hair (a gap between face and hair showing the background)"
+ },
+ {
+  "id": "progress-hood",
+  "x": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/hood_face_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/hood_face_4k.jpg",
+  "note": "two versions of the same face close-up: judge loose ribbon strands on the hair"
+ },
+ {
+  "id": "hero-limbs-34",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r10_hero_34.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r9_hero_34.jpg",
+  "note": "the masked hero in the staged street fight at three instants 0.1 s apart, 3x crop, two versions: is any limb of the hero untextured, grey or pale, or is any object passing through his body?"
+ },
+ {
+  "id": "hero-limbs-wide",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r10_hero_wide.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r9_hero_wide.jpg",
+  "note": "the masked hero in the staged street fight at three instants 0.1 s apart, 3x crop, two versions: is any limb of the hero untextured, grey or pale, or is any object passing through his body?"
+ },
+ {
+  "id": "hero-limbs-orbit",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r10_hero_orbit.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r9_hero_orbit.jpg",
+  "note": "the masked hero in the staged street fight at three instants 0.1 s apart, 3x crop, two versions: is any limb of the hero untextured, grey or pale, or is any object passing through his body?"
+ },
+ {
+  "id": "arm-3x",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r10_arm.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r9_arm.jpg",
+  "note": "the region at 1.30 / 1.40 / 1.50 s of the 3/4 fight clip where a pale untextured limb showed in the previous round, 3x crop, two versions"
+ },
+ {
+  "id": "thug-collar-3x",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r10_thug-collar.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r9_thug-collar.jpg",
+  "note": "street criminal collar, 3x crop, two versions: judge a pale wedge"
+ },
+ {
+  "id": "beard-hair-3x",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r10_beard-hair.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r9_beard-hair.jpg",
+  "note": "beard face temple hair, 3x crop, two versions: judge a gap showing the background"
+ },
+ {
+  "id": "hood-hair-3x",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r10_hood-hair.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-10/captures/crops_3x/r9_hood-hair.jpg",
+  "note": "hood face hair, 3x crop, two versions: judge loose strands"
+ }
+]

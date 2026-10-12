@@ -1,0 +1,43 @@
+{
+ "name": "s2_c3_wallrun",
+ "note": "airborne into the east facade (x 266) of z 88..122 h 97, wall run, swing pressed 2.6 s in",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   105,
+   30
+  ],
+  "yaw": 0,
+  "camPitch": 0.12,
+  "vel": [
+   12,
+   0,
+   5
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 0,
+   "sprint": true,
+   "swing": false
+  },
+  {
+   "t": 0.6,
+   "heading": false
+  },
+  {
+   "t": 2.6,
+   "swing": true
+  },
+  {
+   "t": 4.3,
+   "swing": false
+  }
+ ]
+}

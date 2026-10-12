@@ -1,0 +1,4 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# Lumen software ray tracing (surface cache + mesh SDF) instead of hardware ray tracing. Master switch: also removes the ray-tracing scene build.
+# Measured round 1 at TSR 50 %: -4.6 ms frame p50 alone, -4.2 ms on top of mpe4. Costs reflection fidelity (Lumen reflections stay on, traced in software).
+r.Lumen.HardwareRayTracing=0

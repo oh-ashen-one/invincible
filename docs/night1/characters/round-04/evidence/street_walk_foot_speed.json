@@ -1,0 +1,20 @@
+[
+ {
+  "clip": "walkStreet",
+  "duration": 1.0667,
+  "natural_speed_mps": 1.141,
+  "eval_speed_mps": 1.141,
+  "foot_slide_per_plant_cm_max": 2.46,
+  "foot_slide_per_plant_cm_median": 2.46,
+  "plants": 2
+ },
+ {
+  "clip": "walkBrute",
+  "duration": 1.2,
+  "natural_speed_mps": 1.018,
+  "eval_speed_mps": 1.018,
+  "foot_slide_per_plant_cm_max": 2.38,
+  "foot_slide_per_plant_cm_median": 2.38,
+  "plants": 2
+ }
+]

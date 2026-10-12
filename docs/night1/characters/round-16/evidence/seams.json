@@ -1,0 +1,96 @@
+{
+ "de_threshold": 18.0,
+ "px_per_m": 660.0,
+ "seam_edges": 1921,
+ "suits": {
+  "tessera": {
+   "worst_run_px": 2.7,
+   "runs_gt_40px": 0,
+   "runs_gt_10px": 0,
+   "open_share": 0.0018,
+   "seam_len_m": 15.08,
+   "worst_uv": [
+    0.783988893032074,
+    0.41796910762786865
+   ]
+  },
+  "verdant": {
+   "worst_run_px": 2.7,
+   "runs_gt_40px": 0,
+   "runs_gt_10px": 0,
+   "open_share": 0.0015,
+   "seam_len_m": 15.08,
+   "worst_uv": [
+    0.783988893032074,
+    0.41796910762786865
+   ]
+  },
+  "plum": {
+   "worst_run_px": 2.7,
+   "runs_gt_40px": 0,
+   "runs_gt_10px": 0,
+   "open_share": 0.0022,
+   "seam_len_m": 15.08,
+   "worst_uv": [
+    0.783988893032074,
+    0.41796910762786865
+   ]
+  },
+  "cinder": {
+   "worst_run_px": 2.7,
+   "runs_gt_40px": 0,
+   "runs_gt_10px": 0,
+   "open_share": 0.0019,
+   "seam_len_m": 15.08,
+   "worst_uv": [
+    0.783988893032074,
+    0.41796910762786865
+   ]
+  },
+  "glacier": {
+   "worst_run_px": 2.7,
+   "runs_gt_40px": 0,
+   "runs_gt_10px": 0,
+   "open_share": 0.0017,
+   "seam_len_m": 15.08,
+   "worst_uv": [
+    0.783988893032074,
+    0.41796910762786865
+   ]
+  },
+  "ash": {
+   "worst_run_px": 2.3,
+   "runs_gt_40px": 0,
+   "runs_gt_10px": 0,
+   "open_share": 0.0017,
+   "seam_len_m": 15.08,
+   "worst_uv": [
+    0.6861543655395508,
+    0.675807535648346
+   ]
+  },
+  "saffron": {
+   "worst_run_px": 1.7,
+   "runs_gt_40px": 0,
+   "runs_gt_10px": 0,
+   "open_share": 0.0006,
+   "seam_len_m": 15.08,
+   "worst_uv": [
+    0.783988893032074,
+    0.41796910762786865
+   ]
+  },
+  "sage": {
+   "worst_run_px": 2.4,
+   "runs_gt_40px": 0,
+   "runs_gt_10px": 0,
+   "open_share": 0.0011,
+   "seam_len_m": 15.08,
+   "worst_uv": [
+    0.783988893032074,
+    0.41796910762786865
+   ]
+  }
+ },
+ "pass_all": true
+}

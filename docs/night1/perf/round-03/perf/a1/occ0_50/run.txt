@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/perf/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/a1/occ0_50 -map /Game/Maps/Manhattan -res 3840x2160 -perf 15:45 -name occ0_50 -timeout 900 -exec r.ScreenPercentage 50,r.AllowOcclusionQueries 0 -- -WHTravScript=/Users/midir/sm2-n1/perf/docs/night1/manhattan/scripts/route_30s_warmup15.json -WHTravCsv=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/a1/occ0_50/trav_telemetry.csv -csvGpuStats -benchmark -fps=60 -notraceserver -dpcvars=r.AllowOcclusionQueries=0
+
+run_game: out=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/a1/occ0_50 res=3840x2160 quit=46.0 window=0 movie=0
+WH_PERF_START t=15.00
+WH_PERF frames=1800 avg_ms=17.39 fps=57.5 p95_ms=19.96 p99_ms=22.31 gpu_avg_ms=14.73 out=3840x2160 internal=1920x1080 (manual) -> /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/a1/occ0_50/occ0_50_perf.json
+WH_QUIT t=46.00
+

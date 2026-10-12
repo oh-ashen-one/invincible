@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/look/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_views/pass2/S4/tsr50 -map /Game/Tests/Look/Look_View_midday_S4 -res 3840x2160 -perf 14:24 -name tsr50 -timeout 900 -exec r.ScreenPercentage 50 -- -WHNoMouseCapture -csvGpuStats
+
+run_game: out=/Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_views/pass2/S4/tsr50 res=3840x2160 quit=25.0 window=0 movie=0
+WH_PERF_START t=14.00
+WH_PERF frames=325 avg_ms=30.86 fps=32.4 p95_ms=37.45 p99_ms=39.22 gpu_avg_ms=29.12 out=3840x2160 internal=1920x1080 (manual) -> /Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_views/pass2/S4/tsr50/tsr50_perf.json
+WH_QUIT t=25.02
+

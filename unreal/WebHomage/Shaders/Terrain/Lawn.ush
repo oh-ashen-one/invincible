@@ -1,0 +1,71 @@
+// Homage fan project; not an official Marvel / Sony / Insomniac product, no affiliation.
+// Terrain r04: lawn albedo detail at 0.3-16 m (clump mottling, wear / dirt patches, clover, mowing stripes) and the saturated blade-turf grade.
+// Hand-written and committed (Park.ush is generated from the browser's ground.js and stays untouched). The detail texture (tools/terrain/prep_lawn.py -> lawn_detail.png,
+// RGBA 1024^2 tileable: R clump luminance, G wear field, B clover field, A fine grain) is sampled at three scales with mips, so the detail fades out with distance by itself.
+#pragma once
+#include "/Project/Terrain/Park.ush"
+
+float2 lwRot(float2 p, float a) { float cs = cos(a), sn = sin(a); return float2(p.x * cs - p.y * sn, p.x * sn + p.y * cs); }
+
+// r05 turf normal under a low sun: a mown lawn is a field of near-vertical blades, so a 9 deg golden sun lights the sun-facing blades like vertical faces (a real golden-hour lawn is
+// yellow in the sun and deep green in the shade). With the flat ground normal the sun gave the lawn only sin 9 = 0.16 of its irradiance, the sky / Lumen bounce dominated and no tree
+// shadow read on the lawn (r05 diag: the city's own flat land in VB_p4 shows them, our lawn did not, neither with VSM nor with CSM). The ground normal n bends toward the sun's
+// horizontal direction by tilt (1 = 67 deg toward the sun: N.L 0.97 at a 9 deg sun); L = direction to the sun (SkyAtmosphere light 0).
+float3 lwTurfNormal(float3 n, float3 L, float tilt)
+{
+  float2 lh = L.xy / max(length(L.xy), 0.0001f);
+  return normalize(lerp(n, float3(lh * 0.92f, 0.39f), tilt));
+}
+
+// c = lawn albedo from TerrainParkEntry (linear, ungraded), p = metres (browser x, z), grade = lawn grade (r, g, b), k = (detail amplitude, stripe amplitude, saturation)
+// r05: dist = metres to the camera. Director decision after the r04 critic (E1 reconciled): the blade-scale albedo noise is an eye-level feature; from the air the reference lawn
+// is smooth (hp sigma-6 SD 1.2-1.6 on cp_0554) and its structure comes from tree shadows and mowing stripes. fd fades the 0.3-16 m mottling / wear / grain from 1 (< 30 m)
+// to 0.15 (> 120 m) and compresses the base texture's luminance variation by up to 55 % at the same range; the stripes stay.
+float3 TerrainLawnR4(Texture2D tCol, SamplerState tColSampler, Texture2D tDet, SamplerState tDetSampler, Texture2D tNoise, SamplerState tNoiseSampler, float2 p, float3 c, float3 grade, float3 k, float dist)
+{
+  float fa = smoothstep(90.0f, 200.0f, dist);   // r05: p4's critic lawn sits at ~270 m, the p1 foreground crown boxes (partly lawn between the crowns) at 80-110 m keep their detail
+  float fd = 1.0f - 0.95f * fa;   // r05 test hold: 0.85 left the p4 lawn at sigma-6 6.4 (r03 4.1): 0.95
+  // 1 on grass, 0 on clay / dirt: the raw lawn texture has brown speckles too (R / G up to 2.4, but dark: R < 0.2), the infield clay / cinder is bright (R 0.25-0.48) and red (R / G 1.2-1.7)
+  float gm = 1.0f - smoothstep(0.25f, 0.33f, c.r) * smoothstep(1.12f, 1.3f, c.r / max(c.g, 0.0001f));
+  float3 cg = c * grade;                                                // r02 grade with the r04 blue: the reference lawn's blue is 16 / 255 against our 55
+  c = lerp(c * float3(0.78f, 0.66f, 0.55f), cg, gm);                    // non-grass: slightly darker, redder (clay infields read pale before)
+  // r05: from the air the base grass photo (Park.ush: grass_col at 6 m + 23 m tiles) is what reads as noise: its luminance is divided by itself and multiplied by its
+  // whole-texture mean (mip 12) with weight 0.85 fa, so its fine variation goes while the meadow / grove / stripe / wear structure of Park.ush stays
+  float3 tq = lerp(Texture2DSample(tCol, tColSampler, fl2(p / 6.0f)).rgb, Texture2DSample(tCol, tColSampler, fl2(p.yx / 23.0f)).rgb, 0.4f);
+  float3 tm = lerp(Texture2DSampleLevel(tCol, tColSampler, fl2(p / 6.0f), 12.0f).rgb, Texture2DSampleLevel(tCol, tColSampler, fl2(p.yx / 23.0f), 12.0f).rgb, 0.4f);
+  float lq = dot(tq, float3(0.2126f, 0.7152f, 0.0722f)), lm = dot(tm, float3(0.2126f, 0.7152f, 0.0722f));
+  c *= lerp(1.0f, clamp(lm / max(lq, 0.002f), 0.4f, 2.5f), fa * gm);
+  // r05 S hold: the p4 critic box read sigma-6 6.2 (lawn-only part 4.4): the remaining mid-scale variation of Park.ush (clover / dry patches at 3-11 m) is compressed toward the
+  // nominal meadow luminance (texture mean x grade x 0.8) with exponent 0.4 fa; the mowing stripes are applied after this and stay
+  float ln = dot(tm * grade, float3(0.2126f, 0.7152f, 0.0722f)) * 0.8f, lc = dot(c, float3(0.2126f, 0.7152f, 0.0722f));
+  c *= lerp(1.0f, pow(clamp(ln / max(lc, 0.002f), 0.5f, 2.0f), 0.4f), fa * gm);
+  float2 q1 = p / 1.15f;
+  float2 q2 = lwRot(p, 0.61f) / 4.7f + float2(0.37f, 0.61f);
+  float2 q3 = lwRot(p, -0.93f) / 16.3f + float2(0.71f, 0.13f);
+  float4 d1 = Texture2DSample(tDet, tDetSampler, q1);
+  float4 d2 = Texture2DSample(tDet, tDetSampler, q2);
+  float4 d3 = Texture2DSample(tDet, tDetSampler, q3);
+  // clump / blade mottling: the three scales add (std 0.07 + 0.11 + 0.10 of the luminance + grain 0.05)
+  // r04 hold 1 measured ~half of what the numpy simulation predicted (guard p4 hp6 SD 4.7, p9 5.4; target 8): the fine scales (d1 / d2, 0.3-1 m) got ~2x, the coarse 16 m patches stay (no more blotches, more grain)
+  // hold 2 (x2 on the fine scales, Specular 0.04): critic crops 8.3 / 9.6, guards p10 8.2, p4 8.2 PASS, guard p9 5.8 (the specular fix also darkened the lawn ~20 %, which cuts the luma SD by the same factor): fine scales x1.5 again; hold 3: guard p9 6.8 (its sigma-6 SD sits at ~4.8 independent of the detail): mid scales + the 16 m patches up, albedo +25 %
+  float mott = (d1.r - 0.5f) * 0.54f + (d2.r - 0.5f) * 1.20f + (d3.r - 0.5f) * 0.45f + (d1.a - 0.5f) * 0.30f;
+  c *= clamp(1.0f + k.x * fd * mott, 0.55f, 1.55f);
+  // wear / dirt patches 0.3-3 m with ragged edges, mostly where the grass is thin (G field high)
+  float wr = smoothstep(0.70f, 0.84f, d3.g * 0.55f + d2.g * 0.45f + 0.12f * (d1.g - 0.5f));
+  wr *= smoothstep(0.22f, 0.5f, d1.a + 0.5f * (d1.g - 0.5f));
+  float3 dirt = float3(0.2f, 0.135f, 0.055f) * (0.65f + 0.7f * d1.r);
+  c = lerp(c, dirt, wr * 0.8f * gm * fd);
+  // clover / fresh-growth patches: lighter, yellower green
+  float cl = smoothstep(0.62f, 0.8f, d3.b * 0.5f + d2.b * 0.5f) * (1.0f - wr);
+  c = lerp(c, c * float3(1.3f, 1.18f, 0.9f), cl * 0.75f * gm * fd);
+  // mowing stripes: crisp ~4.4 m bands (direction alternates per ~60 m patch like the browser's), lighter bands a touch yellower, darker a touch bluer
+  float dirSel = step(0.5f, Texture2DSample(tNoise, tNoiseSampler, float2(p.x / 900.0f, 1.0f - p.y / 900.0f)).g);
+  float nzr = Texture2DSample(tNoise, tNoiseSampler, float2(p.x / 140.0f, 1.0f - p.y / 140.0f)).r;
+  float sf = frac(lerp(p.x, p.y, dirSel) / 4.4f + 0.08f * nzr);
+  float sw = 0.06f + 0.3f * fa;   // r05: the crisp 4.4 m stripe edges soften from the air (their edges were high-pass energy on the p4 lawn); the band contrast stays
+  float band = smoothstep(0.5f - sw, 0.5f, sf) * (1.0f - smoothstep(1.0f - sw, 1.0f, sf));
+  c *= lerp(float3(1.0f, 1.0f, 1.0f), lerp(float3(0.92f, 0.94f, 0.9f), float3(1.08f, 1.06f, 1.0f), band), k.y * gm);
+  float L = dot(c, float3(0.2126f, 0.7152f, 0.0722f));
+  c = max(lerp(float3(L, L, L), c, lerp(1.0f, k.z, gm)), float3(0.0f, 0.0f, 0.0f));   // grass saturation (the dirt patches keep theirs)
+  return c;
+}

@@ -1,0 +1,9 @@
+{
+ "spec": "final@46+set:perf60_mpe6+variant:Cl4RT+r.Lumen.HardwareRayTracing=1+r.Lumen.ScreenProbeGather.HardwareRayTracing=0+r.Lumen.Reflections.HardwareRayTracing=1",
+ "sp": 46,
+ "cvars": "r.Nanite.MaxPixelsPerEdge=6,r.Lumen.HardwareRayTracing=1,r.TSR.History.ScreenPercentage=100,r.Shadow.Virtual.ResolutionLodBiasDirectional=1,r.SkyLight.RealTimeReflectionCapture.ResolutionOverride=64,r.VolumetricFog.GridPixelSize=16,r.VolumetricCloud.ViewRaySampleMaxCount=256,r.Shadow.Virtual.SMRT.RayCountDirectional=4,r.SkyLight.RealTimeReflectionCapture.TimeSlice=1,r.Shadow.Virtual.ResolutionLodBiasDirectionalMoving=1,r.Lumen.ScreenProbeGather.HardwareRayTracing=0,r.Lumen.Reflections.HardwareRayTracing=1",
+ "variant": "Cl4RT",
+ "output": "3840x2160",
+ "internal": "1766x994 (r.ScreenPercentage 46, TSR)",
+ "note": "stills are JPEG q90 of the 3840x2160 PNG frames; game t = 14 s for views, route stills at game t = 20 / 28 / 38 / 42 s of route_30s_warmup15 (fixed step)"
+}

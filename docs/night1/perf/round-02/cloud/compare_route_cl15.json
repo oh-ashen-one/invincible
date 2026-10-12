@@ -1,0 +1,31 @@
+{
+ "ref": "route_ctl_a",
+ "test": "route_cl15",
+ "label": "cl15",
+ "stills": {
+  "route_t20": {
+   "lt10_ref": 2.63,
+   "lt10_test": 2.63,
+   "clip_ref": 1.42,
+   "clip_test": 1.42,
+   "psnr_db": 40.93,
+   "ssim_luma": 0.9963,
+   "mean_abs_dY": 1.17,
+   "frac_dY_gt12": 0.0015,
+   "meanY_ref": 63.5,
+   "meanY_test": 64.1
+  },
+  "route_t28": {
+   "lt10_ref": 0.0,
+   "lt10_test": 0.0,
+   "clip_ref": 2.83,
+   "clip_test": 2.83,
+   "psnr_db": 38.93,
+   "ssim_luma": 0.9953,
+   "mean_abs_dY": 1.79,
+   "frac_dY_gt12": 0.0049,
+   "meanY_ref": 77.9,
+   "meanY_test": 79.3
+  }
+ }
+}

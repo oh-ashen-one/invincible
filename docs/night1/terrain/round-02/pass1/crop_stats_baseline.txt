@@ -1,0 +1,4 @@
+{"pass_E1": false, "crops": 1, "min_hp_sd": 7.77, "images_without_crops": ["base_p1_south.jpg", "base_p10_lawn_eye.jpg"]}
+base_p1_south.jpg 48.4 % grass px; [] candidates 0
+base_p2_reservoir.jpg 36.7 % grass px; [7.77] candidates 1
+base_p10_lawn_eye.jpg 45.5 % grass px; [] candidates 0

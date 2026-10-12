@@ -1,0 +1,402 @@
+{
+  "runtime_source_commit": "19521659",
+  "checked_utc": "2026-10-12T04:29:19.027260+00:00",
+  "technical_capture_gate": "PASS",
+  "quality_review_gate": "OPEN",
+  "scope": [
+    "s3_flip_chain",
+    "s3b_flip_cases",
+    "s2_press_variety"
+  ],
+  "s1_swing_chain": "No recapture under runtime19521659; ordinary swing had a separate prior candidate capture, not part of this final source gate.",
+  "build_file_hashes": {
+    "unreal/WebHomage/Binaries/Mac/libUnrealEditor-WebHomage.dylib": {
+      "expected": "01f9374b288464524637249c55ddb0535688e471572526dd161549f85792f596",
+      "actual": "01f9374b288464524637249c55ddb0535688e471572526dd161549f85792f596"
+    },
+    "unreal/WebHomage/Content/Traversal/Materials/M_TravWeb.uasset": {
+      "expected": "8b881f34c3c3d7dd9f0847e45c47ce5c3cc4e0e10d89c423a5cf744708582474",
+      "actual": "8b881f34c3c3d7dd9f0847e45c47ce5c3cc4e0e10d89c423a5cf744708582474"
+    },
+    "unreal/WebHomage/Config/PerfPlayableFast.cvars": {
+      "expected": "922f536c92ab4b739e4f1c248f6051b841800ae4a88b1bc16ea62da4e9cc6daf",
+      "actual": "922f536c92ab4b739e4f1c248f6051b841800ae4a88b1bc16ea62da4e9cc6daf"
+    }
+  },
+  "clips": {
+    "s3_flip_chain": {
+      "technical_complete": true,
+      "frames": 1439,
+      "cases": [
+        {
+          "case": "s3_flip_flow",
+          "rows": 1439
+        }
+      ],
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "fps": "60/1",
+      "quality_fail_lines": [
+        "P1",
+        "W3",
+        "W4",
+        "W5",
+        "W7",
+        "A5",
+        "A7"
+      ],
+      "quality_na_lines": [],
+      "full_clip_camera": {
+        "absent_runs": [],
+        "edge_clip_runs": [],
+        "out_of_frame_runs": [],
+        "closeout_absent_frames": 5
+      },
+      "flips": [
+        {
+          "case": "s3_flip_flow",
+          "program": "frontDouble",
+          "start_clip_t": 1.9167,
+          "projected_f3_peak_dps": 773.3,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 796.0,
+          "primary_open_hold_s": 0.44
+        },
+        {
+          "case": "s3_flip_flow",
+          "program": "frontPikeSwan",
+          "start_clip_t": 4.8833,
+          "projected_f3_peak_dps": 711.5,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 719.8,
+          "primary_open_hold_s": 0.49
+        },
+        {
+          "case": "s3_flip_flow",
+          "program": "barani",
+          "start_clip_t": 8.15,
+          "projected_f3_peak_dps": 661.1,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 623.2,
+          "primary_open_hold_s": 0.1734
+        },
+        {
+          "case": "s3_flip_flow",
+          "program": "wallFront",
+          "start_clip_t": 10.5333,
+          "projected_f3_peak_dps": 721.6,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 634.8,
+          "primary_open_hold_s": null
+        },
+        {
+          "case": "s3_flip_flow",
+          "program": "backSingle",
+          "start_clip_t": 12.1167,
+          "projected_f3_peak_dps": 561.0,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 555.4,
+          "primary_open_hold_s": 0.54
+        },
+        {
+          "case": "s3_flip_flow",
+          "program": "barani",
+          "start_clip_t": 15.1167,
+          "projected_f3_peak_dps": 1136.3,
+          "strict_f3_le_800": false,
+          "true_3d_axis_peak_dps": 686.1,
+          "primary_open_hold_s": 0.5067
+        },
+        {
+          "case": "s3_flip_flow",
+          "program": "rudi",
+          "start_clip_t": 18.4,
+          "projected_f3_peak_dps": 633.0,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 643.1,
+          "primary_open_hold_s": 0.24
+        }
+      ],
+      "reports": {
+        "w_a_txt": "s3_flip_chain_CHECK.txt",
+        "w_a_json": "s3_flip_chain_check.json",
+        "flip_txt": "s3_flip_chain_FLIPS.txt"
+      }
+    },
+    "s3b_flip_cases": {
+      "technical_complete": true,
+      "frames": 1776,
+      "cases": [
+        {
+          "case": "s3_c1_fwd",
+          "rows": 255
+        },
+        {
+          "case": "s3_c2_back",
+          "rows": 214
+        },
+        {
+          "case": "s3_c3_right",
+          "rows": 262
+        },
+        {
+          "case": "s3_c4_left",
+          "rows": 257
+        },
+        {
+          "case": "s3_c5_neutral",
+          "rows": 257
+        },
+        {
+          "case": "s3_c6_fwd_right",
+          "rows": 265
+        },
+        {
+          "case": "s3_c7_back_left",
+          "rows": 266
+        }
+      ],
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "fps": "60/1",
+      "quality_fail_lines": [
+        "W2",
+        "P1",
+        "W3",
+        "W5",
+        "W7",
+        "A2"
+      ],
+      "quality_na_lines": [],
+      "full_clip_camera": {
+        "absent_runs": [],
+        "edge_clip_runs": [],
+        "out_of_frame_runs": [],
+        "closeout_absent_frames": 7
+      },
+      "flips": [
+        {
+          "case": "s3_c1_fwd",
+          "program": "frontSingle",
+          "start_clip_t": 0.4,
+          "projected_f3_peak_dps": 732.9,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 732.9,
+          "primary_open_hold_s": 0.49
+        },
+        {
+          "case": "s3_c2_back",
+          "program": "backSingle",
+          "start_clip_t": 4.65,
+          "projected_f3_peak_dps": 717.9,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 724.4,
+          "primary_open_hold_s": 0.4067
+        },
+        {
+          "case": "s3_c3_right",
+          "program": "corkscrew",
+          "start_clip_t": 8.2166,
+          "projected_f3_peak_dps": 774.6,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 673.0,
+          "primary_open_hold_s": 0.5567
+        },
+        {
+          "case": "s3_c4_left",
+          "program": "barani",
+          "start_clip_t": 12.5833,
+          "projected_f3_peak_dps": 759.5,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 637.3,
+          "primary_open_hold_s": 0.5234
+        },
+        {
+          "case": "s3_c5_neutral",
+          "program": "frontPikeSwan",
+          "start_clip_t": 16.8667,
+          "projected_f3_peak_dps": 704.7,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 704.7,
+          "primary_open_hold_s": 0.4733
+        },
+        {
+          "case": "s3_c6_fwd_right",
+          "program": "rudi",
+          "start_clip_t": 21.15,
+          "projected_f3_peak_dps": 779.0,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 723.2,
+          "primary_open_hold_s": 0.44
+        },
+        {
+          "case": "s3_c6_fwd_right",
+          "program": "wallFront",
+          "start_clip_t": 24.3333,
+          "projected_f3_peak_dps": 652.6,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 618.0,
+          "primary_open_hold_s": null
+        },
+        {
+          "case": "s3_c7_back_left",
+          "program": "fullTwist",
+          "start_clip_t": 25.5667,
+          "projected_f3_peak_dps": 783.9,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 745.4,
+          "primary_open_hold_s": 0.6066
+        }
+      ],
+      "reports": {
+        "w_a_txt": "s3b_flip_cases_CHECK.txt",
+        "w_a_json": "s3b_flip_cases_check.json",
+        "flip_txt": "s3b_flip_cases_FLIPS.txt"
+      }
+    },
+    "s2_press_variety": {
+      "technical_complete": true,
+      "frames": 2031,
+      "cases": [
+        {
+          "case": "s2_c1_roof_jump",
+          "rows": 299
+        },
+        {
+          "case": "s2_c2_midfall",
+          "rows": 215
+        },
+        {
+          "case": "s2_c3_wallrun",
+          "rows": 311
+        },
+        {
+          "case": "s2_c4_flip_cancel",
+          "rows": 227
+        },
+        {
+          "case": "s2_c5_repress",
+          "rows": 227
+        },
+        {
+          "case": "s2_c6_side_anchor",
+          "rows": 191
+        },
+        {
+          "case": "s2_c7_no_anchor",
+          "rows": 179
+        },
+        {
+          "case": "s2_c8_close_facade",
+          "rows": 191
+        },
+        {
+          "case": "s2_c9_trees",
+          "rows": 191
+        }
+      ],
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "fps": "60/1",
+      "quality_fail_lines": [
+        "W2",
+        "P1",
+        "W3",
+        "W5",
+        "W7",
+        "W9",
+        "W10",
+        "A1",
+        "A5",
+        "A7"
+      ],
+      "quality_na_lines": [
+        "A6"
+      ],
+      "full_clip_camera": {
+        "absent_runs": [
+          {
+            "first": 0.1167,
+            "last": 0.1333,
+            "frames": 2
+          }
+        ],
+        "edge_clip_runs": [
+          {
+            "first": 0.0833,
+            "last": 0.1,
+            "frames": 2
+          },
+          {
+            "first": 0.15,
+            "last": 0.15,
+            "frames": 1
+          },
+          {
+            "first": 0.35,
+            "last": 0.3667,
+            "frames": 2
+          }
+        ],
+        "out_of_frame_runs": [
+          {
+            "first": 0.0667,
+            "last": 0.1333,
+            "frames": 5
+          },
+          {
+            "first": 0.3333,
+            "last": 0.3333,
+            "frames": 1
+          }
+        ],
+        "closeout_absent_frames": 2
+      },
+      "flips": [
+        {
+          "case": "s2_c1_roof_jump",
+          "program": "wallFront",
+          "start_clip_t": 0.6833,
+          "projected_f3_peak_dps": 592.0,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 592.1,
+          "primary_open_hold_s": 0.19
+        },
+        {
+          "case": "s2_c4_flip_cancel",
+          "program": "backDouble",
+          "start_clip_t": 13.8001,
+          "projected_f3_peak_dps": 746.2,
+          "strict_f3_le_800": true,
+          "true_3d_axis_peak_dps": 746.3,
+          "primary_open_hold_s": 0.1066
+        }
+      ],
+      "reports": {
+        "w_a_txt": "s2_press_variety_CHECK.txt",
+        "w_a_json": "s2_press_variety_check.json",
+        "flip_txt": null
+      }
+    }
+  },
+  "comparison_report": "FOURFIX_COMPARISON.json",
+  "camera_native_review": "CAMERA_VERIFICATION.md; final c6 roof frame retains brief lower-body parapet occlusion despite pixel containment.",
+  "limits": [
+    "Offline fixed-step captures do not measure real-time FPS or owner gameplay acceptance.",
+    "A6 clip-name counts do not prove visible catch-pose variety; independent native-frame critic is pending.",
+    "Projected F3 and true world-3D body-axis rates are different measurements; the unchanged strict projected result remains in force.",
+    "Mask containment does not prove every limb is unobstructed by world geometry."
+  ]
+}

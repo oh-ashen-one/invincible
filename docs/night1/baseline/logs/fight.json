@@ -1,0 +1,1757 @@
+{
+ "name": "fight",
+ "mode": "film",
+ "W": 1920,
+ "H": 1080,
+ "render": {
+  "pixelRatio": 1,
+  "drawingBuffer": [
+   1920,
+   1080
+  ],
+  "css": [
+   1920,
+   1080
+  ],
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Ultra, Unspecified Version)",
+  "quality": "high",
+  "maxTexUnits": 16
+ },
+ "gameSeconds": 25.75,
+ "wallSeconds": 117.8,
+ "marks": [
+  {
+   "t": 1,
+   "label": "fight spawned: melee,melee,gunman,brute"
+  },
+  {
+   "t": 2,
+   "label": "round 0: approach + 4-hit combo"
+  },
+  {
+   "t": 3.73,
+   "label": "dodge (Space)"
+  },
+  {
+   "t": 4.37,
+   "label": "web shooter (F) x2"
+  },
+  {
+   "t": 5.33,
+   "label": "launcher (LMB held)"
+  },
+  {
+   "t": 7.18,
+   "label": "web strike (E)"
+  },
+  {
+   "t": 8.02,
+   "label": "finisher (Q)"
+  },
+  {
+   "t": 9.25,
+   "label": "round 1: approach + 4-hit combo"
+  },
+  {
+   "t": 10.98,
+   "label": "dodge (Space)"
+  },
+  {
+   "t": 11.62,
+   "label": "web shooter (F) x2"
+  },
+  {
+   "t": 12.58,
+   "label": "launcher (LMB held)"
+  },
+  {
+   "t": 14.43,
+   "label": "web strike (E)"
+  },
+  {
+   "t": 15.27,
+   "label": "finisher (Q)"
+  },
+  {
+   "t": 16.5,
+   "label": "round 2: approach + 4-hit combo"
+  },
+  {
+   "t": 18.23,
+   "label": "dodge (Space)"
+  },
+  {
+   "t": 18.87,
+   "label": "web shooter (F) x2"
+  },
+  {
+   "t": 19.83,
+   "label": "launcher (LMB held)"
+  },
+  {
+   "t": 21.68,
+   "label": "web strike (E)"
+  },
+  {
+   "t": 22.52,
+   "label": "finisher (Q)"
+  }
+ ],
+ "console": {
+  "warning: THREE.WebGLTextures: Trying to use 17 texture units while this GPU supports only 16": 2361,
+  "pageerror: The root document of this element is not valid for pointer lock.": 24
+ },
+ "log": [
+  {
+   "t": 0,
+   "pos": [
+    250,
+    1,
+    120
+   ],
+   "spd": 0.2,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.25,
+   "pos": [
+    250,
+    0.9,
+    120
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.5,
+   "pos": [
+    250,
+    0.9,
+    120
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.75,
+   "pos": [
+    250,
+    0.9,
+    120
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1,
+   "pos": [
+    250,
+    0.9,
+    120
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 m:hold:50 m:hold:50 g:hold:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.25,
+   "pos": [
+    250,
+    0.9,
+    120
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 m:hold:50 m:hold:50 g:hold:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.5,
+   "pos": [
+    250,
+    0.9,
+    120
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 m:hold:50 m:hold:50 g:hold:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.75,
+   "pos": [
+    250,
+    0.9,
+    120
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 m:hold:50 m:hold:50 g:aim:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 2,
+   "pos": [
+    250,
+    0.9,
+    120
+   ],
+   "spd": 0.8,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.76 k0.79",
+   "cmb": "free hp100 c0 m:approach:50 m:hold:50 g:aim:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.25,
+   "pos": [
+    250,
+    0.9,
+    119.1
+   ],
+   "spd": 7.6,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.86 r1.81 k1.25",
+   "cmb": "free hp100 c0 m:approach:50 m:hold:50 g:aim:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.5,
+   "pos": [
+    251,
+    0.9,
+    116.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "sprint",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@1.00 r2.70 k1.42",
+   "cmb": "strike hp100 c0 m:approach:50 m:hold:50 g:aim:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.75,
+   "pos": [
+    252,
+    0.9,
+    115.5
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.77 r1.81 k1.24",
+   "cmb": "strike hp100 c1 m:attack:50 m:stagger:41 g:fire:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 3,
+   "pos": [
+    252,
+    0.9,
+    115.5
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.06 r1.13 k1.29",
+   "cmb": "strike hp94 c0 m:attack:50 m:stagger:41 g:fire:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.25,
+   "pos": [
+    252.2,
+    0.9,
+    115.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.98 k1.20",
+   "cmb": "strike hp88 c0 m:attack:50 m:stagger:30 g:fire:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.5,
+   "pos": [
+    252.1,
+    0.9,
+    115.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.08 r1.15 k1.28",
+   "cmb": "hit hp79 c0 m:attack:50 m:stagger:21 g:fire:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.75,
+   "pos": [
+    252.1,
+    0.9,
+    115
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.94 k1.14",
+   "cmb": "strike hp79 c0 m:hold:50 m:stagger:21 g:fire:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 4,
+   "pos": [
+    252.2,
+    0.9,
+    114.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.67 k0.52",
+   "cmb": "strike hp79 c1 m:hold:50 m:stagger:11 g:hold:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.25,
+   "pos": [
+    252.2,
+    0.9,
+    114.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp79 c1 m:hold:50 m:stagger:11 g:hold:38 b:hold:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.5,
+   "pos": [
+    252.2,
+    0.9,
+    114.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp79 c1 m:hold:50 m:hold:11:w0.3 g:hold:38 b:approach:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.75,
+   "pos": [
+    252.2,
+    0.9,
+    114.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp79 c1 m:hold:50 m:hold:11:w0.3 g:hold:38 b:approach:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 5,
+   "pos": [
+    252.2,
+    0.9,
+    114.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp79 c1 m:hold:50 m:hold:11:w0.7 g:hold:38 b:attack:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.25,
+   "pos": [
+    252.2,
+    0.9,
+    114.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp79 c1 m:hold:50 m:hold:11:w0.6 g:hold:38 b:attack:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.5,
+   "pos": [
+    251.4,
+    0.9,
+    114.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.05 r1.91 k1.17",
+   "cmb": "strike hp79 c1 m:hold:50 m:hold:11:w0.6 g:hold:38 b:attack:150",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.75,
+   "pos": [
+    251.3,
+    0.9,
+    114.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "sprint",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.01 r1.90 k1.32",
+   "cmb": "down hp61 c0 m:hold:50 m:hold:11:w0.6 g:hold:38 b:attack:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 6,
+   "pos": [
+    252.9,
+    0.9,
+    114.8
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.34 r1.89 k1.20",
+   "cmb": "down hp61 c0 m:hold:50 m:hold:11:w0.6 g:hold:38 b:attack:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.25,
+   "pos": [
+    253.4,
+    0.9,
+    114.8
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.02 r1.06 k1.29",
+   "cmb": "down hp61 c0 m:hold:50 m:hold:11:w0.6 g:hold:38 b:attack:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.5,
+   "pos": [
+    253.4,
+    0.9,
+    114.8
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.49 k0.30",
+   "cmb": "down hp61 c0 m:hold:50 m:hold:11:w0.6 g:hold:38 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.75,
+   "pos": [
+    253.4,
+    0.9,
+    114.8
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "down hp61 c0 m:hold:50 m:hold:11:w0.6 g:hold:38 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 7,
+   "pos": [
+    253.4,
+    0.9,
+    114.8
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "down hp61 c0 m:hold:50 m:hold:11:w0.6 g:hold:38 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 7.25,
+   "pos": [
+    253.4,
+    0.9,
+    114.8
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "down hp61 c0 m:hold:50 m:hold:11:w0.5 g:hold:38 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 7.5,
+   "pos": [
+    253.4,
+    0.9,
+    114.8
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "down hp61 c0 m:hold:50 m:hold:11:w0.5 g:hold:38 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 7.75,
+   "pos": [
+    253.4,
+    1.1,
+    114.7
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "webStrike hp61 c0 m:approach:50 m:hold:11:w0.5 g:aim:38 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 8,
+   "pos": [
+    250.4,
+    1.8,
+    109.2
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "webStrike hp61 c0 m:hold:50 m:hold:11:w0.5 g:aim:38 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 8.25,
+   "pos": [
+    249.7,
+    1.1,
+    107.7
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "webStrike hp61 c1 m:hold:50 m:hold:11:w0.5 g:knock:18 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 8.5,
+   "pos": [
+    249.8,
+    0.9,
+    108.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp61 c1 m:hold:50 m:hold:11:w0.5 g:knock:18 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 8.75,
+   "pos": [
+    249.8,
+    0.9,
+    108.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp61 c1 m:hold:50 m:approach:11:w0.5 g:knock:18 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 9,
+   "pos": [
+    249.8,
+    0.9,
+    108.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp61 c1 m:hold:50 m:approach:11:w0.5 g:down:18 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 9.25,
+   "pos": [
+    249.8,
+    0.9,
+    108
+   ],
+   "spd": 0.8,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.76 k0.79",
+   "cmb": "free hp61 c1 m:hold:50 m:approach:11:w0.4 g:down:18 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 9.5,
+   "pos": [
+    248.6,
+    0.9,
+    107.4
+   ],
+   "spd": 9.2,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.04 r1.93 k1.34",
+   "cmb": "free hp61 c1 m:hold:50 m:approach:11:w0.4 g:down:18 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 9.75,
+   "pos": [
+    247.6,
+    0.9,
+    107.6
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "sprint",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.41 r2.03 k1.31",
+   "cmb": "strike hp61 c1 m:hold:50 m:approach:11:w0.4 g:down:18 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 10,
+   "pos": [
+    247.8,
+    0.9,
+    111
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "sprint",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.99 r2.21 k1.28",
+   "cmb": "strike hp61 c1 m:hold:50 m:attack:11:w0.4 g:down:18 b:hold:145",
+   "suit": "advanced"
+  },
+  {
+   "t": 10.25,
+   "pos": [
+    247.9,
+    0.9,
+    112.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.01 r1.86 k1.16",
+   "cmb": "strike hp61 c1 m:hold:50 m:attack:11:w0.4 g:down:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 10.5,
+   "pos": [
+    248.3,
+    0.9,
+    111.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.60 r1.83 k1.22",
+   "cmb": "hit hp52 c0 m:hold:50 m:attack:11:w0.4 g:down:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 10.75,
+   "pos": [
+    248.2,
+    0.9,
+    111.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.92 k1.11",
+   "cmb": "hit hp52 c0 m:hold:50 m:attack:11:w0.4 g:down:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 11,
+   "pos": [
+    248.7,
+    0.9,
+    110
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.49 r1.85 k1.21",
+   "cmb": "strike hp52 c1 m:hold:50 m:stagger:2:w0.4 g:getup:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 11.25,
+   "pos": [
+    248.7,
+    0.9,
+    110
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.79 k0.85",
+   "cmb": "free hp52 c1 m:hold:50 m:stagger:2:w0.4 g:getup:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 11.5,
+   "pos": [
+    248.7,
+    0.9,
+    110
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp52 c1 m:hold:50 m:hold:2:w0.3 g:getup:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 11.75,
+   "pos": [
+    248.7,
+    0.9,
+    110
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp52 c1 m:approach:50 m:hold:2:w0.7 g:getup:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 12,
+   "pos": [
+    248.7,
+    0.9,
+    110
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp52 c1 m:attack:50 m:hold:2:w0.7 g:hold:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 12.25,
+   "pos": [
+    248.7,
+    0.9,
+    110
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp52 c1 m:attack:50 m:hold:2:w1.0 g:hold:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 12.5,
+   "pos": [
+    248.7,
+    0.9,
+    110
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.15 r1.23 k1.25",
+   "cmb": "hit hp43 c0 m:attack:50 m:hold:2:w1.0 g:hold:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 12.75,
+   "pos": [
+    248.5,
+    0.9,
+    109.8
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.82 k0.92",
+   "cmb": "hit hp43 c0 m:attack:50 m:hold:2:w1.0 g:hold:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 13,
+   "pos": [
+    249.8,
+    0.9,
+    108.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.16 r1.97 k1.34",
+   "cmb": "launch hp43 c0 m:hold:50 m:hold:2:w0.9 g:hold:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 13.25,
+   "pos": [
+    250.2,
+    1,
+    108
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.82 r1.61 k1.11",
+   "cmb": "launch hp43 c1 m:hold:50 m:air:0:w0.9 g:hold:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 13.5,
+   "pos": [
+    250.2,
+    2.3,
+    107.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "launch hp43 c1 m:hold:50 m:air:0:w0.9 g:hold:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 13.75,
+   "pos": [
+    250.3,
+    3.2,
+    107.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "airStrike hp43 c1 m:hold:50 m:air:0:w0.9 g:aim:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 14,
+   "pos": [
+    250.3,
+    3.2,
+    107.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "airStrike hp43 c3 m:hold:50 m:air:0:w0.9 g:aim:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 14.25,
+   "pos": [
+    250.3,
+    3.2,
+    107.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "slamDown hp43 c4 m:hold:50 m:air:0:w0.9 g:aim:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 14.5,
+   "pos": [
+    250.3,
+    1.3,
+    107.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "slamDown hp43 c4 m:hold:50 m:down:0:w0.9 g:aim:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 14.75,
+   "pos": [
+    250.3,
+    0.9,
+    107.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "webStrike hp37 c0 m:hold:50 m:knock:0:w0.9 g:fire:18 b:approach:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 15,
+   "pos": [
+    249.1,
+    1.8,
+    105.7
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "webStrike hp37 c0 m:hold:50 m:knock:0:w0.9 g:fire:18 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 15.25,
+   "pos": [
+    246.9,
+    1.1,
+    101.6
+   ],
+   "spd": 0,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "webStrike hp37 c1 m:hold:50 m:down:0:w0.9 g:knock:0 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 15.5,
+   "pos": [
+    247.3,
+    1,
+    102.2
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "webStrike hp37 c1 m:hold:50 m:down:0:w0.9 g:knock:0 b:hold:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 15.75,
+   "pos": [
+    247.3,
+    0.9,
+    102.2
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp37 c1 m:hold:50 m:down:0:w0.9 g:knock:0 b:approach:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 16,
+   "pos": [
+    247.3,
+    0.9,
+    102.2
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp37 c1 m:hold:50 m:down:0:w0.9 g:down:0 b:approach:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 16.25,
+   "pos": [
+    247.3,
+    0.9,
+    102.2
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp37 c1 m:hold:50 m:down:0:w0.9 g:down:0 b:approach:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 16.5,
+   "pos": [
+    247.3,
+    0.9,
+    102.2
+   ],
+   "spd": 0.8,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.76 k0.79",
+   "cmb": "free hp37 c1 m:hold:50 m:out:0:w0.9 g:down:0 b:approach:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 16.75,
+   "pos": [
+    247.6,
+    0.9,
+    100.9
+   ],
+   "spd": 9.2,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.04 r1.93 k1.34",
+   "cmb": "free hp37 c1 m:hold:50 m:out:0:w0.9 g:down:0 b:approach:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 17,
+   "pos": [
+    247.8,
+    0.9,
+    100.5
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "sprint",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.23 r1.99 k1.33",
+   "cmb": "strike hp37 c1 m:hold:50 m:out:0:w0.9 g:down:0 b:attack:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 17.25,
+   "pos": [
+    247.6,
+    0.9,
+    102
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.01 r1.86 k1.16",
+   "cmb": "strike hp37 c1 m:hold:50 m:out:0:w0.9 g:out:0 b:attack:140",
+   "suit": "advanced"
+  },
+  {
+   "t": 17.5,
+   "pos": [
+    247.6,
+    0.9,
+    102.2
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.85 k0.98",
+   "cmb": "strike hp37 c1 m:hold:50 m:out:0:w0.9 g:out:0 b:attack:135",
+   "suit": "advanced"
+  },
+  {
+   "t": 17.75,
+   "pos": [
+    247.5,
+    0.9,
+    102.2
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.64 k0.42",
+   "cmb": "strike hp37 c1 m:hold:50 m:out:0:w0.9 g:out:0 b:attack:129",
+   "suit": "advanced"
+  },
+  {
+   "t": 18,
+   "pos": [
+    247.5,
+    0.9,
+    102.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "sprint",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.01 r1.90 k1.32",
+   "cmb": "down hp19 c0 m:hold:50 m:out:0:w0.9 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 18.25,
+   "pos": [
+    247.8,
+    0.9,
+    100.8
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.53 r1.84 k1.22",
+   "cmb": "down hp19 c0 m:hold:50 m:out:0:w0.9 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 18.5,
+   "pos": [
+    247.9,
+    0.9,
+    100.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.20 r1.27 k1.23",
+   "cmb": "down hp19 c0 m:hold:50 m:out:0:w0.8 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 18.75,
+   "pos": [
+    247.9,
+    0.9,
+    100.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.61 k0.33",
+   "cmb": "down hp19 c0 m:hold:50 m:out:0:w0.8 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 19,
+   "pos": [
+    247.9,
+    0.9,
+    100.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "down hp19 c0 m:hold:50 m:out:0:w0.8 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 19.25,
+   "pos": [
+    247.9,
+    0.9,
+    100.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "down hp19 c0 m:hold:50 m:out:0:w0.8 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 19.5,
+   "pos": [
+    247.9,
+    0.9,
+    100.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "down hp19 c0 m:hold:50 m:out:0:w0.8 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 19.75,
+   "pos": [
+    247.9,
+    0.9,
+    100.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "down hp19 c0 m:hold:50 m:out:0:w0.8 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 20,
+   "pos": [
+    248.7,
+    0.9,
+    101.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "sprint",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.47 r2.05 k1.30",
+   "cmb": "strike hp19 c0 m:attack:50 m:out:0:w0.8 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 20.25,
+   "pos": [
+    249.1,
+    0.9,
+    101.8
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.23 r1.30 k1.21",
+   "cmb": "launch hp19 c0 m:attack:50 m:out:0:w0.8 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 20.5,
+   "pos": [
+    249.1,
+    1.3,
+    101.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "launch hp19 c1 m:air:40 m:out:0:w0.7 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 20.75,
+   "pos": [
+    249.2,
+    3.3,
+    101.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "air hp19 c1 m:air:40 m:out:0:w0.7 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 21,
+   "pos": [
+    249.2,
+    3.2,
+    101.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "air hp19 c2 m:air:31 m:out:0:w0.7 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 21.25,
+   "pos": [
+    249.2,
+    3.2,
+    101.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "air hp19 c3 m:air:22 m:out:0:w0.7 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 21.5,
+   "pos": [
+    249.2,
+    3.2,
+    101.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "slamDown hp19 c4 m:air:8 m:out:0:w0.7 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 21.75,
+   "pos": [
+    249.2,
+    1.3,
+    101.9
+   ],
+   "spd": 0.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "slamDown hp19 c4 m:down:8 m:out:0:w0.7 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 22,
+   "pos": [
+    249.2,
+    0.9,
+    101.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "strike hp19 c4 m:yanked:0 m:out:0:w0.7 g:out:0 b:approach:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 22.25,
+   "pos": [
+    249.2,
+    0.9,
+    101.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "strike hp19 c5 m:knock:0 m:out:0:w0.7 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 22.5,
+   "pos": [
+    249.2,
+    0.9,
+    101.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "strike hp19 c5 m:knock:0 m:out:0:w0.6 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 22.75,
+   "pos": [
+    249.7,
+    0.9,
+    102.7
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.86 r1.82 k1.25",
+   "cmb": "finisher hp19 c5 m:stagger:0 m:out:0:w0.6 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 23,
+   "pos": [
+    250,
+    0.9,
+    103.1
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.21 r1.92 k1.19",
+   "cmb": "finisher hp19 c5 m:stagger:0 m:out:0:w0.6 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 23.25,
+   "pos": [
+    250.2,
+    0.9,
+    103.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.76 r1.58 k1.11",
+   "cmb": "finisher hp19 c5 m:stagger:0 m:out:0:w0.6 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 23.5,
+   "pos": [
+    250.2,
+    0.9,
+    103.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.90 k1.07",
+   "cmb": "finisher hp19 c5 m:stagger:0 m:out:0:w0.6 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 23.75,
+   "pos": [
+    250.2,
+    0.9,
+    103.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.66 k0.51",
+   "cmb": "finisher hp19 c6 m:knock:0 m:out:0:w0.6 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 24,
+   "pos": [
+    250.2,
+    0.9,
+    103.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "finisher hp19 c6 m:knock:0 m:out:0:w0.6 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 24.25,
+   "pos": [
+    250.2,
+    0.9,
+    103.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "finisher hp19 c6 m:knock:0 m:out:0:w0.6 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 24.5,
+   "pos": [
+    250.2,
+    0.9,
+    103.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "finisher hp19 c6 m:knock:0 m:out:0:w0.6 g:out:0 b:attack:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 24.75,
+   "pos": [
+    250.2,
+    0.9,
+    103.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c6 m:stuck-ground:0:w1.0 m:out:0:w0.6 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 25,
+   "pos": [
+    250.2,
+    0.9,
+    103.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c6 m:stuck-ground:0:w1.0 m:out:0:w0.6 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 25.25,
+   "pos": [
+    250.2,
+    0.9,
+    103.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c6 m:stuck-ground:0:w1.0 m:out:0:w0.5 g:out:0 b:hold:123",
+   "suit": "advanced"
+  },
+  {
+   "t": 25.5,
+   "pos": [
+    250.2,
+    0.9,
+    103.4
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c6 m:stuck-ground:0:w1.0 m:out:0:w0.5 g:out:0 b:hold:123",
+   "suit": "advanced"
+  }
+ ],
+ "clip": "docs/night1/baseline/clips/fight.mp4",
+ "clipMB": 12.93,
+ "captureFps": "60 (frame-stepped game time, 1/60 s per frame)"
+}

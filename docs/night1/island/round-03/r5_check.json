@@ -1,0 +1,145 @@
+{
+ "csv": "docs/night1/island/round-03/r5_m2_avenue_telemetry.csv",
+ "route_check": "docs/night1/island/round-03/route_check_r5.json",
+ "t_end": 30.0,
+ "unanswered_release_at_s": 30.167,
+ "pass_no_unanswered_release": true,
+ "n_gaps": 20,
+ "max_reweb_gap_s": 0.3,
+ "pass_max_gap_le_1_5": true,
+ "frac_gaps_le_0_5": 1.0,
+ "web_air_drawn": 0,
+ "pass_anchors_on_drawn": true,
+ "distinct_swing_anchors": 26,
+ "ground_land_frames_after_1s": 0,
+ "first_ground_land_t": null,
+ "pass_no_ground_after_1s": true,
+ "path_m": 1481.6,
+ "end": [
+  -2.018,
+  2285.451,
+  19.612
+ ],
+ "facadeLod_min_dist_m": null,
+ "pass_gaps_60pct_le_0_5": true,
+ "pass_all": true,
+ "fall_through": 0,
+ "stuck": 0,
+ "mid_air_drawn_frames": 0,
+ "wall_air_drawn_frames": 0,
+ "feet_overlap_frames": 0,
+ "feet_overlap_by_kind": {},
+ "feet_point_inside_frames": 0,
+ "r02_overlap_frames": 0,
+ "pass_overlap_le_r02": true,
+ "pass_no_fall_stuck_midair_wallair": true,
+ "modes": {
+  "air": 468,
+  "swing": 1355
+ },
+ "start": [
+  0.0,
+  1010.4,
+  44.997
+ ],
+ "road_band": [
+  {
+   "frame": "docs/night1/island/round-03/stills/r5_m2_avenue_t12s_1920x1080.jpg",
+   "size": [
+    1920,
+    1080
+   ],
+   "paint_band": [
+    0.4,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "std_band": [
+    0.6,
+    1.0,
+    0.25,
+    0.75
+   ],
+   "lane_paint_pct": 2.19,
+   "luma_mean": 79.0,
+   "luma_std": 45.8,
+   "pass_paint_ge_1pct": true,
+   "pass_std_ge_35": true
+  },
+  {
+   "frame": "docs/night1/island/round-03/stills/r5_m2_avenue_t20s_1920x1080.jpg",
+   "size": [
+    1920,
+    1080
+   ],
+   "paint_band": [
+    0.4,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "std_band": [
+    0.6,
+    1.0,
+    0.25,
+    0.75
+   ],
+   "lane_paint_pct": 4.27,
+   "luma_mean": 127.8,
+   "luma_std": 44.3,
+   "pass_paint_ge_1pct": true,
+   "pass_std_ge_35": true
+  },
+  {
+   "frame": "docs/night1/island/round-03/stills/r5_m2_avenue_t26s_1920x1080.jpg",
+   "size": [
+    1920,
+    1080
+   ],
+   "paint_band": [
+    0.4,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "std_band": [
+    0.6,
+    1.0,
+    0.25,
+    0.75
+   ],
+   "lane_paint_pct": 1.64,
+   "luma_mean": 139.4,
+   "luma_std": 36.6,
+   "pass_paint_ge_1pct": true,
+   "pass_std_ge_35": true
+  },
+  {
+   "frame": "docs/night1/island/round-03/stills/r5_m2_avenue_t28s_1920x1080.jpg",
+   "size": [
+    1920,
+    1080
+   ],
+   "paint_band": [
+    0.4,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "std_band": [
+    0.6,
+    1.0,
+    0.25,
+    0.75
+   ],
+   "lane_paint_pct": 0.94,
+   "luma_mean": 123.1,
+   "luma_std": 36.6,
+   "pass_paint_ge_1pct": false,
+   "pass_std_ge_35": true
+  }
+ ],
+ "pass_road_band_all": false,
+ "pass_all_m2": false
+}

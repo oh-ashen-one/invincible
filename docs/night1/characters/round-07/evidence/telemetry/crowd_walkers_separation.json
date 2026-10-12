@@ -1,0 +1,68 @@
+{
+ "log": "crowd_walkers.csv",
+ "frames": 899,
+ "walkers": 18,
+ "radius_cm": 40.0,
+ "need_cm": 35.0,
+ "restarts_at_frames": [
+  481,
+  842
+ ],
+ "log_column_agrees": true,
+ "shots": [
+  {
+   "t0": 0.033,
+   "t1": 8.017,
+   "frames": 480,
+   "min_distance_cm": 130.01,
+   "at_time": 6.383,
+   "pair": [
+    "Citizen_08_black_suit",
+    "Citizen_13_construction_worker"
+   ],
+   "frames_below_2x_need": 0,
+   "frames_below_2x_radius": 0,
+   "max_lane_offset_cm": 0.0,
+   "max_heading_dev_deg": 0.0,
+   "max_yaw_rate_deg_s": 0.0,
+   "median_min_distance_cm": 161.1
+  },
+  {
+   "t0": 8.033,
+   "t1": 14.033,
+   "frames": 361,
+   "min_distance_cm": 144.08,
+   "at_time": 8.033,
+   "pair": [
+    "Citizen_10_silver_tie",
+    "Citizen_18_dapper_elder"
+   ],
+   "frames_below_2x_need": 0,
+   "frames_below_2x_radius": 0,
+   "max_lane_offset_cm": 0.0,
+   "max_heading_dev_deg": 0.0,
+   "max_yaw_rate_deg_s": 0.0,
+   "median_min_distance_cm": 161.3
+  },
+  {
+   "t0": 14.05,
+   "t1": 15.0,
+   "frames": 58,
+   "min_distance_cm": 144.08,
+   "at_time": 14.05,
+   "pair": [
+    "Citizen_10_silver_tie",
+    "Citizen_18_dapper_elder"
+   ],
+   "frames_below_2x_need": 0,
+   "frames_below_2x_radius": 0,
+   "max_lane_offset_cm": 0.0,
+   "max_heading_dev_deg": 0.0,
+   "max_yaw_rate_deg_s": 0.0,
+   "median_min_distance_cm": 154.5
+  }
+ ],
+ "overall_min_distance_cm": 130.01,
+ "frames_below_2x_need": 0,
+ "frames_below_2x_radius": 0
+}

@@ -1,0 +1,27 @@
+== V23  r22 critic tests on the vertical run (verbatim), both windows
+  w2_wallrun_side_zip 1.00-2.80 s (109 rows; wall/wallRun)
+    a) foot_sep_run crossings 22 in 1.80 s = 12.2/s (>= 4) -> PASS
+    b) bbox_w 0.111-0.150; 0.4 s windows with >= 25 % change 85/85, worst 26 % -> PASS
+    c) 12 fps frames from 1.20 s, 3D ankle sep >= .30 m: 10/10 [1.20:0.41 1.28:0.48 1.37:0.41 1.45:0.47 1.53:0.41 1.62:0.47 1.70:0.42 1.78:0.46 1.87:0.44 1.95:0.46] -> PASS (proxy; see the sheet)
+  c_wallrun_perch 2.65-4.15 s (91 rows; wall/wallRun)
+    a) foot_sep_run crossings 18 in 1.50 s = 12.0/s (>= 4) -> PASS
+    b) bbox_w 0.109-0.291; 0.4 s windows with >= 25 % change 67/67, worst 26 % -> PASS
+    c) 12 fps frames from 2.85 s, 3D ankle sep >= .30 m: 10/10 [2.85:0.48 2.93:0.42 3.02:0.50 3.10:0.41 3.18:0.50 3.27:0.41 3.35:0.50 3.43:0.42 3.52:0.50 3.60:0.42] -> PASS (proxy; see the sheet)
+
+== X23  excursion (director r23): recovery toe >= .25 m off the face with the knee .35-.50 m at that peak; stance on the face;
+         touchdowns alternate, gaps <= .18 s; torso 5-20 deg off wall-up; hips <= .45 m off the face
+  w2_wallrun_side_zip: recoveries 11, toe >= .25 & knee .35-.50 at the peak 10/11 [1.00r:0.57/0.59 1.17l:0.31/0.41 1.33r:0.30/0.41 1.50l:0.30/0.41 1.65r:0.30/0.41 1.82l:0.30/0.41 1.97r:0.30/0.41 2.13l:0.30/0.41 2.28r:0.30/0.41 2.45l:0.30/0.41 2.60r:0.30/0.41]
+    touchdowns 11, alternating 10/10, gap med 0.167 max 0.167 s (<= .18: 10/10)
+    torso off wall-up 0.5-10.7 deg, med 7.0; 5-20 deg 94 %
+    hips off the face 0.34-0.42 m; <= .45 m 100 %
+  c_wallrun_perch: recoveries 13, toe >= .25 & knee .35-.50 at the peak 9/13 [2.65r:0.38/0.41 2.75l:0.32/0.41 2.92r:0.30/0.41 3.08l:0.30/0.41 3.25r:0.30/0.41 3.32r:0.10/0.03 3.37l:0.51/0.40 3.62r:0.52/0.44 3.63l:0.20/0.19 3.68l:0.10/0.15 3.77l:0.23/0.38 3.92r:0.29/0.41 4.08l:0.30/0.41]
+    touchdowns 13, alternating 9/12, gap med 0.150 max 0.167 s (<= .18: 12/12)
+    torso off wall-up 2.8-83.3 deg, med 12.3; 5-20 deg 65 %
+    hips off the face 0.33-0.43 m; <= .45 m 100 %
+
+== T22  c camera pitch on the vertical window: 6.9..29.3 deg (steady after the blend-in 6.9..29.3); 20-65 up 55 % of rows
+
+== Z23  w2 zip: fire 4.00 s (nearFar2), perch 5.70 s at z 96.2 -> 1.70 s PASS
+
+V23 overall (a, b, c proxy on both windows): PASS
+CPERCH zip 8.5000 (nearest) perch 8.9000 last perch/perchIdle z 48.950

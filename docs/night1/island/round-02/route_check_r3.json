@@ -1,0 +1,294 @@
+{
+ "summary": {
+  "routes": 1,
+  "seconds": 30.4,
+  "fall_through": 0,
+  "stuck": 0,
+  "mid_air_frames": 0,
+  "wall_air_frames": 8,
+  "anchors": 33,
+  "web_air": 1,
+  "facadeLod_min_dist_m": 379.7,
+  "boxes": 56816,
+  "facadeLod_tiles": 86,
+  "drawn": {
+   "solids": 346591,
+   "kit_fireescape_platforms": 24331,
+   "ue_street_trunks": 545
+  }
+ },
+ "routes": [
+  {
+   "csv": "r3_crosstown_east_telemetry.csv",
+   "frames": 1823,
+   "seconds": 30.37,
+   "path_m": 509.3,
+   "modes": {
+    "air": 866,
+    "swing": 880,
+    "wall": 77
+   },
+   "supported_frames": 0,
+   "fall_through": 0,
+   "stuck": 0,
+   "mid_air_frames": 0,
+   "wall_air_frames": 8,
+   "anchors": 33,
+   "web_air": 1,
+   "facadeLod_min_dist_m": 379.7,
+   "events": {
+    "fall_through": [],
+    "stuck": [],
+    "mid_air": [],
+    "wall_air": [
+     [
+      2.383,
+      -235.5,
+      616.4,
+      31.28
+     ],
+     [
+      3.567,
+      -235.5,
+      616.3,
+      32.05
+     ],
+     [
+      3.583,
+      -235.5,
+      616.3,
+      32.28
+     ],
+     [
+      3.6,
+      -235.5,
+      616.3,
+      32.51
+     ],
+     [
+      4.9,
+      -235.5,
+      616.2,
+      32.21
+     ],
+     [
+      4.917,
+      -235.5,
+      616.2,
+      32.44
+     ],
+     [
+      6.233,
+      -235.5,
+      616.0,
+      32.15
+     ],
+     [
+      6.25,
+      -235.5,
+      616.0,
+      32.38
+     ]
+    ],
+    "web_air": [
+     [
+      16.1,
+      "anchor",
+      -198.2,
+      583.4,
+      63.9,
+      1.07
+     ]
+    ]
+   },
+   "drawn": {
+    "mid_air_drawn_frames": 0,
+    "feet_overlap_frames": 7,
+    "feet_overlap_by_kind": {
+     "fireescape_kit": 7
+    },
+    "feet_point_inside_frames": 0,
+    "web_air_drawn": 0,
+    "wall_air_drawn_frames": 0,
+    "swing": {
+     "releases_rewebbed": 13,
+     "unanswered_release_at_s": 28.6,
+     "max_reweb_gap_s": 6.433,
+     "reweb_gaps_over_0_5s": 5,
+     "ground_land_frac": 0.0,
+     "distinct_swing_anchors": 21,
+     "gaps": [
+      [
+       1.533,
+       0.3
+      ],
+      [
+       2.383,
+       6.433
+      ],
+      [
+       10.783,
+       1.433
+      ],
+      [
+       13.067,
+       0.3
+      ],
+      [
+       14.133,
+       0.467
+      ],
+      [
+       15.667,
+       0.333
+      ],
+      [
+       16.95,
+       0.767
+      ],
+      [
+       19.033,
+       0.433
+      ],
+      [
+       21.45,
+       0.3
+      ],
+      [
+       22.667,
+       0.9
+      ],
+      [
+       24.733,
+       0.3
+      ],
+      [
+       25.683,
+       0.3
+      ],
+      [
+       26.4,
+       0.8
+      ]
+     ]
+    },
+    "land_events": [],
+    "events": {
+     "mid_air_drawn": [],
+     "feet_overlap": [
+      [
+       2.717,
+       "air",
+       -235.403,
+       616.37,
+       33.85,
+       [
+        [
+         "fireescape_kit",
+         0.107,
+         false
+        ]
+       ]
+      ],
+      [
+       2.733,
+       "air",
+       -235.386,
+       616.37,
+       33.91,
+       [
+        [
+         "fireescape_kit",
+         0.124,
+         false
+        ]
+       ]
+      ],
+      [
+       3.25,
+       "air",
+       -235.422,
+       616.37,
+       33.87,
+       [
+        [
+         "fireescape_kit",
+         0.088,
+         false
+        ]
+       ]
+      ],
+      [
+       3.733,
+       "air",
+       -235.322,
+       616.338,
+       33.86,
+       [
+        [
+         "fireescape_kit",
+         0.188,
+         false
+        ]
+       ]
+      ],
+      [
+       5.05,
+       "air",
+       -235.31,
+       616.222,
+       33.84,
+       [
+        [
+         "fireescape_kit",
+         0.2,
+         false
+        ]
+       ]
+      ],
+      [
+       6.4,
+       "air",
+       -235.415,
+       616.066,
+       33.92,
+       [
+        [
+         "fireescape_kit",
+         0.095,
+         false
+        ]
+       ]
+      ],
+      [
+       7.667,
+       "air",
+       -235.064,
+       614.862,
+       33.95,
+       [
+        [
+         "fireescape_kit",
+         0.081,
+         false
+        ]
+       ]
+      ]
+     ],
+     "web_air_drawn": [],
+     "wall_air_drawn": []
+    }
+   },
+   "start": [
+    -299.567,
+    640.0,
+    39.997
+   ],
+   "end": [
+    -31.987,
+    617.904,
+    77.855
+   ]
+  }
+ ]
+}

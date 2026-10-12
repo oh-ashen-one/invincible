@@ -1,0 +1,43 @@
+{
+ "name": "r2_south_avenue",
+ "note": "Island r01 route 2 (30 s): airborne swing chain SOUTH down 5th Av (x 250 m, +Y) from y 160 at 30 m into the tiles that were bare facadeLod masses before M1 (Murray Hill / Flatiron, y 256..1024). (r03: autoChain re-press gap 0.8 -> 0.3 s, as r3 in r02: the critic test is 'web attaches <= 1.5 s / mostly <= 0.5 s after each release'; the whole island is detailed now, so the 30 s chain stays on drawn facades.)",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   160,
+   30
+  ],
+  "yaw": 90,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   24,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 90,
+   "swing": false
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.3,
+   "repressVz": 99.0,
+   "trickEvery": 4,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  }
+ ]
+}

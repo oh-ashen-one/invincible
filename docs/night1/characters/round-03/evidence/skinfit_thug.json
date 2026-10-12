@@ -1,0 +1,24 @@
+{
+ "tripo": "/Users/midir/sm2-n1/_scratch/characters/r3/people/StreetThug_prepared.glb",
+ "verts": 7962,
+ "tris": 8380,
+ "chamfer_rms_cm_before": 10.993890450600142,
+ "chamfer_rms_cm_after": 4.854660525379617,
+ "params": {
+  "arm_abduct": -0.18840860295722686,
+  "arm_swing": -0.02127595054289822,
+  "elbow": -0.27889761839420724,
+  "elbow_z": -0.011561194756196196,
+  "shoulder": -0.12814586011246318,
+  "ua_s": 1.042335448497276,
+  "fa_s": 0.9896680026470832,
+  "hand_s": 0.9284523151122337,
+  "thigh_abduct": 0.0800785734527702,
+  "thigh_s": 1.0163408609186455,
+  "shin_s": 1.0001376385362717,
+  "spine_s": 1.0094461131504466,
+  "neck_s": 0.9845429910183686,
+  "head_s": 1.1002674726710882
+ },
+ "roundtrip_max_mm": 6.661338147750939e-13
+}

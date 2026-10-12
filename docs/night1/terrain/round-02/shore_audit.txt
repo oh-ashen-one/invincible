@@ -1,0 +1,22 @@
+{
+ "boundary_cells": 13703,
+ "top_tris": 92159,
+ "wall_tris": 191818,
+ "piers_excluded": 43,
+ "cell_m": 1.0,
+ "wall_tolerance_m": 1.5,
+ "before_patch": {
+  "gap_cells": 195,
+  "gaps_over_5m": 12,
+  "max_gap_m": 12.0
+ },
+ "patch_blocks": 195,
+ "after_patch": {
+  "gap_cells": 0,
+  "gaps_over_5m": 0,
+  "max_gap_m": 0.0
+ },
+ "max_gap_m": 0.0,
+ "gaps_over_5m": 0
+}
+worst before: [(-107, -3477, 12.0), (-126, -3468, 12.0), (-134, -3464, 8.0), (-49, -3456, 8.0), (-154, -3454, 8.0), (34, -3416, 8.0), (42, -3412, 8.0), (58, -3404, 8.0)]

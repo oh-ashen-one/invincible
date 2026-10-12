@@ -1,0 +1,17 @@
+# Swing arc test, round 04 (drop_test.py)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+## a_swing_chain
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   0.00   20.9   20.9    5.1   15.8   24.0   29.5  2.08     12.4%   43.3%  ok (first swing exempt)
+ 2   3.57   44.1   44.1    6.3   37.8   34.1   43.9  3.28     16.0%   44.8%  ok
+ 3   8.55   60.1   60.0   16.3   43.8   47.7   50.0  3.85     18.2%   43.5%  ok
+ 4  13.77   64.1   64.0   22.0   42.0   22.0   50.0  1.80      0.0%   25.8%  ok
+DROP TEST: PASS (4 swings)
+
+## d_sprint_jump_first_swing
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   2.60    4.5    4.5    2.2    2.3   14.9   19.9  1.67      7.8%   23.5%  DROP<15 (first swing exempt)
+ 2   5.13   20.4   20.3    4.3   16.0   22.2   27.6  2.45     12.2%   43.1%  ok
+ 3   9.07   40.9   40.8   11.6   29.3   34.1   35.2  2.70     13.7%   45.3%  ok
+DROP TEST: PASS (3 swings)

@@ -1,0 +1,22 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# Playable-profile render preset: tools/perf_ue2/overrides/perf60_hwl2.cvars flattened (its set: chain perf60 > cand1 / extra > mpe4 / hwrt0 / tsr100 / cheap > mpe6 > hwl > hwl2, later lines win).
+# Applied at runtime by FWHSettings::ApplyRender for -WHProfile=playable ONLY (fidelity stays at the engine defaults). One cvar=value per line.
+r.Nanite.MaxPixelsPerEdge=8
+r.Lumen.HardwareRayTracing=1
+r.TSR.History.ScreenPercentage=100
+r.Shadow.Virtual.ResolutionLodBiasDirectional=1
+r.SkyLight.RealTimeReflectionCapture.ResolutionOverride=64
+r.VolumetricFog.GridPixelSize=16
+r.VolumetricCloud.ViewRaySampleMaxCount=256
+r.Shadow.Virtual.SMRT.RayCountDirectional=4
+r.SkyLight.RealTimeReflectionCapture.TimeSlice=1
+r.Shadow.Virtual.ResolutionLodBiasDirectionalMoving=1
+r.Lumen.ScreenProbeGather.HardwareRayTracing=1
+r.Lumen.Reflections.HardwareRayTracing=1
+r.RayTracing.Geometry.SkeletalMeshes=0
+r.Shadow.Virtual.UseFarShadowCulling=0
+r.Shadow.Virtual.Clipmap.UseConservativeCulling=1
+r.VolumetricCloud.DistanceToSampleMaxCount=50
+r.RayTracing.Culling.Angle=3
+# + the Lumen screen-probe downsample 16 -> 24 (measured -10 ms p50 at island night 58 %; visible: coarser GI probes, mean luma within 1.5 %)
+r.Lumen.ScreenProbeGather.DownsampleFactor=24

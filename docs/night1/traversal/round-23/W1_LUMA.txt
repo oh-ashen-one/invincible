@@ -1,0 +1,1 @@
+w1_wallrun_tall_zip wall 0.95-3.58 s z 52.8-89.2: 32 frames at 12 fps, facade luma min 71.3 med 133.7 max 147.5, >= 45 in 32/32

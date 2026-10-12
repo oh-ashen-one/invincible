@@ -1,0 +1,1 @@
+{"label": "r8_suit_closeup_diagonal_piping", "image": "suit_closeup_4k.jpg", "roi": [600, 600, 1230, 1150], "direction": "horizontal", "columns": 159, "line_width_px": 8.78, "max_dev_px": 2.64, "rms_dev_px": 0.789, "max_jump_px": 3.3, "worst_plateau_px": 2}

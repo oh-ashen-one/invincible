@@ -1,0 +1,39 @@
+{
+ "clip": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-17/swap_pawn_T_key.mp4",
+ "frames": 685,
+ "fps": 60.0,
+ "duration": 11.417,
+ "median": 3.58,
+ "p99": 5.1,
+ "top": [
+  {
+   "t": 7.733,
+   "diff": 5.37
+  },
+  {
+   "t": 1.833,
+   "diff": 5.22
+  },
+  {
+   "t": 10.683,
+   "diff": 5.18
+  },
+  {
+   "t": 9.7,
+   "diff": 5.17
+  },
+  {
+   "t": 8.717,
+   "diff": 5.17
+  }
+ ],
+ "cuts": [],
+ "pass": true,
+ "at": [
+  {
+   "t": 9.933,
+   "diff": 5.1,
+   "neighbours": 3.79
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+# Facade clearance / occlusion check, round 09 (facade_check.py)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+a_swing_chain 13.5-15.5 s (121 frames): near-wall share max 0.075 at 15.05 s (target <= 0.30); hero occluded (> 2 % of his pixels) in 0 frames, max 0.000; hero-facade min 6.34 m, camera-facade min 6.11 m  PASS
+a_swing_chain 0.0-15.6 s (934 frames): near-wall share max 0.129 at 8.52 s (target <= 0.30); hero occluded (> 2 % of his pixels) in 0 frames, max 0.000; hero-facade min 5.68 m, camera-facade min 4.99 m  PASS
+FACADE CHECK: PASS
+
+d_sprint_jump_first_swing 6.5-7.5 s (61 frames): near-wall share max 0.000 at 7.50 s (target <= 0.30); hero occluded (> 2 % of his pixels) in 0 frames, max 0.000; hero-facade min 6.61 m, camera-facade min 5.90 m  PASS
+d_sprint_jump_first_swing 2.5-12.0 s (568 frames): near-wall share max 0.037 at 10.62 s (target <= 0.30); hero occluded (> 2 % of his pixels) in 0 frames, max 0.000; hero-facade min 6.38 m, camera-facade min 5.70 m  PASS
+FACADE CHECK: PASS
+
+b_release_trick_dive_zip 0.0-4.8 s (289 frames): near-wall share max 0.000 at 4.80 s (target <= 0.30); hero occluded (> 2 % of his pixels) in 0 frames, max 0.000; hero-facade min 9.39 m, camera-facade min 8.42 m  PASS
+FACADE CHECK: PASS

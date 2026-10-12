@@ -1,0 +1,169 @@
+{
+  "snapshot_date": "2026-10-11",
+  "branch": "codex/preserve-kimi-spiderman-20261011",
+  "source_branch": "codex/m5-showcase-20261006",
+  "source_head": "10aa01fc4db64c11e21412cf13fae5bf674cec5a",
+  "retained_unpushed_commits": [
+    "8b382fb7fa943a83e726ec599073d420c3a3763d",
+    "10aa01fc4db64c11e21412cf13fae5bf674cec5a"
+  ],
+  "files": [
+    {
+      "path": "HANDOFF.md",
+      "bytes": 30798,
+      "sha256": "cb06ba74e507bb3cc84783aaf09bf249869668643d2f2a05fd21f32d79b24ecc"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/PRESERVATION.md",
+      "bytes": 2223,
+      "sha256": "dc428c30fdcc07de8c4f0fe10c901ea82719eb9dbdac47d684c54a9834940cc7"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/partial-s2/capture-status.json",
+      "bytes": 2634,
+      "sha256": "5859347c7617ddd97ad7d34b07dc01e963980b87a9d51453bf649bf3da020f49"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/partial-s2/s2_c1_roof_jump_telemetry.csv",
+      "bytes": 378635,
+      "sha256": "bf4f075674cd9b77796eaf29d23b6929d728e61fc1c09252f889f52f97386297"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/partial-s2/s2_c2_midfall_telemetry.csv",
+      "bytes": 274598,
+      "sha256": "d5ba479a496416eed65ade7b8046438540a373a394f3328404ffaa01c3f4c0eb"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/partial-s2/s2_c3_wallrun_telemetry.csv",
+      "bytes": 388094,
+      "sha256": "c6777923a6ae413216ca0b38dba30b7db4fca844269897476ef0ed96f3fbbc78"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/partial-s2/s2_c4_flip_cancel_telemetry.csv",
+      "bytes": 292741,
+      "sha256": "8adc5b86cbf6714610f429d341940b52be209b15819acb481582875fbca94311"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/partial-s2/s2_c5_repress_telemetry.csv",
+      "bytes": 292692,
+      "sha256": "f8d14866fbd5054310d050b2950fc60be29ed19076fa6d5a47786e980c937078"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/partial-s2/s2_c6_side_anchor_telemetry.csv",
+      "bytes": 245557,
+      "sha256": "cb97bf4d3063faad2dbd3a67e00bc3225f51a7ba802278aaa031446b27fa56f5"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/partial-s2/s2_c7_no_anchor_telemetry.csv",
+      "bytes": 222419,
+      "sha256": "021cd30d259be38fc0e43b856bf30f9875c9b38ab413accea0c62cda4b5e3138"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/partial-s2/s2_c8_close_facade_telemetry.csv",
+      "bytes": 245548,
+      "sha256": "346f9bd82d86b6d1e82e02bd13e51dbaa8022c37ca9bd4a980ac4327c09766d2"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s1_swing_chain.mp4",
+      "bytes": 13191051,
+      "sha256": "20552e3fb82eeb1b39dac70057c76e0f2df39b3224bb4ed01f43eb5f1a802f9a"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s1_swing_chain_render.json",
+      "bytes": 309,
+      "sha256": "84933319edc42c7d6a6bf22ada034b4c14aea43e591862d8ab74c60a361b50cc"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s1_swing_chain_telemetry.csv",
+      "bytes": 1583512,
+      "sha256": "5ce8023a94868951ab9c88208de7549c12cea6474e0dcaf95b54f1fb41cf9ed8"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s3_flip_chain.mp4",
+      "bytes": 14369974,
+      "sha256": "28df33e52895e126d3bc1c367a02958981f4464133396ccef9a7d842aa8a5713"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s3_flip_chain_render.json",
+      "bytes": 305,
+      "sha256": "9bf30634c2c76af771fe6dc7b79c1231002e78f878e461694fa143df0a14095b"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s3_flip_chain_telemetry.csv",
+      "bytes": 1882301,
+      "sha256": "1888e04f23ad036b3317fb4a70885477f474a57e12d3de54be07747c5484da31"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s3_flip_chain_telemetry.rope.json",
+      "bytes": 28651,
+      "sha256": "55f67033b63ecc38ec922d9de4161afce67591dc832d004340f905ad1047334d"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s3b_flip_cases.mp4",
+      "bytes": 15381023,
+      "sha256": "9ca43d25913f1b064174cd7153d7c340551216fe98a7dfb19510a9b2a0a554a1"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s3b_flip_cases_render.json",
+      "bytes": 1196,
+      "sha256": "f43be40fe79f29aea1f5cfd8bc047b2c2bf108eb54bcad710c9feec4db13da1a"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s3b_flip_cases_telemetry.csv",
+      "bytes": 2316521,
+      "sha256": "6411445357f2977ea11849762550863c50a51400696ad73cde7543b8f5c8ccae"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s4_release_float.mp4",
+      "bytes": 15129445,
+      "sha256": "ade7e10247a47ebdcca0a96ff4f2cc4c13ac49bbe0aa9c8b0f6e059902204e60"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s4_release_float_render.json",
+      "bytes": 313,
+      "sha256": "fc51e062088ea658e93f7cd3f2c463d333a41b489eee645a540c92ad630f5b55"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s4_release_float_telemetry.csv",
+      "bytes": 1551649,
+      "sha256": "e17284b8ac033f264a14c7243cec425f82ffbe506508d975788ed986434dd9cd"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s4_release_float_telemetry.rope.json",
+      "bytes": 26508,
+      "sha256": "4df83709a54f60aa8ac13ce117abafa99e7cdeaece9e1ad3b134d1d3ac3faa36"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s5_night_swing.mp4",
+      "bytes": 14508673,
+      "sha256": "f1ee161b7770278af7791d49e17aca22f1308ba0f71698bedddc19400c064c51"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s5_night_swing_render.json",
+      "bytes": 315,
+      "sha256": "1d258456ba4eecb0bbda4e2cf7296290d98d4a18d700f21663b87e43c2cc2481"
+    },
+    {
+      "path": "docs/night1/final/swing/round-13/s5_night_swing_telemetry.csv",
+      "bytes": 1583308,
+      "sha256": "5256460a94da5dd9cb59e7fd1197da2cbddad3bb5ee3d57d34a3667d4de84178"
+    },
+    {
+      "path": "unreal/WebHomage/Scripts/traversal_web_material.py",
+      "bytes": 11679,
+      "sha256": "bb2a97f519f091cb81fcf84dc692d1b92070713ccaf04e20f6a6dd8120bec1a4"
+    },
+    {
+      "path": "unreal/WebHomage/Source/WebHomage/Traversal/WebTraversalComponent.h",
+      "bytes": 46820,
+      "sha256": "a5c0a2f6fe7a24d408f41f6f330de0a9d9072d413d68c113d72b47e60a974e87"
+    }
+  ],
+  "exclusions": [
+    "generated Unreal Content",
+    "build binaries and engine caches",
+    "raw screenshot frame caches",
+    "Kimi runtime transcripts and authentication/config stores"
+  ],
+  "status": "unfinished round 13; saved for recovery"
+}

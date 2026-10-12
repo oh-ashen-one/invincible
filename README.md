@@ -2,9 +2,9 @@
 
 A non-commercial web-swinging homage built from **[Spiderbench](https://github.com/xikhar/spiderbench), originally created by Shikhar**. This fork extends the browser game and carries that work into **Unreal Engine 5.8**, with native traversal, richer environments, original suit work, and focused improvements to flips, catches, firing animations and camera framing.
 
-**[Open the latest integrated enhancement branch →](https://github.com/oh-ashen-one/spider-man-2/tree/codex/round13-closeout-20261011)** · [Project history & proof](docs/PROJECT_HISTORY.md) · [Unreal setup](docs/UNREAL_PLAYTEST.md) · [Latest verified results](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-four-fixes-final/RESULTS.md)
+**[Explore the complete, current game on `main` →](https://github.com/oh-ashen-one/spider-man-2/tree/main)** · [Project history & proof](docs/PROJECT_HISTORY.md) · [Unreal setup](docs/UNREAL_PLAYTEST.md) · [Latest verified results](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-four-fixes-final/RESULTS.md)
 
-> **Which version should I use?** The current Unreal continuation is **`codex/round13-closeout-20261011`**. It includes the preserved Kimi starting point and the subsequent enhancements. The preservation branch is a historical backup, not a separate version you need to combine manually. `main` retains the browser code line; this overview is published on both branches.
+> **Which version should I use?** Use **`main`**. It now includes the browser game, the Unreal source, Kimi’s preserved starting point, and every enhancement that followed. The old continuation and preservation branches are historical checkpoints; you do not need to combine them.
 
 ![The enhanced Unreal traversal checkpoint, captured from the running game](https://raw.githubusercontent.com/oh-ashen-one/spider-man-2/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-four-fixes-reach-closeout/staged-smoke_00_t003.0.png)
 *Actual Unreal gameplay capture from the October 12 checkpoint, using the Tessera suit.*
@@ -78,13 +78,9 @@ npm run dev
 
 `npm run build` creates the browser production build. Press **H** in-game for its controls.
 
-### Latest Unreal continuation
+### Unreal continuation
 
-```bash
-git clone --branch codex/round13-closeout-20261011 https://github.com/oh-ashen-one/spider-man-2.git
-```
-
-Read [Unreal setup and playtest controls](docs/UNREAL_PLAYTEST.md). This is a source-and-builder project: generated Unreal content and compiled binaries are not bundled in the Git checkout. The verified owner checkpoint uses the installed Unreal Engine 5.8 runtime on a Mac Studio.
+The same `main` checkout contains the Unreal project. Read [Unreal setup and playtest controls](docs/UNREAL_PLAYTEST.md). This is a source-and-builder project: generated Unreal content and compiled binaries are not bundled in the Git checkout. The verified owner checkpoint uses the installed Unreal Engine 5.8 runtime on a Mac Studio.
 
 Core DualSense controls: **left stick** move, **right stick** camera, **R2** swing, **Cross** jump, **Square** air trick, **Triangle** zip, **Circle** drop, and **Options** pause/resume.
 

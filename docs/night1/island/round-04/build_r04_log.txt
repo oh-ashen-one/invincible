@@ -1,0 +1,33 @@
+free GB (decimal) before: 159
+[build_manhattan 16:49:20] === step cpp
+[build_manhattan 16:49:20] $ /Users/midir/sm2-n1/island/unreal/WebHomage/Scripts/build_editor.sh
+[build_manhattan 16:49:24] === step cpp done in 4 s
+[build_manhattan 16:49:24] === step city
+[build_manhattan 16:49:27] UE commandlet city_a -> log /Users/midir/sm2-n1/_scratch/island/logs/city_a.log (gpu_slot hold)
+[build_manhattan 16:59:51] UE commandlet city_a: rc 0, 624 s (hold 92.57 s), 0 python error lines
+[build_manhattan 16:59:51] UE commandlet city_a2 -> log /Users/midir/sm2-n1/_scratch/island/logs/city_a2.log (gpu_slot hold)
+[build_manhattan 17:00:45] UE commandlet city_a2: rc 0, 54 s (hold 54.15 s), 0 python error lines
+[build_manhattan 17:00:45] UE commandlet city_mesh_00 -> log /Users/midir/sm2-n1/_scratch/island/logs/city_mesh_00.log (gpu_slot hold)
+[build_manhattan 17:39:44] UE commandlet city_mesh_00: rc 0, 2339 s (hold 2338.35 s), 0 python error lines
+[build_manhattan 17:39:44] MESH_REMAINING: ['1002']
+[build_manhattan 17:39:44] UE commandlet city_mesh_01 -> log /Users/midir/sm2-n1/_scratch/island/logs/city_mesh_01.log (gpu_slot hold)
+[build_manhattan 18:12:25] UE commandlet city_mesh_01: rc 0, 1960 s (hold 1960.19 s), 0 python error lines
+[build_manhattan 18:12:25] MESH_REMAINING: ['202']
+[build_manhattan 18:12:25] UE commandlet city_mesh_02 -> log /Users/midir/sm2-n1/_scratch/island/logs/city_mesh_02.log (gpu_slot hold)
+[build_manhattan 18:27:24] UE commandlet city_mesh_02: rc 0, 899 s (hold 684.95 s), 0 python error lines
+[build_manhattan 18:27:24] MESH_REMAINING: ['0']
+[build_manhattan 18:27:24] UE commandlet city_proto_00 -> log /Users/midir/sm2-n1/_scratch/island/logs/city_proto_00.log (gpu_slot hold)
+[build_manhattan 18:32:52] UE commandlet city_proto_00: rc 0, 329 s (hold 328.38 s), 0 python error lines
+[build_manhattan 18:32:52] UE commandlet city_kit_00 -> log /Users/midir/sm2-n1/_scratch/island/logs/city_kit_00.log (gpu_slot hold)
+[build_manhattan 19:04:18] UE commandlet city_kit_00: rc 0, 1885 s (hold 1885.14 s), 0 python error lines
+[build_manhattan 19:04:18] KIT_REMAINING: ['216']
+[build_manhattan 19:04:18] UE commandlet city_kit_01 -> log /Users/midir/sm2-n1/_scratch/island/logs/city_kit_01.log (gpu_slot hold)
+[build_manhattan 19:37:07] UE commandlet city_kit_01: rc 0, 1969 s (hold 1509.96 s), 0 python error lines
+[build_manhattan 19:37:07] KIT_REMAINING: ['192']
+[build_manhattan 19:37:07] UE commandlet city_kit_02 -> log /Users/midir/sm2-n1/_scratch/island/logs/city_kit_02.log (gpu_slot hold)
+[build_manhattan 20:19:43] UE commandlet city_kit_02: rc 124, 2556 s (hold 2403.28 s), 0 python error lines
+[build_manhattan 20:19:43] KIT_REMAINING: ['144']
+[build_manhattan 20:19:43] UE commandlet city_kit_03 -> log /Users/midir/sm2-n1/_scratch/island/logs/city_kit_03.log (gpu_slot hold)
+[build_manhattan 21:19:43] gpu_slot exit 75 (not run), retry in 60 s
+[build_manhattan 21:20:43] UE commandlet city_kit_03 -> log /Users/midir/sm2-n1/_scratch/island/logs/city_kit_03.log (gpu_slot hold)
+docs/night1/island/build_r04.sh: line 18:  8652 Terminated: 15          SM2_ISLAND_GPU_SLOT=1 SM2_ISLAND_SPLIT_FROM=${SPLIT_FROM:-a} python3 unreal/WebHomage/Scripts/build_manhattan.py --steps ${STEPS:-cpp,city,traversal,characters,look,map}

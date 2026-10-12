@@ -1,0 +1,68 @@
+{
+ "log": "avoid_on_r6layout_walkers.csv",
+ "frames": 899,
+ "walkers": 18,
+ "radius_cm": 40.0,
+ "need_cm": 35.0,
+ "restarts_at_frames": [
+  481,
+  842
+ ],
+ "log_column_agrees": true,
+ "shots": [
+  {
+   "t0": 0.033,
+   "t1": 8.017,
+   "frames": 480,
+   "min_distance_cm": 80.37,
+   "at_time": 0.167,
+   "pair": [
+    "CitizenNear_02_leather_jacket",
+    "CitizenNear_05_black_tee"
+   ],
+   "frames_below_2x_need": 0,
+   "frames_below_2x_radius": 0,
+   "max_lane_offset_cm": 105.0,
+   "max_heading_dev_deg": 25.2,
+   "max_yaw_rate_deg_s": 227.1,
+   "median_min_distance_cm": 100.7
+  },
+  {
+   "t0": 8.033,
+   "t1": 14.033,
+   "frames": 361,
+   "min_distance_cm": 80.37,
+   "at_time": 8.15,
+   "pair": [
+    "CitizenNear_02_leather_jacket",
+    "CitizenNear_05_black_tee"
+   ],
+   "frames_below_2x_need": 0,
+   "frames_below_2x_radius": 0,
+   "max_lane_offset_cm": 70.0,
+   "max_heading_dev_deg": 25.1,
+   "max_yaw_rate_deg_s": 225.7,
+   "median_min_distance_cm": 100.1
+  },
+  {
+   "t0": 14.05,
+   "t1": 15.0,
+   "frames": 58,
+   "min_distance_cm": 80.37,
+   "at_time": 14.167,
+   "pair": [
+    "CitizenNear_02_leather_jacket",
+    "CitizenNear_05_black_tee"
+   ],
+   "frames_below_2x_need": 0,
+   "frames_below_2x_radius": 0,
+   "max_lane_offset_cm": 41.8,
+   "max_heading_dev_deg": 23.7,
+   "max_yaw_rate_deg_s": 224.1,
+   "median_min_distance_cm": 99.8
+  }
+ ],
+ "overall_min_distance_cm": 80.37,
+ "frames_below_2x_need": 0,
+ "frames_below_2x_radius": 0
+}

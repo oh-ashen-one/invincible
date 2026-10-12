@@ -1,0 +1,209 @@
+[
+ {
+  "t": 1.85,
+  "attacker": "Fight_Hero",
+  "clip": "hero:uppercut",
+  "victim": "Fight_Thug",
+  "reaction": "fight:down",
+  "dist_cm": 63.9,
+  "facing_error_deg": -0.0
+ },
+ {
+  "t": 2.95,
+  "attacker": "Fight_Hero",
+  "clip": "hero:kick",
+  "victim": "Fight_Oxblood",
+  "reaction": "fight:down",
+  "dist_cm": 99.7,
+  "facing_error_deg": 0.2
+ },
+ {
+  "t": 3.97,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch2",
+  "victim": "Fight_Tee",
+  "reaction": "fight:hitLeft",
+  "dist_cm": 81.5,
+  "facing_error_deg": -0.7
+ },
+ {
+  "t": 5.88,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch1",
+  "victim": "Fight_Brute",
+  "reaction": "fight:hitBack",
+  "dist_cm": 83.4,
+  "facing_error_deg": 1.8
+ },
+ {
+  "t": 6.88,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch3",
+  "victim": "Fight_Beard",
+  "reaction": "fight:hitRight",
+  "dist_cm": 68.5,
+  "facing_error_deg": -1.7
+ },
+ {
+  "t": 7.85,
+  "attacker": "Fight_Hero",
+  "clip": "hero:kick",
+  "victim": "Fight_Hood",
+  "reaction": "fight:hitBack",
+  "dist_cm": 97.9,
+  "facing_error_deg": 0.4
+ },
+ {
+  "t": 9.5,
+  "attacker": "Fight_Hero",
+  "clip": "hero:uppercut",
+  "victim": "Fight_Hood",
+  "reaction": "fight:down",
+  "dist_cm": 63.9,
+  "facing_error_deg": -0.3
+ },
+ {
+  "t": 10.6,
+  "attacker": "Fight_Hero",
+  "clip": "hero:kick",
+  "victim": "Fight_Beard",
+  "reaction": "fight:down",
+  "dist_cm": 99.7,
+  "facing_error_deg": 0.8
+ },
+ {
+  "t": 11.62,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch2",
+  "victim": "Fight_Brute",
+  "reaction": "fight:hitLeft",
+  "dist_cm": 90.2,
+  "facing_error_deg": -0.1
+ },
+ {
+  "t": 12.73,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch1",
+  "victim": "Fight_Tee",
+  "reaction": "fight:hitBack",
+  "dist_cm": 74.0,
+  "facing_error_deg": -0.7
+ },
+ {
+  "t": 14.43,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch3",
+  "victim": "Fight_Oxblood",
+  "reaction": "fight:hitRight",
+  "dist_cm": 68.5,
+  "facing_error_deg": 2.0
+ },
+ {
+  "t": 15.42,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch2",
+  "victim": "Fight_Thug",
+  "reaction": "fight:hitLeft",
+  "dist_cm": 80.2,
+  "facing_error_deg": -0.2
+ },
+ {
+  "t": 16.4,
+  "attacker": "Fight_Hero",
+  "clip": "hero:kick",
+  "victim": "Fight_Hood",
+  "reaction": "fight:hitBack",
+  "dist_cm": 97.9,
+  "facing_error_deg": -0.2
+ },
+ {
+  "t": 17.48,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch3",
+  "victim": "Fight_Beard",
+  "reaction": "fight:hitRight",
+  "dist_cm": 68.5,
+  "facing_error_deg": 1.5
+ },
+ {
+  "t": 18.45,
+  "attacker": "Fight_Hero",
+  "clip": "hero:uppercut",
+  "victim": "Fight_Brute",
+  "reaction": "fight:down",
+  "dist_cm": 74.0,
+  "facing_error_deg": 3.9
+ },
+ {
+  "t": 19.55,
+  "attacker": "Fight_Hero",
+  "clip": "hero:kick",
+  "victim": "Fight_Tee",
+  "reaction": "fight:down",
+  "dist_cm": 99.7,
+  "facing_error_deg": -0.8
+ },
+ {
+  "t": 20.63,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch1",
+  "victim": "Fight_Oxblood",
+  "reaction": "fight:hitBack",
+  "dist_cm": 74.0,
+  "facing_error_deg": 1.9
+ },
+ {
+  "t": 21.62,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch2",
+  "victim": "Fight_Thug",
+  "reaction": "fight:hitLeft",
+  "dist_cm": 80.2,
+  "facing_error_deg": -0.1
+ },
+ {
+  "t": 23.48,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch1",
+  "victim": "Fight_Hood",
+  "reaction": "fight:hitBack",
+  "dist_cm": 73.5,
+  "facing_error_deg": 1.5
+ },
+ {
+  "t": 24.48,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch3",
+  "victim": "Fight_Beard",
+  "reaction": "fight:hitRight",
+  "dist_cm": 68.5,
+  "facing_error_deg": -1.3
+ },
+ {
+  "t": 13.48,
+  "attacker": "Fight_Thug",
+  "clip": "thug:thugPunch1",
+  "victim": "Fight_Hero",
+  "reaction": "hero:hitReact",
+  "dist_cm": 77.0,
+  "facing_error_deg": 0.0
+ },
+ {
+  "t": 4.8,
+  "attacker": "Fight_Hood",
+  "clip": "thug:thugPunch2",
+  "victim": "Fight_Hero",
+  "reaction": "hero:hitReact",
+  "dist_cm": 83.0,
+  "facing_error_deg": -0.0
+ },
+ {
+  "t": 22.35,
+  "attacker": "Fight_Beard",
+  "clip": "thug:thugPunch2",
+  "victim": "Fight_Hero",
+  "reaction": "hero:hitReact",
+  "dist_cm": 83.0,
+  "facing_error_deg": 0.0
+ }
+]

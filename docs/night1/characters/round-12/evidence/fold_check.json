@@ -1,0 +1,115 @@
+{
+ "region_vertices": 1650,
+ "region_faces": 3396,
+ "max_weight_change": 0.193,
+ "poses": {
+  "idle@0.00": {
+   "original": {
+    "folded": 4,
+    "bent": 96,
+    "min_dot": 0.038
+   },
+   "smoothed": {
+    "folded": 2,
+    "bent": 88,
+    "min_dot": 0.201
+   }
+  },
+  "idle@1.00": {
+   "original": {
+    "folded": 2,
+    "bent": 80,
+    "min_dot": 0.083
+   },
+   "smoothed": {
+    "folded": 2,
+    "bent": 70,
+    "min_dot": 0.23
+   }
+  },
+  "run@0.00": {
+   "original": {
+    "folded": 62,
+    "bent": 209,
+    "min_dot": -0.925
+   },
+   "smoothed": {
+    "folded": 18,
+    "bent": 146,
+    "min_dot": -0.928
+   }
+  },
+  "run@0.10": {
+   "original": {
+    "folded": 70,
+    "bent": 188,
+    "min_dot": -0.998
+   },
+   "smoothed": {
+    "folded": 43,
+    "bent": 156,
+    "min_dot": -0.999
+   }
+  },
+  "run@0.20": {
+   "original": {
+    "folded": 65,
+    "bent": 205,
+    "min_dot": -0.997
+   },
+   "smoothed": {
+    "folded": 24,
+    "bent": 152,
+    "min_dot": -0.994
+   }
+  },
+  "run@0.30": {
+   "original": {
+    "folded": 62,
+    "bent": 216,
+    "min_dot": -1.0
+   },
+   "smoothed": {
+    "folded": 19,
+    "bent": 148,
+    "min_dot": -0.935
+   }
+  },
+  "sprint@0.00": {
+   "original": {
+    "folded": 85,
+    "bent": 234,
+    "min_dot": -0.998
+   },
+   "smoothed": {
+    "folded": 37,
+    "bent": 183,
+    "min_dot": -0.993
+   }
+  },
+  "sprint@0.15": {
+   "original": {
+    "folded": 60,
+    "bent": 179,
+    "min_dot": -1.0
+   },
+   "smoothed": {
+    "folded": 50,
+    "bent": 130,
+    "min_dot": -1.0
+   }
+  },
+  "fightIdle@0.00": {
+   "original": {
+    "folded": 34,
+    "bent": 155,
+    "min_dot": -0.548
+   },
+   "smoothed": {
+    "folded": 7,
+    "bent": 95,
+    "min_dot": -0.603
+   }
+  }
+ }
+}

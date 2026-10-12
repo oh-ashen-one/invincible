@@ -1,0 +1,39 @@
+{
+ "clip": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-17/crowd_tracking.mp4",
+ "frames": 480,
+ "fps": 60.0,
+ "duration": 8.0,
+ "median": 2.17,
+ "p99": 2.76,
+ "top": [
+  {
+   "t": 1.283,
+   "diff": 2.84
+  },
+  {
+   "t": 1.8,
+   "diff": 2.79
+  },
+  {
+   "t": 1.067,
+   "diff": 2.79
+  },
+  {
+   "t": 1.083,
+   "diff": 2.79
+  },
+  {
+   "t": 1.267,
+   "diff": 2.77
+  }
+ ],
+ "cuts": [],
+ "pass": true,
+ "at": [
+  {
+   "t": 7.483,
+   "diff": 2.27,
+   "neighbours": 2.02
+  }
+ ]
+}

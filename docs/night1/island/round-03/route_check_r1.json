@@ -1,0 +1,136 @@
+{
+ "summary": {
+  "routes": 1,
+  "seconds": 29.1,
+  "fall_through": 0,
+  "stuck": 0,
+  "mid_air_frames": 0,
+  "wall_air_frames": 0,
+  "anchors": 19,
+  "web_air": 0,
+  "facadeLod_min_dist_m": null,
+  "boxes": 173097,
+  "facadeLod_tiles": 0,
+  "drawn": {
+   "solids": 947650,
+   "kit_fireescape_platforms": 58770,
+   "ue_street_trunks": 1436
+  }
+ },
+ "routes": [
+  {
+   "csv": "r1_north_avenue_telemetry.csv",
+   "frames": 1748,
+   "seconds": 29.12,
+   "path_m": 1142.4,
+   "modes": {
+    "ground": 132,
+    "air": 815,
+    "swing": 789,
+    "wall": 12
+   },
+   "supported_frames": 132,
+   "fall_through": 0,
+   "stuck": 0,
+   "mid_air_frames": 0,
+   "wall_air_frames": 0,
+   "anchors": 19,
+   "web_air": 0,
+   "facadeLod_min_dist_m": null,
+   "events": {
+    "fall_through": [],
+    "stuck": [],
+    "mid_air": [],
+    "wall_air": [],
+    "web_air": []
+   },
+   "drawn": {
+    "mid_air_drawn_frames": 0,
+    "feet_overlap_frames": 0,
+    "feet_overlap_by_kind": {},
+    "feet_point_inside_frames": 0,
+    "web_air_drawn": 0,
+    "wall_air_drawn_frames": 0,
+    "swing": {
+     "releases_rewebbed": 13,
+     "unanswered_release_at_s": 28.417,
+     "max_reweb_gap_s": 1.733,
+     "reweb_gaps_over_0_5s": 12,
+     "ground_land_frac": 0.0755,
+     "distinct_swing_anchors": 14,
+     "gaps": [
+      [
+       3.95,
+       0.8
+      ],
+      [
+       6.133,
+       0.8
+      ],
+      [
+       7.967,
+       1.35
+      ],
+      [
+       10.367,
+       0.8
+      ],
+      [
+       12.217,
+       0.8
+      ],
+      [
+       14.033,
+       1.2
+      ],
+      [
+       16.083,
+       0.8
+      ],
+      [
+       17.883,
+       0.8
+      ],
+      [
+       19.65,
+       1.35
+      ],
+      [
+       22.033,
+       0.8
+      ],
+      [
+       23.683,
+       0.867
+      ],
+      [
+       24.567,
+       0.4
+      ],
+      [
+       26.017,
+       1.733
+      ]
+     ]
+    },
+    "land_events": [],
+    "events": {
+     "mid_air_drawn": [],
+     "feet_overlap": [],
+     "web_air_drawn": [],
+     "wall_air_drawn": []
+    }
+   },
+   "start": [
+    250.0,
+    243.992,
+    0.95
+   ],
+   "end": [
+    289.327,
+    -783.953,
+    38.877
+   ]
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{
+ "name": "probe_catch",
+ "note": "r06 F8 probe: airborne press, catch geometry like s3b (no trick)",
+ "seed": 1234,
+ "spawn": {"pos": [250, 200, 110], "yaw": -90.0, "camPitch": 0.12, "vel": [0, -22, 6]},
+ "keys": [{"t": 0.0, "move": [0, 1], "swing": false}, {"t": 0.9, "swing": true}, {"t": 2.0, "swing": false}]
+}

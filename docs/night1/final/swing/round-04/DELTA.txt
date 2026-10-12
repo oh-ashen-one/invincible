@@ -1,0 +1,21 @@
+round 03 > round 04 (rendered, pixel mask)
+line  s1_swing_chain   s2_press_variet  s3_flip_chain    s3b_flip_cases   s4_release_floa  s5_night_swing 
+W1    PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS      
+W2    PASS>FAIL        FAIL>FAIL        FAIL>PASS        PASS>PASS        PASS>PASS        PASS>FAIL      
+W3    PASS>PASS        FAIL>FAIL        PASS>FAIL        PASS>PASS        FAIL>PASS        PASS>PASS      
+W4    FAIL>PASS        FAIL>FAIL        FAIL>FAIL        FAIL>PASS        FAIL>FAIL        FAIL>PASS      
+W5    FAIL>FAIL        FAIL>FAIL        FAIL>FAIL        FAIL>FAIL        FAIL>FAIL        PASS>PASS      
+W6    PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS      
+W7    PASS>FAIL        FAIL>FAIL        FAIL>FAIL        FAIL>FAIL        PASS>PASS        PASS>FAIL      
+W8    PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS      
+W9    PASS>PASS        FAIL>FAIL        PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS      
+W10   PASS>PASS        FAIL>FAIL        PASS>FAIL        PASS>PASS        PASS>PASS        PASS>PASS      
+A1    PASS>PASS        FAIL>FAIL        PASS>FAIL        PASS>PASS        FAIL>PASS        PASS>PASS      
+A2    PASS>PASS        PASS>PASS        PASS>PASS        PASS>FAIL        PASS>PASS        PASS>PASS      
+A3    PASS>PASS        FAIL>FAIL        PASS>FAIL        PASS>PASS        PASS>PASS        PASS>PASS      
+A4    PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS        PASS>PASS      
+A5    n/a>n/a          FAIL>FAIL        FAIL>FAIL        FAIL>FAIL        n/a>n/a          n/a>n/a        
+A6    n/a>n/a          n/a>n/a          PASS>PASS        PASS>PASS        n/a>n/a          n/a>n/a        
+A7    n/a>n/a          PASS>PASS        FAIL>FAIL        PASS>PASS        n/a>n/a          n/a>n/a        
+P1    PASS>FAIL        FAIL>FAIL        FAIL>FAIL        FAIL>FAIL        FAIL>FAIL        PASS>FAIL      
+P2    ->PASS           ->PASS           ->PASS           ->PASS           ->PASS           ->PASS         

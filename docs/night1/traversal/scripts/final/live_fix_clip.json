@@ -1,0 +1,67 @@
+{
+ "name": "live_fix_clip",
+ "note": "s1-style chain (gap 0.9 s) + three mid-air F presses 0.4 s after a release; default tuning",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   560,
+   24
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.9,
+   "repressVz": 99.0,
+   "trickEvery": 0,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  },
+  {
+   "t": 2.0,
+   "trick": true
+  },
+  {
+   "t": 2.1,
+   "trick": false
+  },
+  {
+   "t": 4.8,
+   "trick": true
+  },
+  {
+   "t": 4.8999999999999995,
+   "trick": false
+  },
+  {
+   "t": 7.68,
+   "trick": true
+  },
+  {
+   "t": 7.779999999999999,
+   "trick": false
+  }
+ ]
+}

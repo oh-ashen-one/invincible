@@ -1,0 +1,34 @@
+{
+ "hero_walk": {
+  "knee_flexion_mean": 46.20341168654162,
+  "knee_flexion_min": 34.14063935931833,
+  "knee_flexion_max": 63.980213317518206,
+  "stance_knee_flexion_mean": 40.385324789231404,
+  "hips_height_mean": 0.9046567750699592,
+  "hips_height_min": 0.8911723494529724,
+  "hips_height_max": 0.9188276529312134
+ },
+ "walkStreet": {
+  "knee_flexion_mean": 20.28853594859405,
+  "knee_flexion_min": 3.6239056572715924,
+  "knee_flexion_max": 49.07212274814245,
+  "stance_knee_flexion_mean": 9.043916164898674,
+  "hips_height_mean": 0.9596567750699593,
+  "hips_height_min": 0.9461723494529725,
+  "hips_height_max": 0.9738276529312134,
+  "max_ankle_error_vs_hero_walk_m": 0.009552331703091277,
+  "keys": 33,
+  "duration_s": 1.0666667222976685
+ },
+ "walkBrute": {
+  "knee_flexion_mean": 26.92306803192187,
+  "knee_flexion_min": 7.484809429609129,
+  "knee_flexion_max": 51.883169459872335,
+  "stance_knee_flexion_mean": 17.714803052411547,
+  "hips_height_mean": 0.9496938798807049,
+  "hips_height_min": 0.9362200066778396,
+  "hips_height_max": 0.9637799957063463,
+  "keys": 37,
+  "duration_s": 1.2
+ }
+}

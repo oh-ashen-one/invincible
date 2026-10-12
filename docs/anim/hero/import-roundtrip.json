@@ -1,0 +1,484 @@
+{
+  "clips": 79,
+  "sampling": "every original glTF key timestamp",
+  "bones": 58,
+  "tolerance": 0.0002,
+  "max_error": 4.4226646423339844e-05,
+  "results": [
+    {
+      "clip": "airApex",
+      "duration": 1.0,
+      "max_world_matrix_error": 2.9027462005615234e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "airCombo",
+      "duration": 0.8666666746139526,
+      "max_world_matrix_error": 3.0100345611572266e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "airRise",
+      "duration": 0.800000011920929,
+      "max_world_matrix_error": 2.944469451904297e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "airTrick",
+      "duration": 0.8999999761581421,
+      "max_world_matrix_error": 2.9325485229492188e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "cornerWrap",
+      "duration": 0.7333333492279053,
+      "max_world_matrix_error": 4.017353057861328e-05,
+      "worst_bone": "toe.L"
+    },
+    {
+      "clip": "dodge",
+      "duration": 1.0666667222976685,
+      "max_world_matrix_error": 2.8789043426513672e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "dodgeSide",
+      "duration": 0.8999999761581421,
+      "max_world_matrix_error": 2.950429916381836e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "fall",
+      "duration": 0.800000011920929,
+      "max_world_matrix_error": 2.8312206268310547e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "fallCalm",
+      "duration": 1.0,
+      "max_world_matrix_error": 2.8789043426513672e-05,
+      "worst_bone": "thigh.R"
+    },
+    {
+      "clip": "fallFast",
+      "duration": 0.800000011920929,
+      "max_world_matrix_error": 2.8312206268310547e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "fightIdle",
+      "duration": 1.0,
+      "max_world_matrix_error": 2.6881694793701172e-05,
+      "worst_bone": "toe.L"
+    },
+    {
+      "clip": "finisher",
+      "duration": 1.399999976158142,
+      "max_world_matrix_error": 2.950429916381836e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "getUp",
+      "duration": 1.0,
+      "max_world_matrix_error": 2.9206275939941406e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "hitReact",
+      "duration": 0.5333333611488342,
+      "max_world_matrix_error": 2.8312206268310547e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "idle",
+      "duration": 5.0,
+      "max_world_matrix_error": 2.944469451904297e-05,
+      "worst_bone": "thigh.R"
+    },
+    {
+      "clip": "idleLook",
+      "duration": 6.0,
+      "max_world_matrix_error": 2.9265880584716797e-05,
+      "worst_bone": "thigh.R"
+    },
+    {
+      "clip": "jog",
+      "duration": 0.7333333492279053,
+      "max_world_matrix_error": 2.9742717742919922e-05,
+      "worst_bone": "shin.L"
+    },
+    {
+      "clip": "jump",
+      "duration": 0.5333333611488342,
+      "max_world_matrix_error": 2.950429916381836e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "jumpCrouch",
+      "duration": 0.6666666865348816,
+      "max_world_matrix_error": 2.390146255493164e-05,
+      "worst_bone": "toe.L"
+    },
+    {
+      "clip": "jumpLaunchHigh",
+      "duration": 0.8666666746139526,
+      "max_world_matrix_error": 2.950429916381836e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "jumpLaunchSmall",
+      "duration": 0.5333333611488342,
+      "max_world_matrix_error": 2.950429916381836e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "kick",
+      "duration": 0.7333333492279053,
+      "max_world_matrix_error": 3.7789344787597656e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "knockdown",
+      "duration": 1.0,
+      "max_world_matrix_error": 2.8431415557861328e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "land",
+      "duration": 0.7333333492279053,
+      "max_world_matrix_error": 2.855062484741211e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "landHard",
+      "duration": 1.3333333730697632,
+      "max_world_matrix_error": 2.9146671295166016e-05,
+      "worst_bone": "shin.L"
+    },
+    {
+      "clip": "landLight",
+      "duration": 0.46666666865348816,
+      "max_world_matrix_error": 2.956390380859375e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "landMedium",
+      "duration": 0.7333333492279053,
+      "max_world_matrix_error": 2.855062484741211e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "landRoll",
+      "duration": 0.8999999761581421,
+      "max_world_matrix_error": 2.956390380859375e-05,
+      "worst_bone": "shin.L"
+    },
+    {
+      "clip": "ledgeClimbFlip",
+      "duration": 1.0,
+      "max_world_matrix_error": 3.2782554626464844e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "ledgeClimbQuick",
+      "duration": 0.5,
+      "max_world_matrix_error": 3.2782554626464844e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "ledgeGrab",
+      "duration": 0.2666666805744171,
+      "max_world_matrix_error": 3.7789344787597656e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "perchIdle",
+      "duration": 5.0,
+      "max_world_matrix_error": 2.3603439331054688e-05,
+      "worst_bone": "shin.L"
+    },
+    {
+      "clip": "perchLand",
+      "duration": 0.7333333492279053,
+      "max_world_matrix_error": 3.081560134887695e-05,
+      "worst_bone": "thigh.L"
+    },
+    {
+      "clip": "perchToStand",
+      "duration": 0.8666666746139526,
+      "max_world_matrix_error": 3.075599670410156e-05,
+      "worst_bone": "toe.L"
+    },
+    {
+      "clip": "pointLaunch",
+      "duration": 1.100000023841858,
+      "max_world_matrix_error": 3.039836883544922e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "punch1",
+      "duration": 0.46666666865348816,
+      "max_world_matrix_error": 2.759695053100586e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "punch2",
+      "duration": 0.5333333611488342,
+      "max_world_matrix_error": 2.8133392333984375e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "punch3",
+      "duration": 0.6666666865348816,
+      "max_world_matrix_error": 2.8073787689208984e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "releaseCorkscrew",
+      "duration": 1.0,
+      "max_world_matrix_error": 2.8848648071289062e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "releaseFlip",
+      "duration": 0.8999999761581421,
+      "max_world_matrix_error": 2.9325485229492188e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "releaseSpread",
+      "duration": 1.2000000476837158,
+      "max_world_matrix_error": 2.759695053100586e-05,
+      "worst_bone": "shin.L"
+    },
+    {
+      "clip": "releaseTuck",
+      "duration": 0.6666666865348816,
+      "max_world_matrix_error": 2.8014183044433594e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "run",
+      "duration": 0.6333333253860474,
+      "max_world_matrix_error": 2.962350845336914e-05,
+      "worst_bone": "thigh.R"
+    },
+    {
+      "clip": "runStart",
+      "duration": 0.5333333611488342,
+      "max_world_matrix_error": 2.956390380859375e-05,
+      "worst_bone": "shin.L"
+    },
+    {
+      "clip": "runStop",
+      "duration": 0.8666666746139526,
+      "max_world_matrix_error": 3.123283386230469e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "sprint",
+      "duration": 0.5333333611488342,
+      "max_world_matrix_error": 2.7179718017578125e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "swing",
+      "duration": 1.8666666746139526,
+      "max_world_matrix_error": 2.8789043426513672e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "swingBottom",
+      "duration": 1.2000000476837158,
+      "max_world_matrix_error": 2.9146671295166016e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "swingBottomL",
+      "duration": 1.2000000476837158,
+      "max_world_matrix_error": 2.9027462005615234e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "swingCornerBank",
+      "duration": 1.2000000476837158,
+      "max_world_matrix_error": 2.6524066925048828e-05,
+      "worst_bone": "shin.R"
+    },
+    {
+      "clip": "swingCornerBankL",
+      "duration": 1.2000000476837158,
+      "max_world_matrix_error": 2.676248550415039e-05,
+      "worst_bone": "shin.L"
+    },
+    {
+      "clip": "swingHigh",
+      "duration": 1.2000000476837158,
+      "max_world_matrix_error": 2.7477741241455078e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "swingHighL",
+      "duration": 1.2000000476837158,
+      "max_world_matrix_error": 2.759695053100586e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "swingL",
+      "duration": 1.8666666746139526,
+      "max_world_matrix_error": 2.8967857360839844e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "swingLow",
+      "duration": 1.2000000476837158,
+      "max_world_matrix_error": 2.8789043426513672e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "swingLowL",
+      "duration": 1.2000000476837158,
+      "max_world_matrix_error": 2.866983413696289e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "swingTwoHanded",
+      "duration": 1.3333333730697632,
+      "max_world_matrix_error": 2.962350845336914e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "turn180",
+      "duration": 0.7333333492279053,
+      "max_world_matrix_error": 3.063678741455078e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "uppercut",
+      "duration": 0.7333333492279053,
+      "max_world_matrix_error": 2.8908252716064453e-05,
+      "worst_bone": "thigh.L"
+    },
+    {
+      "clip": "walk",
+      "duration": 1.0666667222976685,
+      "max_world_matrix_error": 2.962350845336914e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "wallCrawl",
+      "duration": 0.8999999761581421,
+      "max_world_matrix_error": 4.4226646423339844e-05,
+      "worst_bone": "toe.L"
+    },
+    {
+      "clip": "wallCrawlFast",
+      "duration": 0.6000000238418579,
+      "max_world_matrix_error": 4.1484832763671875e-05,
+      "worst_bone": "toe.L"
+    },
+    {
+      "clip": "wallIdle",
+      "duration": 6.0,
+      "max_world_matrix_error": 3.606081008911133e-05,
+      "worst_bone": "toe.L"
+    },
+    {
+      "clip": "wallJump",
+      "duration": 0.6666666865348816,
+      "max_world_matrix_error": 3.898143768310547e-05,
+      "worst_bone": "toe.L"
+    },
+    {
+      "clip": "wallPerch",
+      "duration": 2.6666667461395264,
+      "max_world_matrix_error": 2.6881694793701172e-05,
+      "worst_bone": "shin.L"
+    },
+    {
+      "clip": "wallRun",
+      "duration": 0.5666666626930237,
+      "max_world_matrix_error": 3.269314765930176e-05,
+      "worst_bone": "thigh.L"
+    },
+    {
+      "clip": "wallRunHorizontal",
+      "duration": 0.6333333253860474,
+      "max_world_matrix_error": 3.0338764190673828e-05,
+      "worst_bone": "shin.R"
+    },
+    {
+      "clip": "wallToRoofVault",
+      "duration": 1.0,
+      "max_world_matrix_error": 4.112720489501953e-05,
+      "worst_bone": "toe.L"
+    },
+    {
+      "clip": "webShoot",
+      "duration": 0.6000000238418579,
+      "max_world_matrix_error": 2.9146671295166016e-05,
+      "worst_bone": "thigh.R"
+    },
+    {
+      "clip": "webShootL",
+      "duration": 0.6000000238418579,
+      "max_world_matrix_error": 2.9146671295166016e-05,
+      "worst_bone": "thigh.R"
+    },
+    {
+      "clip": "webShootR",
+      "duration": 0.6000000238418579,
+      "max_world_matrix_error": 2.9146671295166016e-05,
+      "worst_bone": "thigh.R"
+    },
+    {
+      "clip": "webStrike",
+      "duration": 0.9333333373069763,
+      "max_world_matrix_error": 2.765655517578125e-05,
+      "worst_bone": "toe.R"
+    },
+    {
+      "clip": "webZipFire",
+      "duration": 0.36666667461395264,
+      "max_world_matrix_error": 2.9265880584716797e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "webZipPull",
+      "duration": 1.0,
+      "max_world_matrix_error": 2.9921531677246094e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "webZipYank",
+      "duration": 0.1666666716337204,
+      "max_world_matrix_error": 2.9206275939941406e-05,
+      "worst_bone": "foot.R"
+    },
+    {
+      "clip": "zipCatch",
+      "duration": 0.2666666805744171,
+      "max_world_matrix_error": 2.956390380859375e-05,
+      "worst_bone": "thigh.L"
+    },
+    {
+      "clip": "zipCatchLevel",
+      "duration": 0.30000001192092896,
+      "max_world_matrix_error": 3.081560134887695e-05,
+      "worst_bone": "shin.L"
+    },
+    {
+      "clip": "zipFlight",
+      "duration": 0.800000011920929,
+      "max_world_matrix_error": 2.9146671295166016e-05,
+      "worst_bone": "foot.L"
+    },
+    {
+      "clip": "zipFlightLevel",
+      "duration": 0.800000011920929,
+      "max_world_matrix_error": 2.7954578399658203e-05,
+      "worst_bone": "foot.L"
+    }
+  ],
+  "passed": true
+}

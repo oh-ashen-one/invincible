@@ -1,0 +1,250 @@
+{
+ "r15": {
+  "movie": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-15/swap_pawn_T_key.mp4",
+  "fps": 60.0,
+  "frames_0_1p5s": 93,
+  "luma_diff_median": 2.546,
+  "luma_diff_max": 5.2,
+  "P1_pops_whole_frame": [],
+  "P1_pops_hero_blob": [],
+  "P1_ok": true,
+  "diffs_first_15": [
+   [
+    0.017,
+    0.255,
+    0.626
+   ],
+   [
+    0.033,
+    0.244,
+    0.56
+   ],
+   [
+    0.05,
+    0.139,
+    0.392
+   ],
+   [
+    0.067,
+    0.112,
+    0.33
+   ],
+   [
+    0.083,
+    0.122,
+    0.473
+   ],
+   [
+    0.1,
+    0.189,
+    0.478
+   ],
+   [
+    0.117,
+    0.084,
+    0.315
+   ],
+   [
+    0.133,
+    0.086,
+    0.294
+   ],
+   [
+    0.15,
+    0.097,
+    0.354
+   ],
+   [
+    0.167,
+    0.142,
+    0.435
+   ],
+   [
+    0.183,
+    0.059,
+    0.222
+   ],
+   [
+    0.2,
+    0.067,
+    0.26
+   ],
+   [
+    0.217,
+    0.08,
+    0.356
+   ],
+   [
+    0.233,
+    0.128,
+    0.483
+   ],
+   [
+    0.25,
+    0.054,
+    0.272
+   ]
+  ],
+  "telemetry": {
+   "rows": 689,
+   "anim_weight_max_step": 0.0,
+   "limit_per_frame": 0.0928,
+   "P2_anim_weight_step_ok": true,
+   "anim_weight_min": 1.0,
+   "anim_weight_max": 1.0,
+   "pose_sig_step_max": 0.1303,
+   "at_t": 1.0833,
+   "pose_sig_step_median_0p5_2": 0.0768,
+   "pose_sig_step_max_over_median": 1.7,
+   "clip_switches_0_1p5s": [
+    {
+     "t": 0.9,
+     "to": "A_Hero_jog"
+    },
+    {
+     "t": 1.0,
+     "to": "A_Hero_run"
+    }
+   ]
+  }
+ },
+ "r14": {
+  "movie": "docs/night1/characters/round-14/swap_pawn_T_key.mp4",
+  "fps": 60.0,
+  "frames_0_1p5s": 93,
+  "luma_diff_median": 3.348,
+  "luma_diff_max": 9.474,
+  "P1_pops_whole_frame": [
+   {
+    "t": 0.1333,
+    "diff": 9.474,
+    "neighbours": [
+     4.459,
+     3.743
+    ]
+   }
+  ],
+  "P1_pops_hero_blob": [
+   {
+    "t": 0.1333,
+    "diff": 70.945,
+    "neighbours": [
+     27.879,
+     28.202
+    ]
+   }
+  ],
+  "P1_ok": false,
+  "diffs_first_15": [
+   [
+    0.017,
+    3.153,
+    27.481
+   ],
+   [
+    0.033,
+    3.626,
+    29.542
+   ],
+   [
+    0.05,
+    3.976,
+    30.443
+   ],
+   [
+    0.067,
+    4.257,
+    29.992
+   ],
+   [
+    0.083,
+    4.498,
+    31.73
+   ],
+   [
+    0.1,
+    4.527,
+    30.839
+   ],
+   [
+    0.117,
+    4.459,
+    27.879
+   ],
+   [
+    0.133,
+    9.474,
+    70.945
+   ],
+   [
+    0.15,
+    3.743,
+    28.202
+   ],
+   [
+    0.167,
+    1.762,
+    19.005
+   ],
+   [
+    0.183,
+    2.329,
+    20.908
+   ],
+   [
+    0.2,
+    2.688,
+    23.305
+   ],
+   [
+    0.217,
+    2.89,
+    24.215
+   ],
+   [
+    0.233,
+    2.678,
+    22.323
+   ],
+   [
+    0.25,
+    2.456,
+    21.836
+   ]
+  ],
+  "telemetry": {
+   "rows": 689,
+   "anim_weight_max_step": 0.0,
+   "limit_per_frame": 0.0928,
+   "P2_anim_weight_step_ok": true,
+   "anim_weight_min": 1.0,
+   "anim_weight_max": 1.0,
+   "pose_sig_step_max": 0.2463,
+   "at_t": 0.2,
+   "pose_sig_step_median_0p5_2": 0.082,
+   "pose_sig_step_max_over_median": 3.0,
+   "clip_switches_0_1p5s": [
+    {
+     "t": 0.15,
+     "to": "A_Hero_airRise"
+    },
+    {
+     "t": 0.3,
+     "to": "A_Hero_idle"
+    },
+    {
+     "t": 0.8167,
+     "to": "A_Hero_walk"
+    },
+    {
+     "t": 0.8667,
+     "to": "A_Hero_jog"
+    },
+    {
+     "t": 0.9833,
+     "to": "A_Hero_run"
+    }
+   ]
+  }
+ }
+}

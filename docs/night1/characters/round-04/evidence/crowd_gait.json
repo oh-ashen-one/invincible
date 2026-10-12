@@ -1,0 +1,102 @@
+{
+ "walk": {
+  "original": {
+   "frames": 32,
+   "period_s": 1.0667,
+   "natural_speed_mps": 1.1732,
+   "foot_slide_per_plant_cm_max": 5.55,
+   "foot_slide_per_plant_cm_median": 5.55,
+   "plants": 2,
+   "cadence_steps_per_s": 1.875
+  },
+  "warped": {
+   "frames": 32,
+   "period_s": 1.0667,
+   "natural_speed_mps": 1.1732,
+   "foot_slide_per_plant_cm_max": 2.28,
+   "foot_slide_per_plant_cm_median": 2.28,
+   "plants": 2,
+   "cadence_steps_per_s": 1.875
+  }
+ },
+ "walkF": {
+  "original": {
+   "frames": 30,
+   "period_s": 1.0,
+   "natural_speed_mps": 1.1238,
+   "foot_slide_per_plant_cm_max": 4.64,
+   "foot_slide_per_plant_cm_median": 4.64,
+   "plants": 2,
+   "cadence_steps_per_s": 2.0
+  },
+  "warped": {
+   "frames": 30,
+   "period_s": 1.0,
+   "natural_speed_mps": 1.1365,
+   "foot_slide_per_plant_cm_max": 0.93,
+   "foot_slide_per_plant_cm_median": 0.93,
+   "plants": 2,
+   "cadence_steps_per_s": 2.0
+  }
+ },
+ "walkBrisk": {
+  "original": {
+   "frames": 29,
+   "period_s": 0.9667,
+   "natural_speed_mps": 1.4802,
+   "foot_slide_per_plant_cm_max": 6.45,
+   "foot_slide_per_plant_cm_median": 6.21,
+   "plants": 2,
+   "cadence_steps_per_s": 2.069
+  },
+  "warped": {
+   "frames": 29,
+   "period_s": 0.9667,
+   "natural_speed_mps": 1.4794,
+   "foot_slide_per_plant_cm_max": 2.93,
+   "foot_slide_per_plant_cm_median": 2.88,
+   "plants": 2,
+   "cadence_steps_per_s": 2.069
+  }
+ },
+ "walkStroll": {
+  "original": {
+   "frames": 38,
+   "period_s": 1.2667,
+   "natural_speed_mps": 0.7601,
+   "foot_slide_per_plant_cm_max": 5.63,
+   "foot_slide_per_plant_cm_median": 5.63,
+   "plants": 2,
+   "cadence_steps_per_s": 1.579
+  },
+  "warped": {
+   "frames": 38,
+   "period_s": 1.2667,
+   "natural_speed_mps": 0.7601,
+   "foot_slide_per_plant_cm_max": 1.78,
+   "foot_slide_per_plant_cm_median": 1.78,
+   "plants": 2,
+   "cadence_steps_per_s": 1.579
+  }
+ },
+ "walkOld": {
+  "original": {
+   "frames": 40,
+   "period_s": 1.3333,
+   "natural_speed_mps": 0.5841,
+   "foot_slide_per_plant_cm_max": 4.66,
+   "foot_slide_per_plant_cm_median": 4.66,
+   "plants": 2,
+   "cadence_steps_per_s": 1.5
+  },
+  "warped": {
+   "frames": 40,
+   "period_s": 1.3333,
+   "natural_speed_mps": 0.5841,
+   "foot_slide_per_plant_cm_max": 1.22,
+   "foot_slide_per_plant_cm_median": 1.22,
+   "plants": 2,
+   "cadence_steps_per_s": 1.5
+  }
+ }
+}

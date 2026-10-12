@@ -1,0 +1,35 @@
+# Swing cadence check, round 08 (cadence_check.py, first 12 s)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+a_swing_chain: first 12 s (721 frames)
+  web attaches: 7  (target >= 7)  PASS
+   #    t0    t1   dur  relH  lowH  drop exitH peakH  rel-vs-peak  body-rope@low
+   1  0.40  2.15  1.75  21.0   5.0  16.1  15.7  15.7    +0.0 m    0.3
+   2  2.53  4.07  1.53  19.0   5.2  13.8  17.2  17.2    +0.0 m    1.0
+   3  4.40  5.67  1.27  19.9   5.1  14.8  15.1  15.1    +0.0 m    3.7
+   4  6.32  7.68  1.37  19.4   5.0  14.4  17.7  17.7    +0.0 m    1.7
+   5  8.02  9.17  1.15  20.3   5.8  14.5  16.7  16.7    +0.0 m    4.4
+   6  9.52 11.17  1.65  19.6   0.5  19.1  14.5  14.5    +0.0 m    2.1
+   7 11.82 12.00  0.18  19.0  11.3   7.7  11.3  11.3    +0.0 m    10.0
+  attach->release (complete swings): 1.15..1.75 s, mean 1.45 (target 1.2-1.8)
+  web-less gaps: 2.17+0.15, 4.08+0.15, 5.68+0.63T, 7.70+0.15, 9.18+0.15, 11.18+0.63T
+  longest gap 0.63 s; gaps > 0.6 s without a trick: 0  PASS
+  drop per swing (after the first): min 13.8 m  (target >= 10)  PASS
+  rope on screen (web stuck + hero in frame): 585/721 = 81.1%  (target >= 75)  PASS
+  body vs rope at the arc bottom: max 4.4 deg  (target <= 15)  PASS
+
+d_sprint_jump_first_swing: first 12 s (718 frames)
+  web attaches: 6  (target >= 7)  FAIL
+   #    t0    t1   dur  relH  lowH  drop exitH peakH  rel-vs-peak  body-rope@low
+   1  2.68  4.07  1.38   5.0   2.2   2.8   9.7   9.7    +0.0 m    1.7
+   2  4.55  6.33  1.78  14.5   3.0  11.5  14.1  14.1    +0.0 m    0.3
+   3  6.75  8.20  1.45  18.0   5.5  12.4  17.1  17.1    +0.0 m    1.4
+   4  8.85 10.25  1.40  20.7   4.6  16.0  16.9  16.9    +0.0 m    1.5
+   5 10.60 11.68  1.08  19.7   8.6  11.1  19.5  19.5    +0.0 m    3.5
+   6 11.95 11.95  0.00  21.5  21.5  -0.0  21.5  21.5    +0.0 m    -
+  attach->release (complete swings): 1.08..1.78 s, mean 1.42 (target 1.2-1.8)
+  web-less gaps: 4.08+0.15, 6.35+0.15, 8.22+0.63T, 10.27+0.15, 11.70+0.15
+  longest gap 0.63 s; gaps > 0.6 s without a trick: 0  PASS
+  drop per swing (after the first): min 11.1 m  (target >= 10)  PASS
+  rope on screen (web stuck + hero in frame): 488/718 = 68.0%  (target >= 75)  FAIL
+  body vs rope at the arc bottom: max 3.5 deg  (target <= 15)  PASS

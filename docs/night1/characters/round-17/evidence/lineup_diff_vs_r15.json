@@ -1,0 +1,23 @@
+{
+ "a": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-17/enemy_lineup_4k.jpg",
+ "ref": "docs/night1/characters/round-15/enemy_lineup_4k.jpg",
+ "thr": 20,
+ "size": [
+  3840,
+  2160
+ ],
+ "pct_over": 0.436,
+ "pct_over_in_band": 1.441,
+ "pct_over_outside_band": 0.0,
+ "p50": 1,
+ "p99": 9,
+ "mean_abs": 1.841,
+ "band": [
+  480,
+  640,
+  3400,
+  1500
+ ],
+ "tiles_over_20pct": 0,
+ "tiles": 144
+}

@@ -1,0 +1,85 @@
+[
+ {
+  "file": "docs/night1/city/round-11/S4_perch_skyline_1920x1080.jpg",
+  "sky_Y": 228.79942321777344,
+  "far_Y": 160.5919952392578,
+  "river_Y": 137.2782440185547,
+  "near_Y": 80.78057098388672,
+  "box_mean_Y": 151.67189025878906,
+  "box_pct204": 6.596923076923076,
+  "T1_std": {
+   "first_Y_lt_215": 23.5815969768023,
+   "first_absdY_gt_4": 24.628401414079185,
+   "first_Y_lt_sky_minus_12": 23.625354585485923
+  },
+  "T1_pass": true,
+  "T2_pass": true,
+  "C13_critic_box": -57.119964599609375,
+  "T4": {
+   "blocks": 810,
+   "bright": 24,
+   "flat_bright": 11,
+   "flat_of_bright_pct": 45.833333333333336,
+   "flat_of_all_pct": 1.3580246913580247,
+   "bright_of_all_pct": 2.962962962962963
+  },
+  "T4_pass": false,
+  "lines": {
+   "C11 lap/sky": {
+    "value": 30.27,
+    "target": ">= 6.0",
+    "passed": true
+   },
+   "C11 flat8 %": {
+    "value": 0.0,
+    "target": "<= 40",
+    "passed": true
+   },
+   "C12 dBR": {
+    "value": -0.06,
+    "target": "+-10",
+    "passed": true
+   },
+   "C13 far-sky Y": {
+    "value": -68.21,
+    "target": "-35..-25",
+    "passed": false
+   },
+   "C13 far>near": {
+    "value": 79.81,
+    "target": "> 0",
+    "passed": true
+   },
+   "C14 far-river Y": {
+    "value": 23.31,
+    "target": "5..35",
+    "passed": true
+   },
+   "C15 rms far/near": {
+    "value": 0.31,
+    "target": "0.25..0.45",
+    "passed": true
+   }
+  },
+  "silhouette": {
+   "first_Y_lt_215": {
+    "std": 23.5815969768023,
+    "mean": 127.04615384615384,
+    "p5": 100.0,
+    "p95": 164.0
+   },
+   "first_absdY_gt_4": {
+    "std": 24.628401414079185,
+    "mean": 135.7276923076923,
+    "p5": 100.0,
+    "p95": 177.0
+   },
+   "first_Y_lt_sky_minus_12": {
+    "std": 23.625354585485923,
+    "mean": 126.98230769230769,
+    "p5": 100.0,
+    "p95": 164.0
+   }
+  }
+ }
+]

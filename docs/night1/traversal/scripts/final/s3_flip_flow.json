@@ -1,0 +1,92 @@
+{
+ "name": "s3_flip_flow",
+ "note": "one continuous chain: a flow flip on every release, stick changing between flips, 24 s",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   560,
+   40
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   6
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "swing": false
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.3,
+   "repressVz": 99.0,
+   "trickEvery": 1,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  },
+  {
+   "t": 3.0,
+   "move": [
+    0.7,
+    0.7
+   ]
+  },
+  {
+   "t": 6.0,
+   "move": [
+    0,
+    1
+   ]
+  },
+  {
+   "t": 9.0,
+   "move": [
+    -0.7,
+    0.7
+   ]
+  },
+  {
+   "t": 12.0,
+   "move": [
+    0,
+    -0.8
+   ]
+  },
+  {
+   "t": 15.0,
+   "move": [
+    0,
+    1
+   ]
+  },
+  {
+   "t": 18.0,
+   "move": [
+    0.7,
+    0.7
+   ]
+  },
+  {
+   "t": 21.0,
+   "move": [
+    -0.7,
+    0.7
+   ]
+  }
+ ],
+ "tune": "ArcLowMin=15,ArcDropShallow=8,ArcDropDeep=12,WallClearance=14,AltChain=0,AnchorAltDeg=8,AnchorElevMin=0.1,AnchorAheadMin=-2"
+}

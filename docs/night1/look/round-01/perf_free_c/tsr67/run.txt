@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/look/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_c/tsr67 -map /Game/Tests/Look/Look_Midtown -res 3840x2160 -perf 22:52 -name tsr67 -timeout 900 -exec r.ScreenPercentage 67 -- -WHTravScript=/Users/midir/sm2-n1/look/tools/perf_ue/scripts/city_swing_avenue.json -WHTravCsv=/Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_c/tsr67/trav_telemetry.csv -csvGpuStats
+
+run_game: out=/Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_c/tsr67 res=3840x2160 quit=53.0 window=0 movie=0
+WH_PERF_START t=22.02
+WH_PERF frames=1020 avg_ms=29.41 fps=34.0 p95_ms=34.92 p99_ms=38.36 gpu_avg_ms=27.49 out=3840x2160 internal=2573x1447 (manual) -> /Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_c/tsr67/tsr67_perf.json
+WH_QUIT t=53.03
+

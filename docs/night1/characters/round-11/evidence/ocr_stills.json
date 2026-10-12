@@ -1,0 +1,412 @@
+{
+ "total_hits": 1,
+ "deny_terms": 42,
+ "images": {
+  "skin_ash_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_ash_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "ACRAL",
+    "ANNAN",
+    "APIE",
+    "ARIS",
+    "ASEEALE",
+    "METE",
+    "SARA",
+    "SCALE",
+    "SEAT",
+    "SOTS",
+    "SPEE",
+    "TTHE",
+    "UCEAALE"
+   ]
+  },
+  "skin_ash_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_ash_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "DIVINE",
+    "OMAN",
+    "RASS",
+    "SANS",
+    "SASS",
+    "SASSO",
+    "SONS",
+    "SOOM",
+    "SSNS",
+    "SSSOER",
+    "SSSOES",
+    "SSSSNSS",
+    "WAKER",
+    "WRERY"
+   ]
+  },
+  "skin_cinder_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_cinder_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "EATS",
+    "ENEE",
+    "ERES",
+    "EWEREN",
+    "FETT",
+    "FIKE",
+    "IINIS",
+    "IISS",
+    "PINE",
+    "PUTE",
+    "SAAT",
+    "SACIEMES",
+    "SERE",
+    "SIETE",
+    "SINE",
+    "TEIIE"
+   ]
+  },
+  "skin_cinder_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_cinder_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_glacier_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "ANEMANANANMS",
+    "ANENANANNNM",
+    "ANTE"
+   ]
+  },
+  "skin_glacier_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AEAT",
+    "AIRE",
+    "ATES",
+    "BORS",
+    "CAEL",
+    "CEEEES",
+    "DORE",
+    "EASE",
+    "EEEEEEEEE",
+    "EEET",
+    "ETER",
+    "FELT",
+    "FIAT",
+    "ICAL",
+    "ICIN",
+    "IIEIE",
+    "INET",
+    "INIT",
+    "ITER",
+    "ITES",
+    "NICKS",
+    "PAES",
+    "PATS",
+    "PEES",
+    "PERS",
+    "PORE",
+    "RITE",
+    "SAILS",
+    "SASS",
+    "SECTS",
+    "SEEEEEE",
+    "SEELE",
+    "SEES",
+    "SERE",
+    "SERR",
+    "SETA",
+    "SETE",
+    "SIIEIC",
+    "TANA",
+    "TEET"
+   ]
+  },
+  "skin_glacier_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_glacier_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AGIN",
+    "ATOKE",
+    "ATTIC",
+    "FETT",
+    "NERO",
+    "REIR",
+    "SETE",
+    "STEIN",
+    "STENCH",
+    "TELLY",
+    "TINA",
+    "TIRE",
+    "TOTE",
+    "TROI"
+   ]
+  },
+  "skin_plum_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_plum_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "GYEOE",
+    "WGPECE"
+   ]
+  },
+  "skin_plum_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "CECE",
+    "EOUEN",
+    "SANE",
+    "SEES"
+   ]
+  },
+  "skin_plum_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "CLIN",
+    "SESE"
+   ]
+  },
+  "skin_saffron_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_saffron_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AIOE",
+    "CATER",
+    "DETE",
+    "GATE",
+    "SAIS",
+    "SALE",
+    "SEAR",
+    "SEES",
+    "SELEY",
+    "SIAR",
+    "SINIE",
+    "SINIME",
+    "SIRE",
+    "STET",
+    "STETS"
+   ]
+  },
+  "skin_saffron_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_saffron_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_sage_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_sage_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AICI",
+    "AIOE",
+    "AIRE",
+    "AIRS",
+    "ALTE",
+    "ARTE",
+    "BELE",
+    "BESSIE",
+    "BREST",
+    "CATE",
+    "CERE",
+    "CIES",
+    "ESTE",
+    "ETRE",
+    "FEET",
+    "FITE",
+    "FRIE",
+    "IAIE",
+    "IEEE",
+    "IIAIR",
+    "INES",
+    "INKS",
+    "IRAE",
+    "IRET",
+    "LAOS",
+    "LAPENT",
+    "PAIS",
+    "PESTER",
+    "REALEST",
+    "REST",
+    "RETE",
+    "RETEST",
+    "RETT",
+    "RICS",
+    "RRTH",
+    "SAPIEN",
+    "SAPTE",
+    "SCAT",
+    "SCIE",
+    "SEER"
+   ]
+  },
+  "skin_sage_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "EEEE"
+   ]
+  },
+  "skin_sage_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AAAS",
+    "AANA",
+    "AMAKKE",
+    "AMKKKE",
+    "ANAK",
+    "ANAS",
+    "ANNA",
+    "ANNAN",
+    "CINE",
+    "CONE",
+    "CORE",
+    "CREE",
+    "EAAN",
+    "ENED",
+    "ITES",
+    "MAAN",
+    "MAXY",
+    "MITE",
+    "MKKE",
+    "NAIN",
+    "NEER",
+    "SAAN",
+    "SAMAK",
+    "SAMY",
+    "SANK",
+    "SASK",
+    "SINK",
+    "SOMA",
+    "SONNY",
+    "SSAA",
+    "SSAAKG",
+    "SSNS",
+    "SSSI",
+    "WIIS"
+   ]
+  },
+  "skin_tessera_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_tessera_chest_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "NECKS",
+    "PECK",
+    "SAMS",
+    "STEW"
+   ]
+  },
+  "skin_tessera_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "COON",
+    "EEEEEEE",
+    "IEAIEE",
+    "INCITE",
+    "OEEE",
+    "SESE",
+    "SESEEEEETE"
+   ]
+  },
+  "skin_tessera_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "SSSEA",
+    "SSSED",
+    "WATS"
+   ]
+  },
+  "skin_verdant_back_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "skin_verdant_chest_4k.jpg": {
+   "denylist_hits": [
+    "MILES"
+   ],
+   "words_ge4": [
+    "AICI",
+    "ALIN",
+    "AREAL",
+    "ASTER",
+    "CAKES",
+    "CCTICES",
+    "CRIES",
+    "CRISE",
+    "DIET",
+    "EATER",
+    "ETER",
+    "FAIM",
+    "FEIT",
+    "FERAL",
+    "IAESEAE",
+    "IRIS",
+    "ITES",
+    "MALES",
+    "MILES",
+    "MOTE",
+    "ORCA",
+    "PAAAIRS",
+    "PITA",
+    "PUKE",
+    "RAAT",
+    "RABIES",
+    "RARE",
+    "REAIS",
+    "REESER",
+    "RELEETOM",
+    "RIES",
+    "SAKE",
+    "SATIS",
+    "SEELY",
+    "SELE",
+    "SETE",
+    "SINA",
+    "SREE",
+    "STES",
+    "TALE"
+   ]
+  },
+  "skin_verdant_front_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "ENCS",
+    "RENEE"
+   ]
+  },
+  "skin_verdant_head_4k.jpg": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "ARAN",
+    "ETTE",
+    "REAT"
+   ]
+  }
+ }
+}

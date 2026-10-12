@@ -1,0 +1,5 @@
+[build_combat 06:20:54] === step combat
+[build_combat 06:20:54] UE commandlet combat_map -> log /Users/midir/sm2-n1/_scratch/combat/logs/combat_map.log
+[build_combat 06:21:12] UE commandlet combat_map: rc 0, 18 s, 0 python error lines
+[build_combat 06:21:11] COMBAT_STREET_OK actors=191 boxes=183
+[build_combat 06:21:12] === step combat done in 18 s

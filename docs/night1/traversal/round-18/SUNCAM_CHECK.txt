@@ -1,0 +1,99 @@
+# P3 round 18 SUN CAMERA CHECK (suncam_check.py, the r14/r15 lines kept for comparison: U1 pitch <= 10 up, U2 trick pitch <= 8 up, S1 view >= 100 deg from the sun, L1 hero-box luma, T11)
+
+f4_chain_flips: 796 frames
+  U1   PASS  pitch max 6.5 deg up at 1.42 s (<= 10)
+  U2   PASS  trick frames (622): pitch p5 -5.5 / p50 1.9 / max 6.5 deg up (<= 8)
+  S1   PASS  trick frames: view-to-sun angle min 132 / p50 138 deg (>= 100)
+       flip backDouble     at 1.35 s: lower roofline 23.8 m, rise 2.9 m, feet apex 25.2 m -> +1.4 m over the roofline
+       flip frontPikeSwan  at 4.32 s: lower roofline 26.7 m, rise 4.9 m, feet apex 28.2 m -> +1.5 m over the roofline
+       flip corkscrew      at 6.63 s: lower roofline 31.0 m, rise 4.1 m, feet apex 32.5 m -> +1.5 m over the roofline
+       flip backDouble     at 10.88 s: lower roofline 23.3 m, rise -1.4 m, feet apex 29.5 m -> +6.2 m over the roofline
+  T11  FAIL  pitch down from the first attach: p5 -3.2 p50 -1.8 p95 +15.6 deg (median 4-12)
+  L1   PASS  hero-box pixels at luma >= 245: p50 0.000 / p99 0.009 / max 0.011 at 10.52 s; frames > 5 %: 0 of 796
+  L1h  PASS  hero-silhouette pixels (suit mask) at luma >= 245: p50 0.001 / p99 0.012 / max 0.014 at 6.55 s; frames > 5 %: 0 of 796
+  => FAIL (1 lines)
+
+f1_flow_backDouble: 538 frames
+  U1   PASS  pitch max 5.9 deg up at 1.42 s (<= 10)
+  U2   PASS  trick frames (471): pitch p5 -5.5 / p50 1.9 / max 5.9 deg up (<= 8)
+  S1   PASS  trick frames: view-to-sun angle min 133 / p50 137 deg (>= 100)
+       flip backDouble     at 1.35 s: lower roofline 23.1 m, rise -1.4 m, feet apex 27.5 m -> +4.4 m over the roofline
+       flip backDouble     at 4.32 s: lower roofline 27.6 m, rise 7.2 m, feet apex 29.0 m -> +1.4 m over the roofline
+       flip backDouble     at 6.93 s: lower roofline 31.0 m, rise 5.3 m, feet apex 32.2 m -> +1.2 m over the roofline
+  T11  FAIL  pitch down from the first attach: p5 -2.9 p50 -1.9 p95 +8.5 deg (median 4-12)
+  L1   PASS  hero-box pixels at luma >= 245: p50 0.000 / p99 0.005 / max 0.007 at 4.98 s; frames > 5 %: 0 of 538
+  L1h  PASS  hero-silhouette pixels (suit mask) at luma >= 245: p50 0.000 / p99 0.010 / max 0.013 at 4.98 s; frames > 5 %: 0 of 538
+  => FAIL (1 lines)
+
+f2_flow_pikeSwan: 538 frames
+  U1   PASS  pitch max 5.8 deg up at 1.42 s (<= 10)
+  U2   PASS  trick frames (465): pitch p5 -5.5 / p50 1.9 / max 5.8 deg up (<= 8)
+  S1   PASS  trick frames: view-to-sun angle min 134 / p50 138 deg (>= 100)
+       flip frontPikeSwan  at 1.35 s: lower roofline 22.3 m, rise -0.3 m, feet apex 27.5 m -> +5.2 m over the roofline
+       flip frontPikeSwan  at 4.22 s: lower roofline 25.8 m, rise 3.7 m, feet apex 27.3 m -> +1.5 m over the roofline
+       flip frontPikeSwan  at 6.72 s: lower roofline 31.1 m, rise 7.9 m, feet apex 32.3 m -> +1.2 m over the roofline
+  T11  FAIL  pitch down from the first attach: p5 -2.8 p50 -1.8 p95 +8.6 deg (median 4-12)
+  L1   PASS  hero-box pixels at luma >= 245: p50 0.000 / p99 0.010 / max 0.010 at 6.65 s; frames > 5 %: 0 of 538
+  L1h  PASS  hero-silhouette pixels (suit mask) at luma >= 245: p50 0.000 / p99 0.017 / max 0.018 at 6.65 s; frames > 5 %: 0 of 538
+  => FAIL (1 lines)
+
+f3_flow_corkscrew: 538 frames
+  U1   PASS  pitch max 6.3 deg up at 1.42 s (<= 10)
+  U2   PASS  trick frames (471): pitch p5 -5.5 / p50 1.9 / max 6.3 deg up (<= 8)
+  S1   PASS  trick frames: view-to-sun angle min 133 / p50 136 deg (>= 100)
+       flip corkscrew      at 1.35 s: lower roofline 23.8 m, rise 3.2 m, feet apex 25.2 m -> +1.4 m over the roofline
+       flip corkscrew      at 4.22 s: lower roofline 27.6 m, rise 6.9 m, feet apex 29.1 m -> +1.5 m over the roofline
+       flip corkscrew      at 6.75 s: lower roofline 31.0 m, rise 5.1 m, feet apex 31.7 m -> +0.7 m over the roofline
+  T11  FAIL  pitch down from the first attach: p5 -2.9 p50 -1.8 p95 +6.9 deg (median 4-12)
+  L1   PASS  hero-box pixels at luma >= 245: p50 0.000 / p99 0.007 / max 0.008 at 6.58 s; frames > 5 %: 0 of 538
+  L1h  PASS  hero-silhouette pixels (suit mask) at luma >= 245: p50 0.000 / p99 0.011 / max 0.013 at 6.58 s; frames > 5 %: 0 of 538
+  => FAIL (1 lines)
+
+f5_canyon_backDouble: 538 frames
+  U1   PASS  pitch max 5.7 deg up at 1.42 s (<= 10)
+  U2   PASS  trick frames (473): pitch p5 -5.5 / p50 2.3 / max 5.7 deg up (<= 8)
+  S1   PASS  trick frames: view-to-sun angle min 136 / p50 140 deg (>= 100)
+       flip backDouble     at 1.35 s: lower roofline 23.1 m, rise -1.4 m, feet apex 27.5 m -> +4.4 m over the roofline
+       flip backDouble     at 3.93 s: lower roofline 25.9 m, rise 14.3 m, feet apex 27.3 m -> +1.4 m over the roofline
+       flip backDouble     at 6.55 s: lower roofline 22.6 m, rise 1.9 m, feet apex 24.1 m -> +1.5 m over the roofline
+  T11  FAIL  pitch down from the first attach: p5 -3.9 p50 -2.3 p95 +8.5 deg (median 4-12)
+  L1   PASS  hero-box pixels at luma >= 245: p50 0.000 / p99 0.005 / max 0.007 at 7.22 s; frames > 5 %: 0 of 538
+  L1h  PASS  hero-silhouette pixels (suit mask) at luma >= 245: p50 0.000 / p99 0.010 / max 0.014 at 4.60 s; frames > 5 %: 0 of 538
+  => FAIL (1 lines)
+
+a_swing_chain: 934 frames
+  U1   PASS  pitch max 5.2 deg up at 5.73 s (<= 10)
+  U2   PASS  trick frames (152): pitch p5 -5.5 / p50 1.8 / max 5.2 deg up (<= 8)
+  S1   PASS  trick frames: view-to-sun angle min 100 / p50 120 deg (>= 100)
+       flip backDouble     at 5.68 s: lower roofline 70.0 m, rise 3.0 m, feet apex 15.2 m -> -54.8 m over the roofline
+       flip frontPikeSwan  at 11.93 s: lower roofline 19.5 m, rise 3.0 m, feet apex 12.4 m -> -7.1 m over the roofline
+  T11  PASS  pitch down from the first attach: p5 -1.9 p50 +8.3 p95 +22.0 deg (median 4-12)
+  L1   FAIL  hero-box pixels at luma >= 245: p50 0.005 / p99 0.151 / max 0.186 at 12.07 s; frames > 5 %: 226 of 934
+  L1h  PASS  hero-silhouette pixels (suit mask) at luma >= 245: p50 0.004 / p99 0.035 / max 0.045 at 14.02 s; frames > 5 %: 0 of 934
+  => FAIL (1 lines)
+
+b_release_trick_dive_zip: 418 frames
+  U1   PASS  pitch max 3.4 deg up at 2.75 s (<= 10)
+  U2   PASS  trick frames (125): pitch p5 -3.0 / p50 3.0 / max 3.4 deg up (<= 8)
+  S1   PASS  trick frames: view-to-sun angle min 105 / p50 112 deg (>= 100)
+       flip frontPikeSwan  at 1.40 s: lower roofline 93.4 m, rise 3.0 m, feet apex 35.6 m -> -57.9 m over the roofline
+  T11  PASS  pitch down from the first attach: p5 -3.4 p50 +8.1 p95 +37.0 deg (median 4-12)
+  L1   FAIL  hero-box pixels at luma >= 245: p50 0.000 / p99 0.069 / max 0.077 at 1.38 s; frames > 5 %: 13 of 418
+  L1h  PASS  hero-silhouette pixels (suit mask) at luma >= 245: p50 0.000 / p99 0.018 / max 0.024 at 0.85 s; frames > 5 %: 0 of 418
+  => FAIL (1 lines)
+
+c_wallrun_perch: 628 frames
+  U1   FAIL  pitch max 29.6 deg up at 3.85 s (<= 10)
+  T11  FAIL  pitch down from the first attach: p5 -29.4 p50 -0.4 p95 +30.9 deg (median 4-12)
+  L1   FAIL  hero-box pixels at luma >= 245: p50 0.000 / p99 0.076 / max 0.088 at 1.72 s; frames > 5 %: 30 of 628
+  L1h  PASS  hero-silhouette pixels (suit mask) at luma >= 245: p50 0.000 / p99 0.025 / max 0.039 at 1.60 s; frames > 5 %: 0 of 628
+  => FAIL (3 lines)
+
+d_sprint_jump_first_swing: 718 frames
+  U1   PASS  pitch max 4.9 deg up at 7.97 s (<= 10)
+  U2   PASS  trick frames (59): pitch p5 -5.5 / p50 -0.3 / max 4.9 deg up (<= 8)
+  S1   FAIL  trick frames: view-to-sun angle min 94 / p50 106 deg (>= 100), 5 frames under 100 (7.63-7.70 s)
+  T11  PASS  pitch down from the first attach: p5 +0.1 p50 +6.4 p95 +15.1 deg (median 4-12)
+  L1   FAIL  hero-box pixels at luma >= 245: p50 0.008 / p99 0.073 / max 0.083 at 9.98 s; frames > 5 %: 25 of 717
+  L1h  PASS  hero-silhouette pixels (suit mask) at luma >= 245: p50 0.005 / p99 0.025 / max 0.031 at 6.10 s; frames > 5 %: 0 of 717
+  => FAIL (2 lines)

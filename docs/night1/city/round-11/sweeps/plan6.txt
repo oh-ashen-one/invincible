@@ -1,0 +1,11 @@
+# hold 6: final configuration (mat: hinterland lit x0.7; map: S4 haze from 4.5 km), the 1080p set (S4 and S8 first)
+build mat,map
+cap f1080 S4_perch_skyline
+score f1080 S4_perch_skyline
+cap f1080 S8_aerial_midtown
+cap f1080 S3_rooftop_watertower
+cap f1080 S1_avenue_street
+cap f1080 S2_avenue_swing
+cap f1080 S5_timessq_south
+cap f1080 S6_timessq_street
+cap f1080 S7_sunset_crosstown

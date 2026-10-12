@@ -1,0 +1,15 @@
+{
+  "meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "Code executed successfully: {\"clips\": 79, \"sampling\": \"every original glTF key timestamp\", \"bones\": 58, \"tolerance\": 0.0002, \"max_error\": 4.4226646423339844e-05, \"passed\": true}\nInfo: Saved as \"hero.blend\"\n",
+      "annotations": null,
+      "meta": null
+    }
+  ],
+  "structuredContent": {
+    "result": "Code executed successfully: {\"clips\": 79, \"sampling\": \"every original glTF key timestamp\", \"bones\": 58, \"tolerance\": 0.0002, \"max_error\": 4.4226646423339844e-05, \"passed\": true}\nInfo: Saved as \"hero.blend\"\n"
+  },
+  "isError": false
+}

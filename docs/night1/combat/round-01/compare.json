@@ -1,0 +1,555 @@
+{
+ "totals": {
+  "frames": {
+   "ue": 1620,
+   "browser": 1621
+  },
+  "real_s": {
+   "ue": 27.0,
+   "browser": 27.017
+  },
+  "game_s": {
+   "ue": 22.342,
+   "browser": 25.454
+  },
+  "enemies": {
+   "ue": 6,
+   "browser": 6
+  },
+  "enemies_alive": {
+   "ue": 2,
+   "browser": 3
+  },
+  "hero_hp": {
+   "ue": 67,
+   "browser": 31
+  },
+  "hero_focus": {
+   "ue": 2.45,
+   "browser": 0.79
+  },
+  "damage_taken": {
+   "ue": 33,
+   "browser": 69
+  },
+  "hits": {
+   "ue": 28,
+   "browser": 23
+  },
+  "whiffs": {
+   "ue": 0,
+   "browser": 0
+  },
+  "kos": {
+   "ue": 4,
+   "browser": 3
+  },
+  "launches": {
+   "ue": 2,
+   "browser": 1
+  },
+  "air_hits": {
+   "ue": 6,
+   "browser": 3
+  },
+  "finishers": {
+   "ue": 2,
+   "browser": 2
+  },
+  "dodges": {
+   "ue": 3,
+   "browser": 3
+  },
+  "perfect_dodges": {
+   "ue": 3,
+   "browser": 0
+  },
+  "web_hits": {
+   "ue": 6,
+   "browser": 6
+  },
+  "enemy_melee_hits": {
+   "ue": 1,
+   "browser": 4
+  },
+  "shots": {
+   "ue": 6,
+   "browser": 14
+  },
+  "shot_hits": {
+   "ue": 4,
+   "browser": 4
+  },
+  "hitstops": {
+   "ue": 27,
+   "browser": 26
+  },
+  "slowmos": {
+   "ue": 8,
+   "browser": 5
+  },
+  "min_timescale": {
+   "ue": 0.05,
+   "browser": 0.05
+  },
+  "slowmo_real_s": {
+   "ue": 7.567,
+   "browser": 4.617
+  },
+  "beats": {
+   "ue": 40,
+   "browser": 40
+  },
+  "beats_fired": {
+   "ue": 40,
+   "browser": 40
+  }
+ },
+ "slowmo_real_s": {
+  "ue": 7.566666666666666,
+  "browser": 4.616666666666666
+ },
+ "beats": [
+  {
+   "t": 1.496,
+   "label": "combo A 1 (jab/cross)",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: cross: strike flyingKick->e4 gap 5.3",
+   "br_move": "strike",
+   "br_dt": 0.0,
+   "br_event": "move strike -> e4"
+  },
+  {
+   "t": 1.946,
+   "label": "combo A 2",
+   "key": "attack",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "action attack: hook: strike punch3->e4 gap 0.0 run 0.00s",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "hit light -> e4 dmg 11 hp 30 state stagger combo 2 focus 0.16"
+  },
+  {
+   "t": 2.396,
+   "label": "combo A 3",
+   "key": "attack",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "action attack: kick: strike kick->e4 gap 0.0 run 0.00s",
+   "br_move": "down",
+   "br_dt": 0.467,
+   "br_event": "hit light -> e4 dmg 11 hp 19 state stagger combo 3 focus 0.26"
+  },
+  {
+   "t": 2.846,
+   "label": "combo A ender",
+   "key": "attack",
+   "ue_move": "hit",
+   "ue_dt": 0.333,
+   "ue_event": "action attack: riser: strike uppercut->e4 gap 0.1 run 0.00s",
+   "br_move": "down",
+   "br_dt": 0.017,
+   "br_event": "move down -> e4"
+  },
+  {
+   "t": 3.646,
+   "label": "counter",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: cross: strike punch2->e4 gap 2.6 run 0.25s",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "-"
+  },
+  {
+   "t": 4.596,
+   "label": "combo B 1",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: hook: strike punch3->e6 gap 2.6 run 0.25s",
+   "br_move": "dodge",
+   "br_dt": 0.217,
+   "br_event": "dodge plain threat=none"
+  },
+  {
+   "t": 4.663,
+   "label": "perfect dodge 1 (slow-mo)",
+   "key": "dodge",
+   "ue_move": "strike",
+   "ue_dt": 0.333,
+   "ue_event": "dodge PERFECT threat=e3",
+   "br_move": "dodge",
+   "br_dt": 0.15,
+   "br_event": "dodge plain threat=none"
+  },
+  {
+   "t": 4.996,
+   "label": "launcher (hold)",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: jab: strike punch1->e6 gap 2.2 run 0.21s COUNTER",
+   "br_move": "strike",
+   "br_dt": 0.2,
+   "br_event": "move strike -> e6"
+  },
+  {
+   "t": 5.946,
+   "label": "air combo 1",
+   "key": "attack",
+   "ue_move": "air",
+   "ue_dt": 0.15,
+   "ue_event": "action attack: airStrike seg 0 -> e6",
+   "br_move": "strike",
+   "br_dt": 0.0,
+   "br_event": "move strike -> e4"
+  },
+  {
+   "t": 6.296,
+   "label": "air combo 2",
+   "key": "attack",
+   "ue_move": "air",
+   "ue_dt": 0.233,
+   "ue_event": "action attack: airStrike seg 1 -> e6",
+   "br_move": "dive",
+   "br_dt": 0.067,
+   "br_event": "move dive -> e4"
+  },
+  {
+   "t": 6.646,
+   "label": "air combo 3 (slam)",
+   "key": "attack",
+   "ue_move": "airStrike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: airStrike seg 2 -> e6",
+   "br_move": "strike",
+   "br_dt": 0.0,
+   "br_event": "move strike -> e4"
+  },
+  {
+   "t": 7.796,
+   "label": "web shooter -> gunman e2 (disarm)",
+   "key": "web",
+   "ue_move": "hit",
+   "ue_dt": 0.017,
+   "ue_event": "action web: webShoot -> e1",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "web hit e2 web 0.17 state hold"
+  },
+  {
+   "t": 8.146,
+   "label": "web shooter -> e2",
+   "key": "web",
+   "ue_move": "hit",
+   "ue_dt": 0.2,
+   "ue_event": "action web: webShoot -> e1",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "web hit e2 web 0.50 state hold"
+  },
+  {
+   "t": 8.596,
+   "label": "web shooter -> gunman e5 (disarm)",
+   "key": "web",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "action web: webShoot -> e5",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "web hit e1 web 0.34 state approach"
+  },
+  {
+   "t": 8.946,
+   "label": "web shooter -> e5",
+   "key": "web",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "action web: webShoot -> e5",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "web hit e6 web 0.34 state hold"
+  },
+  {
+   "t": 9.696,
+   "label": "web strike (E)",
+   "key": "strike",
+   "ue_move": "webStrike",
+   "ue_dt": 0.0,
+   "ue_event": "action strike: webStrike -> e2 10.3 m",
+   "br_move": "webStrike",
+   "br_dt": 0.0,
+   "br_event": "move webStrike -> e2"
+  },
+  {
+   "t": 9.896,
+   "label": "perfect dodge 2",
+   "key": "dodge",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "hit strike -> e2 dmg 20 hp 18 KNOCKED  combo 1 focus 1.63",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "hit strike -> e2 dmg 20 hp 18 state knock combo 1 focus 0.85"
+  },
+  {
+   "t": 11.396,
+   "label": "combo C 1",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: cross: strike punch2->e1 gap 3.8 run 0.34s",
+   "br_move": "strike",
+   "br_dt": 0.0,
+   "br_event": "move strike -> e1"
+  },
+  {
+   "t": 11.846,
+   "label": "combo C 2",
+   "key": "attack",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "hit light -> e1 dmg 10 hp 40 stagger  combo 2 focus 1.72",
+   "br_move": "dive",
+   "br_dt": 0.0,
+   "br_event": "move dive -> e1"
+  },
+  {
+   "t": 12.296,
+   "label": "combo C 3",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.45,
+   "ue_event": "action attack: jab: strike punch1->e1 gap 0.0 run 0.00s",
+   "br_move": "strike",
+   "br_dt": 0.0,
+   "br_event": "move strike -> e1"
+  },
+  {
+   "t": 12.746,
+   "label": "combo C ender",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: roundhouse: strike kick->e1 gap 0.0 run 0.00s",
+   "br_move": "dodge",
+   "br_dt": 0.617,
+   "br_event": "hit light -> e1 dmg 9 hp 5 state stagger combo 4 focus 1.28"
+  },
+  {
+   "t": 13.363,
+   "label": "perfect dodge 3",
+   "key": "dodge",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "dodge PERFECT threat=e5",
+   "br_move": "hit",
+   "br_dt": 0.683,
+   "br_event": "move hit -> e1"
+  },
+  {
+   "t": 14.596,
+   "label": "finisher (Q)",
+   "key": "finisher",
+   "ue_move": "finisher",
+   "ue_dt": 0.0,
+   "ue_event": "cine finisher e2 1.45 s",
+   "br_move": "finisher",
+   "br_dt": 0.0,
+   "br_event": "move finisher -> e6"
+  },
+  {
+   "t": 16.763,
+   "label": "web brute 1",
+   "key": "web",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "action web: webShoot -> e3",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "web hit e3 web 0.34 state hold"
+  },
+  {
+   "t": 17.146,
+   "label": "web brute 2 (stun)",
+   "key": "web",
+   "ue_move": "strike",
+   "ue_dt": 0.4,
+   "ue_event": "action web: webShoot -> e3",
+   "br_move": "strike",
+   "br_dt": 0.4,
+   "br_event": "web hit e3 web 0.66 state hold"
+  },
+  {
+   "t": 17.546,
+   "label": "strike stunned brute",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: cross: strike punch2->e3 gap 1.6 run 0.16s",
+   "br_move": "strike",
+   "br_dt": 0.0,
+   "br_event": "move strike -> e3"
+  },
+  {
+   "t": 17.946,
+   "label": "launcher brute (hold)",
+   "key": "attack",
+   "ue_move": "launch",
+   "ue_dt": 0.233,
+   "ue_event": "action attack: hook: strike punch3->e3 gap 0.0 run 0.00s",
+   "br_move": "strike",
+   "br_dt": 0.017,
+   "br_event": "move strike -> e3"
+  },
+  {
+   "t": 18.896,
+   "label": "air 1",
+   "key": "attack",
+   "ue_move": "airStrike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: airStrike seg 0 -> e3",
+   "br_move": "airStrike",
+   "br_dt": 0.0,
+   "br_event": "move airStrike -> e3"
+  },
+  {
+   "t": 19.246,
+   "label": "air 2",
+   "key": "attack",
+   "ue_move": "airStrike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: airStrike seg 1 -> e3",
+   "br_move": "airStrike",
+   "br_dt": 0.0,
+   "br_event": "move airStrike -> e3"
+  },
+  {
+   "t": 19.596,
+   "label": "air 3 (slam)",
+   "key": "attack",
+   "ue_move": "airStrike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: airStrike seg 2 -> e3",
+   "br_move": "airStrike",
+   "br_dt": 0.0,
+   "br_event": "move airStrike -> e3"
+  },
+  {
+   "t": 20.496,
+   "label": "counter 2",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: jab: strike punch1->e1 gap 3.3 run 0.30s",
+   "br_move": "strike",
+   "br_dt": 0.0,
+   "br_event": "move strike -> e1"
+  },
+  {
+   "t": 20.829,
+   "label": "perfect dodge 4",
+   "key": "dodge",
+   "ue_move": "dodge",
+   "ue_dt": 0.0,
+   "ue_event": "dodge PERFECT threat=e5",
+   "br_move": "dodge",
+   "br_dt": 0.0,
+   "br_event": "move dodge -> e1"
+  },
+  {
+   "t": 21.996,
+   "label": "combo D 2",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.0,
+   "ue_event": "action attack: cross: strike punch2->e1 gap 1.9 run 0.19s COUNTER",
+   "br_move": "strike",
+   "br_dt": 0.0,
+   "br_event": "move strike -> e1"
+  },
+  {
+   "t": 22.396,
+   "label": "combo D 3",
+   "key": "attack",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "action attack: hook: strike punch3->e1 gap 0.2 run 0.00s",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "hit light -> e1 dmg 10 hp 0 state knock combo 6 focus 1.12"
+  },
+  {
+   "t": 22.796,
+   "label": "combo D ender",
+   "key": "attack",
+   "ue_move": "finisher",
+   "ue_dt": 0.467,
+   "ue_event": "action attack: jab: strike punch1->e1 gap 1.0 run 0.12s",
+   "br_move": "finisher",
+   "br_dt": 0.467,
+   "br_event": "hit light -> e1 dmg 11 hp 0 state knock combo 7 focus 1.23"
+  },
+  {
+   "t": 23.263,
+   "label": "finisher 2 (brute)",
+   "key": "finisher",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "cine finisher e1 1.45 s",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "-"
+  },
+  {
+   "t": 24.746,
+   "label": "combo E 2",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.6,
+   "ue_event": "action attack: cross: strike punch2->e5 gap 3.0 run 0.28s",
+   "br_move": "strike",
+   "br_dt": 0.683,
+   "br_event": "cine pin e1 1.00 s"
+  },
+  {
+   "t": 25.196,
+   "label": "combo E 3",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.15,
+   "ue_event": "action attack: cross: strike punch2->e5 gap 3.0 run 0.28s",
+   "br_move": "strike",
+   "br_dt": 0.233,
+   "br_event": "cine pin e1 1.00 s"
+  },
+  {
+   "t": 25.296,
+   "label": "combo E 1",
+   "key": "attack",
+   "ue_move": "strike",
+   "ue_dt": 0.05,
+   "ue_event": "action attack: cross: strike punch2->e5 gap 3.0 run 0.28s",
+   "br_move": "strike",
+   "br_dt": 0.133,
+   "br_event": "move strike -> e5"
+  },
+  {
+   "t": 25.646,
+   "label": "combo E ender",
+   "key": "attack",
+   "ue_move": "-",
+   "ue_dt": null,
+   "ue_event": "hit light -> e5 dmg 10 hp 28 stagger  combo 16 focus 2.30",
+   "br_move": "-",
+   "br_dt": null,
+   "br_event": "hit light -> e5 dmg 9 hp 29 state stagger combo 9 focus 0.67"
+  }
+ ],
+ "beats_move_agree": 26
+}

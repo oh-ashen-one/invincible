@@ -1,0 +1,94 @@
+{
+ "test1": [
+  {
+   "name": "S1 left crop",
+   "box": [
+    0,
+    0,
+    480,
+    300
+   ],
+   "meanY": 80.6,
+   "share_lt25": 0.2,
+   "ok": true
+  },
+  {
+   "name": "S1 right crop",
+   "box": [
+    1360,
+    0,
+    1740,
+    400
+   ],
+   "meanY": 64.7,
+   "share_lt25": 1.8,
+   "ok": true
+  }
+ ],
+ "test2": [
+  {
+   "view": "S3_rooftop_watertower",
+   "share_lt25": 13.2,
+   "limit": 25.0,
+   "meanY": 63.3,
+   "ok": true
+  },
+  {
+   "view": "S7_sunset_crosstown",
+   "share_lt25": 1.4,
+   "limit": 30.0,
+   "meanY": 72.3,
+   "ok": true
+  }
+ ],
+ "dark_share_all": [
+  {
+   "frame": "S1_avenue_street_1920x1080.jpg",
+   "share_lt25": 3.1,
+   "share_gt204": 2.51,
+   "meanY": 80.6
+  },
+  {
+   "frame": "S2_avenue_swing_1920x1080.jpg",
+   "share_lt25": 2.7,
+   "share_gt204": 1.83,
+   "meanY": 93.5
+  },
+  {
+   "frame": "S3_rooftop_watertower_1920x1080.jpg",
+   "share_lt25": 13.2,
+   "share_gt204": 0.03,
+   "meanY": 63.3
+  },
+  {
+   "frame": "S4_perch_skyline_1920x1080.jpg",
+   "share_lt25": 1.9,
+   "share_gt204": 20.88,
+   "meanY": 142.4
+  },
+  {
+   "frame": "S5_timessq_south_1920x1080.jpg",
+   "share_lt25": 8.1,
+   "share_gt204": 6.33,
+   "meanY": 83.2
+  },
+  {
+   "frame": "S6_timessq_street_1920x1080.jpg",
+   "share_lt25": 2.9,
+   "share_gt204": 5.63,
+   "meanY": 87.3
+  },
+  {
+   "frame": "S7_sunset_crosstown_1920x1080.jpg",
+   "share_lt25": 1.4,
+   "share_gt204": 1.11,
+   "meanY": 72.3
+  },
+  {
+   "frame": "S8_aerial_midtown_1920x1080.jpg",
+   "share_lt25": 7.8,
+   "share_gt204": 11.63,
+   "meanY": 100.8
+  }
+ ]
+}

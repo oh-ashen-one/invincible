@@ -1,0 +1,49 @@
+== (a) two captures overlap, a third waits ==
+  PASS  third capture has NOT started while both slots are held
+  PASS  A and B overlapped (each started before the other ended)
+  PASS  C started only after a slot was released (>= first end - 0.05)
+  PASS  at most 2 captures ran at once
+  PASS  log has acquire/release/wait lines with utilization
+  PASS  exit code of the command is propagated (capture, 7)
+== (b) perf: exclusive, waits for captures + fake capture process + utilization < threshold for CALM ==
+  PASS  perf not started while the fake -game process is still alive
+  PASS  perf still waiting after captures + fake process ended because util=50 >= 15
+  PASS  perf did not start on the interrupted low-util streak
+  PASS  perf start >= end of A2/B2/fake process
+  PASS  perf start >= (last low-util onset + CALM 1.0 s) - 0.1
+  PASS  capture queued after perf ran only after perf finished (exclusive)
+    {'wait_s': 6.78, 'util_before': 5.0, 'util_after': 5.0, 'instances_before': 0, 'instances_max_during': 0, 'contaminated': False}
+  PASS  perf sidecar json: exclusive, not contaminated, util_before < 15, wait/instances recorded
+-- (b2) foreign capture process alone blocks perf even at low util
+  PASS  perf start >= fake process end + CALM(1.0) - 0.1
+-- (b3) foreign capture appearing DURING a perf run marks the result contaminated
+  PASS  stranger capture process during perf => contaminated, perf_valid=false
+-- (b4) max hold kills the command (exit 124), wait timeout does not run it (exit 75), exit codes
+  PASS  perf max hold exceeded => exit 124 and command was killed early
+  PASS    ... result json flags max-hold + contaminated
+  PASS  perf wait timeout (util 60) => exit 75 and command NOT run
+  PASS  perf exit code propagated (3)
+gpu_slot: command not found: /nonexistent/cmd_GPUSLOTTEST42702_24520
+  PASS  command not found => 127
+  PASS  nested capture inside a held capture passes through (no deadlock), exit 0
+  PASS  perf nested inside a capture slot is refused (exit 2) instead of deadlocking
+== (c) stale lock recovery ==
+-- (c1) both capture holders killed -9: slots free again, stale records recovered
+     before kill: Capture slots: 2/2 in use
+     before kill: Holders (2):
+  PASS  new capture acquires immediately after holders were killed (start - kill < 2 s), exit 0
+  PASS  log records 'stale-recovered' for both dead holders
+  PASS  status shows no live holders after recovery
+-- (c2) dead waiter at the head of the queue does not block the next waiter
+  PASS  Q2 ran although dead Q1 was ahead of it (waiter record recovered)
+  PASS  log records 'stale-recovered' kind=waiter
+-- (c3) perf holder killed -9 while settling: perf.lock is freed by the kernel
+     before kill: Perf lock:     HELD by pid 43972 label=PS state=settling for 0s
+  PASS  perf holder is in settling state (holding the lock, waiting for calm)
+  PASS  capture runs promptly after perf holder died (< 2 s), and the dead perf never ran its command
+  PASS  log records 'stale-recovered' for the dead perf holder
+-- (c4) PID-reuse defence: a live PID with the wrong start time is treated as stale
+  PASS  capture not blocked by a queue record whose PID was reused (start time differs)
+  PASS    ... and it was logged as stale-recovered dead_label=impostor
+
+RESULT: 32 passed, 0 failed

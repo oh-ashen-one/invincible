@@ -1,0 +1,12 @@
+{
+ "name": "city_swing_avenue",
+ "note": "P4 perf driver: the P3 traversal hero stands on the avenue for 14 s (warm-up: shader / Lumen settling, not measured), then sprints, jumps and web-swings north up the 5th-Av-like avenue with the deterministic autoChain rhythm rule (docs/night1/traversal/scripts/d_auto.json). Metres, UE axes (X east, Y south, north = -Y), yaw deg.",
+ "spawn": { "pos": [249, 176, 0.95], "yaw": -90, "camPitch": 0.14 },
+ "keys": [
+  { "t": 0.0, "move": [0, 0] },
+  { "t": 14.0, "move": [0, 1], "heading": -90, "sprint": true },
+  { "t": 15.8, "jump": true },
+  { "t": 16.2, "jump": false },
+  { "t": 16.6, "swing": true, "autoChain": true, "releasePhase": 0.95, "gap": 0.3, "repressVz": 0.0, "trickEvery": 0 }
+ ]
+}

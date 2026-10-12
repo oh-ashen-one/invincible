@@ -1,0 +1,189 @@
+{
+ "pick": "V3",
+ "rows": {
+  "base": {
+   "penalty": 16.6,
+   "river_low": {
+    "file": "base_river_low.png",
+    "src_width": 1920,
+    "mean_Y": 73.1,
+    "rgb": [
+     79.5,
+     72.6,
+     59.2
+    ],
+    "p1": 42.9,
+    "p99_5": 101.8,
+    "highpass_sd": 6.22,
+    "glint_pct_ge140": 0.0,
+    "glint_pct_ge130": 0.0,
+    "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame"
+   },
+   "river_sun": {
+    "file": "base_river_sun.png",
+    "src_width": 1920,
+    "mean_Y": 148.5,
+    "rgb": [
+     183.3,
+     144.4,
+     85.9
+    ],
+    "p1": 51.8,
+    "p99_5": 247.4,
+    "highpass_sd": 17.75,
+    "glint_pct_ge140": 53.46,
+    "glint_pct_ge130": 56.9,
+    "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame",
+    "sparkle_width_pct": 34.3
+   },
+   "harbour": {
+    "file": "base_harbour_high.png",
+    "crop": "native 4K x0-2400 y1300-2100",
+    "mean_Y": 79.5,
+    "highpass_sd": 2.88,
+    "glint_pct_ge140": 0.0,
+    "pale_blobs_ge20px": 0,
+    "p1": 56.0,
+    "p99_5": 108.9
+   }
+  },
+  "V1": {
+   "penalty": 17.01,
+   "river_low": {
+    "file": "V1_river_low.png",
+    "src_width": 1920,
+    "mean_Y": 72.2,
+    "rgb": [
+     78.7,
+     71.6,
+     58.6
+    ],
+    "p1": 43.9,
+    "p99_5": 99.3,
+    "highpass_sd": 5.84,
+    "glint_pct_ge140": 0.0,
+    "glint_pct_ge130": 0.0,
+    "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame"
+   },
+   "river_sun": {
+    "file": "V1_river_sun.png",
+    "src_width": 1920,
+    "mean_Y": 148.7,
+    "rgb": [
+     184.2,
+     144.6,
+     85.1
+    ],
+    "p1": 53.5,
+    "p99_5": 246.2,
+    "highpass_sd": 17.45,
+    "glint_pct_ge140": 53.88,
+    "glint_pct_ge130": 57.32,
+    "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame",
+    "sparkle_width_pct": 34.2
+   },
+   "harbour": {
+    "file": "V1_harbour_high.png",
+    "crop": "native 4K x0-2400 y1300-2100",
+    "mean_Y": 81.0,
+    "highpass_sd": 2.83,
+    "glint_pct_ge140": 0.0,
+    "pale_blobs_ge20px": 0,
+    "p1": 57.5,
+    "p99_5": 109.4
+   }
+  },
+  "V2": {
+   "penalty": 17.07,
+   "river_low": {
+    "file": "V2_river_low.png",
+    "src_width": 1920,
+    "mean_Y": 83.1,
+    "rgb": [
+     89.8,
+     82.7,
+     67.2
+    ],
+    "p1": 48.2,
+    "p99_5": 115.9,
+    "highpass_sd": 6.81,
+    "glint_pct_ge140": 0.0,
+    "glint_pct_ge130": 0.0,
+    "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame"
+   },
+   "river_sun": {
+    "file": "V2_river_sun.png",
+    "src_width": 1920,
+    "mean_Y": 155.9,
+    "rgb": [
+     189.6,
+     152.1,
+     94.7
+    ],
+    "p1": 57.1,
+    "p99_5": 250.6,
+    "highpass_sd": 16.12,
+    "glint_pct_ge140": 56.93,
+    "glint_pct_ge130": 60.58,
+    "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame",
+    "sparkle_width_pct": 36.8
+   },
+   "harbour": {
+    "file": "V2_harbour_high.png",
+    "crop": "native 4K x0-2400 y1300-2100",
+    "mean_Y": 82.4,
+    "highpass_sd": 2.93,
+    "glint_pct_ge140": 0.0,
+    "pale_blobs_ge20px": 0,
+    "p1": 57.0,
+    "p99_5": 114.9
+   }
+  },
+  "V3": {
+   "penalty": 15.79,
+   "river_low": {
+    "file": "V3_river_low.png",
+    "src_width": 1920,
+    "mean_Y": 78.5,
+    "rgb": [
+     85.2,
+     77.9,
+     64.8
+    ],
+    "p1": 44.5,
+    "p99_5": 110.5,
+    "highpass_sd": 6.97,
+    "glint_pct_ge140": 0.0,
+    "glint_pct_ge130": 0.0,
+    "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame"
+   },
+   "river_sun": {
+    "file": "V3_river_sun.png",
+    "src_width": 1920,
+    "mean_Y": 150.9,
+    "rgb": [
+     185.2,
+     146.9,
+     90.1
+    ],
+    "p1": 52.5,
+    "p99_5": 248.9,
+    "highpass_sd": 18.85,
+    "glint_pct_ge140": 54.14,
+    "glint_pct_ge130": 57.65,
+    "note": "1080p frames are upscaled to 4K before the crop: high-pass / glint numbers read lower than on a native 4K frame",
+    "sparkle_width_pct": 37.6
+   },
+   "harbour": {
+    "file": "V3_harbour_high.png",
+    "crop": "native 4K x0-2400 y1300-2100",
+    "mean_Y": 84.7,
+    "highpass_sd": 3.47,
+    "glint_pct_ge140": 0.0,
+    "pale_blobs_ge20px": 0,
+    "p1": 58.6,
+    "p99_5": 116.9
+   }
+  }
+ }
+}

@@ -1,0 +1,104 @@
+[
+ {
+  "region": "S1 right facade (tower right of the avenue)",
+  "shot": "S1_avenue_street",
+  "crop_xywh": [
+   3020,
+   360,
+   400,
+   400
+  ],
+  "window_pixels": 50920,
+  "window_share_of_crop_pct": 31.8,
+  "above_80pct_luminance_pct": 0.0,
+  "above_60pct_luminance_pct": 0.0,
+  "median_luminance": 0.286,
+  "mean_luminance": 0.296,
+  "p95_luminance": 0.448
+ },
+ {
+  "region": "S8 brick tower (centre right)",
+  "shot": "S8_aerial_midtown",
+  "crop_xywh": [
+   2150,
+   1590,
+   400,
+   400
+  ],
+  "window_pixels": 36091,
+  "window_share_of_crop_pct": 22.6,
+  "above_80pct_luminance_pct": 11.97,
+  "above_60pct_luminance_pct": 50.63,
+  "median_luminance": 0.619,
+  "mean_luminance": 0.544,
+  "p95_luminance": 0.843
+ },
+ {
+  "region": "S8 brick tower (left)",
+  "shot": "S8_aerial_midtown",
+  "crop_xywh": [
+   1450,
+   1140,
+   400,
+   400
+  ],
+  "window_pixels": 30852,
+  "window_share_of_crop_pct": 19.3,
+  "above_80pct_luminance_pct": 21.26,
+  "above_60pct_luminance_pct": 84.29,
+  "median_luminance": 0.743,
+  "mean_luminance": 0.713,
+  "p95_luminance": 0.855
+ },
+ {
+  "region": "S2 left stone tower",
+  "shot": "S2_avenue_swing",
+  "crop_xywh": [
+   360,
+   900,
+   400,
+   400
+  ],
+  "window_pixels": 48967,
+  "window_share_of_crop_pct": 30.6,
+  "above_80pct_luminance_pct": 24.13,
+  "above_60pct_luminance_pct": 97.42,
+  "median_luminance": 0.764,
+  "mean_luminance": 0.761,
+  "p95_luminance": 0.824
+ },
+ {
+  "region": "S7 left glass wall",
+  "shot": "S7_sunset_crosstown",
+  "crop_xywh": [
+   0,
+   680,
+   400,
+   400
+  ],
+  "window_pixels": 160000,
+  "window_share_of_crop_pct": 100.0,
+  "above_80pct_luminance_pct": 0.0,
+  "above_60pct_luminance_pct": 0.0,
+  "median_luminance": 0.388,
+  "mean_luminance": 0.389,
+  "p95_luminance": 0.435
+ },
+ {
+  "region": "S7 right masonry wall",
+  "shot": "S7_sunset_crosstown",
+  "crop_xywh": [
+   3240,
+   760,
+   400,
+   400
+  ],
+  "window_pixels": 29162,
+  "window_share_of_crop_pct": 18.2,
+  "above_80pct_luminance_pct": 68.93,
+  "above_60pct_luminance_pct": 98.47,
+  "median_luminance": 0.847,
+  "mean_luminance": 0.818,
+  "p95_luminance": 0.867
+ }
+]

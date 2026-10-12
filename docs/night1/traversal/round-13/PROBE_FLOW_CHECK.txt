@@ -1,0 +1,100 @@
+# SUPERSEDED: -nullrhi probe of ac851f7 (before the FitFlip fix 14d0b97: every program was downgraded to backSingle). See PROBE_FLOW_CHECK_14d0b97.txt and FLOW_CHECK.txt (rendered).
+# P3 round 13 -- flow_check.py on the -nullrhi telemetry probes (real game, /Game/Maps/Manhattan, 60 fps fixed step, NO pixels)
+# Code: commit ac851f7 (before the FitFlip fix 14d0b97: every flow flip here was downgraded to backSingle by the ballistic air test).
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+probe f1_flow_backDouble: 4 releases, 4 attaches, 1 flip programs (8.0 s)
+  7.83 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 8.85 -> attach nan = +nan s FAIL | program 1.22 s, ended 7.97 s, cut at t_prog 0.13 | shapes Tuck
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 0.80 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.28 s (<= 3.3) PASS   (attaches at 0.40, 2.42, 4.33, 6.62)
+  C1 per-frame camera: max |d pitch| 2.70 deg @4.38 s (<= 3), |d yaw| 1.72 deg @2.93 s (<= 4), |d pos| 0.91 m @7.95 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 0, pitch 7, yaw 0 frames (of 479)
+     camera in geometry: 0 frames
+  C2 7.97 s backSingle: flip camera still blending at the clip end
+  => FAIL (1 failing lines / frames)
+
+probe f2_flow_pikeSwan: 4 releases, 4 attaches, 1 flip programs (8.0 s)
+  7.40 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 8.42 -> attach nan = +nan s FAIL | program 1.22 s, ended 7.97 s, cut at t_prog 0.57 | shapes Tuck/Pencil
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 0.80 s (<= 3.1) PASS
+  T2 attach -> attach: max 1.97 s (<= 3.3) PASS   (attaches at 0.40, 2.37, 4.28, 6.18)
+  C1 per-frame camera: max |d pitch| 2.70 deg @0.43 s (<= 3), |d yaw| 3.36 deg @7.72 s (<= 4), |d pos| 1.11 m @7.77 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 9, pitch 26, yaw 0 frames (of 479)
+     camera in geometry: 0 frames
+  C2 7.97 s backSingle: flip camera still blending at the clip end
+  => FAIL (1 failing lines / frames)
+
+probe f3_flow_corkscrew: 4 releases, 4 attaches, 1 flip programs (8.0 s)
+  7.53 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 8.55 -> attach nan = +nan s FAIL | program 1.22 s, ended 7.97 s, cut at t_prog 0.43 | shapes Tuck/Pencil
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 0.80 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.02 s (<= 3.3) PASS   (attaches at 0.40, 2.42, 4.33, 6.32)
+  C1 per-frame camera: max |d pitch| 2.70 deg @6.37 s (<= 3), |d yaw| 2.70 deg @7.90 s (<= 4), |d pos| 1.11 m @7.95 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 6, pitch 12, yaw 0 frames (of 479)
+     camera in geometry: 2 frames
+  C2 7.97 s backSingle: flip camera still blending at the clip end
+  => FAIL (1 failing lines / frames)
+
+probe f4_chain_flips: 6 releases, 6 attaches, 5 flip programs (13.0 s)
+  1.47 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 2.47 -> attach 2.52 = +0.05 s PASS | program 1.22 s, ended 2.50 s, cut at t_prog 1.03 | shapes Tuck/Pencil/Tuck/Reach
+  3.63 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 4.63 -> attach 4.68 = +0.05 s PASS | program 1.22 s, ended 4.67 s, cut at t_prog 1.03 | shapes Tuck/Pencil/Tuck/Reach
+  5.77 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 6.77 -> attach 6.82 = +0.05 s PASS | program 1.22 s, ended 6.80 s, cut at t_prog 1.03 | shapes Tuck/Pencil/Tuck/Reach
+  8.03 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 9.03 -> attach 9.08 = +0.05 s PASS | program 1.22 s, ended 9.07 s, cut at t_prog 1.03 | shapes Tuck/Pencil/Tuck/Reach
+  10.18 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 11.18 -> attach 11.43 = +0.25 s PASS | program 1.22 s, ended 11.42 s, cut at t_prog 1.23 | shapes Tuck/Pencil/Tuck/Reach
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.25 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.35 s (<= 3.3) PASS   (attaches at 0.40, 2.52, 4.68, 6.82, 9.08, 11.43)
+  C1 per-frame camera: max |d pitch| 2.70 deg @6.97 s (<= 3), |d yaw| 3.60 deg @7.00 s (<= 4), |d pos| 1.10 m @7.17 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 8, pitch 20, yaw 7 frames (of 779)
+     camera in geometry: 0 frames
+  C2 2.50 s backSingle    flip camera k 0.99 at the program end -> < 0.02 after 10.25 s (>= 0.4) PASS
+  C2 4.67 s backSingle    flip camera k 0.99 at the program end -> < 0.02 after 8.08 s (>= 0.4) PASS
+  C2 6.80 s backSingle    flip camera k 0.99 at the program end -> < 0.02 after 5.95 s (>= 0.4) PASS
+  C2 9.07 s backSingle    flip camera k 0.99 at the program end -> < 0.02 after 3.68 s (>= 0.4) PASS
+  C2 11.42 s backSingle    flip camera k 1.00 at the program end -> < 0.02 after 1.33 s (>= 0.4) PASS
+  => PASS (0 failing lines / frames)
+
+probe f5_canyon_backDouble: 3 releases, 4 attaches, 1 flip programs (8.0 s)
+  3.45 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 4.45 -> attach 4.50 = +0.05 s PASS | program 1.22 s, ended 4.48 s, cut at t_prog 1.03 | shapes Tuck/Pencil/Tuck/Reach
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.05 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.92 s (<= 3.3) PASS   (attaches at 0.40, 2.33, 4.50, 7.42)
+  C1 per-frame camera: max |d pitch| 2.70 deg @0.43 s (<= 3), |d yaw| 2.34 deg @5.55 s (<= 4), |d pos| 0.91 m @3.70 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 0, pitch 6, yaw 0 frames (of 479)
+     camera in geometry: 0 frames
+  C2 4.48 s backSingle    flip camera k 0.99 at the program end -> < 0.02 after 1.33 s (>= 0.4) PASS
+  => PASS (0 failing lines / frames)
+
+probe a_swing_chain: 7 releases, 8 attaches, 1 flip programs (15.6 s)
+  5.82 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 6.82 -> attach 6.87 = +0.05 s PASS | program 1.22 s, ended 6.85 s, cut at t_prog 1.03 | shapes Tuck/Pencil/Tuck/Reach
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.05 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.22 s (<= 3.3) PASS   (attaches at 0.40, 2.47, 4.65, 6.87, 8.60, 10.58, 12.53, 14.33)
+  C1 per-frame camera: max |d pitch| 2.70 deg @2.52 s (<= 3), |d yaw| 2.98 deg @7.27 s (<= 4), |d pos| 1.10 m @7.27 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 6, pitch 41, yaw 0 frames (of 935)
+     camera in geometry: 2 frames
+  C2 6.85 s backSingle    flip camera k 0.99 at the program end -> < 0.02 after 1.33 s (>= 0.4) PASS
+  => PASS (0 failing lines / frames)
+
+probe b_release_trick_dive_zip: 1 releases, 0 attaches, 1 flip programs (7.0 s)
+  1.40 s backSingle    R1 release->shape 0.00 s PASS | R2 reach 2.40 -> attach nan = +nan s FAIL | program 1.22 s, ended 2.62 s, cut at t_prog 1.22 | shapes Tuck/Pencil/Tuck/Reach
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 2.93 s (<= 3.1) PASS
+  T2 attach -> attach: max 0.00 s (<= 3.3) PASS   (attaches at )
+  C1 per-frame camera: max |d pitch| 2.70 deg @3.05 s (<= 3), |d yaw| 1.91 deg @0.05 s (<= 4), |d pos| 1.10 m @4.27 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 9, pitch 23, yaw 0 frames (of 419)
+     camera in geometry: 3 frames
+  C2 2.62 s backSingle    flip camera k 1.00 at the program end -> < 0.02 after 1.33 s (>= 0.4) PASS
+  => FAIL (1 failing lines / frames)
+
+probe c_wallrun_perch: 1 releases, 1 attaches, 1 flip programs (10.5 s)
+  3.85-4.75 s wallFront (wall-run top-out; not a web release)
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 0.38 s (<= 3.1) PASS
+  T2 attach -> attach: max 0.00 s (<= 3.3) PASS   (attaches at 8.50)
+  C1 per-frame camera: max |d pitch| 2.70 deg @2.33 s (<= 3), |d yaw| 3.60 deg @1.35 s (<= 4), |d pos| 1.11 m @1.25 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 5, pitch 36, yaw 21 frames (of 629)
+     camera in geometry: 0 frames
+  => PASS (0 failing lines / frames)
+
+probe d_sprint_jump_first_swing: 5 releases, 5 attaches, 0 flip programs (12.0 s)
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 0.80 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.13 s (<= 3.3) PASS   (attaches at 2.68, 4.75, 6.88, 8.85, 10.65)
+  C1 per-frame camera: max |d pitch| 2.70 deg @10.68 s (<= 3), |d yaw| 1.54 deg @9.88 s (<= 4), |d pos| 0.92 m @11.87 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 0, pitch 2, yaw 0 frames (of 719)
+     camera in geometry: 0 frames
+  => PASS (0 failing lines / frames)
+

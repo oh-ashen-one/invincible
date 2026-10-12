@@ -1,0 +1,19 @@
+{
+ "clip": "s3_flip_chain",
+ "map": "island",
+ "cases": [
+  {
+   "case": "s3_flip_flow",
+   "frames_rendered": 1531,
+   "preroll_frames_cut": 92,
+   "rows": 1439,
+   "wall_s": 213.0,
+   "fps_render": 7.19
+  }
+ ],
+ "frames": 1439,
+ "duration_s": 23.98,
+ "mp4_mb": 13.82,
+ "crf": 31,
+ "wall_s_total": 213.0
+}

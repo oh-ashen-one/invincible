@@ -1,0 +1,182 @@
+[
+ {
+  "t": 3.48,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch1",
+  "limb": "hand.L",
+  "victim": "Fight_Thug",
+  "reaction": "fight:hitBack",
+  "to_head_cm": 27.4,
+  "to_spine2_cm": 27.7
+ },
+ {
+  "t": 4.47,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch2",
+  "limb": "hand.R",
+  "victim": "Fight_Hood",
+  "reaction": "fight:hitLeft",
+  "to_head_cm": 22.6,
+  "to_spine2_cm": 25.6
+ },
+ {
+  "t": 5.85,
+  "attacker": "Fight_Hero",
+  "clip": "hero:kick",
+  "limb": "foot.R",
+  "victim": "Fight_Beard",
+  "reaction": "fight:hitRight",
+  "to_head_cm": 18.3,
+  "to_spine2_cm": 22.8
+ },
+ {
+  "t": 7.12,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch2",
+  "limb": "hand.R",
+  "victim": "Fight_Brute",
+  "reaction": "hero:hitReact",
+  "to_head_cm": 33.9,
+  "to_spine2_cm": 29.3
+ },
+ {
+  "t": 8.4,
+  "attacker": "Fight_Hero",
+  "clip": "hero:uppercut",
+  "limb": "hand.R",
+  "victim": "Fight_Tee",
+  "reaction": "fight:down",
+  "to_head_cm": 47.2,
+  "to_spine2_cm": 32.5
+ },
+ {
+  "t": 10.68,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch1",
+  "limb": "hand.L",
+  "victim": "Fight_Oxblood",
+  "reaction": "fight:hitLeft",
+  "to_head_cm": 16.4,
+  "to_spine2_cm": 29.9
+ },
+ {
+  "t": 12.12,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch2",
+  "limb": "hand.R",
+  "victim": "Fight_Thug",
+  "reaction": "fight:down",
+  "to_head_cm": 22.0,
+  "to_spine2_cm": 26.0
+ },
+ {
+  "t": 13.45,
+  "attacker": "Fight_Hero",
+  "clip": "hero:kick",
+  "limb": "foot.R",
+  "victim": "Fight_Hood",
+  "reaction": "fight:hitRight",
+  "to_head_cm": 39.5,
+  "to_spine2_cm": 22.8
+ },
+ {
+  "t": 14.78,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch3",
+  "limb": "hand.L",
+  "victim": "Fight_Beard",
+  "reaction": "fight:hitBack",
+  "to_head_cm": 29.4,
+  "to_spine2_cm": 36.5
+ },
+ {
+  "t": 16.3,
+  "attacker": "Fight_Hero",
+  "clip": "hero:kick",
+  "limb": "foot.R",
+  "victim": "Fight_Brute",
+  "reaction": "fight:down",
+  "to_head_cm": 55.6,
+  "to_spine2_cm": 34.9
+ },
+ {
+  "t": 18.28,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch1",
+  "limb": "hand.L",
+  "victim": "Fight_Tee",
+  "reaction": "fight:hitBack",
+  "to_head_cm": 15.5,
+  "to_spine2_cm": 29.8
+ },
+ {
+  "t": 19.55,
+  "attacker": "Fight_Hero",
+  "clip": "hero:kick",
+  "limb": "foot.R",
+  "victim": "Fight_Oxblood",
+  "reaction": "fight:down",
+  "to_head_cm": 17.2,
+  "to_spine2_cm": 23.1
+ },
+ {
+  "t": 20.82,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch2",
+  "limb": "hand.R",
+  "victim": "Fight_Thug",
+  "reaction": "fight:hitLeft",
+  "to_head_cm": 22.1,
+  "to_spine2_cm": 26.1
+ },
+ {
+  "t": 22.13,
+  "attacker": "Fight_Hero",
+  "clip": "hero:punch3",
+  "limb": "hand.L",
+  "victim": "Fight_Hood",
+  "reaction": "fight:hitRight",
+  "to_head_cm": 18.9,
+  "to_spine2_cm": 41.0
+ },
+ {
+  "t": 23.3,
+  "attacker": "Fight_Hero",
+  "clip": "hero:uppercut",
+  "limb": "hand.R",
+  "victim": "Fight_Beard",
+  "reaction": "fight:hitBack",
+  "to_head_cm": 47.0,
+  "to_spine2_cm": 31.9
+ },
+ {
+  "t": 2.35,
+  "attacker": "Fight_Thug",
+  "clip": "thug:thugPunch2",
+  "limb": "hand.L",
+  "victim": "Fight_Hero",
+  "reaction": "hero:hitReact",
+  "to_head_cm": 17.4,
+  "to_spine2_cm": 35.7
+ },
+ {
+  "t": 17.23,
+  "attacker": "Fight_Hood",
+  "clip": "thug:thugPunch1",
+  "limb": "hand.R",
+  "victim": "Fight_Hero",
+  "reaction": "hero:hitReact",
+  "to_head_cm": 11.9,
+  "to_spine2_cm": 30.9
+ },
+ {
+  "t": 9.55,
+  "attacker": "Fight_Brute",
+  "clip": "thug:thugPunch2",
+  "limb": "hand.L",
+  "victim": "Fight_Hero",
+  "reaction": "hero:hitReact",
+  "to_head_cm": 14.4,
+  "to_spine2_cm": 38.4
+ }
+]

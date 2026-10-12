@@ -1,0 +1,8 @@
+{"pass_E1": false, "crops": 7, "min_hp_sd": 6.81, "max_hp_sd": 12.81}
+p10_lawn_eye.jpg [100, 1648] 8.65 70.9
+p10_lawn_eye.jpg [2240, 1856] 8.88 75.4
+p9_park_panorama.jpg [1500, 1620] 6.91 80.2
+p9_park_panorama.jpg [1750, 1640] 7.39 76.2
+p9_park_panorama.jpg [512, 1856] 6.81 72.7
+p4_greatlawn.jpg [900, 1400] 12.81 107.0
+p4_greatlawn.jpg [3520, 1856] 9.66 96.1

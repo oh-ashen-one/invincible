@@ -1,0 +1,16 @@
+gpu_slot[capture/characters]: wait phase=queue waited_s=0.1 ahead=1 holders=capture:4673
+gpu_slot[capture/characters]: wait phase=queue waited_s=30.6 ahead=0 holders=capture:4959
+gpu_slot[capture/characters]: wait phase=queue waited_s=60.9 ahead=0 holders=capture:4959
+gpu_slot[capture/characters]: wait phase=queue waited_s=91.2 ahead=0 holders=capture:4959
+gpu_slot[capture/characters]: wait phase=queue waited_s=121.5 ahead=0 holders=capture:4959
+gpu_slot[capture/characters]: acquire slot=0 waited_s=150.1 phase=lock
+[final2 17:09:12 +0s] build: skins,skinsmap (bias default in build_characters.py)
+gpu_slot[capture/characters]: run child_pid=12868 max_hold_s=2400.0 cmd=bash tools/ue_char/suits/chain_r11_final2.sh /Users/midir/sm2-n1/_scratch/characters/r11/chain5
+build_fight exit=0
+[final2 17:09:38 +26s] exposure bias for every run: 10.0
+[final2 17:09:39 +27s] orbit movie (1080p -movie)
+WH_QUIT t=12.60
+movie frames: 757 -> /Users/midir/sm2-n1/_scratch/characters/r11/chain5/orbit3/orbit_frames
+movie: /Users/midir/sm2-n1/_scratch/characters/r11/chain5/orbit3/orbit.mp4
+[final2 17:12:55 +223s] final2 done (hold used 223 s), EV 10.0, crashes 0
+gpu_slot[capture/characters]: release exit=0 hold_s=223.0 wait_s=150.1 util_before=0 util_after=0 instances_before=0 instances_max=2 contaminated=true reasons=no-exclusive-lock

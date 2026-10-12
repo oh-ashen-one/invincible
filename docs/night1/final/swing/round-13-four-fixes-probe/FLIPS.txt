@@ -1,0 +1,18 @@
+FLIP CHECK integrated-c6 (s3b_flip_cases_telemetry.csv): 2 tricks
+rendered-axis phase: same-frame post-animation
+-- trick 1: rudi  t 0.40-3.03 (2.63 s)
+   F1 rotations: program 2.00, rendered 1.98; twist 720 deg
+   F2 mean 323 deg/s PASS | F3 peak 779 deg/s PASS | F4 longest hold 0.46 s (Tuck@1.23) PASS | F5 ease ratio 8.4,11.1,29.8 PASS
+   F7 twist 720 deg, body tilt while twisting med 94 deg PASS
+   F10 release->trick n/a (no swing / wall before)
+   F8 no web catch after this trick (landing / end of clip)
+   F11 leg lag at shape changes: mean 0.064 s (n=6) PASS
+   F9 camera roll max 0.5 deg PASS | camera - hero height med -1.00 m | hero px height p10/p50/p90 0.144/0.285/0.467 PASS
+-- trick 2: wallFront  t 3.58-4.40 (0.82 s)
+   F1 rotations: program 0.92, rendered 0.94; twist 0 deg
+   F2 mean 414 deg/s  | F3 peak 653 deg/s PASS | F4 longest hold 0.00 s () FAIL | F5 ease ratio 2.9 FAIL
+   F10 release->trick 0.000 s PASS
+   F8 no web catch after this trick (landing / end of clip)
+   F11 leg lag at shape changes: mean 0.067 s (n=2) PASS
+   F9 camera roll max 0.0 deg PASS | camera - hero height med -1.60 m | hero px height p10/p50/p90 0.130/0.233/0.356 PASS
+SUMMARY integrated-c6: see FAIL lines

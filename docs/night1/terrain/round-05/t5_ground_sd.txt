@@ -1,0 +1,21 @@
+{"frames_in_25_40m_band": 16, "median_in_25_40m_band": 9.16, "min_in_25_40m_band": 5.75, "pass_band_ge_5": true, "frames_with_lawn_ge_10pct": 20, "median_over_lawn_frames": 9.16, "min_over_lawn_frames": 3.5, "window_s": [10.4, 15.4], "frames": 20, "frames_over_park": 20, "median_over_frames": 9.16, "min_over_frames": 3.5, "pass_ge_5": false}
+{'t_s': 10.4, 'hero_over_park': True, 'hero_haf_m': 18.6, 'lawn_pct': 52.5, 'windows': 293, 'median_sd3': 3.5, 'p10_sd3': 1.87}
+{'t_s': 10.65, 'hero_over_park': True, 'hero_haf_m': 24.3, 'lawn_pct': 33.3, 'windows': 147, 'median_sd3': 4.85, 'p10_sd3': 2.18}
+{'t_s': 10.9, 'hero_over_park': True, 'hero_haf_m': 28.5, 'lawn_pct': 23.9, 'windows': 71, 'median_sd3': 5.75, 'p10_sd3': 3.13}
+{'t_s': 11.15, 'hero_over_park': True, 'hero_haf_m': 31.3, 'lawn_pct': 18.7, 'windows': 27, 'median_sd3': 6.42, 'p10_sd3': 5.36}
+{'t_s': 11.4, 'hero_over_park': True, 'hero_haf_m': 33.6, 'lawn_pct': 15.6, 'windows': 23, 'median_sd3': 7.21, 'p10_sd3': 6.12}
+{'t_s': 11.65, 'hero_over_park': True, 'hero_haf_m': 35.6, 'lawn_pct': 16.1, 'windows': 26, 'median_sd3': 7.51, 'p10_sd3': 6.51}
+{'t_s': 11.9, 'hero_over_park': True, 'hero_haf_m': 37.4, 'lawn_pct': 17.1, 'windows': 25, 'median_sd3': 7.45, 'p10_sd3': 6.0}
+{'t_s': 12.15, 'hero_over_park': True, 'hero_haf_m': 38.8, 'lawn_pct': 18.3, 'windows': 26, 'median_sd3': 7.76, 'p10_sd3': 5.48}
+{'t_s': 12.4, 'hero_over_park': True, 'hero_haf_m': 40.0, 'lawn_pct': 17.4, 'windows': 25, 'median_sd3': 9.16, 'p10_sd3': 7.17}
+{'t_s': 12.65, 'hero_over_park': True, 'hero_haf_m': 40.5, 'lawn_pct': 17.8, 'windows': 24, 'median_sd3': 10.48, 'p10_sd3': 7.64}
+{'t_s': 12.9, 'hero_over_park': True, 'hero_haf_m': 40.2, 'lawn_pct': 18.3, 'windows': 18, 'median_sd3': 10.37, 'p10_sd3': 7.37}
+{'t_s': 13.15, 'hero_over_park': True, 'hero_haf_m': 39.7, 'lawn_pct': 18.9, 'windows': 22, 'median_sd3': 10.08, 'p10_sd3': 7.22}
+{'t_s': 13.4, 'hero_over_park': True, 'hero_haf_m': 38.8, 'lawn_pct': 20.0, 'windows': 24, 'median_sd3': 9.79, 'p10_sd3': 6.42}
+{'t_s': 13.65, 'hero_over_park': True, 'hero_haf_m': 36.7, 'lawn_pct': 24.0, 'windows': 35, 'median_sd3': 9.6, 'p10_sd3': 5.72}
+{'t_s': 13.9, 'hero_over_park': True, 'hero_haf_m': 36.5, 'lawn_pct': 27.2, 'windows': 47, 'median_sd3': 9.26, 'p10_sd3': 6.54}
+{'t_s': 14.15, 'hero_over_park': True, 'hero_haf_m': 35.2, 'lawn_pct': 28.9, 'windows': 61, 'median_sd3': 10.12, 'p10_sd3': 5.21}
+{'t_s': 14.4, 'hero_over_park': True, 'hero_haf_m': 33.9, 'lawn_pct': 28.9, 'windows': 52, 'median_sd3': 11.13, 'p10_sd3': 6.9}
+{'t_s': 14.65, 'hero_over_park': True, 'hero_haf_m': 32.4, 'lawn_pct': 29.9, 'windows': 55, 'median_sd3': 9.98, 'p10_sd3': 6.22}
+{'t_s': 14.9, 'hero_over_park': True, 'hero_haf_m': 30.9, 'lawn_pct': 32.0, 'windows': 71, 'median_sd3': 9.16, 'p10_sd3': 4.76}
+{'t_s': 15.15, 'hero_over_park': True, 'hero_haf_m': 29.2, 'lawn_pct': 33.9, 'windows': 97, 'median_sd3': 7.46, 'p10_sd3': 3.97}

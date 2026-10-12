@@ -1,0 +1,483 @@
+{
+  "_comment": "Homage fan game, not an official Marvel, Sony or Insomniac game; no affiliation. ORIGINAL hero suits: every entry is an override of suit8/design.py DEFAULT_STYLE (Tessera). Order = in-game cycle order (wh.Suit <n>). Palette rules (tools/ue_char/suits/ip_guard.py): no red/blue colour blocking, no white-on-black, no emblem that reads as an animal, letter, star or shield. No image generator is involved: every texel is a function of the body's 3D position.",
+  "size": 4096,
+  "suits": [
+    {
+      "id": "tessera",
+      "name": "Tessera",
+      "size": 8192,
+      "texture_set": "hero",
+      "concept": "slate teal with amber: diagonal bandolier, diamond net, hexagon badge (the round-08 suit, unchanged)",
+      "style": {}
+    },
+    {
+      "id": "verdant",
+      "name": "Verdant",
+      "concept": "forest green with dark pine and copper (round 17 re-block: no yellow anywhere, no yellow forearm / shin / glove / boot blocks, plain crown): V-yoke, ring net, arch mark",
+      "style": {
+        "palette": {
+          "body": "#2d5236",
+          "crown": "#244128",
+          "deep": "#1d382b",
+          "ink": "#0b140f",
+          "accent": "#c4703a",
+          "accent_d": "#8f4e26",
+          "stitch": "#a9c79a",
+          "sole": "#0e1511"
+        },
+        "flip": true,
+        "net": {
+          "kind": "rib",
+          "scale": 1.0
+        },
+        "sash": {
+          "kind": "vee",
+          "n": [
+            -0.55,
+            0.83,
+            0.25
+          ],
+          "c_y": 1.19,
+          "half": 0.032,
+          "fold": true,
+          "along": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "wedge": {
+          "on": true,
+          "base": 0.075,
+          "flare": 0.13
+        },
+        "belt": {
+          "buckle": "round"
+        },
+        "glyph": {
+          "kind": "gate",
+          "size": 1.3
+        },
+        "crown": {
+          "kind": "plain",
+          "edge": false
+        },
+        "brow": "tick",
+        "vent": "slots",
+        "fuzz": [
+          0.45,
+          0.62,
+          0.45
+        ],
+        "arm": {
+          "upper": "body",
+          "fore": "deep",
+          "other_fore": "body"
+        },
+        "face": {
+          "lift": 0.0
+        },
+        "greave": "none"
+      }
+    },
+    {
+      "id": "plum",
+      "name": "Plum",
+      "concept": "aubergine with apricot gold (round 13: was jade / mint): twin diagonal bands, chevron net, tally bars, forward-V crown",
+      "style": {
+        "palette": {
+          "body": "#412456",
+          "crown": "#321a44",
+          "deep": "#170c20",
+          "ink": "#0a0510",
+          "accent": "#f2b36b",
+          "accent_d": "#c07a2c",
+          "stitch": "#c8b1de",
+          "sole": "#0e0912"
+        },
+        "net": {
+          "kind": "chevron",
+          "scale": 1.15
+        },
+        "sash": {
+          "kind": "double",
+          "n": [
+            -0.36,
+            0.88,
+            0.3
+          ],
+          "c_y": 1.25,
+          "half": 0.016,
+          "gap": 0.075,
+          "along": [
+            0.925,
+            0.379,
+            0.0
+          ]
+        },
+        "wedge": {
+          "on": false
+        },
+        "trunks": {
+          "slope": -0.55,
+          "y0": 0.84
+        },
+        "belt": {
+          "buckle": "bar"
+        },
+        "arm": {
+          "upper": "deep",
+          "fore": "body",
+          "other_fore": "sleeve"
+        },
+        "glyph": {
+          "kind": "tally",
+          "size": 1.55
+        },
+        "crown": {
+          "kind": "chevron"
+        },
+        "fuzz": [
+          0.6,
+          0.45,
+          0.66
+        ]
+      }
+    },
+    {
+      "id": "cinder",
+      "name": "Cinder",
+      "concept": "warm charcoal with cyan: curved yoke, brick net, nested rhombus mark, plain hood in the body colour (round 14: relief reads)",
+      "style": {
+        "palette": {
+          "body": "#44403d",
+          "crown": "#2c2826",
+          "deep": "#151211",
+          "ink": "#0a0706",
+          "accent": "#46d3e0",
+          "accent_d": "#2a98a6",
+          "stitch": "#bfeaf0",
+          "sole": "#120c0a"
+        },
+        "net": {
+          "kind": "brick",
+          "scale": 1.7,
+          "width": 0.9
+        },
+        "sash": {
+          "kind": "yoke",
+          "n": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "c_y": 1.36,
+          "half": 0.03,
+          "curve": 4.0,
+          "along": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        "wedge": {
+          "on": true,
+          "base": 0.07,
+          "flare": 0.14
+        },
+        "trunks": {
+          "slope": 0.0,
+          "y0": 0.86
+        },
+        "spine": false,
+        "glyph": {
+          "kind": "lattice",
+          "size": 1.5
+        },
+        "crown": {
+          "kind": "plain",
+          "edge": true
+        },
+        "brow": "tick",
+        "vent": "none",
+        "arm": {
+          "upper": "deep",
+          "fore": "sleeve",
+          "other_fore": "body"
+        },
+        "fuzz": [
+          0.62,
+          0.5,
+          0.42
+        ],
+        "hood": "body"
+      }
+    },
+    {
+      "id": "glacier",
+      "name": "Glacier",
+      "concept": "ice grey-teal with slate and coral: sternum placket, honeycomb net, arch mark",
+      "style": {
+        "palette": {
+          "body": "#8fb2b5",
+          "crown": "#2a3d46",
+          "deep": "#2a3d46",
+          "ink": "#111b20",
+          "accent": "#f08a3c",
+          "accent_d": "#b8602a",
+          "stitch": "#e6f1f0",
+          "sole": "#1b262c"
+        },
+        "flip": true,
+        "net": {
+          "kind": "hex",
+          "scale": 1.0,
+          "width": 1.15
+        },
+        "sash": {
+          "kind": "placket",
+          "n": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "c_y": 1.25,
+          "half": 0.026,
+          "along": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "wedge": {
+          "on": true,
+          "base": 0.115,
+          "flare": 0.05
+        },
+        "trunks": {
+          "slope": 0.3,
+          "y0": 0.9
+        },
+        "belt": {
+          "buckle": "none"
+        },
+        "arm": {
+          "upper": "body",
+          "fore": "deep",
+          "other_fore": "sleeve"
+        },
+        "greave": "none",
+        "glyph": {
+          "kind": "gate",
+          "size": 1.2,
+          "x": -0.095,
+          "y": 1.345
+        },
+        "crown": {
+          "kind": "racing"
+        },
+        "vent": "slots",
+        "fuzz": [
+          0.74,
+          0.86,
+          0.88
+        ],
+        "hood": "body"
+      }
+    },
+    {
+      "id": "ash",
+      "name": "Ash",
+      "concept": "graphite grey with lime: steep slash, large diamond net, keystone mark",
+      "style": {
+        "palette": {
+          "body": "#5d6168",
+          "crown": "#4b4e55",
+          "deep": "#25272b",
+          "ink": "#101113",
+          "accent": "#a8e05a",
+          "accent_d": "#6fa23a",
+          "stitch": "#c9ced4",
+          "sole": "#16171a"
+        },
+        "net": {
+          "kind": "diamond",
+          "scale": 1.7,
+          "width": 1.35
+        },
+        "sash": {
+          "kind": "slash",
+          "n": [
+            0.62,
+            0.74,
+            0.25
+          ],
+          "c_y": 1.3,
+          "half": 0.026,
+          "along": [
+            0.766,
+            -0.643,
+            0.0
+          ]
+        },
+        "wedge": {
+          "on": true,
+          "base": 0.095,
+          "flare": 0.08
+        },
+        "trunks": {
+          "slope": 0.85,
+          "y0": 0.74
+        },
+        "belt": {
+          "buckle": "hex"
+        },
+        "glyph": {
+          "kind": "keystone",
+          "size": 1.4
+        },
+        "crown": {
+          "kind": "chevron"
+        },
+        "brow": "flash",
+        "vent": "hex",
+        "fuzz": [
+          0.6,
+          0.63,
+          0.66
+        ],
+        "face": {
+          "lift": 0.6
+        }
+      }
+    },
+    {
+      "id": "saffron",
+      "name": "Saffron",
+      "concept": "ochre with slate and bone (round 12 re-block: no tan / brown raglan pair, no dark shoulder caps): leaning slash, square net, ladder mark, banded forearm",
+      "style": {
+        "palette": {
+          "body": "#b8791c",
+          "crown": "#2f3a36",
+          "deep": "#2f3a36",
+          "ink": "#141a18",
+          "accent": "#efe3c4",
+          "accent_d": "#b9a77a",
+          "stitch": "#f7e9c0",
+          "sole": "#161b19",
+          "lens": "#1fae9e"
+        },
+        "net": {
+          "kind": "square",
+          "scale": 1.7,
+          "width": 0.85
+        },
+        "sash": {
+          "kind": "slash",
+          "n": [
+            -0.45,
+            0.85,
+            0.2
+          ],
+          "c_y": 1.28,
+          "half": 0.04,
+          "along": [
+            0.884,
+            0.467,
+            0.0
+          ]
+        },
+        "wedge": {
+          "on": true,
+          "base": 0.1,
+          "flare": 0.09
+        },
+        "trunks": {
+          "slope": -0.3,
+          "y0": 0.9
+        },
+        "belt": {
+          "buckle": "round"
+        },
+        "arm": {
+          "upper": "body",
+          "fore": "sleeve",
+          "other_fore": "bands"
+        },
+        "glyph": {
+          "kind": "ladder",
+          "size": 1.45
+        },
+        "crown": {
+          "kind": "honeycomb",
+          "edge": true
+        },
+        "brow": "flash",
+        "vent": "slots",
+        "fuzz": [
+          0.78,
+          0.62,
+          0.38
+        ],
+        "sleeves": false,
+        "face": {
+          "lift": 0.0
+        }
+      }
+    },
+    {
+      "id": "sage",
+      "name": "Sage",
+      "concept": "sage with moss-dark and clay: clean chest, chevron stack mark, hex net on limbs",
+      "style": {
+        "palette": {
+          "body": "#7f9570",
+          "crown": "#2a3326",
+          "deep": "#2a3326",
+          "ink": "#10150e",
+          "accent": "#e7a07a",
+          "accent_d": "#b3704c",
+          "stitch": "#d5e2c8",
+          "sole": "#161a12"
+        },
+        "flip": true,
+        "net": {
+          "kind": "hex",
+          "scale": 0.9,
+          "width": 1.0
+        },
+        "sash": {
+          "kind": "none"
+        },
+        "wedge": {
+          "on": true,
+          "base": 0.088,
+          "flare": 0.1
+        },
+        "trunks": {
+          "slope": 0.62,
+          "y0": 0.8
+        },
+        "belt": {
+          "buckle": "bar"
+        },
+        "greave": "accent",
+        "glyph": {
+          "kind": "chevrons",
+          "size": 1.6
+        },
+        "crown": {
+          "kind": "racing"
+        },
+        "brow": "tick",
+        "vent": "hex",
+        "fuzz": [
+          0.72,
+          0.8,
+          0.66
+        ],
+        "hood": "body"
+      }
+    }
+  ]
+}

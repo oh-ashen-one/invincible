@@ -1,0 +1,62 @@
+{
+ "summary": {
+  "pass_E1": false,
+  "crops": 1,
+  "min_hp_sd": 7.77,
+  "images_without_crops": [
+   "base_p1_south.jpg",
+   "base_p10_lawn_eye.jpg"
+  ]
+ },
+ "images": [
+  {
+   "image": "base_p1_south.jpg",
+   "size": [
+    3840,
+    2160
+   ],
+   "grass_pixels_pct": 48.4,
+   "candidates": 0,
+   "all_candidates_hp_sd": null,
+   "crops": []
+  },
+  {
+   "image": "base_p2_reservoir.jpg",
+   "size": [
+    3840,
+    2160
+   ],
+   "grass_pixels_pct": 36.7,
+   "candidates": 1,
+   "all_candidates_hp_sd": {
+    "min": 7.77,
+    "median": 7.77,
+    "max": 7.77
+   },
+   "crops": [
+    {
+     "box_xywh": [
+      1664,
+      1536,
+      512,
+      512
+     ],
+     "grass_share": 0.958,
+     "hp_sd": 7.77,
+     "mean_luma": 112.6
+    }
+   ]
+  },
+  {
+   "image": "base_p10_lawn_eye.jpg",
+   "size": [
+    3840,
+    2160
+   ],
+   "grass_pixels_pct": 45.5,
+   "candidates": 0,
+   "all_candidates_hp_sd": null,
+   "crops": []
+  }
+ ]
+}

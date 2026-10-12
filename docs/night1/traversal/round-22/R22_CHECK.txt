@@ -1,0 +1,38 @@
+== U22  upright side run (steady rows >= 0.1 s into each wallRunSide segment)
+         target: torso <= 30 deg off wall-up, >= 60 deg above the run line, chest along the run line; touchdown every <= .18 s;
+         along-run ankle separation peak >= .6 m and >= .3 m for >= 70 % of the run
+  w1_wallrun_tall_zip: side run 2.85-3.58 s (39 steady rows) | torso-to-wall-up <= 30 deg 100 % (med 19.8, max 22.3) | above run line >= 60 deg 0 % (med 41.7, min 25.3) | chest-to-run line med 5.5 deg (max 51.1)
+      stride: along-run ankle sep peak 0.80 m, >= .3 m 72 % (med 0.54) | in-plane ankle sep >= .3 m 97 % | touchdowns 4, longest gap 0.317 s (med 0.150)
+  w2_wallrun_side_zip: side run 2.85-3.98 s (63 steady rows) | torso-to-wall-up <= 30 deg 100 % (med 19.9, max 20.6) | above run line >= 60 deg 97 % (med 78.2, min 57.4) | chest-to-run line med 4.0 deg (max 41.6)
+      stride: along-run ankle sep peak 0.87 m, >= .3 m 76 % (med 0.58) | in-plane ankle sep >= .3 m 98 % | touchdowns 8, longest gap 0.167 s (med 0.167)
+  x2_rmb_cancel_wall: side run 2.85-3.18 s (15 steady rows) | torso-to-wall-up <= 30 deg 100 % (med 20.1, max 22.3) | above run line >= 60 deg 0 % (med 38.2, min 25.3) | chest-to-run line med 20.1 deg (max 51.1)
+      stride: along-run ankle sep peak 0.80 m, >= .3 m 80 % (med 0.67) | in-plane ankle sep >= .3 m 93 % | touchdowns 2, longest gap 0.150 s (med 0.150)
+
+== B22  rendered hero box (hero mask px_*, one row late) height >= width in >= 80 % of the w1 + w2 side-run frames (all side rows)
+  w1_wallrun_tall_zip: 45/45 frames tall (100 %), h/w med 2.24
+  w2_wallrun_side_zip: 69/69 frames tall (100 %), h/w med 1.93
+  w1 + w2: 114/114 = 100 % -> PASS
+
+== L22  facade luma around the hero on side-run frames (12 fps; ring = hero box grown by its size, box excluded) >= 45; mullions
+  w1_wallrun_tall_zip: 9 frames, facade luma min 14.6 med 20.6 max 29.3 -> FAIL (0/9 >= 45) | hero_occl max 0.177 (frames > .10: 3) | hero visible px min 25296
+  w2_wallrun_side_zip: 14 frames, facade luma min 94.5 med 119.1 max 141.9 -> PASS (14/14 >= 45) | hero_occl max 0.022 (frames > .10: 0) | hero visible px min 28736
+
+== F22  w2 3.1-3.85 s at 12 fps: legs apart (along-run ankle sep >= .3 m) in >= 7 of 10 frames
+  3.100:wallRunSide:0.22/0.43, 3.183:wallRunSide:0.76/0.78, 3.267:wallRunSide:0.36/0.49, 3.350:wallRunSide:0.71/0.75, 3.433:wallRunSide:0.46/0.56, 3.517:wallRunSide:0.62/0.68, 3.600:wallRunSide:0.55/0.62, 3.683:wallRunSide:0.53/0.62, 3.767:wallRunSide:0.64/0.68, 3.850:wallRunSide:0.44/0.55  (along-run / in-plane m) -> 9/10 apart -> PASS
+     sheet round-22/sheets/w2_wallrun_side_zip_3.1-3.9_12fps.png
+     sheet round-22/sheets/w1_wallrun_tall_zip_side_12fps.png (2.85 s, 8 frames)
+
+== C22  c vertical run kept (r21: limbs <= .30 m, touchdown gap med .150 / longest .383 across the setback, 82 % within 15 deg of wall-up)
+  r22 c wallRun: 101 rows | limbs off the surface max 0.30 m (p90 0.23) | touchdowns 11, gap med 0.150 longest 0.383 s | within 15 deg of wall-up 82 %
+  r21 c wallRun: 101 rows | limbs off the surface max 0.30 m (p90 0.23) | touchdowns 11, gap med 0.150 longest 0.383 s | within 15 deg of wall-up 82 %
+
+== I22  flip clips vs round 21 (every common column, cell by cell)
+  f1_flow_backDouble: rows r21 539 / r22 539, 145 common columns, differing cells 0 -> BIT-IDENTICAL
+  f4_chain_flips: rows r21 797 / r22 797, 145 common columns, differing cells 0 -> BIT-IDENTICAL
+  c_wallrun_perch: rows r21 629 / r22 629, 145 common columns, differing cells 617 in [('pose_sig', 39), ('limb_z', 39), ('body_axis_deg', 39), ('body_pitch_deg', 39), ('hero_bbox_h', 38), ('head_hip_dz', 38), ('hero_bbox_w', 37), ('hero_cy', 37)]
+  a_swing_chain: rows r21 935 / r22 935, 145 common columns, differing cells 0 -> BIT-IDENTICAL
+
+== G22  ground locomotion blend (characters critic: idle -> run was a 1-frame weight pop). anim_weight is the TOTAL clip weight (always 1),
+         so the check is the largest single-frame pose_sig jump on ground rows (r1 roof run), r21 vs r22; no shot-list clip has a standing start
+  r21 r1: 146 ground rows, largest pose_sig jumps 0.091 at 7.4667 s (run), 0.088 at 7.4833 s (run), 0.087 at 7.5000 s (run)
+  r22 r1: 146 ground rows, largest pose_sig jumps 0.091 at 7.4667 s (run), 0.087 at 7.4833 s (run), 0.083 at 7.5000 s (run)

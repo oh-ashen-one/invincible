@@ -1,0 +1,10 @@
+{
+  "original_checkout_head": "10aa01fc4db64c11e21412cf13fae5bf674cec5a",
+  "original_branch": "codex/m5-showcase-20261006",
+  "original_dirty_sources_match_preserved_snapshot": {
+    "unreal/WebHomage/Scripts/traversal_web_material.py": true,
+    "unreal/WebHomage/Source/WebHomage/Traversal/WebTraversalComponent.h": true
+  },
+  "previous_owner_artifact_dylib_matches_its_stage": true,
+  "original_checkout_not_used_for_edits": true
+}

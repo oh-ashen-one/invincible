@@ -1,0 +1,45 @@
+{
+ "name": "f1_flow_backDouble",
+ "note": "Round 17 (critic r16 single gap: every trick shot from the street into a dark facade, starting toward the sun; TC8): the f-series moved to the y -560 cross street heading EAST: north side = a 10-30 m low-rise row with the traversal world's north edge (open sky) behind it, south side = 46-466 m blocks to web onto; the sun (due west, 8 deg up) is behind every view. Script tune: arcs bottom >= 14 m over the street (ArcLowMin, drops 8 / 12 m: the chain stays over the 10-14 m street-tree canopies), WallClearance 9 m (keeps him mid-street so the sun-away trick-camera side has room). A flip on EVERY release; each flow flip is solved for an apex with the hips >= 3 m (+1) over the lower roofline within 30 m (bFlowApexSolve), the trick swing held on its rising front until that is reachable. f1: backDouble (tuck double + kick-out) on every release from x -225. Round 24: AltChain=0 (the altitude chain is the a / m1 / d chain rule; the flip showcases keep their r17-r23 low-roof flow flips).",
+ "seed": 1234,
+ "tune": "ArcLowMin=14,ArcDropShallow=8,ArcDropDeep=12,WallClearance=9,AltChain=0",
+ "spawn": {
+  "pos": [
+   -225,
+   -560,
+   30
+  ],
+  "vel": [
+   26,
+   0,
+   0
+  ],
+  "yaw": 0,
+  "camPitch": 0.12
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 0,
+   "swing": false,
+   "flip": "backDouble"
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.8,
+   "repressVz": 99.0,
+   "trickEvery": 1,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  }
+ ]
+}

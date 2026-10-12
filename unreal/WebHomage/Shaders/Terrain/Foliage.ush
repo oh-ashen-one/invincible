@@ -1,0 +1,202 @@
+// Homage fan game. Not an official Marvel, Sony or Insomniac product; no affiliation.
+// Piece E (terrain), round 2: the park-tree distance chain and the browser's clump-crown shader, hand-translated to HLSL.
+//   browser: src/world/pool.js (dithered LOD fades), src/world/trees.js (crownMaterial = lumpy clump crowns 165-520 m, leafMaterial = leaf-card canopies 44-165 m)
+// UE draws every HISM instance at every distance (per-instance cull distances are not reliable: v1 / v2 stills showed the flat crown hulls at every range), so each LOD band
+// is a material clip by camera distance with the browser's screen-door dither (resolved by TSR). Used through the Custom node include path /Project/Terrain/Foliage.ush.
+// All float literals carry an 'f' suffix on purpose (bare literals in ternaries become FP64 on Metal; build_terrain.py's fix_literals only touches the Custom-node bodies).
+#pragma once
+
+float tfIGN(float2 p) { return frac(52.9829189f * frac(dot(p, float2(0.06711056f, 0.00583715f)))); }
+
+// pool.js aLod: a pool fades IN over [near - fadeIn, near] and OUT over [far - fadeOut, far] (metres). band = (near, far, 0): the fades are pool.js's defaults (fadeIn = max(10, 0.08 near)
+// when near > 0, fadeOut = max(10, 0.08 far); build_terrain.py checks every pool of the export against them). The near LOD fading out and the far LOD fading in use the same dither
+// value n, so there is neither a hole nor a double layer. Returns 1 = keep the pixel.
+// (UE passes a VectorParameter to a Custom node as float3, never float4: a float4 `band` parameter failed to compile in the r02 warm-up.)
+// Not applied in shadow-depth and Lumen card-capture passes: there the camera is the light / the card, not the player (the pool then casts / bounces at every distance).
+float tfBand(float d, float3 band, float2 pix, float t)
+{
+#if SHADOW_DEPTH_SHADER || LUMEN_CARD_CAPTURE
+    return 1.0f;
+#else
+    float dNear = band.x, dFar = band.y;
+    float fin = dNear > 0.0f ? max(10.0f, dNear * 0.08f) : 0.0f;
+    float fout = max(10.0f, dFar * 0.08f);
+    float n = frac(tfIGN(pix) + frac(t * 37.0f) * 1.618034f);
+    float vin  = fin > 0.0f ? saturate((d - (dNear - fin)) / fin) : 1.0f;
+    float vout = saturate((dFar - d) / fout);
+    return (n >= vout || n < 1.0f - vin) ? 0.0f : 1.0f;
+#endif
+}
+
+// ---- value noise (a sin-free hash: the browser's sin(dot) hash loses precision at 1000+ m world coordinates on a GPU)
+float tfH3(float3 p) { p = frac(p * 0.1031f); p += dot(p, p.yzx + 33.33f); return frac((p.x + p.y) * p.z); }
+float tfVn(float3 p)
+{
+    float3 i = floor(p), f = frac(p);
+    f = f * f * (3.0f - 2.0f * f);
+    float a = lerp(lerp(tfH3(i), tfH3(i + float3(1.0f, 0.0f, 0.0f)), f.x), lerp(tfH3(i + float3(0.0f, 1.0f, 0.0f)), tfH3(i + float3(1.0f, 1.0f, 0.0f)), f.x), f.y);
+    float b = lerp(lerp(tfH3(i + float3(0.0f, 0.0f, 1.0f)), tfH3(i + float3(1.0f, 0.0f, 1.0f)), f.x), lerp(tfH3(i + float3(0.0f, 1.0f, 1.0f)), tfH3(i + float3(1.0f, 1.0f, 1.0f)), f.x), f.y);
+    return lerp(a, b, f.z);
+}
+// r05 summer grade of the browser's per-tree palette (aTintA / aTintB). The export's tints run hue 22-68 deg (brown .. olive, HSV saturation ~0.67 in linear albedo), which read
+// 0.52 saturated through the golden haze (r04 critic: crown saturation 0.52, the reference crowns are yellow-green / leaf-green). The tint's luminance is kept; its hue becomes a
+// yellow-green .. leaf-green pair chosen by how green the original tint was, so the per-tree variety survives. Blue is ~0.05-0.08 of green (display saturation >= 0.65 target).
+float3 tfSummer(float3 c)
+{
+    float L = dot(c, float3(0.2126f, 0.7152f, 0.0722f));
+    float gsel = saturate((c.g - c.r) / max(L, 0.0001f) * 3.0f + 0.5f);
+    float3 hy = float3(0.52f, 1.0f, 0.03f);    // test holds: (0.66, 1, 0.05) / (0.42, 1, 0.08) gave saturation 0.633 and read yellow under the 4200 K sun: greener, bluer-free
+    float3 hg = float3(0.32f, 1.0f, 0.05f);
+    float3 h = lerp(hy, hg, gsel);
+    h /= dot(h, float3(0.2126f, 0.7152f, 0.0722f));
+    return h * L;
+}
+// r05 clump-scale light / shade breakup (world space, ~0.4-1.3 m): at 100-500 m a 4K pixel covers 3-17 cm, the leaf texture's own contrast is mip-averaged away there,
+// while sunlit / shaded leaf clumps are what the reference crowns show at swing height (crown sigma-3 SD 13-23 against our 8.1).
+float tfClumpShade(float3 cpw)
+{
+    float q = tfVn(cpw * 0.9f + 4.7f) * 0.42f + tfVn(cpw * 2.6f + 1.1f) * 0.36f + tfVn(cpw * 6.5f + 8.3f) * 0.22f;
+    return lerp(0.28f, 1.8f, smoothstep(0.35f, 0.65f, q));   // test hold 2: 0.45-1.5 gave p1 crown sigma-3 median 9.9; S hold (0.32-1.7): 11.45
+}
+
+// clump height field (trees.js crownMaterial): clumps (~1.6 m) of sub-clumps (~0.5 m); n3 = leaf speckle (~0.2 m), returned through the out parameter
+float tfClump(float3 cp, out float n1, out float n2, out float n3)
+{
+    n1 = tfVn(cp * 0.62f); n2 = tfVn(cp * 2.1f + 3.1f); n3 = tfVn(cp * 5.3f + 7.7f);
+    float n15 = tfVn(cp * 1.05f + 11.3f);       // r02: a ~1 m octave between the clumps and the sub-clumps: at 165-520 m a 4K pixel covers 6-18 cm, 1 m features are what survives TSR
+    return n1 * 0.5f + n15 * 0.25f + n2 * 0.25f;
+}
+// bump height used for the normal (browser: dFdx / dFdy of crClump * 3 + n3 * 0.5)
+float tfBumpH(float3 cp)
+{
+    float n1, n2, n3; float c = tfClump(cp, n1, n2, n3);
+    return c * 3.0f + n3 * 0.5f;       // r03: back at the browser's 3.0 / 0.5 (r02 had 7.5 / 0.2: crown SD from hull noise; the hull now draws only >= 520 m, the 165-520 m band is leaf cards)
+}
+
+// The lumpy clump crown (trees.js crownMaterial), 165-520 m. wpos / cam in UE cm; wn = world vertex normal; aLeaf = (exposure, per-lobe variation); tA / tB = the tree's autumn
+// palette (per-instance custom data); rnd = per-instance random (decorrelates the clump noise between crowns); band = LOD dither band (m); pix = SvPosition.xy; t = time (s).
+// Returns the base colour; op = 0 / 1 mask (ragged silhouette + LOD band), nW = bumped world normal.
+float3 TerrainClumpCrown(float3 wpos, float3 cam, float3 wn, float2 aLeaf, float3 tA, float3 tB, float rnd, float3 band, float2 pix, float t, float bumpGain,
+                         out float op, out float3 nW)
+{
+    float3 toCam = cam - wpos;
+    float dist = length(toCam) * 0.01f;
+    float3 V = toCam / max(length(toCam), 1.0f);
+    float3 N = normalize(wn);
+    tA = tfSummer(tA); tB = tfSummer(tB);       // r05 summer palette
+    float3 cp = wpos * 0.01f + float3(rnd * 37.1f, rnd * 53.7f, rnd * 29.3f);
+    float n1, n2, n3;
+    float crClump = tfClump(cp, n1, n2, n3);
+    float cov = smoothstep(0.18f, 0.55f, crClump * 0.8f + n3 * 0.35f);
+    float expo = saturate(aLeaf.x);
+    float hsel = 0.5f + (n2 - 0.5f) * 0.7f + (aLeaf.y - 0.5f) * 0.35f + (n1 - 0.5f) * 0.4f;
+    float3 leaf = lerp(tA, tB, smoothstep(0.1f, 0.9f, hsel));
+    leaf *= 0.74f + 0.34f * n3;
+    leaf = frac(n3 * 17.3f + aLeaf.y * 3.1f) > 0.97f ? leaf * float3(0.55f, 0.4f, 0.3f) : leaf;      // dry leaves
+    float3 c = lerp(tB * 0.22f, leaf, smoothstep(0.3f, 0.62f, crClump + n3 * 0.22f));                // deeper gaps between the clumps (browser 0.42)
+    c *= lerp(float3(1.0f, 1.0f, 1.0f), float3(1.12f, 1.1f, 0.8f), smoothstep(0.62f, 0.9f, n2) * 0.6f); // sunlit yellowing leaf tips
+    float occ = lerp(0.38f, 1.28f, pow(expo, 1.25f)) * lerp(0.42f, 1.35f, smoothstep(0.3f, 0.75f, crClump)); // dark skirts, sunlit domes (clump contrast raised: browser 0.3-1.14 x 0.66-1.1)
+    // silhouette: grazing faces keep only the leaf coverage -> ragged, see-through crown edges (stochastic threshold, resolved by TSR)
+    float facing = abs(dot(N, V));
+    float alpha = lerp(cov * 1.25f, 1.0f, smoothstep(0.3f, 0.72f, facing));
+    float nn = frac(tfIGN(pix + 5.0f) + frac(t * 37.0f) * 2.618034f);
+    op = (alpha < lerp(0.25f, 0.75f, nn)) ? 0.0f : tfBand(dist, band, pix, t);
+    // normal: the clump height field's gradient (finite differences in world space), strength grows with the pixel footprint like the browser's dFdx bump
+    float e = 0.12f;
+    float h0 = tfBumpH(cp);
+    float3 g = float3(tfBumpH(cp + float3(e, 0.0f, 0.0f)) - h0, tfBumpH(cp + float3(0.0f, e, 0.0f)) - h0, tfBumpH(cp + float3(0.0f, 0.0f, e)) - h0) / e;
+    g -= N * dot(g, N);
+    float k = clamp(0.0026f * dist, 0.09f, 0.62f) * bumpGain;
+    nW = normalize(N - g * k);
+    c *= occ;
+    float Lc = dot(c, float3(0.2126f, 0.7152f, 0.0722f));
+    return max(lerp(Lc.xxx, c, 1.5f), 0.0f);   // r05: the >= 520 m hull reads through the golden haze (crown saturation 0.55 there): +50 % albedo saturation
+}
+
+// The leaf-card canopy (trees.js leafMaterial), 44-165 m, from the city's leaf atlas (R value, G hue selector, >= 0.97 twig, B spray depth, A coverage); the solid core spheres carry
+// aLeaf.x >= 2 and box-projected UVs. Returns the base colour; op = coverage mask (stochastic threshold + LOD band); sub = foliage transmission colour.
+float3 TerrainLeafCards(Texture2D tAtlas, SamplerState tAtlasSampler, float2 uv, float2 aLeaf, float3 tA, float3 tB, float3 wn, float3 wpos, float3 cam, float3 band, float2 pix, float t,
+                        out float op, out float3 sub)
+{
+#if RAYTRACINGSHADER || RAYHITGROUPSHADER
+    float2 gx = float2(0.0f, 0.0f), gy = float2(0.0f, 0.0f);      // no derivatives in ray tracing hit shaders
+#else
+    float2 gx = ddx(uv), gy = ddy(uv);
+#endif
+    float3 toCam = cam - wpos;
+    float dist = length(toCam) * 0.01f;
+    float3 V = toCam / max(length(toCam), 1.0f);
+    tA = tfSummer(tA); tB = tfSummer(tB);       // r05 summer palette
+    float core = aLeaf.x >= 1.5f ? 1.0f : 0.0f;
+    float2 luv = core > 0.5f ? frac(uv) : uv;
+    float4 tx = Texture2DSampleGrad(tAtlas, tAtlasSampler, float2(luv.x, 1.0f - luv.y), float2(gx.x, -gx.y), float2(gy.x, -gy.y));
+    float expo = core > 0.5f ? (aLeaf.x - 2.0f) : aLeaf.x;
+    if (core > 0.5f)
+    {
+        float2 l2 = frac(uv * 0.7f + 0.31f);
+        float4 t2 = Texture2DSampleGrad(tAtlas, tAtlasSampler, float2(l2.x, 1.0f - l2.y), float2(gx.x, -gx.y) * 0.7f, float2(gy.x, -gy.y) * 0.7f);
+        float cov = max(tx.a, t2.a);
+        tx = tx.a > 0.5f ? tx : t2;
+        tx.r = tx.g > 0.96f ? 0.55f : (tx.a > 0.5f ? tx.r * 0.85f : 0.45f);
+        tx.b = 0.0f; tx.g = min(tx.g, 0.94f);
+        float facing = abs(dot(normalize(wn), V));
+        // r03 pass 2: the LOD1 core (0.85 of the lobes, 165-520 m) read as smooth round puffs: ~0.6 m holes (world-space value noise) let the cards / the dark interior show through
+        float3 cpw = wpos * 0.01f;
+        float holes = tfVn(cpw * 1.7f + 5.3f) * 0.65f + tfVn(cpw * 4.1f + 1.7f) * 0.35f;
+        tx.a = (facing > 0.45f && holes > 0.36f) ? 1.0f : cov * step(0.30f, holes);   // grazing core surface (its silhouette) takes the leaf coverage: the solid mass never shows a faceted edge
+    }
+    else
+    {
+        // r03 pass 2: ragged card borders (a leaf spray cut by its quad edge reads as a straight line against the sky): the coverage is thinned toward the atlas tile border
+        float2 tl = frac(luv * 2.0f);
+        float eb = min(min(tl.x, 1.0f - tl.x), min(tl.y, 1.0f - tl.y));
+        tx.a *= smoothstep(0.0f, 0.09f, eb + 0.05f * (tx.r - 0.5f));
+#if !(RAYTRACINGSHADER || RAYHITGROUPSHADER || SHADOW_DEPTH_SHADER || LUMEN_CARD_CAPTURE)
+        // r05: edge-on cards (r04 critic: 'saucer cards float in p10'): a card seen within ~15 deg of its plane is a smeared streak / a flat saucer against the sky; its coverage
+        // fades with the geometric facing (face normal from the position derivatives; the vertex normals are the clump-outward normals, not the card plane)
+        float3 fn = cross(ddx(wpos), ddy(wpos));
+        float fc = abs(dot(fn, V)) / max(length(fn), 1e-6f);
+        tx.a *= smoothstep(0.08f, 0.3f, fc);
+#endif
+    }
+    float twig = tx.g >= 0.97f ? 1.0f : 0.0f;
+    float hsel = tx.g * 0.8f + aLeaf.y * 0.55f - 0.18f;
+    float3 leaf = lerp(tA, tB, smoothstep(0.15f, 0.85f, hsel));
+    float odd = frac(tx.g * 13.7f + aLeaf.y * 5.3f);                                   // a scatter of dry brown / still-green leaves
+    leaf = odd > 0.975f ? float3(0.13f, 0.06f, 0.025f) : (odd < 0.02f ? float3(0.16f, 0.17f, 0.02f) : leaf);   // r05: 2.5 % dry leaves (r04 7 %: summer crowns)
+    leaf *= 0.32f + 0.9f * tx.r;                                                         // r03 pass 2: per-leaf value spread (browser 0.42 + 0.72 r)
+    float occ = lerp(0.4f, 1.0f, pow(saturate(expo), 1.4f)) * lerp(0.45f, 1.0f, tx.b);   // r03 pass 2: deeper spray interiors (browser 0.62): leaf-scale contrast
+    // r05: clump-scale light / shade (fades in beyond 25 m, where the leaf texture is mip-averaged), sunlit outer clumps a touch yellower
+    float csh = tfClumpShade(wpos * 0.01f);
+    occ *= lerp(1.0f, csh, smoothstep(25.0f, 70.0f, dist));
+    leaf = lerp(leaf, leaf * float3(1.1f, 1.06f, 0.7f), smoothstep(1.0f, 1.5f, csh) * saturate(expo));
+    if (core > 0.5f)
+    {
+        float3 cpw2 = wpos * 0.01f;
+        float cl = tfVn(cpw2 * 0.9f + 2.1f) * 0.6f + tfVn(cpw2 * 2.6f + 9.4f) * 0.4f;   // clumps of ~1 m / ~0.4 m across the core: leaf-mass breakup, not hull bump
+        occ = lerp(0.24f, 0.42f, saturate(expo)) * lerp(0.55f, 1.6f, smoothstep(0.3f, 0.7f, cl));
+    }
+    float3 c = (twig > 0.5f ? float3(0.085f, 0.06f, 0.042f) : leaf) * occ;
+    float Lq = dot(c, float3(0.2126f, 0.7152f, 0.0722f));
+    c = max(lerp(Lq.xxx, c, lerp(1.0f, 1.35f, smoothstep(120.0f, 450.0f, dist))), 0.0f);   // r05: distant cards read through the golden haze (S hold: crown saturation 0.54-0.64 beyond 300 m)
+    float nn = frac(tfIGN(pix + 17.0f) + frac(t * 37.0f) * 2.618034f);
+#if SHADOW_DEPTH_SHADER
+    op = tx.a < 0.22f ? 0.0f : 1.0f;   // r05: a fixed coverage threshold in the shadow pass (the stochastic 0.2-0.7 screen door thinned the crowns' cast shadow)
+#else
+    op = (tx.a < lerp(0.2f, 0.7f, nn)) ? 0.0f : tfBand(dist, band, pix, t);
+#endif
+    sub = c * 0.85f;
+    return c;
+}
+
+// r03: residual ambient fill weight for the leaf materials (replaces r02's constant Emis = c * 1800 * (0.4 + 0.6 expo)). The canopy is lit by the engine (sun + two-sided foliage
+// transmission + Lumen sky / bounce, with the crown pools out of the ray-tracing scene); what is left is a small fill that is 0 on sun-facing outer leaves (direct sun),
+// 0 within 10 m of the camera (the r02 t4 sprint showed pale mint leaves next to the lens), ramps in to 30 m and grows into the shaded crown interior.
+// expo = leaf exposure (0 inside / underneath .. 1 outer shell), N = canopy vertex normal (world), L = direction TO the sun (SkyAtmosphere light 0), dist = metres to the camera.
+float tfFillW(float expo, float3 N, float3 L, float dist)
+{
+    float sunFacing = saturate(dot(normalize(N), L) * 2.5f + 0.15f);
+    float sunlit = sunFacing * smoothstep(0.4f, 0.8f, expo);
+    return (1.0f - sunlit) * (1.0f - 0.5f * expo) * smoothstep(10.0f, 30.0f, dist);
+}
+

@@ -1,0 +1,170 @@
+[
+ {
+  "id": "tessera",
+  "n": 4096,
+  "reach_px": 6,
+  "net_ends_total": 120,
+  "dead_end_blobs": 115,
+  "dead_end_blobs_in_open_fabric": 93,
+  "open_fabric_by_layer": {
+   "armU_R": 4,
+   "torso": 11,
+   "armU_L": 8,
+   "armF_L": 9,
+   "shin_L": 1,
+   "thigh_R": 15,
+   "thigh_L": 47
+  },
+  "dead_end_blobs_in_armpit_crease_zone": 22,
+  "dead_end_texels": 81148,
+  "line_texels": 298449,
+  "net_kind": "diamond"
+ },
+ {
+  "id": "verdant",
+  "n": 4096,
+  "reach_px": 6,
+  "net_ends_total": 24,
+  "dead_end_blobs": 29,
+  "dead_end_blobs_in_open_fabric": 17,
+  "open_fabric_by_layer": {
+   "armU_R": 0,
+   "torso": 2,
+   "armU_L": 6,
+   "armF_L": 0,
+   "shin_L": 1,
+   "thigh_R": 4,
+   "thigh_L": 4
+  },
+  "dead_end_blobs_in_armpit_crease_zone": 12,
+  "dead_end_texels": 26338,
+  "line_texels": 93015,
+  "net_kind": "rib"
+ },
+ {
+  "id": "plum",
+  "n": 4096,
+  "reach_px": 6,
+  "net_ends_total": 90,
+  "dead_end_blobs": 65,
+  "dead_end_blobs_in_open_fabric": 56,
+  "open_fabric_by_layer": {
+   "armU_R": 1,
+   "torso": 18,
+   "armU_L": 5,
+   "armF_L": 4,
+   "shin_L": 5,
+   "thigh_R": 12,
+   "thigh_L": 12
+  },
+  "dead_end_blobs_in_armpit_crease_zone": 9,
+  "dead_end_texels": 37527,
+  "line_texels": 128862,
+  "net_kind": "chevron"
+ },
+ {
+  "id": "cinder",
+  "n": 4096,
+  "reach_px": 6,
+  "net_ends_total": 71,
+  "dead_end_blobs": 62,
+  "dead_end_blobs_in_open_fabric": 47,
+  "open_fabric_by_layer": {
+   "armU_R": 2,
+   "torso": 9,
+   "armU_L": 4,
+   "armF_L": 4,
+   "shin_L": 4,
+   "thigh_R": 7,
+   "thigh_L": 17
+  },
+  "dead_end_blobs_in_armpit_crease_zone": 15,
+  "dead_end_texels": 25287,
+  "line_texels": 109688,
+  "net_kind": "brick"
+ },
+ {
+  "id": "glacier",
+  "n": 4096,
+  "reach_px": 6,
+  "net_ends_total": 73,
+  "dead_end_blobs": 57,
+  "dead_end_blobs_in_open_fabric": 48,
+  "open_fabric_by_layer": {
+   "armU_R": 0,
+   "torso": 15,
+   "armU_L": 5,
+   "armF_L": 3,
+   "shin_L": 4,
+   "thigh_R": 11,
+   "thigh_L": 11
+  },
+  "dead_end_blobs_in_armpit_crease_zone": 9,
+  "dead_end_texels": 42811,
+  "line_texels": 130064,
+  "net_kind": "hex"
+ },
+ {
+  "id": "ash",
+  "n": 4096,
+  "reach_px": 6,
+  "net_ends_total": 116,
+  "dead_end_blobs": 95,
+  "dead_end_blobs_in_open_fabric": 75,
+  "open_fabric_by_layer": {
+   "armU_R": 2,
+   "torso": 15,
+   "armU_L": 6,
+   "armF_L": 6,
+   "shin_L": 4,
+   "thigh_R": 14,
+   "thigh_L": 28
+  },
+  "dead_end_blobs_in_armpit_crease_zone": 20,
+  "dead_end_texels": 67136,
+  "line_texels": 234731,
+  "net_kind": "diamond"
+ },
+ {
+  "id": "saffron",
+  "n": 4096,
+  "reach_px": 6,
+  "net_ends_total": 49,
+  "dead_end_blobs": 57,
+  "dead_end_blobs_in_open_fabric": 44,
+  "open_fabric_by_layer": {
+   "armU_R": 0,
+   "torso": 13,
+   "armU_L": 4,
+   "armF_L": 3,
+   "shin_L": 6,
+   "thigh_R": 7,
+   "thigh_L": 11
+  },
+  "dead_end_blobs_in_armpit_crease_zone": 13,
+  "dead_end_texels": 34974,
+  "line_texels": 104317,
+  "net_kind": "square"
+ },
+ {
+  "id": "sage",
+  "n": 4096,
+  "reach_px": 6,
+  "net_ends_total": 88,
+  "dead_end_blobs": 70,
+  "dead_end_blobs_in_open_fabric": 54,
+  "open_fabric_by_layer": {
+   "armU_R": 0,
+   "torso": 22,
+   "armU_L": 5,
+   "armF_L": 3,
+   "shin_L": 4,
+   "thigh_R": 11,
+   "thigh_L": 11
+  },
+  "dead_end_blobs_in_armpit_crease_zone": 16,
+  "dead_end_texels": 41626,
+  "line_texels": 141929,
+  "net_kind": "hex"
+ }
+]

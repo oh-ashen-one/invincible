@@ -1,0 +1,90 @@
+{
+ "/Game/Traversal/HeroDev/HeroDev/SkeletalMeshes/SpiderMan": {
+  "class": "SkeletalMesh",
+  "lods": 1,
+  "per_lod": [
+   {
+    "verts": 27291
+   }
+  ],
+  "materials": 1,
+  "allow_cpu": null
+ },
+ "/Game/Traversal/HeroDev/HeroDev/SkeletalMeshes/Lenses": {
+  "class": "SkeletalMesh",
+  "lods": 1,
+  "per_lod": [
+   {
+    "verts": 1723
+   }
+  ],
+  "materials": 2,
+  "allow_cpu": null
+ },
+ "/Game/Characters/Citizens/SK_Citizen_01_retired_gent": {
+  "class": "SkeletalMesh",
+  "lods": 1,
+  "per_lod": [
+   {
+    "verts": 18598
+   }
+  ],
+  "materials": 1,
+  "allow_cpu": null
+ },
+ "/Game/Characters/Citizens/SK_Citizen_03_white_tee": {
+  "class": "SkeletalMesh",
+  "lods": 1,
+  "per_lod": [
+   {
+    "verts": 17614
+   }
+  ],
+  "materials": 1,
+  "allow_cpu": null
+ },
+ "/Game/Characters/Citizens/SK_Citizen_04_blue_sweatshirt": {
+  "class": "SkeletalMesh",
+  "lods": 1,
+  "per_lod": [
+   {
+    "verts": 17306
+   }
+  ],
+  "materials": 1,
+  "allow_cpu": null
+ },
+ "/Game/Characters/Citizens/SK_Citizen_08_black_suit": {
+  "class": "SkeletalMesh",
+  "lods": 1,
+  "per_lod": [
+   {
+    "verts": 17178
+   }
+  ],
+  "materials": 1,
+  "allow_cpu": null
+ },
+ "/Game/Characters/Citizens/SK_Citizen_10_silver_tie": {
+  "class": "SkeletalMesh",
+  "lods": 1,
+  "per_lod": [
+   {
+    "verts": 18505
+   }
+  ],
+  "materials": 1,
+  "allow_cpu": null
+ },
+ "/Game/Characters/Citizens/SK_Citizen_12_sundress_mom": {
+  "class": "SkeletalMesh",
+  "lods": 1,
+  "per_lod": [
+   {
+    "verts": 18542
+   }
+  ],
+  "materials": 1,
+  "allow_cpu": null
+ }
+}

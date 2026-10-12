@@ -1,0 +1,43 @@
+{
+ "name": "m1_mouse_swing",
+ "note": "Round 20 (critic r19 owner bug 5 \"mouse look UNPROVEN\"): the a swing chain with -WHTravInputTest=mouseLook -- real mouse-axis events in the hardware path form (game viewport, default input device, 1 sample) are injected while the scripted chain plays: 6 px per frame right 0.5-2.5 s, 4 px per frame up 3.0-4.0 s; telemetry look_px / cam_yaw_deg prove the camera turns while swinging. Round 24: re-press at -12 m/s as a_swing_chain (the altitude chain).",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   240,
+   24
+  ],
+  "yaw": -90,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.8,
+   "repressVz": -12.0,
+   "trickEvery": 3,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  }
+ ]
+}

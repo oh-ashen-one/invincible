@@ -1,0 +1,7 @@
+{"pass_E1": false, "crops": 1, "min_hp_sd": 5.44, "images_without_crops": ["p1_south.jpg", "p2_reservoir.jpg", "p3_lake.jpg", "p9_park_panorama.jpg", "p10_lawn_eye.jpg"]}
+p1_south.jpg 13.4 % grass px; [] candidates 0
+p2_reservoir.jpg 8.6 % grass px; [] candidates 0
+p3_lake.jpg 10.3 % grass px; [] candidates 0
+p4_greatlawn.jpg 22.6 % grass px; [5.44] candidates 4
+p9_park_panorama.jpg 11.4 % grass px; [] candidates 0
+p10_lawn_eye.jpg 39.3 % grass px; [] candidates 0

@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "K": 200.0,
+  "EmissiveK": 1.0,
+  "note": "K = UE candela per browser intensity unit (rects: nits per radiance unit). Copied into Content/Night/CityLights.json by the build; wh.CityLights.Reload re-reads it at run time. emissive.* are browser radiance multipliers of the signal lens / lamp head solids (not exported by the author code; judgement).",
+  "fade_s": 0.35,
+  "rebuild_move_cm": 250.0,
+  "rebuild_interval_s": 0.2,
+  "volumetric_gain": 1.0,
+  "shadow_slots": 4,
+  "shadow_radius_cm": 2500.0,
+  "night_off_below": 0.01,
+  "pool_headroom": 1.25,
+  "ambient": {
+    "AMB_R": 70.0,
+    "AMB_SOFT": 6.0,
+    "AMB_GAIN": 0.16,
+    "layer_y_m": 14.0,
+    "hero_fill_base": 0.35,
+    "hero_irradiance_scale": 1.0
+  },
+  "groups": [
+    {
+      "name": "lamps",
+      "categories": [
+        0,
+        1,
+        2
+      ],
+      "budget": 160,
+      "radius_m": 120.0,
+      "gain": 1.0,
+      "shadow": true
+    },
+    {
+      "name": "shop_front",
+      "categories": [
+        3
+      ],
+      "budget": 96,
+      "radius_m": 80.0,
+      "gain": 1.0,
+      "shadow": false
+    },
+    {
+      "name": "window_run",
+      "categories": [
+        7
+      ],
+      "budget": 96,
+      "radius_m": 38.0,
+      "gain": 1.0,
+      "shadow": false
+    },
+    {
+      "name": "window_band",
+      "categories": [
+        8
+      ],
+      "budget": 64,
+      "radius_m": 170.0,
+      "min_radius_m": 38.0,
+      "gain": 1.0,
+      "shadow": false
+    },
+    {
+      "name": "neon",
+      "categories": [
+        4
+      ],
+      "budget": 96,
+      "radius_m": 60.0,
+      "gain": 1.0,
+      "shadow": false
+    },
+    {
+      "name": "screens",
+      "categories": [
+        5,
+        9,
+        10
+      ],
+      "budget": 64,
+      "radius_m": 150.0,
+      "tile_radius_m": 60.0,
+      "gain": 1.0,
+      "shadow": false
+    },
+    {
+      "name": "blade",
+      "categories": [
+        11
+      ],
+      "budget": 32,
+      "radius_m": 50.0,
+      "gain": 1.0,
+      "shadow": false
+    },
+    {
+      "name": "signal",
+      "categories": [
+        12
+      ],
+      "budget": 32,
+      "radius_m": 50.0,
+      "gain": 1.0,
+      "shadow": false
+    },
+    {
+      "name": "cars",
+      "categories": [
+        13,
+        14
+      ],
+      "budget": 48,
+      "radius_m": 90.0,
+      "gain": 1.0,
+      "shadow": false
+    },
+    {
+      "name": "skyline_flood",
+      "categories": [
+        6
+      ],
+      "budget": 0,
+      "radius_m": 3000.0,
+      "gain": 1.0,
+      "shadow": false
+    }
+  ],
+  "emissive": {
+    "signal_lens": 10.0,
+    "lamp_head": 10.0
+  },
+  "cars_provider": {
+    "source": "traffic.js:161-199 (night_lights.json constants.traffic_lights); dynamic records come from AWHLifeTraffic::EmitNightLights through AWHCityLights::RegisterDynamicProvider",
+    "headlight": {
+      "color_hex": "0xffd8b0",
+      "intensity_per_lamp": 38.0,
+      "intensity_times_square": 14.0,
+      "merged_factor": 2.0,
+      "range_m": 20.0,
+      "angle_rad": 0.5,
+      "penumbra": 0.9,
+      "radius_m": 3.5,
+      "volume": 0.18,
+      "spec": 0.0,
+      "tilt_down_rad": 0.1,
+      "height_m": 0.72,
+      "front_extra_m": 0.1,
+      "lateral_inset_m": 0.25,
+      "min_lateral_m": 0.5
+    },
+    "taillight": {
+      "color_hex": "0xff1c0c",
+      "intensity": 0.75,
+      "intensity_braking": 2.0,
+      "range_m": 4.5,
+      "radius_m": 0.2,
+      "volume": 0.04,
+      "height_m": 0.85,
+      "back_extra_m": 0.2,
+      "lateral_inset_m": 0.2,
+      "min_lateral_m": 0.5,
+      "max_distance_m": 45.0
+    },
+    "twin_cars": 30,
+    "times_square_box_m": {
+      "x": [
+        -112.0,
+        112.0
+      ],
+      "z": [
+        -352.0,
+        22.0
+      ]
+    }
+  }
+}

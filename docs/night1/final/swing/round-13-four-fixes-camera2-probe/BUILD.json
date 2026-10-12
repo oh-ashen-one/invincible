@@ -1,0 +1,6 @@
+{
+  "runtime_source_commit": "ae8f8666",
+  "dylib_sha256": "b0f08d4aa55684a452bea122cc0bc0a11c7842cddb389f1c97fc74ad8c164397",
+  "scope": "camera2 and preserved entry sway; c6/c7",
+  "fixed_step_hz": 60
+}

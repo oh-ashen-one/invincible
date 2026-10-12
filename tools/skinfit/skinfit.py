@@ -235,7 +235,36 @@ def fit_pose(game, T, log=print):
     return x, math.sqrt(c0), math.sqrt(c1)
 
 
-def transfer_weights(game, S, T, TN, faces, k=12, smooth_iters=3):
+def weld_weights(dense, T):
+    """Vertices at the same position (UV-seam duplicates) must share ONE set of weights, or the seam opens into hairline cracks
+    as soon as the pose changes (seen in UE as thin see-through lines along every texture seam)."""
+    key = np.round(T / 2e-5).astype(np.int64)
+    _, inv = np.unique(key, axis=0, return_inverse=True)
+    inv = inv.reshape(-1)
+    acc = np.zeros((inv.max() + 1, dense.shape[1])); cnt = np.bincount(inv).astype(float)[:, None]
+    np.add.at(acc, inv, dense)
+    return (acc / cnt)[inv]
+
+
+def spatial_smooth(dense, T, TN, radius, iters):
+    """Average skin weights over 3D neighbours that face the same way, ACROSS mesh layers (jacket over shirt, vest over sleeve):
+    layers a few mm apart otherwise pick different nearest game vertices, deform differently and poke through each other."""
+    tree = cKDTree(T)
+    pr = tree.query_pairs(radius, output_type='ndarray')
+    i, j = pr[:, 0], pr[:, 1]
+    ok = np.einsum('ij,ij->i', TN[i], TN[j]) > 0.3
+    i, j = i[ok], j[ok]
+    d = np.linalg.norm(T[i] - T[j], axis=1)
+    w = np.exp(-(d / (radius * 0.6)) ** 2)[:, None]
+    for _ in range(iters):
+        acc = dense.copy(); ws = np.ones((len(T), 1))
+        np.add.at(acc, i, w * dense[j]); np.add.at(acc, j, w * dense[i])
+        np.add.at(ws, i, w); np.add.at(ws, j, w)
+        dense = acc / ws
+    return dense
+
+
+def transfer_weights(game, S, T, TN, faces, k=12, smooth_iters=3, spatial=0.0, spatial_iters=4, weld=False):
     Pd, Nd = game.deform(S, None, game.N)
     tree = cKDTree(Pd)
     dist, idx = tree.query(T, k=k)
@@ -256,6 +285,12 @@ def transfer_weights(game, S, T, TN, faces, k=12, smooth_iters=3):
         for _ in range(smooth_iters):
             acc = np.zeros_like(dense); np.add.at(acc, e[:, 0], dense[e[:, 1]])
             dense = 0.5 * dense + 0.5 * acc / np.maximum(deg, 1)
+    if weld:
+        dense = weld_weights(dense, T)
+    if spatial > 0:
+        dense = spatial_smooth(dense, T, TN, spatial, spatial_iters)
+        if weld:
+            dense = weld_weights(dense, T)
     top = np.argsort(-dense, axis=1)[:, :4]
     tw = np.take_along_axis(dense, top, 1)
     tw /= tw.sum(1, keepdims=True)
@@ -382,6 +417,8 @@ def main():
     ap.add_argument('--name', default='SkinMesh')
     ap.add_argument('--tex', type=int, default=4096)
     ap.add_argument('--with-anims', action='store_true')
+    ap.add_argument('--weld', action='store_true', help='share weights between coincident (UV-seam duplicate) vertices: no hairline cracks when posed')
+    ap.add_argument('--spatial-smooth', type=float, default=0.0, help='metres: also smooth weights across mesh layers (clothed people); 0 = off (suits)')
     ap.add_argument('--report')
     a = ap.parse_args()
     t0 = time.time()
@@ -391,7 +428,7 @@ def main():
     T = normalise_target(P, game)
     x, c0, c1 = fit_pose(game, T)
     S = game.skin_mats(pose_from(x))
-    J, W = transfer_weights(game, S, T, N, F)
+    J, W = transfer_weights(game, S, T, N, F, spatial=a.spatial_smooth, weld=a.weld)
     R, RN = unpose(S, T, N, J, W)
     # round-trip check: re-posing the rest mesh must give back the Tripo mesh
     Tback, _ = game.deform(S, R, None, J, W)
