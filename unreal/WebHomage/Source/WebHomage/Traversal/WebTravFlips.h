@@ -36,6 +36,8 @@ struct FWebFlipProgram
 	// round 13 (critic r12: "attach a web within 0.3 s of Reach"): the next web may attach from CatchOpen s before the program's end
 	// (inside its final reach, once that pose reads) -- the catch cuts the last few degrees and springs them back in ~0.07 s
 	float CatchOpen = 0.16f;
+	// Terminal silhouette, using an existing authored clip. The Reach segment still owns its inertia and catch timing.
+	EWebFlipShape CatchShape = EWebFlipShape::Reach;
 	// round 19 (critic r18 "every trick is a canned playback"): per-instance variant data -- Lead / Lag override WebFlips::FlipLead /
 	// FlipLag (arm / leg timing) when >= 0; Ver changes with every variant (rate-table cache key); Scale = duration factor vs the base
 	float Lead = -1.f, Lag = -1.f;
@@ -95,5 +97,7 @@ namespace WebFlips
 	FName ChooseForInput(float StickFwd, float StickLat, int32 K, float AirS, FName Last);
 	/** Sample a program at T seconds (clamped to [0, Dur]). */
 	FWebFlipPose Sample(const FWebFlipProgram& P, float T);
+	/** Root offset using the evaluated pose axis in figure space, so keyed lean cannot add to the flip rate. */
+	FQuat PoseRotation(const FWebFlipPose& Pose, const FVector& PoseAxis, float EntryW, float Side);
 	extern float FlipLead, FlipLag;
 }

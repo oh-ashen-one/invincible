@@ -1077,6 +1077,25 @@ void FWebTravPostTick::ExecuteTick(float DeltaTime, ELevelTick TickType, ENamedT
 
 void AWebTravCharacter::PostAnimTick(float Dt)
 {
+	// Compensate the authored pose's lean AFTER this frame has been evaluated. The old loop compared
+	// previous-frame bones with the new program angle and fed its stored correction back a second time;
+	// its catch-up therefore added bursts to a tuck and oscillated at shape boundaries. Measuring in the
+	// figure's own frame also keeps a banked/twisting world-axis projection out of the control signal.
+	float FlipT = 0.f;
+	if (bHeroMesh && LastFlip.bValid && FlipProgramNow(FlipT) && GetMesh())
+	{
+		const USkeletalMeshComponent* Mesh = GetMesh();
+		const FVector WorldAxis = (Mesh->GetBoneLocation(TEXT("head")) - Mesh->GetBoneLocation(TEXT("hips"))).GetSafeNormal();
+		if (!WorldAxis.IsNearlyZero())
+		{
+			const FVector PoseAxis = FigureRoot->GetComponentQuat().UnrotateVector(WorldAxis);
+			FlipOffQ = WebFlips::PoseRotation(LastFlip, PoseAxis, float(Smooth01(FlipT / 0.15)), Traversal->Anim.TrickSide);
+			const FQuat Q = (FlipBodyFrame * FlipOffQ).GetNormalized();
+			// Keep the traversal centre fixed; the only change is the authored pose's root rotation about it.
+			FigureRoot->SetWorldLocationAndRotation(Traversal->PosM() * 100.0 - Q.RotateVector(FVector(0, 0, 95)), Q);
+		}
+	}
+	// Hand/palm locations and the material's strand origins now see this same corrected rendered pose.
 	UpdateWebs(PendingWebDt, PendingCamCm);
 }
 
@@ -1151,68 +1170,14 @@ void AWebTravCharacter::PoseFigure(float Dt)
 		// round 14: minus the shape's own hips->head lean (ramped in over the first 0.15 s while the anim crossfades into the first
 		// shape), so the visible body axis turns at the program's eased rate instead of spiking at every shape change
 		const double AxisOff = FPo.AxisOffDeg * Smooth01(FlipT / 0.15);
-		// round 06: closed-loop correction on top -- measure the rendered hips->head pitch (the mesh still holds the previous
-		// frame's pose at this point in the tick) against the program's progress from the flip's first frame, and subtract the
-		// rate-limited difference. The clips' transition lean then shows up in the measurement instead of stacking on the rate.
-		if (bHeroMesh && GetMesh())
-		{
-			const USkeletalMeshComponent* M = GetMesh();
-			const FVector Ax = (M->GetBoneLocation(TEXT("head")) - M->GetBoneLocation(TEXT("hips"))).GetSafeNormal();
-			const double Fy = FMath::DegreesToRadians(A.FacingDeg);
-			const FVector Fw(FMath::Cos(Fy), FMath::Sin(Fy), 0.0);
-			const double BpMeas = Ax.IsNearlyZero() ? 0.0 : FMath::RadiansToDegrees(FMath::Atan2(FVector::DotProduct(Ax, Fw), Ax.Z));
-			const double ProgPitch = double(FPo.PitchDeg) - AxisOff;
-			if (!bFlipMeasInit || LastFlipName != FP->Name) { bFlipMeasInit = true; FlipMeasBp0 = BpMeas; FlipMeasPitch0 = ProgPitch; FlipCorr = 0.0; FlipTwistHotT = 0.0; bFlipTwistWas = false; FlipRebaseT = 0.0; }
-			const double Expected = FlipMeasBp0 + (ProgPitch - FlipMeasPitch0);
-			const double E = FMath::UnwindDegrees(BpMeas - Expected);
-			// asymmetric rate cap: the correction BRAKES an over-rotating rendered axis as fast as needed (the r05 > 800 deg/s
-			// spikes came from the clips' transition lean adding to the program), but only catches up slowly when the rendered
-			// axis lags (the entry crossfade), so the loop itself never adds a rate spike
-			// round 07 (critic r06 adjacent: F3 rendered peaks 1063 barani / 838 rudi / 853 backSingle): while the program's
-			// twist runs fast the twist's roll couples into the hips->head pitch measurement at high tilt and the loop
-			// mis-corrects (its 320 deg/s brake stacks on the program rate). During a fast twist the catch-up is frozen and
-			// the brake is capped low, so the loop can neither chase noise nor add rate.
-			// round 10 (critic r09 gap 2: barani STILL rendered 1018 deg/s): the r07 freeze left the stale correction in place --
-			// it discharged into the first tuck after the twist. Now the loop freezes BOTH ways through the twist (and 0.1 s
-			// after), then re-bases its measurement (the twist-phase readings are unusable, not correctable) and bleeds the old
-			// correction off at <= 90 deg/s, so nothing stacks onto the next tuck.
-			const double TwistRate = bFlipMeasInit && Dt > 0.0 ? FMath::Abs(double(FPo.TwistDeg) - double(LastFlip.TwistDeg)) / Dt : 0.0;
-			FlipTwistHotT = TwistRate > 250.0 ? 0.10 : FMath::Max(0.0, FlipTwistHotT - Dt);
-			const bool bTwistHot = FlipTwistHotT > 0.0;
-			if (!bTwistHot && bFlipTwistWas) { FlipMeasBp0 = BpMeas; FlipMeasPitch0 = ProgPitch; FlipRebaseT = 0.35; } // twist falling edge: fresh baseline
-			bFlipTwistWas = bTwistHot;
-			FlipRebaseT = FMath::Max(0.0, FlipRebaseT - Dt);
-			const double Dir = FP->PitchDeg >= 0.f ? 1.0 : -1.0;
-			double Step = FMath::UnwindDegrees(E - FlipCorr);
-			// round 10b (probe r10a: the brake's stored offset bled at 60 deg/s through the NEXT held shape -- program ~120 + bleed
-			// 60 + clip breathing ~40 read > 150 deg/s, so s3's holds failed F4): during a program-declared SLOW phase the loop holds
-			// the render AT the program rate: brake 320 -> 120, catch-up 60 -> 30 (tucks/twists are fast phases, unaffected)
-			const bool bSlowPh = FMath::Abs(double(FPo.PitchRate)) < 160.0;
-			// round 12a (r12 probe: the one-frame-delayed loop LIMIT-CYCLES +-2 deg/frame through a held open shape -- flip_check's
-			// 0.04 s rate windows then spike past 150 deg/s and the r12 0.42-0.54 s hold segments still measure 0.22-0.26 s): under
-			// 2 deg of error in a slow phase the correction holds instead of stepping (a standing <= 2 deg offset is invisible)
-			if (bSlowPh && FMath::Abs(Step) < 2.0) Step = 0.0;
-			double CapRate = Step * Dir < 0.0 ? (bTwistHot ? 0.0 : (bSlowPh ? 30.0 : 60.0)) : (bTwistHot ? 0.0 : (bSlowPh ? 45.0 : 320.0)); // after a rebase E ~= 0, so the stale correction bleeds out through the catch-up side on its own
-			// round 12c (r12 probe: the slow-phase catch-up side at 120 chased the transition lag THROUGH the hold -- program 70 +
-			// 120 = 190 deg/s bursts broke the <= 150 windows mid-swan): slow-phase catch-up 120 -> 45, so a held open shape never
-			// reads faster than ~115 deg/s from the loop; the lag it was chasing is a few deg and rides out on the next tuck.
-			// round 12b (r12 probe: barani / fullTwist / rudi rendered 835-904 deg/s on the tuck right AFTER the twist -- the stale
-			// correction discharges at the fast-phase catch-up cap (320) into that tuck): for 0.35 s after the twist's rebase the
-			// DISCHARGE side bleeds at <= 45 deg/s. The brake side keeps its cap: the twist->tuck clip crossfade leans +150-200
-			// deg/s onto the program for a few frames and only the brake keeps that under F3's 800 (probe: capping both sides let
-			// the stack read 892-946)
-			if (FlipRebaseT > 0.0 && Step * Dir < 0.0) CapRate = FMath::Min(CapRate, 45.0);
-			const double Cap = CapRate * FMath::Max(0.001, double(Dt));
-			Step = FMath::Clamp(Step, -Cap, Cap);
-			FlipCorr = FMath::Clamp(FlipCorr + Step, -FlipCorrMax, FlipCorrMax);
-			FlipOffQ = FQuat(FVector(0, 1, 0), FMath::DegreesToRadians(ProgPitch - FlipCorr)) * FQuat(FVector(0, 0, 1), FMath::DegreesToRadians(FPo.TwistDeg) * A.TrickSide);
-		}
-		else FlipOffQ = FQuat(FVector(0, 1, 0), FMath::DegreesToRadians(double(FPo.PitchDeg) - AxisOff)) * FQuat(FVector(0, 0, 1), FMath::DegreesToRadians(FPo.TwistDeg) * A.TrickSide);
+		FlipBodyFrame = Body;
+		// The same-frame evaluated pose replaces this provisional authored-shape compensation in PostAnimTick.
+		FlipOffQ = FQuat(FVector(0, 1, 0), FMath::DegreesToRadians(double(FPo.PitchDeg) - AxisOff))
+			* FQuat(FVector(0, 0, 1), FMath::DegreesToRadians(double(FPo.TwistDeg) * A.TrickSide));
 		LastFlip = FPo; LastFlipName = FP->Name;
 	}
 	else
 	{
-		bFlipMeasInit = false;
 		// round 05 (critic r04 / A5: chest rate through the catch median 646 deg/s): a catch at the END of a program (the reach, body
 		// <= ~70 deg off upright) decays its residual rotation at <= 340 deg/s instead of the 0.07 s snap (which spikes > 400 deg/s).
 		// round 07: the mid-program CANCEL snap (kept in r05/r06 for owner bug 1's press latency) is rate-limited the same way --
@@ -1237,7 +1202,6 @@ void AWebTravCharacter::PoseFigure(float Dt)
 		}
 		else FlipOffQ = FQuat::Identity;
 		LastFlip = FWebFlipPose(); LastFlipName = NAME_None;
-		FlipTwistHotT = 0.0; bFlipTwistWas = false; FlipRebaseT = 0.0;
 	}
 	if (FP || FlipOffQ.GetAngle() > FMath::DegreesToRadians(0.2))
 	{

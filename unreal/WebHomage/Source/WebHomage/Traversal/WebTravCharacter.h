@@ -122,18 +122,7 @@ private:
 	FQuat FlipOffQ = FQuat::Identity;   // round 11: flip rotation relative to the body frame (springs back when a program is cut)
 	FWebFlipPose LastFlip;              // round 11: telemetry
 	FName LastFlipName;
-	// round 06 (critic r05: rendered flip peaks > 800 deg/s on frontDouble/backLayout/frontPikeSwan -- the keyed clips' own
-	// hips->head lean moves during transitions and stacks on the program rate, and the static ShapeAxisDeg table can't follow it):
-	// closed-loop body-axis correction. The rendered hips->head pitch (previous frame's bones) is compared with the program's pitch
-	// progress from the flip's first frame; the difference (clamped, rate-limited) is subtracted from the applied root pitch, so the
-	// RENDERED axis tracks the program's rate table whatever the clips do.
-	bool bFlipMeasInit = false; double FlipMeasBp0 = 0.0, FlipMeasPitch0 = 0.0, FlipCorr = 0.0;
-	double FlipCorrMax = 75.0;   // deg the correction may accumulate (brake 320 deg/s / catch-up 60 deg/s, asymmetric: never adds a rate spike)
-	// round 10: 45 -> 75 -- a fast tuck segment sweeps the clip's own curl ~55-70 deg through the hold (the clip timeline runs at
-	// up to 3.6x inside a 0.28 s tuck), so the 45 deg cap saturated and the excess lean passed straight through (rendered peaks
-	// 800-900 over a ~500 deg/s program); the brake can now hold the whole sweep.
-	double FlipTwistHotT = 0.0; bool bFlipTwistWas = false; // round 10: fast-twist freeze + re-base (see PoseFigure)
-	double FlipRebaseT = 0.0;   // round 12: slow-bleed window right after the twist re-base (see PoseFigure)
+	FQuat FlipBodyFrame = FQuat::Identity; // current traversal body frame for same-frame authored-pose lean compensation
 	const FWebFlipProgram* FlipProgramNow(float& OutT) const;
 	void UpdateWebs(float Dt, const FVector& CamPosCm);
 	FVector HandWorldCm(bool bRight) const;

@@ -458,11 +458,11 @@ void UWebTravAnimInstance::BuildFlipLayers(FName Program, float T, TArray<FWebTr
 		}
 		return FMath::Min(U, 0.30f);
 	};
-	auto AddShape = [&](TArray<FWebTravAnimLayer>& Dst, EWebFlipShape S, float Hold, float W, float TimeScale = 1.f)
+	auto AddShape = [&](TArray<FWebTravAnimLayer>& Dst, EWebFlipShape S, float Hold, float W, float TimeScale = 1.f, bool bCatch = false)
 	{
 		UAnimSequence* Seq = Clip(FName(WebFlips::ShapeClip(S)));
 		if (!Seq || W <= 0.001f) return;
-		Dst.Add({ Seq, FMath::Clamp(HoldFreeze(S, Hold) * TimeScale, 0.f, 1.f) * Seq->GetPlayLength(), W, false });
+		Dst.Add({ Seq, FMath::Clamp((bCatch ? Hold : HoldFreeze(S, Hold)) * TimeScale, 0.f, 1.f) * Seq->GetPlayLength(), W, false });
 	};
 	// Pencil legs stay close to their straight start keys. Straddle reaches its wide straight split at clip u 0.30, then
 	// freezes there with the arms; the old 0.55 leg scale left it still opening through most of its hold. The timeline's
@@ -480,10 +480,13 @@ void UWebTravAnimInstance::BuildFlipLayers(FName Program, float T, TArray<FWebTr
 		const float TL = (Po.LA == EWebFlipShape::Tuck ? 1.f - Po.LW : 0.f) + (Po.LB == EWebFlipShape::Tuck ? Po.LW : 0.f);
 		PendingTuckW = FMath::Clamp(FMath::Min(TU, TL) * 1.6f - 0.3f, 0.f, 1.f);
 	}
-	AddShape(Out, Po.A, Po.HoldA, 1.f - Po.W);
-	if (Po.B != Po.A || Po.W > 0.f) AddShape(Out, Po.B, Po.HoldB, Po.W);
-	AddShape(OutLegs, Po.LA, Po.LHoldA, 1.f - Po.LW, LegHoldScale(Po.LA));
-	if (Po.LB != Po.LA || Po.LW > 0.f) AddShape(OutLegs, Po.LB, Po.LHoldB, Po.LW, LegHoldScale(Po.LB));
+	const float CatchStart = P->Dur() - P->Segs.Last().Dur - 0.06f;
+	const bool bCatchU = T + (P->Lead >= 0.f ? P->Lead : WebFlips::FlipLead) >= CatchStart;
+	const bool bCatchL = T - (P->Lag >= 0.f ? P->Lag : WebFlips::FlipLag) >= CatchStart;
+	AddShape(Out, Po.A, Po.HoldA, 1.f - Po.W, 1.f, bCatchU && Po.A == P->CatchShape);
+	if (Po.B != Po.A || Po.W > 0.f) AddShape(Out, Po.B, Po.HoldB, Po.W, 1.f, bCatchU && Po.B == P->CatchShape);
+	AddShape(OutLegs, Po.LA, Po.LHoldA, 1.f - Po.LW, LegHoldScale(Po.LA), bCatchL && Po.LA == P->CatchShape);
+	if (Po.LB != Po.LA || Po.LW > 0.f) AddShape(OutLegs, Po.LB, Po.LHoldB, Po.LW, LegHoldScale(Po.LB), bCatchL && Po.LB == P->CatchShape);
 }
 
 void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)

@@ -155,6 +155,15 @@ namespace WebFlips
 			// -> open, 3 rotations in 2.8 s, ~385 deg/s mean); the middle rotation holds an inverted pencil (owner S3 9.72-9.84, F4);
 			// round 11: every rotation is delimited by a rotating open shape (no long ball, no post-rotation stall), 2.96 s, mean 365
 			Add(TEXT("backTripleChain"), -1080.f, { {S::Tuck, 0.42f, 0.f, 0.55f, 0.3f}, {S::Layout, 0.30f}, {S::Tuck, 0.36f}, {S::Straddle, 0.26f}, {S::Tuck, 0.36f}, {S::Pencil, 0.44f}, {S::Tuck, 0.36f, 0.f, 0.3f, 0.4f}, {S::Layout, 0.24f}, {S::Kickout, 0.18f}, {S::Reach, 0.18f} }, 2.0f, 1.0f, 0.2f);
+			// Four-fix pass: three deliberate catch families, rather than replaying Reach for every trick.
+			// Keep the rotation/hold tables intact: this selects only the authored terminal body silhouette.
+			for (FWebFlipProgram& F : P)
+			{
+				if (F.Name == FName(TEXT("frontSingle")) || F.Name == FName(TEXT("frontDouble")) || F.Name == FName(TEXT("frontPikeSwan")))
+					F.CatchShape = S::Throne;
+				else if (F.Name == FName(TEXT("corkscrew")) || F.Name == FName(TEXT("barani")) || F.Name == FName(TEXT("fullTwist")))
+					F.CatchShape = S::Straddle;
+			}
 			return P;
 		}
 
@@ -184,6 +193,16 @@ namespace WebFlips
 				HA = Hold(K, T); HB = 0.f;
 			}
 			else { A = B = P.Segs[K].Shape; W = 0.f; HA = HB = Hold(K, T); }
+			if (P.Segs.Last().Shape == EWebFlipShape::Reach && P.CatchShape != EWebFlipShape::Reach)
+			{
+				// The selected clips' established open keys are around u=.3. Enter those keys directly;
+				// do not scrub Straddle all the way into its later tuck-up or add a random end pose.
+				auto Catch = [&](EWebFlipShape& S, float& H)
+				{
+					if (S == EWebFlipShape::Reach) { S = P.CatchShape; H = 0.18f + 0.18f * H; }
+				};
+				Catch(A, HA); Catch(B, HB);
+			}
 		}
 		// round 14: segment K's inertia at time T including its end ease (see FWebFlipSeg::EaseIn / EaseOut)
 		constexpr float EaseW = 0.45f;
@@ -393,6 +412,17 @@ namespace WebFlips
 		return N;
 	}
 
+	FQuat PoseRotation(const FWebFlipPose& Pose, const FVector& PoseAxis, float EntryW, float Side)
+	{
+		const FQuat TwistQ(FVector(0, 0, 1), FMath::DegreesToRadians(double(Pose.TwistDeg) * Side));
+		// First align the evaluated shape's actual long axis. Twisting the nominal frame before compensating
+		// only its pitch made an arched/tucked shape orbit sideways as well as twist, adding real axis speed.
+		// This rigid correction preserves every joint angle and lets the existing twist turn ABOUT that axis.
+		const FQuat AlignQ = FQuat::FindBetweenNormals(PoseAxis, FVector(0, 0, 1));
+		const FQuat ShapeQ = FQuat::Slerp(FQuat::Identity, AlignQ, FMath::Clamp(EntryW, 0.f, 1.f));
+		return FQuat(FVector(0, 1, 0), FMath::DegreesToRadians(double(Pose.PitchDeg))) * TwistQ * ShapeQ;
+	}
+
 	FWebFlipPose Sample(const FWebFlipProgram& P, float T)
 	{
 		FWebFlipPose O;
@@ -429,8 +459,9 @@ namespace WebFlips
 		{
 			auto Pong = [](float Ov) { const float X = FMath::Fmod(Ov / 0.25f, 2.f); return 1.f - 0.55f * (1.f - FMath::Abs(1.f - X)); };
 			const float OvU = T + (P.Lead >= 0.f ? P.Lead : FlipLead) - Dur, OvL = T - (P.Lag >= 0.f ? P.Lag : FlipLag) - Dur;
-			if (OvU > 0.f && O.W <= 0.f) O.HoldA = O.HoldB = Pong(OvU);
-			if (OvL > 0.f && O.LW <= 0.f) O.LHoldA = O.LHoldB = Pong(OvL);
+			auto CatchHold = [&](float Ov) { const float U = Pong(Ov); return P.CatchShape == EWebFlipShape::Reach ? U : 0.18f + 0.18f * U; };
+			if (OvU > 0.f && O.W <= 0.f) O.HoldA = O.HoldB = CatchHold(OvU);
+			if (OvL > 0.f && O.LW <= 0.f) O.LHoldA = O.LHoldB = CatchHold(OvL);
 		}
 		return O;
 	}
