@@ -588,8 +588,13 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 		Frame.ArmAimAge = 0.f; Frame.ArmAimWeight = 0.f;
 		ArmStartWorld = (Mesh->GetBoneLocation(bWebRight ? TEXT("hand_R") : TEXT("hand_L"))
 			- Mesh->GetBoneLocation(bWebRight ? TEXT("upperArm_R") : TEXT("upperArm_L"))).GetSafeNormal();
-		// Use the real remaining visual flight, including its anticipation, rather than the ballistic pending-state clock.
-		ArmAimDuration = FMath::Clamp(WebShootDuration + FMath::Max(0.f, -WebDrawAge), 0.05f, 0.12f);
+		// Reserve 60 ms for visible tip travel before the unchanged arrival. The arm still uses a smooth
+		// world-direction reach over several frames; the strand starts only when that reach completes.
+		const float TimeToArrival = WebShootDuration - WebDrawAge + Dt;
+		const bool bStageLaunch = WebShootDuration >= 0.08f && TimeToArrival >= 0.11f;
+		ArmAimDuration = FMath::Clamp(TimeToArrival - (bStageLaunch ? 0.06f : 0.f), 0.05f, 0.08f);
+		// Short boost/zip strands retain their full existing flight rather than being compressed to a pop.
+		VisualLaunchAge = bStageLaunch ? FMath::Max(0.f, WebDrawAge + ArmAimDuration - Dt) : 0.f;
 	}
 	Frame.ArmStartCS = bAim ? Mesh->GetComponentTransform().InverseTransformVectorNoScale(ArmStartWorld).GetSafeNormal() : FVector::ZeroVector;
 	Frame.bArmAim = bAim || bReach;
@@ -604,7 +609,7 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 	else
 	{
 	// Begin on the press frame but ease the actual pose over several frames, rather than applying two 25 ms ramps.
-	// Short flights finish the reach before tip arrival; longer flights can use the whole shoulder/elbow anticipation.
+	// The visual strand flight is remapped after this reach, without moving the physics arrival.
 	Frame.ArmAimAge = bAim ? Frame.ArmAimAge + Dt : 0.f;
 	const float AimProgress = Frame.ArmAimAge / ArmAimDuration;
 	Frame.ArmAimWeight = bAim ? Smooth01(AimProgress) : FMath::Max(0.f, Frame.ArmAimWeight - Dt / 0.2f);

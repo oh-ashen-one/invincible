@@ -1429,7 +1429,13 @@ void AWebTravCharacter::UpdateWebs(float Dt, const FVector& CamPosCm)
 		if (St.bActive)
 		{
 			// shot: cubic ease-out extension, a decaying sine wave along the strand while it flies (web.js)
-			const double U = FMath::Clamp(St.Age / FMath::Max(St.ShootDur, 0.01f), 0.0, 1.0);
+			double LaunchAge = 0.0;
+			if (SI == 0 && bHeroMesh && !bReleased)
+				if (const UWebTravAnimInstance* AI = Cast<UWebTravAnimInstance>(GetMesh()->GetAnimInstance()))
+					LaunchAge = AI->WebVisualLaunchAge();
+			// Keep the tip at the current palm during the reach, then extend continuously to the anchor
+			// at the original ShootDur. Release/retract and every gameplay clock retain their existing timing.
+			const double U = FMath::Clamp((St.Age - LaunchAge) / FMath::Max(double(St.ShootDur) - LaunchAge, 0.01), 0.0, 1.0);
 			const double Ext = 1 - FMath::Pow(1 - U, 1.25);   // round 02: near-constant tip speed with a short ease at the end (the cubic put 27 % of the length in the first frame)
 			B = A + (B - A) * Ext;
 			Wave = 30.0 * FMath::Exp(-9.0 * St.Age) * (1 - St.Taut);

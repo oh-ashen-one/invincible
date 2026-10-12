@@ -103,6 +103,8 @@ public:
 	FName CurrentNode() const { return CurNode; }
 	FName DominantClip() const { return Dominant; }
 	float TotalClipWeight() const { return TotalWeight; }
+	/** Visual strand flight starts after the firing arm finishes its smooth reach. */
+	float WebVisualLaunchAge() const { return VisualLaunchAge; }
 	int32 AirFlavor() const { return FlavorIdx; }
 	bool InAirCycle() const { return bInAirCycle; }
 	float AirCycleTime() const { return AirCycleT; }
@@ -114,7 +116,7 @@ public:
 	{
 		CurNode = NAME_None; Dominant = NAME_None; NodeT = 0.f; FadeT = 1.f; FadeDur = 0.2f; PrevLayers.Reset(); Frame.Layers.Reset();
 		Frame.ArmAimWeight = 0.f; LocoPhase = 0.f; WallRunPhase = 0.f; bInAirCycle = false; AirCycleT = 0.f; FlavorIdx = -1; CycleCount = 0;
-		Frame.ArmAimAge = 0.f; bWebAimPrev = false; PrevAimShotK = -1.f;
+		Frame.ArmAimAge = 0.f; bWebAimPrev = false; PrevAimShotK = -1.f; VisualLaunchAge = 0.f;
 		bReachRight = true; LastMode = EWebTravMode::Ground; Frame.LegLayers.Reset(); Frame.LegW = 0.f; PendingLegs.Reset();
 	}
 
@@ -143,6 +145,7 @@ private:
 	bool bWebAimPrev = false;
 	float PrevAimShotK = -1.f;
 	float WebShootDuration = 0.1f, WebDrawAge = 0.f, ArmAimDuration = 0.1f;
+	float VisualLaunchAge = 0.f;
 	FVector ArmStartWorld = FVector::ZeroVector;
 	FVector WebAnchorWorld = FVector::ZeroVector;
 
