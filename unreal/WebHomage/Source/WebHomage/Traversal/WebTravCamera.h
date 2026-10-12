@@ -253,6 +253,8 @@ private:
 	double RoofLift = 0.0, RoofLiftV = 0.0;
 	// Frustum loss needs room / re-aiming; only a blocked sightline may use the occlusion pull-in and lift.
 	double OcclBoostK = 0.0;
+	bool bFlipObstacleOut = false, bHaveFlipVelocity = false;
+	double LastFlipVz = 0.0, ForecastGravity = 10.8;
 	double OccYawGoal = 0.0, OccUpGoal = 0.0, UserPitch = 0.0, AttachLook = 0.0, AttachLookV = 0.0, AttachFov = 0.0, AttachFovV = 0.0, AttachYaw = 0.0, AttachYawV = 0.0;
 	bool bOccGoal = false;
 	double WallKV = 0.0;
