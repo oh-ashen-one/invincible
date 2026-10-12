@@ -1,3 +1,11 @@
+# PROJECT CLOSED — owner-authorized main merge, 2026-10-12
+
+The owner explicitly declared this project complete and authorized merging all current work into main and deleting obsolete branches/worktrees. This supersedes the earlier unmerged/active-pass instructions below, which are historical records. Do not resume a refinement loop or fix known issues without a new request. The later owner request to play in Times Square authorizes that play session; do not close it as part of the earlier shutdown request.
+
+Use main as the canonical source. Read `docs/controls/project-closeout-20261012/CLOSEOUT.md` for the closure, preservation manifests and known E-targeting/ledge-trap issues retained in the accepted build. The final local owner artifact is `/Users/midir/SpiderMan-Playtest-Feedback-20261012`; `Play-TimesSquare.command` launches the requested plaza start. Previous owner copies and authoring/reference assets remain preserved. No automatic Unreal launch or work loop is authorized after the owner's play session ends.
+
+---
+
 ## Owner feedback and music complete — 2026-10-12
 
 Continue PR4, `codex/manual-camera-20261012`; runtime source `e9a8120c`. Owner has NOT approved merging. Read `docs/controls/playtest-feedback-20261012/RESULTS.md` / `RUN.json` / `metrics.json` for exact scope and evidence. Previous manual-camera repairs remain included.

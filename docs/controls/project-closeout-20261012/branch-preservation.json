@@ -1,0 +1,311 @@
+{
+  "refs_before_cleanup": [
+    {
+      "ref": "refs/heads/codex/m5-showcase-20261006",
+      "branch": "codex/m5-showcase-20261006",
+      "commit": "10aa01fc4db64c11e21412cf13fae5bf674cec5a",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/heads/codex/manual-camera-20261012",
+      "branch": "codex/manual-camera-20261012",
+      "commit": "fe2a5360eca2fd5f09382c278563a5d13cb38703",
+      "already_in_main": false,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/heads/codex/preserve-kimi-spiderman-20261011",
+      "branch": "codex/preserve-kimi-spiderman-20261011",
+      "commit": "4f2a10daa1281db9c6816028544b104449bd9eb1",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/heads/codex/r13-fix-camera-20261011",
+      "branch": "codex/r13-fix-camera-20261011",
+      "commit": "88aa3f9ea1caa4070a3d884ca790be7d873556bf",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/codex/r13-fix-camera-20261011"
+    },
+    {
+      "ref": "refs/heads/codex/r13-fix-motion-20261011",
+      "branch": "codex/r13-fix-motion-20261011",
+      "commit": "6d3cc2fa826b3d48e8199b9dbf2261d8ec0dac18",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/codex/r13-fix-motion-20261011"
+    },
+    {
+      "ref": "refs/heads/codex/round13-closeout-20261011",
+      "branch": "codex/round13-closeout-20261011",
+      "commit": "9ad990d6ab482d5b1946b0bc9a60244eac8e320a",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/heads/codex/round13-flips-20261011",
+      "branch": "codex/round13-flips-20261011",
+      "commit": "5516d9f66cabfec99b726252a3ae019568125f7e",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/codex/round13-flips-20261011"
+    },
+    {
+      "ref": "refs/remotes/origin/3d-animations-astra",
+      "branch": "3d-animations-astra",
+      "commit": "d05d92a45b43647ed91f28c051b34cdb16c8ff79",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/3d-animations-astra"
+    },
+    {
+      "ref": "refs/remotes/origin/3d-assets",
+      "branch": "3d-assets",
+      "commit": "fe19eddb95d75fe08bc9d3b91834cd8bd19ea19e",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/Opus-5.5-Loop-Night-1",
+      "branch": "Opus-5.5-Loop-Night-1",
+      "commit": "7094940146da974955a6daed8b4d9ce3ea16cc26",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/claude/fork-setup",
+      "branch": "claude/fork-setup",
+      "commit": "c95224ca612b2ca6c6c759c6f54a5711cd84ace5",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/codex/m5-island-20261006",
+      "branch": "codex/m5-island-20261006",
+      "commit": "98b05f9bb2eac98ddbfa8b557a811292484c17ac",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/codex/m5-migration-20261006",
+      "branch": "codex/m5-migration-20261006",
+      "commit": "4e768e78be8caee0072f318af4b18e211889f60f",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/codex/m5-showcase-20261006",
+      "branch": "codex/m5-showcase-20261006",
+      "commit": "ccee1a58494f9c2702dc4f0e2084a002028a17bb",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/codex/manual-camera-20261012",
+      "branch": "codex/manual-camera-20261012",
+      "commit": "fe2a5360eca2fd5f09382c278563a5d13cb38703",
+      "already_in_main": false,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/codex/owner-playtest-20261004",
+      "branch": "codex/owner-playtest-20261004",
+      "commit": "3ee7a938cfd330aa0c8de19c0f0123dc970933fe",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/codex/preserve-kimi-spiderman-20261011",
+      "branch": "codex/preserve-kimi-spiderman-20261011",
+      "commit": "4f2a10daa1281db9c6816028544b104449bd9eb1",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/codex/r13-fix-camera-20261011",
+      "branch": "codex/r13-fix-camera-20261011",
+      "commit": "88aa3f9ea1caa4070a3d884ca790be7d873556bf",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/codex/r13-fix-camera-20261011"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/r13-fix-motion-20261011",
+      "branch": "codex/r13-fix-motion-20261011",
+      "commit": "6d3cc2fa826b3d48e8199b9dbf2261d8ec0dac18",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/codex/r13-fix-motion-20261011"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/round13-closeout-20261011",
+      "branch": "codex/round13-closeout-20261011",
+      "commit": "78841ef573fc23fe6623631b93e5c006118194d2",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/codex/round13-flips-20261011",
+      "branch": "codex/round13-flips-20261011",
+      "commit": "5516d9f66cabfec99b726252a3ae019568125f7e",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/codex/round13-flips-20261011"
+    },
+    {
+      "ref": "refs/remotes/origin/flight-dynamics",
+      "branch": "flight-dynamics",
+      "commit": "331e3fea1a70e16759ac5d685e5e3f893ef88ac1",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/browser-baseline",
+      "branch": "night1/browser-baseline",
+      "commit": "da54f22da4b3be198892b047532cdfa2cdc88dad",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/characters",
+      "branch": "night1/characters",
+      "commit": "d9067fddaac490125ab5c30a1e2c3113f2f4aa67",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/city",
+      "branch": "night1/city",
+      "commit": "82254f4d0eac748e356d0eb27e9058d336dc4be5",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/combat",
+      "branch": "night1/combat",
+      "commit": "1b3aa4d60a73ebc59ce995e4fb57906e22889068",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/gpulock",
+      "branch": "night1/gpulock",
+      "commit": "51b93f1113abb841e2630953d8ee20419dc9de62",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/island",
+      "branch": "night1/island",
+      "commit": "9e3cfb0d5cf4f4b3be8a1828ffc7255b8c4968fa",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/life",
+      "branch": "night1/life",
+      "commit": "85a6091a128058e7ab6036e2fbb36a7e43a63ede",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/look",
+      "branch": "night1/look",
+      "commit": "df478f99d029feeaf680f51f84d33d0a542991d7",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/night1/look"
+    },
+    {
+      "ref": "refs/remotes/origin/night1/manhattan",
+      "branch": "night1/manhattan",
+      "commit": "1c74d60ff87ecc868cc5fd981084ff460aac4209",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/perf",
+      "branch": "night1/perf",
+      "commit": "90dbadc2253853ca70de3c4e592716f3d2b19630",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/night1/perf"
+    },
+    {
+      "ref": "refs/remotes/origin/night1/terrain",
+      "branch": "night1/terrain",
+      "commit": "54e0c007fd6f40ab39ad5c0a2073fb33f08acd4e",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/night1/terrain"
+    },
+    {
+      "ref": "refs/remotes/origin/night1/traversal",
+      "branch": "night1/traversal",
+      "commit": "30b3b7548781b2b2d32e7ad1fdcfd33bbe15f22d",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/tricks",
+      "branch": "night1/tricks",
+      "commit": "682811888411d5562768826fa02cc9a60749a510",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/night1/tricks"
+    },
+    {
+      "ref": "refs/remotes/origin/night1/ue-foundation",
+      "branch": "night1/ue-foundation",
+      "commit": "5ce52af400642396ac3ba2b1c613c2397f759e95",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/water",
+      "branch": "night1/water",
+      "commit": "ed86a96aac857535c2c3876a348ae67ead3a1752",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/night1/water"
+    },
+    {
+      "ref": "refs/remotes/origin/night1/water-ab-opus",
+      "branch": "night1/water-ab-opus",
+      "commit": "84790a72aeb384977f9a5a6e2990b7d754c08d37",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/night1/water-ab-sonnet",
+      "branch": "night1/water-ab-sonnet",
+      "commit": "4cfaef9f6cba7a1dbc6b1c2f1bbf171463099f39",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/night1/water-ab-sonnet"
+    },
+    {
+      "ref": "refs/remotes/origin/pinata-and-trees",
+      "branch": "pinata-and-trees",
+      "commit": "784a659190c22db00706554c6c48a752fa8a8bfa",
+      "already_in_main": true,
+      "archive_tag": null
+    },
+    {
+      "ref": "refs/remotes/origin/recovery/studio-freeze-2026-10-04",
+      "branch": "recovery/studio-freeze-2026-10-04",
+      "commit": "ca92db123aabec69af52c3154269a558434d0d89",
+      "already_in_main": false,
+      "archive_tag": "archive/closeout-20261012/recovery/studio-freeze-2026-10-04"
+    },
+    {
+      "ref": "refs/remotes/origin/water-effects",
+      "branch": "water-effects",
+      "commit": "a64729596e3c806376b085c666ec842a35ac1263",
+      "already_in_main": true,
+      "archive_tag": null
+    }
+  ],
+  "archive_tags_pushed": [
+    "archive/closeout-20261012/codex/r13-fix-camera-20261011",
+    "archive/closeout-20261012/codex/r13-fix-motion-20261011",
+    "archive/closeout-20261012/codex/round13-flips-20261011",
+    "archive/closeout-20261012/3d-animations-astra",
+    "archive/closeout-20261012/night1/look",
+    "archive/closeout-20261012/night1/perf",
+    "archive/closeout-20261012/night1/terrain",
+    "archive/closeout-20261012/night1/tricks",
+    "archive/closeout-20261012/night1/water",
+    "archive/closeout-20261012/night1/water-ab-sonnet",
+    "archive/closeout-20261012/recovery/studio-freeze-2026-10-04"
+  ]
+}

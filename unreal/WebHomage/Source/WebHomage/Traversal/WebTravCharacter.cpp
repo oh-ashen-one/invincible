@@ -594,6 +594,13 @@ void AWebTravCharacter::BeginPlay()
 	{
 		PosM = Script->SpawnPosM(); YawDeg = Script->SpawnYawDeg(); CamPitch = Script->SpawnCamPitch();
 	}
+	// Optional owner launch location: the open Times Square plaza beside the red steps.
+	// This only chooses the starting transform; live keyboard/controller input remains active.
+	if (FParse::Param(FCommandLine::Get(), TEXT("WHSpawnTimesSquare")))
+	{
+		PosM = FVector(-20.0, -230.0, 1.5);
+		YawDeg = 90.0;
+	}
 	Traversal->Teleport(PosM, FMath::DegreesToRadians(YawDeg));
 	if (Script && Script->IsActive()) Traversal->SetVelocityM(Script->SpawnVelM());
 	Cam.Reset(Traversal->PosM(), FMath::DegreesToRadians(YawDeg));

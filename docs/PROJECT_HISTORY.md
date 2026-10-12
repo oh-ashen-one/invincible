@@ -1,6 +1,6 @@
 # Project history and evidence
 
-This page records the original creation, our additions, and the verification behind the current Unreal continuation. Commit links are immutable; branch links identify where work continues.
+This page records the original creation, our additions, and the verification behind the current Unreal continuation. Commit links are immutable; main identifies the completed owner-approved source.
 
 ## Original creation
 
@@ -23,11 +23,11 @@ The original foundation already included web swinging, wall running, zipping, a 
 
 ## Kimi preservation and continuation
 
-The interrupted Kimi session was preserved at [4f2a10da](https://github.com/oh-ashen-one/spider-man-2/commit/4f2a10daa1281db9c6816028544b104449bd9eb1). That commit is an ancestor of the enhanced checkpoint [9ad990d6](https://github.com/oh-ashen-one/spider-man-2/commit/9ad990d6ab482d5b1946b0bc9a60244eac8e320a); there are 44 subsequent commits in that continuation. The integrated continuation contained the saved starting point and the later enhancements together. **`main` now contains that complete history and source.** The separate preservation branch archives the starting state.
+The interrupted Kimi session was preserved at [4f2a10da](https://github.com/oh-ashen-one/spider-man-2/commit/4f2a10daa1281db9c6816028544b104449bd9eb1). That commit is an ancestor of the enhanced checkpoint [9ad990d6](https://github.com/oh-ashen-one/spider-man-2/commit/9ad990d6ab482d5b1946b0bc9a60244eac8e320a); there are 44 subsequent commits in that continuation. The integrated continuation contained the saved starting point and the later enhancements together. **`main` now contains that complete history and source.** The preservation commit remains in main history after the old branch names are retired.
 
 - **Use this:** [current `main` branch](https://github.com/oh-ashen-one/spider-man-2/tree/main).
-- **Merged checkpoint:** [integrated enhanced branch](https://github.com/oh-ashen-one/spider-man-2/tree/codex/round13-closeout-20261011).
-- **Historical backup:** [Kimi preservation branch](https://github.com/oh-ashen-one/spider-man-2/tree/codex/preserve-kimi-spiderman-20261011).
+- **Merged checkpoint:** [integrated enhanced branch](https://github.com/oh-ashen-one/spider-man-2/commit/9ad990d6ab482d5b1946b0bc9a60244eac8e320a).
+- **Historical backup:** [Kimi preservation branch](https://github.com/oh-ashen-one/spider-man-2/commit/4f2a10daa1281db9c6816028544b104449bd9eb1).
 - **Runtime code:** [2db14214](https://github.com/oh-ashen-one/spider-man-2/commit/2db142143bc60709a1db726a445d17aee2a57aca).
 - **What was preserved:** [preservation record](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13/PRESERVATION.md).
 
@@ -53,3 +53,7 @@ The full suite predates the final two closing animation/camera refinements. It i
 The Unreal source, configuration, exporters and builders are committed. Generated `.uasset`/`.umap` content and compiled binaries are excluded; read [the content policy](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/unreal/WebHomage/CONTENT.md). The verified local owner copy is an installed-engine playtest, not a downloadable standalone release.
 
 Private commercial-game reference footage is excluded. The images and gameplay videos linked in the README are captures of this repository's own browser/Unreal work. Original and third-party attribution remains in [LICENSE](../LICENSE), [DISCLAIMER.md](../DISCLAIMER.md) and [THIRD_PARTY.md](../THIRD_PARTY.md).
+
+## Final camera, owner feedback and closeout
+
+The [manual-camera repair](controls/manual-camera-20261012/RESULTS.md) is followed by the [owner feedback and soundtrack integration](controls/playtest-feedback-20261012/RESULTS.md), with runtime source `e9a8120c`. The owner then explicitly authorized merge and retirement of the old work branches. The [closeout record](controls/project-closeout-20261012/CLOSEOUT.md) preserves branch/archive provenance and the known E-targeting/building-trap reports. Main includes the final Times Square launch option. The project is closed to automatic refinement.
