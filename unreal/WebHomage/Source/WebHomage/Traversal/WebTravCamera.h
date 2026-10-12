@@ -51,7 +51,7 @@ public:
 	double Yaw = 0.0, Pitch = 0.14, Dist = 4.2, Fov = 58.0, Roll = 0.0;
 	double Sens = 1.0;     // look input already in radians
 	/** 2026-10-01 settings menu: base vertical FOV (deg; browser 58) and the camera-shake switch. Set from WHSettings() every frame
-	 *  by the pawn; at the defaults (58.0, true) the camera is bit-identical to before the menu existed. */
+	 *  by the pawn. Shake adds a bounded response to swing catches, speed and impacts. */
 	double BaseVFov = 58.0;
 	bool bJolts = true;
 	/** Round 02: swing / air pitch follows height (looks down over the street when high, levels out at the arc bottom). */
@@ -217,9 +217,9 @@ public:
 	double DebugOccHold() const { return OccHold; }
 	double DebugAutoPitch() const { return AutoPitch; }
 	// 2026-10-01 settings menu: bJolts = "Camera shake" (default on). Off = no trauma shake, no landing punch / dip, no launch kick.
-	void Shake(double Amt) { if (!bJolts) return; Trauma = FMath::Min(1.0, Trauma + Amt); }
+	void Shake(double Amt) { if (!bJolts) return; Trauma = FMath::Min(1.0, Trauma + FMath::Max(0.0, Amt) * 2.0); }
 	/** launch kick (zip slingshot / point launch): pull back + FOV widen, springs back */
-	void Kick(double Amt) { if (!bJolts) return; KickV += 9.0 * Amt; Trauma = FMath::Min(1.0, Trauma + 0.08 * Amt); }
+	void Kick(double Amt) { if (!bJolts) return; KickV += 9.0 * Amt; Shake(0.08 + 0.12 * Amt); }
 	void Impact(double Sev) { if (!bJolts) return; Trauma = FMath::Min(1.0, Trauma + 0.12 + 0.55 * Sev); PunchV -= 40.0 * Sev; DipV -= 5.0 * Sev; }
 	/** Camera-relative directions (browser cam.forward / forwardFlat / rightFlat). */
 	FVector Forward() const { const double CP = FMath::Cos(Pitch); return FVector(FMath::Cos(Yaw) * CP, FMath::Sin(Yaw) * CP, -FMath::Sin(Pitch)); }
@@ -234,6 +234,11 @@ public:
 	void Update(double Dt, const FTravCamInput& P, const FWebTravWorld& World);
 
 private:
+	// Smooth attack/decay for readable impact and speed shake, independent of the chase spring.
+	double ShakeEnvelope = 0.0, ShakeEnvelopeV = 0.0;
+	bool bWasSwinging = false;
+	// Input deltas consumed by one Update. AppliedLookYaw excludes a turn rejected by the ground collision stop.
+	double LookYawDelta = 0.0, LookPitchDelta = 0.0, AppliedLookYaw = 0.0;
 	// SmoothDamp state (value + velocity pairs)
 	bool bAutoInit = false;
 	double AutoYaw = 0.0, AutoYawV = 0.0, AutoPitch = 0.0, AutoPitchV = 0.0, AutoRate = 0.0, AutoRateV = 0.0, AutoPRate = 0.0, AutoPRateV = 0.0;
@@ -272,5 +277,6 @@ private:
 	FRotator LastOutRot = FRotator::ZeroRotator;
 	// round 13: the hero position of the last composed frame (the "hero inside geometry" hold follows the hero instead of freezing)
 	FVector LastComposeHero = FVector::ZeroVector;
+	FVector LastComposeVelocity = FVector::ZeroVector;
 	bool bHaveComposeHero = false;
 };

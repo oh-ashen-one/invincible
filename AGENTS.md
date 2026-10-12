@@ -1,3 +1,27 @@
+# PROJECT CLOSED — owner-authorized main merge, 2026-10-12
+
+The owner explicitly declared this project complete and authorized merging all current work into main and deleting obsolete branches/worktrees. This supersedes the earlier unmerged/active-pass instructions below, which are historical records. Do not resume a refinement loop or fix known issues without a new request. The later owner request to play in Times Square authorizes that play session; do not close it as part of the earlier shutdown request.
+
+Use main as the canonical source. Read `docs/controls/project-closeout-20261012/CLOSEOUT.md` for the closure, preservation manifests and known E-targeting/ledge-trap issues retained in the accepted build. The final local owner artifact is `/Users/midir/SpiderMan-Playtest-Feedback-20261012`; `Play-TimesSquare.command` launches the requested plaza start. Previous owner copies and authoring/reference assets remain preserved. No automatic Unreal launch or work loop is authorized after the owner's play session ends.
+
+---
+
+# Active owner playtest feedback — 2026-10-12
+
+Continue PR4 on `codex/manual-camera-20261012` from c7c07fb8 in `/Users/midir/spider-man-2-playtest-feedback-20261012`. Owner has NOT approved merge. Scope: remove all gameplay/debug screen text while retaining readable settings; keep ray tracing/geometry features enabled; remove confusing inactive VSync control in forced-playable profile; improve enabled camera shake; show white web only during active swinging; split camera-facing forward boost from targeted perch zip; stationary ground/perch rest must use spider crouch. Existing camera fixes stay.
+
+Existing bindings already separate E/Triangle zip and Q/L1 quick boost; retain these and make Q/L1 a true camera-direction boost with no nearest-anchor steering. E/Triangle remains targeted zip/perch. Root coordinates code ownership: UI worker Core/WHSettingsMenu.cpp/h + WebHomagePlayerController.cpp/h; traversal worker WebTraversalComponent.cpp/h + WebTravCharacter.cpp/h; rest worker Traversal/Anim/WebTravAnimInstance.cpp/h. Root owns WebTravCamera.cpp/h, build/runtime, docs and integration. Coordinate any cross-file edits. Workers use owner-selected GPT-6.1 Sol/xhigh; no worker engines/builds/Git mutations. Actual MacStudio M3Ultra, UE5.8, shared GPU cap2, root one guarded renderer. Current owner preview launcher76933/engine76943 belongs to this thread; root stops it gracefully before new runtime checks. Original dirty checkout and previous owner artifacts are protected. Use published Epic Unreal skills/routing at76b36ccd28a0; policy freshness live rechecked. Bounded corrections and playtest handoff only, no long polish loop.
+
+---
+
+# Active manual-camera repair — 2026-10-12
+
+Owner requested exactly two fixes: tricks must not select a different camera angle; high mouse/gamepad sensitivity must remain stable. This supersedes the historical held three-quarter trick-camera requirement. Preserve animation, traversal and collision behavior. No broader polish loop.
+
+Task branch `codex/manual-camera-20261012`, base main `9eb3a5a7`, worktree `/Users/midir/spider-man-2-manual-camera-20261012`. Original checkout and prior owner artifacts are read-only. Root owns builds and one guarded renderer; engineer owns WebTravCamera.cpp/h and the input timestep hunk in WebTravCharacter.cpp. Follow verified Epic Unreal routing and shared GPU admission. Evidence: `docs/controls/manual-camera-20261012/`; cache `/Users/midir/sm2-manual-camera-cache/`. Push task branch, stop after focused validation and an updated owner build. No new main merge is authorized by this repair request.
+
+---
+
 # Active four-fix pass — 2026-10-11 evening (UTC 2026-10-12)
 
 Owner explicitly requested ONLY: fix camera loss, abrupt firing arm, repetitive catch poses and rotation-rate spikes from the round-13 critic. This supersedes the previous stop for exactly these four repairs. Stay on the existing round13 continuation thread; no city, lighting, web rendering, suit, progression or broad polish changes. Stop after focused verification, independent review and a pushed owner playtest checkpoint.

@@ -1,0 +1,27 @@
+{
+  "scope": [
+    "clean gameplay screen; settings-only text",
+    "retain ray tracing/geometry rendering",
+    "readable optional shake",
+    "web only during swing",
+    "Q/L1 camera boost; E/Triangle perch zip",
+    "spider crouch at rest",
+    "Curious Groove looping background music"
+  ],
+  "source_commit": "e9a8120c6b7678f430f4f45d1a0fc4207abf8905",
+  "dylib_sha256": "0dee486023e6b9116dc5afad4b68b21f053682371acc6ccee672c0b7d7be1571",
+  "sound_asset_sha256": "ad694ea271f7c3b5ac923ba37b5bd700ed343ecd3658b9c4de178951320c5b06",
+  "build": "Succeeded",
+  "math_direction_cases": 225,
+  "math_impulse_cases": 70875,
+  "previous_camera_regression_orbit_samples": 2520,
+  "phase": "complete",
+  "branch": "codex/manual-camera-20261012",
+  "pr": "https://github.com/oh-ashen-one/spider-man-2/pull/4",
+  "merge_approved": false,
+  "behavior_only_shared_gpu": true,
+  "one_task_renderer": true,
+  "finished_utc": "2026-10-12T18:17:06.176002+00:00",
+  "task_engines_exited": true,
+  "owner_acceptance": false
+}

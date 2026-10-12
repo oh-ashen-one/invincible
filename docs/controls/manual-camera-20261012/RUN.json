@@ -1,0 +1,27 @@
+{
+  "scope": [
+    "tricks keep player camera direction",
+    "stable high mouse and gamepad sensitivity"
+  ],
+  "base_commit": "9eb3a5a7bdfcab1779de3b96c65f32fc71a14702",
+  "baseline_runtime": "2db142143bc60709a1db726a445d17aee2a57aca",
+  "phase": "complete",
+  "started_utc": "2026-10-12T17:03:25.810624+00:00",
+  "one_task_renderer": true,
+  "runtime_source": "bb945b1ee60c5c8044c562e7a702018c83e451b4",
+  "dylib_sha256": "b8e257dca01fd996e46fdf53963d26124f09c52952100af3388453295c5931ef",
+  "finished_utc": "2026-10-12T17:33:30.996933+00:00",
+  "build": "Succeeded",
+  "math_orbit_samples": 2520,
+  "math_minimum_radius_steps": 1080,
+  "final_native_cases": [
+    "high-look",
+    "mouse-look",
+    "mouse-extreme",
+    "trick",
+    "wall-look",
+    "staged-clear-air"
+  ],
+  "engines_exited": true,
+  "owner_controller_acceptance": false
+}

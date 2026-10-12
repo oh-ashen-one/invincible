@@ -286,7 +286,8 @@ void UWebTravAnimInstance::BuildNode(FName Node, float T, TArray<FWebTravAnimLay
 	{ // locomotion anchors (browser LOCO): walk 1.6, jog 4.5, run 8.5, sprint 14 m/s; one shared normalized phase
 		struct FL { const TCHAR* C; float V; };
 		const FL Loco[] = { { TEXT("walk"), 1.6f }, { TEXT("jog"), 4.5f }, { TEXT("run"), LocoRunV }, { TEXT("sprint"), 14.f } }; // round 25: run 8.5 -> LocoRunV
-		// target weights (round 21 logic: idle below 0.25 m/s, idle -> walk below 1.6 m/s, then the two bracketing anchors)
+		// Rest in the authored spider crouch; keep the existing rest -> walk blend and moving anchors.
+		// Target weights: rest below 0.25 m/s, rest -> walk below 1.6 m/s, then the two bracketing anchors.
 		float Want[5] = { 0.f, 0.f, 0.f, 0.f, 0.f };
 		int32 K = 0;
 		while (K < 3 && Sp > Loco[K + 1].V) ++K;
@@ -325,7 +326,7 @@ void UWebTravAnimInstance::BuildNode(FName Node, float T, TArray<FWebTravAnimLay
 			PhRate = (1.f - W1) * PhRate + W1 * (Sp / Loco[K + 1].V) / FMath::Max(Len1, 0.01f);
 		}
 		LocoPhase = FMath::Fmod(LocoPhase + Dt * PhRate, 1.f);
-		if (GroundW[0] > 0.001f) Add(TEXT("idle"), T, GroundW[0], true);
+		if (GroundW[0] > 0.001f) Add(TEXT("perchIdle"), T, GroundW[0], true);
 		for (int32 J = 0; J < 4; ++J)
 		{
 			UAnimSequence* S = Clip(Loco[J].C);
@@ -440,7 +441,7 @@ void UWebTravAnimInstance::BuildNode(FName Node, float T, TArray<FWebTravAnimLay
 	if (Node == NA_corner) { Add(TEXT("cornerWrap"), T, 1.f, false); return; }
 	if (N == TEXT("wallZip")) { Add(TEXT("webZipPull"), T, 1.f, false); return; }
 	if (Node == NA_crawl) { if (Sp > 0.3f) Add(TEXT("wallCrawl"), T * FMath::Max(0.5f, Sp / 1.4f), 1.f, true); else Add(TEXT("wallIdle"), T, 1.f, true); return; }
-	Add(TEXT("idle"), T, 1.f, true);
+	Add(TEXT("perchIdle"), T, 1.f, true);
 }
 
 void UWebTravAnimInstance::BuildFlipLayers(FName Program, float T, TArray<FWebTravAnimLayer>& Out, TArray<FWebTravAnimLayer>& OutLegs)
@@ -539,6 +540,13 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 	for (FWebTravAnimLayer& L : PrevLayers)
 	{
 		if (!L.Seq) continue;
+		// A stopped landing settles from its last impact pose into the spider crouch. Do not scrub
+		// the fading landing clip into its later standing recovery while the rest pose comes in.
+		// Moving landings and rolls retain their existing recovery/locomotion transition.
+		if (CurNode == NA_ground && A.Speed < 0.25f && !L.bLoop &&
+			(L.Seq == Clip(TEXT("landLight")) || L.Seq == Clip(TEXT("landMedium")) ||
+			 L.Seq == Clip(TEXT("landHard")) || L.Seq == Clip(TEXT("landRoll")) ||
+			 L.Seq == Clip(TEXT("perchLand")))) continue;
 		// Keep the actual outgoing catch key during the fade. Advancing a sampled shape as a normal
 		// clip scrubs Straddle into its later tuck-up, adding a second motion on top of the transition.
 		if (Category(CurNode) == NA_swing &&

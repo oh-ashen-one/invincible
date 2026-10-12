@@ -1,0 +1,116 @@
+[
+  {
+    "path": "unreal/WebHomage/Scripts/traversal_web_material.py",
+    "blob": "7703b2b97997378d7f535693758ce0e70328b7ef",
+    "bytes": 11679,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "unreal/WebHomage/Source/WebHomage/Traversal/WebTraversalComponent.h",
+    "blob": "088d5dd52d3a64aa9a6f58ed8c9ef0b468e191da",
+    "bytes": 46820,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s1_swing_chain.mp4",
+    "blob": "e12b442f5f4c03b542d6830affaa4397df8d1f17",
+    "bytes": 13191051,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s1_swing_chain_render.json",
+    "blob": "a552d93cb2070b46b0940db267828f45fc0baf58",
+    "bytes": 309,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s1_swing_chain_telemetry.csv",
+    "blob": "15a1676ffb67ff5a7dd70668c4b9370374afd4dd",
+    "bytes": 1583512,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s3_flip_chain.mp4",
+    "blob": "d078aa3b668adce8aca14447bd82b5c26b33dea9",
+    "bytes": 14369974,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s3_flip_chain_render.json",
+    "blob": "8bd5de538c963ab72e311f24d6d6e74a0320eeb4",
+    "bytes": 305,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s3_flip_chain_telemetry.csv",
+    "blob": "91cd973de1969d55c5b66b01a63729d57807430a",
+    "bytes": 1882301,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s3_flip_chain_telemetry.rope.json",
+    "blob": "653503f26ed168aa4a42fbefd02957850a55624e",
+    "bytes": 28651,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s3b_flip_cases.mp4",
+    "blob": "c33c580027116546345a03afd8af1893fb6017d5",
+    "bytes": 15381023,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s3b_flip_cases_render.json",
+    "blob": "c835193ddeb696c6120ceb4f44a9bd4fb90de0e4",
+    "bytes": 1196,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s3b_flip_cases_telemetry.csv",
+    "blob": "fcc1543a11e4b06b24490434e365838317be728d",
+    "bytes": 2316521,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s4_release_float.mp4",
+    "blob": "156404724778e93d62437473ea11f8952cf8714a",
+    "bytes": 15129445,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s4_release_float_render.json",
+    "blob": "c853c414fd9314b9270726b3c1d8534c7590df5c",
+    "bytes": 313,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s4_release_float_telemetry.csv",
+    "blob": "ecf6d2cdf4e886914673f4657c380e2713c4cdbd",
+    "bytes": 1551649,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s4_release_float_telemetry.rope.json",
+    "blob": "cb381accb6f975e9cf50b5423b4433594d9dd164",
+    "bytes": 26508,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s5_night_swing.mp4",
+    "blob": "fbdcb6f79874796a5045f7ffc2213851666c6e49",
+    "bytes": 14508673,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s5_night_swing_render.json",
+    "blob": "9442a779585ce95a7308fc01441936aff4d34eb5",
+    "bytes": 315,
+    "preserved_on_origin_main": true
+  },
+  {
+    "path": "docs/night1/final/swing/round-13/s5_night_swing_telemetry.csv",
+    "blob": "cc1eb007659168b52e386b3862b2c97162c20cab",
+    "bytes": 1583308,
+    "preserved_on_origin_main": true
+  }
+]

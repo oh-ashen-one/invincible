@@ -3,7 +3,10 @@
 #include "WebHomage.h"
 #include "Core/WHSettings.h"
 #include "Core/WHSettingsMenu.h"
+#include "Core/WHMusicSubsystem.h"
+#include "Engine/GameInstance.h"
 
+#include "CoreGlobals.h"
 #include "Engine/Engine.h"
 #include "Engine/GameViewportClient.h"
 #include "Framework/Application/SlateApplication.h"
@@ -32,6 +35,13 @@ void AWebHomagePlayerController::BeginPlay()
 
 	if (IsLocalController())
 	{
+		// Clean gameplay includes the renderer's map/ray-tracing/geometry warnings, not just AddOnScreenDebugMessage.
+		// UE's DrawStatsHUD and renderer warning pass both use this display gate; rendering and log output stay enabled.
+		bPreviousScreenMessagesEnabled = GAreScreenMessagesEnabled;
+		bOwnsScreenMessageDisplay = true;
+		GAreScreenMessagesEnabled = false;
+		if (GEngine) GEngine->ClearOnScreenDebugMessages();
+
 		// Saved settings (look, FOV, camera shake, graphics) apply to interactive play only. Automated runs keep the defaults and
 		// their command-line render settings, so captures / perf numbers are unchanged. Loaded once per process (BeginPlay runs per map).
 		static bool bLoadedOnce = false;
@@ -52,6 +62,8 @@ void AWebHomagePlayerController::BeginPlay()
 			FTimerHandle ResLogTimer;
 			GetWorldTimerManager().SetTimer(ResLogTimer, FTimerDelegate::CreateStatic(&FWHSettings::LogRes), 3.0f, false);
 		}
+		if (UGameInstance* GI = GetGameInstance())
+			if (UWHMusicSubsystem* Music = GI->GetSubsystem<UWHMusicSubsystem>()) Music->EnsureStarted(this);
 		ReleaseMouse();
 		// interactive play starts with the mouse captured (owner: right-mouse swing must work immediately); Escape releases + opens settings
 		if (!bNeverCapture) CaptureMouse();
@@ -64,6 +76,12 @@ void AWebHomagePlayerController::EndPlay(const EEndPlayReason::Type Reason)
 	{
 		if (!bNeverCapture) WHSettings().Save();
 		RemoveMenuWidget();
+	}
+	if (bOwnsScreenMessageDisplay)
+	{
+		// Restore the editor's display policy after PIE or a task-owned game world closes.
+		GAreScreenMessagesEnabled = bPreviousScreenMessagesEnabled;
+		bOwnsScreenMessageDisplay = false;
 	}
 	Super::EndPlay(Reason);
 }

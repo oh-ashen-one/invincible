@@ -1,0 +1,50 @@
+{
+  "name": "web-release-zip",
+  "seed": 1234,
+  "spawn": {
+    "pos": [
+      250,
+      560,
+      24
+    ],
+    "yaw": -90,
+    "camPitch": 0.12,
+    "vel": [
+      0,
+      -22,
+      0
+    ]
+  },
+  "keys": [
+    {
+      "t": 0,
+      "move": [
+        0,
+        1
+      ],
+      "heading": -90,
+      "swing": false
+    },
+    {
+      "t": 0.4,
+      "swing": true
+    },
+    {
+      "t": 2.4,
+      "swing": false
+    },
+    {
+      "t": 3.4,
+      "zip": true
+    },
+    {
+      "t": 3.5,
+      "zip": false,
+      "move": [
+        0,
+        0
+      ],
+      "heading": false
+    }
+  ]
+}

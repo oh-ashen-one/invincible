@@ -1,0 +1,22 @@
+{
+  "source": "assets/audio/Curious Groove.mp3",
+  "source_sha256": "197687ce53b99fc785d0e0578b4539bc40ad7796c892f8f3267b3f47d3ec2626",
+  "output": "unreal/WebHomage/Saved/AudioImport/CuriousGroove_Loop.wav",
+  "output_sha256": "fce59abe1e8a815caa2008aedba489e0b3f19496bbd8817be9748ce5619bcec2",
+  "sample_rate": 48000,
+  "channels": 2,
+  "sample_width_bytes": 2,
+  "source_decoded_seconds": 149.0,
+  "trim_start_seconds": 0.0,
+  "trim_end_seconds": 147.47,
+  "quiet_threshold_db": -48.0,
+  "quiet_padding_seconds": 0.04,
+  "crossfade_seconds": 0.4,
+  "crossfade_curve": "raised cosine, complementary weights",
+  "loop_rotation_seconds": 0.4,
+  "loop_frames": 7059360,
+  "loop_seconds": 147.07,
+  "peak_before_gain": 0.580361008644104,
+  "gain_applied": 1.0,
+  "loop_boundary_step_peak": 7.620366523042321e-05
+}

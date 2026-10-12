@@ -1,0 +1,61 @@
+{
+  "name": "boost-flip",
+  "note": "F pressed 0.4 s in with the stick fwd [0, 1], swing 2.26 s later",
+  "seed": 1234,
+  "spawn": {
+    "pos": [
+      250,
+      200,
+      110
+    ],
+    "yaw": -90.0,
+    "camPitch": 0.12,
+    "vel": [
+      0,
+      -22,
+      6
+    ]
+  },
+  "keys": [
+    {
+      "t": 0.0,
+      "move": [
+        0,
+        0
+      ],
+      "swing": false
+    },
+    {
+      "t": 0.3,
+      "move": [
+        0,
+        1
+      ]
+    },
+    {
+      "t": 0.4,
+      "trick": true
+    },
+    {
+      "t": 0.5,
+      "trick": false
+    },
+    {
+      "t": 0.75,
+      "quick": true
+    },
+    {
+      "t": 0.8,
+      "quick": false
+    },
+    {
+      "t": 2.66,
+      "swing": true
+    },
+    {
+      "t": 3.76,
+      "swing": false
+    }
+  ],
+  "tune": "FlipKStart=3"
+}

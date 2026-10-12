@@ -1,0 +1,63 @@
+{
+  "boost-flip": {
+    "frames": 359,
+    "non_swing_web_frames": 0,
+    "visible_swing_web_frames": 54,
+    "perch_frames": 0,
+    "crouch_clip_frames": 0,
+    "press_speed_before_after_mps": [
+      24.29,
+      36.162
+    ],
+    "trick_continued": "frontSingle"
+  },
+  "music": {
+    "loop_verified": true,
+    "cumulative_playback_fraction": 1.0087,
+    "started_count": 1,
+    "pause_commands": 2
+  },
+  "rest": {
+    "frames": 539,
+    "non_swing_web_frames": 0,
+    "visible_swing_web_frames": 0,
+    "perch_frames": 0,
+    "crouch_clip_frames": 385
+  },
+  "settings": {
+    "frames": 239,
+    "non_swing_web_frames": 0,
+    "visible_swing_web_frames": 0,
+    "perch_frames": 0,
+    "crouch_clip_frames": 162
+  },
+  "swing-off": {
+    "frames": 359,
+    "non_swing_web_frames": 0,
+    "visible_swing_web_frames": 232,
+    "perch_frames": 0,
+    "crouch_clip_frames": 0
+  },
+  "swing-on": {
+    "frames": 359,
+    "non_swing_web_frames": 0,
+    "visible_swing_web_frames": 232,
+    "perch_frames": 0,
+    "crouch_clip_frames": 0
+  },
+  "web-release-zip": {
+    "frames": 599,
+    "non_swing_web_frames": 0,
+    "visible_swing_web_frames": 109,
+    "perch_frames": 356,
+    "crouch_clip_frames": 321
+  },
+  "shake_on_off": {
+    "max_angle_difference_degrees": {
+      "cam_pitch_deg": 0.45,
+      "cam_yaw_deg": 0.25,
+      "pcm_roll": 0.59
+    },
+    "max_physics_position_difference_m": 0.0
+  }
+}

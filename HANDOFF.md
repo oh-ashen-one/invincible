@@ -1,3 +1,35 @@
+# PROJECT CLOSED — owner-authorized main merge, 2026-10-12
+
+The owner explicitly declared this project complete and authorized merging all current work into main and deleting obsolete branches/worktrees. This supersedes the earlier unmerged/active-pass instructions below, which are historical records. Do not resume a refinement loop or fix known issues without a new request. The later owner request to play in Times Square authorizes that play session; do not close it as part of the earlier shutdown request.
+
+Use main as the canonical source. Read `docs/controls/project-closeout-20261012/CLOSEOUT.md` for the closure, preservation manifests and known E-targeting/ledge-trap issues retained in the accepted build. The final local owner artifact is `/Users/midir/SpiderMan-Playtest-Feedback-20261012`; `Play-TimesSquare.command` launches the requested plaza start. Previous owner copies and authoring/reference assets remain preserved. No automatic Unreal launch or work loop is authorized after the owner's play session ends.
+
+---
+
+## Owner feedback and music complete — 2026-10-12
+
+Continue PR4, `codex/manual-camera-20261012`; runtime source `e9a8120c`. Owner has NOT approved merging. Read `docs/controls/playtest-feedback-20261012/RESULTS.md` / `RUN.json` / `metrics.json` for exact scope and evidence. Previous manual-camera repairs remain included.
+
+Implemented clean gameplay screen (render features retained), settings-only help and hidden inactive VSync control, smoother optional shake, strict Swing-only white web visibility, Q/L1 camera-directed speed boost separate from E/Triangle perch zip, and crouched rest/settle. User supplied `/Users/midir/Downloads/Curious Groove.mp3`; unmodified source is tracked under assets/audio, prepared 147.07-second loop imported into `/Game/Audio/Music/SW_CuriousGroove`. Native playback crossed the loop boundary while paused, with one persistent music component. No generated payment or external music API was used.
+
+Final native build passed. Every captured non-Swing frame has hidden web telemetry; Q accelerated an active flip 24.290→36.162m/s without interrupting it; E reached perch and crouched; shake on/off has identical physics with 0.45/0.25/0.59 degree peak pitch/yaw/roll differences. Settings and crouch screenshots inspected. Independent source reviews found no blockers. Shared coordinator cap 2 respected alongside the protected ARK reservation; all tests are behavioral, not performance claims. A sound-import commandlet emitted pre-existing GameFeatureData initialization errors (exit 1) but saved the verified playable SoundWave; do not label that commandlet clean.
+
+Owner build: `/Users/midir/SpiderMan-Playtest-Feedback-20261012/Play.command`. Prior owner builds and original dirty Kimi checkout are protected. Saved settings preserved. Physical controller feel, sound balance and acceptance remain with owner. Task worktree/cache are disposable after verified push and final relocated artifact validation. Stop here; no automatic refinement or merge.
+
+---
+
+## Manual camera repair complete — 2026-10-12
+
+Owner scope: tricks must preserve player camera direction; high mouse/gamepad sensitivity must remain stable. Runtime source `bb945b1ee60c5c8044c562e7a702018c83e451b4`, branch `codex/manual-camera-20261012`, based on main `9eb3a5a7`. Read `docs/controls/manual-camera-20261012/RESULTS.md` and `metrics.json` for build-labeled before/final evidence. This supersedes the older held three-quarter trick-camera requirement only.
+
+The automatic trick view is disabled while actual trick animation and containment remain. Manual orbit position, spring velocity and aim budgets now move together; live controller input uses the bounded simulation timestep. Ordinary framing stays above the emergency minimum distance, preventing false upward collision corrections in empty air. Maximum-controller-speed replay: horizontal aim error 38.061→0.016 degrees, yaw-limited frames 215→0, full-body frame misses 52→0. Mouse and extreme mouse horizontal replays also have zero yaw-limit or reverse-orbit frames. Native final evidence is fixed60Hz; extracted production math covers30/60/120Hz. Existing air-to-wall reseat and intentional upward-look body cropping remain explicitly documented.
+
+Local playable copy: `/Users/midir/SpiderMan-CameraFixes-OwnerPlaytest-20261012/Play.command`; module SHA256 `b8e257dca01fd996e46fdf53963d26124f09c52952100af3388453295c5931ef`. Owner sensitivity/FOV/suit/settings preserved. Physical controller feel and owner acceptance are not claimed. Original Kimi checkout and prior owner copies remain untouched. Task source is pushed; main merge requires owner approval. No continuing loop or next polish round.
+
+Task worktree `/Users/midir/spider-man-2-manual-camera-20261012` and `/Users/midir/sm2-manual-camera-cache` are disposable after publication and final artifact verification; the independent owner artifact and remote branch remain. Shared policy76b36ccd28a0 was live-verified; native Epic routing and shared GPU guard used. Engineering and independent source review used owner-selected GPT-6.1 Sol/xhigh; root model is app-controlled.
+
+---
+
 ## Four-fix checkpoint complete — 2026-10-12
 
 Final runtime source: `2db142143bc60709a1db726a445d17aee2a57aca`, merged into `main` from `codex/round13-closeout-20261011`. Read `docs/night1/final/swing/round-13-four-fixes-final/RESULTS.md` for the outcomes, build boundaries and remaining limits. This finite owner-requested pass is complete. Do not automatically start another refinement round.

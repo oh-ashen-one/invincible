@@ -56,8 +56,29 @@ namespace
 	struct { double Dur = 0.95, V0 = 46, V1 = 16, Reach = 42, Snap = 0.75, Cd = 1.2; } WZIP;
 	// user r10: web-zip is INSTANT: zipFire (~0.05 s) -> zipFlight (burst to a 40-72 m/s peak) -> braking -> zipCatch -> perch
 	const double ZIP_BRAKE = 200, ZIP_VEND = 5, ZIP_RAMP = 0.07, ZIP_SPEED = 0.83;
-	// quick web boost (Q / L1, air only)
-	struct { double Dv = 12, HCap = 40, Cd = 0.55, MinD = 25, MaxD = 80, NearD = 12, Web = 0.26, Dur = 0.62; } QUICK;
+	// Q / L1: a camera-directed air impulse, independent of zip/swing anchors.
+	struct { double Dv = 12, Cd = 0.55, Dur = 0.62; } QUICK;
+
+	FVector ForwardBoostDirection(const FVector& ViewForward, double FallbackYaw)
+	{
+		FVector Horizontal = Flat(ViewForward).GetSafeNormal();
+		if (Horizontal.IsNearlyZero()) Horizontal = YawDir(FallbackYaw);
+		// Keep looking up/down useful without turning a forward boost into a vertical launch/dive.
+		const double Elevation = FMath::Clamp(FMath::Atan2(ViewForward.Z, HLen(ViewForward)),
+			-FMath::DegreesToRadians(45.0), FMath::DegreesToRadians(45.0));
+		return Horizontal * FMath::Cos(Elevation) + ZUP * FMath::Sin(Elevation);
+	}
+
+	FVector ForwardBoostVelocity(const FVector& Velocity, const FVector& Direction, double DeltaSpeed, double SpeedLimit)
+	{
+		// Limit only the added impulse. Scaling the whole velocity would erase sideways/falling momentum,
+		// especially during flips, and could turn a boost into a brake when already above the usual cap.
+		const double SpeedSq = Velocity.SizeSquared();
+		const double Limit = FMath::Max(SpeedLimit, FMath::Sqrt(SpeedSq));
+		const double Along = FVector::DotProduct(Velocity, Direction);
+		const double Room = FMath::Max(0.0, FMath::Sqrt(FMath::Max(0.0, Along * Along + Limit * Limit - SpeedSq)) - Along);
+		return Velocity + Direction * FMath::Min(FMath::Max(0.0, DeltaSpeed), Room);
+	}
 
 	bool IsLand(FName S) { return S == N_landLight || S == N_landMedium || S == N_landHard || S == N_landRoll || S == N_landTopOut; }
 }
@@ -2928,101 +2949,42 @@ void UWebTraversalComponent::WebDash()
 	Emit(N_webDash);
 }
 
-// ------------------------------------------------------------------ quick web boost (Q / L1, air only)
-void UWebTraversalComponent::QuickAnchor(FVector& Out, FVector& NOut, double& Dist, bool& bSky)
-{
-	const FVector L = Cam ? Cam->Forward() : YawDir(S.Facing);
-	const FVector InD = InputDir(LastInput);
-	double YawA = Yaw(L);
-	if (InD.SizeSquared() > 0.09) YawA = Yaw(InD); // stick heading wins (camera-relative)
-	const double El0 = FMath::Clamp(FMath::Asin(FMath::Clamp(L.Z, -1.0, 1.0)) + 0.14, 0.06, 0.6);
-	const FVector O = S.Pos + FVector(0, 0, 0.5);
-	bool bBest = false, bNear = false;
-	double BestS = -1e9, NearD = 0, BestD = 0;
-	FVector BestP, BestN, NearP, NearN;
-	static const double Pat[10][2] = { { 0, 0 }, { 0.16, 0 }, { -0.06, 0 }, { 0, 0.2 }, { 0, -0.2 }, { 0.16, 0.2 }, { 0.16, -0.2 }, { 0.34, 0 }, { 0.34, 0.3 }, { 0.34, -0.3 } };
-	for (const auto& PD : Pat)
-	{
-		const double El = El0 + PD[0], A = YawA + PD[1];
-		const FVector D(FMath::Cos(A) * FMath::Cos(El), FMath::Sin(A) * FMath::Cos(El), FMath::Sin(El));
-		FTravHit Hit;
-		if (!TravWorld.Raycast(O, D, QUICK.MaxD, Hit) || (Hit.Normal.Z > 0.7 && Hit.Point.Z < S.Pos.Z - 1)) continue; // never the ground below
-		if (Hit.Distance >= QUICK.MinD)
-		{
-			const double SC = -FMath::Abs(PD[1]) * 3 - FMath::Abs(PD[0]) * 1.5;
-			if (SC > BestS) { BestS = SC; BestP = Hit.Point; BestN = Hit.Normal; BestD = Hit.Distance; bBest = true; }
-		}
-		else if (Hit.Distance >= QUICK.NearD && (!bNear || Hit.Distance > NearD)) { NearP = Hit.Point; NearN = Hit.Normal; NearD = Hit.Distance; bNear = true; }
-	}
-	if (bBest || bNear)
-	{
-		Out = bBest ? BestP : NearP; NOut = bBest ? BestN : NearN; Dist = bBest ? BestD : NearD; bSky = false;
-		return;
-	}
-	const double El = El0 + 0.1;
-	const FVector D(FMath::Cos(YawA) * FMath::Cos(El), FMath::Sin(YawA) * FMath::Cos(El), FMath::Sin(El));
-	Out = O + D * 60; NOut = -D; Dist = 60; bSky = true;
-}
-
+// ------------------------------------------------------------------ forward boost (Q / L1, air or mid-swing)
 void UWebTraversalComponent::QuickBoostStart()
 {
 	FQuick& Q = S.Q;
 	const bool bFromSwing = S.Mode == EWebTravMode::Swing;
 	if (bFromSwing)
-	{ // let go of the swing web first (explicit button press, like E)
+	{ // Explicit boost releases the rope, retaining the exact carried swing velocity.
 		bLeaveSwingOK = true; WebRelease(); SetMode(EWebTravMode::Air, S.Vel.Z > 3 ? N_rise : S.Vel.Z > -4 ? N_apex : N_fall); bLeaveSwingOK = false;
-		S.AirT = 0; S.ApexZ = FeetZ(); S.RelT = 0; S.Trick = NAME_None; S.bLastTrick = false;
+		S.AirT = 0; S.ApexZ = FeetZ();
 	}
-	double Dist = 0;
-	bool bSky = false;
-	QuickAnchor(Q.Anchor, Q.Normal, Dist, bSky);
-	const bool bHand0 = Q.bRightHand;
+	// A pending swing catch must not take over a boost before its reattach cooldown expires.
+	if (S.bWebPending) { S.bWebPending = false; WebRelease(); }
+	const FVector ViewForward = Cam ? Cam->CamRot.Vector() : YawDir(S.Facing);
+	const double ViewYaw = Cam ? FMath::DegreesToRadians(Cam->CamRot.Yaw) : S.Facing;
+	Q.Dir = ForwardBoostDirection(ViewForward, ViewYaw); // latch the view the player actually sees at the press
 	if (S.Clock - Q.Last > 1.6) Q.N = 0;
-	if (bFromSwing) Q.bRightHand = !S.Sw.bRightHand;       // just left a swing: the free hand
-	else if (Q.N > 0) Q.bRightHand = !bHand0;              // chain: alternate
-	else
-	{ // target side
-		const FVector Rel = Q.Anchor - S.Pos;
-		const double F = -FMath::Sin(S.Facing) * Rel.X + FMath::Cos(S.Facing) * Rel.Y;
-		Q.bRightHand = F > 0;
-	}
+	if (bFromSwing) Q.bRightHand = !S.Sw.bRightHand;
+	else Q.bRightHand = !Q.bRightHand;
 	static const double KS[] = { 1, 0.8, 0.65, 0.55 };
 	Q.K = KS[FMath::Min(Q.N, 3)];
 	Q.N++; Q.Last = S.Clock; Q.Seq++;
-	Q.Dist = Dist; Q.bSky = bSky; Q.T = 0; Q.bApplied = false; Q.bActive = true; Q.bWebOn = true;
-	Q.HitT = FMath::Clamp(Dist / 600, 0.05, 0.11);
+	Q.T = 0; Q.bActive = true;
 	S.DashWebT = 0;
-	WebAttach(Q.bRightHand, Q.Anchor, Q.HitT);
-	// body stays in the normal air blend
-	if (S.Sub != N_rise && S.Sub != N_apex && S.Sub != N_fall && S.Sub != N_release) { S.Trick = NAME_None; SetSub(S.Vel.Z > 3 ? N_rise : S.Vel.Z > -4 ? N_apex : N_fall); }
-	S.SwingCooldown = FMath::Max(S.SwingCooldown, Q.HitT + 0.28); // the boost plays before a held RMB re-attaches
+	// Do not replace the air substate, trick identity, clock, held shape or armed flip.
+	S.SwingCooldown = FMath::Max(S.SwingCooldown, 0.36); // a held swing button resumes after the impulse
 	S.ZipCooldown = FMath::Max(S.ZipCooldown, 0.15);
-	Emit(N_quickZip, 0.f, float(Dist), float(Q.K));
+	Emit(N_quickZip, 0.f, 0.f, float(Q.K));
+	QuickImpulse();
 }
 
 void UWebTraversalComponent::QuickImpulse()
 {
-	FQuick& Q = S.Q;
-	FVector D = Q.Anchor - S.Pos;
-	const double L = D.Size();
-	D = L > 1e-3 ? D / L : YawDir(S.Facing);
-	FVector HD;
-	if (!HDir(D, HD)) HD = YawDir(S.Facing);
-	const double Sp0 = S.Vel.Size(), HS0 = HLen(S.Vel);
-	const FVector Cur = HS0 > 1 ? FVector(S.Vel.X / HS0, S.Vel.Y / HS0, 0) : HD;
-	const FVector HV = FMath::Lerp(Cur, HD, 0.75).GetSafeNormal(); // most of the momentum swings round toward the anchor
-	const double HS = FMath::Min(FMath::Max(HS0, 8.0) + QUICK.Dv * Q.K, FMath::Max(HS0, QUICK.HCap));
-	// a little lift (more toward a high anchor); a fall is only partly arrested (no hovering by spamming Q)
-	const double VY = FMath::Min((S.Vel.Z < 0 ? S.Vel.Z * 0.4 : S.Vel.Z) + (3 + 5 * FMath::Max(0.0, D.Z)) * Q.K, 9.0);
-	S.Vel = FVector(HV.X * HS, HV.Y * HS, FMath::Max(S.Vel.Z, VY));
-	CapSpeed(VMAX);
-	S.Facing = Yaw(HV);
-	S.RelT = 0.15; // the boost owns the trajectory; air control fades back in
-	S.bDive = false;
-	Q.bApplied = true;
-	Strands[0].Taut = 0.8f;
-	Emit(N_quickBoost, 0.f, float(Q.Dist), float(Q.K));
-	(void)Sp0;
+	const FQuick& Q = S.Q;
+	S.Vel = ForwardBoostVelocity(S.Vel, Q.Dir, QUICK.Dv * Q.K, VmaxC());
+	S.RelT = 0.15; // the boost owns the trajectory; ordinary air control fades back in
+	Emit(N_quickBoost, 0.f, 0.f, float(Q.K));
 }
 
 void UWebTraversalComponent::StepQuickBoost(double Dt)
@@ -3030,13 +2992,7 @@ void UWebTraversalComponent::StepQuickBoost(double Dt)
 	FQuick& Q = S.Q;
 	if (!Q.bActive) return;
 	Q.T += Dt;
-	if (!Q.bApplied && Q.T >= Q.HitT) { if (S.Mode == EWebTravMode::Air) QuickImpulse(); else Q.bApplied = true; }
-	if (Q.bWebOn && (Q.T > Q.HitT + QUICK.Web || S.Mode != EWebTravMode::Air))
-	{
-		Q.bWebOn = false;
-		if (S.Mode != EWebTravMode::Swing && S.Mode != EWebTravMode::Zip) WebRelease(true);
-	}
-	if (Q.T > QUICK.Dur) Q.bActive = false;
+	if (Q.T > QUICK.Dur || S.Mode != EWebTravMode::Air) Q.bActive = false;
 }
 
 void UWebTraversalComponent::StepPerch(double Hs, FWebTravInput& I)
@@ -3389,7 +3345,7 @@ void UWebTraversalComponent::UpdateTraversal(double Dt, FWebTravInput I)
 		bool bHas = Anchors->HasTarget();
 		FName Why = TEXT("highlighted");
 		if (bHas) T = Anchors->Best();
-		else if (S.Mode != EWebTravMode::Swing && NearestZip(T, Why)) bHas = true;
+		else if (NearestZip(T, Why)) bHas = true;
 		if (bHas)
 		{
 			if (S.Mode == EWebTravMode::Swing) WebRelease();

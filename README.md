@@ -2,12 +2,18 @@
 
 A non-commercial web-swinging homage built from **[Spiderbench](https://github.com/xikhar/spiderbench), originally created by Shikhar**. This fork extends the browser game and carries that work into **Unreal Engine 5.8**, with native traversal, richer environments, original suit work, and focused improvements to flips, catches, firing animations and camera framing.
 
-**[Explore the complete, current game on `main` →](https://github.com/oh-ashen-one/spider-man-2/tree/main)** · [Project history & proof](docs/PROJECT_HISTORY.md) · [Unreal setup](docs/UNREAL_PLAYTEST.md) · [Latest verified results](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-four-fixes-final/RESULTS.md)
+**[Explore the complete, current game on `main` →](https://github.com/oh-ashen-one/spider-man-2/tree/main)** · [Project history & proof](docs/PROJECT_HISTORY.md) · [Unreal setup](docs/UNREAL_PLAYTEST.md) · [Latest verified results](docs/controls/playtest-feedback-20261012/RESULTS.md)
 
 > **Which version should I use?** Use **`main`**. It now includes the browser game, the Unreal source, Kimi’s preserved starting point, and every enhancement that followed. The old continuation and preservation branches are historical checkpoints; you do not need to combine them.
 
 ![The enhanced Unreal traversal checkpoint, captured from the running game](https://raw.githubusercontent.com/oh-ashen-one/spider-man-2/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-four-fixes-reach-closeout/staged-smoke_00_t003.0.png)
 *Actual Unreal gameplay capture from the October 12 checkpoint, using the Tessera suit.*
+
+## Final owner-approved checkpoint
+
+The owner closed the project on October 12, 2026 and authorized the complete work to be merged into **main**. Final additions keep tricks in the player-controlled camera view, stabilize high-sensitivity look, hide debug overlays while retaining rendering features, improve optional camera shake, limit visible webs to active swinging, and use a spider crouch at rest. **Q / L1** boosts along the camera direction; **E / Triangle** is the separate targeted perch action. The supplied **Curious Groove** track loops through gameplay and settings. The optional `-WHSpawnTimesSquare` launch flag starts in the Times Square plaza.
+
+See the [camera results](docs/controls/manual-camera-20261012/RESULTS.md), [feedback/music results](docs/controls/playtest-feedback-20261012/RESULTS.md), and [project closeout](docs/controls/project-closeout-20261012/CLOSEOUT.md). Closeout does not mean every bug is resolved: the owner-reported E fallback and repeated ledge-climb trap are retained as known limitations. Historical branch tips are preserved by commit history and archive tags; main is the single active branch.
 
 ## Original creation and credit
 
@@ -59,7 +65,7 @@ These are existing committed captures. Implementation details and third-party cr
 | **Repetitive catch endings** | Endings repeatedly returned to similar narrow silhouettes. | At least **three distinct whole-body silhouettes across six inspected catches**: compact, extended and wide split. [Before](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-closeout/s3b_flip_cases.mp4) → [after](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-four-fixes-final/s3b_flip_cases.mp4) · [independent verdict](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-four-fixes-final/CRITIC.md). |
 | **Rotation spikes** | An intermediate front-double capture measured about **827°/s** in 3D on the existing finite-window check. | About **796°/s** after the curve/alignment correction, with turn counts and open holds retained. [Intermediate recording](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-four-fixes/s3_flip_chain.mp4) → [corrected recording](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-four-fixes-final/s3_flip_chain.mp4) · [measurement definitions](https://github.com/oh-ashen-one/spider-man-2/blob/9ad990d6ab482d5b1946b0bc9a60244eac8e320a/docs/night1/final/swing/round-13-four-fixes-final/MOTION_VERIFICATION.md). |
 
-**Evidence boundaries matter.** The full 17-case suite is build `19521659`; the subsequent camera, launch and final reach patches have separately labeled targeted replays. The verified runtime source is **`2db14214`**, preserved with reports at **`9ad990d6`**. Read the [complete evidence index](docs/PROJECT_HISTORY.md#verification-records) for the build-by-build record.
+**Evidence boundaries matter.** The full 17-case suite is build `19521659`; the subsequent camera, launch and final reach patches have separately labeled targeted replays. That four-fix runtime source is **`2db14214`**, preserved with reports at **`9ad990d6`**; subsequent camera and owner-feedback changes are documented above. Read the [complete evidence index](docs/PROJECT_HISTORY.md#verification-records) for the build-by-build record.
 
 The remaining limits are recorded too: brief partial lower-body occlusion behind a parapet, faster visible web extension in the final firing-arm fix, and broader quality checks that do not all pass. The videos include fixed-step capture; **60 Hz footage is not proof of real-time 60 FPS**. The final local checkpoint compiled, launched and rendered successfully, but the reports do not claim universal controller, performance or reference-quality acceptance.
 
@@ -82,7 +88,7 @@ npm run dev
 
 The same `main` checkout contains the Unreal project. Read [Unreal setup and playtest controls](docs/UNREAL_PLAYTEST.md). This is a source-and-builder project: generated Unreal content and compiled binaries are not bundled in the Git checkout. The verified owner checkpoint uses the installed Unreal Engine 5.8 runtime on a Mac Studio.
 
-Core DualSense controls: **left stick** move, **right stick** camera, **R2** swing, **Cross** jump, **Square** air trick, **Triangle** zip, **Circle** drop, and **Options** pause/resume.
+Core DualSense controls: **left stick** move, **right stick** camera, **R2** swing, **Cross** jump, **Square** air trick, **Triangle** perch zip, **L1** forward boost, **Circle** drop, and **Options** pause/resume.
 
 ## Credits and license
 
