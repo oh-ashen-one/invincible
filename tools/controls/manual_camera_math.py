@@ -50,7 +50,7 @@ def main():
     mp = re.search(r"const double MP = [^;]*;", source)[0]
     my = re.search(r"const double MY = [^;]*;", source)[0]
     tunings = "\n".join(f"const double {name} = {re.search(rf'{name}\s*=\s*([0-9.]+)', header)[1]};" for name in (
-        "ChaseDist", "MaxStepPosM", "MaxStepPitchDeg", "MaxStepYawDeg", "FlipMaxStepYawDeg"))
+        "ChaseDist", "MinHeroDist", "MaxStepPosM", "MaxStepPitchDeg", "MaxStepYawDeg", "FlipMaxStepYawDeg"))
     prefix = r'''
 #include <algorithm>
 #include <cmath>
@@ -112,6 +112,16 @@ int main(){try{
       ++samples;
     }
   }
+  // Closed-loop framing at its smallest radius must not activate the emergency vertical crane in empty air.
+  for(double ChaseKNow:{.62,.7,1.0}) for(double AirClose:{0.0,.3,.8}) {
+    const double KickK=0,Dt=1.0/60;
+    const FVector Hero,BackR(-1,0,0),Desired(-ChaseDist*ChaseKNow+AirClose,.3,0);
+    FVector CamXY=Desired,CamXYV;
+    for(int frame=0;frame<120;frame++) {
+      CHASE_SPRING
+      Require((CamXY-Hero).Size()>=MinHeroDist+.0499,"framing radius triggers false emergency crane");
+    }
+  }
   // Translation velocity stays in world space; only spring velocity relative to the hero rotates.
   FVector at(6,2,0),velocity(12,1,0);
   TransportManualOrbit(at,velocity,FVector(10,2,0),FVector(11,4,0),FVector(10,0,0),FVector(20,3,0),1.57079632679489661923);
@@ -126,7 +136,7 @@ int main(){try{
   // Pitch allowance follows accepted user pitch, then disappears at the user-pitch clamp and on release.
   {FWebTravCamera c;c.ApplyLook(FVector2D(0,.9));Require(std::abs(c.LookPitchDelta-.6)<1e-12,"pitch allowance ignores accepted clamp");
    c.LookYawDelta=c.LookPitchDelta=0;c.ApplyLook(FVector2D(0,.9));Require(std::abs(c.LookPitchDelta)<1e-12,"clamped pitch keeps granting budget");}
-  std::cout<<"OK "<<samples<<" orbit samples: 30/60/120 Hz, max-stick equivalent, extreme mouse, stops, reversals, wrap, moving pivot, ground stop, pitch clamp\n";
+  std::cout<<"OK "<<samples<<" orbit samples: 30/60/120 Hz, max-stick equivalent, extreme mouse, stops, reversals, wrap, moving pivot, ground stop, pitch clamp, minimum distance\n";
   return 0;
 }catch(const std::exception& error){std::cerr<<"FAIL "<<error.what()<<"\n";return 1;}}
 '''

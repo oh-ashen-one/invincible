@@ -754,7 +754,11 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 	SDV(CamXY, CamXYV, FVector(Desired.X, Desired.Y, 0), 0.07, Dt);
 	FVector HD = FVector(CamXY.X - Hero.X, CamXY.Y - Hero.Y, 0);
 	const double HL = HD.Size();
-	const double MaxH = 5.0 * ChaseKNow - AirClose + 1.3 * FMath::Max(0.0, KickK), MinH = 3.5 * ChaseKNow - AirClose;
+	// Framing feedback must not request a radius that triggers the emergency minimum-distance crane below.
+	// That conflict caused periodic upward snaps even in empty air while looking around. Real collision sweeps
+	// may still shorten this radius and use the existing obstruction fallback.
+	const double MinH = FMath::Max(3.5 * ChaseKNow - AirClose, MinHeroDist + 0.05);
+	const double MaxH = FMath::Max(MinH, 5.0 * ChaseKNow - AirClose + 1.3 * FMath::Max(0.0, KickK));
 	if (HL < 1e-3) HD = BackR * MinH; else if (HL < MinH) HD *= MinH / HL; else if (HL > MaxH) HD *= MaxH / HL;
 	CamXY = FVector(Hero.X + HD.X, Hero.Y + HD.Y, 0);
 	SD(CamZ, CamZV, ZWant, 0.05, Dt);
