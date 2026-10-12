@@ -123,6 +123,10 @@ private:
 	FWebFlipPose LastFlip;              // round 11: telemetry
 	FName LastFlipName;
 	FQuat FlipBodyFrame = FQuat::Identity; // current traversal body frame for same-frame authored-pose lean compensation
+	FVector FlipPoseAxis = FVector::UpVector; // author-local evaluated axis, used only to predict the pre-evaluation root for aiming
+	bool bFlipPoseAxisValid = false;
+	int32 FlipPoseAxisVer = -1;
+	float FlipPoseAxisT = -1.f;
 	const FWebFlipProgram* FlipProgramNow(float& OutT) const;
 	void UpdateWebs(float Dt, const FVector& CamPosCm);
 	FVector HandWorldCm(bool bRight) const;

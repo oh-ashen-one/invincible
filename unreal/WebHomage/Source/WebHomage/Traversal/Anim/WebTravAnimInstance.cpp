@@ -518,6 +518,14 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 		// snapshot the current output (already faded) as the "previous" pose set
 		PrevLayers = Frame.Layers;
 		FadeDur = FMath::Max(0.05f, BlendTime(Category(CurNode), Category(Node)));
+		// The new seated catch has a larger torso change into the hanging swing than Reach.
+		// Spread that authored-pose transition; web input, root rotation and the catch clock stay immediate.
+		if (Category(CurNode) == NA_trick && Category(Node) == NA_swing)
+		{
+			const UAnimSequence* Throne = Clip(FName(WebFlips::ShapeClip(EWebFlipShape::Throne)));
+			for (const FWebTravAnimLayer& L : PrevLayers)
+				if (Throne && L.Seq == Throne && L.Weight > 0.5f) FadeDur = FMath::Max(FadeDur, 0.45f);
+		}
 		// round 07 (s1 W4: attaches out of the air_tuck / air_spread poses spiked the chest past the 700 deg/s hard limit at
 		// t=6.57 / 18.85 -- the tucked / spread silhouette sits far from the swing entry pose): those two crossfade into the
 		// swing over 0.55 s instead of the 0.26 s air -> swing blend
@@ -531,6 +539,11 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 	for (FWebTravAnimLayer& L : PrevLayers)
 	{
 		if (!L.Seq) continue;
+		// Keep the actual outgoing catch key during the fade. Advancing a sampled shape as a normal
+		// clip scrubs Straddle into its later tuck-up, adding a second motion on top of the transition.
+		if (Category(CurNode) == NA_swing &&
+			(L.Seq == Clip(FName(WebFlips::ShapeClip(EWebFlipShape::Throne))) ||
+			 L.Seq == Clip(FName(WebFlips::ShapeClip(EWebFlipShape::Straddle))))) continue;
 		const float Len = L.Seq->GetPlayLength();
 		L.Time = L.bLoop ? FMath::Fmod(L.Time + Dt, FMath::Max(Len, 0.01f)) : FMath::Min(L.Time + Dt, Len);
 	}

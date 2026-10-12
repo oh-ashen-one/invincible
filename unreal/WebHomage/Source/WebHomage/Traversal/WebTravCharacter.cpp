@@ -1093,13 +1093,20 @@ void AWebTravCharacter::PostAnimTick(float Dt)
 	// its catch-up therefore added bursts to a tuck and oscillated at shape boundaries. Measuring in the
 	// figure's own frame also keeps a banked/twisting world-axis projection out of the control signal.
 	float FlipT = 0.f;
-	if (bHeroMesh && LastFlip.bValid && FlipProgramNow(FlipT) && GetMesh())
+	const FWebFlipProgram* FlipProgram = FlipProgramNow(FlipT);
+	if (bHeroMesh && LastFlip.bValid && FlipProgram && GetMesh())
 	{
 		const USkeletalMeshComponent* Mesh = GetMesh();
 		const FVector WorldAxis = (Mesh->GetBoneLocation(TEXT("head")) - Mesh->GetBoneLocation(TEXT("hips"))).GetSafeNormal();
 		if (!WorldAxis.IsNearlyZero())
 		{
 			const FVector PoseAxis = FigureRoot->GetComponentQuat().UnrotateVector(WorldAxis);
+			// Cache only the authored/local axis, never a rendered world-pitch error. The next provisional
+			// root can then aim in almost the same coordinates as this authoritative same-frame correction.
+			FlipPoseAxis = PoseAxis;
+			bFlipPoseAxisValid = true;
+			FlipPoseAxisVer = FlipProgram->Ver;
+			FlipPoseAxisT = FlipT;
 			FlipOffQ = WebFlips::PoseRotation(LastFlip, PoseAxis, float(Smooth01(FlipT / WebFlips::PoseEntryS)), Traversal->Anim.TrickSide);
 			// PoseFigure has already advanced the residual air sway. Preserve it once, after the flip
 			// offset in the original multiplication order; dropping it here snapped the trick entry.
@@ -1184,13 +1191,18 @@ void AWebTravCharacter::PoseFigure(float Dt)
 		// shape), so the visible body axis turns at the program's eased rate instead of spiking at every shape change
 		const double AxisOff = FPo.AxisOffDeg * Smooth01(FlipT / WebFlips::PoseEntryS);
 		FlipBodyFrame = Body;
-		// The same-frame evaluated pose replaces this provisional authored-shape compensation in PostAnimTick.
-		FlipOffQ = FQuat(FVector(0, 1, 0), FMath::DegreesToRadians(double(FPo.PitchDeg) - AxisOff))
-			* FQuat(FVector(0, 0, 1), FMath::DegreesToRadians(double(FPo.TwistDeg) * A.TrickSide));
+		// Predict only the root used by animation/arm targeting. PostAnimTick still derives the rendered
+		// result from THIS frame's evaluated pose. New/restarted programs keep the static entry fallback.
+		if (bFlipPoseAxisValid && LastFlipName == FP->Name && FlipPoseAxisVer == FP->Ver && FlipT >= FlipPoseAxisT)
+			FlipOffQ = WebFlips::PoseRotation(FPo, FlipPoseAxis, float(Smooth01(FlipT / WebFlips::PoseEntryS)), A.TrickSide);
+		else
+			FlipOffQ = FQuat(FVector(0, 1, 0), FMath::DegreesToRadians(double(FPo.PitchDeg) - AxisOff))
+				* FQuat(FVector(0, 0, 1), FMath::DegreesToRadians(double(FPo.TwistDeg) * A.TrickSide));
 		LastFlip = FPo; LastFlipName = FP->Name;
 	}
 	else
 	{
+		bFlipPoseAxisValid = false;
 		// round 05 (critic r04 / A5: chest rate through the catch median 646 deg/s): a catch at the END of a program (the reach, body
 		// <= ~70 deg off upright) decays its residual rotation at <= 340 deg/s instead of the 0.07 s snap (which spikes > 400 deg/s).
 		// round 07: the mid-program CANCEL snap (kept in r05/r06 for owner bug 1's press latency) is rate-limited the same way --
