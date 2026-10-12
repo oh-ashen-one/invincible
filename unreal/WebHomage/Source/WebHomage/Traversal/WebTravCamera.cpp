@@ -99,6 +99,7 @@ void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
 	RoofLift = RoofLiftV = 0.0;
 	OcclBoostK = 0.0;
 	bFlipObstacleOut = bHaveFlipVelocity = false; ForecastGravity = 10.8;
+	FlipFrameTail = 0.0;
 }
 
 void FWebTravCamera::ApplyLook(const FVector2D& Look)
@@ -113,6 +114,7 @@ void FWebTravCamera::ApplyLook(const FVector2D& Look)
 void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWorld& World)
 {
 	Dt = FMath::Min(Dt, 0.1);
+	FlipFrameTail = P.bFlip ? 0.5 : FMath::Max(0.0, FlipFrameTail - Dt);
 	if (P.bFlip && bHaveFlipVelocity && Dt > 1e-5)
 		ForecastGravity = FMath::Clamp((LastFlipVz - P.Vel.Z) / Dt, 0.0, 24.0);
 	LastFlipVz = P.Vel.Z; bHaveFlipVelocity = P.bFlip;
@@ -317,8 +319,9 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	// along the held axis, lift, abort to the boosted chase past the unseen grace -- TC11's constraints, TC-G beats the held
 	// view). UnseenT decays at 1.5 x so the recovery eases off instead of snapping.
 	{
+		const bool bBodySafety = FlipK > 1e-3 || FlipFrameTail > 0.0;
 		const bool bChaseModes = M == EWebTravMode::Swing || M == EWebTravMode::Air || M == EWebTravMode::Zip || M == EWebTravMode::Wall   // round 09: wall too (the s3 20.0 blend-out onto the wall-run camera left him out of frame 0.4 s)
-			|| ((M == EWebTravMode::Ground || M == EWebTravMode::Land) && FlipK > 0.05f);   // round 13 (critic r12 gap 3, s3b_c6 t=3.0-3.25: a cut trick LANDS while the trick camera is still fully in; ground frames never fed the watchdog / EdgeK, so the hero sat out of the bottom of the frame 0.25 s)
+			|| ((M == EWebTravMode::Ground || M == EWebTravMode::Land) && bBodySafety);
 		const FVector ChestW = P.Pos + FVector(0, 0, 0.4);
 		const FVector ToH = ChestW - CamPos;
 		const double Dh = ToH.Size();
@@ -332,7 +335,7 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		{
 			// While the trick view is in, test every body-box corner against the rectangular frustum. A chest-only check
 			// missed clipped limbs after a cancel / landing. Ordinary chase retains its existing cone test.
-			const bool bInView = FlipK > 1e-3
+			const bool bInView = bBodySafety
 				? BodyFrameEdge(BodyEnvelope(P), CamPos, CamRot, HalfV, HalfH) <= 0.96
 				: Zf / Dh >= FMath::Cos(FMath::Max(HalfV, HalfH) * 0.80);
 			if (!bInView) bSeen = false;
@@ -356,7 +359,9 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 			{
 				const double OffH = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Y)), Zf);
 				const double OffV = FMath::Atan2(FVector::DotProduct(ToH, ERM.GetUnitAxis(EAxis::Z)), Zf);
-				const double Edge = FlipK > 1e-3 ? BodyFrameEdge(BodyEnvelope(P), CamPos, CamRot, HalfV, HalfH)
+				// An obstruction fallback may already be at K=0 while the trick is still playing or its wall catch begins.
+				// Keep the body margin until the measured window ends, rather than reverting to the chest cone mid-transition.
+				const double Edge = bBodySafety ? BodyFrameEdge(BodyEnvelope(P), CamPos, CamRot, HalfV, HalfH)
 					: FMath::Max(FMath::Abs(OffH) / FMath::Max(1e-3, HalfH), FMath::Abs(OffV) / FMath::Max(1e-3, HalfV));
 				EdgeGoal = Smooth(Edge, 0.68, 0.98);
 			}
