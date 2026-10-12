@@ -1612,8 +1612,8 @@ void AWebTravCharacter::ReadHeroMask()
 	}
 }
 
-// final loop round 00 (W / A checkers): strand state, the strand as drawn this frame (start = the hand read in UpdateWebs, tip), the hand and shoulder bones as the
-// mesh holds them at telemetry time (= the pose of the previous frame: the anim instance evaluates after the actor tick), and the chest angular rate. Read-only.
+// Late telemetry, called by EndAnimTick after animation evaluation, root compensation and UpdateWebs:
+// strand state, drawn endpoints, final hand/shoulder bones, chest rate and the unfiltered rendered body axis. Read-only.
 FString AWebTravCharacter::FinalSwingCols(double T)
 {
 	USkeletalMeshComponent* M = bHeroMesh ? GetMesh() : nullptr;
@@ -1662,6 +1662,23 @@ FString AWebTravCharacter::FinalSwingCols(double T)
 		O += TEXT(",") + (HeroSil.IsEmpty() ? FString(TEXT("0")) : HeroSil);
 	}
 	else O += TEXT(",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+	// These columns describe THIS frame's final pose. The legacy body_pitch/axis columns were sampled
+	// before animation and remain unchanged for old captures. Raw atan2 is intentionally not held at a
+	// sideways cone: the unit vector lets analysis distinguish projected-angle amplification from 3D turn.
+	FVector BodyAxis = FVector::ZeroVector;
+	double BodyPitch = 0.0, BodyAxisDeg = -1.0;
+	if (M)
+	{
+		BodyAxis = (M->GetBoneLocation(TEXT("head")) - M->GetBoneLocation(TEXT("hips"))).GetSafeNormal();
+		if (!BodyAxis.IsNearlyZero())
+		{
+			const double Facing = FMath::DegreesToRadians(Traversal->Anim.FacingDeg);
+			const FVector Forward(FMath::Cos(Facing), FMath::Sin(Facing), 0.0);
+			BodyPitch = FMath::RadiansToDegrees(FMath::Atan2(FVector::DotProduct(BodyAxis, Forward), BodyAxis.Z));
+			BodyAxisDeg = FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(BodyAxis.Z, -1.0, 1.0)));
+		}
+	}
+	O += FString::Printf(TEXT(",%.6f,%.6f,%.6f,%.4f,%.4f"), BodyAxis.X, BodyAxis.Y, BodyAxis.Z, BodyPitch, BodyAxisDeg);
 	return O;
 }
 
@@ -1744,7 +1761,8 @@ void AWebTravCharacter::PushTelemetry(double T, const FWebTravInput& I)
 		TEXT("rope_drawn,rope_ax,rope_ay,rope_bx,rope_by,rope_wpx_a,rope_wpx_b,rope_look,cam_perch_hold,")
 		TEXT("fw_s0_on,fw_s0_hand,fw_s0_age,fw_s0_shoot,fw_s0_rel,fw_s0_drawn,fw_s0_ax,fw_s0_ay,fw_s0_az,fw_s0_sx,fw_s0_sy,fw_s0_sz,fw_s0_tx,fw_s0_ty,fw_s0_tz,fw_s0_taut,fw_s0_wave_cm,fw_s0_clear,")
 		TEXT("fw_s1_on,fw_s1_hand,fw_s1_age,fw_s1_shoot,fw_s1_rel,fw_s1_drawn,fw_s1_ax,fw_s1_ay,fw_s1_az,fw_s1_sx,fw_s1_sy,fw_s1_sz,fw_s1_tx,fw_s1_ty,fw_s1_tz,fw_s1_taut,fw_s1_wave_cm,fw_s1_clear,")
-		TEXT("fw_hl_x,fw_hl_y,fw_hl_z,fw_hr_x,fw_hr_y,fw_hr_z,fw_shl_x,fw_shl_y,fw_shl_z,fw_shr_x,fw_shr_y,fw_shr_z,fw_chest_rate_dps,fw_pl_x,fw_pl_y,fw_pl_z,fw_pr_x,fw_pr_y,fw_pr_z,fw_reach_t,hero_sil"));
+		TEXT("fw_hl_x,fw_hl_y,fw_hl_z,fw_hr_x,fw_hr_y,fw_hr_z,fw_shl_x,fw_shl_y,fw_shl_z,fw_shr_x,fw_shr_y,fw_shr_z,fw_chest_rate_dps,fw_pl_x,fw_pl_y,fw_pl_z,fw_pr_x,fw_pr_y,fw_pr_z,fw_reach_t,hero_sil,")
+		TEXT("fw_body_axis_x,fw_body_axis_y,fw_body_axis_z,fw_body_pitch_deg,fw_body_axis_deg"));
 	const FVector P = Traversal->PosM(), V = Traversal->VelM();
 	const bool bSw = Traversal->IsSwinging();
 	const FVector An = bSw ? Traversal->SwingAnchor() : FVector::ZeroVector;
