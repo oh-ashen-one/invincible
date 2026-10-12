@@ -159,6 +159,9 @@ namespace WebFlips
 			// Keep the rotation/hold tables intact: this selects only the authored terminal body silhouette.
 			for (FWebFlipProgram& F : P)
 			{
+				// A front-double release also inherits the swing frame's upright settling. Leave room for that
+				// real rotation in its initial tuck; normalization retains the two turns and every shape's time.
+				if (F.Name == FName(TEXT("frontDouble"))) F.EntryRateLimit = 690.f;
 				if (F.Name == FName(TEXT("frontSingle")) || F.Name == FName(TEXT("frontDouble")) || F.Name == FName(TEXT("frontPikeSwan")))
 					F.CatchShape = S::Throne;
 				else if (F.Name == FName(TEXT("corkscrew")) || F.Name == FName(TEXT("barani")) || F.Name == FName(TEXT("fullTwist")))
@@ -230,6 +233,12 @@ namespace WebFlips
 			const float Out = 0.12f + 0.88f * Smooth((Dur - T) / EnvOut);
 			return In * Out;
 		}
+		float MomentumRate(const FWebFlipProgram& P, float T, float L)
+		{
+			const float Rate = L * Env(T, P.Dur()) / InertiaAt(P, T);
+			return P.EntryRateLimit > 0.f && P.Segs.Num() && T < P.Segs[0].Dur
+				? FMath::Clamp(Rate, -P.EntryRateLimit, P.EntryRateLimit) : Rate;
+		}
 		const FTable& Table(const FWebFlipProgram& P)
 		{
 			static TMap<const FWebFlipProgram*, FTable> Cache;
@@ -249,7 +258,34 @@ namespace WebFlips
 			}
 			const float GEnd = Tb.G[FMath::Min(N, FMath::CeilToInt(Dur * TableHz))];
 			Tb.L = GEnd > 1e-6f ? P.PitchDeg / GEnd : 0.f;
-			for (float& V : Tb.G) V *= Tb.L;
+			if (P.EntryRateLimit > 0.f)
+			{
+				const int32 EndI = FMath::Min(N, FMath::CeilToInt(Dur * TableHz));
+				auto Total = [&](float L)
+				{
+					double Angle = 0.0;
+					for (int32 I = 1; I <= EndI; ++I) Angle += MomentumRate(P, (I - 0.5f) / TableHz, L) / TableHz;
+					return Angle;
+				};
+				// Solve the capped integral rather than clipping an already-normalized angle table. Uncapped
+				// segments receive the displaced angle, preserving the endpoint and all held-shape durations.
+				const double Target = FMath::Abs(P.PitchDeg);
+				float Lo = 0.f, Hi = FMath::Max(1.f, FMath::Abs(Tb.L));
+				while (Total(Hi) < Target) Hi *= 2.f;
+				for (int32 I = 0; I < 28; ++I)
+				{
+					const float Mid = 0.5f * (Lo + Hi);
+					if (Total(Mid) < Target) Lo = Mid; else Hi = Mid;
+				}
+				Tb.L = 0.5f * (Lo + Hi) * (P.PitchDeg < 0.f ? -1.f : 1.f);
+				Acc = 0.0;
+				for (int32 I = 1; I <= N; ++I)
+				{
+					Acc += MomentumRate(P, (I - 0.5f) / TableHz, Tb.L) / TableHz;
+					Tb.G[I] = float(Acc);
+				}
+			}
+			else for (float& V : Tb.G) V *= Tb.L;
 			return Cache.Add(&P, Tb);
 		}
 	}
@@ -436,7 +472,7 @@ namespace WebFlips
 		const float F = FMath::Clamp(X - I0, 0.f, 1.f);
 		O.PitchDeg = FMath::Lerp(Tb.G[I0], Tb.G[I0 + 1], F);
 		if (Tc >= Dur - 1e-4f) O.PitchDeg = P.PitchDeg;
-		O.PitchRate = T < Dur ? Tb.L * Env(Tc, Dur) / InertiaAt(P, Tc) : 0.f;
+		O.PitchRate = T < Dur ? MomentumRate(P, Tc, Tb.L) : 0.f;
 		// twist: eased inside its own segments
 		float Tw = 0.f, St = 0.f;
 		for (const FWebFlipSeg& S : P.Segs)

@@ -36,6 +36,8 @@ struct FWebFlipProgram
 	// round 13 (critic r12: "attach a web within 0.3 s of Reach"): the next web may attach from CatchOpen s before the program's end
 	// (inside its final reach, once that pose reads) -- the catch cuts the last few degrees and springs them back in ~0.07 s
 	float CatchOpen = 0.16f;
+	// Optional first-segment momentum ceiling; its integral is renormalized to retain the exact total angle/duration.
+	float EntryRateLimit = 0.f;
 	// Terminal silhouette, using an existing authored clip. The Reach segment still owns its inertia and catch timing.
 	EWebFlipShape CatchShape = EWebFlipShape::Reach;
 	// round 19 (critic r18 "every trick is a canned playback"): per-instance variant data -- Lead / Lag override WebFlips::FlipLead /
