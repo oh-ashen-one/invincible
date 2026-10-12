@@ -249,6 +249,7 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	Roll = Damp(Roll, WantRoll, 3, Dt);
 	// ---- compose (round 03): lagged chase camera with explicit framing and collision
 	const FVector Fwd = Forward();
+	const FVector PrevComposeHero = bHaveComposeHero ? LastComposeHero : P.Pos;
 	ComposeChase(Dt, P, World, Fwd);
 	const FVector LookAt = CamPos + CamRot.Vector() * 10.0;
 	// shake
@@ -308,6 +309,31 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 			CamRot.Pitch += FMath::Clamp(StDP, -CapP, CapP);
 			if (CamRot.Pitch > CapUpDeg + 0.5) CamRot.Pitch = CapUpDeg + 0.5;
 			SlewFlags |= 16;
+		}
+		// During the trick/catch view, placement must be feasible for the FINAL capped angle. A collision re-seat on c3
+		// moved the lens 3 m around the hero in one frame while yaw was still catching up: the body crossed the right edge
+		// despite an active watchdog. Keep the requested angle panning, but advance the lens only as far as the full body
+		// fits that angle. Every retained spot needs a clear lens, a swept path from the previous output and a clear sightline.
+		if (FlipK > 1e-3 || FlipFrameTail > 0.0)
+		{
+			const double HalfV = FMath::DegreesToRadians(FMath::Max(20.0, OutVFov)) * 0.5;
+			const double HalfH = FMath::Atan(FMath::Tan(HalfV) * 16.0 / 9.0);
+			const FBox Bounds = BodyEnvelope(P);
+			if (BodyFrameEdge(Bounds, CamPos, CamRot, HalfV, HalfH) > 0.96)
+			{
+				const FVector Follow = LastOutPos + (P.Pos - PrevComposeHero), GoalPos = CamPos;
+				for (double MoveK : { 0.85, 0.65, 0.45, 0.25, 0.0 })
+				{
+					const FVector Candidate = FMath::Lerp(Follow, GoalPos, MoveK);
+					if (FVector::Dist(Candidate, LastOutPos) > Lm + 1e-4 || BodyFrameEdge(Bounds, Candidate, CamRot, HalfV, HalfH) > 0.96) continue;
+					double HitD = 0.0;
+					if (World.SphereOverlaps(Candidate, 0.25) || World.SphereSweep(LastOutPos, Candidate, 0.25, HitD)
+						|| World.LineBlocked(Candidate, P.Pos + FVector(0, 0, 0.4))) continue;
+					CamPos = Candidate; HeroDist = FVector::Dist(CamPos, P.Pos);
+					bCamInGeometry = World.SphereOverlaps(CamPos, 0.15); SlewFlags |= 32;
+					break;
+				}
+			}
 		}
 	}
 	bLensTouch = World.SphereOverlaps(CamPos, 0.25);
