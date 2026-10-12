@@ -26,6 +26,21 @@ namespace
 	{
 		for (int32 A = 0; A < 3; ++A) { SD(V[A], Vel[A], Target[A], St, Dt); }
 	}
+	// Manual orbit changes the spring's coordinate frame. Chasing a rapidly rotating target in Cartesian space
+	// instead cuts across the hero; the minimum-radius projection then feeds that error back into the spring.
+	void TransportManualOrbit(FVector& At, FVector& Velocity, const FVector& PrevHero, const FVector& Hero,
+		const FVector& PrevHeroVelocity, const FVector& HeroVelocity, double DeltaYaw)
+	{
+		const double C = FMath::Cos(DeltaYaw), S = FMath::Sin(DeltaYaw);
+		const FVector Off = At - PrevHero, RelV = Velocity - PrevHeroVelocity;
+		At = FVector(Hero.X + Off.X * C - Off.Y * S, Hero.Y + Off.X * S + Off.Y * C, 0.0);
+		Velocity = FVector(HeroVelocity.X + RelV.X * C - RelV.Y * S, HeroVelocity.Y + RelV.X * S + RelV.Y * C, 0.0);
+	}
+	double ManualOrbitTravel(const FVector& At, const FVector& Hero, double DeltaYaw)
+	{
+		const FVector Off = At - Hero;
+		return 2.0 * FVector2D(Off.X, Off.Y).Size() * FMath::Abs(FMath::Sin(DeltaYaw * 0.5));
+	}
 	double Noise(double T, double S) { return FMath::Sin(T * 1.7 + S) * 0.5 + FMath::Sin(T * 3.1 + S * 2.3) * 0.3 + FMath::Sin(T * 5.3 + S * 4.1) * 0.2; }
 	FName N_vault(TEXT("vault")), N_wallRun(TEXT("wallRun")), N_topOut(TEXT("topOut"));
 	bool CameraProbeOn(const FTravCamInput& P)
@@ -96,6 +111,8 @@ void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
 	GndCrane = GndCraneV = GndCraneGoal = GndClearT = 0.0; bGndLensHold = false; GndStopped = 0; // round 24
 	bOutInit = false; // round 13: a teleport / reset is allowed to move the view at once
 	bHaveComposeHero = false;
+	LastComposeVelocity = FVector::ZeroVector;
+	LookYawDelta = LookPitchDelta = AppliedLookYaw = 0.0;
 	RoofLift = RoofLiftV = 0.0;
 	OcclBoostK = 0.0;
 	bFlipObstacleOut = bHaveFlipVelocity = false; ForecastGravity = 10.8;
@@ -107,9 +124,12 @@ void FWebTravCamera::ApplyLook(const FVector2D& Look)
 {
 	if (FMath::Abs(Look.X) + FMath::Abs(Look.Y) > 0.001) LastLook = 0.0;
 	if (FMath::Abs(Look.X) > 0.0005) LookYawDir = Look.X > 0.0 ? 1 : -1; // round 24
-	Yaw += Look.X * Sens;
+	const double DY = Look.X * Sens, PreviousUserPitch = UserPitch;
+	Yaw += DY;
 	Pitch = FMath::Clamp(Pitch + Look.Y * Sens, -0.9, 1.25);
 	UserPitch = FMath::Clamp(UserPitch + Look.Y * Sens, -0.6, 0.6);
+	LookYawDelta += DY;
+	LookPitchDelta += UserPitch - PreviousUserPitch;
 }
 
 void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWorld& World)
@@ -276,7 +296,9 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		// partially lost hero; the recovery pan beats the held view there too
 		const double Boost = 1.0 + FMath::Max(VisBoostK, EdgeK) * (VisWhipMul - 1.0);
 		const FVector D = CamPos - LastOutPos;
-		const double Lm = MaxStepPosM * K * Boost;
+		// Deliberate input receives its own orbit/aim budget. Procedural motion retains the original caps; a
+		// 3x stick turn (~356 deg/s) must not orbit the lens while its view is independently held to 120 deg/s.
+		const double Lm = MaxStepPosM * K * Boost + ManualOrbitTravel(LastOutPos, PrevComposeHero, AppliedLookYaw);
 		// round 20: the position slew never leaves the lens behind a wall (T19 beats "never a cut")
 		const bool bSlewHidden = D.Size() > Lm && World.LineBlocked(P.Pos + FVector(0, 0, 0.3), LastOutPos + D.GetSafeNormal() * Lm);
 		if (bSlewHidden) SlewFlags |= 8;
@@ -290,7 +312,9 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 			SlewFlags |= 1;
 		}
 		const double SlP = CamRot.Pitch - LastOutRot.Pitch, SlY = FRotator::NormalizeAxis(CamRot.Yaw - LastOutRot.Yaw);
-		const double MP = MaxStepPitchDeg * K * Boost, MY = (FlipK > 1e-3 && VisBoostK <= 0.01 && EdgeK <= 0.01 ? FlipMaxStepYawDeg : MaxStepYawDeg * Boost) * K; // round 16 (TC-B): <= 150 deg/s while the trick camera is in (blend in / hold / blend out) and the hero is seen; round 09: the watchdog relaxes it when he is not; round 12: EdgeK relaxes it at the frame edge
+		const double MP = MaxStepPitchDeg * K * Boost + FMath::RadiansToDegrees(FMath::Abs(LookPitchDelta));
+		const double MY = (FlipK > 1e-3 && VisBoostK <= 0.01 && EdgeK <= 0.01 ? FlipMaxStepYawDeg : MaxStepYawDeg * Boost) * K
+			+ FMath::RadiansToDegrees(FMath::Abs(AppliedLookYaw));
 		if (FMath::Abs(SlP) > MP) { CamRot.Pitch = LastOutRot.Pitch + FMath::Sign(SlP) * MP; SlewFlags |= 2; }
 		if (FMath::Abs(SlY) > MY) { CamRot.Yaw = LastOutRot.Yaw + FMath::Sign(SlY) * MY; SlewFlags |= 4; }
 		if (SlewFlags) { HeroDist = FVector::Dist(CamPos, P.Pos); bCamInGeometry = World.SphereOverlaps(CamPos, 0.15); }
@@ -400,6 +424,7 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		EdgeK = EdgeGoal > EdgeK ? Damp(EdgeK, EdgeGoal, 25.0, Dt) : Damp(EdgeK, EdgeGoal, 2.5, Dt);
 	}
 	LastOutPos = CamPos; LastOutRot = CamRot; bOutInit = true;
+	LookYawDelta = LookPitchDelta = AppliedLookYaw = 0.0;
 	if (CameraProbeOn(P))
 		UE_LOG(LogWebHomage, Display, TEXT("WH_CAM_PROBE output time=%.4f hero=%s camera=%s pitch=%.3f yaw=%.3f vfov=%.3f slew=%d edge=%.3f vis=%.3f occl=%.3f"),
 			Time, *P.Pos.ToString(), *CamPos.ToString(), CamRot.Pitch, CamRot.Yaw, OutVFov, SlewFlags, EdgeK, VisBoostK, OcclBoostK);
@@ -451,15 +476,14 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 	if (P.Mode == EWebTravMode::Wall || P.Sub == N_topOut) SWant = WallFrameS;
 	// round 10: sky launch — the camera sinks under the hero and looks up while he rises / hangs (released at a fast fall)
 	// round 10 (final loop, critic r09 gap 1): long floats high over the street get the same from-below framing (see the header)
-	const bool bSkyFloat = bAir && !P.bDive && !P.bFlip && !P.bFlipSoon && !P.bFlipPre && P.HAbove > SkyFloatH;
+	const bool bSkyFloat = bAir && !P.bDive && P.HAbove > SkyFloatH;
 	SD(SkyK, SkyKV, ((P.bSky || bSkyFloat) && P.Vel.Z > -9.0) ? 1.0 : 0.0, (P.bSky || bSkyFloat) && P.Vel.Z > -9.0 ? 0.25 : 0.35, Dt);
 	SkyK = FMath::Clamp(SkyK, 0.0, 1.0);
 	SWant = FMath::Lerp(SWant, SkySFrame, SkyK);
-	// round 16 (TRICK_CAMERA_SPEC): the trick camera is chosen ONCE at the release frame (ChooseFlipView) and held on its world
-	// azimuth; an obstruction on the held axis dollies in (TC11), under FlipDistMin it blends to the plain chase
-	// round 18: also BEFORE a predicted flow-flip release (bFlipPre): the view is chosen and blended in ahead of the release, so the trick window
-	// (release .. catch + 0.5 s) opens on the held 3/4 view (critic r17 TC-A: the blend-in inside the window gave offset p5 20-29, range 34)
-	const bool bFlipCam = P.bFlip || P.bFlipSoon || P.bFlipPre;
+	// Owner control fix, 2026-10-12: Square/F requests a body trick, never a held side-view camera.
+	// Keep the ordinary chase and its user orbit through tricks. Actual flip bounds/tails still protect the body.
+	const bool bFlipCam = false;
+	const double YawBeforeGroundStop = Yaw;
 	// ---- round 24 (critic r23 c 7.7-8.5 s, probe v1: the orbit search + crane still swung the view back 47-105 deg): on foot / perched a user
 	// camera turn STOPS where the chase spot behind the hero would enter geometry (the look yaw is held at the last clear yaw while the turn
 	// pushes into the wall; turning back is free). Clear = a GndStopR m sphere swept from the chest to GndStopExtra m past the chase spot.
@@ -488,6 +512,10 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		}
 		else { bGndYawOk = false; GndStopped = 0; }
 	}
+	// A blocked ground turn was rejected above: transport only the yaw that actually survived that stop.
+	AppliedLookYaw = LookYawDelta != 0.0 ? LookYawDelta + WrapA(Yaw - YawBeforeGroundStop) : 0.0;
+	if (bChaseInit && bHaveComposeHero && FMath::Abs(AppliedLookYaw) > 1e-9)
+		TransportManualOrbit(CamXY, CamXYV, LastComposeHero, Hero, LastComposeVelocity, P.Vel, AppliedLookYaw);
 	if (bFlipCam && !bFlipWas)
 	{
 		bFlipObstacleOut = false;
@@ -1055,7 +1083,7 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 				UE_LOG(LogWebHomage, Display, TEXT("WH_CAM_PROBE box time=%.4f id=%d min=%s max=%s"), Time, I, *B.Min.ToString(), *B.Max.ToString());
 		}
 	}
-	LastComposeHero = Hero; bHaveComposeHero = true;
+	LastComposeHero = Hero; LastComposeVelocity = P.Vel; bHaveComposeHero = true;
 	HeroDist = FVector::Dist(CamPos, Hero);
 	bCamInGeometry = World.SphereOverlaps(CamPos, 0.15);
 	// ---- orientation: yaw toward the hero; pitch puts the hero's centre at FrameS on screen (user look adds an offset)

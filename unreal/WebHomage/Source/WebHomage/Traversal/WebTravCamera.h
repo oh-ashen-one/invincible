@@ -234,6 +234,8 @@ public:
 	void Update(double Dt, const FTravCamInput& P, const FWebTravWorld& World);
 
 private:
+	// Input deltas consumed by one Update. AppliedLookYaw excludes a turn rejected by the ground collision stop.
+	double LookYawDelta = 0.0, LookPitchDelta = 0.0, AppliedLookYaw = 0.0;
 	// SmoothDamp state (value + velocity pairs)
 	bool bAutoInit = false;
 	double AutoYaw = 0.0, AutoYawV = 0.0, AutoPitch = 0.0, AutoPitchV = 0.0, AutoRate = 0.0, AutoRateV = 0.0, AutoPRate = 0.0, AutoPRateV = 0.0;
@@ -272,5 +274,6 @@ private:
 	FRotator LastOutRot = FRotator::ZeroRotator;
 	// round 13: the hero position of the last composed frame (the "hero inside geometry" hold follows the hero instead of freezing)
 	FVector LastComposeHero = FVector::ZeroVector;
+	FVector LastComposeVelocity = FVector::ZeroVector;
 	bool bHaveComposeHero = false;
 };

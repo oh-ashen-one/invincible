@@ -858,7 +858,7 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 			I.bSwing = bAutoHeld || bKeepSwingThisFrame;
 		}
 	}
-	else PollLiveInput(Cast<APlayerController>(GetController()), I, DeltaSeconds);
+	else PollLiveInput(Cast<APlayerController>(GetController()), I, float(Dt)); // stick rate uses the same bounded step as traversal/camera
 	MouseAccum = FVector2D::ZeroVector;
 	I.ComputeEdges(PrevInput);
 	PrevInput = I;
