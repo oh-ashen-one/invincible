@@ -1101,7 +1101,9 @@ void AWebTravCharacter::PostAnimTick(float Dt)
 		{
 			const FVector PoseAxis = FigureRoot->GetComponentQuat().UnrotateVector(WorldAxis);
 			FlipOffQ = WebFlips::PoseRotation(LastFlip, PoseAxis, float(Smooth01(FlipT / 0.15)), Traversal->Anim.TrickSide);
-			const FQuat Q = (FlipBodyFrame * FlipOffQ).GetNormalized();
+			// PoseFigure has already advanced the residual air sway. Preserve it once, after the flip
+			// offset in the original multiplication order; dropping it here snapped the trick entry.
+			const FQuat Q = (FlipBodyFrame * FlipOffQ * SwayDeltaQ).GetNormalized();
 			// Keep the traversal centre fixed; the only change is the authored pose's root rotation about it.
 			FigureRoot->SetWorldLocationAndRotation(Traversal->PosM() * 100.0 - Q.RotateVector(FVector(0, 0, 95)), Q);
 		}
