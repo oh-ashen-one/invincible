@@ -2,6 +2,9 @@
 #include "Traversal/WebTravCamera.h"
 #include "Traversal/WebTravWorld.h"
 #include "WebHomage.h"
+#include "Components/PrimitiveComponent.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
 
 namespace
 {
@@ -25,6 +28,11 @@ namespace
 	}
 	double Noise(double T, double S) { return FMath::Sin(T * 1.7 + S) * 0.5 + FMath::Sin(T * 3.1 + S * 2.3) * 0.3 + FMath::Sin(T * 5.3 + S * 4.1) * 0.2; }
 	FName N_vault(TEXT("vault")), N_wallRun(TEXT("wallRun")), N_topOut(TEXT("topOut"));
+	bool CameraProbeOn(const FTravCamInput& P)
+	{
+		static const bool bEnabled = FParse::Param(FCommandLine::Get(), TEXT("WHCamProbe"));
+		return bEnabled && P.Pos.X > 290.0 && P.Pos.X < 310.0 && P.Pos.Y > 175.0 && P.Pos.Y < 195.0 && P.Pos.Z > 90.0 && P.Pos.Z < 102.0;
+	}
 	FBox BodyEnvelope(const FTravCamInput& P)
 	{
 		FBox B = P.BodyBounds.IsValid ? P.BodyBounds : FBox(FVector(-0.65, -0.65, -1.05), FVector(0.65, 0.65, 1.15));
@@ -331,6 +339,9 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		EdgeK = EdgeGoal > EdgeK ? Damp(EdgeK, EdgeGoal, 25.0, Dt) : Damp(EdgeK, EdgeGoal, 2.5, Dt);
 	}
 	LastOutPos = CamPos; LastOutRot = CamRot; bOutInit = true;
+	if (CameraProbeOn(P))
+		UE_LOG(LogWebHomage, Display, TEXT("WH_CAM_PROBE output time=%.4f hero=%s camera=%s pitch=%.3f yaw=%.3f vfov=%.3f slew=%d edge=%.3f vis=%.3f occl=%.3f"),
+			Time, *P.Pos.ToString(), *CamPos.ToString(), CamRot.Pitch, CamRot.Yaw, OutVFov, SlewFlags, EdgeK, VisBoostK, OcclBoostK);
 	// speed motion blur: none on foot / walls, ramps in over fast swings / dives / zips
 	const bool bGroundish = M == EWebTravMode::Ground || M == EWebTravMode::Land || M == EWebTravMode::Wall;
 	// round 08: blur only at genuinely high speed (0 below 28 m/s, full at 50), none on foot / walls
@@ -360,6 +371,7 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 {
 	const FVector Hero = P.Pos;                         // body centre (m)
 	const FVector Chest = Hero + FVector(0, 0, 0.4);
+	const bool bProbe = CameraProbeOn(P);
 	const bool bSwinging = P.Mode == EWebTravMode::Swing, bAir = P.Mode == EWebTravMode::Air || P.Mode == EWebTravMode::Zip;
 	const double VFov = FMath::DegreesToRadians(Fov + Punch + 9.0 * FMath::Max(0.0, KickK));
 	const double TanHalfV = FMath::Tan(VFov * 0.5);
@@ -480,6 +492,9 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		// shrank FlipDistNow even when the later sweep had been fixed, turning a landing into a pose-feedback close-up.
 		HeldSpot.Z = FMath::Max(HeldSpot.Z, World.GroundHeight(HeldSpot.X, HeldSpot.Y, Hero.Z + 4.0) + 0.4);
 		if (!World.SphereOverlaps(Chest, 0.22) && World.SphereSweep(Chest, HeldSpot, 0.3, HitD)) ObsGoal = HitD - 0.25;
+		if (bProbe)
+			UE_LOG(LogWebHomage, Display, TEXT("WH_CAM_PROBE held time=%.4f chest=%s spot=%s want=%.3f actual=%.3f hit=%.3f hitpoint=%s obs=%.3f bounds=%s"),
+				Time, *Chest.ToString(), *HeldSpot.ToString(), Want, FlipDistNow, HitD, *(Chest + (HeldSpot - Chest).GetSafeNormal() * HitD).ToString(), ObsGoal, *Bounds.ToString());
 		const double Goal = FMath::Min(Want, ObsGoal);
 		// TC11: no room to keep the trick view (under FlipDistMin for FlipAbortGrace s running -- a trunk or a canopy edge passing the
 		// axis for a few frames is dollied through, r16 probe: one tree at a 13 m flip ended the whole trick camera) -> plain chase over FlipOutT
@@ -650,6 +665,7 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		const double AB = AC + WrapA(AF - AC) * FlipK, RB = FMath::Lerp(RC, RF, FlipKr);
 		Cam = FVector(Hero.X + RB * FMath::Cos(AB), Hero.Y + RB * FMath::Sin(AB), Hero.Z + FMath::Lerp(Cam.Z - Hero.Z, FlipSpot.Z - Hero.Z, FlipZK));
 	}
+	const FVector ProbeRaw = Cam;
 	// A descending trick lens can hit the roof BEFORE the body lands. Sweeping the below-roof spot first shortened the
 	// c6 radius from 6.3 to 2.7 m; the later floor / minimum-distance lifts then overtook the slew-limited view angle.
 	// Prepare floor clearance at the held XY spot before the sweep. Anticipate 0.2 s of travel and stop the predicted body
@@ -673,6 +689,7 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		if (FlipK > 0.05 || FlipZK > 0.05)
 			Cam.Z = FMath::Max(Cam.Z, World.GroundHeight(Cam.X, Cam.Y, Hero.Z + 4.0) + 0.4);
 	}
+	const FVector ProbeFloor = Cam;
 	// ---- collision: sphere-sweep from the chest; if the clear distance would drop under MinHeroDist, search raised /
 	// rotated positions and move there smoothly (held ~1 s so the camera does not flicker)
 	bool bNoSweep = false; // round 14: set below when the hero himself is inside geometry
@@ -744,6 +761,7 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 	}
 	FVector Got;
 	ClearTo(Cam, Got);
+	const FVector ProbeSwept = Got;
 	// round 15 (r14 f3 4.6-5.5 s: 43 frames with the lens inside a street-tree canopy while the hero swung through it): with the hero
 	// inside geometry the spot is not swept, so lift it (then pull it toward the hero) until the lens is out of the foliage
 	if (bNoSweep && World.SphereOverlaps(Got, 0.25))
@@ -934,6 +952,30 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		}
 	}
 	CamPos = Cam;
+	if (bProbe)
+	{
+		UE_LOG(LogWebHomage, Display, TEXT("WH_CAM_PROBE compose time=%.4f mode=%d hero=%s from=%s raw=%s floorprep=%s swept=%s final=%s flipdist=%.3f k=%.3f kr=%.3f zk=%.3f rooflift=%.3f floor=%.3f frame=%.3f"),
+			Time, int32(P.Mode), *Hero.ToString(), *From.ToString(), *ProbeRaw.ToString(), *ProbeFloor.ToString(), *ProbeSwept.ToString(), *Cam.ToString(),
+			FlipDistNow, FlipK, FlipKr, FlipZK, RoofLift, GY, FrameS);
+		const FVector Along(FMath::Cos(FlipAzNow), FMath::Sin(FlipAzNow), 0.0);
+		for (double Radius : { 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 6.5 })
+		{
+			const FVector Q = Hero + Along * Radius;
+			FTravHit Hit;
+			const bool bHit = World.Raycast(FVector(Q.X, Q.Y, Hero.Z + 8.0), FVector(0, 0, -1), 30.0, Hit);
+			UE_LOG(LogWebHomage, Display, TEXT("WH_CAM_PROBE floor time=%.4f r=%.1f xy=(%.3f,%.3f) height=%.3f hit=%d normal=%s box=%d component=%s"),
+				Time, Radius, Q.X, Q.Y, World.GroundHeight(Q.X, Q.Y, Hero.Z + 8.0), bHit ? 1 : 0, *Hit.Normal.ToString(), Hit.Box,
+				Hit.Comp.IsValid() ? *Hit.Comp->GetPathName() : TEXT("none"));
+		}
+		TArray<int32> NearBoxes;
+		World.Near(Hero.X, Hero.Y, 8.0, NearBoxes);
+		for (int32 I : NearBoxes)
+		{
+			const FTravBox& B = World.Boxes[I];
+			if (B.Max.Z >= Hero.Z - 4.0 && B.Min.Z <= Hero.Z + 8.0)
+				UE_LOG(LogWebHomage, Display, TEXT("WH_CAM_PROBE box time=%.4f id=%d min=%s max=%s"), Time, I, *B.Min.ToString(), *B.Max.ToString());
+		}
+	}
 	LastComposeHero = Hero; bHaveComposeHero = true;
 	HeroDist = FVector::Dist(CamPos, Hero);
 	bCamInGeometry = World.SphereOverlaps(CamPos, 0.15);
