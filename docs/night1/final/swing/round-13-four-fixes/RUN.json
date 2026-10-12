@@ -7,7 +7,7 @@
   ],
   "baseline": "ecb68aade62ea2eb5ae201d3ac1a60b28b9d3899",
   "started_utc": "2026-10-12T02:04:46.113381+00:00",
-  "phase": "completion candidate; three final core clips and focused independent review",
+  "phase": "final native critique and handoff",
   "automatic_broad_loop": false,
   "task_renderer_limit": 1,
   "global_renderer_limit": 2,
@@ -108,5 +108,7 @@
     "rng": "matched to installed UE5.8; supersedes initial temporary adapter numbers"
   },
   "runtime_source_commit": "195216591f5cd597467d097954f18b0a89c686e9",
-  "final_evidence_directory": "../round-13-four-fixes-final"
+  "final_evidence_directory": "../round-13-four-fixes-final",
+  "final_core_capture_gate": "PASS",
+  "owner_artifact_runtime_verified": true
 }

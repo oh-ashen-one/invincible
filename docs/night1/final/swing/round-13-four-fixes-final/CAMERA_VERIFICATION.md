@@ -17,10 +17,16 @@ The previous final candidate lost the hero at case **3.9000 s**, full-clip **11.
 
 These margins are the existing rendered-mask telemetry measurements. Its rendered-pose/mask sampling has a frame delay; native PNGs were inspected directly rather than treating a padded projected body box as a silhouette. All 19 rows over case 3.8000–4.1000 s have nonzero masks fully inside 1920x1080. Placement-backtracking bit 32 occurs at 3.8667, 3.8833, 3.9000 and 3.9167 s; the final angle and physical collision checks remain active.
 
-The original raw PNGs were cleaned after encoding. A 1920x1080 critical-frame extraction from completion-movie frame 703 is retained in task-owned root QA as `c3-case3_9000-runtime19521659.png`. Existing `root-qa/c3-retained.png` was inspected and preserved. No engine was launched or source edited for this review.
+The original raw PNGs were cleaned after encoding. A 1920x1080 critical-frame extraction from completion-movie frame 703 is published as [camera-c3-retained.png](camera-c3-retained.png). Root inspected an independent extraction too. No engine was launched or source edited for this review.
 
 ## Earlier c6 roof/wall evidence
 
 The camera worker directly inspected camera3's native c6 wall frame at 3.3333 s and confirmed head/right-arm clipping. The subsequent tail-guard c6 probe was independently inspected by the root: zero disappeared or clipped native silhouettes over 2.5000–3.5500 s, including all four mask edges. Roof rows at 3.0333/3.0500 s retained conservative padded-box failure flags while their native masks were fully inside the image; those flags were not described as disappearance.
 
 That c6 result predates the latest c3 completion build. It is prior scoped evidence, not a claim that c6 was recaptured in the completion subset. The final promoted movie/telemetry set is the root's integration verification gate. Nominal TC-K limits still do not fully pass: the root measured c6 maxima improving from 14.96 to 8.47 degrees pitch, 12.25 to 9.95 degrees yaw, and 2.118 to 1.485 m position per frame. Camera loss completion does not imply all camera presentation or continuity targets passed.
+
+## Final seven-case integration gate
+
+The same runtime19521659 complete seven-case movie and telemetry are now present in this folder. All1,776 native-mask rows have a visible hero, no image-edge contact and no hero_in_frame failure. This includes both c3 and c6 in the same final build. Root independently recomputed those four fields from the final CSV using the published fourfix checker. The earlier targeted native-frame inspections remain the visual evidence at the previously failing moments. Nominal TC-K presentation limits remain a separate qualification.
+
+Root also viewed final native c6 frames at23.7833 and24.0833seconds: see [roof](final-c6-roof.png) and [wall](final-c6-wall.png). The hero remains on-screen, but the rooftop parapet briefly occludes the lower body in the first image; the wall image shows the whole character. The mask/frustum result is containment evidence, not proof that every limb remains unobstructed by world geometry. Do not relabel it as perfect full-body visibility throughout the route. Independent visual review remains separate.

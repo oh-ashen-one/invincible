@@ -1,0 +1,27 @@
+{
+  "runtime_source_commit": "195216591f5cd597467d097954f18b0a89c686e9",
+  "build_log": "build.log",
+  "build_seconds": 15.25,
+  "cpp_math_variants": 416,
+  "program_rate_peak_dps": 786.075,
+  "minimum_noncatch_hold_s": 0.325,
+  "endpoint_jump": 0,
+  "terminal_pose_families": 3,
+  "scope": [
+    "camera loss",
+    "abrupt firing arm",
+    "repetitive catches",
+    "rotation spikes"
+  ],
+  "capture_status": "PASS: three final clips,5246frames,17cases",
+  "acceptance": "independent native visual review pending; manual owner acceptance not claimed",
+  "checker_unit_tests": {
+    "count": 4,
+    "status": "PASS"
+  },
+  "relocated_stage_integrity": {
+    "files": 51169,
+    "mismatches": 0
+  },
+  "owner_artifact_runtime_verified": true
+}
