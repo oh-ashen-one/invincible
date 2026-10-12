@@ -915,6 +915,9 @@ bool FWebTravAnimProxy::Evaluate(FPoseContext& Output)
 		const FCompactPoseBoneIndex BU = Idx(UA), BF = Idx(FA), BH = Idx(HA), BCl = Idx(CL);
 		if (BU.IsValid() && BF.IsValid() && BH.IsValid())
 		{
+			// Blend the complete hand direction once. Shoulder anticipation and elbow extension may reshape the
+			// arm, but must not add their own angular steps on top of the launch's aim interpolation.
+			const FVector BaseDirection = (CS(BH).GetLocation() - CS(BU).GetLocation()).GetSafeNormal();
 			{ // anticipation: the shoulder girdle raises toward the head and eases back (sin over 0.14 s)
 				const FCompactPoseBoneIndex BHd = Idx(TEXT("head")), BHp = Idx(TEXT("hips"));
 				const float An = Frame.ArmAimAge < 0.14f ? FMath::Sin(PI * Frame.ArmAimAge / 0.14f) : 0.f;
@@ -976,7 +979,9 @@ bool FWebTravAnimProxy::Evaluate(FPoseContext& Output)
 			}
 			if (!Cur.IsNearlyZero() && !Want.IsNearlyZero())
 			{
-				const FQuat D = FQuat::Slerp(FQuat::Identity, FQuat::FindBetweenNormals(Cur, Want), Frame.ArmAimWeight);
+				const FVector Base = BaseDirection.IsNearlyZero() ? Cur : BaseDirection;
+				const FVector BlendedAim = FQuat::Slerp(FQuat::Identity, FQuat::FindBetweenNormals(Base, Want), Frame.ArmAimWeight).RotateVector(Base);
+				const FQuat D = FQuat::FindBetweenNormals(Cur, BlendedAim);
 				UCS.SetRotation((D * UCS.GetRotation()).GetNormalized());
 				Pose[BU].SetRotation((ParentCS.GetRotation().Inverse() * UCS.GetRotation()).GetNormalized());
 			}

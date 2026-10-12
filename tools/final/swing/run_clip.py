@@ -37,6 +37,7 @@ def launch_case(d, name, q, game_map, log):
            '--capture', str(d), '--name', 'route', '--script', str(ROOT / 'docs/night1/traversal/scripts/final' / (name + '.json')), '--quit', str(q + PRE), '--timeout', '3000',
            '--game-arg=-benchmark', '--game-arg=-fps=60', '--game-arg=-dumpmovie', '--game-arg=-WHTravMask', '--game-arg=-WHSuit=tessera', '--game-arg=-WHMovieAsync', '--game-arg=-WHTravPreroll=%s' % PRE, '--game-arg=-WHPerfPreset=%s' % (ROOT / 'unreal/WebHomage/Config/PerfPlayableFast.cvars')]
     if a.tune: cmd.append('--game-arg=-WHTravTune=%s' % a.tune)   # round 08: probe override for Rope* floats (the round itself must run on the shipped defaults)
+    for arg in a.game_arg: cmd.append('--game-arg=' + arg)
     cmd.append('--launch')
     proc = subprocess.Popen(cmd, stdout=log, stderr=subprocess.STDOUT, cwd=ROOT)
     t0 = time.time()
@@ -73,6 +74,7 @@ def launch_case(d, name, q, game_map, log):
                  '-WHPerfPreset=%s' % (ROOT / 'unreal/WebHomage/Config/PerfPlayableFast.cvars'),
                  '-WHQuitAt=%s' % (q + PRE), '-ExecCmds=' + ','.join(execs)]
     if a.tune: game_args.append('-WHTravTune=%s' % a.tune)
+    game_args.extend(a.game_arg)
     env = dict(os.environ, GPU_SLOT_DIR=str(GPU))
     qcmd = [str(ROOT / 'tools/gpu/gpu_slot.sh'), 'capture', '--label', 'final-swing-%s-%s' % (a.round, name), '--',
             str(UE), str(ROOT / 'unreal/WebHomage/WebHomage.uproject'), MAPS[game_map], *game_args]
@@ -86,6 +88,7 @@ def launch_case(d, name, q, game_map, log):
 ap = argparse.ArgumentParser()
 ap.add_argument('round'); ap.add_argument('clip'); ap.add_argument('--map'); ap.add_argument('--cases'); ap.add_argument('--crf', type=int, default=22); ap.add_argument('--keep-frames', action='store_true'); ap.add_argument('--q', type=float, help='dev render: quit time (s after the cut) for every case; the outputs get the suffix _dev'); ap.add_argument('--reuse', action='store_true', help='post-process frames / telemetry left by an earlier engine run of this case (no launch)')
 ap.add_argument('--tune', help='probe: extra -WHTravTune=Name=V,... passed to the game (not used for the round captures)')
+ap.add_argument('--game-arg', action='append', default=[], help='extra Unreal argument for a scoped diagnostic; repeat as needed')
 ap.add_argument('--scratch-root', help='absolute task-owned cache root; a normal run recaptures cases there; default is the historical shared cache')
 ap.add_argument('--cleanup-case-frames', action='store_true', help='delete per-case frames_done only after the final MP4, telemetry and metadata validate; requires --scratch-root')
 a = ap.parse_args()
