@@ -1,0 +1,27 @@
+{
+ "clip": "s3b_flip_cases",
+ "map": "island",
+ "cases": [
+  {
+   "case": "s3_c6_fwd_right",
+   "frames_rendered": 357,
+   "preroll_frames_cut": 92,
+   "rows": 265,
+   "wall_s": 78.0,
+   "fps_render": 4.58
+  },
+  {
+   "case": "s3_c7_back_left",
+   "frames_rendered": 358,
+   "preroll_frames_cut": 92,
+   "rows": 266,
+   "wall_s": 73.0,
+   "fps_render": 4.9
+  }
+ ],
+ "frames": 531,
+ "duration_s": 8.85,
+ "mp4_mb": 12.2,
+ "crf": 22,
+ "wall_s_total": 151.0
+}

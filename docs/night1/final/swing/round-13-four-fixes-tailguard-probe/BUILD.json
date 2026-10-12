@@ -1,0 +1,6 @@
+{
+  "runtime_source_commit": "ef263be2",
+  "dylib_sha256": "a1f9d58305cf2464b0caca1e175c3e34105ca84ea843e33e350b899ceaba826e",
+  "scope": "full-body safety through actual flip plus0.5s; c6",
+  "fixed_step_hz": 60
+}

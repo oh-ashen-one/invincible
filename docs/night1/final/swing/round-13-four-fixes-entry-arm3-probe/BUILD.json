@@ -1,0 +1,6 @@
+{
+  "runtime_source_commit": "4c8b8c0b",
+  "dylib_sha256": "274f552b2603f30a73627b4730434dc8b9e35066cbb0472679a7c6474850bf04",
+  "scope": "quarter-second entry smoothing and stable firing-arm direction/real flight budget",
+  "fixed_step_hz": 60
+}

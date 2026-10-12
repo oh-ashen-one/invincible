@@ -1,0 +1,10 @@
+{
+  "runtime_source_commit": "55fac411",
+  "dylib_sha256": "c8947dfb6cd88ba58e70c161832ecec7fa3a5383d38428ca1a0255f1bb18176c",
+  "scope": "seven-case motion/catch diagnosis before final camera refinement",
+  "fixed_step_hz": 60,
+  "internal_resolution": [
+    1920,
+    1080
+  ]
+}
