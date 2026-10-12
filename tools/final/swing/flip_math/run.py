@@ -41,6 +41,7 @@ inline FQuat RenderedRootComposition(const FQuat& FlipBodyFrame, const FQuat& Fl
                         str(build / "program.cpp"), str(fixture / "check.cpp"),
                         "-o", str(build / "check")], check=True)
         subprocess.run([str(build / "check")], check=True)
+    subprocess.run([os.sys.executable, str(fixture / "entry_forecast.py"), "--source-root", str(args.source_root)], check=True)
 
 
 if __name__ == "__main__":
