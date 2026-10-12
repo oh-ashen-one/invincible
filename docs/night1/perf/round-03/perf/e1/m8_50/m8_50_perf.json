@@ -1,0 +1,20 @@
+{
+  "frames": 1800,
+  "seconds": 27.822,
+  "avg_ms": 15.457,
+  "avg_fps": 64.70,
+  "p50_ms": 15.428,
+  "p95_ms": 18.014,
+  "p99_ms": 20.123,
+  "max_ms": 24.897,
+  "frames_over_16_67ms": 208,
+  "gpu_avg_ms": 14.215,
+  "gpu_p95_ms": 16.490,
+  "output_w": 3840,
+  "output_h": 2160,
+  "r_ScreenPercentage": 50.0,
+  "screen_percentage_mode": "manual",
+  "internal_w": 1920,
+  "internal_h": 1080,
+  "rhi": "Metal"
+}

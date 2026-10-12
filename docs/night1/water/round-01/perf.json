@@ -1,0 +1,534 @@
+{
+ "_comment": "Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation. Water GPU cost: this water vs the P1 flat-water baseline, same view, 3840x2160 output, TSR 67 % (internal 2573x1447), static camera, frames t = 16..36 s, tools/perf_ue/run_perf.py -csvGpuStats. attributable = SingleLayerWater + SingleLayerWaterDepthPrepass + LumenReflections + Basepass deltas.",
+ "run1": {
+  "lock": {
+   "schema": "gpu_slot/1",
+   "class": "perf",
+   "label": "water-ab-opus",
+   "pid": 44534,
+   "cmd": [
+    "bash",
+    "-c",
+    "\n    for m in Water_View_RiverLow Water_Perf_RiverLow_Base Water_Perf_S4 Water_Perf_S4_Base; do\n      python3 '/Users/midir/sm2-n1/water-ab-opus/tools/perf_ue/run_perf.py' --out '/Users/midir/sm2-n1/_scratch/water-ab-opus/cap/perf/'$m --map /Game/Water/Maps/$m --script none --configs tsr67 --res 3840x2160 --window 16:36 --timeout 400 --name $m || echo \"perf $m failed\"\n    done"
+   ],
+   "cwd": "/Users/midir/sm2-n1/water-ab-opus/unreal/WebHomage",
+   "queued_at": "2026-09-29T21:06:37.492-04:00",
+   "wait_s": 117.58,
+   "util_before": 0.0,
+   "exclusive": true,
+   "slot": "perf",
+   "settle": {
+    "calm_s": 10.0,
+    "util_max": 15.0,
+    "samples": 11,
+    "min": 0.0,
+    "max": 2.0
+   },
+   "unreal_before": {
+    "instances": 1,
+    "captures": 0,
+    "editors": 1
+   },
+   "exit_code": 0,
+   "outcome": "ran",
+   "acquired_at": "2026-09-29T21:08:23.841-04:00",
+   "started_at": "2026-09-29T21:08:35.153-04:00",
+   "released_at": "2026-09-29T21:12:29.495-04:00",
+   "hold_s": 245.65,
+   "run_s": 234.34,
+   "util_after": 0.0,
+   "util_during": {
+    "n": 110,
+    "min": 0.0,
+    "avg": 61.7,
+    "max": 100.0
+   },
+   "instances_before": 1,
+   "instances_max_during": 3,
+   "foreign_capture_during": {},
+   "contaminated": false,
+   "contaminated_reasons": [],
+   "perf_valid": true
+  },
+  "runs": {
+   "Water_View_RiverLow": {
+    "map": "/Game/Water/Maps/Water_View_RiverLow",
+    "output": "3840x2160",
+    "internal": "2573x1447",
+    "screen_percentage": 67.0,
+    "frame_avg_ms": 27.44,
+    "frame_p50_ms": 26.73,
+    "frame_p95_ms": 32.53,
+    "frame_p99_ms": 39.13,
+    "hitches": 0,
+    "blocks_5s_avg_ms": [
+     27.26,
+     27.28,
+     28.07
+    ],
+    "gpu_ms": {
+     "avg": 26.661317969821674,
+     "p95": 31.138440000000003,
+     "max": 41.6787
+    },
+    "gpu_util_before_pct": [
+     0,
+     0,
+     0
+    ],
+    "gpu_util_during_pct": {
+     "mean": 72.89090909090909,
+     "max": 100,
+     "n": 55
+    },
+    "foreign_gpu_procs": [
+     {
+      "pid": 11322,
+      "cpu": 5.8,
+      "cmd": "/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor"
+     }
+    ],
+    "gpu_passes_avg_ms": {
+     "GPU/LumenScreenProbeGather": 5.015,
+     "GPU/Unaccounted": 4.095,
+     "GPU/NaniteVisBuffer": 3.384,
+     "GPU/VolumetricCloud": 2.23,
+     "GPU/ShadowDepths": 1.17,
+     "GPU/VolumetricFog": 1.17,
+     "GPU/LumenReflections": 1.13,
+     "GPU/LumenSceneLighting": 1.026,
+     "GPU/SingleLayerWater": 0.751,
+     "GPU/CaptureConvolveSkyEnvMap": 0.71,
+     "GPU/Basepass": 0.691,
+     "GPU/RenderDeferredLighting": 0.652,
+     "GPU/ShadowProjection": 0.547,
+     "GPU/Postprocessing": 0.538,
+     "GPU/LumenSceneUpdate": 0.388,
+     "GPU/NaniteBasePass": 0.355,
+     "GPU/LensFlare": 0.258,
+     "GPU/MotionBlur": 0.248,
+     "GPU/SingleLayerWaterDepthPrepass": 0.245,
+     "GPU/DistanceFieldShadows": 0.214,
+     "GPU/Lights": 0.175,
+     "GPU/RayTracingScene": 0.147,
+     "GPU/BuildRenderingCommandsDeferred": 0.134,
+     "GPU/VolCloudComposeOverScene": 0.104,
+     "GPU/HZB": 0.074
+    }
+   },
+   "Water_Perf_RiverLow_Base": {
+    "map": "/Game/Water/Maps/Water_Perf_RiverLow_Base",
+    "output": "3840x2160",
+    "internal": "2573x1447",
+    "screen_percentage": 67.0,
+    "frame_avg_ms": 30.68,
+    "frame_p50_ms": 26.57,
+    "frame_p95_ms": 39.84,
+    "frame_p99_ms": 126.1,
+    "hitches": 21,
+    "blocks_5s_avg_ms": [
+     28.8,
+     29.46,
+     34.79
+    ],
+    "gpu_ms": {
+     "avg": 26.671006901840492,
+     "p95": 31.140035,
+     "max": 134.7019
+    },
+    "gpu_util_before_pct": [
+     2,
+     0,
+     0
+    ],
+    "gpu_util_during_pct": {
+     "mean": 64.0909090909091,
+     "max": 100,
+     "n": 55
+    },
+    "foreign_gpu_procs": [
+     {
+      "pid": 11322,
+      "cpu": 9.7,
+      "cmd": "/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor"
+     }
+    ],
+    "gpu_passes_avg_ms": {
+     "GPU/LumenScreenProbeGather": 6.37,
+     "GPU/Unaccounted": 3.943,
+     "GPU/NaniteVisBuffer": 3.482,
+     "GPU/VolumetricCloud": 2.229,
+     "GPU/ShadowDepths": 1.332,
+     "GPU/LumenSceneLighting": 1.096,
+     "GPU/VolumetricFog": 0.942,
+     "GPU/CaptureConvolveSkyEnvMap": 0.73,
+     "GPU/Basepass": 0.686,
+     "GPU/RenderDeferredLighting": 0.675,
+     "GPU/ShadowProjection": 0.624,
+     "GPU/LumenSceneUpdate": 0.604,
+     "GPU/LumenReflections": 0.592,
+     "GPU/NaniteBasePass": 0.573,
+     "GPU/Postprocessing": 0.532,
+     "GPU/LensFlare": 0.257,
+     "GPU/MotionBlur": 0.243,
+     "GPU/DistanceFieldShadows": 0.224,
+     "GPU/Lights": 0.182,
+     "GPU/RayTracingScene": 0.141,
+     "GPU/VolCloudComposeOverScene": 0.101,
+     "GPU/HZB": 0.073,
+     "GPU/SkyAtmosphere": 0.073,
+     "GPU/Fog": 0.069,
+     "GPU/SkyAtmosphereLUTs": 0.057
+    }
+   },
+   "Water_Perf_S4": {
+    "map": "/Game/Water/Maps/Water_Perf_S4",
+    "output": "3840x2160",
+    "internal": "2573x1447",
+    "screen_percentage": 67.0,
+    "frame_avg_ms": 45.14,
+    "frame_p50_ms": 32.4,
+    "frame_p95_ms": 95.71,
+    "frame_p99_ms": 322.97,
+    "hitches": 45,
+    "blocks_5s_avg_ms": [
+     36.45,
+     42.25,
+     48.58,
+     59.11
+    ],
+    "gpu_ms": {
+     "avg": 33.65592449438202,
+     "p95": 38.036280000000005,
+     "max": 252.4476
+    },
+    "gpu_util_before_pct": [
+     0,
+     0,
+     2
+    ],
+    "gpu_util_during_pct": {
+     "mean": 63.236363636363635,
+     "max": 100,
+     "n": 55
+    },
+    "foreign_gpu_procs": [
+     {
+      "pid": 11322,
+      "cpu": 6.0,
+      "cmd": "/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor"
+     }
+    ],
+    "gpu_passes_avg_ms": {
+     "GPU/NaniteVisBuffer": 8.048,
+     "GPU/Unaccounted": 5.217,
+     "GPU/LumenScreenProbeGather": 4.996,
+     "GPU/VolumetricCloud": 2.414,
+     "GPU/Basepass": 1.868,
+     "GPU/VolumetricFog": 1.367,
+     "GPU/ShadowDepths": 1.164,
+     "GPU/LumenSceneLighting": 0.95,
+     "GPU/LumenReflections": 0.841,
+     "GPU/CaptureConvolveSkyEnvMap": 0.72,
+     "GPU/RenderDeferredLighting": 0.647,
+     "GPU/ShadowProjection": 0.626,
+     "GPU/NaniteBasePass": 0.561,
+     "GPU/SingleLayerWater": 0.551,
+     "GPU/Postprocessing": 0.529,
+     "GPU/Lights": 0.453,
+     "GPU/DistanceFieldShadows": 0.409,
+     "GPU/LumenSceneUpdate": 0.399,
+     "GPU/SingleLayerWaterDepthPrepass": 0.296,
+     "GPU/LensFlare": 0.29,
+     "GPU/MotionBlur": 0.252,
+     "GPU/BuildRenderingCommandsDeferred": 0.134,
+     "GPU/VolCloudComposeOverScene": 0.097,
+     "GPU/VolCloudReconstruction": 0.096,
+     "GPU/SkyAtmosphere": 0.075
+    }
+   },
+   "Water_Perf_S4_Base": {
+    "map": "/Game/Water/Maps/Water_Perf_S4_Base",
+    "output": "3840x2160",
+    "internal": "2573x1447",
+    "screen_percentage": 67.0,
+    "frame_avg_ms": 33.9,
+    "frame_p50_ms": 31.47,
+    "frame_p95_ms": 39.91,
+    "frame_p99_ms": 87.4,
+    "hitches": 17,
+    "blocks_5s_avg_ms": [
+     33.24,
+     34.55,
+     33.88
+    ],
+    "gpu_ms": {
+     "avg": 27.244920508474575,
+     "p95": 31.967879999999997,
+     "max": 99.9463
+    },
+    "gpu_util_before_pct": [
+     0,
+     2,
+     3
+    ],
+    "gpu_util_during_pct": {
+     "mean": 67.18181818181819,
+     "max": 100,
+     "n": 55
+    },
+    "foreign_gpu_procs": [
+     {
+      "pid": 11322,
+      "cpu": 9.8,
+      "cmd": "/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor"
+     }
+    ],
+    "gpu_passes_avg_ms": {
+     "GPU/NaniteVisBuffer": 7.914,
+     "GPU/LumenScreenProbeGather": 5.106,
+     "GPU/Unaccounted": 3.897,
+     "GPU/VolumetricCloud": 2.283,
+     "GPU/Basepass": 1.803,
+     "GPU/VolumetricFog": 1.446,
+     "GPU/ShadowDepths": 1.305,
+     "GPU/LumenSceneLighting": 0.936,
+     "GPU/CaptureConvolveSkyEnvMap": 0.724,
+     "GPU/ShadowProjection": 0.653,
+     "GPU/RenderDeferredLighting": 0.647,
+     "GPU/NaniteBasePass": 0.608,
+     "GPU/LumenReflections": 0.602,
+     "GPU/Postprocessing": 0.529,
+     "GPU/DistanceFieldShadows": 0.479,
+     "GPU/LumenSceneUpdate": 0.454,
+     "GPU/LensFlare": 0.255,
+     "GPU/MotionBlur": 0.245,
+     "GPU/Lights": 0.183,
+     "GPU/RayTracingScene": 0.133,
+     "GPU/VolCloudComposeOverScene": 0.095,
+     "GPU/SkyAtmosphere": 0.079,
+     "GPU/HZB": 0.074,
+     "GPU/Fog": 0.068,
+     "GPU/SkyAtmosphereLUTs": 0.06
+    }
+   }
+  },
+  "river_low": {
+   "per_pass_delta_ms": {
+    "GPU/SingleLayerWater": 0.751,
+    "GPU/SingleLayerWaterDepthPrepass": 0.245,
+    "GPU/LumenReflections": 0.538,
+    "GPU/Basepass": 0.005
+   },
+   "attributable_sum_ms": 1.539,
+   "gpu_avg_delta_ms": -0.01
+  },
+  "S4": {
+   "per_pass_delta_ms": {
+    "GPU/SingleLayerWater": 0.551,
+    "GPU/SingleLayerWaterDepthPrepass": 0.296,
+    "GPU/LumenReflections": 0.239,
+    "GPU/Basepass": 0.065
+   },
+   "attributable_sum_ms": 1.151,
+   "gpu_avg_delta_ms": 6.411
+  }
+ },
+ "run2_S4_rerun": {
+  "lock": {
+   "schema": "gpu_slot/1",
+   "class": "perf",
+   "label": "water-ab-opus",
+   "pid": 56644,
+   "cmd": [
+    "bash",
+    "-c",
+    "for m in Water_Perf_S4_Base Water_Perf_S4; do python3 /Users/midir/sm2-n1/water-ab-opus/tools/perf_ue/run_perf.py --out /Users/midir/sm2-n1/_scratch/water-ab-opus/cap/perf2/$m --map /Game/Water/Maps/$m --script none --configs tsr67 --res 3840x2160 --window 16:36 --timeout 400 --name $m || echo perf $m failed; done"
+   ],
+   "cwd": "/Users/midir/sm2-n1/water-ab-opus",
+   "queued_at": "2026-09-29T21:13:04.908-04:00",
+   "wait_s": 107.2,
+   "util_before": 0.0,
+   "exclusive": true,
+   "slot": "perf",
+   "settle": {
+    "calm_s": 10.0,
+    "util_max": 15.0,
+    "samples": 10,
+    "min": 0.0,
+    "max": 2.0
+   },
+   "unreal_before": {
+    "instances": 1,
+    "captures": 0,
+    "editors": 1
+   },
+   "exit_code": 0,
+   "outcome": "ran",
+   "acquired_at": "2026-09-29T21:14:41.903-04:00",
+   "started_at": "2026-09-29T21:14:52.170-04:00",
+   "released_at": "2026-09-29T21:16:47.321-04:00",
+   "hold_s": 125.42,
+   "run_s": 115.15,
+   "util_after": 0.0,
+   "util_during": {
+    "n": 54,
+    "min": 0.0,
+    "avg": 61.4,
+    "max": 100.0
+   },
+   "instances_before": 1,
+   "instances_max_during": 3,
+   "foreign_capture_during": {
+    "65177": "/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor /Users/midir/sm2-n1/combat/unreal/WebHomage/WebHomage.uproject /Game/Tests/Combat/Combat_Street -game -"
+   },
+   "contaminated": true,
+   "contaminated_reasons": [
+    "foreign-capture-process-during-run"
+   ],
+   "perf_valid": false
+  },
+  "runs": {
+   "Water_Perf_S4": {
+    "map": "/Game/Water/Maps/Water_Perf_S4",
+    "output": "3840x2160",
+    "internal": "2573x1447",
+    "screen_percentage": 67.0,
+    "frame_avg_ms": 32.57,
+    "frame_p50_ms": 32.09,
+    "frame_p95_ms": 37.24,
+    "frame_p99_ms": 38.41,
+    "hitches": 0,
+    "blocks_5s_avg_ms": [
+     32.59,
+     32.5,
+     32.65
+    ],
+    "gpu_ms": {
+     "avg": 31.910664495114005,
+     "p95": 36.261134999999996,
+     "max": 37.8309
+    },
+    "gpu_util_before_pct": [
+     6,
+     0,
+     2
+    ],
+    "gpu_util_during_pct": {
+     "mean": 69.69811320754717,
+     "max": 100,
+     "n": 53
+    },
+    "foreign_gpu_procs": [
+     {
+      "pid": 11322,
+      "cpu": 5.7,
+      "cmd": "/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor"
+     }
+    ],
+    "gpu_passes_avg_ms": {
+     "GPU/NaniteVisBuffer": 7.868,
+     "GPU/LumenScreenProbeGather": 4.986,
+     "GPU/Unaccounted": 3.94,
+     "GPU/VolumetricCloud": 2.388,
+     "GPU/Basepass": 1.781,
+     "GPU/VolumetricFog": 1.261,
+     "GPU/ShadowDepths": 1.185,
+     "GPU/LumenSceneLighting": 0.93,
+     "GPU/LumenReflections": 0.728,
+     "GPU/CaptureConvolveSkyEnvMap": 0.727,
+     "GPU/RenderDeferredLighting": 0.696,
+     "GPU/ShadowProjection": 0.62,
+     "GPU/SingleLayerWater": 0.58,
+     "GPU/Postprocessing": 0.518,
+     "GPU/NaniteBasePass": 0.451,
+     "GPU/LumenSceneUpdate": 0.4,
+     "GPU/DistanceFieldShadows": 0.387,
+     "GPU/SingleLayerWaterDepthPrepass": 0.315,
+     "GPU/LensFlare": 0.259,
+     "GPU/MotionBlur": 0.244,
+     "GPU/Lights": 0.172,
+     "GPU/BuildRenderingCommandsDeferred": 0.128,
+     "GPU/VolCloudComposeOverScene": 0.096,
+     "GPU/SkyAtmosphere": 0.073,
+     "GPU/HZB": 0.072
+    }
+   },
+   "Water_Perf_S4_Base": {
+    "map": "/Game/Water/Maps/Water_Perf_S4_Base",
+    "output": "3840x2160",
+    "internal": "2573x1447",
+    "screen_percentage": 67.0,
+    "frame_avg_ms": 34.64,
+    "frame_p50_ms": 31.15,
+    "frame_p95_ms": 36.85,
+    "frame_p99_ms": 44.18,
+    "hitches": 5,
+    "blocks_5s_avg_ms": [
+     31.95,
+     31.67,
+     31.89
+    ],
+    "gpu_ms": {
+     "avg": 31.029900692041522,
+     "p95": 35.47596,
+     "max": 185.3089
+    },
+    "gpu_util_before_pct": [
+     0,
+     2,
+     0
+    ],
+    "gpu_util_during_pct": {
+     "mean": 67.01818181818182,
+     "max": 100,
+     "n": 55
+    },
+    "foreign_gpu_procs": [
+     {
+      "pid": 11322,
+      "cpu": 6.8,
+      "cmd": "/Users/Shared/Epic Games/UE_5.8/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor"
+     }
+    ],
+    "gpu_passes_avg_ms": {
+     "GPU/NaniteVisBuffer": 7.851,
+     "GPU/LumenScreenProbeGather": 5.116,
+     "GPU/Unaccounted": 3.852,
+     "GPU/VolumetricCloud": 2.257,
+     "GPU/Basepass": 1.796,
+     "GPU/VolumetricFog": 1.449,
+     "GPU/ShadowDepths": 1.248,
+     "GPU/LumenSceneLighting": 0.927,
+     "GPU/CaptureConvolveSkyEnvMap": 0.716,
+     "GPU/ShadowProjection": 0.65,
+     "GPU/RenderDeferredLighting": 0.644,
+     "GPU/LumenReflections": 0.636,
+     "GPU/Postprocessing": 0.527,
+     "GPU/NaniteBasePass": 0.446,
+     "GPU/LumenSceneUpdate": 0.403,
+     "GPU/DistanceFieldShadows": 0.395,
+     "GPU/LensFlare": 0.257,
+     "GPU/MotionBlur": 0.245,
+     "GPU/Lights": 0.178,
+     "GPU/VolCloudComposeOverScene": 0.096,
+     "GPU/SkyAtmosphere": 0.079,
+     "GPU/HZB": 0.074,
+     "GPU/Fog": 0.069,
+     "GPU/DistanceFields": 0.063,
+     "GPU/SkyAtmosphereLUTs": 0.059
+    }
+   }
+  },
+  "S4": {
+   "per_pass_delta_ms": {
+    "GPU/SingleLayerWater": 0.58,
+    "GPU/SingleLayerWaterDepthPrepass": 0.315,
+    "GPU/LumenReflections": 0.092,
+    "GPU/Basepass": -0.015
+   },
+   "attributable_sum_ms": 0.972,
+   "gpu_avg_delta_ms": 0.881
+  }
+ }
+}

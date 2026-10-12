@@ -1,0 +1,43 @@
+{
+ "name": "s4_release_float",
+ "note": "autoChain releases with no trick, re-press 1.6 s after each release (long air): 20 s",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   240,
+   40
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 1.6,
+   "repressVz": -8.0,
+   "trickEvery": 0,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  }
+ ]
+}

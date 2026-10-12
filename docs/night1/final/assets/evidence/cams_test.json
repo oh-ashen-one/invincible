@@ -1,0 +1,4 @@
+[
+ {"t": 12.0, "name": "lineup", "ue_pos_cm": [30360, 299350, 150], "ue_target_cm": [30360, 300150, 25], "fov": 55, "hero_visible": false},
+ {"t": 18.0, "name": "flock_close", "ue_pos_cm": [30300, 299950, 90], "ue_target_cm": [30300, 300300, 5], "fov": 50, "hero_visible": false}
+]

@@ -1,0 +1,15 @@
+# hold 1b: S4 atmosphere variants on the r11 build, then the S8 glass sweep (F0Scale)
+variants names=f1,f2,f3 fog_f1=0.0012 fogc_f1=0.64,0.66,0.69 fog_f2=0.0012 fogc_f2=0.56,0.58,0.62 fog_f3=0.0009 fogc_f3=0.60,0.62,0.66
+cap A S4_perch_skyline
+score A S4_perch_skyline
+cap A S4vf1
+score A S4vf1
+cap A S4vf2
+score A S4vf2
+cap A S4vf3
+score A S4vf3
+cap A S8_aerial_midtown
+mpc g1 F0Scale=0.5
+cap g1 S8_aerial_midtown
+mpc g2 F0Scale=0.35
+cap g2 S8_aerial_midtown

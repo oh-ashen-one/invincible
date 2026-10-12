@@ -1,0 +1,162 @@
+[
+ {
+  "file": "mesh/facade/seawall_parkwall__t-1_-1.glb",
+  "width_m": 2015.3,
+  "top_m": 23.8,
+  "pieces": 22,
+  "max_piece_width_m": 282.5,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/palisadesCliff__t-1_-1.glb",
+  "width_m": 5200.0,
+  "top_m": 58.0,
+  "pieces": 21,
+  "max_piece_width_m": 278.3,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/palisadesCliff__t-1_0.glb",
+  "width_m": 1150.0,
+  "top_m": 58.0,
+  "pieces": 6,
+  "max_piece_width_m": 300.0,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeStone__t0_1.glb",
+  "width_m": 1809.4,
+  "top_m": 97.4,
+  "pieces": 19,
+  "max_piece_width_m": 302.4,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeStone__t0_0.glb",
+  "width_m": 1436.4,
+  "top_m": 52.8,
+  "pieces": 6,
+  "max_piece_width_m": 297.9,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeStone__t0_-1.glb",
+  "width_m": 1324.9,
+  "top_m": 38.2,
+  "pieces": 6,
+  "max_piece_width_m": 286.8,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeStone__t0_-2.glb",
+  "width_m": 1331.3,
+  "top_m": 52.8,
+  "pieces": 6,
+  "max_piece_width_m": 286.6,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeDeck__t0_1.glb",
+  "width_m": 1853.0,
+  "top_m": 42.8,
+  "pieces": 16,
+  "max_piece_width_m": 301.0,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeDeck__t0_0.glb",
+  "width_m": 1526.2,
+  "top_m": 40.5,
+  "pieces": 6,
+  "max_piece_width_m": 299.1,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeDeck__t0_-1.glb",
+  "width_m": 1403.4,
+  "top_m": 40.8,
+  "pieces": 6,
+  "max_piece_width_m": 300.0,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeDeck__t0_-2.glb",
+  "width_m": 1406.9,
+  "top_m": 40.8,
+  "pieces": 6,
+  "max_piece_width_m": 295.6,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeCables__t0_1.glb",
+  "width_m": 682.9,
+  "top_m": 113.2,
+  "pieces": 6,
+  "max_piece_width_m": 285.2,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeSteel__t0_1.glb",
+  "width_m": 1749.7,
+  "top_m": 115.6,
+  "pieces": 16,
+  "max_piece_width_m": 311.3,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeSteel__t0_0.glb",
+  "width_m": 1452.0,
+  "top_m": 107.6,
+  "pieces": 6,
+  "max_piece_width_m": 270.3,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeSteel__t0_-1.glb",
+  "width_m": 1336.2,
+  "top_m": 93.0,
+  "pieces": 6,
+  "max_piece_width_m": 270.1,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeSteel__t0_-2.glb",
+  "width_m": 1342.1,
+  "top_m": 101.6,
+  "pieces": 6,
+  "max_piece_width_m": 294.5,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeTruss__t0_1.glb",
+  "width_m": 1762.7,
+  "top_m": 44.0,
+  "pieces": 16,
+  "max_piece_width_m": 311.3,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeTruss__t0_0.glb",
+  "width_m": 1465.0,
+  "top_m": 104.0,
+  "pieces": 6,
+  "max_piece_width_m": 296.0,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeTruss__t0_-1.glb",
+  "width_m": 1349.2,
+  "top_m": 71.6,
+  "pieces": 6,
+  "max_piece_width_m": 287.0,
+  "giant_pieces_left": 0
+ },
+ {
+  "file": "mesh/far/bridgeTruss__t0_-2.glb",
+  "width_m": 1355.1,
+  "top_m": 41.5,
+  "pieces": 6,
+  "max_piece_width_m": 302.8,
+  "giant_pieces_left": 0
+ }
+]

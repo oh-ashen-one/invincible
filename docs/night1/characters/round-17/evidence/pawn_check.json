@@ -1,0 +1,220 @@
+{
+ "r15": {
+  "movie": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-17/swap_pawn_T_key.mp4",
+  "fps": 60.0,
+  "frames_0_1p5s": 93,
+  "luma_diff_median": 2.548,
+  "luma_diff_max": 5.183,
+  "P1_pops_whole_frame": [],
+  "P1_pops_hero_blob": [],
+  "P1_ok": true,
+  "diffs_first_15": [
+   [
+    0.017,
+    0.119,
+    0.178
+   ],
+   [
+    0.033,
+    0.129,
+    0.331
+   ],
+   [
+    0.05,
+    0.045,
+    0.114
+   ],
+   [
+    0.067,
+    0.055,
+    0.099
+   ],
+   [
+    0.083,
+    0.074,
+    0.248
+   ],
+   [
+    0.1,
+    0.094,
+    0.396
+   ],
+   [
+    0.117,
+    0.042,
+    0.162
+   ],
+   [
+    0.133,
+    0.046,
+    0.166
+   ],
+   [
+    0.15,
+    0.062,
+    0.229
+   ],
+   [
+    0.167,
+    0.081,
+    0.308
+   ],
+   [
+    0.183,
+    0.037,
+    0.177
+   ],
+   [
+    0.2,
+    0.049,
+    0.231
+   ],
+   [
+    0.217,
+    0.063,
+    0.278
+   ],
+   [
+    0.233,
+    0.066,
+    0.397
+   ],
+   [
+    0.25,
+    0.033,
+    0.225
+   ]
+  ],
+  "telemetry": {
+   "rows": 689,
+   "anim_weight_max_step": 0.0,
+   "limit_per_frame": 0.0928,
+   "P2_anim_weight_step_ok": true,
+   "anim_weight_min": 1.0,
+   "anim_weight_max": 1.0,
+   "pose_sig_step_max": 0.1303,
+   "at_t": 1.0833,
+   "pose_sig_step_median_0p5_2": 0.0768,
+   "pose_sig_step_max_over_median": 1.7,
+   "clip_switches_0_1p5s": [
+    {
+     "t": 0.9,
+     "to": "A_Hero_jog"
+    },
+    {
+     "t": 1.0,
+     "to": "A_Hero_run"
+    }
+   ]
+  }
+ },
+ "r14": {
+  "movie": "docs/night1/characters/round-16/swap_pawn_T_key.mp4",
+  "fps": 60.0,
+  "frames_0_1p5s": 93,
+  "luma_diff_median": 2.547,
+  "luma_diff_max": 5.172,
+  "P1_pops_whole_frame": [],
+  "P1_pops_hero_blob": [],
+  "P1_ok": true,
+  "diffs_first_15": [
+   [
+    0.017,
+    0.119,
+    0.172
+   ],
+   [
+    0.033,
+    0.147,
+    0.312
+   ],
+   [
+    0.05,
+    0.056,
+    0.143
+   ],
+   [
+    0.067,
+    0.06,
+    0.124
+   ],
+   [
+    0.083,
+    0.084,
+    0.265
+   ],
+   [
+    0.1,
+    0.089,
+    0.387
+   ],
+   [
+    0.117,
+    0.042,
+    0.179
+   ],
+   [
+    0.133,
+    0.042,
+    0.179
+   ],
+   [
+    0.15,
+    0.063,
+    0.247
+   ],
+   [
+    0.167,
+    0.076,
+    0.282
+   ],
+   [
+    0.183,
+    0.033,
+    0.145
+   ],
+   [
+    0.2,
+    0.047,
+    0.208
+   ],
+   [
+    0.217,
+    0.059,
+    0.3
+   ],
+   [
+    0.233,
+    0.061,
+    0.368
+   ],
+   [
+    0.25,
+    0.033,
+    0.239
+   ]
+  ],
+  "telemetry": {
+   "rows": 689,
+   "anim_weight_max_step": 0.0,
+   "limit_per_frame": 0.0928,
+   "P2_anim_weight_step_ok": true,
+   "anim_weight_min": 1.0,
+   "anim_weight_max": 1.0,
+   "pose_sig_step_max": 0.1303,
+   "at_t": 1.0833,
+   "pose_sig_step_median_0p5_2": 0.0768,
+   "pose_sig_step_max_over_median": 1.7,
+   "clip_switches_0_1p5s": [
+    {
+     "t": 0.9,
+     "to": "A_Hero_jog"
+    },
+    {
+     "t": 1.0,
+     "to": "A_Hero_run"
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,39 @@
+# Swing arc test, round 02 (docs/night1/traversal/drop_test.py on the telemetry CSVs of the round-02 videos)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# drop = height above the floor at the preceding release (or spawn / take-off for the first swing) minus the lowest height during the swing.
+# VPlow>rel = horizon travel on screen (fraction of frame height) between the swing's low point and its release frame; VPcycle = horizon range from swing start to 0.6 s after release.
+
+## a_swing_chain
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   0.00   20.9   20.9    5.1   15.8   24.0   29.5  2.08      9.1%   46.7%  ok
+ 2   3.68   46.3   46.3   10.3   36.0   38.5   45.3  3.28     43.4%   57.0%  ok
+ 3   8.57   62.4   62.3    5.0   57.3   26.5   33.8  3.35      7.2%   65.5%  ok
+ 4  13.80   60.6   60.6   17.9   42.7   17.9   50.0  1.77      0.0%   29.0%  ok
+DROP TEST: PASS (4 swings)
+
+## d_sprint_jump_first_swing
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   2.60    4.5    4.5    2.2    2.3   14.9   19.9  1.67      3.6%   28.0%  DROP<15 (first swing exempt)
+ 2   5.23   21.0   21.0    4.9   16.1   22.1   27.0  2.40      9.3%   43.8%  ok
+ 3   9.03   39.4   39.4    7.1   32.3   31.3   38.5  2.83     14.7%   59.5%  ok
+DROP TEST: PASS (3 swings)
+
+## b_release_trick_dive_zip
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   0.00   56.9   56.9   13.1   43.8   28.5   50.0  3.18     13.5%   37.7%  ok (first swing exempt)
+DROP TEST: PASS (1 swings)
+
+## round 01 for comparison (a_swing_chain)
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   0.00   20.9   20.9   14.7    6.2   15.3   20.2  0.85      1.3%    9.3%  DROP<15
+ 2   1.50   20.7   20.7   16.0    4.7   16.4   21.8  0.52      0.9%    2.9%  DROP<15
+ 3   2.98   22.6   22.3   12.6   10.0   13.7   19.4  0.77      0.6%    1.5%  DROP<15
+ 4   4.42   19.1   19.2   11.7    7.4   13.1   26.1  0.73      1.5%    4.3%  DROP<15
+ 5   5.80   18.5   18.5   11.8    6.7   13.0   26.6  0.65      1.2%    3.3%  DROP<15
+ 6   7.08   18.3   18.4   11.3    7.1   12.6   26.5  0.63      1.2%    3.0%  DROP<15
+ 7   8.37   17.9   17.7   11.1    6.8   13.2   21.6  0.55      0.9%    2.0%  DROP<15
+ 8   9.75   22.2   22.3   14.5    7.7   16.1   23.9  0.58      1.1%    2.9%  DROP<15
+ 9  11.05   22.8   22.8   15.2    7.6   16.7   23.3  0.57      0.9%    2.3%  DROP<15 SAME-AS-PREV
+10  12.33   23.4   23.4   15.9    7.5   17.4   22.6  0.55      0.9%    2.1%  DROP<15 SAME-AS-PREV
+11  13.63   24.7   24.7   17.4    7.3   29.2   20.4  0.80      2.2%    5.8%  DROP<15
+DROP TEST: FAIL (11 swings)

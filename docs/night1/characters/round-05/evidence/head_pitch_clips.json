@@ -1,0 +1,83 @@
+{
+ "thugIdle": {
+  "min_deg": -19.8,
+  "mean_deg": -19.7,
+  "max_deg": -19.5
+ },
+ "thugKick": {
+  "min_deg": -19.7,
+  "mean_deg": -14.2,
+  "max_deg": 0.0
+ },
+ "thugPunch1": {
+  "min_deg": -19.8,
+  "mean_deg": -18.8,
+  "max_deg": -16.8
+ },
+ "thugPunch2": {
+  "min_deg": -19.8,
+  "mean_deg": -19.5,
+  "max_deg": -19.0
+ },
+ "thugStumbleBack": {
+  "min_deg": -32.0,
+  "mean_deg": -20.9,
+  "max_deg": -2.9
+ },
+ "thugStumbleLeft": {
+  "min_deg": -19.7,
+  "mean_deg": -17.2,
+  "max_deg": -12.9
+ },
+ "fightIdle": {
+  "min_deg": -2.4,
+  "mean_deg": -1.7,
+  "max_deg": -1.0
+ },
+ "idle": {
+  "min_deg": 4.5,
+  "mean_deg": 6.1,
+  "max_deg": 7.9
+ },
+ "kick": {
+  "min_deg": -21.1,
+  "mean_deg": -5.3,
+  "max_deg": 2.2
+ },
+ "punch1": {
+  "min_deg": -1.0,
+  "mean_deg": -0.9,
+  "max_deg": -0.6
+ },
+ "punch2": {
+  "min_deg": -1.0,
+  "mean_deg": -0.7,
+  "max_deg": 0.1
+ },
+ "punch3": {
+  "min_deg": -1.0,
+  "mean_deg": -0.5,
+  "max_deg": 0.7
+ },
+ "run": {
+  "min_deg": -15.7,
+  "mean_deg": -15.5,
+  "max_deg": -15.4
+ },
+ "runTakeoff": {
+  "min_deg": -16.0,
+  "mean_deg": -13.8,
+  "max_deg": -12.0
+ },
+ "runLeap": {
+  "min_deg": -18.5,
+  "mean_deg": -16.6,
+  "max_deg": -14.9
+ },
+ "runLeapB": {
+  "min_deg": -18.5,
+  "mean_deg": -16.6,
+  "max_deg": -14.9
+ },
+ "_note": "Head gaze elevation (deg above the rest-pose gaze, world space, 25 samples per clip) via ganim FK on the GLB skeleton; the enemy meshes are level in bind pose (round-04 enemy_heads_ortho.jpg). The fight uses only these clips: no enemy clip raises the head above +10 deg (round 04 used idleLook, max +39 deg, and thugGunAim)."
+}

@@ -1,0 +1,21 @@
+{
+ "coverage": 0.6215,
+ "col_red": [
+  158,
+  16,
+  21
+ ],
+ "col_blue": [
+  24,
+  37,
+  92
+ ],
+ "band_coarse_points": 157794,
+ "band_texels": 1525001,
+ "border_texels_recoloured": 93675,
+ "t_edges_s": 31.7,
+ "thread_texels": 637367,
+ "uv_units_per_m": 0.5692,
+ "detail_tiling": 122.0,
+ "yarn_mm": 0.45
+}

@@ -1,0 +1,22 @@
+[2026.10.01-21.09.48:048][  0]LogWebHomage: Display: WH_SUIT 8 suits loaded: tessera verdant plum cinder glacier ash saffron sage 
+[2026.10.01-21.09.49:302][  0]LogWebHomage: Display: WH_SUIT 8 suits loaded: tessera verdant plum cinder glacier ash saffron sage 
+[2026.10.01-21.09.52:575][  1]LogWebHomage: Display: WH_SUIT set 0/8 tessera (default) changed=1 t=0.033 frame=1 apply_ms=0.03
+[2026.10.01-21.09.52:575][  1]LogWebHomage: Display: WH_SUIT start suit 0 (tessera) from default, persist=0 live=0
+[2026.10.01-21.09.52:575][  1]LogWebHomage: Display: WH_SUIT set 0/8 tessera (director shot) changed=0 t=0.033 frame=1 apply_ms=0.01
+[2026.10.01-21.09.53:363][  4]LogWebHomage: Display: WH_SUIT swap_done 0 tessera wall_ms=788.6 frames=3 textures_resident=4/4
+[2026.10.01-21.10.13:656][ 90]LogWebHomage: Display: WH_SUIT set 1/8 verdant (director shot) changed=1 t=1.517 frame=90 apply_ms=0.03
+[2026.10.01-21.10.14:345][ 93]LogWebHomage: Display: WH_SUIT swap_done 1 verdant wall_ms=690.0 frames=3 textures_resident=4/4
+[2026.10.01-21.10.34:283][180]LogWebHomage: Display: WH_SUIT set 2/8 plum (director shot) changed=1 t=3.017 frame=180 apply_ms=0.04
+[2026.10.01-21.10.34:966][183]LogWebHomage: Display: WH_SUIT swap_done 2 plum wall_ms=683.7 frames=3 textures_resident=4/4
+[2026.10.01-21.10.54:506][270]LogWebHomage: Display: WH_SUIT set 3/8 cinder (director shot) changed=1 t=4.517 frame=270 apply_ms=0.03
+[2026.10.01-21.10.55:183][273]LogWebHomage: Display: WH_SUIT swap_done 3 cinder wall_ms=676.7 frames=3 textures_resident=4/4
+[2026.10.01-21.11.14:999][360]LogWebHomage: Display: WH_SUIT set 4/8 glacier (director shot) changed=1 t=6.017 frame=360 apply_ms=0.04
+[2026.10.01-21.11.15:707][363]LogWebHomage: Display: WH_SUIT swap_done 4 glacier wall_ms=707.8 frames=3 textures_resident=4/4
+[2026.10.01-21.11.36:128][450]LogWebHomage: Display: WH_SUIT set 5/8 ash (director shot) changed=1 t=7.517 frame=450 apply_ms=0.04
+[2026.10.01-21.11.36:857][453]LogWebHomage: Display: WH_SUIT swap_done 5 ash wall_ms=728.2 frames=3 textures_resident=4/4
+[2026.10.01-21.11.57:309][540]LogWebHomage: Display: WH_SUIT set 6/8 saffron (director shot) changed=1 t=9.017 frame=540 apply_ms=0.03
+[2026.10.01-21.11.58:021][543]LogWebHomage: Display: WH_SUIT swap_done 6 saffron wall_ms=711.2 frames=3 textures_resident=4/4
+[2026.10.01-21.12.19:972][630]LogWebHomage: Display: WH_SUIT set 7/8 sage (director shot) changed=1 t=10.517 frame=630 apply_ms=0.03
+[2026.10.01-21.12.20:670][633]LogWebHomage: Display: WH_SUIT swap_done 7 sage wall_ms=698.3 frames=3 textures_resident=4/4
+[2026.10.01-21.12.42:310][720]LogWebHomage: Display: WH_SUIT set 0/8 tessera (director shot) changed=1 t=12.017 frame=720 apply_ms=0.03
+[2026.10.01-21.12.43:022][723]LogWebHomage: Display: WH_SUIT swap_done 0 tessera wall_ms=712.6 frames=3 textures_resident=4/4

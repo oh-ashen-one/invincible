@@ -1,0 +1,31 @@
+{
+ "ref": "ctl",
+ "test": "cl3",
+ "label": "cl3",
+ "stills": {
+  "route_t38": {
+   "lt10_ref": 0.67,
+   "lt10_test": 0.93,
+   "clip_ref": 0.04,
+   "clip_test": 0.04,
+   "psnr_db": 38.22,
+   "ssim_luma": 0.9965,
+   "mean_abs_dY": 2.03,
+   "frac_dY_gt12": 0.001,
+   "meanY_ref": 76.5,
+   "meanY_test": 75.5
+  },
+  "route_t42": {
+   "lt10_ref": 0.01,
+   "lt10_test": 0.01,
+   "clip_ref": 4.87,
+   "clip_test": 4.83,
+   "psnr_db": 40.06,
+   "ssim_luma": 0.9966,
+   "mean_abs_dY": 1.55,
+   "frac_dY_gt12": 0.0002,
+   "meanY_ref": 102.0,
+   "meanY_test": 101.1
+  }
+ }
+}

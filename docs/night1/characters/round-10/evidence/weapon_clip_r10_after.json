@@ -1,0 +1,35 @@
+{
+ "step": 0.05,
+ "summary": {
+  "Fight_Thug": {
+   "weapon": "bat",
+   "frames_total": 481,
+   "frames_hit": 0,
+   "seconds_hit": 0.0,
+   "max_depth_cm": 0.0,
+   "intervals": []
+  },
+  "Fight_Brute": {
+   "weapon": "pipe",
+   "frames_total": 481,
+   "frames_hit": 0,
+   "seconds_hit": 0.0,
+   "max_depth_cm": 1.9,
+   "intervals": []
+  },
+  "Fight_Hood": {
+   "weapon": "pistol",
+   "frames_total": 481,
+   "frames_hit": 1,
+   "seconds_hit": 0.05,
+   "max_depth_cm": 5.4,
+   "intervals": [
+    [
+     9.55,
+     9.55,
+     5.4
+    ]
+   ]
+  }
+ }
+}

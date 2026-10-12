@@ -1,0 +1,4 @@
+pawn run end: WH_SETTINGS suit saved to GameUserSettings: HeroSuit=1 HeroSuitId=verdant
+relaunch:     WH_SUIT start suit 1 (verdant) from settings, persist=1 live=0
+menu:         WH_SUIT start suit 1 (verdant) from settings, persist=1 live=0
+ini:          HeroSuit=1 HeroSuitId=verdant 

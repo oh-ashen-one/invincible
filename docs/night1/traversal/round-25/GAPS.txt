@@ -1,0 +1,4 @@
+# attach-to-attach gaps (critic r24 secondary 2: <= 3.3 s)
+  a_swing_chain attaches [0.4, 3.4, 6.77, 10.15, 13.45] gaps [3.0, 3.37, 3.38, 3.3] max 3.38 -> FAIL
+  m1_mouse_swing attaches [0.4, 3.52] gaps [3.12] max 3.12 -> PASS
+  s1_high_swing attaches [0.2, 2.7, 3.35, 5.3] gaps [2.5, 0.65, 1.95] max 2.5 -> PASS

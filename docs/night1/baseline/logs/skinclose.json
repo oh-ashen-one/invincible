@@ -1,0 +1,127 @@
+{
+ "meta": {
+  "advanced": {
+   "skinLoaded": true,
+   "loadMs": 20,
+   "meshes": 3,
+   "texKinds": [
+    "map",
+    "normalMap",
+    "roughnessMap",
+    "metalnessMap",
+    "aoMap"
+   ],
+   "state": "advanced"
+  },
+  "iron": {
+   "skinLoaded": true,
+   "loadMs": 62,
+   "meshes": 3,
+   "texKinds": [
+    "map",
+    "normalMap",
+    "roughnessMap",
+    "metalnessMap",
+    "aoMap"
+   ],
+   "state": "iron"
+  },
+  "symbiote": {
+   "skinLoaded": true,
+   "loadMs": 34,
+   "meshes": 3,
+   "texKinds": [
+    "map",
+    "normalMap",
+    "roughnessMap",
+    "metalnessMap",
+    "aoMap"
+   ],
+   "state": "symbiote"
+  },
+  "claude": {
+   "skinLoaded": true,
+   "loadMs": 340,
+   "meshes": 4,
+   "texKinds": [
+    "map",
+    "normalMap",
+    "roughnessMap",
+    "metalnessMap",
+    "aoMap"
+   ],
+   "state": "claude"
+  },
+  "codex": {
+   "skinLoaded": true,
+   "loadMs": 304,
+   "meshes": 4,
+   "texKinds": [
+    "map",
+    "normalMap",
+    "roughnessMap",
+    "metalnessMap",
+    "aoMap"
+   ],
+   "state": "codex"
+  },
+  "gemini": {
+   "skinLoaded": true,
+   "loadMs": 303,
+   "meshes": 4,
+   "texKinds": [
+    "map",
+    "normalMap",
+    "roughnessMap",
+    "metalnessMap",
+    "aoMap"
+   ],
+   "state": "gemini"
+  },
+  "kimi": {
+   "skinLoaded": true,
+   "loadMs": 300,
+   "meshes": 4,
+   "texKinds": [
+    "map",
+    "normalMap",
+    "roughnessMap",
+    "metalnessMap",
+    "aoMap"
+   ],
+   "state": "kimi"
+  },
+  "qwen": {
+   "skinLoaded": true,
+   "loadMs": 310,
+   "meshes": 4,
+   "texKinds": [
+    "map",
+    "normalMap",
+    "roughnessMap",
+    "metalnessMap",
+    "aoMap"
+   ],
+   "state": "qwen"
+  }
+ },
+ "console": {
+  "load": {
+   "warning: THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.": 1,
+   "warning: Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read": 1,
+   "warning: THREE.WebGLTextures: Trying to use 17 texture units while this GPU supports only 16": 278
+  },
+  "advanced": {
+   "warning: THREE.WebGLTextures: Trying to use 17 texture units while this GPU supports only 16": 90
+  },
+  "iron": {
+   "warning: THREE.WebGLTextures: Trying to use 17 texture units while this GPU supports only 16": 90
+  },
+  "symbiote": {
+   "warning: THREE.WebGLTextures: Trying to use 17 texture units while this GPU supports only 16": 90
+  },
+  "claude": {
+   "warning: THREE.WebGLTextures: Trying to use 17 texture units while this GPU supports only 16": 2
+  }
+ }
+}

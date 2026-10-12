@@ -1,0 +1,15 @@
+# Round 25 rope readability (rope_r25_check.py, 10 fps, rendered 1080p movies)
+a_swing_chain: 156 samples at 10 fps, web_on 65 (41.7 %), judged 65, short/not drawn 0
+  PASS 65/65 judged web_on frames (pt_med >= 25, pt_pass >= .8, width 2-4 px)
+  pt_med p10/p50 74.1/125.5; pt_pass median 1.00; glob (whole-rope literal) >= 25: 58/65; width median 3.50 px (drawn 3.96); edge 63/65
+  pale facades 0.9-1.1 s: 0.9:P(med 89, pass 1.00, glob 24, rope 138/band 114, w 3.0) 1.0:P(med 88, pass 0.98, glob 31, rope 146/band 111, w 3.0) 1.1:P(med 87, pass 0.98, glob 26, rope 141/band 112, w 3.0)
+  dark glass 10.5-11.2 s: 10.5:P(med 140, pass 0.99, glob 131, rope 204/band 70, w 4.0) 10.6:P(med 141, pass 0.99, glob 139, rope 209/band 69, w 4.0) 10.7:P(med 133, pass 1.00, glob 129, rope 206/band 75, w 4.0) 10.8:P(med 126, pass 0.99, glob 123, rope 203/band 79, w 4.0) 10.9:P(med 107, pass 1.00, glob 58, rope 163/band 101, w 3.5) 11.0:P(med 90, pass 1.00, glob 29, rope 133/band 169, w 2.5) 11.1:P(med 93, pass 1.00, glob 47, rope 133/band 182, w 2.5) 11.2:P(med 79, pass 0.96, glob 55, rope 139/band 195, w 2.5)
+m1_mouse_swing: 60 samples at 10 fps, web_on 26 (43.3 %), judged 26, short/not drawn 0
+  PASS 26/26 judged web_on frames (pt_med >= 25, pt_pass >= .8, width 2-4 px)
+  pt_med p10/p50 88.1/114.5; pt_pass median 1.00; glob (whole-rope literal) >= 25: 20/26; width median 3.00 px (drawn 3.83); edge 26/26
+  pale facades 0.9-1.1 s: 0.9:P(med 95, pass 1.00, glob 4, rope 116/band 122, w 3.0) 1.0:P(med 91, pass 0.95, glob 48, rope 95/band 146, w 3.0) 1.1:P(med 86, pass 0.98, glob 75, rope 101/band 179, w 2.5)
+s1_high_swing: 60 samples at 10 fps, web_on 47 (78.3 %), judged 43, short/not drawn 4
+  PASS 39/43 judged web_on frames (pt_med >= 25, pt_pass >= .8, width 2-4 px)
+  pt_med p10/p50 52.1/108.4; pt_pass median 1.00; glob (whole-rope literal) >= 25: 39/43; width median 3.25 px (drawn 3.92); edge 41/43
+  pale facades 0.9-1.1 s: 0.9:P(med 79, pass 0.92, glob 64, rope 155/band 228, w 2.5) 1.0:P(med 67, pass 1.00, glob 70, rope 168/band 241, w 2.5) 1.1:P(med 64, pass 1.00, glob 64, rope 177/band 244, w 2.5)
+  failing: 0.2(med 17 pass 0.35 w 3.0) 2.7(med 52 pass 0.86 w 0.5) 5.3(med 138 pass 1.00 w 4.5) 5.4(med 137 pass 1.00 w 4.5)

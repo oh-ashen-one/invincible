@@ -1,0 +1,25 @@
+{
+ "landmarks": {
+  "eye": 1.6333,
+  "nose": 1.6023,
+  "ear_lobe": 1.5753,
+  "chin": 1.5245,
+  "nose_r": 0.1321
+ },
+ "mask_subdivided_tris": 916,
+ "tris_after_subdiv": 8847,
+ "tris_before": 5991,
+ "draped_verts": 1596,
+ "drape_max_cm": 8.14,
+ "seam_blend_px": 738304,
+ "mask_px": 220386,
+ "cap_scale": 0.38,
+ "cap_scale_y": 0.241,
+ "hair_pulled": 910,
+ "cap_tris": 5652,
+ "name": "StreetTee",
+ "verts": 12878,
+ "tris": 14499,
+ "variants": [],
+ "seconds": 12.8
+}

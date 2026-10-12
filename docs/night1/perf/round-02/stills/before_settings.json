@@ -1,0 +1,10 @@
+{
+ "spec": "before@50",
+ "sp": 50,
+ "cvars": "",
+ "variant": "",
+ "output": "3840x2160",
+ "internal": "1920x1080 (r.ScreenPercentage 50, TSR)",
+ "look": "as found: hardware-RT Lumen (GI + reflections), Nanite error 1 px, 50 km cloud tracing",
+ "note": "S1 / S2 are the fresh PNG references of this round (refl1/before), S7 and the route stills come from the final capture session"
+}

@@ -1,0 +1,353 @@
+{
+ "source": "/Users/midir/sm2-n1/_scratch/characters/r10/cap/fight_bones.csv",
+ "windows": {
+  "wide": {
+   "window": [
+    0.65,
+    8.65
+   ],
+   "reactions_total": 6,
+   "reactions_pass_0.1_stature_in_0.2s": 6,
+   "reactions": [
+    {
+     "walker": "Fight_Thug",
+     "clip": "fight:down",
+     "contact": 1.85,
+     "head_cm": 52.9,
+     "spine2_cm": 43.4,
+     "stature_frac": 0.303,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Brute",
+     "clip": "fight:hitBack",
+     "contact": 5.88,
+     "head_cm": 40.8,
+     "spine2_cm": 35.1,
+     "stature_frac": 0.216,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Hood",
+     "clip": "fight:hitBack",
+     "contact": 7.85,
+     "head_cm": 29.8,
+     "spine2_cm": 28.9,
+     "stature_frac": 0.17,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Tee",
+     "clip": "fight:hitLeft",
+     "contact": 3.97,
+     "head_cm": 26.9,
+     "spine2_cm": 18.2,
+     "stature_frac": 0.154,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Beard",
+     "clip": "fight:hitRight",
+     "contact": 6.88,
+     "head_cm": 28.9,
+     "spine2_cm": 19.3,
+     "stature_frac": 0.165,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Oxblood",
+     "clip": "fight:down",
+     "contact": 2.95,
+     "head_cm": 54.2,
+     "spine2_cm": 35.6,
+     "stature_frac": 0.31,
+     "pass": true
+    }
+   ],
+   "knockdowns_ge_1s": [
+    {
+     "walker": "Fight_Thug",
+     "ground": [
+      2.47,
+      5.4
+     ],
+     "seconds_in_window": 2.93
+    },
+    {
+     "walker": "Fight_Oxblood",
+     "ground": [
+      3.57,
+      6.67
+     ],
+     "seconds_in_window": 3.1
+    }
+   ],
+   "knockdowns_count": 2,
+   "simultaneous_grounded_ge2_longest_s": 1.84,
+   "getups_distinct": [
+    "fight:getUp",
+    "fight:getUp2"
+   ],
+   "getups": [
+    [
+     "Fight_Thug",
+     "fight:getUp",
+     5.05
+    ],
+    [
+     "Fight_Oxblood",
+     "fight:getUp2",
+     6.15
+    ]
+   ],
+   "guard_hold_longest_s_per_enemy": {
+    "Fight_Thug": 0.85,
+    "Fight_Brute": 1.18,
+    "Fight_Hood": 1.4,
+    "Fight_Tee": 1.0,
+    "Fight_Beard": 1.2,
+    "Fight_Oxblood": 0.72
+   },
+   "guard_hold_max_s": 1.4,
+   "hero_feet_to_grounded_body_min_cm": 39.8
+  },
+  "34": {
+   "window": [
+    8.65,
+    16.65
+   ],
+   "reactions_total": 7,
+   "reactions_pass_0.1_stature_in_0.2s": 7,
+   "reactions": [
+    {
+     "walker": "Fight_Thug",
+     "clip": "fight:hitLeft",
+     "contact": 15.42,
+     "head_cm": 29.6,
+     "spine2_cm": 21.6,
+     "stature_frac": 0.169,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Brute",
+     "clip": "fight:hitLeft",
+     "contact": 11.62,
+     "head_cm": 37.7,
+     "spine2_cm": 25.2,
+     "stature_frac": 0.199,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Hood",
+     "clip": "fight:down",
+     "contact": 9.5,
+     "head_cm": 52.9,
+     "spine2_cm": 43.5,
+     "stature_frac": 0.302,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Hood",
+     "clip": "fight:hitBack",
+     "contact": 16.4,
+     "head_cm": 28.7,
+     "spine2_cm": 29.1,
+     "stature_frac": 0.166,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Tee",
+     "clip": "fight:hitBack",
+     "contact": 12.73,
+     "head_cm": 34.8,
+     "spine2_cm": 28.0,
+     "stature_frac": 0.199,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Beard",
+     "clip": "fight:down",
+     "contact": 10.6,
+     "head_cm": 54.4,
+     "spine2_cm": 35.7,
+     "stature_frac": 0.311,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Oxblood",
+     "clip": "fight:hitRight",
+     "contact": 14.43,
+     "head_cm": 30.9,
+     "spine2_cm": 20.7,
+     "stature_frac": 0.177,
+     "pass": true
+    }
+   ],
+   "knockdowns_ge_1s": [
+    {
+     "walker": "Fight_Hood",
+     "ground": [
+      10.12,
+      13.05
+     ],
+     "seconds_in_window": 2.93
+    },
+    {
+     "walker": "Fight_Beard",
+     "ground": [
+      11.22,
+      13.92
+     ],
+     "seconds_in_window": 2.7
+    }
+   ],
+   "knockdowns_count": 2,
+   "simultaneous_grounded_ge2_longest_s": 1.84,
+   "getups_distinct": [
+    "fight:getUp",
+    "fight:getUp2"
+   ],
+   "getups": [
+    [
+     "Fight_Hood",
+     "fight:getUp",
+     12.7
+    ],
+    [
+     "Fight_Beard",
+     "fight:getUp2",
+     13.4
+    ]
+   ],
+   "guard_hold_longest_s_per_enemy": {
+    "Fight_Thug": 1.53,
+    "Fight_Brute": 0.83,
+    "Fight_Hood": 1.0,
+    "Fight_Tee": 1.82,
+    "Fight_Beard": 1.22,
+    "Fight_Oxblood": 1.65
+   },
+   "guard_hold_max_s": 1.82,
+   "hero_feet_to_grounded_body_min_cm": 49.5
+  },
+  "orbit": {
+   "window": [
+    16.65,
+    24.65
+   ],
+   "reactions_total": 7,
+   "reactions_pass_0.1_stature_in_0.2s": 7,
+   "reactions": [
+    {
+     "walker": "Fight_Thug",
+     "clip": "fight:hitLeft",
+     "contact": 21.62,
+     "head_cm": 29.5,
+     "spine2_cm": 21.4,
+     "stature_frac": 0.169,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Brute",
+     "clip": "fight:down",
+     "contact": 18.45,
+     "head_cm": 66.6,
+     "spine2_cm": 51.9,
+     "stature_frac": 0.352,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Hood",
+     "clip": "fight:hitBack",
+     "contact": 23.48,
+     "head_cm": 32.0,
+     "spine2_cm": 28.6,
+     "stature_frac": 0.183,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Tee",
+     "clip": "fight:down",
+     "contact": 19.55,
+     "head_cm": 54.3,
+     "spine2_cm": 34.8,
+     "stature_frac": 0.31,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Beard",
+     "clip": "fight:hitRight",
+     "contact": 17.48,
+     "head_cm": 30.2,
+     "spine2_cm": 20.2,
+     "stature_frac": 0.173,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Beard",
+     "clip": "fight:hitRight",
+     "contact": 24.48,
+     "head_cm": 28.5,
+     "spine2_cm": 18.6,
+     "stature_frac": 0.163,
+     "pass": true
+    },
+    {
+     "walker": "Fight_Oxblood",
+     "clip": "fight:hitBack",
+     "contact": 20.63,
+     "head_cm": 35.0,
+     "spine2_cm": 27.8,
+     "stature_frac": 0.2,
+     "pass": true
+    }
+   ],
+   "knockdowns_ge_1s": [
+    {
+     "walker": "Fight_Brute",
+     "ground": [
+      19.07,
+      22.1
+     ],
+     "seconds_in_window": 3.03
+    },
+    {
+     "walker": "Fight_Tee",
+     "ground": [
+      20.17,
+      22.3
+     ],
+     "seconds_in_window": 2.13
+    }
+   ],
+   "knockdowns_count": 2,
+   "simultaneous_grounded_ge2_longest_s": 1.94,
+   "getups_distinct": [
+    "fight:getUp",
+    "fight:getUp2"
+   ],
+   "getups": [
+    [
+     "Fight_Brute",
+     "fight:getUp2",
+     21.6
+    ],
+    [
+     "Fight_Tee",
+     "fight:getUp",
+     21.95
+    ]
+   ],
+   "guard_hold_longest_s_per_enemy": {
+    "Fight_Thug": 1.03,
+    "Fight_Brute": 1.28,
+    "Fight_Hood": 1.05,
+    "Fight_Tee": 1.98,
+    "Fight_Beard": 1.18,
+    "Fight_Oxblood": 1.15
+   },
+   "guard_hold_max_s": 1.98,
+   "hero_feet_to_grounded_body_min_cm": 47.2
+  }
+ }
+}

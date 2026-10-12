@@ -1,0 +1,116 @@
+{
+  "scope": [
+    "camera loss",
+    "firing-arm snap",
+    "catch ending repetition",
+    "rotation-rate spikes"
+  ],
+  "baseline": "ecb68aade62ea2eb5ae201d3ac1a60b28b9d3899",
+  "started_utc": "2026-10-12T02:04:46.113381+00:00",
+  "phase": "complete; stopped at preserved owner checkpoint",
+  "automatic_broad_loop": false,
+  "task_renderer_limit": 1,
+  "global_renderer_limit": 2,
+  "source_commits": {
+    "arm": "05095e22",
+    "camera1": "4a5a7f49",
+    "motion": "6038cf1d",
+    "skeletal_bounds": "26736a83",
+    "late_axis_telemetry": "55fac411",
+    "measurement_alignment": "85b82f06",
+    "camera2": "a85a3fce",
+    "sway": "ae8f8666",
+    "camera_geometry_probe": "c6be6b51",
+    "entry_ramp": "327e793f",
+    "stable_arm_flight": "4c8b8c0b",
+    "camera3": "ceb750f8",
+    "entry_final": "1e85f2cc",
+    "catch_prediction": "d85d7039",
+    "front_double_headroom": "50920fdf",
+    "camera_coupled_placement": "19521659"
+  },
+  "validated_probes": {
+    "arm_c1": {
+      "max_launch_direction_step_before_deg": 131.6,
+      "after_deg": 69.0,
+      "aim_error_at_arrival_deg": 1.3,
+      "native_frames_inspected": true
+    },
+    "integrated_c6": {
+      "rudi_peak_before_dps": 871.3,
+      "after_dps": 778.9,
+      "primary_open_hold_s": 0.44,
+      "hero_absent_before": 3,
+      "hero_absent_after": 0,
+      "clipped_frames_after": 7,
+      "camera_complete": false
+    },
+    "arm_c1_final": {
+      "max_launch_direction_step_before_deg": 131.6,
+      "after_deg": 26.0,
+      "aim_error_at_arrival_deg": 2.1,
+      "native_frames_inspected": true
+    },
+    "camera3_c6c7": {
+      "source": "ceb750f8",
+      "rudi_f3_dps": 779.0,
+      "fullTwist_f3_dps": 783.9,
+      "roof_hero_absent_frames": 0,
+      "remaining_wall_top_clipping_frames": 3
+    },
+    "tailguard": {
+      "source": "ef263be2",
+      "native_frames_inspected": true,
+      "critical_window_s": [
+        2.5,
+        3.55
+      ],
+      "absent_frames": 0,
+      "frame_edge_clips": 0,
+      "camera_peak_pitch_step_before_after_deg": [
+        14.96,
+        8.47
+      ],
+      "camera_peak_yaw_step_before_after_deg": [
+        12.25,
+        9.95
+      ],
+      "camera_peak_position_step_before_after_m": [
+        2.118,
+        1.485
+      ],
+      "nominal_TC_K_pass": false
+    }
+  },
+  "runtime_policy": {
+    "desktop_owner": "midir",
+    "paused": false,
+    "foreign_renderers_before_launch": 0,
+    "dialog_helpers_started": "2026-10-11 14:31 EDT; predates prior owner clear; same desktop boot",
+    "UE_firewall_incoming": "permitted",
+    "new_listening_tools": false
+  },
+  "models": {
+    "orchestrator_requested": "GPT-6 Astra/high",
+    "camera_engineer": "gpt-6.1-sol/xhigh",
+    "motion_engineer": "gpt-6.1-sol/xhigh",
+    "scout_tooling": "gpt-6-sol/high",
+    "critic_planned": "fresh gpt-6.1-sol/xhigh"
+  },
+  "math_validation": {
+    "variants": 416,
+    "max_program_pitch_dps": 786.075,
+    "minimum_noncatch_hold_s": 0.325,
+    "means_dps": [
+      302.064,
+      366.723
+    ],
+    "rng": "matched to installed UE5.8; supersedes initial temporary adapter numbers"
+  },
+  "runtime_source_commit": "2db142143bc60709a1db726a445d17aee2a57aca",
+  "final_evidence_directory": "../round-13-four-fixes-final",
+  "final_core_capture_gate": "PASS",
+  "owner_artifact_runtime_verified": true,
+  "completed_utc": "2026-10-12T05:15:59.425472+00:00",
+  "final_results": "../round-13-four-fixes-final/RESULTS.md"
+}

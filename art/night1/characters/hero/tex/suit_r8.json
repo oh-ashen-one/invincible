@@ -1,0 +1,8 @@
+{
+ "size": 8192,
+ "coverage": 0.6222,
+ "uv_units_per_m": 0.5692,
+ "detail_tiling": 122.0,
+ "yarn_mm": 0.45,
+ "design": "Tessera (original), tools/ue_char/suit8/design.py"
+}

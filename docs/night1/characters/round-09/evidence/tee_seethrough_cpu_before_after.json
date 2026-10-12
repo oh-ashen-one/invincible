@@ -1,0 +1,25 @@
+{
+ "method": "tools/ue_char/people/pose_view.py Tee --size 3840x2160 (CPU, lineup close-up camera, back-face culled like the game) with the round-08 mesh (P2_NO_SEETHROUGH=1 prepare_person + skinfit) vs the round-09 mesh; pixels whose colour differs by > 30/255 between the two renders",
+ "round08_mesh_extra_background_pixels_in_mask": [
+  {
+   "px": 264,
+   "centre": [
+    2363,
+    1316
+   ],
+   "kind": "light background showing through"
+  },
+  {
+   "px": 110,
+   "centre": [
+    2457,
+    1307
+   ],
+   "kind": "dark sliver"
+  }
+ ],
+ "round09_mesh": "no difference component left: the same pixels are cloth",
+ "covered_px_round08": 2916310,
+ "covered_px_round09": 2916574,
+ "note": "the engine capture of round 08 (tee_face_4k.jpg) had components of 188 / 72 / 22 px (seethrough_4k.py) at 4K; sizes differ from the CPU render (other lighting / mip filtering), the mechanism is the same"
+}

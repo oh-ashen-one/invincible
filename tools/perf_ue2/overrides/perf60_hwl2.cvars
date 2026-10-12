@@ -1,0 +1,17 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# Round 04 preset "perf60_hwl2" = round-03 perf60_hwl (full hardware-RT Lumen, Nanite error 8, skeletal meshes out of the RT scene, TSR 50 %) plus:
+set:perf60_hwl
+# 1. VSM: the per-frame page invalidation on the route was REVEALED non-Nanite primitives (primitives going from CPU-culled to unculled for the clipmap,
+#    engine VirtualShadowMapCacheManager.cpp OnPrimitiveRendered): the far-shadow culling (primitives without "cast far shadow" are culled beyond the
+#    directional light's dynamic shadow distance) and the frustum-clipped caster volume re-reveal primitives every frame while the camera swings.
+#    Round-04 sessions v1 / x1: ShadowDepths p95 4.20 -> 2.44 ms, route p50 -0.9 / p95 -1.5 ms. UseFarShadowCulling 0 also drops the distance-field
+#    far-shadow cascade (GPU/DistanceFieldShadows 0.53 ms): far shadows come from the VSM clipmap instead.
+r.Shadow.Virtual.UseFarShadowCulling=0
+r.Shadow.Virtual.Clipmap.UseConservativeCulling=1
+# 2. Cloud: TracingMaxDistance goes back to 20 km (content, perf_apply cloud); the march spreads its samples over 50 km instead of 15 km, so a 20 km
+#    segment takes 40 % of the sample budget = the as-found step length (50 km segment / max samples). Session w1: cloud pass 1.24 -> 0.58 ms.
+r.VolumetricCloud.DistanceToSampleMaxCount=50
+# 3. Ray tracing: the tree leaves are back in the ray-tracing scene (content, perf_apply rt_lite_trees + tree_rt_opaque); instances whose bounding sphere
+#    subtends less than 3 degrees are culled from it (default 1): a street tree (~5 m radius) stays in to ~100 m, a 15 m facade block to ~290 m
+#    (the default 300 m culling radius stays). Session y1: 15.81 / 17.72 (L3op) vs 16.08 / 17.90 at 1 degree.
+r.RayTracing.Culling.Angle=3

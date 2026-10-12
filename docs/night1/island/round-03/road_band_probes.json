@@ -1,0 +1,83 @@
+{
+ "what": "rendered still probes of the r5 route at the road-band seconds (1080p PNG, -shots 12,20,26,28, same fixed-step sim as the movie); lane paint % / luminance std (tools/export/island_road_band.py)",
+ "probes": [
+  {
+   "name": "probe2",
+   "what": "first probe, streaming source present, street dressing still missing (ISM defect), no camera pulses",
+   "frames": [
+    {
+     "t_s": 12.0,
+     "lane_paint_pct": 0.02,
+     "luma_std": 19.8
+    },
+    {
+     "t_s": 20.0,
+     "lane_paint_pct": 2.46,
+     "luma_std": 40.8
+    },
+    {
+     "t_s": 26.0,
+     "lane_paint_pct": 1.15,
+     "luma_std": 35.5
+    },
+    {
+     "t_s": 28.0,
+     "lane_paint_pct": 0.99,
+     "luma_std": 26.2
+    }
+   ]
+  },
+  {
+   "name": "probe3",
+   "what": "after the ISM fix, no camera pulses",
+   "frames": [
+    {
+     "t_s": 12.0,
+     "lane_paint_pct": 0.69,
+     "luma_std": 33.3
+    },
+    {
+     "t_s": 20.0,
+     "lane_paint_pct": 2.77,
+     "luma_std": 48.8
+    },
+    {
+     "t_s": 26.0,
+     "lane_paint_pct": 0.91,
+     "luma_std": 39.4
+    },
+    {
+     "t_s": 28.0,
+     "lane_paint_pct": 0.96,
+     "luma_std": 35.7
+    }
+   ]
+  },
+  {
+   "name": "L1_down14",
+   "what": "after the ISM fix, pitch-down look pulses 14 deg/s x 0.7 s ending 0.3 s before each second (the route's look keys, t28 pulse 22 deg/s x 0.8 s in the final route)",
+   "frames": [
+    {
+     "t_s": 12.0,
+     "lane_paint_pct": 2.42,
+     "luma_std": 45.8
+    },
+    {
+     "t_s": 20.0,
+     "lane_paint_pct": 4.28,
+     "luma_std": 44.3
+    },
+    {
+     "t_s": 26.0,
+     "lane_paint_pct": 1.68,
+     "luma_std": 36.7
+    },
+    {
+     "t_s": 28.0,
+     "lane_paint_pct": 0.95,
+     "luma_std": 36.6
+    }
+   ]
+  }
+ ]
+}

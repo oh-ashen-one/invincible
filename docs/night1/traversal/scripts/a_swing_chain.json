@@ -1,0 +1,121 @@
+{
+ "name": "a_swing_chain",
+ "spawn": {
+  "pos": [
+   0,
+   0,
+   22
+  ],
+  "yaw": 0,
+  "camPitch": 0.12,
+  "vel": [
+   22,
+   0,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 0,
+   "swing": false
+  },
+  {
+   "t": 0.0,
+   "trick": false
+  },
+  {
+   "t": 0.0,
+   "swing": false
+  },
+  {
+   "t": 0.395,
+   "swing": true
+  },
+  {
+   "t": 1.945,
+   "swing": false
+  },
+  {
+   "t": 2.095,
+   "swing": true
+  },
+  {
+   "t": 4.0283,
+   "swing": false
+  },
+  {
+   "t": 4.1783,
+   "swing": true
+  },
+  {
+   "t": 5.8783,
+   "trick": true
+  },
+  {
+   "t": 5.8783,
+   "swing": false
+  },
+  {
+   "t": 5.895,
+   "trick": false
+  },
+  {
+   "t": 6.0283,
+   "swing": true
+  },
+  {
+   "t": 7.8783,
+   "swing": false
+  },
+  {
+   "t": 8.0283,
+   "swing": true
+  },
+  {
+   "t": 9.445,
+   "swing": false
+  },
+  {
+   "t": 9.595,
+   "swing": true
+  },
+  {
+   "t": 11.1617,
+   "trick": true
+  },
+  {
+   "t": 11.1617,
+   "swing": false
+  },
+  {
+   "t": 11.1783,
+   "trick": false
+  },
+  {
+   "t": 11.3117,
+   "swing": true
+  },
+  {
+   "t": 12.8117,
+   "swing": false
+  },
+  {
+   "t": 12.9617,
+   "swing": true
+  },
+  {
+   "t": 14.3783,
+   "swing": false
+  },
+  {
+   "t": 14.5283,
+   "swing": true
+  }
+ ],
+ "baked_from": "a_auto.json"
+}

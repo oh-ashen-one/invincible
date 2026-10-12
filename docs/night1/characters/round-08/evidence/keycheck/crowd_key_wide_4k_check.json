@@ -1,0 +1,179 @@
+{
+ "image": "crowd_key_wide_4k.png",
+ "size": [
+  3840,
+  2160
+ ],
+ "key_bgr": [
+  2,
+  235,
+  6
+ ],
+ "key_exact_bg_px": 7853409,
+ "person_px": 440991,
+ "bg_median_bgr": [
+  2,
+  235,
+  6
+ ],
+ "g_gt_r40_person_px": 1726,
+ "g_gt_r40_in_clusters_px": 1726,
+ "fringe_px": 0,
+ "g_dominant_person_px": 0,
+ "g_dominant_in_clusters_px": 0,
+ "clusters": [
+  {
+   "bbox": [
+    2145,
+    965,
+    39,
+    64
+   ],
+   "px": 1726,
+   "mean_bgr": [
+    138,
+    134,
+    2
+   ]
+  }
+ ],
+ "enclosed_key_components": 18,
+ "enclosed_key_px": 371,
+ "enclosed_key_thin_components": 18,
+ "enclosed_key_top": [
+  {
+   "bbox": [
+    3175,
+    1036,
+    5,
+    32
+   ],
+   "px": 86,
+   "width_px": 4.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    1850,
+    1109,
+    9,
+    13
+   ],
+   "px": 57,
+   "width_px": 5.7,
+   "thin": true
+  },
+  {
+   "bbox": [
+    2028,
+    1029,
+    5,
+    23
+   ],
+   "px": 35,
+   "width_px": 2.8,
+   "thin": true
+  },
+  {
+   "bbox": [
+    3187,
+    1055,
+    4,
+    14
+   ],
+   "px": 29,
+   "width_px": 4.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    964,
+    1150,
+    3,
+    22
+   ],
+   "px": 29,
+   "width_px": 2.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    3244,
+    1064,
+    4,
+    10
+   ],
+   "px": 27,
+   "width_px": 4.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    2181,
+    1012,
+    2,
+    12
+   ],
+   "px": 18,
+   "width_px": 2.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    963,
+    1126,
+    3,
+    11
+   ],
+   "px": 17,
+   "width_px": 2.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    987,
+    964,
+    3,
+    6
+   ],
+   "px": 12,
+   "width_px": 2.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    960,
+    1140,
+    3,
+    8
+   ],
+   "px": 12,
+   "width_px": 2.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    1458,
+    1181,
+    4,
+    6
+   ],
+   "px": 10,
+   "width_px": 2.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    3178,
+    1026,
+    2,
+    6
+   ],
+   "px": 8,
+   "width_px": 2.0,
+   "thin": true
+  }
+ ],
+ "detached_components": 0,
+ "detached": []
+}

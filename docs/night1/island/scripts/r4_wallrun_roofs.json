@@ -1,0 +1,108 @@
+{
+ "name": "r4_wallrun_roofs",
+ "note": "Island r01 route 4 (30 s): the c_wallrun_perch opening (swing north, steer east into the loft facade at x 266, wall-run, top-out, zip to a roof edge, perch), then run north across the roofs, jump the gaps, and swing on (mid-air landings on roofs = the owner's complaint).",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   240,
+   22
+  ],
+  "yaw": -90,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": true
+  },
+  {
+   "t": 0.9,
+   "heading": 0
+  },
+  {
+   "t": 1.7,
+   "swing": false
+  },
+  {
+   "t": 6.6,
+   "move": [
+    0,
+    0
+   ],
+   "heading": false
+  },
+  {
+   "t": 7.1,
+   "look": [
+    -150.0,
+    -10.0
+   ]
+  },
+  {
+   "t": 8.3,
+   "look": [
+    0,
+    0
+   ]
+  },
+  {
+   "t": 8.5,
+   "zip": true
+  },
+  {
+   "t": 8.6,
+   "zip": false
+  },
+  {
+   "t": 11.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "sprint": true
+  },
+  {
+   "t": 13.5,
+   "jump": true
+  },
+  {
+   "t": 13.9,
+   "jump": false
+  },
+  {
+   "t": 16.0,
+   "jump": true
+  },
+  {
+   "t": 16.4,
+   "jump": false
+  },
+  {
+   "t": 17.0,
+   "swing": true,
+   "sprint": false,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.8,
+   "repressVz": 99.0,
+   "trickEvery": 3,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  }
+ ]
+}

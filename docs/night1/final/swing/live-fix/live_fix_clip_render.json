@@ -1,0 +1,19 @@
+{
+ "clip": "live_fix_clip",
+ "map": "island",
+ "cases": [
+  {
+   "case": "live_fix_clip",
+   "frames_rendered": 991,
+   "preroll_frames_cut": 92,
+   "rows": 899,
+   "wall_s": 105.0,
+   "fps_render": 9.44
+  }
+ ],
+ "frames": 899,
+ "duration_s": 14.98,
+ "mp4_mb": 11.51,
+ "crf": 28,
+ "wall_s_total": 105.0
+}

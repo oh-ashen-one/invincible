@@ -1,0 +1,19 @@
+# Swing arc test, round 10 (drop_test.py)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# lit /Game/Maps/Manhattan (golden), 1080p60 captures
+# NOTE: the PASS/FAIL words below use the round-06..08 critic targets (>= 7 attaches / 12 s, drop >= 10 m, rope on screen >= 75 %, near-wall share <= 30 %, hero >= 160 px). TRAVERSAL-SPEC (director, 2026-09-29) voids several of them (T2 2-4 attaches / 8 s, T3 rope 25-45 %, T5 anchor need not be on screen, T17/T18 near geometry is wanted). The spec verdict is SPEC_CHECK.txt; facade_check's hero/camera-to-facade metres read the gray-box Trav_Canyon layout and are meaningless in Manhattan (0.00 m); its rendered near-wall share is valid.
+
+## a_swing_chain
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   0.40   22.9   21.5   11.1   11.8   15.6   23.5  1.25      1.2%   42.6%  ok
+ 2   4.53   50.1   38.5    7.0   43.1    8.4   50.3  1.42     13.7%   21.4%  ok
+ 3   6.77   10.3    9.5    4.7    5.6   17.7   28.0  1.15     16.4%   32.3%  DROP<10
+ 4  10.60   41.5   29.0    6.7   34.9   14.6   32.0  1.55      6.2%   22.5%  ok
+ 5  12.97   19.0   18.7    3.2   15.8   16.1   28.2  1.30     18.3%   39.6%  ok
+DROP TEST: FAIL (5 swings)
+## d_sprint_jump_first_swing
+ #     t0   relH entryH   lowH   drop  exitH   rope   dur VPlow>rel VPcycle  result
+ 1   2.68    5.0    4.9    3.4    1.6    4.8   20.4  1.25      6.7%   26.2%  DROP<10 (first swing exempt)
+ 2   6.48   35.7   29.4    5.8   30.0    7.3   32.1  1.37      9.0%   23.3%  ok
+ 3   8.67   12.8   12.6    4.6    8.2   19.0   30.5  1.42     16.1%   39.1%  DROP<10
+DROP TEST: FAIL (3 swings)

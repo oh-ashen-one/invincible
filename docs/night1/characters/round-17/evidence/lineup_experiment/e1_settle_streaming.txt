@@ -1,0 +1,57 @@
+[  0]LogTemp: Display: WH_SETTLE protocol on: 32 static rendered frames + 4.0 world s after every texture of the visible actors is resident; 1 shots at stage T (rel=1)
+[  1]LogTemp: Display: WH_PROBE tick=1 frame=1 world=0.401 stage_T=27.500 dt_ms=400.0 textures_not_resident=0 () assets_compiling=27 shaders_compiling=0
+[  2]LogTemp: Display: WH_PROBE tick=2 frame=2 world=0.677 stage_T=27.900 dt_ms=276.1 textures_not_resident=0 () assets_compiling=25 shaders_compiling=0
+[  3]LogTemp: Display: WH_PROBE tick=3 frame=3 world=0.874 stage_T=28.176 dt_ms=197.3 textures_not_resident=0 () assets_compiling=24 shaders_compiling=0
+[  4]LogTemp: Display: WH_PROBE tick=4 frame=4 world=1.117 stage_T=28.373 dt_ms=243.3 textures_not_resident=0 () assets_compiling=22 shaders_compiling=0
+[  5]LogTemp: Display: WH_PROBE tick=5 frame=5 world=1.360 stage_T=28.617 dt_ms=242.9 textures_not_resident=0 () assets_compiling=21 shaders_compiling=0
+[  6]LogTemp: Display: WH_PROBE tick=6 frame=6 world=1.679 stage_T=28.860 dt_ms=318.6 textures_not_resident=0 () assets_compiling=20 shaders_compiling=0
+[  7]LogTemp: Display: WH_PROBE tick=7 frame=7 world=1.853 stage_T=29.178 dt_ms=174.8 textures_not_resident=0 () assets_compiling=18 shaders_compiling=0
+[  8]LogTemp: Display: WH_PROBE tick=8 frame=8 world=2.127 stage_T=29.353 dt_ms=273.8 textures_not_resident=0 () assets_compiling=17 shaders_compiling=0
+[  9]LogTemp: Display: WH_PROBE tick=9 frame=9 world=2.269 stage_T=29.627 dt_ms=141.3 textures_not_resident=0 () assets_compiling=15 shaders_compiling=0
+[ 10]LogTemp: Display: WH_PROBE tick=10 frame=10 world=2.580 stage_T=29.768 dt_ms=311.9 textures_not_resident=0 () assets_compiling=13 shaders_compiling=0
+[ 11]LogTemp: Display: WH_PROBE tick=11 frame=11 world=2.882 stage_T=30.080 dt_ms=301.9 textures_not_resident=0 () assets_compiling=12 shaders_compiling=0
+[ 12]LogTemp: Display: WH_PROBE tick=12 frame=12 world=3.203 stage_T=30.382 dt_ms=320.4 textures_not_resident=0 () assets_compiling=11 shaders_compiling=0
+[ 12]LogTemp: Display: WH_SETTLE froze 31 walker actors (Tick disabled while the shot settles)
+[ 12]LogTemp: Display: WH_SETTLE shot 0: stage clock + animations + camera frozen at T=30.702 (frame 12); waiting for assets / textures
+[ 13]LogTemp: Display: WH_PROBE tick=13 frame=13 world=3.603 stage_T=30.702 dt_ms=400.0 textures_not_resident=0 () assets_compiling=9 shaders_compiling=0
+[ 14]LogTemp: Display: WH_PROBE tick=14 frame=14 world=3.740 stage_T=30.702 dt_ms=137.2 textures_not_resident=0 () assets_compiling=8 shaders_compiling=0
+[ 15]LogTemp: Display: WH_PROBE tick=15 frame=15 world=4.063 stage_T=30.702 dt_ms=322.7 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 15]LogTemp: Display: WH_SETTLE shot 0: resident after 0.9 s wall (3 frames); counting static rendered frames
+[ 16]LogTemp: Display: WH_PROBE tick=16 frame=16 world=4.376 stage_T=30.702 dt_ms=313.1 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 17]LogTemp: Display: WH_PROBE tick=17 frame=17 world=4.520 stage_T=30.702 dt_ms=144.3 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 17]LogTemp: Display: WH_SETTLE_DUMP /Users/midir/sm2-n1/_scratch/characters/r17/chainC/run/lineupx/e1_stream/e1_00_c001.png after 1 static rendered frames (frame 17, world 4.520)
+[ 18]LogTemp: Display: WH_PROBE tick=18 frame=18 world=4.920 stage_T=30.702 dt_ms=400.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 18]LogTemp: Display: WH_SETTLE_DUMP /Users/midir/sm2-n1/_scratch/characters/r17/chainC/run/lineupx/e1_stream/e1_00_c002.png after 2 static rendered frames (frame 18, world 4.920)
+[ 19]LogTemp: Display: WH_PROBE tick=19 frame=19 world=5.320 stage_T=30.702 dt_ms=400.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 20]LogTemp: Display: WH_PROBE tick=20 frame=20 world=5.603 stage_T=30.702 dt_ms=283.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 20]LogTemp: Display: WH_SETTLE_DUMP /Users/midir/sm2-n1/_scratch/characters/r17/chainC/run/lineupx/e1_stream/e1_00_c004.png after 4 static rendered frames (frame 20, world 5.603)
+[ 21]LogTemp: Display: WH_PROBE tick=21 frame=21 world=6.003 stage_T=30.702 dt_ms=400.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 22]LogTemp: Display: WH_PROBE tick=22 frame=22 world=6.158 stage_T=30.702 dt_ms=155.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 23]LogTemp: Display: WH_PROBE tick=23 frame=23 world=6.442 stage_T=30.702 dt_ms=284.3 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 24]LogTemp: Display: WH_PROBE tick=24 frame=24 world=6.752 stage_T=30.702 dt_ms=309.4 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 24]LogTemp: Display: WH_SETTLE_DUMP /Users/midir/sm2-n1/_scratch/characters/r17/chainC/run/lineupx/e1_stream/e1_00_c008.png after 8 static rendered frames (frame 24, world 6.752)
+[ 25]LogTemp: Display: WH_PROBE tick=25 frame=25 world=7.152 stage_T=30.702 dt_ms=400.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 26]LogTemp: Display: WH_PROBE tick=26 frame=26 world=7.397 stage_T=30.702 dt_ms=244.7 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 27]LogTemp: Display: WH_PROBE tick=27 frame=27 world=7.531 stage_T=30.702 dt_ms=134.4 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 28]LogTemp: Display: WH_PROBE tick=28 frame=28 world=7.674 stage_T=30.702 dt_ms=142.9 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 29]LogTemp: Display: WH_PROBE tick=29 frame=29 world=7.882 stage_T=30.702 dt_ms=208.3 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 30]LogTemp: Display: WH_PROBE tick=30 frame=30 world=8.185 stage_T=30.702 dt_ms=303.2 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 31]LogTemp: Display: WH_PROBE tick=31 frame=31 world=8.508 stage_T=30.702 dt_ms=322.4 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 32]LogTemp: Display: WH_PROBE tick=32 frame=32 world=8.667 stage_T=30.702 dt_ms=159.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 32]LogTemp: Display: WH_SETTLE_DUMP /Users/midir/sm2-n1/_scratch/characters/r17/chainC/run/lineupx/e1_stream/e1_00_c016.png after 16 static rendered frames (frame 32, world 8.667)
+[ 33]LogTemp: Display: WH_PROBE tick=33 frame=33 world=9.067 stage_T=30.702 dt_ms=400.0 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 34]LogTemp: Display: WH_PROBE tick=34 frame=34 world=9.249 stage_T=30.702 dt_ms=181.9 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 35]LogTemp: Display: WH_PROBE tick=35 frame=35 world=9.568 stage_T=30.702 dt_ms=319.6 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 36]LogTemp: Display: WH_PROBE tick=36 frame=36 world=9.858 stage_T=30.702 dt_ms=289.7 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 37]LogTemp: Display: WH_PROBE tick=37 frame=37 world=10.021 stage_T=30.702 dt_ms=162.6 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 38]LogTemp: Display: WH_PROBE tick=38 frame=38 world=10.199 stage_T=30.702 dt_ms=178.8 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 39]LogTemp: Display: WH_PROBE tick=39 frame=39 world=10.413 stage_T=30.702 dt_ms=213.9 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 40]LogTemp: Display: WH_PROBE tick=40 frame=40 world=10.674 stage_T=30.702 dt_ms=260.8 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 40]LogTemp: Display: WH_SETTLE_DUMP /Users/midir/sm2-n1/_scratch/characters/r17/chainC/run/lineupx/e1_stream/e1_00_c024.png after 24 static rendered frames (frame 40, world 10.674)
+[ 44]LogTemp: Display: WH_PROBE tick=44 frame=44 world=11.638 stage_T=30.702 dt_ms=301.6 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 48]LogTemp: Display: WH_PROBE tick=48 frame=48 world=12.653 stage_T=30.702 dt_ms=178.7 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 50]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r17/chainC/run/lineupx/e1_stream/e1_00_t030.5.png stage T=30.702 world=13.120 settle_frames=34 static_world_s=8.74 resets=0 wall_s=30.1
+[ 52]LogTemp: Display: WH_PROBE tick=52 frame=52 world=13.759 stage_T=30.702 dt_ms=238.8 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 56]LogTemp: Display: WH_PROBE tick=56 frame=56 world=14.681 stage_T=31.160 dt_ms=317.8 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 60]LogTemp: Display: WH_PROBE tick=60 frame=60 world=15.748 stage_T=32.231 dt_ms=313.9 textures_not_resident=0 () assets_compiling=0 shaders_compiling=0
+[ 65]LogTemp: Display: WH_QUIT stage T=33.82 (director: 3 s after the last of 1 stage shots, -WHStageShotQuit)

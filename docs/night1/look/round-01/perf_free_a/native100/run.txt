@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/look/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_a/native100 -map /Game/Tests/Look/Look_Midtown -res 3840x2160 -perf 22:52 -name native100 -timeout 900 -exec r.ScreenPercentage 100 -- -WHTravScript=/Users/midir/sm2-n1/look/tools/perf_ue/scripts/city_swing_avenue.json -WHTravCsv=/Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_a/native100/trav_telemetry.csv -csvGpuStats
+
+run_game: out=/Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_a/native100 res=3840x2160 quit=53.0 window=0 movie=0
+WH_PERF_START t=22.01
+WH_PERF frames=606 avg_ms=49.56 fps=20.2 p95_ms=74.88 p99_ms=83.24 gpu_avg_ms=46.45 out=3840x2160 internal=3840x2160 (manual) -> /Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_a/native100/native100_perf.json
+WH_QUIT t=53.02
+

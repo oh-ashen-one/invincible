@@ -1,0 +1,5 @@
+centralpark-meadow-skyline__cp_0605.jpg [200, 1320, 512, 400] meadow-skyline lawn L hp6 5.73 hp3 3.23 sat 0.822 luma 81.7 rgb [80.1, 95.0, 17.6]
+centralpark-meadow-skyline__cp_0605.jpg [2200, 1360, 512, 460] meadow-skyline lawn R hp6 7.35 hp3 4.45 sat 0.808 luma 85.5 rgb [84.2, 98.9, 19.9]
+centralpark-meadow-skyline__cp_0605.jpg [200, 1700, 512, 400] meadow-skyline lawn low hp6 8.61 hp3 5.23 sat 0.855 luma 74.8 rgb [75.3, 86.4, 13.5]
+centralpark-aerial-ballfields__cp_0554.jpg [900, 1120, 512, 400] aerial-ballfields lawn hp6 2.25 hp3 1.25 sat 0.894 luma 119.8 rgb [139.6, 130.2, 14.9]
+centralpark-aerial-ballfields__cp_0554.jpg [120, 1760, 512, 400] aerial-ballfields lawn 2 hp6 1.43 hp3 0.70 sat 0.887 luma 98.1 rgb [108.6, 109.3, 12.9]

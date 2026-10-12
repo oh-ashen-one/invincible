@@ -1,0 +1,9 @@
+{
+ "near_patches": 176557,
+ "far_patches": 58783,
+ "near_tris_per_patch": 3474,
+ "far_tris_per_patch": 1245,
+ "blankets_cleared": 401,
+ "near_blades_per_m2_at_full_density": 514.7,
+ "far_blades_per_m2_at_full_density": 61.4
+}

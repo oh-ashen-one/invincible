@@ -1,0 +1,102 @@
+gpu_slot[capture/characters]: wait phase=queue waited_s=0.2 ahead=1 holders=capture:38537
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=UnrealEditor pid 61873 stuck exiting (stat ?NE)
+gpu_slot[capture/characters]: wait phase=queue waited_s=31.2 ahead=1 holders=capture:38537
+gpu_slot[capture/characters]: wait phase=queue waited_s=62.1 ahead=1 holders=capture:38537
+gpu_slot[capture/characters]: wait phase=queue waited_s=92.3 ahead=1 holders=capture:38537
+gpu_slot[capture/characters]: wait phase=queue waited_s=123.1 ahead=1 holders=capture:38537
+gpu_slot[capture/characters]: wait phase=queue waited_s=153.8 ahead=1 holders=capture:38537
+gpu_slot[capture/characters]: wait phase=queue waited_s=184.7 ahead=1 holders=capture:38537
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner reopening GTA 15:02 - renders paused by game_watch.sh (pre-emptive)
+gpu_slot[capture/characters]: wait phase=queue waited_s=215.0 ahead=1 holders=capture:38537
+gpu_slot[capture/characters]: wait phase=queue waited_s=245.7 ahead=1 holders=
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner reopening GTA 15:02 - renders paused by game_watch.sh (pre-emptive)
+gpu_slot[capture/characters]: wait phase=queue waited_s=276.3 ahead=1 holders=
+gpu_slot[capture/characters]: wait phase=queue waited_s=306.9 ahead=1 holders=
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner reopening GTA 15:02 - renders paused by game_watch.sh (pre-emptive)
+gpu_slot[capture/characters]: wait phase=queue waited_s=337.5 ahead=1 holders=
+gpu_slot[capture/characters]: wait phase=queue waited_s=368.3 ahead=1 holders=
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner reopening GTA 15:02 - renders paused by game_watch.sh (pre-emptive)
+gpu_slot[capture/characters]: wait phase=queue waited_s=399.1 ahead=1 holders=
+gpu_slot[capture/characters]: wait phase=queue waited_s=429.9 ahead=1 holders=
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner reopening GTA 15:02 - renders paused by game_watch.sh (pre-emptive)
+gpu_slot[capture/characters]: wait phase=queue waited_s=460.7 ahead=1 holders=
+gpu_slot[capture/characters]: wait phase=queue waited_s=491.5 ahead=1 holders=
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner reopening GTA 15:02 - renders paused by game_watch.sh (pre-emptive)
+gpu_slot[capture/characters]: wait phase=queue waited_s=522.3 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: wait phase=queue waited_s=553.3 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:08 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=583.4 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: wait phase=queue waited_s=614.4 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:08 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=644.5 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: wait phase=queue waited_s=675.5 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:08 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=706.5 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: wait phase=queue waited_s=737.5 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:08 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=767.6 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: wait phase=queue waited_s=798.5 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:08 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=829.5 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: wait phase=queue waited_s=860.5 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:08 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=890.5 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: wait phase=queue waited_s=921.5 ahead=1 holders=perf:84011
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:08 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=952.4 ahead=1 holders=
+gpu_slot[capture/characters]: wait phase=queue waited_s=983.2 ahead=1 holders=
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:08 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=1013.6 ahead=0 holders=capture:40503
+gpu_slot[capture/characters]: wait phase=queue waited_s=1044.0 ahead=0 holders=
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner reopening GTA 15:16 - renders paused by game_watch.sh (pre-emptive)
+gpu_slot[capture/characters]: wait phase=queue waited_s=1074.8 ahead=0 holders=
+gpu_slot[capture/characters]: wait phase=queue waited_s=1105.6 ahead=0 holders=
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner reopening GTA 15:16 - renders paused by game_watch.sh (pre-emptive)
+gpu_slot[capture/characters]: wait phase=queue waited_s=1136.5 ahead=0 holders=perf:8778
+gpu_slot[capture/characters]: wait phase=queue waited_s=1167.5 ahead=0 holders=perf:8778
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:18 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=1197.5 ahead=0 holders=perf:8778
+gpu_slot[capture/characters]: wait phase=queue waited_s=1228.5 ahead=0 holders=perf:8778
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:18 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=1258.7 ahead=0 holders=perf:8778
+gpu_slot[capture/characters]: wait phase=queue waited_s=1288.8 ahead=0 holders=perf:8778
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:18 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=1318.8 ahead=0 holders=perf:8778
+gpu_slot[capture/characters]: wait phase=queue waited_s=1348.9 ahead=0 holders=perf:8778
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:18 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=1379.1 ahead=0 holders=perf:8778
+gpu_slot[capture/characters]: gpu-unhealthy-wait reason=orchestrator pause: owner game running 15:18 - renders paused by game_watch.sh
+gpu_slot[capture/characters]: wait phase=queue waited_s=1410.0 ahead=0 holders=
+gpu_slot[capture/characters]: wait phase=queue waited_s=1440.8 ahead=0 holders=
+gpu_slot[capture/characters]: acquire slot=0 waited_s=1458.4 phase=lock
+[final2 15:23:46 +0s] build: skins,skinsmap (bias default in build_characters.py)
+gpu_slot[capture/characters]: run child_pid=20639 max_hold_s=2400.0 cmd=bash tools/ue_char/suits/chain_r11_final2.sh /Users/midir/sm2-n1/_scratch/characters/r11/chain4
+build_fight exit=0
+[final2 15:24:24 +38s] exposure bias for every run: 10.0
+[final2 15:24:24 +38s] stills stills_a: 4K, internal 3840x2160, EV 10.0
+run_game: out=/Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a res=3840x2160 quit=135 window=0 movie=0
+WH_PERF_START t=4.13
+WH_PERF frames=4667 avg_ms=26.97 fps=37.1 p95_ms=23.24 p99_ms=24.75 gpu_avg_ms=20.66 out=3840x2160 internal=3840x2160 (manual) -> /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_perf.json
+WH_QUIT t=135.01
+stills_a 32 stills
+[final2 15:26:59 +193s] floor luma of the tessera front still: 172.2
+[final2 15:26:59 +193s] pawn swap movie (1080p -movie, fixed 1/60 s), EV 10.0
+run_game: out=/Users/midir/sm2-n1/_scratch/characters/r11/chain4/pawn3 res=1920x1080 quit=11.5 window=0 movie=1
+WH_QUIT t=11.50
+movie frames: 691 -> /Users/midir/sm2-n1/_scratch/characters/r11/chain4/pawn3/pawn_frames
+movie: /Users/midir/sm2-n1/_scratch/characters/r11/chain4/pawn3/pawn.mp4
+[final2 15:29:59 +373s] floor luma of the pawn movie, frame 30: 141.1
+[final2 15:29:59 +373s] persist relaunch (960x540 still at 3 s)
+run_game: out=/Users/midir/sm2-n1/_scratch/characters/r11/chain4/persist3 res=960x540 quit=4.5 window=0 movie=0
+WH_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/persist3/persist_00_t003.0.png
+WH_QUIT t=4.50
+[final2 15:30:17 +391s] settings menu (1080p still at 4 s)
+run_game: out=/Users/midir/sm2-n1/_scratch/characters/r11/chain4/menu3 res=1920x1080 quit=5.5 window=0 movie=0
+WH_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/menu3/menu_00_t004.0.png
+WH_QUIT t=5.51
+[final2 15:30:36 +410s] orbit movie (1080p -movie)
+WH_QUIT t=12.60
+movie frames: 757 -> /Users/midir/sm2-n1/_scratch/characters/r11/chain4/orbit3/orbit_frames
+movie: /Users/midir/sm2-n1/_scratch/characters/r11/chain4/orbit3/orbit.mp4
+[final2 15:33:45 +599s] final2 done (hold used 599 s), EV 10.0, crashes 0
+gpu_slot[capture/characters]: release exit=0 hold_s=600.07 wait_s=1458.43 util_before=0 util_after=9 instances_before=0 instances_max=1 contaminated=true reasons=no-exclusive-lock

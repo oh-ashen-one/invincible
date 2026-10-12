@@ -1,0 +1,22 @@
+{
+ "landmarks": {
+  "eye": 1.6429,
+  "nose": 1.6119,
+  "ear_lobe": 1.5849,
+  "chin": 1.5001,
+  "nose_r": 0.157
+ },
+ "mask_subdivided_tris": 697,
+ "tris_after_subdiv": 8390,
+ "tris_before": 6173,
+ "draped_verts": 1097,
+ "drape_max_cm": 5.19,
+ "graphic_px": 24908,
+ "seam_blend_px": 804161,
+ "mask_px": 254980,
+ "name": "StreetBeard",
+ "verts": 8022,
+ "tris": 8390,
+ "variants": [],
+ "seconds": 13.0
+}

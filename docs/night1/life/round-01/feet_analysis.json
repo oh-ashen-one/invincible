@@ -1,0 +1,126 @@
+{
+ "walkers": {
+  "0": {
+   "period_s": 1.113,
+   "phase0": 0.733,
+   "root_speed_cm_s": 60.9,
+   "stance_disp_cm_median": 19.3,
+   "stances": 22
+  },
+  "1": {
+   "period_s": 1.061,
+   "phase0": 0.012,
+   "root_speed_cm_s": 92.4,
+   "stance_disp_cm_median": 14.1,
+   "stances": 23
+  },
+  "2": {
+   "period_s": 1.094,
+   "phase0": 0.482,
+   "root_speed_cm_s": 68.3,
+   "stance_disp_cm_median": 12.7,
+   "stances": 23
+  },
+  "3": {
+   "period_s": 0.947,
+   "phase0": 0.547,
+   "root_speed_cm_s": 83.2,
+   "stance_disp_cm_median": 15.8,
+   "stances": 23
+  },
+  "4": {
+   "period_s": 1.06,
+   "phase0": 0.141,
+   "root_speed_cm_s": 95.5,
+   "stance_disp_cm_median": 12.4,
+   "stances": 23
+  },
+  "5": {
+   "period_s": 1.016,
+   "phase0": 0.406,
+   "root_speed_cm_s": 115.2,
+   "stance_disp_cm_median": 21.1,
+   "stances": 24
+  },
+  "6": {
+   "period_s": 1.013,
+   "phase0": 0.102,
+   "root_speed_cm_s": 93.5,
+   "stance_disp_cm_median": 14.1,
+   "stances": 22
+  },
+  "7": {
+   "period_s": 0.994,
+   "phase0": 0.802,
+   "root_speed_cm_s": 87.0,
+   "stance_disp_cm_median": 21.1,
+   "stances": 23
+  },
+  "8": {
+   "period_s": 1.045,
+   "phase0": 0.292,
+   "root_speed_cm_s": 81.9,
+   "stance_disp_cm_median": 13.5,
+   "stances": 23
+  },
+  "9": {
+   "period_s": 1.023,
+   "phase0": 0.837,
+   "root_speed_cm_s": 109.5,
+   "stance_disp_cm_median": 14.5,
+   "stances": 24
+  },
+  "10": {
+   "period_s": 1.019,
+   "phase0": 0.709,
+   "root_speed_cm_s": 113.4,
+   "stance_disp_cm_median": 16.9,
+   "stances": 24
+  },
+  "11": {
+   "period_s": 1.06,
+   "phase0": 0.141,
+   "root_speed_cm_s": 71.4,
+   "stance_disp_cm_median": 16.5,
+   "stances": 23
+  },
+  "12": {
+   "period_s": 1.055,
+   "phase0": 0.531,
+   "root_speed_cm_s": 72.8,
+   "stance_disp_cm_median": 16.3,
+   "stances": 23
+  },
+  "13": {
+   "period_s": 1.085,
+   "phase0": 0.318,
+   "root_speed_cm_s": 90.9,
+   "stance_disp_cm_median": 15.3,
+   "stances": 23
+  }
+ },
+ "gait": {
+  "walkers": 14,
+  "phases": [
+   0.012,
+   0.102,
+   0.141,
+   0.141,
+   0.292,
+   0.318,
+   0.406,
+   0.482,
+   0.531,
+   0.547,
+   0.709,
+   0.733,
+   0.802,
+   0.837
+  ],
+  "max_pairwise_diff_cycles": 0.49,
+  "mean_pairwise_diff_cycles": 0.264,
+  "pairs_within_0.05_cycle": 8,
+  "pairs": 91,
+  "resultant_length_R (0 = evenly spread, 1 = lockstep)": 0.074
+ }
+}

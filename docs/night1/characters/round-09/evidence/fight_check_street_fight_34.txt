@@ -1,0 +1,37 @@
+{
+ "idle_windows_all_walkers_inactive": [],
+ "min_walkers_active_in_any_1s_window": 3,
+ "window_summary": {
+  "reactions": 5,
+  "visible": 5,
+  "distinct_clips": [
+   "fight:down",
+   "fight:hitBack",
+   "fight:hitLeft",
+   "fight:hitRight"
+  ],
+  "knockdowns_ge_1s_in_window": [
+   [
+    "Fight_Thug",
+    [
+     12.733,
+     15.65
+    ]
+   ],
+   [
+    "Fight_Tee",
+    [
+     9.017,
+     11.95
+    ]
+   ]
+  ]
+ }
+}
+Fight_Hero     knockdown runs []   longest 0.00 s   baseline 5.8 cm/s   peak 984.3 cm/s
+Fight_Thug     knockdown runs [(12.733, 15.65)]   longest 2.92 s   baseline 390.6 cm/s   peak 1156.6 cm/s
+Fight_Brute    knockdown runs [(16.917, 20.716)]   longest 3.80 s   baseline 5.4 cm/s   peak 1584.6 cm/s
+Fight_Hood     knockdown runs []   longest 0.00 s   baseline 424.1 cm/s   peak 758.5 cm/s
+Fight_Tee      knockdown runs [(9.017, 11.95)]   longest 2.93 s   baseline 9.2 cm/s   peak 1215.0 cm/s
+Fight_Beard    knockdown runs []   longest 0.00 s   baseline 9.2 cm/s   peak 900.3 cm/s
+Fight_Oxblood  knockdown runs [(20.166, 22.95)]   longest 2.78 s   baseline 9.2 cm/s   peak 1215.0 cm/s

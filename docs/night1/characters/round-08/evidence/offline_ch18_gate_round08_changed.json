@@ -1,0 +1,128 @@
+{
+ "14_teen_skater": {
+  "name": "14_teen_skater",
+  "tris": 5822,
+  "views": 72,
+  "crack_components": 51,
+  "crack_px": 3981,
+  "crack2s_components": 46,
+  "crack2s_px": 3961,
+  "silhouette_spike_components": 743,
+  "silhouette_spike_px": 39718,
+  "crack_px_by_group": {
+   "1": 3307,
+   "4": 302,
+   "5": 372
+  },
+  "gap_px": 3272,
+  "wide_px": 99278,
+  "views_with_cracks": 38,
+  "spike_over_5cm": 3,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 5.60121820508779,
+  "worst": [
+   [
+    314,
+    "walk",
+    12,
+    315.0,
+    2
+   ],
+   [
+    300,
+    "walk",
+    4,
+    135.0,
+    3
+   ],
+   [
+    300,
+    "walk",
+    0,
+    45.0,
+    1
+   ]
+  ]
+ },
+ "20_punk_artist": {
+  "name": "20_punk_artist",
+  "tris": 5862,
+  "views": 72,
+  "crack_components": 57,
+  "crack_px": 2805,
+  "crack2s_components": 119,
+  "crack2s_px": 5416,
+  "silhouette_spike_components": 813,
+  "silhouette_spike_px": 68624,
+  "crack_px_by_group": {
+   "1": 1348,
+   "4": 751,
+   "5": 706
+  },
+  "gap_px": 13522,
+  "wide_px": 106193,
+  "views_with_cracks": 39,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.6798940631716057,
+  "worst": [
+   [
+    229,
+    "walkF",
+    20,
+    225.0,
+    2
+   ],
+   [
+    229,
+    "walkF",
+    20,
+    45.0,
+    2
+   ],
+   [
+    122,
+    "walkF",
+    28,
+    225.0,
+    3
+   ]
+  ]
+ },
+ "06_chrome_shades": {
+  "name": "06_chrome_shades",
+  "tris": 6082,
+  "views": 88,
+  "crack_components": 2,
+  "crack_px": 89,
+  "crack2s_components": 2,
+  "crack2s_px": 89,
+  "silhouette_spike_components": 519,
+  "silhouette_spike_px": 30264,
+  "crack_px_by_group": {
+   "5": 89
+  },
+  "gap_px": 2653,
+  "wide_px": 9069,
+  "views_with_cracks": 2,
+  "spike_over_5cm": 2,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 5.591090534429166,
+  "worst": [
+   [
+    46,
+    "walkStroll",
+    8,
+    90.0,
+    1
+   ],
+   [
+    43,
+    "walkStroll",
+    8,
+    270.0,
+    1
+   ]
+  ]
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "clip": "s4_release_float",
+ "map": "island",
+ "cases": [
+  {
+   "case": "s4_release_float",
+   "frames_rendered": 451,
+   "preroll_frames_cut": 92,
+   "rows": 359,
+   "wall_s": 64.0,
+   "fps_render": 7.05
+  }
+ ],
+ "frames": 359,
+ "duration_s": 5.98,
+ "mp4_mb": 10.1,
+ "crf": 22,
+ "wall_s_total": 64.0
+}

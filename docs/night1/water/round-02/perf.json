@@ -1,0 +1,36 @@
+{
+ "_note": "3840x2160 output, TSR 67 % (internal 2573x1447), static camera, frames t=16..36 s, exclusive gpu_slot perf lock (perf_gpu.json): water map vs the same view with P1 flat water (_Base). water_passes = SingleLayerWater + SingleLayerWaterDepthPrepass (absolute) + LumenReflections/Basepass/Prepass deltas.",
+ "Water_View_RiverLow": {
+  "gpu_avg_ms_water": 25.89,
+  "gpu_avg_ms_base": 24.67,
+  "frame_delta": 1.23,
+  "SingleLayerWater": 3.678,
+  "SLW_depth_prepass": 0.245,
+  "LumenReflections_delta": 0.658,
+  "Basepass_delta": -0.035,
+  "Prepass_delta": 0.0,
+  "water_passes_sum": 4.55
+ },
+ "Water_Perf_S4": {
+  "gpu_avg_ms_water": 30.85,
+  "gpu_avg_ms_base": 30.43,
+  "frame_delta": 0.42,
+  "SingleLayerWater": 0.581,
+  "SLW_depth_prepass": 0.276,
+  "LumenReflections_delta": 0.119,
+  "Basepass_delta": -0.025,
+  "Prepass_delta": 0.022,
+  "water_passes_sum": 0.97
+ },
+ "Water_View_RiverSun": {
+  "gpu_avg_ms_water": 21.11,
+  "gpu_avg_ms_base": 21.42,
+  "frame_delta": -0.31,
+  "SingleLayerWater": 3.64,
+  "SLW_depth_prepass": 0.255,
+  "LumenReflections_delta": 0.289,
+  "Basepass_delta": -0.027,
+  "Prepass_delta": 0.0,
+  "water_passes_sum": 4.16
+ }
+}

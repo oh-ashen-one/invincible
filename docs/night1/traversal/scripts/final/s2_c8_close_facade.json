@@ -1,0 +1,38 @@
+{
+ "name": "s2_c8_close_facade",
+ "note": "1.5 m from the east facade (x 266), 18 m/s north, swing pressed 0.3 s in",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   264.5,
+   150,
+   35
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -18,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.3,
+   "swing": true
+  },
+  {
+   "t": 2.2,
+   "swing": false
+  }
+ ]
+}

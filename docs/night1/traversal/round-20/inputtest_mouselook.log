@@ -1,0 +1,5 @@
+WH_INPUTTEST mouseLook armed (round-19 polled input)
+WH_INPUT t 0.00 state: player-captured 0, viewport capture 0, viewport focus 1, app active 1, menu 0 (mode air, rmb 0)
+WH_INPUTTEST mouseLook t 0.50 start: camera yaw -94.5 pitch -4.8
+WH_INPUTTEST mouseLook t 2.50 after 720 px right: camera yaw -87.5 (turned 7.0 deg)
+WH_INPUTTEST RESULT mouseLook: 958 px injected, camera yaw turned 7.2 deg, pitch now -1.6

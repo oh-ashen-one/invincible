@@ -1,0 +1,24 @@
+{
+ "tripo": "/Users/midir/sm2-n1/_scratch/characters/r3/people/StreetBrute_prepared.glb",
+ "verts": 8153,
+ "tris": 8427,
+ "chamfer_rms_cm_before": 7.840975724847297,
+ "chamfer_rms_cm_after": 5.461442855965595,
+ "params": {
+  "arm_abduct": -0.059808106932158565,
+  "arm_swing": -0.06004157145915502,
+  "elbow": -0.2424077653424697,
+  "elbow_z": 0.0021282873586404463,
+  "shoulder": -0.10613254366266187,
+  "ua_s": 1.046139513023748,
+  "fa_s": 0.987255316230629,
+  "hand_s": 0.9573884715301726,
+  "thigh_abduct": 0.0720309355332858,
+  "thigh_s": 1.0405428096476168,
+  "shin_s": 0.9639357588825286,
+  "spine_s": 0.9927128482820444,
+  "neck_s": 0.9351120014497811,
+  "head_s": 1.0688360126544412
+ },
+ "roundtrip_max_mm": 6.661338147750939e-13
+}

@@ -1,0 +1,704 @@
+{
+ "_comment": "Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation. Time-of-day presets for Scripts/build_look.py (piece P4). Units: sun/moon illuminance in lux, angles in degrees, distances in cm (UE) unless a key says km. sun.az = compass azimuth of the sun, clockwise from north, east = 90 (browser city: north = -Y in UE). Any key of post.* is a PostProcessSettings property (snake_case) and gets its override flag set.",
+ "order": [
+  "midday",
+  "golden",
+  "night"
+ ],
+ "presets": {
+  "midday": {
+   "desc": "round 03 v2: overcast late morning (LOOK-SPEC L2): neutral grey Rayleigh sky, bright hazy horizon, soft strong sun behind the cloud deck, average-metered exposure, highlights compressed",
+   "sun": {
+    "elev": 55.0,
+    "az": 196.0,
+    "lux": 26000.0,
+    "temp": 6700.0,
+    "angle": 5.0,
+    "disk": 0.0,
+    "cloud_shadows": false
+   },
+   "moon": null,
+   "sky": {
+    "intensity": 2.3,
+    "tint": [
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "atmosphere": {
+    "rayleigh_scattering_scale": 0.03,
+    "mie_scattering_scale": 0.15,
+    "mie_absorption_scale": 0.004,
+    "mie_anisotropy": 0.6,
+    "aerial_perspective_distance_scale": 4.0,
+    "aerial_perspective_start_depth": 0.02,
+    "height_fog_contribution": 1.0,
+    "ground_albedo": [
+     72,
+     66,
+     60,
+     255
+    ],
+    "sky_luminance_factor": [
+     1.5,
+     1.5,
+     1.5,
+     1.0
+    ],
+    "rayleigh_scattering": [
+     0.5,
+     0.5,
+     0.5,
+     1.0
+    ]
+   },
+   "fog": {
+    "fog_density": 0.0032,
+    "fog_height_falloff": 0.11,
+    "start_distance": 6000.0,
+    "fog_max_opacity": 0.92,
+    "fog_inscattering_luminance": [
+     0.16,
+     0.22,
+     0.32,
+     1.0
+    ],
+    "directional_inscattering_luminance": [
+     0.45,
+     0.4,
+     0.3,
+     1.0
+    ],
+    "directional_inscattering_exponent": 22.0,
+    "directional_inscattering_start_distance": 12000.0,
+    "volumetric_fog": true,
+    "volumetric_fog_scattering_distribution": 0.55,
+    "volumetric_fog_albedo": [
+     0.9,
+     0.92,
+     1.0,
+     1.0
+    ],
+    "volumetric_fog_extinction_scale": 1.0,
+    "volumetric_fog_distance": 30000.0,
+    "volumetric_fog_start_distance": 0.0,
+    "haze": {
+     "fog_density": 0.0016,
+     "fog_height_offset": 9000.0,
+     "fog_height_falloff": 0.02
+    },
+    "sky_atmosphere_ambient_contribution_color_scale": [
+     3.5,
+     3.5,
+     3.5,
+     1.0
+    ]
+   },
+   "clouds": {
+    "layer_bottom_altitude": 2.0,
+    "layer_height": 4.0,
+    "coverage": 0.45,
+    "tracing_max_distance": 40.0,
+    "mi": {
+     "scalars": {
+      "Cloud_GlobalCoverage": 0.5,
+      "Cloud_GlobalDensity": 0.03
+     },
+     "vectors": {
+      "Cloud_AlbedoColor": [
+       0.9,
+       0.9,
+       0.9,
+       0.5
+      ]
+     }
+    }
+   },
+   "mpc": {
+    "NightK": 0.0,
+    "DnTime": 0.0,
+    "InteriorGain": 0.5,
+    "ShopGain": 0.7,
+    "EmissiveScale": 3.0
+   },
+   "exposure": {
+    "min_ev": 8.0,
+    "max_ev": 15.0,
+    "bias": -0.7
+   },
+   "post": {
+    "bloom_intensity": 0.55,
+    "bloom_threshold": 1.0,
+    "lens_flare_intensity": 0.0,
+    "vignette_intensity": 0.32,
+    "scene_fringe_intensity": 0.15,
+    "film_slope": 0.9,
+    "film_toe": 0.55,
+    "film_shoulder": 0.2,
+    "film_black_clip": 0.0,
+    "film_white_clip": 0.0,
+    "white_temp": 6500.0,
+    "color_saturation": [
+     0.96,
+     0.96,
+     0.96,
+     1.0
+    ],
+    "color_contrast": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "motion_blur_amount": 0.5,
+    "motion_blur_max": 5.0,
+    "motion_blur_target_fps": 60,
+    "ambient_occlusion_intensity": 0.35,
+    "ambient_occlusion_radius": 90.0,
+    "indirect_lighting_intensity": 1.6,
+    "lumen_scene_lighting_quality": 1.0,
+    "lumen_final_gather_quality": 1.0,
+    "lumen_reflection_quality": 1.0,
+    "lumen_diffuse_color_boost": 1.6,
+    "color_offset": [
+     0.008,
+     0.0084,
+     0.0092,
+     0.0
+    ],
+    "color_gain_highlights": [
+     0.9,
+     0.9,
+     0.9,
+     1.0
+    ],
+    "auto_exposure_low_percent": 10.0,
+    "auto_exposure_high_percent": 90.0
+   }
+  },
+  "golden": {
+   "desc": "round 03 v2: golden hour 9 deg sun behind the avenue ends, warm Mie haze (far shore takes the sky tint), cool sky-fill in the shadows, highlights compressed",
+   "sun": {
+    "elev": 9.0,
+    "az": 238.0,
+    "lux": 44000.0,
+    "temp": 4200.0,
+    "angle": 0.6,
+    "disk": 0.1,
+    "cloud_shadows": false
+   },
+   "moon": null,
+   "sky": {
+    "intensity": 8.0,
+    "tint": [
+     0.88,
+     0.94,
+     1.0
+    ]
+   },
+   "atmosphere": {
+    "rayleigh_scattering_scale": 0.03,
+    "mie_scattering_scale": 0.03,
+    "mie_absorption_scale": 0.003,
+    "mie_anisotropy": 0.7,
+    "aerial_perspective_distance_scale": 5.0,
+    "aerial_perspective_start_depth": 0.02,
+    "height_fog_contribution": 1.0,
+    "ground_albedo": [
+     72,
+     66,
+     60,
+     255
+    ],
+    "sky_luminance_factor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "mie_scattering": [
+     1.0,
+     0.72,
+     0.45,
+     1.0
+    ]
+   },
+   "fog": {
+    "fog_density": 0.0052,
+    "fog_height_falloff": 0.09,
+    "start_distance": 4000.0,
+    "fog_max_opacity": 0.95,
+    "fog_inscattering_luminance": [
+     0.26,
+     0.2,
+     0.2,
+     1.0
+    ],
+    "directional_inscattering_luminance": [
+     0.3,
+     0.15,
+     0.06,
+     1.0
+    ],
+    "directional_inscattering_exponent": 14.0,
+    "directional_inscattering_start_distance": 8000.0,
+    "volumetric_fog": true,
+    "volumetric_fog_scattering_distribution": 0.7,
+    "volumetric_fog_albedo": [
+     0.7,
+     0.58,
+     0.46,
+     1.0
+    ],
+    "volumetric_fog_extinction_scale": 0.5,
+    "volumetric_fog_distance": 36000.0,
+    "volumetric_fog_start_distance": 0.0,
+    "haze": {
+     "fog_density": 0.0026,
+     "fog_height_offset": 7000.0,
+     "fog_height_falloff": 0.03
+    }
+   },
+   "clouds": {
+    "layer_bottom_altitude": 3.0,
+    "layer_height": 6.0,
+    "coverage": 0.55,
+    "tracing_max_distance": 50.0
+   },
+   "mpc": {
+    "NightK": 0.0,
+    "DnTime": 0.0,
+    "InteriorGain": 0.6,
+    "ShopGain": 0.9,
+    "EmissiveScale": 3.0
+   },
+   "exposure": {
+    "min_ev": 8.2,
+    "max_ev": 13.0,
+    "bias": 0.95
+   },
+   "post": {
+    "bloom_intensity": 0.4,
+    "bloom_threshold": 1.2,
+    "lens_flare_intensity": 0.0,
+    "vignette_intensity": 0.4,
+    "scene_fringe_intensity": 0.15,
+    "film_slope": 0.92,
+    "film_toe": 0.5,
+    "film_shoulder": 0.2,
+    "film_black_clip": 0.0,
+    "film_white_clip": 0.0,
+    "white_temp": 7800.0,
+    "color_saturation": [
+     1.1,
+     1.08,
+     1.05,
+     1.0
+    ],
+    "color_contrast": [
+     1.08,
+     1.08,
+     1.08,
+     1.0
+    ],
+    "motion_blur_amount": 0.5,
+    "motion_blur_max": 5.0,
+    "motion_blur_target_fps": 60,
+    "ambient_occlusion_intensity": 0.35,
+    "ambient_occlusion_radius": 90.0,
+    "indirect_lighting_intensity": 3.2,
+    "lumen_scene_lighting_quality": 1.0,
+    "lumen_final_gather_quality": 1.0,
+    "lumen_reflection_quality": 1.0,
+    "color_offset": [
+     0.008,
+     0.006,
+     0.004,
+     0.0
+    ],
+    "color_gain_shadows": [
+     0.93,
+     0.97,
+     1.08,
+     1.0
+    ],
+    "color_gain_highlights": [
+     0.8,
+     0.8,
+     0.8,
+     1.0
+    ]
+   },
+   "fills": [
+    {
+     "name": "East",
+     "elev": 12.0,
+     "az": 95.0,
+     "lux": 20.0,
+     "temp": 6500.0
+    },
+    {
+     "name": "South",
+     "elev": 12.0,
+     "az": 175.0,
+     "lux": 6.0,
+     "temp": 5600.0
+    },
+    {
+     "name": "North",
+     "elev": 12.0,
+     "az": 355.0,
+     "lux": 6.0,
+     "temp": 5600.0
+    }
+   ]
+  },
+  "night": {
+   "desc": "round 03 v2: night with dark facade masses, neutral B-R, wide sodium / LED lamp pools, denser far haze",
+   "sun": null,
+   "moon": {
+    "elev": 36.0,
+    "az_browser": 15.0,
+    "atmosphere": true,
+    "atmosphere_index": 0,
+    "angle": 0.52,
+    "lux": 83.48,
+    "color_linear": [
+     0.4577,
+     0.6217,
+     1.0
+    ]
+   },
+   "sky": {
+    "intensity": 12.5,
+    "tint": [
+     0.92,
+     0.94,
+     1.0
+    ]
+   },
+   "atmosphere": {
+    "rayleigh_scattering_scale": 1.0,
+    "mie_scattering_scale": 0.012,
+    "mie_absorption_scale": 0.0012,
+    "mie_anisotropy": 0.8,
+    "aerial_perspective_distance_scale": 0.05,
+    "aerial_perspective_start_depth": 0.02,
+    "height_fog_contribution": 1.0,
+    "ground_albedo": [
+     60,
+     60,
+     66,
+     255
+    ],
+    "sky_luminance_factor": [
+     1.6,
+     1.4,
+     1.55,
+     1.0
+    ],
+    "rayleigh_scattering": [
+     0.0331,
+     0.0697,
+     0.1639,
+     1.0
+    ]
+   },
+   "fog": {
+    "fog_density": 0.012,
+    "fog_height_falloff": 0.1,
+    "start_distance": 4000.0,
+    "fog_max_opacity": 0.9,
+    "fog_inscattering_luminance": [
+     0.012,
+     0.02,
+     0.05,
+     1.0
+    ],
+    "directional_inscattering_luminance": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "directional_inscattering_exponent": 8.0,
+    "directional_inscattering_start_distance": 10000.0,
+    "volumetric_fog": true,
+    "volumetric_fog_scattering_distribution": 0.5,
+    "volumetric_fog_albedo": [
+     0.7,
+     0.78,
+     1.0,
+     1.0
+    ],
+    "volumetric_fog_extinction_scale": 1.0,
+    "volumetric_fog_distance": 26000.0,
+    "volumetric_fog_start_distance": 0.0,
+    "haze": {
+     "fog_density": 0.0,
+     "fog_height_offset": 8000.0,
+     "fog_height_falloff": 0.03
+    }
+   },
+   "clouds": {
+    "layer_bottom_altitude": 3.5,
+    "layer_height": 6.0,
+    "coverage": 0.35,
+    "tracing_max_distance": 30.0,
+    "enabled": false,
+    "_comment": "the author's night clouds are a featureless haze veil (clouds 0.14): no VolumetricCloud actor at night"
+   },
+   "mpc": {
+    "NightK": 1.0,
+    "DnTime": 2400.0,
+    "InteriorGain": 2.5,
+    "ShopGain": 1.05,
+    "EmissiveScale": 200.0,
+    "FarWinGain": 1.4,
+    "ScreenK": 0.1,
+    "ScrBoost": 2.0,
+    "ScrKnee": 0.28,
+    "ScrTop": 0.46,
+    "LeafNightK": 0.2,
+    "ScrCal": 7.3,
+    "MarkNightK": 0.25,
+    "NightAmbK": 0.04
+   },
+   "exposure": {
+    "min_ev": 5.53,
+    "max_ev": 5.53,
+    "bias": 0.0
+   },
+   "post": {
+    "bloom_intensity": 0.85,
+    "bloom_threshold": 0.6,
+    "lens_flare_intensity": 0.25,
+    "vignette_intensity": 0.45,
+    "scene_fringe_intensity": 0.15,
+    "film_slope": 0.9,
+    "film_toe": 0.5,
+    "film_shoulder": 0.3,
+    "film_black_clip": 0.0,
+    "film_white_clip": 0.04,
+    "white_temp": 6000.0,
+    "color_saturation": [
+     0.95,
+     0.95,
+     1.0,
+     1.0
+    ],
+    "color_contrast": [
+     1.35,
+     1.35,
+     1.35,
+     1.0
+    ],
+    "motion_blur_amount": 0.5,
+    "motion_blur_max": 5.0,
+    "motion_blur_target_fps": 60,
+    "ambient_occlusion_intensity": 0.3,
+    "ambient_occlusion_radius": 90.0,
+    "indirect_lighting_intensity": 1.6,
+    "lumen_scene_lighting_quality": 1.0,
+    "lumen_final_gather_quality": 1.0,
+    "lumen_reflection_quality": 1.0
+   },
+   "lights": {
+    "_comment": "street lighting of the night rig (Scripts/build_look.py step 'night' -> /Game/Look/Look_NightLights). cd = candela, radius / distances in cm, angles in degrees. Lamp positions come from layout.json instances.lamp (the browser's own lamps).",
+    "lamps": {
+     "head_h": 9.15,
+     "arm": 2.9,
+     "spot_cd": 14000,
+     "spot_outer": 60,
+     "spot_inner": 25,
+     "spot_radius": 3000,
+     "halo_cd": 120,
+     "halo_radius": 1200,
+     "temps": [
+      3500,
+      4300,
+      5500
+     ],
+     "weights": [
+      0.35,
+      0.4,
+      0.25
+     ],
+     "volumetric": 0.8,
+     "max_draw": 20000,
+     "glow_gain": 30.0,
+     "glow_size_cm": 42,
+     "indirect": 2.5,
+     "halo_max_draw": 8000
+    },
+    "storefront": {
+     "enabled": true,
+     "spacing": 12.0,
+     "height": 3.3,
+     "pitch": -38,
+     "spot_cd": 4000,
+     "outer": 70,
+     "inner": 22,
+     "radius": 2000,
+     "setback": 0.35,
+     "face_tol": 7.0,
+     "min_face": 7.0,
+     "temps": [
+      3000,
+      3800,
+      5000,
+      6500
+     ],
+     "weights": [
+      0.4,
+      0.3,
+      0.2,
+      0.1
+     ],
+     "tint_chance": 0.22,
+     "max_draw": 8000
+    },
+    "cars": {
+     "enabled": true,
+     "fill": 0.85,
+     "gap_min": 9.0,
+     "gap_max": 20.0,
+     "clear_radius": 7.0,
+     "lane_edge_park": 2.4,
+     "head_cd": 2000,
+     "head_outer": 26,
+     "head_inner": 6,
+     "head_radius": 1900,
+     "head_pitch": -7,
+     "tail_cd": 140,
+     "tail_radius": 420,
+     "head_gain": 18.0,
+     "tail_gain": 4.0,
+     "max_draw": 8000,
+     "seed": 7,
+     "tail_max_draw": 4500
+    },
+    "wet": {
+     "enabled": true,
+     "z_center_cm": 20,
+     "half_depth_cm": 70,
+     "half_size_cm": 42000,
+     "base": 0.72,
+     "puddle": 0.8,
+     "rough_dry": 0.42,
+     "rough_wet": 0.13
+    },
+    "hero": {
+     "enabled": true,
+     "rim_cd": 300,
+     "fill_cd": 1250,
+     "top_cd": 0
+    },
+    "screens": {
+     "enabled": true,
+     "offset": 4.0,
+     "cd_per_sqrt_area": 950.0,
+     "pitch": -6.0,
+     "outer": 75.0,
+     "inner": 30.0,
+     "radius": 9000.0,
+     "max_draw": 30000.0,
+     "volumetric": 0.3,
+     "palette": {
+      "colors": [
+       [
+        1.0,
+        0.25,
+        0.6
+       ],
+       [
+        0.25,
+        0.75,
+        1.0
+       ],
+       [
+        1.0,
+        0.6,
+        0.2
+       ],
+       [
+        0.9,
+        0.95,
+        1.0
+       ],
+       [
+        1.0,
+        0.2,
+        0.15
+       ],
+       [
+        0.35,
+        1.0,
+        0.5
+       ],
+       [
+        0.3,
+        0.4,
+        1.0
+       ]
+      ],
+      "weights": [
+       0.2,
+       0.2,
+       0.15,
+       0.2,
+       0.1,
+       0.05,
+       0.1
+      ]
+     },
+     "_comment": "coloured light in front of each Times-Square-like LED screen (quad positions from look_ts_screens.json = tools/perf_ue/extract_ts_screens.py). The screens' own ad content is IP-excluded from the port, so their emission is black; this restores the district's colour spill.",
+     "content": {
+      "enabled": true,
+      "offset": 0.05,
+      "gain": 4.5
+     }
+    }
+   },
+   "fills": [],
+   "fills_desc": "none: the author has no fill lights at night; city glow = local lights + Lumen GI + AWHCityLights ambient",
+   "units": {
+    "_comment": "The night rig in the author's units (~/sm2-n1/_scratch/night/export/night_lights.json constants.lighting_runtime_at_night): ONE constant K = UE cd/m2 (lux, nits) per browser unit, the same K as Scripts/night_city.json. Browser display = radiance x display_exposure (tod.exposure 4.5 x grade.exposure 0.8 = 3.6). UE: display = radiance x K / (1.2 x 2^EV100)  =>  EV100 = log2(K / (1.2 x display_exposure)) = log2(200 / 4.32) = 5.53; auto exposure range = EV100 +- auto_range (0 = fixed exposure for calibration; the author's partial aeStrength 0.42 would be about +-0.75), bias 0. Moon = moon_intensity x K lux (linear colour moon_color_linear). Fog in-scatter = nh_low x K. fog: derive_fog() in build_look.py (optical depth fit at 300 m / 2 km). EmissiveScale = K, so a facade's FS.emis (browser units) is emitted as FS.emis x K. build_look.derive_units() overwrites exposure / moon lux / mpc.EmissiveScale / fog from here.",
+    "K": 200.0,
+    "display_exposure": 3.6,
+    "exposure_bias": 0.0,
+    "moon_intensity": 0.4174,
+    "moon_color_linear": [
+     0.4577,
+     0.6217,
+     1.0
+    ],
+    "nh_low": [
+     0.0125,
+     0.0115,
+     0.0165
+    ],
+    "fog": {
+     "density_base": 0.00013,
+     "density_mult": 4.0,
+     "falloff_m": 300.0,
+     "start_m": 120.0,
+     "camera_h_m": 1.7,
+     "match_near_m": 300.0,
+     "match_far_m": 2000.0,
+     "max_opacity": 0.99
+    },
+    "auto_range": 0.0,
+    "screen_k": 0.1,
+    "screen": {
+     "screen_k": 0.1,
+     "boost": 2.0,
+     "knee": 0.28,
+     "top": 0.46,
+     "source": "screenlights.js:190-202 (uScrBoost 2, uScrKnee 0.28, uScrTop 0.46), lighting.js:207 screenK = 0.9 x lerp(1, 0.5, windows) / exposure 4.5 = 0.1"
+    }
+   }
+  }
+ }
+}

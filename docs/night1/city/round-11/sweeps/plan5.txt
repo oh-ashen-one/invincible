@@ -1,0 +1,15 @@
+# hold 5: coarse panels on the hinterland boxes (mat), S4 haze that starts beyond the near shore (fog start distance), FarLitK 0.30 FarFill 0.12 F0Scale 0.25
+build tex,mat
+variants names=i1,i2,i3,i4 fog_i1=0.004 fs_i1=4500 fogc_i1=0.60,0.62,0.66 fog_i2=0.008 fs_i2=4500 fogc_i2=0.60,0.62,0.66 fog_i3=0.004 fs_i3=3500 fogc_i3=0.64,0.66,0.69 fog_i4=0.008 fs_i4=5500 fogc_i4=0.58,0.60,0.64
+mpc d0 FarLitK=0.30 FarFill=0.12 F0Scale=0.25
+cap D S4vi1
+score D S4vi1
+cap D S4vi2
+score D S4vi2
+cap D S4vi3
+score D S4vi3
+cap D S4vi4
+score D S4vi4
+cap D S4_perch_skyline
+score D S4_perch_skyline
+cap D S8_aerial_midtown

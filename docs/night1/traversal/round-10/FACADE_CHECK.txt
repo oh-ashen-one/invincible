@@ -1,0 +1,12 @@
+# Facade clearance / occlusion check, round 10 (facade_check.py)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# lit /Game/Maps/Manhattan (golden), 1080p60 captures
+# NOTE: the PASS/FAIL words below use the round-06..08 critic targets (>= 7 attaches / 12 s, drop >= 10 m, rope on screen >= 75 %, near-wall share <= 30 %, hero >= 160 px). TRAVERSAL-SPEC (director, 2026-09-29) voids several of them (T2 2-4 attaches / 8 s, T3 rope 25-45 %, T5 anchor need not be on screen, T17/T18 near geometry is wanted). The spec verdict is SPEC_CHECK.txt; facade_check's hero/camera-to-facade metres read the gray-box Trav_Canyon layout and are meaningless in Manhattan (0.00 m); its rendered near-wall share is valid.
+
+a_swing_chain 13.5-15.5 s (121 frames): near-wall share max 0.132 at 13.58 s (target <= 0.30); hero occluded (> 2 % of his pixels) in 0 frames, max 0.000; hero-facade min 62.32 m, camera-facade min 57.72 m  PASS
+a_swing_chain 0.0-15.6 s (934 frames): near-wall share max 0.132 at 13.58 s (target <= 0.30); hero occluded (> 2 % of his pixels) in 0 frames, max 0.000; hero-facade min 0.00 m, camera-facade min 0.00 m  PASS
+FACADE CHECK: PASS
+b_release_trick_dive_zip 0.0-7.0 s (418 frames): near-wall share max 0.456 at 5.35 s (target <= 0.30); hero occluded (> 2 % of his pixels) in 0 frames, max 0.000; hero-facade min 0.00 m, camera-facade min 0.00 m  FAIL
+FACADE CHECK: FAIL
+d_sprint_jump_first_swing 2.6-12.0 s (562 frames): near-wall share max 0.186 at 9.15 s (target <= 0.30); hero occluded (> 2 % of his pixels) in 0 frames, max 0.000; hero-facade min 0.00 m, camera-facade min 0.00 m  PASS
+FACADE CHECK: PASS

@@ -1,0 +1,19 @@
+{
+ "clip": "s2_press_variety",
+ "map": "island",
+ "cases": [
+  {
+   "case": "s2_c7_no_anchor",
+   "frames_rendered": 271,
+   "preroll_frames_cut": 92,
+   "rows": 179,
+   "wall_s": 54.0,
+   "fps_render": 5.02
+  }
+ ],
+ "frames": 179,
+ "duration_s": 2.98,
+ "mp4_mb": 3.03,
+ "crf": 22,
+ "wall_s_total": 54.0
+}

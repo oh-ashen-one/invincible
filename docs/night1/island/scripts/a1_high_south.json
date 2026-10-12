@@ -1,0 +1,29 @@
+{
+ "name": "a1_high_south",
+ "note": "Island r01 still: hero dropped at 260 m over 5th Av, camera pitched down, looking south over the detailed Midtown tiles (no bare masses within ~1.2 km is the M1 target).",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   -420,
+   260
+  ],
+  "yaw": 90,
+  "camPitch": 0.32,
+  "vel": [
+   0,
+   2,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    0
+   ],
+   "swing": false
+  }
+ ]
+}

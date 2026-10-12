@@ -1,0 +1,2 @@
+# Nanite cluster LOD error 4 px (default 1): the dominant single win (NaniteVisBuffer 6.8 -> 1.8 ms at TSR 50 %, frame p50 -5.4 ms). Trees / street furniture only (facade is non-Nanite).
+r.Nanite.MaxPixelsPerEdge=4

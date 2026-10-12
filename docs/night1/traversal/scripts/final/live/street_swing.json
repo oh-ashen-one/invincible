@@ -1,0 +1,46 @@
+{
+ "name": "street_swing",
+ "note": "standing on the avenue street, jump at 0.3 s, hold RMB from 0.5 s",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   540,
+   1.2
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   0,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.3,
+   "jump": true
+  },
+  {
+   "t": 0.45,
+   "jump": false
+  },
+  {
+   "t": 0.5,
+   "swing": true
+  },
+  {
+   "t": 3.5,
+   "swing": false
+  }
+ ]
+}

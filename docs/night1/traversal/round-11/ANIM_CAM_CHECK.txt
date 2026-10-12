@@ -1,0 +1,51 @@
+
+# Anim / camera safety (anim_check.py, cam_check.py)
+  same silhouette: t=3.83->4.00 d=0.072 m (flip_backDouble -> air_dive)
+f1_sky_backDouble: 418 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 21 consecutive air pairs, 1 with the same silhouette (min distance 0.072 m, threshold 0.08 m)
+  air cycles: 2; consecutive identical cycles: 0
+    cycle 1: flip_backDouble > air_dive
+    cycle 2: air_tuck > air_rise
+  hero fully in frame        419/419 frames; out: none
+  camera in geometry         0 frames (none)
+f2_sky_pikeSwan: 388 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 13 consecutive air pairs, 0 with the same silhouette (min distance 0.101 m, threshold 0.08 m)
+  air cycles: 2; consecutive identical cycles: 0
+    cycle 1: flip_frontPikeSwan
+    cycle 2: air_tuck > air_rise
+  hero fully in frame        389/389 frames; out: none
+  camera in geometry         0 frames (none)
+f3_sky_corkscrew: 388 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 12 consecutive air pairs, 0 with the same silhouette (min distance 0.096 m, threshold 0.08 m)
+  air cycles: 2; consecutive identical cycles: 0
+    cycle 1: flip_corkscrew
+    cycle 2: air_tuck > air_rise
+  hero fully in frame        389/389 frames; out: none
+  camera in geometry         0 frames (none)
+c_wallrun_perch: 628 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 5 consecutive air pairs, 0 with the same silhouette (min distance 0.122 m, threshold 0.08 m)
+  air cycles: 1; consecutive identical cycles: 0
+    cycle 1: air_rise
+  hero fully in frame        608/629 frames; out: 7.83-7.85s, 9.55-9.85s
+  camera in geometry         0 frames (none)
+b_release_trick_dive_zip: 418 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 29 consecutive air pairs, 0 with the same silhouette (min distance 0.095 m, threshold 0.08 m)
+  air cycles: 1; consecutive identical cycles: 0
+    cycle 1: flip_backDouble > air_dive > air_zipPull > air_fallCalm > air_fall > air_fallCalm > air_fall > air_fallCalm > air_fall
+  hero fully in frame        419/419 frames; out: none
+  camera in geometry         0 frames (none)
+f4_chain_flips: 778 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 42 consecutive air pairs, 0 with the same silhouette (min distance 0.083 m, threshold 0.08 m)
+  air cycles: 4; consecutive identical cycles: 0
+    cycle 1: flip_backDouble > air_dive
+    cycle 2: air_fallCalm > air_tuck
+    cycle 3: flip_corkscrew > air_fallCalm > air_dive
+    cycle 4: flip_backSingle
+  hero fully in frame        779/779 frames; out: none
+  camera in geometry         0 frames (none)

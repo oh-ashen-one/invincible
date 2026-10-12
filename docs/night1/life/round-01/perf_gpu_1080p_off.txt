@@ -1,0 +1,1 @@
+GPU-LOCK: class=perf exclusive=yes util_before=0% util_after=4% util_during_avg=78.1% wait_s=61.01 instances_before=2 instances_max=3 contaminated=false

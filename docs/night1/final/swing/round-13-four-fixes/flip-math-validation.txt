@@ -1,0 +1,16 @@
+WebTravFlips.cpp sha256=4bfef4abaf519f5a70f2c0dc9946349ab3ba0275b98cb29e2f4cd5a5121891be
+PostAnimTick composition=const FQuat Q = (FlipBodyFrame * FlipOffQ * SwayDeltaQ).GetNormalized();
+backDouble max_pitch=755.307 min_noncatch_hold=0.379166
+frontPikeSwan max_pitch=722.053 min_noncatch_hold=0.425
+corkscrew max_pitch=729.641 min_noncatch_hold=0.420833
+backSingle max_pitch=786.075 min_noncatch_hold=0.325
+wallFront max_pitch=740.683 min_noncatch_hold=0
+frontSingle max_pitch=750.303 min_noncatch_hold=0.375
+frontDouble max_pitch=760.958 min_noncatch_hold=0.375
+backPike max_pitch=763.379 min_noncatch_hold=0.3875
+backLayout max_pitch=751.339 min_noncatch_hold=0.375
+barani max_pitch=691.24 min_noncatch_hold=0.445833
+fullTwist max_pitch=721.577 min_noncatch_hold=0.420833
+rudi max_pitch=767.823 min_noncatch_hold=0.3625
+backTripleChain max_pitch=777.624 min_noncatch_hold=0.375
+TOTAL variants=416 peak=786.075 midhold=0.325 mean_multis=302.064..366.723 terminal_families=3 endpoint_jump=0

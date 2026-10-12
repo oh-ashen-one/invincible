@@ -1,0 +1,26 @@
+air_24_fwd_3 | picks ['frontSingle'] | air flip start [('frontSingle', '18.9')] | refused [] | min_h 0.5 | min_h in trick 19.0 | end ground/run h1.6 | web-on 17%
+air_24_fwd_8 | picks ['frontSingle'] | air flip start [('frontSingle', '19.8')] | refused [] | min_h 0.4 | min_h in trick 19.9 | end ground/run h1.6 | web-on 17%
+air_24_fwd_12 | picks ['frontSingle'] | air flip start [('frontSingle', '17.7')] | refused [] | min_h 0.9 | min_h in trick 17.8 | end ground/run h1.6 | web-on 17%
+air_24_back_3 | picks ['backSingle'] | air flip start [('backSingle', '18.9')] | refused [] | min_h 0.7 | min_h in trick 19.0 | end ground/run h1.6 | web-on 17%
+air_24_back_8 | picks ['backSingle'] | air flip start [('backSingle', '19.8')] | refused [] | min_h 0.6 | min_h in trick 19.9 | end ground/run h1.8 | web-on 17%
+air_24_back_12 | picks ['backSingle'] | air flip start [('backSingle', '17.7')] | refused [] | min_h -1.6 | min_h in trick 17.9 | end ground/run h1.6 | web-on 17%
+air_24_right_3 | picks ['barani'] | air flip start [('barani', '18.9')] | refused [] | min_h 14.7 | min_h in trick 19.1 | end wall/wallRunSide h24.0 | web-on 17%
+air_24_right_8 | picks ['barani'] | air flip start [('barani', '19.8')] | refused [] | min_h 14.7 | min_h in trick 19.9 | end wall/wallRunSide h21.2 | web-on 17%
+air_24_right_12 | picks ['frontSingle'] | air flip start [('frontSingle', '17.6')] | refused [] | min_h 14.7 | min_h in trick 17.7 | end wall/wallRunSide h16.7 | web-on 17%
+air_24_neutral_3 | picks ['backSingle'] | air flip start [('backSingle', '18.9')] | refused [] | min_h 0.7 | min_h in trick 19.0 | end ground/idle h1.6 | web-on 17%
+air_24_neutral_8 | picks ['backSingle'] | air flip start [('backSingle', '19.8')] | refused [] | min_h 0.5 | min_h in trick 19.9 | end ground/idle h1.6 | web-on 17%
+air_24_neutral_12 | picks ['backSingle'] | air flip start [('backSingle', '17.7')] | refused [] | min_h 0.6 | min_h in trick 17.9 | end ground/idle h1.6 | web-on 17%
+air_40_fwd_3 | picks ['frontSingle'] | air flip start [('frontSingle', '32.8')] | refused [] | min_h -1.6 | min_h in trick 33.0 | end ground/run h1.6 | web-on 17%
+air_40_fwd_8 | picks ['frontSingle'] | air flip start [('frontSingle', '32.1')] | refused [] | min_h 0.6 | min_h in trick 32.3 | end ground/run h1.6 | web-on 17%
+air_40_fwd_12 | picks ['frontSingle'] | air flip start [('frontSingle', '27.3')] | refused [] | min_h 0.6 | min_h in trick 27.4 | end ground/run h1.6 | web-on 17%
+air_40_back_3 | picks ['backSingle'] | air flip start [('backSingle', '32.8')] | refused [] | min_h -1.6 | min_h in trick 33.0 | end ground/run h1.8 | web-on 17%
+air_40_back_8 | picks ['backSingle'] | air flip start [('backSingle', '32.1')] | refused [] | min_h 6.4 | min_h in trick 32.3 | end wall/wallRun h6.4 | web-on 17%
+air_40_back_12 | picks ['backSingle'] | air flip start [('backSingle', '28.0')] | refused [] | min_h -1.5 | min_h in trick 28.1 | end ground/run h1.8 | web-on 17%
+air_40_right_3 | picks ['barani'] | air flip start [('barani', '32.8')] | refused [] | min_h 20.9 | min_h in trick 33.0 | end wall/wallRunSide h24.1 | web-on 17%
+air_40_right_8 | picks ['barani'] | air flip start [('barani', '32.1')] | refused [] | min_h 29.6 | min_h in trick 32.2 | end wall/wallRunSide h36.7 | web-on 17%
+air_40_right_12 | picks ['frontSingle'] | air flip start [('frontSingle', '27.9')] | refused [] | min_h 2.2 | min_h in trick 28.0 | end wall/wallRunSide h30.2 | web-on 17%
+air_40_neutral_3 | picks ['backSingle'] | air flip start [('backSingle', '32.8')] | refused [] | min_h 0.4 | min_h in trick 33.0 | end ground/idle h1.6 | web-on 17%
+air_40_neutral_8 | picks ['backSingle'] | air flip start [('backSingle', '32.1')] | refused [] | min_h -1.5 | min_h in trick 32.3 | end ground/idle h1.6 | web-on 17%
+air_40_neutral_12 | picks ['backSingle'] | air flip start [('backSingle', '28.0')] | refused [] | min_h 0.5 | min_h in trick 28.1 | end ground/idle h1.6 | web-on 17%
+street_swing | picks [] | air flip start [] | refused [] | min_h -1.2 | min_h in trick - | end land/landHard h1.6 | web-on 55%
+roof_swing | picks [] | air flip start [] | refused [] | min_h 0.4 | min_h in trick - | end air/dive h58.2 | web-on 40%

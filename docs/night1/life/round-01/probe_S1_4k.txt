@@ -1,0 +1,20 @@
+WH_LIFE_OCC blocked at 59.0 of 75.4 m by Actor_5 / HierarchicalInstancedStaticMesh
+WH_LIFE_OCC blocked at 59.0 of 75.4 m by Actor_5 / HierarchicalInstancedStaticMesh
+WH_LIFE_OCC blocked at 63.5 of 158.7 m by StaticMeshActor_74 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 80.8 of 156.6 m by StaticMeshActor_74 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 89.5 of 154.5 m by StaticMeshActor_74 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 132.3 of 151.7 m by Actor_4 / HierarchicalInstancedStaticMesh
+WH_LIFE_FRAME t=8.1 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=11 (taxi 4) parked=12 (taxi 1) total=23 | >=44px: moving=6 parked=4 (taxi 1) total=10 | people unoccluded >=28px: 14 (models 14, identical looks in frame 0) | >=56px: 11 (models 11) | projected only (no size / occlusion test): vehicles moving=340 parked=634 people=86
+WH_LIFE_TRAFFIC [life] moving 654 (stopped 288) parked 1197 (taxis 140) sim 0.17 ms push 0.08 ms clock 93.5
+WH_LIFE_CROWD [crowd] walkers 1458 live 278 waiting 67 models 60 sim+apply 0.16 ms
+WH_LIFE_FOOT watching 14 walkers
+WH_LIFE_FRAME t=14.0 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=8 (taxi 3) parked=12 (taxi 1) total=20 | >=44px: moving=4 parked=4 (taxi 1) total=8 | people unoccluded >=28px: 16 (models 16, identical looks in frame 0) | >=56px: 13 (models 13) | projected only (no size / occlusion test): vehicles moving=341 parked=634 people=85
+WH_LIFE_TRAFFIC [life] moving 656 (stopped 335) parked 1197 (taxis 140) sim 0.16 ms push 0.10 ms clock 97.5
+WH_LIFE_CROWD [crowd] walkers 1458 live 280 waiting 67 models 60 sim+apply 0.20 ms
+WH_LIFE_FRAME t=20.0 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=9 (taxi 3) parked=12 (taxi 1) total=21 | >=44px: moving=4 parked=4 (taxi 1) total=8 | people unoccluded >=28px: 19 (models 19, identical looks in frame 0) | >=56px: 13 (models 13) | projected only (no size / occlusion test): vehicles moving=344 parked=634 people=86
+WH_LIFE_TRAFFIC [life] moving 663 (stopped 383) parked 1197 (taxis 140) sim 0.10 ms push 0.09 ms clock 103.1
+WH_LIFE_CROWD [crowd] walkers 1458 live 281 waiting 69 models 60 sim+apply 0.19 ms
+WH_LIFE_FOOT walkers=14 stance phases=314 | ankle world displacement during a planted stance (cm; ~20-25 = heel-toe roll, a stride is ~55) median 15.7 p95 33.8 max 49.5 | stances > 45 cm (sliding) 7 (2.2 %)
+WH_LIFE_FRAME t=28.0 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=10 (taxi 2) parked=12 (taxi 1) total=22 | >=44px: moving=8 parked=4 (taxi 1) total=12 | people unoccluded >=28px: 12 (models 12, identical looks in frame 0) | >=56px: 9 (models 9) | projected only (no size / occlusion test): vehicles moving=348 parked=634 people=85
+WH_LIFE_TRAFFIC [life] moving 658 (stopped 327) parked 1197 (taxis 140) sim 0.17 ms push 0.08 ms clock 110.8
+WH_LIFE_CROWD [crowd] walkers 1458 live 283 waiting 5 models 60 sim+apply 0.58 ms

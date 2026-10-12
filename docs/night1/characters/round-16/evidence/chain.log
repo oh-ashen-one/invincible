@@ -1,0 +1,29 @@
+[build_characters    62s] M_Char_Suit weave from pre-skinned position: connections [True, True, True, True, True, True, True, True, True, True, True]
+[build_characters    69s] M_Char_Suit weave from pre-skinned position: connections [True, True, True, True, True, True, True, True, True, True, True]
+[build_characters   200s] skins: rim verdant hood luma 0.252 silver
+[build_characters   204s] skins: rim plum hood luma 0.180 silver
+[build_characters   204s] skins: rim verdant hood luma 0.252 silver
+[build_characters   207s] skins: rim plum hood luma 0.180 silver
+[build_characters   208s] skins: rim cinder hood luma 0.253 silver
+[build_characters   212s] skins: rim cinder hood luma 0.253 silver
+[build_characters   213s] skins: rim glacier hood luma 0.670 graphite
+[build_characters   217s] skins: rim ash hood luma 0.319 silver
+[build_characters   217s] skins: rim glacier hood luma 0.670 graphite
+[build_characters   221s] skins: rim saffron hood luma 0.217 silver
+[build_characters   222s] skins: rim ash hood luma 0.319 silver
+[build_characters   226s] skins: rim saffron hood luma 0.217 silver
+[build_characters   226s] skins: rim sage hood luma 0.555 graphite
+[build_characters   230s] skins: rim sage hood luma 0.555 graphite
+[r16 12:55:35 +0s] build: clean,tex,mat,mesh,citizens,rename,fightclips,abp,map,maps5,skins,skinsmap
+[r16 12:55:35 +0s] steps: build stills lineup pawn orbit, EV 10.0
+[r16 13:01:05 +330s] stills: 4K, internal 3840x2160, EV 10.0
+[r16 13:09:22 +827s] Char_Lineup shot 5 (7 enemies) 4K still
+[r16 13:10:52 +917s] Char_Lineup shot 6 (3/4) 4K still
+[r16 13:11:59 +984s] pawn swap movie
+[r16 13:24:49 +1754s] orbit movie
+[r16 14:04:02 +0s] build: clean,tex,mat,mesh,citizens,rename,fightclips,abp,map,maps5,skins,skinsmap
+[r16 14:04:02 +0s] steps: build stills orbit, EV 10.0
+[r16 14:09:17 +315s] stills: 4K, internal 3840x2160, EV 10.0
+[r16 14:19:28 +926s] orbit movie
+[r16 14:31:57 +1675s] chain done (hold used 1675 s), crashes 0
+build_fight exit=0

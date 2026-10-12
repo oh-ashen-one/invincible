@@ -1,0 +1,25 @@
+{
+ "walkers": 14,
+ "phases": [
+  0.082,
+  0.083,
+  0.107,
+  0.152,
+  0.193,
+  0.207,
+  0.258,
+  0.269,
+  0.295,
+  0.347,
+  0.349,
+  0.585,
+  0.81,
+  0.837
+ ],
+ "max_pairwise_diff_cycles": 0.497,
+ "mean_pairwise_diff_cycles": 0.214,
+ "pairs_within_0.05_cycle": 11,
+ "pairs": 91,
+ "resultant_length_R (0 = evenly spread, 1 = lockstep)": 0.497
+}
+per-walker median stance ankle displacement (cm): [10.8, 11.3, 14.7, 19.1, 19.2, 19.9, 21.3, 21.9, 22.6, 23.4, 25.1, 26.6, 30.4, 36.0]

@@ -1,0 +1,60 @@
+{
+ "ref": "/Users/midir/sm2-n1/_scratch/perf/r03/before",
+ "thr": 0.97,
+ "crops": {
+  "S1": {
+   "S1_glass": [
+    775,
+    0,
+    900,
+    215
+   ]
+  },
+  "S2": {
+   "S2_windows": [
+    0,
+    38,
+    576,
+    960
+   ],
+   "S2_gold": [
+    1459,
+    0,
+    1920,
+    1056
+   ]
+  }
+ },
+ "tests": {
+  "/Users/midir/sm2-n1/_scratch/perf/r03/final": {
+   "S1_glass": {
+    "ssim": 0.9733,
+    "ssim_full": 0.9666,
+    "psnr_db": 28.12,
+    "warm_ref_pct": 50.24,
+    "warm_test_pct": 43.25,
+    "meanY_ref": 151.7,
+    "meanY_test": 150.5
+   },
+   "S2_windows": {
+    "ssim": 0.9921,
+    "ssim_full": 0.9893,
+    "psnr_db": 33.92,
+    "warm_ref_pct": 64.85,
+    "warm_test_pct": 59.29,
+    "meanY_ref": 85.8,
+    "meanY_test": 83.6
+   },
+   "S2_gold": {
+    "ssim": 0.9773,
+    "ssim_full": 0.979,
+    "psnr_db": 33.07,
+    "warm_ref_pct": 80.85,
+    "warm_test_pct": 79.39,
+    "meanY_ref": 95.9,
+    "meanY_test": 95.8
+   },
+   "_pass": true
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "name": "c_wallrun_perch",
+ "spawn": {
+  "pos": [
+   289,
+   3,
+   0.95
+  ],
+  "yaw": 90,
+  "camPitch": 0.14
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "sprint": true
+  },
+  {
+   "t": 5.1,
+   "move": [
+    0,
+    0
+   ],
+   "sprint": false
+  },
+  {
+   "t": 5.9,
+   "look": [
+    -150,
+    4
+   ]
+  },
+  {
+   "t": 7.1,
+   "look": [
+    0,
+    0
+   ]
+  },
+  {
+   "t": 7.3,
+   "zip": true
+  },
+  {
+   "t": 7.4,
+   "zip": false
+  }
+ ]
+}

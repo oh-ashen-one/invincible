@@ -19,7 +19,7 @@ const SPOTS = [
   ['street', 250, 150, 1.2, Math.PI], ['street-swing', 247, 180, 16, Math.PI], ['smash', 238.5, 422, 1.2, Math.PI],
 ];
 
-const server = await createServer({ server: { port: 5196, strictPort: false, host: '127.0.0.1' }, logLevel: 'error' });
+const server = await createServer({ server: { port: +(process.env.PORT || 5196), strictPort: false, host: '127.0.0.1' }, logLevel: 'error' });
 await server.listen();
 const base = server.resolvedUrls.local[0];
 const browser = await chromium.launch({ channel: 'chrome', headless: !process.env.HEADED,

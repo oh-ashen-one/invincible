@@ -1,0 +1,47 @@
+{
+ "name": "x2_rmb_cancel_wall",
+ "note": "Round 20 repro (critic r19 owner bug 1: \"a held RMB during a wall-run waits\"): w1 start (swing onto the 97 m tower, wall-run from ~2.85 s); at 3.2 s RMB is pressed fresh on the wall -> kick off + web in the same step, swinging within 0.1 s. Round 20 b: at the RMB press the stick turns from into-the-wall to along the run (heading 90), so the facade swing is not pulled straight back onto the wall by the held stick.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   145,
+   22
+  ],
+  "yaw": -90,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": true
+  },
+  {
+   "t": 0.9,
+   "heading": 0
+  },
+  {
+   "t": 1.7,
+   "swing": false
+  },
+  {
+   "t": 3.2,
+   "swing": true,
+   "heading": 90
+  },
+  {
+   "t": 5.0,
+   "swing": false
+  }
+ ]
+}

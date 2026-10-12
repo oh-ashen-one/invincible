@@ -1,0 +1,16 @@
+{
+ "StreetThug": {
+  "surface_area_m2": 2.607,
+  "uv_area_texels": 9900234,
+  "texels_per_m": 1949,
+  "head_texels_per_m": 1941,
+  "body_texels_per_m": 1950
+ },
+ "StreetBrute": {
+  "surface_area_m2": 2.586,
+  "uv_area_texels": 9801823,
+  "texels_per_m": 1947,
+  "head_texels_per_m": 2309,
+  "body_texels_per_m": 1918
+ }
+}

@@ -1,0 +1,556 @@
+{
+ "suits": {
+  "tessera": {
+   "red": 0.0,
+   "blue": 0.0,
+   "white": 0.0,
+   "black": 0.40440193292949095,
+   "palette": [
+    {
+     "rgb": [
+      14,
+      65,
+      79
+     ],
+     "share": 0.461
+    },
+    {
+     "rgb": [
+      7,
+      25,
+      32
+     ],
+     "share": 0.414
+    },
+    {
+     "rgb": [
+      224,
+      120,
+      12
+     ],
+     "share": 0.086
+    },
+    {
+     "rgb": [
+      149,
+      88,
+      20
+     ],
+     "share": 0.017
+    },
+    {
+     "rgb": [
+      72,
+      62,
+      38
+     ],
+     "share": 0.012
+    },
+    {
+     "rgb": [
+      65,
+      107,
+      117
+     ],
+     "share": 0.01
+    }
+   ],
+   "key": "diamond|slash|hexvane",
+   "rules": {
+    "P1_no_red_and_blue": true,
+    "P2_red_le_6pct": true,
+    "P3_blue_le_6pct": true,
+    "P4_no_black_with_white_or_red": true,
+    "P5_white_le_25pct": true,
+    "P7_glyph_allowed": true
+   }
+  },
+  "verdant": {
+   "red": 0.0,
+   "blue": 0.0,
+   "white": 0.0,
+   "black": 0.029949685630920746,
+   "palette": [
+    {
+     "rgb": [
+      74,
+      74,
+      34
+     ],
+     "share": 0.368
+    },
+    {
+     "rgb": [
+      46,
+      82,
+      51
+     ],
+     "share": 0.342
+    },
+    {
+     "rgb": [
+      49,
+      67,
+      37
+     ],
+     "share": 0.146
+    },
+    {
+     "rgb": [
+      211,
+      168,
+      67
+     ],
+     "share": 0.087
+    },
+    {
+     "rgb": [
+      24,
+      24,
+      11
+     ],
+     "share": 0.031
+    },
+    {
+     "rgb": [
+      116,
+      119,
+      64
+     ],
+     "share": 0.027
+    }
+   ],
+   "key": "rib|vee|gate",
+   "rules": {
+    "P1_no_red_and_blue": true,
+    "P2_red_le_6pct": true,
+    "P3_blue_le_6pct": true,
+    "P4_no_black_with_white_or_red": true,
+    "P5_white_le_25pct": true,
+    "P7_glyph_allowed": true
+   }
+  },
+  "plum": {
+   "red": 0.006938328521431471,
+   "blue": 0.0,
+   "white": 0.0,
+   "black": 0.37811746146011227,
+   "palette": [
+    {
+     "rgb": [
+      65,
+      36,
+      85
+     ],
+     "share": 0.445
+    },
+    {
+     "rgb": [
+      22,
+      11,
+      30
+     ],
+     "share": 0.378
+    },
+    {
+     "rgb": [
+      50,
+      27,
+      65
+     ],
+     "share": 0.071
+    },
+    {
+     "rgb": [
+      240,
+      178,
+      106
+     ],
+     "share": 0.061
+    },
+    {
+     "rgb": [
+      186,
+      121,
+      54
+     ],
+     "share": 0.026
+    },
+    {
+     "rgb": [
+      115,
+      84,
+      107
+     ],
+     "share": 0.017
+    }
+   ],
+   "key": "chevron|double|tally",
+   "rules": {
+    "P1_no_red_and_blue": true,
+    "P2_red_le_6pct": true,
+    "P3_blue_le_6pct": true,
+    "P4_no_black_with_white_or_red": true,
+    "P5_white_le_25pct": true,
+    "P7_glyph_allowed": true
+   }
+  },
+  "cinder": {
+   "red": 0.0,
+   "blue": 0.0,
+   "white": 0.0,
+   "black": 0.3853498648327832,
+   "palette": [
+    {
+     "rgb": [
+      67,
+      64,
+      61
+     ],
+     "share": 0.447
+    },
+    {
+     "rgb": [
+      20,
+      17,
+      16
+     ],
+     "share": 0.38
+    },
+    {
+     "rgb": [
+      70,
+      211,
+      223
+     ],
+     "share": 0.08
+    },
+    {
+     "rgb": [
+      44,
+      41,
+      39
+     ],
+     "share": 0.071
+    },
+    {
+     "rgb": [
+      102,
+      119,
+      119
+     ],
+     "share": 0.011
+    },
+    {
+     "rgb": [
+      54,
+      137,
+      145
+     ],
+     "share": 0.011
+    }
+   ],
+   "key": "brick|yoke|lattice",
+   "rules": {
+    "P1_no_red_and_blue": true,
+    "P2_red_le_6pct": true,
+    "P3_blue_le_6pct": true,
+    "P4_no_black_with_white_or_red": true,
+    "P5_white_le_25pct": true,
+    "P7_glyph_allowed": true
+   }
+  },
+  "glacier": {
+   "red": 0.0,
+   "blue": 0.0,
+   "white": 0.004659248424325504,
+   "black": 0.00646964672726855,
+   "palette": [
+    {
+     "rgb": [
+      143,
+      178,
+      181
+     ],
+     "share": 0.495
+    },
+    {
+     "rgb": [
+      41,
+      59,
+      68
+     ],
+     "share": 0.422
+    },
+    {
+     "rgb": [
+      173,
+      97,
+      48
+     ],
+     "share": 0.028
+    },
+    {
+     "rgb": [
+      99,
+      124,
+      129
+     ],
+     "share": 0.026
+    },
+    {
+     "rgb": [
+      236,
+      137,
+      62
+     ],
+     "share": 0.025
+    },
+    {
+     "rgb": [
+      189,
+      156,
+      119
+     ],
+     "share": 0.004
+    }
+   ],
+   "key": "hex|placket|gate",
+   "rules": {
+    "P1_no_red_and_blue": true,
+    "P2_red_le_6pct": true,
+    "P3_blue_le_6pct": true,
+    "P4_no_black_with_white_or_red": true,
+    "P5_white_le_25pct": true,
+    "P7_glyph_allowed": true
+   }
+  },
+  "ash": {
+   "red": 0.0,
+   "blue": 0.0,
+   "white": 0.0,
+   "black": 0.03834919856944838,
+   "palette": [
+    {
+     "rgb": [
+      37,
+      39,
+      43
+     ],
+     "share": 0.399
+    },
+    {
+     "rgb": [
+      93,
+      97,
+      104
+     ],
+     "share": 0.295
+    },
+    {
+     "rgb": [
+      76,
+      79,
+      84
+     ],
+     "share": 0.17
+    },
+    {
+     "rgb": [
+      168,
+      224,
+      90
+     ],
+     "share": 0.083
+    },
+    {
+     "rgb": [
+      21,
+      22,
+      24
+     ],
+     "share": 0.03
+    },
+    {
+     "rgb": [
+      121,
+      150,
+      92
+     ],
+     "share": 0.023
+    }
+   ],
+   "key": "diamond|slash|keystone",
+   "rules": {
+    "P1_no_red_and_blue": true,
+    "P2_red_le_6pct": true,
+    "P3_blue_le_6pct": true,
+    "P4_no_black_with_white_or_red": true,
+    "P5_white_le_25pct": true,
+    "P7_glyph_allowed": true
+   }
+  },
+  "saffron": {
+   "red": 0.0,
+   "blue": 0.0,
+   "white": 1.0721478951439359e-05,
+   "black": 0.030372418229577498,
+   "palette": [
+    {
+     "rgb": [
+      183,
+      120,
+      28
+     ],
+     "share": 0.45
+    },
+    {
+     "rgb": [
+      45,
+      56,
+      52
+     ],
+     "share": 0.421
+    },
+    {
+     "rgb": [
+      241,
+      229,
+      197
+     ],
+     "share": 0.08
+    },
+    {
+     "rgb": [
+      122,
+      98,
+      52
+     ],
+     "share": 0.028
+    },
+    {
+     "rgb": [
+      185,
+      157,
+      104
+     ],
+     "share": 0.016
+    },
+    {
+     "rgb": [
+      212,
+      198,
+      164
+     ],
+     "share": 0.005
+    }
+   ],
+   "key": "square|slash|ladder",
+   "rules": {
+    "P1_no_red_and_blue": true,
+    "P2_red_le_6pct": true,
+    "P3_blue_le_6pct": true,
+    "P4_no_black_with_white_or_red": true,
+    "P5_white_le_25pct": true,
+    "P7_glyph_allowed": true
+   }
+  },
+  "sage": {
+   "red": 0.0,
+   "blue": 0.0,
+   "white": 4.594919550616868e-06,
+   "black": 0.030326469034071327,
+   "palette": [
+    {
+     "rgb": [
+      40,
+      49,
+      36
+     ],
+     "share": 0.457
+    },
+    {
+     "rgb": [
+      127,
+      148,
+      111
+     ],
+     "share": 0.414
+    },
+    {
+     "rgb": [
+      231,
+      160,
+      122
+     ],
+     "share": 0.079
+    },
+    {
+     "rgb": [
+      93,
+      99,
+      75
+     ],
+     "share": 0.028
+    },
+    {
+     "rgb": [
+      160,
+      174,
+      138
+     ],
+     "share": 0.011
+    },
+    {
+     "rgb": [
+      168,
+      120,
+      88
+     ],
+     "share": 0.011
+    }
+   ],
+   "key": "hex|none|chevrons",
+   "rules": {
+    "P1_no_red_and_blue": true,
+    "P2_red_le_6pct": true,
+    "P3_blue_le_6pct": true,
+    "P4_no_black_with_white_or_red": true,
+    "P5_white_le_25pct": true,
+    "P7_glyph_allowed": true
+   }
+  }
+ },
+ "palette_distance": {
+  "tessera|verdant": 54.9,
+  "tessera|plum": 59.7,
+  "tessera|cinder": 150.1,
+  "tessera|glacier": 133.2,
+  "tessera|ash": 79.6,
+  "tessera|saffron": 82.6,
+  "tessera|sage": 96.6,
+  "verdant|plum": 58.0,
+  "verdant|cinder": 144.3,
+  "verdant|glacier": 110.0,
+  "verdant|ash": 55.2,
+  "verdant|saffron": 70.2,
+  "verdant|sage": 68.7,
+  "plum|cinder": 143.8,
+  "plum|glacier": 105.0,
+  "plum|ash": 56.3,
+  "plum|saffron": 62.1,
+  "plum|sage": 68.3,
+  "cinder|glacier": 80.2,
+  "cinder|ash": 95.6,
+  "cinder|saffron": 139.8,
+  "cinder|sage": 87.6,
+  "glacier|ash": 75.5,
+  "glacier|saffron": 71.9,
+  "glacier|sage": 61.3,
+  "ash|saffron": 90.1,
+  "ash|sage": 49.3,
+  "saffron|sage": 86.2
+ },
+ "fails": [],
+ "n_suits": 8
+}

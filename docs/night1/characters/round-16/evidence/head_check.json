@@ -1,0 +1,5792 @@
+{
+ "tessera": {
+  "head": {
+   "suit": "tessera",
+   "file": "skin_tessera_head_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    589,
+    424
+   ],
+   "lens_h_px": [
+    244,
+    246
+   ],
+   "head_w_px": 1469,
+   "lens_over_head": 0.3448,
+   "rim": [
+    {
+     "median": 11.5,
+     "p10": 4.0,
+     "min": 2,
+     "closed_frac": 0.646,
+     "touches_bg": 0
+    },
+    {
+     "median": 19.5,
+     "p10": 0.0,
+     "min": 0,
+     "closed_frac": 0.625,
+     "touches_bg": 11
+    }
+   ],
+   "rim_px_median": 15.5,
+   "rim_closed_frac": 0.625,
+   "lens_edge_distance_px": [
+    204,
+    37
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2026,
+    "y_eye": 837,
+    "v_extrema_prom20": 4,
+    "v_swing": 127.4,
+    "v_extrema_prom6": 6,
+    "h_extrema_prom20": 4,
+    "h_swing": 183.1,
+    "flank_extrema_prom20": 3,
+    "flank_swing": 76.9,
+    "v_profile": [
+     145.8,
+     146.9,
+     149.3,
+     144.9,
+     132.9,
+     118.8,
+     104.2,
+     92.7,
+     81.7,
+     68.8,
+     59.8,
+     54.0,
+     51.7,
+     47.7,
+     44.6,
+     41.8,
+     44.1,
+     50.1,
+     56.3,
+     58.5,
+     61.2,
+     60.9,
+     63.8,
+     68.0,
+     71.7,
+     74.6,
+     78.3,
+     77.9,
+     76.4,
+     74.1,
+     72.8,
+     73.8,
+     73.4,
+     66.5,
+     62.7,
+     58.1,
+     59.6,
+     57.8,
+     56.8,
+     50.4,
+     45.3,
+     32.3,
+     35.7,
+     27.0,
+     27.6,
+     25.5,
+     26.2,
+     65.1,
+     88.2,
+     109.3,
+     97.4,
+     88.7,
+     86.1,
+     86.4
+    ]
+   },
+   "seam": {
+    "pair_median": 143.8,
+    "pair_min": 92.5,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     355,
+     180
+    ],
+    "head_w_px": 1417,
+    "lens_over_head": 0.1888
+   },
+   "lens_width_ratio_vs_r12": 1.826,
+   "lens_width_ratio_near": 1.659,
+   "lens_width_ratio_far": 2.356
+  },
+  "head34": {
+   "suit": "tessera",
+   "file": "skin_tessera_head34_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    632,
+    262
+   ],
+   "lens_h_px": [
+    243,
+    248
+   ],
+   "head_w_px": 1451,
+   "lens_over_head": 0.3081,
+   "rim": [
+    {
+     "median": 5.5,
+     "p10": 0.0,
+     "min": 0,
+     "closed_frac": 0.5,
+     "touches_bg": 0
+    },
+    {
+     "median": 21.5,
+     "p10": 1.5,
+     "min": 0,
+     "closed_frac": 0.833,
+     "touches_bg": 17
+    }
+   ],
+   "rim_px_median": 13.5,
+   "rim_closed_frac": 0.5,
+   "lens_edge_distance_px": [
+    152,
+    4
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2220,
+    "y_eye": 506,
+    "v_extrema_prom20": 4,
+    "v_swing": 125.8,
+    "v_extrema_prom6": 5,
+    "h_extrema_prom20": 3,
+    "h_swing": 164.3,
+    "flank_extrema_prom20": 2,
+    "flank_swing": 83.7,
+    "v_profile": [
+     81.4,
+     92.6,
+     89.7,
+     68.9,
+     52.7,
+     44.4,
+     42.7,
+     43.7,
+     45.4,
+     48.3,
+     46.3,
+     45.8,
+     44.5,
+     43.7,
+     43.0,
+     45.1,
+     43.9,
+     42.5,
+     43.4,
+     42.8,
+     44.6,
+     44.1,
+     47.7,
+     48.0,
+     52.8,
+     52.9,
+     54.8,
+     57.8,
+     57.7,
+     63.9,
+     65.3,
+     71.0,
+     72.6,
+     73.0,
+     77.2,
+     74.4,
+     76.1,
+     73.9,
+     63.0,
+     53.3,
+     41.1,
+     33.8,
+     28.8,
+     26.8,
+     23.4,
+     24.0,
+     29.4,
+     46.8,
+     62.0,
+     123.3,
+     134.5,
+     136.5,
+     141.0,
+     143.3,
+     146.0,
+     140.8
+    ]
+   },
+   "seam": {
+    "pair_median": 110.5,
+    "pair_min": 14.5,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     355,
+     180
+    ],
+    "head_w_px": 1417,
+    "lens_over_head": 0.1888
+   },
+   "lens_width_ratio_vs_r12": 1.632,
+   "lens_width_ratio_near": 1.78,
+   "lens_width_ratio_far": 1.456
+  },
+  "headfront": {
+   "suit": "tessera",
+   "file": "skin_tessera_headfront_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    510,
+    510
+   ],
+   "lens_h_px": [
+    244,
+    249
+   ],
+   "head_w_px": 1454,
+   "lens_over_head": 0.3508,
+   "rim": [
+    {
+     "median": 11.0,
+     "p10": 3.0,
+     "min": 0,
+     "closed_frac": 0.771,
+     "touches_bg": 3
+    },
+    {
+     "median": 8.5,
+     "p10": 0.0,
+     "min": 0,
+     "closed_frac": 0.583,
+     "touches_bg": 3
+    }
+   ],
+   "rim_px_median": 9.8,
+   "rim_closed_frac": 0.583,
+   "lens_edge_distance_px": [
+    111,
+    110
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 1922,
+    "y_eye": 796,
+    "v_extrema_prom20": 3,
+    "v_swing": 119.1,
+    "v_extrema_prom6": 4,
+    "h_extrema_prom20": 4,
+    "h_swing": 205.9,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 75.6,
+    "v_profile": [
+     167.4,
+     175.9,
+     179.6,
+     181.9,
+     181.5,
+     181.2,
+     181.0,
+     180.9,
+     180.5,
+     180.6,
+     180.3,
+     180.2,
+     180.0,
+     180.8,
+     181.6,
+     181.8,
+     181.9,
+     182.4,
+     182.6,
+     183.4,
+     184.3,
+     184.6,
+     184.9,
+     185.1,
+     185.4,
+     185.4,
+     186.4,
+     186.5,
+     186.7,
+     186.8,
+     186.5,
+     183.1,
+     166.7,
+     145.1,
+     134.6,
+     123.7,
+     119.9,
+     104.4,
+     94.3,
+     86.8,
+     79.3,
+     76.6,
+     74.6,
+     69.2,
+     75.2,
+     94.5,
+     119.9,
+     142.3,
+     131.0,
+     129.8,
+     155.1,
+     155.9,
+     156.7,
+     158.3
+    ]
+   },
+   "seam": {
+    "pair_median": 136.5,
+    "pair_min": 87.6,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "side": {
+   "suit": "tessera",
+   "file": "skin_tessera_headside_4k.png",
+   "face_dir": 1,
+   "head_h_px": 1532,
+   "crown_row": 330,
+   "chin_row": 1862,
+   "brow": {
+    "row": 772,
+    "x": 2281
+   },
+   "nose_tip": {
+    "row": 1168,
+    "x": 2448
+   },
+   "nasion": {
+    "row": 943,
+    "x": 2232
+   },
+   "G1_recess_px": 120.4,
+   "G1_recess_pct_head_h": 7.86,
+   "lens": {
+    "rows": [
+     919,
+     1114
+    ],
+    "x_front_top_quarter": 2182
+   },
+   "G2_brow_over_lens_top_px": 99.0,
+   "G2_pct_head_h": 6.46,
+   "G2_with_rim_px": 78.4,
+   "G2_with_rim_pct_head_h": 5.12,
+   "H2": 8.95
+  },
+  "cheek": {
+   "head": {
+    "suit": "tessera",
+    "file": "skin_tessera_head_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 962,
+    "lines": [
+     {
+      "row": 977,
+      "extrema": 8,
+      "swing": 172.4,
+      "width_px": 1389
+     },
+     {
+      "row": 992,
+      "extrema": 10,
+      "swing": 160.2,
+      "width_px": 1384
+     },
+     {
+      "row": 1007,
+      "extrema": 11,
+      "swing": 159.8,
+      "width_px": 1379
+     },
+     {
+      "row": 1022,
+      "extrema": 11,
+      "swing": 160.0,
+      "width_px": 1373
+     },
+     {
+      "row": 1037,
+      "extrema": 11,
+      "swing": 159.5,
+      "width_px": 1367
+     },
+     {
+      "row": 1052,
+      "extrema": 9,
+      "swing": 158.1,
+      "width_px": 1359
+     },
+     {
+      "row": 1067,
+      "extrema": 9,
+      "swing": 156.6,
+      "width_px": 1353
+     },
+     {
+      "row": 1082,
+      "extrema": 9,
+      "swing": 153.7,
+      "width_px": 1345
+     },
+     {
+      "row": 1097,
+      "extrema": 11,
+      "swing": 149.2,
+      "width_px": 1339
+     },
+     {
+      "row": 1112,
+      "extrema": 11,
+      "swing": 145.6,
+      "width_px": 1329
+     },
+     {
+      "row": 1127,
+      "extrema": 11,
+      "swing": 141.6,
+      "width_px": 1323
+     },
+     {
+      "row": 1142,
+      "extrema": 11,
+      "swing": 136.8,
+      "width_px": 1314
+     },
+     {
+      "row": 1157,
+      "extrema": 11,
+      "swing": 137.3,
+      "width_px": 1305
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 136.8,
+    "median_extrema": 11.0,
+    "G3_pass": true
+   },
+   "headfront": {
+    "suit": "tessera",
+    "file": "skin_tessera_headfront_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 919,
+    "lines": [
+     {
+      "row": 934,
+      "extrema": 6,
+      "swing": 172.3,
+      "width_px": 1387
+     },
+     {
+      "row": 949,
+      "extrema": 6,
+      "swing": 172.6,
+      "width_px": 1382
+     },
+     {
+      "row": 964,
+      "extrema": 9,
+      "swing": 158.3,
+      "width_px": 1377
+     },
+     {
+      "row": 979,
+      "extrema": 9,
+      "swing": 157.0,
+      "width_px": 1372
+     },
+     {
+      "row": 994,
+      "extrema": 9,
+      "swing": 156.3,
+      "width_px": 1367
+     },
+     {
+      "row": 1009,
+      "extrema": 9,
+      "swing": 155.2,
+      "width_px": 1360
+     },
+     {
+      "row": 1024,
+      "extrema": 11,
+      "swing": 152.7,
+      "width_px": 1353
+     },
+     {
+      "row": 1039,
+      "extrema": 11,
+      "swing": 148.2,
+      "width_px": 1346
+     },
+     {
+      "row": 1054,
+      "extrema": 11,
+      "swing": 144.5,
+      "width_px": 1338
+     },
+     {
+      "row": 1069,
+      "extrema": 11,
+      "swing": 139.9,
+      "width_px": 1331
+     },
+     {
+      "row": 1084,
+      "extrema": 11,
+      "swing": 135.8,
+      "width_px": 1323
+     },
+     {
+      "row": 1099,
+      "extrema": 11,
+      "swing": 132.7,
+      "width_px": 1312
+     },
+     {
+      "row": 1114,
+      "extrema": 11,
+      "swing": 133.9,
+      "width_px": 1303
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 132.7,
+    "median_extrema": 11.0,
+    "G3_pass": true
+   },
+   "head34": {
+    "suit": "tessera",
+    "file": "skin_tessera_head34_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 645,
+    "lines": [
+     {
+      "row": 660,
+      "extrema": 11,
+      "swing": 157.0,
+      "width_px": 1379
+     },
+     {
+      "row": 675,
+      "extrema": 10,
+      "swing": 156.5,
+      "width_px": 1368
+     },
+     {
+      "row": 690,
+      "extrema": 8,
+      "swing": 156.3,
+      "width_px": 1360
+     },
+     {
+      "row": 705,
+      "extrema": 7,
+      "swing": 151.9,
+      "width_px": 1356
+     },
+     {
+      "row": 720,
+      "extrema": 8,
+      "swing": 148.5,
+      "width_px": 1354
+     },
+     {
+      "row": 735,
+      "extrema": 10,
+      "swing": 141.5,
+      "width_px": 1349
+     },
+     {
+      "row": 750,
+      "extrema": 10,
+      "swing": 134.7,
+      "width_px": 1349
+     },
+     {
+      "row": 765,
+      "extrema": 10,
+      "swing": 131.3,
+      "width_px": 1345
+     },
+     {
+      "row": 780,
+      "extrema": 9,
+      "swing": 131.2,
+      "width_px": 1344
+     },
+     {
+      "row": 795,
+      "extrema": 9,
+      "swing": 129.4,
+      "width_px": 1339
+     },
+     {
+      "row": 810,
+      "extrema": 9,
+      "swing": 126.8,
+      "width_px": 1333
+     },
+     {
+      "row": 825,
+      "extrema": 9,
+      "swing": 118.8,
+      "width_px": 1327
+     },
+     {
+      "row": 840,
+      "extrema": 7,
+      "swing": 119.1,
+      "width_px": 1320
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 118.8,
+    "median_extrema": 9.0,
+    "G3_pass": true
+   }
+  },
+  "verdict": {
+   "H1_nose_extrema_ge3_swing_ge20": true,
+   "H2_nose_bump_ge_2pct": true,
+   "H3_lens_ge_1.6x_r12": true,
+   "H4_rim_ge_6px_closed": false,
+   "H5_seam_pair_ge_20_no_black_12": true,
+   "H6_lens_inside_silhouette": true,
+   "G1_recess_ge_1.5pct": true,
+   "G2_brow_over_lens_top_ge_1pct": true,
+   "G2b_brow_over_lens_plus_rim_ge_1pct": true,
+   "G3_cheek_lines_head_12deg": true,
+   "G3_cheek_lines_headfront_0deg": true,
+   "G3_cheek_lines_head34_25deg": true
+  }
+ },
+ "verdant": {
+  "head": {
+   "suit": "verdant",
+   "file": "skin_verdant_head_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    575,
+    419
+   ],
+   "lens_h_px": [
+    243,
+    247
+   ],
+   "head_w_px": 1437,
+   "lens_over_head": 0.3459,
+   "rim": [
+    {
+     "median": 10.5,
+     "p10": 5.0,
+     "min": 2,
+     "closed_frac": 0.854,
+     "touches_bg": 0
+    },
+    {
+     "median": 17.5,
+     "p10": 0.0,
+     "min": 0,
+     "closed_frac": 0.604,
+     "touches_bg": 11
+    }
+   ],
+   "rim_px_median": 14.0,
+   "rim_closed_frac": 0.604,
+   "lens_edge_distance_px": [
+    197,
+    43
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 1972,
+    "y_eye": 778,
+    "v_extrema_prom20": 3,
+    "v_swing": 149.7,
+    "v_extrema_prom6": 3,
+    "h_extrema_prom20": 4,
+    "h_swing": 170.1,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 77.5,
+    "v_profile": [
+     145.0,
+     145.5,
+     136.7,
+     121.2,
+     108.1,
+     97.3,
+     84.3,
+     75.8,
+     70.2,
+     67.5,
+     66.0,
+     63.5,
+     57.4,
+     50.1,
+     43.0,
+     39.3,
+     41.0,
+     44.7,
+     55.2,
+     68.0,
+     73.5,
+     80.5,
+     85.0,
+     88.6,
+     93.3,
+     93.2,
+     88.6,
+     85.2,
+     84.0,
+     85.0,
+     79.4,
+     70.5,
+     65.2,
+     67.7,
+     65.2,
+     62.4,
+     56.8,
+     53.2,
+     41.7,
+     39.0,
+     32.7,
+     31.3,
+     28.9,
+     27.5,
+     34.5,
+     46.2,
+     67.7,
+     86.1,
+     96.3,
+     100.5,
+     102.5,
+     117.1,
+     174.2,
+     176.8
+    ]
+   },
+   "seam": {
+    "pair_median": 151.5,
+    "pair_min": 105.8,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     359,
+     211
+    ],
+    "head_w_px": 1381,
+    "lens_over_head": 0.2064
+   },
+   "lens_width_ratio_vs_r12": 1.676,
+   "lens_width_ratio_near": 1.602,
+   "lens_width_ratio_far": 1.986
+  },
+  "head34": {
+   "suit": "verdant",
+   "file": "skin_verdant_head34_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    625,
+    305
+   ],
+   "lens_h_px": [
+    247,
+    252
+   ],
+   "head_w_px": 1444,
+   "lens_over_head": 0.322,
+   "rim": [
+    {
+     "median": 7.0,
+     "p10": 0.0,
+     "min": 0,
+     "closed_frac": 0.646,
+     "touches_bg": 0
+    },
+    {
+     "median": 18.0,
+     "p10": 1.5,
+     "min": 0,
+     "closed_frac": 0.729,
+     "touches_bg": 15
+    }
+   ],
+   "rim_px_median": 12.5,
+   "rim_closed_frac": 0.646,
+   "lens_edge_distance_px": [
+    322,
+    6
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2058,
+    "y_eye": 449,
+    "v_extrema_prom20": 4,
+    "v_swing": 142.1,
+    "v_extrema_prom6": 5,
+    "h_extrema_prom20": 3,
+    "h_swing": 186.8,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 60.3,
+    "v_profile": [
+     101.4,
+     106.2,
+     98.1,
+     80.0,
+     70.3,
+     58.6,
+     48.7,
+     37.7,
+     31.3,
+     28.0,
+     29.8,
+     33.8,
+     37.6,
+     44.0,
+     47.7,
+     52.5,
+     51.5,
+     51.1,
+     52.9,
+     52.4,
+     56.1,
+     56.9,
+     60.9,
+     62.6,
+     64.6,
+     69.7,
+     69.2,
+     71.6,
+     75.8,
+     76.1,
+     84.2,
+     84.0,
+     85.7,
+     85.1,
+     82.1,
+     83.6,
+     84.4,
+     74.5,
+     64.7,
+     50.6,
+     39.3,
+     33.3,
+     31.4,
+     26.1,
+     25.5,
+     29.9,
+     44.4,
+     66.1,
+     78.3,
+     85.0,
+     89.5,
+     95.0,
+     142.6,
+     165.0,
+     150.1,
+     93.9
+    ]
+   },
+   "seam": {
+    "pair_median": 134.8,
+    "pair_min": 15.2,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     359,
+     211
+    ],
+    "head_w_px": 1381,
+    "lens_over_head": 0.2064
+   },
+   "lens_width_ratio_vs_r12": 1.56,
+   "lens_width_ratio_near": 1.741,
+   "lens_width_ratio_far": 1.445
+  },
+  "headfront": {
+   "suit": "verdant",
+   "file": "skin_verdant_headfront_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    517,
+    518
+   ],
+   "lens_h_px": [
+    244,
+    249
+   ],
+   "head_w_px": 1474,
+   "lens_over_head": 0.3511,
+   "rim": [
+    {
+     "median": 11.5,
+     "p10": 2.5,
+     "min": 0,
+     "closed_frac": 0.729,
+     "touches_bg": 3
+    },
+    {
+     "median": 23.0,
+     "p10": 1.0,
+     "min": 0,
+     "closed_frac": 0.708,
+     "touches_bg": 3
+    }
+   ],
+   "rim_px_median": 17.2,
+   "rim_closed_frac": 0.708,
+   "lens_edge_distance_px": [
+    111,
+    109
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 1920,
+    "y_eye": 835,
+    "v_extrema_prom20": 1,
+    "v_swing": 109.3,
+    "v_extrema_prom6": 2,
+    "h_extrema_prom20": 3,
+    "h_swing": 153.6,
+    "flank_extrema_prom20": 0,
+    "flank_swing": 77.1,
+    "v_profile": [
+     177.9,
+     184.4,
+     187.4,
+     189.2,
+     189.0,
+     188.9,
+     189.3,
+     188.8,
+     188.7,
+     188.4,
+     188.7,
+     189.4,
+     188.8,
+     188.8,
+     189.3,
+     190.5,
+     191.0,
+     191.1,
+     190.8,
+     191.0,
+     191.8,
+     192.5,
+     192.6,
+     193.0,
+     193.4,
+     193.8,
+     194.1,
+     194.8,
+     195.3,
+     195.4,
+     195.1,
+     195.3,
+     195.2,
+     191.6,
+     172.1,
+     155.8,
+     149.1,
+     134.6,
+     130.9,
+     121.5,
+     105.4,
+     104.7,
+     98.1,
+     89.5,
+     88.5,
+     92.0,
+     96.5,
+     117.2,
+     144.9,
+     163.2,
+     173.8,
+     179.4,
+     182.3,
+     178.5
+    ]
+   },
+   "seam": {
+    "pair_median": 146.8,
+    "pair_min": 104.1,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "side": {
+   "suit": "verdant",
+   "file": "skin_verdant_headside_4k.png",
+   "face_dir": 1,
+   "head_h_px": 1478,
+   "crown_row": 384,
+   "chin_row": 1862,
+   "brow": {
+    "row": 833,
+    "x": 2319
+   },
+   "nose_tip": {
+    "row": 1226,
+    "x": 2476
+   },
+   "nasion": {
+    "row": 996,
+    "x": 2266
+   },
+   "G1_recess_px": 117.6,
+   "G1_recess_pct_head_h": 7.96,
+   "lens": {
+    "rows": [
+     974,
+     1165
+    ],
+    "x_front_top_quarter": 2228
+   },
+   "G2_brow_over_lens_top_px": 91.3,
+   "G2_pct_head_h": 6.18,
+   "G2_with_rim_px": 70.7,
+   "G2_with_rim_pct_head_h": 4.78,
+   "H2": 11.23
+  },
+  "cheek": {
+   "head": {
+    "suit": "verdant",
+    "file": "skin_verdant_head_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 903,
+    "lines": [
+     {
+      "row": 918,
+      "extrema": 8,
+      "swing": 177.8,
+      "width_px": 1374
+     },
+     {
+      "row": 933,
+      "extrema": 12,
+      "swing": 171.9,
+      "width_px": 1370
+     },
+     {
+      "row": 948,
+      "extrema": 13,
+      "swing": 164.8,
+      "width_px": 1365
+     },
+     {
+      "row": 963,
+      "extrema": 11,
+      "swing": 163.9,
+      "width_px": 1360
+     },
+     {
+      "row": 978,
+      "extrema": 13,
+      "swing": 165.0,
+      "width_px": 1355
+     },
+     {
+      "row": 993,
+      "extrema": 13,
+      "swing": 164.2,
+      "width_px": 1348
+     },
+     {
+      "row": 1008,
+      "extrema": 13,
+      "swing": 162.1,
+      "width_px": 1342
+     },
+     {
+      "row": 1023,
+      "extrema": 13,
+      "swing": 161.2,
+      "width_px": 1335
+     },
+     {
+      "row": 1038,
+      "extrema": 11,
+      "swing": 160.6,
+      "width_px": 1329
+     },
+     {
+      "row": 1053,
+      "extrema": 11,
+      "swing": 158.7,
+      "width_px": 1322
+     },
+     {
+      "row": 1068,
+      "extrema": 11,
+      "swing": 159.3,
+      "width_px": 1314
+     },
+     {
+      "row": 1083,
+      "extrema": 11,
+      "swing": 156.9,
+      "width_px": 1307
+     },
+     {
+      "row": 1098,
+      "extrema": 11,
+      "swing": 154.4,
+      "width_px": 1298
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 154.4,
+    "median_extrema": 11.0,
+    "G3_pass": true
+   },
+   "headfront": {
+    "suit": "verdant",
+    "file": "skin_verdant_headfront_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 958,
+    "lines": [
+     {
+      "row": 973,
+      "extrema": 8,
+      "swing": 176.7,
+      "width_px": 1397
+     },
+     {
+      "row": 988,
+      "extrema": 8,
+      "swing": 174.3,
+      "width_px": 1392
+     },
+     {
+      "row": 1003,
+      "extrema": 11,
+      "swing": 165.6,
+      "width_px": 1387
+     },
+     {
+      "row": 1018,
+      "extrema": 11,
+      "swing": 165.4,
+      "width_px": 1382
+     },
+     {
+      "row": 1033,
+      "extrema": 13,
+      "swing": 164.4,
+      "width_px": 1374
+     },
+     {
+      "row": 1048,
+      "extrema": 11,
+      "swing": 163.4,
+      "width_px": 1367
+     },
+     {
+      "row": 1063,
+      "extrema": 13,
+      "swing": 162.8,
+      "width_px": 1360
+     },
+     {
+      "row": 1078,
+      "extrema": 13,
+      "swing": 161.2,
+      "width_px": 1352
+     },
+     {
+      "row": 1093,
+      "extrema": 11,
+      "swing": 161.1,
+      "width_px": 1346
+     },
+     {
+      "row": 1108,
+      "extrema": 13,
+      "swing": 160.0,
+      "width_px": 1335
+     },
+     {
+      "row": 1123,
+      "extrema": 11,
+      "swing": 158.0,
+      "width_px": 1327
+     },
+     {
+      "row": 1138,
+      "extrema": 11,
+      "swing": 158.7,
+      "width_px": 1316
+     },
+     {
+      "row": 1153,
+      "extrema": 11,
+      "swing": 158.9,
+      "width_px": 1307
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 158.0,
+    "median_extrema": 11.0,
+    "G3_pass": true
+   },
+   "head34": {
+    "suit": "verdant",
+    "file": "skin_verdant_head34_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 586,
+    "lines": [
+     {
+      "row": 601,
+      "extrema": 11,
+      "swing": 165.8,
+      "width_px": 1374
+     },
+     {
+      "row": 616,
+      "extrema": 14,
+      "swing": 165.4,
+      "width_px": 1369
+     },
+     {
+      "row": 631,
+      "extrema": 10,
+      "swing": 164.6,
+      "width_px": 1363
+     },
+     {
+      "row": 646,
+      "extrema": 10,
+      "swing": 160.8,
+      "width_px": 1359
+     },
+     {
+      "row": 661,
+      "extrema": 12,
+      "swing": 156.6,
+      "width_px": 1355
+     },
+     {
+      "row": 676,
+      "extrema": 12,
+      "swing": 152.7,
+      "width_px": 1350
+     },
+     {
+      "row": 691,
+      "extrema": 12,
+      "swing": 152.8,
+      "width_px": 1345
+     },
+     {
+      "row": 706,
+      "extrema": 10,
+      "swing": 152.5,
+      "width_px": 1340
+     },
+     {
+      "row": 721,
+      "extrema": 10,
+      "swing": 152.7,
+      "width_px": 1335
+     },
+     {
+      "row": 736,
+      "extrema": 10,
+      "swing": 153.3,
+      "width_px": 1329
+     },
+     {
+      "row": 751,
+      "extrema": 10,
+      "swing": 152.7,
+      "width_px": 1324
+     },
+     {
+      "row": 766,
+      "extrema": 10,
+      "swing": 144.0,
+      "width_px": 1318
+     },
+     {
+      "row": 781,
+      "extrema": 9,
+      "swing": 143.8,
+      "width_px": 1312
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 143.8,
+    "median_extrema": 10.0,
+    "G3_pass": true
+   }
+  },
+  "verdict": {
+   "H1_nose_extrema_ge3_swing_ge20": true,
+   "H2_nose_bump_ge_2pct": true,
+   "H3_lens_ge_1.6x_r12": true,
+   "H4_rim_ge_6px_closed": false,
+   "H5_seam_pair_ge_20_no_black_12": true,
+   "H6_lens_inside_silhouette": true,
+   "G1_recess_ge_1.5pct": true,
+   "G2_brow_over_lens_top_ge_1pct": true,
+   "G2b_brow_over_lens_plus_rim_ge_1pct": true,
+   "G3_cheek_lines_head_12deg": true,
+   "G3_cheek_lines_headfront_0deg": true,
+   "G3_cheek_lines_head34_25deg": true
+  }
+ },
+ "plum": {
+  "head": {
+   "suit": "plum",
+   "file": "skin_plum_head_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    606,
+    376
+   ],
+   "lens_h_px": [
+    241,
+    246
+   ],
+   "head_w_px": 1453,
+   "lens_over_head": 0.3379,
+   "rim": [
+    {
+     "median": 18.0,
+     "p10": 7.0,
+     "min": 6,
+     "closed_frac": 1.0,
+     "touches_bg": 1
+    },
+    {
+     "median": 31.0,
+     "p10": 8.5,
+     "min": 0,
+     "closed_frac": 0.917,
+     "touches_bg": 14
+    }
+   ],
+   "rim_px_median": 24.5,
+   "rim_closed_frac": 0.917,
+   "lens_edge_distance_px": [
+    248,
+    16
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2230,
+    "y_eye": 885,
+    "v_extrema_prom20": 5,
+    "v_swing": 121.8,
+    "v_extrema_prom6": 8,
+    "h_extrema_prom20": 1,
+    "h_swing": 143.0,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 36.4,
+    "v_profile": [
+     64.4,
+     71.1,
+     69.9,
+     66.3,
+     58.5,
+     53.8,
+     48.5,
+     43.7,
+     38.7,
+     33.8,
+     31.5,
+     29.4,
+     27.2,
+     27.1,
+     28.4,
+     29.9,
+     34.5,
+     36.8,
+     41.3,
+     42.1,
+     42.5,
+     44.7,
+     44.9,
+     47.3,
+     49.5,
+     51.1,
+     51.2,
+     51.0,
+     52.6,
+     55.4,
+     53.4,
+     49.7,
+     51.2,
+     52.3,
+     45.8,
+     46.5,
+     43.3,
+     44.3,
+     42.0,
+     35.9,
+     30.8,
+     23.9,
+     21.8,
+     19.3,
+     17.7,
+     18.2,
+     21.0,
+     101.5,
+     113.3,
+     139.4,
+     58.9,
+     66.0,
+     74.7,
+     79.9
+    ]
+   },
+   "seam": {
+    "pair_median": 141.3,
+    "pair_min": 13.7,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     357,
+     207
+    ],
+    "head_w_px": 1366,
+    "lens_over_head": 0.2064
+   },
+   "lens_width_ratio_vs_r12": 1.637,
+   "lens_width_ratio_near": 1.697,
+   "lens_width_ratio_far": 1.816
+  },
+  "head34": {
+   "suit": "plum",
+   "file": "skin_plum_head34_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    637,
+    303
+   ],
+   "lens_h_px": [
+    248,
+    250
+   ],
+   "head_w_px": 1468,
+   "lens_over_head": 0.3202,
+   "rim": [
+    {
+     "median": 15.0,
+     "p10": 6.5,
+     "min": 0,
+     "closed_frac": 0.917,
+     "touches_bg": 0
+    },
+    {
+     "median": 20.5,
+     "p10": 8.0,
+     "min": 2,
+     "closed_frac": 0.917,
+     "touches_bg": 17
+    }
+   ],
+   "rim_px_median": 17.8,
+   "rim_closed_frac": 0.917,
+   "lens_edge_distance_px": [
+    334,
+    4
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2136,
+    "y_eye": 492,
+    "v_extrema_prom20": 5,
+    "v_swing": 165.9,
+    "v_extrema_prom6": 6,
+    "h_extrema_prom20": 3,
+    "h_swing": 191.8,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 86.7,
+    "v_profile": [
+     50.7,
+     56.6,
+     55.7,
+     47.3,
+     40.9,
+     32.2,
+     25.7,
+     22.8,
+     21.1,
+     21.7,
+     23.5,
+     25.6,
+     28.7,
+     30.6,
+     33.0,
+     34.0,
+     34.7,
+     34.9,
+     33.9,
+     35.1,
+     34.4,
+     36.5,
+     36.6,
+     39.4,
+     39.9,
+     39.7,
+     42.8,
+     43.0,
+     43.1,
+     45.8,
+     45.4,
+     48.6,
+     52.4,
+     50.3,
+     53.7,
+     50.1,
+     53.5,
+     50.6,
+     50.8,
+     43.1,
+     34.4,
+     25.6,
+     21.8,
+     18.8,
+     17.1,
+     16.0,
+     17.0,
+     35.0,
+     58.9,
+     34.3,
+     70.2,
+     175.3,
+     171.2,
+     175.0,
+     176.3,
+     181.8
+    ]
+   },
+   "seam": {
+    "pair_median": 122.0,
+    "pair_min": 10.8,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     357,
+     207
+    ],
+    "head_w_px": 1366,
+    "lens_over_head": 0.2064
+   },
+   "lens_width_ratio_vs_r12": 1.551,
+   "lens_width_ratio_near": 1.784,
+   "lens_width_ratio_far": 1.464
+  },
+  "headfront": {
+   "suit": "plum",
+   "file": "skin_plum_headfront_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    508,
+    510
+   ],
+   "lens_h_px": [
+    247,
+    250
+   ],
+   "head_w_px": 1444,
+   "lens_over_head": 0.3525,
+   "rim": [
+    {
+     "median": 24.0,
+     "p10": 6.5,
+     "min": 1,
+     "closed_frac": 0.938,
+     "touches_bg": 3
+    },
+    {
+     "median": 30.0,
+     "p10": 3.0,
+     "min": 0,
+     "closed_frac": 0.875,
+     "touches_bg": 5
+    }
+   ],
+   "rim_px_median": 27.0,
+   "rim_closed_frac": 0.875,
+   "lens_edge_distance_px": [
+    110,
+    108
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 1920,
+    "y_eye": 781,
+    "v_extrema_prom20": 4,
+    "v_swing": 140.1,
+    "v_extrema_prom6": 4,
+    "h_extrema_prom20": 1,
+    "h_swing": 143.4,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 135.3,
+    "v_profile": [
+     156.3,
+     162.0,
+     165.2,
+     167.7,
+     168.1,
+     167.8,
+     166.3,
+     166.6,
+     167.4,
+     167.5,
+     167.7,
+     167.3,
+     167.5,
+     168.6,
+     170.4,
+     170.5,
+     171.1,
+     171.0,
+     171.1,
+     171.7,
+     172.7,
+     172.9,
+     173.7,
+     173.9,
+     174.6,
+     175.5,
+     175.8,
+     176.0,
+     175.9,
+     175.3,
+     173.2,
+     162.0,
+     132.6,
+     120.6,
+     112.8,
+     105.2,
+     91.8,
+     89.0,
+     77.0,
+     72.4,
+     73.2,
+     65.9,
+     62.4,
+     67.1,
+     74.9,
+     91.9,
+     119.0,
+     131.4,
+     56.9,
+     182.2,
+     186.0,
+     186.4,
+     186.4,
+     188.9
+    ]
+   },
+   "seam": {
+    "pair_median": 141.7,
+    "pair_min": 95.4,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "side": {
+   "suit": "plum",
+   "file": "skin_plum_headside_4k.png",
+   "face_dir": 1,
+   "head_h_px": 1504,
+   "crown_row": 358,
+   "chin_row": 1862,
+   "brow": {
+    "row": 800,
+    "x": 2283
+   },
+   "nose_tip": {
+    "row": 1193,
+    "x": 2447
+   },
+   "nasion": {
+    "row": 970,
+    "x": 2235
+   },
+   "G1_recess_px": 118.8,
+   "G1_recess_pct_head_h": 7.9,
+   "lens": {
+    "rows": [
+     942,
+     1137
+    ],
+    "x_front_top_quarter": 2191
+   },
+   "G2_brow_over_lens_top_px": 92.0,
+   "G2_pct_head_h": 6.12,
+   "G2_with_rim_px": 71.4,
+   "G2_with_rim_pct_head_h": 4.75,
+   "H2": 8.78
+  },
+  "cheek": {
+   "head": {
+    "suit": "plum",
+    "file": "skin_plum_head_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 1015,
+    "lines": [
+     {
+      "row": 1030,
+      "extrema": 7,
+      "swing": 153.2,
+      "width_px": 1371
+     },
+     {
+      "row": 1045,
+      "extrema": 10,
+      "swing": 152.2,
+      "width_px": 1365
+     },
+     {
+      "row": 1060,
+      "extrema": 9,
+      "swing": 152.0,
+      "width_px": 1361
+     },
+     {
+      "row": 1075,
+      "extrema": 9,
+      "swing": 152.7,
+      "width_px": 1354
+     },
+     {
+      "row": 1090,
+      "extrema": 9,
+      "swing": 151.5,
+      "width_px": 1349
+     },
+     {
+      "row": 1105,
+      "extrema": 9,
+      "swing": 148.5,
+      "width_px": 1343
+     },
+     {
+      "row": 1120,
+      "extrema": 9,
+      "swing": 143.7,
+      "width_px": 1337
+     },
+     {
+      "row": 1135,
+      "extrema": 11,
+      "swing": 139.9,
+      "width_px": 1330
+     },
+     {
+      "row": 1150,
+      "extrema": 11,
+      "swing": 137.1,
+      "width_px": 1322
+     },
+     {
+      "row": 1165,
+      "extrema": 11,
+      "swing": 132.7,
+      "width_px": 1315
+     },
+     {
+      "row": 1180,
+      "extrema": 11,
+      "swing": 131.4,
+      "width_px": 1308
+     },
+     {
+      "row": 1195,
+      "extrema": 11,
+      "swing": 132.2,
+      "width_px": 1299
+     },
+     {
+      "row": 1210,
+      "extrema": 11,
+      "swing": 130.0,
+      "width_px": 1291
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 130.0,
+    "median_extrema": 10.0,
+    "G3_pass": true
+   },
+   "headfront": {
+    "suit": "plum",
+    "file": "skin_plum_headfront_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 905,
+    "lines": [
+     {
+      "row": 920,
+      "extrema": 6,
+      "swing": 157.6,
+      "width_px": 1381
+     },
+     {
+      "row": 935,
+      "extrema": 6,
+      "swing": 158.7,
+      "width_px": 1377
+     },
+     {
+      "row": 950,
+      "extrema": 9,
+      "swing": 150.4,
+      "width_px": 1373
+     },
+     {
+      "row": 965,
+      "extrema": 9,
+      "swing": 150.0,
+      "width_px": 1367
+     },
+     {
+      "row": 980,
+      "extrema": 9,
+      "swing": 149.4,
+      "width_px": 1363
+     },
+     {
+      "row": 995,
+      "extrema": 9,
+      "swing": 147.7,
+      "width_px": 1357
+     },
+     {
+      "row": 1010,
+      "extrema": 11,
+      "swing": 144.7,
+      "width_px": 1349
+     },
+     {
+      "row": 1025,
+      "extrema": 11,
+      "swing": 141.2,
+      "width_px": 1342
+     },
+     {
+      "row": 1040,
+      "extrema": 11,
+      "swing": 138.4,
+      "width_px": 1335
+     },
+     {
+      "row": 1055,
+      "extrema": 11,
+      "swing": 136.4,
+      "width_px": 1327
+     },
+     {
+      "row": 1070,
+      "extrema": 11,
+      "swing": 133.6,
+      "width_px": 1319
+     },
+     {
+      "row": 1085,
+      "extrema": 11,
+      "swing": 138.9,
+      "width_px": 1311
+     },
+     {
+      "row": 1100,
+      "extrema": 11,
+      "swing": 138.6,
+      "width_px": 1301
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 133.6,
+    "median_extrema": 11.0,
+    "G3_pass": true
+   },
+   "head34": {
+    "suit": "plum",
+    "file": "skin_plum_head34_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 628,
+    "lines": [
+     {
+      "row": 643,
+      "extrema": 10,
+      "swing": 153.8,
+      "width_px": 1387
+     },
+     {
+      "row": 658,
+      "extrema": 9,
+      "swing": 153.9,
+      "width_px": 1379
+     },
+     {
+      "row": 673,
+      "extrema": 8,
+      "swing": 154.5,
+      "width_px": 1375
+     },
+     {
+      "row": 688,
+      "extrema": 7,
+      "swing": 154.6,
+      "width_px": 1370
+     },
+     {
+      "row": 703,
+      "extrema": 7,
+      "swing": 149.6,
+      "width_px": 1365
+     },
+     {
+      "row": 718,
+      "extrema": 8,
+      "swing": 146.1,
+      "width_px": 1360
+     },
+     {
+      "row": 733,
+      "extrema": 10,
+      "swing": 141.0,
+      "width_px": 1355
+     },
+     {
+      "row": 748,
+      "extrema": 10,
+      "swing": 132.4,
+      "width_px": 1350
+     },
+     {
+      "row": 763,
+      "extrema": 10,
+      "swing": 128.3,
+      "width_px": 1344
+     },
+     {
+      "row": 778,
+      "extrema": 9,
+      "swing": 127.1,
+      "width_px": 1338
+     },
+     {
+      "row": 793,
+      "extrema": 9,
+      "swing": 126.8,
+      "width_px": 1332
+     },
+     {
+      "row": 808,
+      "extrema": 9,
+      "swing": 128.0,
+      "width_px": 1326
+     },
+     {
+      "row": 823,
+      "extrema": 9,
+      "swing": 118.9,
+      "width_px": 1320
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 118.9,
+    "median_extrema": 9.0,
+    "G3_pass": true
+   }
+  },
+  "verdict": {
+   "H1_nose_extrema_ge3_swing_ge20": true,
+   "H2_nose_bump_ge_2pct": true,
+   "H3_lens_ge_1.6x_r12": true,
+   "H4_rim_ge_6px_closed": true,
+   "H5_seam_pair_ge_20_no_black_12": true,
+   "H6_lens_inside_silhouette": true,
+   "G1_recess_ge_1.5pct": true,
+   "G2_brow_over_lens_top_ge_1pct": true,
+   "G2b_brow_over_lens_plus_rim_ge_1pct": true,
+   "G3_cheek_lines_head_12deg": true,
+   "G3_cheek_lines_headfront_0deg": true,
+   "G3_cheek_lines_head34_25deg": true
+  }
+ },
+ "cinder": {
+  "head": {
+   "suit": "cinder",
+   "file": "skin_cinder_head_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    597,
+    385
+   ],
+   "lens_h_px": [
+    242,
+    247
+   ],
+   "head_w_px": 1447,
+   "lens_over_head": 0.3393,
+   "rim": [
+    {
+     "median": 6.0,
+     "p10": 3.0,
+     "min": 0,
+     "closed_frac": 0.667,
+     "touches_bg": 3
+    },
+    {
+     "median": 16.5,
+     "p10": 0.0,
+     "min": 0,
+     "closed_frac": 0.521,
+     "touches_bg": 18
+    }
+   ],
+   "rim_px_median": 11.2,
+   "rim_closed_frac": 0.521,
+   "lens_edge_distance_px": [
+    132,
+    22
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2148,
+    "y_eye": 848,
+    "v_extrema_prom20": 3,
+    "v_swing": 88.2,
+    "v_extrema_prom6": 4,
+    "h_extrema_prom20": 4,
+    "h_swing": 196.9,
+    "flank_extrema_prom20": 2,
+    "flank_swing": 62.4,
+    "v_profile": [
+     110.5,
+     112.8,
+     109.9,
+     99.3,
+     92.5,
+     82.2,
+     74.5,
+     66.0,
+     58.5,
+     52.0,
+     46.5,
+     40.7,
+     36.3,
+     33.6,
+     35.1,
+     39.2,
+     46.7,
+     53.2,
+     62.0,
+     64.3,
+     65.7,
+     69.8,
+     71.9,
+     74.6,
+     79.4,
+     84.2,
+     86.1,
+     85.4,
+     86.2,
+     88.6,
+     89.8,
+     86.1,
+     84.5,
+     82.3,
+     75.1,
+     79.0,
+     77.6,
+     72.6,
+     68.4,
+     58.3,
+     46.7,
+     38.9,
+     36.6,
+     31.7,
+     30.1,
+     31.6,
+     44.5,
+     55.6,
+     78.1,
+     92.3,
+     99.6,
+     103.5,
+     105.2,
+     108.0
+    ]
+   },
+   "seam": {
+    "pair_median": 158.6,
+    "pair_min": 53.1,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     356,
+     189
+    ],
+    "head_w_px": 1380,
+    "lens_over_head": 0.1975
+   },
+   "lens_width_ratio_vs_r12": 1.718,
+   "lens_width_ratio_near": 1.677,
+   "lens_width_ratio_far": 2.037
+  },
+  "head34": {
+   "suit": "cinder",
+   "file": "skin_cinder_head34_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    626,
+    306
+   ],
+   "lens_h_px": [
+    247,
+    253
+   ],
+   "head_w_px": 1441,
+   "lens_over_head": 0.3234,
+   "rim": [
+    {
+     "median": 8.0,
+     "p10": 0.0,
+     "min": 0,
+     "closed_frac": 0.729,
+     "touches_bg": 0
+    },
+    {
+     "median": 20.5,
+     "p10": 0.5,
+     "min": 0,
+     "closed_frac": 0.771,
+     "touches_bg": 16
+    }
+   ],
+   "rim_px_median": 14.2,
+   "rim_closed_frac": 0.729,
+   "lens_edge_distance_px": [
+    294,
+    3
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2054,
+    "y_eye": 445,
+    "v_extrema_prom20": 3,
+    "v_swing": 107.9,
+    "v_extrema_prom6": 6,
+    "h_extrema_prom20": 3,
+    "h_swing": 178.4,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 65.2,
+    "v_profile": [
+     121.4,
+     125.2,
+     116.8,
+     95.0,
+     83.8,
+     68.5,
+     56.8,
+     43.0,
+     34.5,
+     29.5,
+     29.8,
+     32.8,
+     36.7,
+     42.7,
+     47.7,
+     51.7,
+     50.7,
+     49.4,
+     51.7,
+     50.4,
+     53.9,
+     54.1,
+     58.9,
+     59.2,
+     62.2,
+     67.5,
+     66.0,
+     71.0,
+     74.1,
+     76.2,
+     85.6,
+     84.3,
+     87.9,
+     84.4,
+     85.8,
+     83.9,
+     85.9,
+     74.0,
+     59.4,
+     46.5,
+     35.1,
+     32.5,
+     26.6,
+     24.4,
+     24.4,
+     27.4,
+     39.0,
+     65.3,
+     79.6,
+     86.8,
+     92.8,
+     96.3,
+     98.2,
+     105.5,
+     109.0,
+     113.1
+    ]
+   },
+   "seam": {
+    "pair_median": 148.3,
+    "pair_min": 17.6,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     356,
+     189
+    ],
+    "head_w_px": 1380,
+    "lens_over_head": 0.1975
+   },
+   "lens_width_ratio_vs_r12": 1.637,
+   "lens_width_ratio_near": 1.758,
+   "lens_width_ratio_far": 1.619
+  },
+  "headfront": {
+   "suit": "cinder",
+   "file": "skin_cinder_headfront_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    528,
+    497
+   ],
+   "lens_h_px": [
+    243,
+    250
+   ],
+   "head_w_px": 1460,
+   "lens_over_head": 0.351,
+   "rim": [
+    {
+     "median": 18.5,
+     "p10": 4.0,
+     "min": 0,
+     "closed_frac": 0.771,
+     "touches_bg": 0
+    },
+    {
+     "median": 6.0,
+     "p10": 0.0,
+     "min": 0,
+     "closed_frac": 0.521,
+     "touches_bg": 11
+    }
+   ],
+   "rim_px_median": 12.2,
+   "rim_closed_frac": 0.521,
+   "lens_edge_distance_px": [
+    120,
+    92
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2018,
+    "y_eye": 857,
+    "v_extrema_prom20": 1,
+    "v_swing": 136.2,
+    "v_extrema_prom6": 2,
+    "h_extrema_prom20": 4,
+    "h_swing": 173.0,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 80.2,
+    "v_profile": [
+     183.7,
+     185.9,
+     189.4,
+     191.5,
+     191.1,
+     189.6,
+     187.4,
+     186.7,
+     187.9,
+     186.8,
+     184.6,
+     182.0,
+     181.3,
+     181.0,
+     179.9,
+     175.3,
+     169.8,
+     164.4,
+     161.2,
+     155.7,
+     149.7,
+     143.6,
+     136.0,
+     129.7,
+     123.6,
+     119.3,
+     112.0,
+     104.8,
+     99.8,
+     98.0,
+     98.5,
+     96.3,
+     94.9,
+     89.6,
+     84.2,
+     78.9,
+     74.3,
+     70.4,
+     64.3,
+     62.2,
+     59.4,
+     58.9,
+     60.3,
+     57.3,
+     55.7,
+     59.0,
+     70.8,
+     91.7,
+     124.0,
+     139.7,
+     145.9,
+     148.2,
+     149.7,
+     152.1
+    ]
+   },
+   "seam": {
+    "pair_median": 158.5,
+    "pair_min": 127.2,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "side": {
+   "suit": "cinder",
+   "file": "skin_cinder_headside_4k.png",
+   "face_dir": 1,
+   "head_h_px": 1531,
+   "crown_row": 331,
+   "chin_row": 1862,
+   "brow": {
+    "row": 776,
+    "x": 2290
+   },
+   "nose_tip": {
+    "row": 1174,
+    "x": 2456
+   },
+   "nasion": {
+    "row": 940,
+    "x": 2238
+   },
+   "G1_recess_px": 119.9,
+   "G1_recess_pct_head_h": 7.83,
+   "lens": {
+    "rows": [
+     922,
+     1119
+    ],
+    "x_front_top_quarter": 2191
+   },
+   "G2_brow_over_lens_top_px": 99.3,
+   "G2_pct_head_h": 6.49,
+   "G2_with_rim_px": 78.7,
+   "G2_with_rim_pct_head_h": 5.14,
+   "H2": 8.85
+  },
+  "cheek": {
+   "head": {
+    "suit": "cinder",
+    "file": "skin_cinder_head_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 977,
+    "lines": [
+     {
+      "row": 992,
+      "extrema": 7,
+      "swing": 182.8,
+      "width_px": 1370
+     },
+     {
+      "row": 1007,
+      "extrema": 10,
+      "swing": 173.9,
+      "width_px": 1365
+     },
+     {
+      "row": 1022,
+      "extrema": 13,
+      "swing": 172.8,
+      "width_px": 1360
+     },
+     {
+      "row": 1037,
+      "extrema": 13,
+      "swing": 172.8,
+      "width_px": 1355
+     },
+     {
+      "row": 1052,
+      "extrema": 11,
+      "swing": 173.0,
+      "width_px": 1349
+     },
+     {
+      "row": 1067,
+      "extrema": 13,
+      "swing": 168.8,
+      "width_px": 1343
+     },
+     {
+      "row": 1082,
+      "extrema": 13,
+      "swing": 165.8,
+      "width_px": 1335
+     },
+     {
+      "row": 1097,
+      "extrema": 13,
+      "swing": 163.6,
+      "width_px": 1330
+     },
+     {
+      "row": 1112,
+      "extrema": 13,
+      "swing": 160.0,
+      "width_px": 1322
+     },
+     {
+      "row": 1127,
+      "extrema": 11,
+      "swing": 157.8,
+      "width_px": 1316
+     },
+     {
+      "row": 1142,
+      "extrema": 11,
+      "swing": 155.7,
+      "width_px": 1308
+     },
+     {
+      "row": 1157,
+      "extrema": 11,
+      "swing": 156.0,
+      "width_px": 1301
+     },
+     {
+      "row": 1172,
+      "extrema": 11,
+      "swing": 153.5,
+      "width_px": 1293
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 153.5,
+    "median_extrema": 11.0,
+    "G3_pass": true
+   },
+   "headfront": {
+    "suit": "cinder",
+    "file": "skin_cinder_headfront_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 983,
+    "lines": [
+     {
+      "row": 998,
+      "extrema": 8,
+      "swing": 185.6,
+      "width_px": 1387
+     },
+     {
+      "row": 1013,
+      "extrema": 10,
+      "swing": 170.8,
+      "width_px": 1382
+     },
+     {
+      "row": 1028,
+      "extrema": 11,
+      "swing": 171.0,
+      "width_px": 1377
+     },
+     {
+      "row": 1043,
+      "extrema": 13,
+      "swing": 169.8,
+      "width_px": 1373
+     },
+     {
+      "row": 1058,
+      "extrema": 11,
+      "swing": 169.4,
+      "width_px": 1365
+     },
+     {
+      "row": 1073,
+      "extrema": 13,
+      "swing": 167.7,
+      "width_px": 1359
+     },
+     {
+      "row": 1088,
+      "extrema": 14,
+      "swing": 167.6,
+      "width_px": 1915
+     },
+     {
+      "row": 1103,
+      "extrema": 11,
+      "swing": 164.5,
+      "width_px": 1345
+     },
+     {
+      "row": 1118,
+      "extrema": 13,
+      "swing": 161.4,
+      "width_px": 1337
+     },
+     {
+      "row": 1133,
+      "extrema": 11,
+      "swing": 159.2,
+      "width_px": 1328
+     },
+     {
+      "row": 1148,
+      "extrema": 11,
+      "swing": 157.6,
+      "width_px": 1319
+     },
+     {
+      "row": 1163,
+      "extrema": 11,
+      "swing": 158.6,
+      "width_px": 1310
+     },
+     {
+      "row": 1178,
+      "extrema": 11,
+      "swing": 157.4,
+      "width_px": 1300
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 157.4,
+    "median_extrema": 11.0,
+    "G3_pass": true
+   },
+   "head34": {
+    "suit": "cinder",
+    "file": "skin_cinder_head34_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 583,
+    "lines": [
+     {
+      "row": 598,
+      "extrema": 12,
+      "swing": 175.2,
+      "width_px": 1372
+     },
+     {
+      "row": 613,
+      "extrema": 10,
+      "swing": 175.5,
+      "width_px": 1366
+     },
+     {
+      "row": 628,
+      "extrema": 10,
+      "swing": 174.3,
+      "width_px": 1362
+     },
+     {
+      "row": 643,
+      "extrema": 10,
+      "swing": 171.6,
+      "width_px": 1357
+     },
+     {
+      "row": 658,
+      "extrema": 12,
+      "swing": 168.2,
+      "width_px": 1353
+     },
+     {
+      "row": 673,
+      "extrema": 12,
+      "swing": 165.1,
+      "width_px": 1348
+     },
+     {
+      "row": 688,
+      "extrema": 10,
+      "swing": 161.4,
+      "width_px": 1343
+     },
+     {
+      "row": 703,
+      "extrema": 10,
+      "swing": 153.6,
+      "width_px": 1338
+     },
+     {
+      "row": 718,
+      "extrema": 10,
+      "swing": 151.5,
+      "width_px": 1333
+     },
+     {
+      "row": 733,
+      "extrema": 10,
+      "swing": 152.8,
+      "width_px": 1328
+     },
+     {
+      "row": 748,
+      "extrema": 10,
+      "swing": 151.2,
+      "width_px": 1321
+     },
+     {
+      "row": 763,
+      "extrema": 10,
+      "swing": 144.0,
+      "width_px": 1316
+     },
+     {
+      "row": 778,
+      "extrema": 7,
+      "swing": 146.7,
+      "width_px": 1311
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 144.0,
+    "median_extrema": 10.0,
+    "G3_pass": true
+   }
+  },
+  "verdict": {
+   "H1_nose_extrema_ge3_swing_ge20": true,
+   "H2_nose_bump_ge_2pct": true,
+   "H3_lens_ge_1.6x_r12": true,
+   "H4_rim_ge_6px_closed": false,
+   "H5_seam_pair_ge_20_no_black_12": true,
+   "H6_lens_inside_silhouette": true,
+   "G1_recess_ge_1.5pct": true,
+   "G2_brow_over_lens_top_ge_1pct": true,
+   "G2b_brow_over_lens_plus_rim_ge_1pct": true,
+   "G3_cheek_lines_head_12deg": true,
+   "G3_cheek_lines_headfront_0deg": true,
+   "G3_cheek_lines_head34_25deg": true
+  }
+ },
+ "glacier": {
+  "head": {
+   "suit": "glacier",
+   "file": "skin_glacier_head_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    575,
+    421
+   ],
+   "lens_h_px": [
+    243,
+    245
+   ],
+   "head_w_px": 1448,
+   "lens_over_head": 0.3439,
+   "rim": [
+    {
+     "median": 47.0,
+     "p10": 39.0,
+     "min": 25,
+     "closed_frac": 1.0,
+     "touches_bg": 2
+    },
+    {
+     "median": 44.0,
+     "p10": 33.0,
+     "min": 32,
+     "closed_frac": 1.0,
+     "touches_bg": 11
+    }
+   ],
+   "rim_px_median": 45.5,
+   "rim_closed_frac": 1.0,
+   "lens_edge_distance_px": [
+    46,
+    45
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 1976,
+    "y_eye": 793,
+    "v_extrema_prom20": 4,
+    "v_swing": 101.4,
+    "v_extrema_prom6": 4,
+    "h_extrema_prom20": 3,
+    "h_swing": 128.0,
+    "flank_extrema_prom20": 2,
+    "flank_swing": 73.9,
+    "v_profile": [
+     205.4,
+     203.5,
+     198.7,
+     191.6,
+     185.1,
+     178.9,
+     174.2,
+     169.8,
+     169.7,
+     170.8,
+     166.2,
+     158.8,
+     149.1,
+     140.3,
+     130.3,
+     127.1,
+     135.7,
+     151.5,
+     173.2,
+     196.9,
+     204.2,
+     210.9,
+     215.2,
+     218.4,
+     221.0,
+     223.5,
+     222.3,
+     220.3,
+     219.1,
+     218.6,
+     218.0,
+     212.5,
+     209.3,
+     202.3,
+     205.9,
+     205.2,
+     204.2,
+     197.1,
+     192.6,
+     174.7,
+     166.2,
+     161.2,
+     152.1,
+     156.4,
+     152.5,
+     171.5,
+     189.7,
+     208.2,
+     220.5,
+     224.7,
+     225.7,
+     225.7,
+     214.9,
+     164.6
+    ]
+   },
+   "seam": {
+    "pair_median": 103.4,
+    "pair_min": 42.2,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     363,
+     210
+    ],
+    "head_w_px": 1404,
+    "lens_over_head": 0.2041
+   },
+   "lens_width_ratio_vs_r12": 1.685,
+   "lens_width_ratio_near": 1.584,
+   "lens_width_ratio_far": 2.005
+  },
+  "head34": {
+   "suit": "glacier",
+   "file": "skin_glacier_head34_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    626,
+    254
+   ],
+   "lens_h_px": [
+    242,
+    249
+   ],
+   "head_w_px": 1451,
+   "lens_over_head": 0.3032,
+   "rim": [
+    {
+     "median": 52.0,
+     "p10": 40.0,
+     "min": 35,
+     "closed_frac": 1.0,
+     "touches_bg": 5
+    },
+    {
+     "median": 33.5,
+     "p10": 13.0,
+     "min": 7,
+     "closed_frac": 1.0,
+     "touches_bg": 18
+    }
+   ],
+   "rim_px_median": 42.8,
+   "rim_closed_frac": 1.0,
+   "lens_edge_distance_px": [
+    37,
+    6
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2256,
+    "y_eye": 524,
+    "v_extrema_prom20": 4,
+    "v_swing": 95.0,
+    "v_extrema_prom6": 10,
+    "h_extrema_prom20": 2,
+    "h_swing": 72.0,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 82.9,
+    "v_profile": [
+     140.5,
+     148.0,
+     148.2,
+     136.5,
+     136.2,
+     135.1,
+     137.1,
+     142.5,
+     149.4,
+     151.1,
+     157.9,
+     154.2,
+     157.9,
+     157.9,
+     150.0,
+     154.3,
+     155.6,
+     149.6,
+     155.1,
+     153.6,
+     161.4,
+     162.9,
+     170.7,
+     174.7,
+     185.7,
+     185.9,
+     193.6,
+     195.9,
+     198.6,
+     204.1,
+     205.1,
+     212.0,
+     211.7,
+     214.9,
+     213.8,
+     215.3,
+     215.5,
+     215.9,
+     204.8,
+     197.4,
+     182.6,
+     165.7,
+     149.7,
+     140.7,
+     130.4,
+     124.9,
+     127.1,
+     171.9,
+     190.2,
+     205.1,
+     212.4,
+     215.9,
+     217.2,
+     182.4,
+     155.6,
+     162.2
+    ]
+   },
+   "seam": {
+    "pair_median": 100.5,
+    "pair_min": 16.7,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     363,
+     210
+    ],
+    "head_w_px": 1404,
+    "lens_over_head": 0.2041
+   },
+   "lens_width_ratio_vs_r12": 1.486,
+   "lens_width_ratio_near": 1.725,
+   "lens_width_ratio_far": 1.21
+  },
+  "headfront": {
+   "suit": "glacier",
+   "file": "skin_glacier_headfront_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    499,
+    526
+   ],
+   "lens_h_px": [
+    243,
+    247
+   ],
+   "head_w_px": 1464,
+   "lens_over_head": 0.3501,
+   "rim": [
+    {
+     "median": 44.5,
+     "p10": 35.0,
+     "min": 26,
+     "closed_frac": 1.0,
+     "touches_bg": 5
+    },
+    {
+     "median": 39.5,
+     "p10": 32.0,
+     "min": 30,
+     "closed_frac": 1.0,
+     "touches_bg": 0
+    }
+   ],
+   "rim_px_median": 42.0,
+   "rim_closed_frac": 1.0,
+   "lens_edge_distance_px": [
+    33,
+    124
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 1838,
+    "y_eye": 843,
+    "v_extrema_prom20": 2,
+    "v_swing": 104.0,
+    "v_extrema_prom6": 3,
+    "h_extrema_prom20": 3,
+    "h_swing": 126.7,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 59.9,
+    "v_profile": [
+     225.5,
+     228.5,
+     230.3,
+     231.5,
+     231.7,
+     231.5,
+     231.4,
+     231.9,
+     232.4,
+     232.3,
+     232.3,
+     232.4,
+     232.9,
+     233.3,
+     233.6,
+     233.8,
+     234.0,
+     233.9,
+     234.0,
+     234.2,
+     233.9,
+     233.7,
+     233.6,
+     233.5,
+     233.1,
+     233.0,
+     232.7,
+     231.8,
+     231.5,
+     230.8,
+     230.3,
+     229.8,
+     226.7,
+     226.0,
+     225.8,
+     224.7,
+     224.0,
+     222.1,
+     219.3,
+     217.9,
+     215.3,
+     211.4,
+     206.6,
+     206.5,
+     207.1,
+     210.2,
+     215.2,
+     220.6,
+     225.3,
+     229.3,
+     230.7,
+     230.9,
+     230.1,
+     141.1
+    ]
+   },
+   "seam": {
+    "pair_median": 94.2,
+    "pair_min": 47.8,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "side": {
+   "suit": "glacier",
+   "file": "skin_glacier_headside_4k.png",
+   "face_dir": 1,
+   "head_h_px": 1514,
+   "crown_row": 348,
+   "chin_row": 1862,
+   "brow": {
+    "row": 822,
+    "x": 2399
+   },
+   "nose_tip": {
+    "row": 1224,
+    "x": 2548
+   },
+   "nasion": {
+    "row": 989,
+    "x": 2342
+   },
+   "G1_recess_px": 118.2,
+   "G1_recess_pct_head_h": 7.81,
+   "lens": {
+    "rows": [
+     963,
+     1156
+    ],
+    "x_front_top_quarter": 2294
+   },
+   "G2_brow_over_lens_top_px": 105.0,
+   "G2_pct_head_h": 6.94,
+   "G2_with_rim_px": 84.4,
+   "G2_with_rim_pct_head_h": 5.57,
+   "H2": 10.47
+  },
+  "cheek": {
+   "head": {
+    "suit": "glacier",
+    "file": "skin_glacier_head_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 917,
+    "lines": [
+     {
+      "row": 932,
+      "extrema": 11,
+      "swing": 229.3,
+      "width_px": 1381
+     },
+     {
+      "row": 947,
+      "extrema": 11,
+      "swing": 204.1,
+      "width_px": 1377
+     },
+     {
+      "row": 962,
+      "extrema": 11,
+      "swing": 143.4,
+      "width_px": 1373
+     },
+     {
+      "row": 977,
+      "extrema": 11,
+      "swing": 143.5,
+      "width_px": 1367
+     },
+     {
+      "row": 992,
+      "extrema": 7,
+      "swing": 143.5,
+      "width_px": 1362
+     },
+     {
+      "row": 1007,
+      "extrema": 7,
+      "swing": 143.7,
+      "width_px": 1355
+     },
+     {
+      "row": 1022,
+      "extrema": 7,
+      "swing": 143.5,
+      "width_px": 1348
+     },
+     {
+      "row": 1037,
+      "extrema": 7,
+      "swing": 143.7,
+      "width_px": 1342
+     },
+     {
+      "row": 1052,
+      "extrema": 9,
+      "swing": 142.8,
+      "width_px": 1334
+     },
+     {
+      "row": 1067,
+      "extrema": 11,
+      "swing": 140.2,
+      "width_px": 1327
+     },
+     {
+      "row": 1082,
+      "extrema": 8,
+      "swing": 136.3,
+      "width_px": 1319
+     },
+     {
+      "row": 1097,
+      "extrema": 11,
+      "swing": 134.0,
+      "width_px": 1310
+     },
+     {
+      "row": 1112,
+      "extrema": 7,
+      "swing": 132.8,
+      "width_px": 1301
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 132.8,
+    "median_extrema": 9.0,
+    "G3_pass": true
+   },
+   "headfront": {
+    "suit": "glacier",
+    "file": "skin_glacier_headfront_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 966,
+    "lines": [
+     {
+      "row": 981,
+      "extrema": 11,
+      "swing": 228.6,
+      "width_px": 1392
+     },
+     {
+      "row": 996,
+      "extrema": 13,
+      "swing": 226.7,
+      "width_px": 1387
+     },
+     {
+      "row": 1011,
+      "extrema": 11,
+      "swing": 140.8,
+      "width_px": 1383
+     },
+     {
+      "row": 1026,
+      "extrema": 13,
+      "swing": 139.6,
+      "width_px": 1378
+     },
+     {
+      "row": 1041,
+      "extrema": 7,
+      "swing": 137.3,
+      "width_px": 1373
+     },
+     {
+      "row": 1056,
+      "extrema": 7,
+      "swing": 135.5,
+      "width_px": 1365
+     },
+     {
+      "row": 1071,
+      "extrema": 7,
+      "swing": 143.3,
+      "width_px": 1605
+     },
+     {
+      "row": 1086,
+      "extrema": 9,
+      "swing": 149.7,
+      "width_px": 1952
+     },
+     {
+      "row": 1101,
+      "extrema": 13,
+      "swing": 151.9,
+      "width_px": 2625
+     },
+     {
+      "row": 1116,
+      "extrema": 13,
+      "swing": 128.9,
+      "width_px": 1866
+     },
+     {
+      "row": 1131,
+      "extrema": 9,
+      "swing": 125.5,
+      "width_px": 1326
+     },
+     {
+      "row": 1146,
+      "extrema": 9,
+      "swing": 121.4,
+      "width_px": 1317
+     },
+     {
+      "row": 1161,
+      "extrema": 9,
+      "swing": 120.6,
+      "width_px": 1308
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 120.6,
+    "median_extrema": 9.0,
+    "G3_pass": true
+   },
+   "head34": {
+    "suit": "glacier",
+    "file": "skin_glacier_head34_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 665,
+    "lines": [
+     {
+      "row": 680,
+      "extrema": 9,
+      "swing": 204.0,
+      "width_px": 1378
+     },
+     {
+      "row": 695,
+      "extrema": 9,
+      "swing": 162.5,
+      "width_px": 1367
+     },
+     {
+      "row": 710,
+      "extrema": 6,
+      "swing": 161.3,
+      "width_px": 1360
+     },
+     {
+      "row": 725,
+      "extrema": 6,
+      "swing": 156.6,
+      "width_px": 1358
+     },
+     {
+      "row": 740,
+      "extrema": 6,
+      "swing": 153.3,
+      "width_px": 1358
+     },
+     {
+      "row": 755,
+      "extrema": 6,
+      "swing": 144.1,
+      "width_px": 1357
+     },
+     {
+      "row": 770,
+      "extrema": 8,
+      "swing": 145.0,
+      "width_px": 1354
+     },
+     {
+      "row": 785,
+      "extrema": 8,
+      "swing": 143.7,
+      "width_px": 1352
+     },
+     {
+      "row": 800,
+      "extrema": 7,
+      "swing": 141.0,
+      "width_px": 1349
+     },
+     {
+      "row": 815,
+      "extrema": 8,
+      "swing": 137.2,
+      "width_px": 1344
+     },
+     {
+      "row": 830,
+      "extrema": 8,
+      "swing": 134.0,
+      "width_px": 1338
+     },
+     {
+      "row": 845,
+      "extrema": 9,
+      "swing": 131.3,
+      "width_px": 1332
+     },
+     {
+      "row": 860,
+      "extrema": 11,
+      "swing": 129.4,
+      "width_px": 1324
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 129.4,
+    "median_extrema": 8.0,
+    "G3_pass": true
+   }
+  },
+  "verdict": {
+   "H1_nose_extrema_ge3_swing_ge20": true,
+   "H2_nose_bump_ge_2pct": true,
+   "H3_lens_ge_1.6x_r12": true,
+   "H4_rim_ge_6px_closed": true,
+   "H5_seam_pair_ge_20_no_black_12": true,
+   "H6_lens_inside_silhouette": true,
+   "G1_recess_ge_1.5pct": true,
+   "G2_brow_over_lens_top_ge_1pct": true,
+   "G2b_brow_over_lens_plus_rim_ge_1pct": true,
+   "G3_cheek_lines_head_12deg": true,
+   "G3_cheek_lines_headfront_0deg": true,
+   "G3_cheek_lines_head34_25deg": true
+  }
+ },
+ "ash": {
+  "head": {
+   "suit": "ash",
+   "file": "skin_ash_head_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    590,
+    422
+   ],
+   "lens_h_px": [
+    244,
+    246
+   ],
+   "head_w_px": 1469,
+   "lens_over_head": 0.3445,
+   "rim": [
+    {
+     "median": 14.0,
+     "p10": 5.0,
+     "min": 2,
+     "closed_frac": 0.812,
+     "touches_bg": 0
+    },
+    {
+     "median": 19.0,
+     "p10": 0.0,
+     "min": 0,
+     "closed_frac": 0.688,
+     "touches_bg": 11
+    }
+   ],
+   "rim_px_median": 16.5,
+   "rim_closed_frac": 0.688,
+   "lens_edge_distance_px": [
+    136,
+    38
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2026,
+    "y_eye": 837,
+    "v_extrema_prom20": 4,
+    "v_swing": 121.3,
+    "v_extrema_prom6": 10,
+    "h_extrema_prom20": 6,
+    "h_swing": 164.1,
+    "flank_extrema_prom20": 3,
+    "flank_swing": 77.0,
+    "v_profile": [
+     140.9,
+     142.9,
+     141.9,
+     135.1,
+     122.4,
+     107.7,
+     96.3,
+     91.8,
+     89.4,
+     86.7,
+     85.9,
+     81.8,
+     76.8,
+     70.1,
+     63.6,
+     53.4,
+     50.6,
+     52.0,
+     56.5,
+     66.8,
+     85.0,
+     95.0,
+     101.8,
+     108.5,
+     115.2,
+     119.5,
+     125.1,
+     126.8,
+     121.8,
+     119.0,
+     117.2,
+     118.6,
+     117.0,
+     106.3,
+     100.4,
+     92.7,
+     95.9,
+     93.0,
+     91.7,
+     81.7,
+     75.1,
+     54.6,
+     60.1,
+     44.1,
+     45.3,
+     41.3,
+     42.2,
+     117.9,
+     135.7,
+     156.8,
+     132.9,
+     137.1,
+     121.6,
+     118.4
+    ]
+   },
+   "seam": {
+    "pair_median": 157.9,
+    "pair_min": 124.9,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     355,
+     180
+    ],
+    "head_w_px": 1415,
+    "lens_over_head": 0.189
+   },
+   "lens_width_ratio_vs_r12": 1.823,
+   "lens_width_ratio_near": 1.662,
+   "lens_width_ratio_far": 2.344
+  },
+  "head34": {
+   "suit": "ash",
+   "file": "skin_ash_head34_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    633,
+    262
+   ],
+   "lens_h_px": [
+    243,
+    248
+   ],
+   "head_w_px": 1453,
+   "lens_over_head": 0.308,
+   "rim": [
+    {
+     "median": 13.5,
+     "p10": 3.5,
+     "min": 0,
+     "closed_frac": 0.833,
+     "touches_bg": 0
+    },
+    {
+     "median": 19.5,
+     "p10": 1.0,
+     "min": 0,
+     "closed_frac": 0.812,
+     "touches_bg": 16
+    }
+   ],
+   "rim_px_median": 16.5,
+   "rim_closed_frac": 0.812,
+   "lens_edge_distance_px": [
+    375,
+    4
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2240,
+    "y_eye": 515,
+    "v_extrema_prom20": 4,
+    "v_swing": 155.5,
+    "v_extrema_prom6": 9,
+    "h_extrema_prom20": 5,
+    "h_swing": 184.9,
+    "flank_extrema_prom20": 3,
+    "flank_swing": 114.8,
+    "v_profile": [
+     84.7,
+     96.9,
+     96.4,
+     82.8,
+     69.4,
+     54.2,
+     45.6,
+     41.9,
+     42.8,
+     46.5,
+     51.2,
+     55.9,
+     61.4,
+     63.3,
+     64.3,
+     67.3,
+     65.2,
+     63.7,
+     64.8,
+     64.6,
+     68.3,
+     67.3,
+     73.8,
+     73.7,
+     82.2,
+     83.9,
+     86.1,
+     93.1,
+     92.6,
+     101.2,
+     104.7,
+     111.2,
+     117.4,
+     116.1,
+     122.4,
+     118.6,
+     123.4,
+     118.3,
+     105.1,
+     90.0,
+     71.4,
+     61.0,
+     50.2,
+     44.7,
+     38.6,
+     37.8,
+     44.1,
+     61.1,
+     94.1,
+     165.9,
+     183.1,
+     183.5,
+     185.5,
+     188.8,
+     191.4,
+     186.3
+    ]
+   },
+   "seam": {
+    "pair_median": 141.5,
+    "pair_min": 25.5,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     355,
+     180
+    ],
+    "head_w_px": 1415,
+    "lens_over_head": 0.189
+   },
+   "lens_width_ratio_vs_r12": 1.63,
+   "lens_width_ratio_near": 1.783,
+   "lens_width_ratio_far": 1.456
+  },
+  "headfront": {
+   "suit": "ash",
+   "file": "skin_ash_headfront_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    505,
+    512
+   ],
+   "lens_h_px": [
+    244,
+    250
+   ],
+   "head_w_px": 1445,
+   "lens_over_head": 0.3519,
+   "rim": [
+    {
+     "median": 10.0,
+     "p10": 3.5,
+     "min": 0,
+     "closed_frac": 0.792,
+     "touches_bg": 3
+    },
+    {
+     "median": 17.5,
+     "p10": 0.5,
+     "min": 0,
+     "closed_frac": 0.604,
+     "touches_bg": 6
+    }
+   ],
+   "rim_px_median": 13.8,
+   "rim_closed_frac": 0.604,
+   "lens_edge_distance_px": [
+    107,
+    111
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 1905,
+    "y_eye": 782,
+    "v_extrema_prom20": 3,
+    "v_swing": 144.4,
+    "v_extrema_prom6": 8,
+    "h_extrema_prom20": 4,
+    "h_swing": 157.7,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 113.6,
+    "v_profile": [
+     195.4,
+     200.5,
+     203.3,
+     205.1,
+     205.1,
+     205.0,
+     204.0,
+     203.9,
+     205.1,
+     204.8,
+     205.1,
+     204.7,
+     205.2,
+     206.2,
+     207.2,
+     207.5,
+     207.7,
+     208.0,
+     208.6,
+     209.2,
+     209.7,
+     210.2,
+     210.7,
+     211.2,
+     211.7,
+     212.0,
+     212.6,
+     213.0,
+     212.9,
+     212.7,
+     211.6,
+     206.5,
+     188.4,
+     180.0,
+     174.6,
+     166.2,
+     150.0,
+     152.1,
+     133.2,
+     126.1,
+     129.1,
+     115.5,
+     108.6,
+     115.0,
+     127.4,
+     147.2,
+     175.0,
+     183.0,
+     72.8,
+     196.1,
+     199.4,
+     199.3,
+     199.3,
+     201.7
+    ]
+   },
+   "seam": {
+    "pair_median": 148.3,
+    "pair_min": 126.6,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "side": {
+   "suit": "ash",
+   "file": "skin_ash_headside_4k.png",
+   "face_dir": 1,
+   "head_h_px": 1533,
+   "crown_row": 329,
+   "chin_row": 1862,
+   "brow": {
+    "row": 762,
+    "x": 2254
+   },
+   "nose_tip": {
+    "row": 1159,
+    "x": 2424
+   },
+   "nasion": {
+    "row": 928,
+    "x": 2204
+   },
+   "G1_recess_px": 120.6,
+   "G1_recess_pct_head_h": 7.87,
+   "lens": {
+    "rows": [
+     911,
+     1107
+    ],
+    "x_front_top_quarter": 2158
+   },
+   "G2_brow_over_lens_top_px": 96.3,
+   "G2_pct_head_h": 6.28,
+   "G2_with_rim_px": 75.7,
+   "G2_with_rim_pct_head_h": 4.94,
+   "H2": 9.25
+  },
+  "cheek": {
+   "head": {
+    "suit": "ash",
+    "file": "skin_ash_head_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 962,
+    "lines": [
+     {
+      "row": 977,
+      "extrema": 9,
+      "swing": 192.0,
+      "width_px": 1390
+     },
+     {
+      "row": 992,
+      "extrema": 14,
+      "swing": 172.0,
+      "width_px": 1384
+     },
+     {
+      "row": 1007,
+      "extrema": 13,
+      "swing": 171.2,
+      "width_px": 1379
+     },
+     {
+      "row": 1022,
+      "extrema": 13,
+      "swing": 170.3,
+      "width_px": 1373
+     },
+     {
+      "row": 1037,
+      "extrema": 13,
+      "swing": 169.9,
+      "width_px": 1366
+     },
+     {
+      "row": 1052,
+      "extrema": 11,
+      "swing": 169.8,
+      "width_px": 1359
+     },
+     {
+      "row": 1067,
+      "extrema": 13,
+      "swing": 167.7,
+      "width_px": 1352
+     },
+     {
+      "row": 1082,
+      "extrema": 13,
+      "swing": 165.6,
+      "width_px": 1345
+     },
+     {
+      "row": 1097,
+      "extrema": 15,
+      "swing": 163.5,
+      "width_px": 1338
+     },
+     {
+      "row": 1112,
+      "extrema": 15,
+      "swing": 162.1,
+      "width_px": 1329
+     },
+     {
+      "row": 1127,
+      "extrema": 13,
+      "swing": 160.0,
+      "width_px": 1323
+     },
+     {
+      "row": 1142,
+      "extrema": 11,
+      "swing": 158.2,
+      "width_px": 1313
+     },
+     {
+      "row": 1157,
+      "extrema": 11,
+      "swing": 160.0,
+      "width_px": 1304
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 158.2,
+    "median_extrema": 13.0,
+    "G3_pass": true
+   },
+   "headfront": {
+    "suit": "ash",
+    "file": "skin_ash_headfront_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 905,
+    "lines": [
+     {
+      "row": 920,
+      "extrema": 9,
+      "swing": 191.9,
+      "width_px": 1381
+     },
+     {
+      "row": 935,
+      "extrema": 13,
+      "swing": 191.6,
+      "width_px": 1377
+     },
+     {
+      "row": 950,
+      "extrema": 13,
+      "swing": 168.2,
+      "width_px": 1372
+     },
+     {
+      "row": 965,
+      "extrema": 13,
+      "swing": 168.5,
+      "width_px": 1367
+     },
+     {
+      "row": 980,
+      "extrema": 13,
+      "swing": 167.3,
+      "width_px": 1363
+     },
+     {
+      "row": 995,
+      "extrema": 13,
+      "swing": 165.8,
+      "width_px": 1357
+     },
+     {
+      "row": 1010,
+      "extrema": 13,
+      "swing": 163.8,
+      "width_px": 1349
+     },
+     {
+      "row": 1025,
+      "extrema": 15,
+      "swing": 161.2,
+      "width_px": 1342
+     },
+     {
+      "row": 1040,
+      "extrema": 13,
+      "swing": 158.6,
+      "width_px": 1335
+     },
+     {
+      "row": 1055,
+      "extrema": 11,
+      "swing": 157.4,
+      "width_px": 1327
+     },
+     {
+      "row": 1070,
+      "extrema": 11,
+      "swing": 155.3,
+      "width_px": 1319
+     },
+     {
+      "row": 1085,
+      "extrema": 11,
+      "swing": 156.8,
+      "width_px": 1310
+     },
+     {
+      "row": 1100,
+      "extrema": 11,
+      "swing": 155.9,
+      "width_px": 1299
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 155.3,
+    "median_extrema": 13.0,
+    "G3_pass": true
+   },
+   "head34": {
+    "suit": "ash",
+    "file": "skin_ash_head34_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 654,
+    "lines": [
+     {
+      "row": 669,
+      "extrema": 13,
+      "swing": 175.9,
+      "width_px": 1379
+     },
+     {
+      "row": 684,
+      "extrema": 14,
+      "swing": 174.5,
+      "width_px": 1369
+     },
+     {
+      "row": 699,
+      "extrema": 11,
+      "swing": 174.6,
+      "width_px": 1360
+     },
+     {
+      "row": 714,
+      "extrema": 11,
+      "swing": 171.7,
+      "width_px": 1357
+     },
+     {
+      "row": 729,
+      "extrema": 10,
+      "swing": 170.3,
+      "width_px": 1354
+     },
+     {
+      "row": 744,
+      "extrema": 12,
+      "swing": 168.4,
+      "width_px": 1352
+     },
+     {
+      "row": 759,
+      "extrema": 14,
+      "swing": 163.0,
+      "width_px": 1351
+     },
+     {
+      "row": 774,
+      "extrema": 12,
+      "swing": 155.6,
+      "width_px": 1348
+     },
+     {
+      "row": 789,
+      "extrema": 10,
+      "swing": 148.8,
+      "width_px": 1346
+     },
+     {
+      "row": 804,
+      "extrema": 10,
+      "swing": 147.9,
+      "width_px": 1341
+     },
+     {
+      "row": 819,
+      "extrema": 9,
+      "swing": 150.0,
+      "width_px": 1335
+     },
+     {
+      "row": 834,
+      "extrema": 9,
+      "swing": 142.5,
+      "width_px": 1329
+     },
+     {
+      "row": 849,
+      "extrema": 9,
+      "swing": 142.3,
+      "width_px": 1322
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 142.3,
+    "median_extrema": 11.0,
+    "G3_pass": true
+   }
+  },
+  "verdict": {
+   "H1_nose_extrema_ge3_swing_ge20": true,
+   "H2_nose_bump_ge_2pct": true,
+   "H3_lens_ge_1.6x_r12": true,
+   "H4_rim_ge_6px_closed": false,
+   "H5_seam_pair_ge_20_no_black_12": true,
+   "H6_lens_inside_silhouette": true,
+   "G1_recess_ge_1.5pct": true,
+   "G2_brow_over_lens_top_ge_1pct": true,
+   "G2b_brow_over_lens_plus_rim_ge_1pct": true,
+   "G3_cheek_lines_head_12deg": true,
+   "G3_cheek_lines_headfront_0deg": true,
+   "G3_cheek_lines_head34_25deg": true
+  }
+ },
+ "saffron": {
+  "head": {
+   "suit": "saffron",
+   "file": "skin_saffron_head_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    574,
+    416
+   ],
+   "lens_h_px": [
+    243,
+    245
+   ],
+   "head_w_px": 1437,
+   "lens_over_head": 0.3445,
+   "rim": [
+    {
+     "median": 18.5,
+     "p10": 6.5,
+     "min": 5,
+     "closed_frac": 0.938,
+     "touches_bg": 0
+    },
+    {
+     "median": 28.0,
+     "p10": 3.0,
+     "min": 0,
+     "closed_frac": 0.854,
+     "touches_bg": 11
+    }
+   ],
+   "rim_px_median": 23.2,
+   "rim_closed_frac": 0.854,
+   "lens_edge_distance_px": [
+    197,
+    45
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 1974,
+    "y_eye": 778,
+    "v_extrema_prom20": 3,
+    "v_swing": 184.1,
+    "v_extrema_prom6": 3,
+    "h_extrema_prom20": 1,
+    "h_swing": 189.8,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 84.5,
+    "v_profile": [
+     205.3,
+     206.0,
+     200.0,
+     187.5,
+     175.0,
+     165.1,
+     153.9,
+     144.4,
+     137.1,
+     132.1,
+     129.1,
+     123.7,
+     111.8,
+     91.7,
+     70.3,
+     50.9,
+     44.7,
+     42.5,
+     46.3,
+     55.5,
+     62.2,
+     68.3,
+     71.4,
+     74.6,
+     78.6,
+     78.1,
+     75.4,
+     71.4,
+     70.2,
+     71.8,
+     68.5,
+     59.4,
+     57.9,
+     59.0,
+     57.8,
+     53.4,
+     51.7,
+     45.4,
+     35.7,
+     39.1,
+     31.7,
+     32.5,
+     28.7,
+     29.4,
+     32.4,
+     44.2,
+     62.2,
+     75.1,
+     83.3,
+     88.5,
+     91.0,
+     122.0,
+     212.4,
+     212.7
+    ]
+   },
+   "seam": {
+    "pair_median": 187.5,
+    "pair_min": 157.4,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     359,
+     211
+    ],
+    "head_w_px": 1381,
+    "lens_over_head": 0.2064
+   },
+   "lens_width_ratio_vs_r12": 1.669,
+   "lens_width_ratio_near": 1.599,
+   "lens_width_ratio_far": 1.972
+  },
+  "head34": {
+   "suit": "saffron",
+   "file": "skin_saffron_head34_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    622,
+    301
+   ],
+   "lens_h_px": [
+    246,
+    249
+   ],
+   "head_w_px": 1440,
+   "lens_over_head": 0.3205,
+   "rim": [
+    {
+     "median": 10.0,
+     "p10": 2.5,
+     "min": 1,
+     "closed_frac": 0.792,
+     "touches_bg": 0
+    },
+    {
+     "median": 17.5,
+     "p10": 3.0,
+     "min": 1,
+     "closed_frac": 0.729,
+     "touches_bg": 15
+    }
+   ],
+   "rim_px_median": 13.8,
+   "rim_closed_frac": 0.729,
+   "lens_edge_distance_px": [
+    321,
+    10
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2049,
+    "y_eye": 445,
+    "v_extrema_prom20": 4,
+    "v_swing": 185.1,
+    "v_extrema_prom6": 4,
+    "h_extrema_prom20": 5,
+    "h_swing": 186.7,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 46.5,
+    "v_profile": [
+     166.2,
+     158.8,
+     146.8,
+     131.7,
+     117.2,
+     97.4,
+     75.6,
+     53.5,
+     39.1,
+     31.4,
+     31.9,
+     34.1,
+     35.2,
+     40.1,
+     42.5,
+     44.2,
+     44.3,
+     42.0,
+     44.0,
+     43.0,
+     45.9,
+     46.0,
+     50.1,
+     49.9,
+     53.2,
+     56.3,
+     55.3,
+     60.0,
+     61.4,
+     64.8,
+     71.6,
+     70.7,
+     74.6,
+     70.0,
+     72.3,
+     70.7,
+     72.2,
+     62.9,
+     51.5,
+     42.2,
+     33.1,
+     32.6,
+     28.5,
+     26.1,
+     25.3,
+     30.4,
+     43.9,
+     56.8,
+     68.1,
+     74.9,
+     80.0,
+     85.9,
+     198.6,
+     209.7,
+     151.9
+    ]
+   },
+   "seam": {
+    "pair_median": 180.2,
+    "pair_min": 13.9,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     359,
+     211
+    ],
+    "head_w_px": 1381,
+    "lens_over_head": 0.2064
+   },
+   "lens_width_ratio_vs_r12": 1.553,
+   "lens_width_ratio_near": 1.733,
+   "lens_width_ratio_far": 1.427
+  },
+  "headfront": {
+   "suit": "saffron",
+   "file": "skin_saffron_headfront_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    516,
+    514
+   ],
+   "lens_h_px": [
+    243,
+    248
+   ],
+   "head_w_px": 1475,
+   "lens_over_head": 0.3492,
+   "rim": [
+    {
+     "median": 17.0,
+     "p10": 5.5,
+     "min": 4,
+     "closed_frac": 0.896,
+     "touches_bg": 3
+    },
+    {
+     "median": 32.0,
+     "p10": 3.0,
+     "min": 0,
+     "closed_frac": 0.854,
+     "touches_bg": 3
+    }
+   ],
+   "rim_px_median": 24.5,
+   "rim_closed_frac": 0.854,
+   "lens_edge_distance_px": [
+    112,
+    111
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 1922,
+    "y_eye": 838,
+    "v_extrema_prom20": 1,
+    "v_swing": 94.0,
+    "v_extrema_prom6": 2,
+    "h_extrema_prom20": 1,
+    "h_swing": 188.3,
+    "flank_extrema_prom20": 0,
+    "flank_swing": 62.3,
+    "v_profile": [
+     216.9,
+     219.3,
+     221.2,
+     222.3,
+     222.0,
+     221.7,
+     221.8,
+     222.1,
+     222.1,
+     221.5,
+     221.4,
+     222.0,
+     222.1,
+     222.0,
+     222.5,
+     222.8,
+     223.0,
+     223.0,
+     223.1,
+     223.4,
+     223.6,
+     223.9,
+     224.1,
+     224.3,
+     224.5,
+     224.8,
+     225.1,
+     225.1,
+     225.6,
+     225.7,
+     225.6,
+     225.5,
+     224.9,
+     222.5,
+     208.3,
+     196.1,
+     192.0,
+     182.1,
+     171.8,
+     168.5,
+     151.5,
+     149.0,
+     147.0,
+     137.4,
+     132.0,
+     137.3,
+     146.0,
+     165.7,
+     190.4,
+     206.6,
+     212.9,
+     215.3,
+     216.8,
+     214.8
+    ]
+   },
+   "seam": {
+    "pair_median": 183.9,
+    "pair_min": 162.7,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "side": {
+   "suit": "saffron",
+   "file": "skin_saffron_headside_4k.png",
+   "face_dir": 1,
+   "head_h_px": 1480,
+   "crown_row": 382,
+   "chin_row": 1862,
+   "brow": {
+    "row": 833,
+    "x": 2317
+   },
+   "nose_tip": {
+    "row": 1225,
+    "x": 2474
+   },
+   "nasion": {
+    "row": 996,
+    "x": 2265
+   },
+   "G1_recess_px": 117.3,
+   "G1_recess_pct_head_h": 7.92,
+   "lens": {
+    "rows": [
+     974,
+     1163
+    ],
+    "x_front_top_quarter": 2227
+   },
+   "G2_brow_over_lens_top_px": 90.7,
+   "G2_pct_head_h": 6.13,
+   "G2_with_rim_px": 70.0,
+   "G2_with_rim_pct_head_h": 4.73,
+   "H2": 11.19
+  },
+  "cheek": {
+   "head": {
+    "suit": "saffron",
+    "file": "skin_saffron_head_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 902,
+    "lines": [
+     {
+      "row": 917,
+      "extrema": 10,
+      "swing": 210.8,
+      "width_px": 1372
+     },
+     {
+      "row": 932,
+      "extrema": 8,
+      "swing": 205.4,
+      "width_px": 1368
+     },
+     {
+      "row": 947,
+      "extrema": 11,
+      "swing": 198.6,
+      "width_px": 1364
+     },
+     {
+      "row": 962,
+      "extrema": 9,
+      "swing": 198.6,
+      "width_px": 1358
+     },
+     {
+      "row": 977,
+      "extrema": 9,
+      "swing": 197.4,
+      "width_px": 1354
+     },
+     {
+      "row": 992,
+      "extrema": 9,
+      "swing": 196.0,
+      "width_px": 1348
+     },
+     {
+      "row": 1007,
+      "extrema": 11,
+      "swing": 194.0,
+      "width_px": 1342
+     },
+     {
+      "row": 1022,
+      "extrema": 11,
+      "swing": 192.3,
+      "width_px": 1335
+     },
+     {
+      "row": 1037,
+      "extrema": 11,
+      "swing": 190.7,
+      "width_px": 1328
+     },
+     {
+      "row": 1052,
+      "extrema": 11,
+      "swing": 188.7,
+      "width_px": 1322
+     },
+     {
+      "row": 1067,
+      "extrema": 11,
+      "swing": 188.5,
+      "width_px": 1313
+     },
+     {
+      "row": 1082,
+      "extrema": 11,
+      "swing": 186.2,
+      "width_px": 1305
+     },
+     {
+      "row": 1097,
+      "extrema": 11,
+      "swing": 184.4,
+      "width_px": 1297
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 184.4,
+    "median_extrema": 11.0,
+    "G3_pass": true
+   },
+   "headfront": {
+    "suit": "saffron",
+    "file": "skin_saffron_headfront_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 961,
+    "lines": [
+     {
+      "row": 976,
+      "extrema": 8,
+      "swing": 209.7,
+      "width_px": 1396
+     },
+     {
+      "row": 991,
+      "extrema": 10,
+      "swing": 205.1,
+      "width_px": 1392
+     },
+     {
+      "row": 1006,
+      "extrema": 9,
+      "swing": 196.9,
+      "width_px": 1387
+     },
+     {
+      "row": 1021,
+      "extrema": 9,
+      "swing": 196.5,
+      "width_px": 1381
+     },
+     {
+      "row": 1036,
+      "extrema": 9,
+      "swing": 195.3,
+      "width_px": 1374
+     },
+     {
+      "row": 1051,
+      "extrema": 9,
+      "swing": 195.4,
+      "width_px": 1366
+     },
+     {
+      "row": 1066,
+      "extrema": 9,
+      "swing": 194.0,
+      "width_px": 1359
+     },
+     {
+      "row": 1081,
+      "extrema": 9,
+      "swing": 192.4,
+      "width_px": 1352
+     },
+     {
+      "row": 1096,
+      "extrema": 11,
+      "swing": 190.5,
+      "width_px": 1344
+     },
+     {
+      "row": 1111,
+      "extrema": 11,
+      "swing": 189.3,
+      "width_px": 1334
+     },
+     {
+      "row": 1126,
+      "extrema": 11,
+      "swing": 186.7,
+      "width_px": 1325
+     },
+     {
+      "row": 1141,
+      "extrema": 11,
+      "swing": 186.8,
+      "width_px": 1316
+     },
+     {
+      "row": 1156,
+      "extrema": 11,
+      "swing": 187.4,
+      "width_px": 1306
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 186.7,
+    "median_extrema": 9.0,
+    "G3_pass": true
+   },
+   "head34": {
+    "suit": "saffron",
+    "file": "skin_saffron_head34_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 581,
+    "lines": [
+     {
+      "row": 596,
+      "extrema": 11,
+      "swing": 200.4,
+      "width_px": 1373
+     },
+     {
+      "row": 611,
+      "extrema": 8,
+      "swing": 200.6,
+      "width_px": 1366
+     },
+     {
+      "row": 626,
+      "extrema": 9,
+      "swing": 200.4,
+      "width_px": 1362
+     },
+     {
+      "row": 641,
+      "extrema": 8,
+      "swing": 198.5,
+      "width_px": 1358
+     },
+     {
+      "row": 656,
+      "extrema": 10,
+      "swing": 196.4,
+      "width_px": 1353
+     },
+     {
+      "row": 671,
+      "extrema": 10,
+      "swing": 193.6,
+      "width_px": 1349
+     },
+     {
+      "row": 686,
+      "extrema": 10,
+      "swing": 192.0,
+      "width_px": 1345
+     },
+     {
+      "row": 701,
+      "extrema": 10,
+      "swing": 188.3,
+      "width_px": 1339
+     },
+     {
+      "row": 716,
+      "extrema": 10,
+      "swing": 181.1,
+      "width_px": 1334
+     },
+     {
+      "row": 731,
+      "extrema": 10,
+      "swing": 181.3,
+      "width_px": 1328
+     },
+     {
+      "row": 746,
+      "extrema": 10,
+      "swing": 179.4,
+      "width_px": 1322
+     },
+     {
+      "row": 761,
+      "extrema": 9,
+      "swing": 171.6,
+      "width_px": 1316
+     },
+     {
+      "row": 776,
+      "extrema": 7,
+      "swing": 176.4,
+      "width_px": 1311
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 171.6,
+    "median_extrema": 10.0,
+    "G3_pass": true
+   }
+  },
+  "verdict": {
+   "H1_nose_extrema_ge3_swing_ge20": true,
+   "H2_nose_bump_ge_2pct": true,
+   "H3_lens_ge_1.6x_r12": true,
+   "H4_rim_ge_6px_closed": false,
+   "H5_seam_pair_ge_20_no_black_12": true,
+   "H6_lens_inside_silhouette": true,
+   "G1_recess_ge_1.5pct": true,
+   "G2_brow_over_lens_top_ge_1pct": true,
+   "G2b_brow_over_lens_plus_rim_ge_1pct": true,
+   "G3_cheek_lines_head_12deg": true,
+   "G3_cheek_lines_headfront_0deg": true,
+   "G3_cheek_lines_head34_25deg": true
+  }
+ },
+ "sage": {
+  "head": {
+   "suit": "sage",
+   "file": "skin_sage_head_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    590,
+    385
+   ],
+   "lens_h_px": [
+    241,
+    245
+   ],
+   "head_w_px": 1446,
+   "lens_over_head": 0.3371,
+   "rim": [
+    {
+     "median": 45.5,
+     "p10": 34.5,
+     "min": 3,
+     "closed_frac": 0.958,
+     "touches_bg": 0
+    },
+    {
+     "median": 41.0,
+     "p10": 31.0,
+     "min": 30,
+     "closed_frac": 1.0,
+     "touches_bg": 13
+    }
+   ],
+   "rim_px_median": 43.2,
+   "rim_closed_frac": 0.958,
+   "lens_edge_distance_px": [
+    231,
+    28
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2141,
+    "y_eye": 846,
+    "v_extrema_prom20": 7,
+    "v_swing": 131.7,
+    "v_extrema_prom6": 8,
+    "h_extrema_prom20": 3,
+    "h_swing": 146.7,
+    "flank_extrema_prom20": 2,
+    "flank_swing": 106.2,
+    "v_profile": [
+     143.9,
+     150.7,
+     146.8,
+     141.0,
+     138.9,
+     131.6,
+     122.2,
+     114.4,
+     105.1,
+     99.0,
+     95.3,
+     90.3,
+     88.4,
+     86.5,
+     90.6,
+     103.5,
+     124.8,
+     141.1,
+     161.2,
+     162.6,
+     169.0,
+     175.7,
+     178.6,
+     183.9,
+     190.2,
+     194.8,
+     196.8,
+     195.8,
+     196.2,
+     197.7,
+     197.9,
+     193.3,
+     190.5,
+     186.5,
+     183.1,
+     181.7,
+     182.9,
+     178.4,
+     167.1,
+     154.2,
+     136.6,
+     120.0,
+     115.9,
+     107.3,
+     104.5,
+     102.8,
+     169.1,
+     110.0,
+     140.5,
+     126.9,
+     205.9,
+     212.5,
+     215.0,
+     216.5
+    ]
+   },
+   "seam": {
+    "pair_median": 128.6,
+    "pair_min": 63.2,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     357,
+     209
+    ],
+    "head_w_px": 1366,
+    "lens_over_head": 0.2072
+   },
+   "lens_width_ratio_vs_r12": 1.627,
+   "lens_width_ratio_near": 1.653,
+   "lens_width_ratio_far": 1.842
+  },
+  "head34": {
+   "suit": "sage",
+   "file": "skin_sage_head34_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    627,
+    296
+   ],
+   "lens_h_px": [
+    246,
+    249
+   ],
+   "head_w_px": 1468,
+   "lens_over_head": 0.3144,
+   "rim": [
+    {
+     "median": 48.0,
+     "p10": 35.5,
+     "min": 18,
+     "closed_frac": 1.0,
+     "touches_bg": 0
+    },
+    {
+     "median": 37.5,
+     "p10": 12.5,
+     "min": 0,
+     "closed_frac": 0.979,
+     "touches_bg": 17
+    }
+   ],
+   "rim_px_median": 42.8,
+   "rim_closed_frac": 0.979,
+   "lens_edge_distance_px": [
+    335,
+    8
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 2130,
+    "y_eye": 490,
+    "v_extrema_prom20": 4,
+    "v_swing": 125.8,
+    "v_extrema_prom6": 11,
+    "h_extrema_prom20": 2,
+    "h_swing": 146.2,
+    "flank_extrema_prom20": 1,
+    "flank_swing": 96.4,
+    "v_profile": [
+     122.5,
+     120.9,
+     119.0,
+     109.5,
+     99.3,
+     97.9,
+     94.9,
+     94.4,
+     101.1,
+     103.8,
+     107.1,
+     117.2,
+     125.1,
+     124.7,
+     127.8,
+     133.0,
+     128.1,
+     130.5,
+     127.5,
+     131.9,
+     135.9,
+     139.9,
+     144.8,
+     156.6,
+     156.3,
+     168.0,
+     172.2,
+     172.1,
+     180.9,
+     182.1,
+     182.9,
+     193.6,
+     193.1,
+     196.1,
+     197.6,
+     193.2,
+     196.1,
+     197.5,
+     189.6,
+     180.1,
+     163.0,
+     146.2,
+     118.7,
+     112.7,
+     98.0,
+     91.7,
+     89.6,
+     96.6,
+     77.3,
+     162.1,
+     203.2,
+     165.0,
+     161.0,
+     162.8,
+     168.0,
+     172.8
+    ]
+   },
+   "seam": {
+    "pair_median": 122.7,
+    "pair_min": 26.4,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "r12": {
+    "lens_w_px": [
+     357,
+     209
+    ],
+    "head_w_px": 1366,
+    "lens_over_head": 0.2072
+   },
+   "lens_width_ratio_vs_r12": 1.517,
+   "lens_width_ratio_near": 1.756,
+   "lens_width_ratio_far": 1.416
+  },
+  "headfront": {
+   "suit": "sage",
+   "file": "skin_sage_headfront_4k.png",
+   "lenses": 2,
+   "lens_w_px": [
+    505,
+    509
+   ],
+   "lens_h_px": [
+    243,
+    246
+   ],
+   "head_w_px": 1449,
+   "lens_over_head": 0.3499,
+   "rim": [
+    {
+     "median": 43.5,
+     "p10": 27.5,
+     "min": 1,
+     "closed_frac": 0.979,
+     "touches_bg": 3
+    },
+    {
+     "median": 40.0,
+     "p10": 31.0,
+     "min": 29,
+     "closed_frac": 1.0,
+     "touches_bg": 3
+    }
+   ],
+   "rim_px_median": 41.8,
+   "rim_closed_frac": 0.979,
+   "lens_edge_distance_px": [
+    110,
+    111
+   ],
+   "lens_inside_silhouette": true,
+   "nose": {
+    "midline_x": 1914,
+    "y_eye": 788,
+    "v_extrema_prom20": 3,
+    "v_swing": 142.1,
+    "v_extrema_prom6": 4,
+    "h_extrema_prom20": 3,
+    "h_swing": 147.7,
+    "flank_extrema_prom20": 2,
+    "flank_swing": 88.4,
+    "v_profile": [
+     212.4,
+     215.1,
+     217.3,
+     218.0,
+     218.4,
+     218.4,
+     217.5,
+     217.4,
+     218.0,
+     217.8,
+     218.2,
+     218.3,
+     218.4,
+     218.9,
+     219.6,
+     219.6,
+     220.0,
+     220.1,
+     220.2,
+     221.0,
+     221.4,
+     221.9,
+     221.9,
+     222.5,
+     222.8,
+     223.1,
+     223.4,
+     223.5,
+     223.5,
+     223.4,
+     222.6,
+     216.6,
+     197.6,
+     184.2,
+     175.7,
+     171.9,
+     154.3,
+     152.2,
+     140.5,
+     133.8,
+     136.7,
+     126.7,
+     120.0,
+     123.4,
+     129.6,
+     146.9,
+     173.8,
+     192.5,
+     81.6,
+     175.6,
+     180.7,
+     180.9,
+     180.7
+    ]
+   },
+   "seam": {
+    "pair_median": 126.2,
+    "pair_min": 74.9,
+    "longest_black_run": 0,
+    "black_runs": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "side": {
+   "suit": "sage",
+   "file": "skin_sage_headside_4k.png",
+   "face_dir": 1,
+   "head_h_px": 1506,
+   "crown_row": 356,
+   "chin_row": 1862,
+   "brow": {
+    "row": 797,
+    "x": 2279
+   },
+   "nose_tip": {
+    "row": 1189,
+    "x": 2443
+   },
+   "nasion": {
+    "row": 963,
+    "x": 2229
+   },
+   "G1_recess_px": 118.8,
+   "G1_recess_pct_head_h": 7.89,
+   "lens": {
+    "rows": [
+     941,
+     1133
+    ],
+    "x_front_top_quarter": 2187
+   },
+   "G2_brow_over_lens_top_px": 92.0,
+   "G2_pct_head_h": 6.11,
+   "G2_with_rim_px": 71.4,
+   "G2_with_rim_pct_head_h": 4.74,
+   "H2": 8.68
+  },
+  "cheek": {
+   "head": {
+    "suit": "sage",
+    "file": "skin_sage_head_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 974,
+    "lines": [
+     {
+      "row": 989,
+      "extrema": 11,
+      "swing": 218.3,
+      "width_px": 1370
+     },
+     {
+      "row": 1004,
+      "extrema": 14,
+      "swing": 189.8,
+      "width_px": 1365
+     },
+     {
+      "row": 1019,
+      "extrema": 13,
+      "swing": 160.9,
+      "width_px": 1361
+     },
+     {
+      "row": 1034,
+      "extrema": 13,
+      "swing": 161.1,
+      "width_px": 1356
+     },
+     {
+      "row": 1049,
+      "extrema": 9,
+      "swing": 160.2,
+      "width_px": 1348
+     },
+     {
+      "row": 1064,
+      "extrema": 9,
+      "swing": 160.3,
+      "width_px": 1342
+     },
+     {
+      "row": 1079,
+      "extrema": 7,
+      "swing": 160.1,
+      "width_px": 1336
+     },
+     {
+      "row": 1094,
+      "extrema": 11,
+      "swing": 160.1,
+      "width_px": 1330
+     },
+     {
+      "row": 1109,
+      "extrema": 11,
+      "swing": 158.7,
+      "width_px": 1324
+     },
+     {
+      "row": 1124,
+      "extrema": 11,
+      "swing": 155.5,
+      "width_px": 1315
+     },
+     {
+      "row": 1139,
+      "extrema": 11,
+      "swing": 150.7,
+      "width_px": 1308
+     },
+     {
+      "row": 1154,
+      "extrema": 10,
+      "swing": 150.7,
+      "width_px": 1299
+     },
+     {
+      "row": 1169,
+      "extrema": 10,
+      "swing": 148.6,
+      "width_px": 1292
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 148.6,
+    "median_extrema": 11.0,
+    "G3_pass": true
+   },
+   "headfront": {
+    "suit": "sage",
+    "file": "skin_sage_headfront_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 910,
+    "lines": [
+     {
+      "row": 925,
+      "extrema": 11,
+      "swing": 222.1,
+      "width_px": 1384
+     },
+     {
+      "row": 940,
+      "extrema": 13,
+      "swing": 219.9,
+      "width_px": 1380
+     },
+     {
+      "row": 955,
+      "extrema": 11,
+      "swing": 159.0,
+      "width_px": 1375
+     },
+     {
+      "row": 970,
+      "extrema": 13,
+      "swing": 157.7,
+      "width_px": 1370
+     },
+     {
+      "row": 985,
+      "extrema": 11,
+      "swing": 156.4,
+      "width_px": 1365
+     },
+     {
+      "row": 1000,
+      "extrema": 10,
+      "swing": 155.1,
+      "width_px": 1359
+     },
+     {
+      "row": 1015,
+      "extrema": 10,
+      "swing": 154.2,
+      "width_px": 1351
+     },
+     {
+      "row": 1030,
+      "extrema": 12,
+      "swing": 153.8,
+      "width_px": 1344
+     },
+     {
+      "row": 1045,
+      "extrema": 12,
+      "swing": 152.3,
+      "width_px": 1336
+     },
+     {
+      "row": 1060,
+      "extrema": 14,
+      "swing": 149.3,
+      "width_px": 1329
+     },
+     {
+      "row": 1075,
+      "extrema": 14,
+      "swing": 145.4,
+      "width_px": 1321
+     },
+     {
+      "row": 1090,
+      "extrema": 12,
+      "swing": 145.5,
+      "width_px": 1311
+     },
+     {
+      "row": 1105,
+      "extrema": 11,
+      "swing": 144.0,
+      "width_px": 1303
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 144.0,
+    "median_extrema": 12.0,
+    "G3_pass": true
+   },
+   "head34": {
+    "suit": "sage",
+    "file": "skin_sage_head34_4k.png",
+    "lenses": 2,
+    "lens_bottom_row": 626,
+    "lines": [
+     {
+      "row": 641,
+      "extrema": 11,
+      "swing": 197.9,
+      "width_px": 1386
+     },
+     {
+      "row": 656,
+      "extrema": 13,
+      "swing": 165.4,
+      "width_px": 1378
+     },
+     {
+      "row": 671,
+      "extrema": 12,
+      "swing": 158.1,
+      "width_px": 1374
+     },
+     {
+      "row": 686,
+      "extrema": 9,
+      "swing": 157.2,
+      "width_px": 1369
+     },
+     {
+      "row": 701,
+      "extrema": 9,
+      "swing": 160.2,
+      "width_px": 1365
+     },
+     {
+      "row": 716,
+      "extrema": 7,
+      "swing": 162.9,
+      "width_px": 1360
+     },
+     {
+      "row": 731,
+      "extrema": 9,
+      "swing": 163.8,
+      "width_px": 1354
+     },
+     {
+      "row": 746,
+      "extrema": 9,
+      "swing": 163.8,
+      "width_px": 1349
+     },
+     {
+      "row": 761,
+      "extrema": 10,
+      "swing": 162.2,
+      "width_px": 1343
+     },
+     {
+      "row": 776,
+      "extrema": 13,
+      "swing": 158.8,
+      "width_px": 1337
+     },
+     {
+      "row": 791,
+      "extrema": 11,
+      "swing": 154.2,
+      "width_px": 1332
+     },
+     {
+      "row": 806,
+      "extrema": 9,
+      "swing": 154.0,
+      "width_px": 1326
+     },
+     {
+      "row": 821,
+      "extrema": 9,
+      "swing": 150.9,
+      "width_px": 1320
+     }
+    ],
+    "lines_ge3": 13,
+    "lines_total": 13,
+    "frac_ge3": 1.0,
+    "min_swing": 150.9,
+    "median_extrema": 9.0,
+    "G3_pass": true
+   }
+  },
+  "verdict": {
+   "H1_nose_extrema_ge3_swing_ge20": true,
+   "H2_nose_bump_ge_2pct": true,
+   "H3_lens_ge_1.6x_r12": true,
+   "H4_rim_ge_6px_closed": true,
+   "H5_seam_pair_ge_20_no_black_12": true,
+   "H6_lens_inside_silhouette": true,
+   "G1_recess_ge_1.5pct": true,
+   "G2_brow_over_lens_top_ge_1pct": true,
+   "G2b_brow_over_lens_plus_rim_ge_1pct": true,
+   "G3_cheek_lines_head_12deg": true,
+   "G3_cheek_lines_headfront_0deg": true,
+   "G3_cheek_lines_head34_25deg": true
+  }
+ }
+}

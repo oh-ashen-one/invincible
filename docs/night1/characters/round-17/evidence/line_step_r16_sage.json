@@ -1,0 +1,289 @@
+{
+ "regions": 6,
+ "straight_runs": 590,
+ "longest_run_px": 1073,
+ "max_step_px": 68.3,
+ "n_jogs": 30,
+ "jogs": [
+  {
+   "step": 68.3,
+   "x": 1920,
+   "y": 896,
+   "run_a": 70,
+   "run_b": 53,
+   "connector": 89,
+   "angle": 1.3
+  },
+  {
+   "step": 17.1,
+   "x": 2515,
+   "y": 1876,
+   "run_a": 62,
+   "run_b": 56,
+   "connector": 96,
+   "angle": 6.9
+  },
+  {
+   "step": 15.3,
+   "x": 1371,
+   "y": 1989,
+   "run_a": 97,
+   "run_b": 81,
+   "connector": 93,
+   "angle": 3.4
+  },
+  {
+   "step": 15.2,
+   "x": 2312,
+   "y": 1266,
+   "run_a": 215,
+   "run_b": 53,
+   "connector": 53,
+   "angle": 1.3
+  },
+  {
+   "step": 14.8,
+   "x": 2020,
+   "y": 1260,
+   "run_a": 322,
+   "run_b": 233,
+   "connector": 65,
+   "angle": 1.9
+  },
+  {
+   "step": 11.1,
+   "x": 2508,
+   "y": 1954,
+   "run_a": 96,
+   "run_b": 78,
+   "connector": 62,
+   "angle": 2.6
+  },
+  {
+   "step": 10.3,
+   "x": 1222,
+   "y": 1949,
+   "run_a": 113,
+   "run_b": 82,
+   "connector": 69,
+   "angle": 1.4
+  },
+  {
+   "step": 10.2,
+   "x": 3026,
+   "y": 1624,
+   "run_a": 67,
+   "run_b": 46,
+   "connector": 61,
+   "angle": 3.3
+  },
+  {
+   "step": 8.1,
+   "x": 1569,
+   "y": 647,
+   "run_a": 43,
+   "run_b": 57,
+   "connector": 66,
+   "angle": 4.7
+  },
+  {
+   "step": 7.5,
+   "x": 3048,
+   "y": 1226,
+   "run_a": 63,
+   "run_b": 45,
+   "connector": 95,
+   "angle": 0.4
+  },
+  {
+   "step": 7.5,
+   "x": 1527,
+   "y": 1429,
+   "run_a": 45,
+   "run_b": 45,
+   "connector": 17,
+   "angle": 3.6
+  },
+  {
+   "step": 7.4,
+   "x": 1768,
+   "y": 1404,
+   "run_a": 41,
+   "run_b": 50,
+   "connector": 23,
+   "angle": 1.0
+  },
+  {
+   "step": 7.2,
+   "x": 2853,
+   "y": 1470,
+   "run_a": 49,
+   "run_b": 69,
+   "connector": 46,
+   "angle": 4.3
+  },
+  {
+   "step": 7.2,
+   "x": 1137,
+   "y": 1541,
+   "run_a": 131,
+   "run_b": 56,
+   "connector": 73,
+   "angle": 1.5
+  },
+  {
+   "step": 6.7,
+   "x": 1117,
+   "y": 285,
+   "run_a": 87,
+   "run_b": 73,
+   "connector": 61,
+   "angle": 3.3
+  },
+  {
+   "step": 6.6,
+   "x": 2600,
+   "y": 944,
+   "run_a": 63,
+   "run_b": 50,
+   "connector": 58,
+   "angle": 5.8
+  },
+  {
+   "step": 6.4,
+   "x": 2286,
+   "y": 869,
+   "run_a": 149,
+   "run_b": 66,
+   "connector": 105,
+   "angle": 7.2
+  },
+  {
+   "step": 6.1,
+   "x": 1542,
+   "y": 937,
+   "run_a": 167,
+   "run_b": 91,
+   "connector": 36,
+   "angle": 1.2
+  },
+  {
+   "step": 5.9,
+   "x": 1303,
+   "y": 1294,
+   "run_a": 68,
+   "run_b": 46,
+   "connector": 80,
+   "angle": 1.7
+  },
+  {
+   "step": 5.6,
+   "x": 1424,
+   "y": 638,
+   "run_a": 116,
+   "run_b": 66,
+   "connector": 49,
+   "angle": 1.1
+  },
+  {
+   "step": 5.2,
+   "x": 820,
+   "y": 1122,
+   "run_a": 55,
+   "run_b": 66,
+   "connector": 98,
+   "angle": 5.6
+  },
+  {
+   "step": 5.0,
+   "x": 1652,
+   "y": 1284,
+   "run_a": 172,
+   "run_b": 284,
+   "connector": 78,
+   "angle": 0.2
+  },
+  {
+   "step": 4.9,
+   "x": 2439,
+   "y": 953,
+   "run_a": 74,
+   "run_b": 68,
+   "connector": 65,
+   "angle": 3.2
+  },
+  {
+   "step": 4.6,
+   "x": 2313,
+   "y": 1171,
+   "run_a": 40,
+   "run_b": 43,
+   "connector": 58,
+   "angle": 3.8
+  },
+  {
+   "step": 4.5,
+   "x": 1111,
+   "y": 1386,
+   "run_a": 45,
+   "run_b": 40,
+   "connector": 8,
+   "angle": 5.7
+  },
+  {
+   "step": 4.4,
+   "x": 1040,
+   "y": 1207,
+   "run_a": 47,
+   "run_b": 100,
+   "connector": 58,
+   "angle": 7.7
+  },
+  {
+   "step": 4.2,
+   "x": 2217,
+   "y": 831,
+   "run_a": 70,
+   "run_b": 83,
+   "connector": 80,
+   "angle": 0.7
+  },
+  {
+   "step": 4.2,
+   "x": 2346,
+   "y": 1072,
+   "run_a": 46,
+   "run_b": 55,
+   "connector": 24,
+   "angle": 1.5
+  },
+  {
+   "step": 4.2,
+   "x": 1459,
+   "y": 1267,
+   "run_a": 55,
+   "run_b": 74,
+   "connector": 40,
+   "angle": 1.5
+  },
+  {
+   "step": 4.1,
+   "x": 1156,
+   "y": 1598,
+   "run_a": 83,
+   "run_b": 45,
+   "connector": 53,
+   "angle": 7.3
+  }
+ ],
+ "image": "/Users/midir/sm2-n1/_scratch/characters/r16/chain3/run/stills/skin_sage_chest_4k.png",
+ "gate": 4.0,
+ "run": 40,
+ "box": [
+  691,
+  259,
+  3148,
+  2095
+ ],
+ "pass": false
+}

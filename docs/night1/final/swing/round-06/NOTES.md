@@ -1,0 +1,40 @@
+# Round 06 (builder SW)
+
+> Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+Answers critic r05's three gaps (camera distance on floats / long air; flip rotation count per long release; s2 static plumb-bob dangle), plus the adjacent A5 chest-rate clause. Build commit `da290042`. Same maps / profile / settings as round 05 (`-WHSuit=tessera`, playable + Fast, 1920x1080, fixed 1/60 s, 1.5 s pre-roll cut). One script change: the s3b cases' catch press sits just past each program's worst-case catch window (2.26-2.45 s after the trick press, was a fixed 2.0 s), because the programs are longer now; spawns / keys otherwise unchanged.
+
+## Code changes (all in owned paths)
+
+- `WebTravFlips.cpp` — every long-release program now turns >= 720 deg (frontPikeSwan / corkscrew / frontSingle / backPike / backLayout / barani / fullTwist / rudi converted; backDouble / frontDouble re-spread; backTripleChain trimmed to 3.06 s). One held open shape (0.3-0.5 s) per program, a slow shape inside every 330 deg chunk (flip_check F5), base peaks 513-678 deg/s (flip_sim.py) so the fast tempo variant stays near 800. Multi-rotation variants (>= 700 deg) run a tighter tempo band (0.90-1.06, was 0.85-1.20). backSingle stays the 360 deg short-air fallback; wallFront unchanged. FlipLead / FlipLag 0.04/0.07 -> 0.02/0.055 and the per-instance factors narrowed (F11: the measured leg lag is Lead + Lag).
+- `WebTravCharacter.cpp/.h` — closed-loop body-axis correction during flip programs: the rendered hips->head pitch (previous frame's bones) is compared with the program's pitch progress from the flip's first frame; the difference is subtracted from the applied root pitch, rate-limited asymmetrically (brake 320 deg/s when the rendered axis over-rotates, catch-up 60 deg/s when it lags, clamp +/-45 deg). The keyed clips' transition lean no longer stacks on the program rate (r05 rendered peaks 925-1105 on frontDouble/backLayout/frontPikeSwan).
+- `WebTraversalComponent.cpp/.h` — (a) the press->attach body turn onto the rope is rate-limited (190 deg/s) while the strand is in flight and for the first 0.4 s of the swing, and the in-flight pre-turn target is clamped to 20 deg off upright (F8) with only 55 % of the turn in flight (W4's 0.15-0.35 s window keeps the rest); (b) a wall entry right off a swing eases the body frame at <= 380 deg/s for 0.35 s (its snap landed inside the W4/A5 attach windows: +27 deg in one frame); (c) hang detection earlier (Sw.T > 0.35, tension > 0.04, was 0.8 / 0.10) plus a stall PUMP: a detected slow hang is pushed along the swing direction (14 m/s^2) so it rebuilds the arc; the release + refire cap (1.5 s) remains as the backstop.
+- `Anim/WebTravAnimInstance.cpp/.h` — (a) pendulum sway on near-stalled hangs (slow leg drift + torso rock on ~1.6 s / 1.25 s periods, growing as speed dies); (b) the web-align hips rotation is slew-limited (200 deg/s from the previous frame's quat, not only weight-eased) and its pending-flight share is 0.6 -> 0.25 (r06 probe: +17.5 deg in one frame at the attach).
+- `WebTravCamera.cpp/.h` — chase closed loop (HeroProjH): targets 0.27 swing / 0.295 air, gain 1.5 -> 4.5, deadband 8 -> 3 %, range 0.68-1.45 -> 0.62-1.55; air framing band tightened (fall-rate push halved, hero centred 0.36-0.56); attach yaw beat capped 25 -> 16 deg; trick-camera feedback gain 2.5 -> 3.2, deadband 6 %, pull-in clamp 0.46.
+- `tools/final/swing/make_scripts.py` + `docs/night1/traversal/scripts/final/s3_c*.json` — the per-case catch press times (above). `run_clip.py` — queue label r06.
+- W8 audit (orchestrator asked): s4 t~1.65-1.95 release rows: the strand draws 0.28 s after the release (retract), never vanishes in one frame; no change.
+
+## Environment notes
+
+- Overnight the coordinator was contended by other sessions (Markhor rc4/rc5/rc6 checks, an owner play): per-case queue waits 0-13 min. Two process kills hit my early runs at a session boundary (an s1 camera-tuning probe engine SIGTERM'd mid-capture; the first batch's driver tree killed between s2_c5 and c6) — the affected runs were redone from scratch; the final six clips below all come from ONE detached recapture on the final build. No PAUSED, no foreign-process stops by me.
+- `docs/night1/traversal/scripts/final/live/probe_catch.json` / `probe_s1cam.json`: the two probe scripts used during the round (kept for reference).
+
+## Measured (CHECK.txt for the tables; flip_check = docs/night1/traversal/flip_check.py)
+
+Gap 1 (camera): P1 in-band swing/air: s1 93/92 (r05: 89/89), s5 93/92 (89/90), s4 90/96 (74/82), s2 90/73 (81/63), s3 77/63 (86/64), s3b 65/66 (68/71). s1/s5/s4 pass (>= 90 both); s2's air (73), s3 and s3b still fail. s4 air p10 0.17 -> 0.20, the apex dips mostly gone. Occlusion: no >0.5 s hero_occl > 0 stretch anywhere; s1/s5 keep the known strict-bone-box-outside-frustum stretch at the fast dive (t~9.4-10.0, 0.62 s, hero mask visible throughout, occl 0.00 — same as r05's 0.58 s).
+
+Gap 2 (flips): s3 release tricks: frontDouble 2.10 / frontPikeSwan 2.09 / barani 2.08 rendered rotations (r05: 2.20 once, others 0.85-1.28); F2 mean 314-368 deg/s PASS; F4 holds 0.36/0.27/0.39 s; F8 catch body 9/13/23 deg from upright (r05: 46/65/64 FAIL) PASS; F11 leg lag 0.067-0.090 s in band (r05: 0.083-0.150); catch delay median 0.00 s kept. s3b: F1 1.96-2.04 on all five converted programs (backSingle stays 0.92), F8 5-32 deg (5/6 <= 30), F11 0.050-0.090. F3 rendered peaks: s3 799/814/820 (was 592-1105); s3b: frontSingle 751, corkscrew 751, frontPikeSwan 781 pass; barani 1063, rudi 838, backSingle 853 fail (twist programs: the twist's roll couples into the measured pitch at high tilt; backSingle was not redesigned); wallFront top-outs unchanged (1030 / 1799, the wall-entry path). s3's last trick is truncated by the fixed 24 s clip end (frontSingle 1.65 rot, F3 952, F5 chunk fail) — the longer programs changed the chain rhythm (6 releases vs 9 in r05).
+
+Gap 3 (s2 hang): the c3 wall-run swing's slow stretch (t 2.72-3.17 local) now pumps back up (speed 1.9 -> 7.4 m/s through it) and the pose keeps moving (signature delta 0.04-0.13 per 0.05 s); the hang cap never fired (no stretch reached 1.5 s). No other s2 case stalls.
+
+Adjacent A5: chest-rate-through-catch median: s3 487 (r05: 623), s3b 298 (520), s2 545 (561); catch delay 0.00 s kept everywhere.
+
+## Regressions / not reached (measured, vs round-05 CHECK)
+
+- s3 W4 FAIL (33 % <= 400): two attaches spike — t=20.68 (2187 deg/s: the topOut catch lands mid wallFront rotation and takes the deliberate >70 deg cancel snap), t=10.58 (1577: the swing -> wall entry 0.15 s after the attach; the wall gait layer blends in 0.07 s — body frame is capped, the chest spike is the pose blend). Both were present in r05 (2187 was 1621 there). s1/s5 W4 flipped to a borderline FAIL (85 % <= 400, worst 573; r05 92 % / 437): the capped turn (190) + align slew (200) still stack at the chest bone on two steep-rope attaches.
+- s3 A5 still FAILS on the chest-rate clause (median 487, 1/5 <= 400) — improved, not met. s2 A5 545 (2 tricks).
+- s3b W3 4/7 (r05 6/7): the later catch presses leave longer ropes; two shots tip-speed 423-427 m/s (> 400 cap) and one never reaches tension within 0.67 s. s4 W3 7/8 (same as r05). s3 W10: the last press (t 23.38) is 0.6 s before the clip end and never resolves visibly (chain rhythm change above).
+- s3/s3b P1 swing got worse (86 -> 77 %, 68 -> 65 %): the brief post-catch swings sit in the trick camera's blend-out at 5-6.5 m; swing samples read 0.17-0.25. s3b swing median 0.17.
+- s2 unchanged small-sample lines: W2 (12/13), W9 (89 %), W10 (t=2.25 no-anchor press), A1 87 %, A7 86 % (the canceled backDouble's last shape is 3 frames). s2 A1 87 % (r05 87 %).
+- W5 by day unchanged in character (s1 24 % judged frames; night s5 100 %). W2/W7 not addressed this round.
+- Critic's target "hero bbox >= 0.25 of frame on >= 95 % of swing frames" not measured by the checkers directly; swing pixel medians are 0.17-0.26 (s1/s5 0.23, s4 0.25) with p10 0.16-0.20 — the pose-extent spread (superman bottoms vs vertical ends) is not fully absorbed by the distance loop.

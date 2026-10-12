@@ -1,0 +1,134 @@
+2026-09-29T14:35:45.454-04:00 pid=42711 class=capture label=A event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 A 2.5"
+2026-09-29T14:35:45.454-04:00 pid=42712 class=capture label=B event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 B 2.5"
+2026-09-29T14:35:45.467-04:00 pid=42711 class=capture label=A event=wait util=50 phase=queue waited_s=0.0 ahead=1 holders=""
+2026-09-29T14:35:45.468-04:00 pid=42712 class=capture label=B event=acquire util=50 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:35:45.574-04:00 pid=42712 class=capture label=B event=run util=50 child_pid=42732 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 B 2.5"
+2026-09-29T14:35:45.585-04:00 pid=42711 class=capture label=A event=acquire util=50 slot=1 waited_s=0.1 phase=lock
+2026-09-29T14:35:45.690-04:00 pid=42711 class=capture label=A event=run util=50 child_pid=42741 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 A 2.5"
+2026-09-29T14:35:46.102-04:00 pid=42758 class=capture label=C event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 C 0.4"
+2026-09-29T14:35:46.121-04:00 pid=42758 class=capture label=C event=wait util=50 phase=queue waited_s=0.0 ahead=0 holders=capture:42711,capture:42712
+2026-09-29T14:35:47.237-04:00 pid=42758 class=capture label=C event=wait util=50 phase=queue waited_s=1.1 ahead=0 holders=capture:42711,capture:42712
+2026-09-29T14:35:48.121-04:00 pid=42712 class=capture label=B event=release util=50 exit=0 hold_s=2.65 wait_s=0.01 util_before=50 util_after=50 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:35:48.228-04:00 pid=42758 class=capture label=C event=acquire util=50 slot=0 waited_s=2.1 phase=lock
+2026-09-29T14:35:48.232-04:00 pid=42711 class=capture label=A event=release util=50 exit=0 hold_s=2.65 wait_s=0.13 util_before=50 util_after=50 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:35:48.339-04:00 pid=42758 class=capture label=C event=run util=50 child_pid=42922 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 C 0.4"
+2026-09-29T14:35:48.790-04:00 pid=42758 class=capture label=C event=release util=50 exit=0 hold_s=0.56 wait_s=2.13 util_before=50 util_after=50 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:35:49.013-04:00 pid=42958 class=capture label=test event=enqueue util=50 cmd="sh -c exit 7"
+2026-09-29T14:35:49.020-04:00 pid=42958 class=capture label=test event=acquire util=50 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:35:49.131-04:00 pid=42958 class=capture label=test event=run util=50 child_pid=42969 max_hold_s=2400.0 cmd="sh -c exit 7"
+2026-09-29T14:35:49.140-04:00 pid=42958 class=capture label=test event=release util=50 exit=7 hold_s=0.12 wait_s=0.01 util_before=50 util_after=50 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:35:49.199-04:00 pid=42971 class=capture label=A2 event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 A2 1.5"
+2026-09-29T14:35:49.200-04:00 pid=42972 class=capture label=B2 event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 B2 1.5"
+2026-09-29T14:35:49.206-04:00 pid=42971 class=capture label=A2 event=acquire util=50 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:35:49.212-04:00 pid=42972 class=capture label=B2 event=acquire util=50 slot=1 waited_s=0.0 phase=lock
+2026-09-29T14:35:49.323-04:00 pid=42972 class=capture label=B2 event=run util=50 child_pid=42993 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 B2 1.5"
+2026-09-29T14:35:49.324-04:00 pid=42971 class=capture label=A2 event=run util=50 child_pid=42994 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 A2 1.5"
+2026-09-29T14:35:49.436-04:00 pid=42996 class=perf label=P event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 P 0.6"
+2026-09-29T14:35:49.454-04:00 pid=42996 class=perf label=P event=wait util=50 phase=queue waited_s=0.0 ahead=0 holders=capture:42971,capture:42972
+2026-09-29T14:35:49.744-04:00 pid=43016 class=capture label=D event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 D 0.3"
+2026-09-29T14:35:49.769-04:00 pid=43016 class=capture label=D event=wait util=50 phase=queue waited_s=0.0 ahead=1 holders=capture:42971,capture:42972
+2026-09-29T14:35:50.485-04:00 pid=42996 class=perf label=P event=wait util=50 phase=queue waited_s=1.0 ahead=0 holders=capture:42971,capture:42972
+2026-09-29T14:35:50.821-04:00 pid=43016 class=capture label=D event=wait util=50 phase=queue waited_s=1.1 ahead=1 holders=capture:42971,capture:42972
+2026-09-29T14:35:50.866-04:00 pid=42972 class=capture label=B2 event=release util=50 exit=0 hold_s=1.65 wait_s=0.01 util_before=50 util_after=50 instances_before=1 instances_max=1 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:35:50.869-04:00 pid=42971 class=capture label=A2 event=release util=50 exit=0 hold_s=1.66 wait_s=0.01 util_before=50 util_after=50 instances_before=1 instances_max=1 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:35:50.886-04:00 pid=42996 class=perf label=P event=acquire util=50 slot=perf waited_s=1.4 phase=lock
+2026-09-29T14:35:51.008-04:00 pid=42996 class=perf label=P event=wait util=50 phase=settle waited_s=1.6 need_util_lt=15.0 calm_s=1.0 streak_s=0 foreign_captures=42970
+2026-09-29T14:35:51.916-04:00 pid=43016 class=capture label=D event=wait util=50 phase=queue waited_s=2.2 ahead=0 holders=perf:42996
+2026-09-29T14:35:52.060-04:00 pid=42996 class=perf label=P event=wait util=50 phase=settle waited_s=2.6 need_util_lt=15.0 calm_s=1.0 streak_s=0 foreign_captures=42970
+2026-09-29T14:35:52.985-04:00 pid=43016 class=capture label=D event=wait util=50 phase=queue waited_s=3.2 ahead=0 holders=perf:42996
+2026-09-29T14:35:53.094-04:00 pid=42996 class=perf label=P event=wait util=50 phase=settle waited_s=3.7 need_util_lt=15.0 calm_s=1.0 streak_s=0 foreign_captures=""
+2026-09-29T14:35:54.042-04:00 pid=43016 class=capture label=D event=wait util=5 phase=queue waited_s=4.3 ahead=0 holders=perf:42996
+2026-09-29T14:35:54.136-04:00 pid=42996 class=perf label=P event=wait util=5 phase=settle waited_s=4.7 need_util_lt=15.0 calm_s=1.0 streak_s=0.2 foreign_captures=""
+2026-09-29T14:35:55.101-04:00 pid=43016 class=capture label=D event=wait util=5 phase=queue waited_s=5.4 ahead=0 holders=perf:42996
+2026-09-29T14:35:55.165-04:00 pid=42996 class=perf label=P event=wait util=5 phase=settle waited_s=5.7 need_util_lt=15.0 calm_s=1.0 streak_s=0.0 foreign_captures=""
+2026-09-29T14:35:56.151-04:00 pid=43016 class=capture label=D event=wait util=5 phase=queue waited_s=6.4 ahead=0 holders=perf:42996
+2026-09-29T14:35:56.325-04:00 pid=42996 class=perf label=P event=run util=5 child_pid=43380 max_hold_s=900.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 P 0.6"
+2026-09-29T14:35:57.001-04:00 pid=42996 class=perf label=P event=release util=5 exit=0 hold_s=6.11 wait_s=6.78 util_before=5 util_after=5 instances_before=0 instances_max=0 contaminated=false reasons=""
+2026-09-29T14:35:57.086-04:00 pid=43016 class=capture label=D event=acquire util=5 slot=0 waited_s=7.3 phase=lock
+2026-09-29T14:35:57.195-04:00 pid=43016 class=capture label=D event=run util=5 child_pid=43420 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 D 0.3"
+2026-09-29T14:35:57.542-04:00 pid=43016 class=capture label=D event=release util=5 exit=0 hold_s=0.46 wait_s=7.34 util_before=5 util_after=5 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:35:57.693-04:00 pid=43431 class=perf label=P2 event=enqueue util=5 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 PF 0.2"
+2026-09-29T14:35:57.700-04:00 pid=43431 class=perf label=P2 event=acquire util=5 slot=perf waited_s=0.0 phase=lock
+2026-09-29T14:35:57.810-04:00 pid=43431 class=perf label=P2 event=wait util=5 phase=settle waited_s=0.1 need_util_lt=15.0 calm_s=1.0 streak_s=0 foreign_captures=43430
+2026-09-29T14:35:58.845-04:00 pid=43431 class=perf label=P2 event=wait util=5 phase=settle waited_s=1.2 need_util_lt=15.0 calm_s=1.0 streak_s=0 foreign_captures=43430
+2026-09-29T14:35:59.883-04:00 pid=43431 class=perf label=P2 event=wait util=5 phase=settle waited_s=2.2 need_util_lt=15.0 calm_s=1.0 streak_s=0.0 foreign_captures=""
+2026-09-29T14:36:01.034-04:00 pid=43431 class=perf label=P2 event=run util=5 child_pid=43545 max_hold_s=900.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 PF 0.2"
+2026-09-29T14:36:01.272-04:00 pid=43431 class=perf label=P2 event=release util=5 exit=0 hold_s=3.57 wait_s=3.24 util_before=5 util_after=5 instances_before=0 instances_max=0 contaminated=false reasons=""
+2026-09-29T14:36:01.392-04:00 pid=43551 class=perf label=P3 event=enqueue util=5 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 P3 1.5"
+2026-09-29T14:36:01.398-04:00 pid=43551 class=perf label=P3 event=acquire util=5 slot=perf waited_s=0.0 phase=lock
+2026-09-29T14:36:01.502-04:00 pid=43551 class=perf label=P3 event=wait util=5 phase=settle waited_s=0.1 need_util_lt=15.0 calm_s=1.0 streak_s=0.0 foreign_captures=""
+2026-09-29T14:36:02.701-04:00 pid=43551 class=perf label=P3 event=run util=5 child_pid=43600 max_hold_s=900.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 P3 1.5"
+2026-09-29T14:36:04.241-04:00 pid=43551 class=perf label=P3 event=release util=5 exit=0 hold_s=2.84 wait_s=1.19 util_before=5 util_after=5 instances_before=0 instances_max=1 contaminated=true reasons=foreign-capture-process-during-run
+2026-09-29T14:36:04.336-04:00 pid=43621 class=perf label=test event=enqueue util=5 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 HOLD 30"
+2026-09-29T14:36:04.343-04:00 pid=43621 class=perf label=test event=acquire util=5 slot=perf waited_s=0.0 phase=lock
+2026-09-29T14:36:04.450-04:00 pid=43621 class=perf label=test event=wait util=5 phase=settle waited_s=0.1 need_util_lt=15.0 calm_s=1.0 streak_s=0.0 foreign_captures=""
+2026-09-29T14:36:05.598-04:00 pid=43621 class=perf label=test event=run util=5 child_pid=43643 max_hold_s=1.2 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 HOLD 30"
+2026-09-29T14:36:07.100-04:00 pid=43621 class=perf label=test event=max-hold-exceeded util=5 max_hold_s=1.2
+2026-09-29T14:36:07.306-04:00 pid=43621 class=perf label=test event=release util=5 exit=124 hold_s=2.96 wait_s=1.16 util_before=5 util_after=5 instances_before=0 instances_max=0 contaminated=true reasons=max-hold-exceeded
+2026-09-29T14:36:07.396-04:00 pid=43677 class=perf label=test event=enqueue util=60 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 NOTRUN 0.1"
+2026-09-29T14:36:07.404-04:00 pid=43677 class=perf label=test event=acquire util=60 slot=perf waited_s=0.0 phase=lock
+2026-09-29T14:36:07.509-04:00 pid=43677 class=perf label=test event=wait util=60 phase=settle waited_s=0.1 need_util_lt=15.0 calm_s=1.0 streak_s=0 foreign_captures=""
+2026-09-29T14:36:08.543-04:00 pid=43677 class=perf label=test event=wait util=60 phase=settle waited_s=1.1 need_util_lt=15.0 calm_s=1.0 streak_s=0 foreign_captures=""
+2026-09-29T14:36:08.955-04:00 pid=43677 class=perf label=test event=wait-timeout util=60 phase=settle waited_s=1.6 foreign_captures=0
+2026-09-29T14:36:09.012-04:00 pid=43704 class=perf label=test event=enqueue util=5 cmd="sh -c exit 3"
+2026-09-29T14:36:09.020-04:00 pid=43704 class=perf label=test event=acquire util=5 slot=perf waited_s=0.0 phase=lock
+2026-09-29T14:36:09.123-04:00 pid=43704 class=perf label=test event=wait util=5 phase=settle waited_s=0.1 need_util_lt=15.0 calm_s=1.0 streak_s=0.0 foreign_captures=""
+2026-09-29T14:36:10.278-04:00 pid=43704 class=perf label=test event=run util=5 child_pid=43732 max_hold_s=900.0 cmd="sh -c exit 3"
+2026-09-29T14:36:10.283-04:00 pid=43704 class=perf label=test event=release util=5 exit=3 hold_s=1.26 wait_s=1.16 util_before=5 util_after=5 instances_before=0 instances_max=0 contaminated=false reasons=""
+2026-09-29T14:36:10.345-04:00 pid=43733 class=capture label=test event=enqueue util=5 cmd=/nonexistent/cmd_GPUSLOTTEST42702_24520
+2026-09-29T14:36:10.352-04:00 pid=43733 class=capture label=test event=acquire util=5 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:36:10.458-04:00 pid=43733 class=capture label=test event=release util=5 exit=127 hold_s=0.1 wait_s=0.01 util_before=5 util_after=5 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:36:10.517-04:00 pid=43743 class=capture label=test event=enqueue util=5 cmd="/Users/midir/sm2-n1/gpulock/tools/gpu/gpu_slot.sh capture --label inner -- python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST"
+2026-09-29T14:36:10.524-04:00 pid=43743 class=capture label=test event=acquire util=5 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:36:10.632-04:00 pid=43743 class=capture label=test event=run util=5 child_pid=43752 max_hold_s=2400.0 cmd="/Users/midir/sm2-n1/gpulock/tools/gpu/gpu_slot.sh capture --label inner -- python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST"
+2026-09-29T14:36:10.683-04:00 pid=43752 class=capture label=inner event=nested-passthrough util=5 nested_in=capture cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 NEST 0.1"
+2026-09-29T14:36:10.870-04:00 pid=43743 class=capture label=test event=release util=5 exit=0 hold_s=0.35 wait_s=0.01 util_before=5 util_after=5 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:36:10.928-04:00 pid=43760 class=capture label=test event=enqueue util=5 cmd="/Users/midir/sm2-n1/gpulock/tools/gpu/gpu_slot.sh perf -- true"
+2026-09-29T14:36:10.936-04:00 pid=43760 class=capture label=test event=acquire util=5 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:36:11.045-04:00 pid=43760 class=capture label=test event=run util=5 child_pid=43769 max_hold_s=2400.0 cmd="/Users/midir/sm2-n1/gpulock/tools/gpu/gpu_slot.sh perf -- true"
+2026-09-29T14:36:11.097-04:00 pid=43769 class=perf label=test event=refused-nested util=5 nested_in=capture
+2026-09-29T14:36:11.117-04:00 pid=43760 class=capture label=test event=release util=5 exit=2 hold_s=0.18 wait_s=0.01 util_before=5 util_after=5 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:36:11.179-04:00 pid=43776 class=capture label=H2 event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 H2 60"
+2026-09-29T14:36:11.179-04:00 pid=43775 class=capture label=H1 event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 H1 60"
+2026-09-29T14:36:11.192-04:00 pid=43775 class=capture label=H1 event=wait util=50 phase=queue waited_s=0.0 ahead=1 holders=""
+2026-09-29T14:36:11.193-04:00 pid=43776 class=capture label=H2 event=acquire util=50 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:36:11.299-04:00 pid=43776 class=capture label=H2 event=run util=50 child_pid=43798 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 H2 60"
+2026-09-29T14:36:11.311-04:00 pid=43775 class=capture label=H1 event=acquire util=50 slot=1 waited_s=0.1 phase=lock
+2026-09-29T14:36:11.417-04:00 pid=43775 class=capture label=H1 event=run util=50 child_pid=43803 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 H1 60"
+2026-09-29T14:36:11.842-04:00 pid=43824 class=capture label=X event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 X 0.2"
+2026-09-29T14:36:11.842-04:00 pid=43824 class=capture label=X event=stale-recovered util=50 kind=holder dead_pid=43775 dead_class=capture dead_label=H1 dead_slot=1 orphan_child=43803
+2026-09-29T14:36:11.843-04:00 pid=43824 class=capture label=X event=stale-recovered util=50 kind=holder dead_pid=43776 dead_class=capture dead_label=H2 dead_slot=0 orphan_child=43798
+2026-09-29T14:36:11.850-04:00 pid=43824 class=capture label=X event=acquire util=50 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:36:11.955-04:00 pid=43824 class=capture label=X event=run util=50 child_pid=43835 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 X 0.2"
+2026-09-29T14:36:12.188-04:00 pid=43824 class=capture label=X event=release util=50 exit=0 hold_s=0.34 wait_s=0.01 util_before=50 util_after=50 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:36:12.584-04:00 pid=43855 class=capture label=F1 event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 F1 60"
+2026-09-29T14:36:12.584-04:00 pid=43856 class=capture label=F2 event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 F2 60"
+2026-09-29T14:36:12.597-04:00 pid=43856 class=capture label=F2 event=wait util=50 phase=queue waited_s=0.0 ahead=1 holders=""
+2026-09-29T14:36:12.598-04:00 pid=43855 class=capture label=F1 event=acquire util=50 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:36:12.704-04:00 pid=43855 class=capture label=F1 event=run util=50 child_pid=43879 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 F1 60"
+2026-09-29T14:36:12.713-04:00 pid=43856 class=capture label=F2 event=acquire util=50 slot=1 waited_s=0.1 phase=lock
+2026-09-29T14:36:12.822-04:00 pid=43856 class=capture label=F2 event=run util=50 child_pid=43886 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 F2 60"
+2026-09-29T14:36:12.935-04:00 pid=43888 class=capture label=Q1 event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 Q1 0.2"
+2026-09-29T14:36:12.956-04:00 pid=43888 class=capture label=Q1 event=wait util=50 phase=queue waited_s=0.0 ahead=0 holders=capture:43855,capture:43856
+2026-09-29T14:36:13.346-04:00 pid=43910 class=capture label=Q2 event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 Q2 0.2"
+2026-09-29T14:36:13.371-04:00 pid=43910 class=capture label=Q2 event=wait util=50 phase=queue waited_s=0.0 ahead=1 holders=capture:43855,capture:43856
+2026-09-29T14:36:13.707-04:00 pid=43855 class=capture label=F1 event=release util=50 exit=143 hold_s=1.11 wait_s=0.01 util_before=50 util_after=50 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:36:13.739-04:00 pid=43910 class=capture label=Q2 event=stale-recovered util=50 kind=waiter dead_pid=43888 dead_class=capture dead_label=Q1 dead_slot="" orphan_child=""
+2026-09-29T14:36:13.746-04:00 pid=43910 class=capture label=Q2 event=acquire util=50 slot=0 waited_s=0.4 phase=lock
+2026-09-29T14:36:13.854-04:00 pid=43910 class=capture label=Q2 event=run util=50 child_pid=43960 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 Q2 0.2"
+2026-09-29T14:36:14.133-04:00 pid=43910 class=capture label=Q2 event=release util=50 exit=0 hold_s=0.39 wait_s=0.4 util_before=50 util_after=50 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:36:14.164-04:00 pid=43856 class=capture label=F2 event=release util=50 exit=143 hold_s=1.45 wait_s=0.13 util_before=50 util_after=50 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:36:14.249-04:00 pid=43972 class=perf label=PS event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 PS 5"
+2026-09-29T14:36:14.256-04:00 pid=43972 class=perf label=PS event=acquire util=50 slot=perf waited_s=0.0 phase=lock
+2026-09-29T14:36:14.358-04:00 pid=43972 class=perf label=PS event=wait util=50 phase=settle waited_s=0.1 need_util_lt=15.0 calm_s=1.0 streak_s=0 foreign_captures=""
+2026-09-29T14:36:15.414-04:00 pid=43972 class=perf label=PS event=wait util=50 phase=settle waited_s=1.2 need_util_lt=15.0 calm_s=1.0 streak_s=0 foreign_captures=""
+2026-09-29T14:36:15.671-04:00 pid=44031 class=capture label=Y event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 Y 0.2"
+2026-09-29T14:36:15.671-04:00 pid=44031 class=capture label=Y event=stale-recovered util=50 kind=holder dead_pid=43972 dead_class=perf dead_label=PS dead_slot=perf orphan_child=""
+2026-09-29T14:36:15.681-04:00 pid=44031 class=capture label=Y event=acquire util=50 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:36:15.799-04:00 pid=44031 class=capture label=Y event=run util=50 child_pid=44041 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 Y 0.2"
+2026-09-29T14:36:16.084-04:00 pid=44031 class=capture label=Y event=release util=50 exit=0 hold_s=0.4 wait_s=0.01 util_before=50 util_after=50 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:36:16.213-04:00 pid=44051 class=capture label=Z event=enqueue util=50 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 Z 0.1"
+2026-09-29T14:36:16.221-04:00 pid=44051 class=capture label=Z event=stale-recovered util=50 kind=waiter dead_pid=42702 dead_class=perf dead_label=impostor dead_slot="" orphan_child=""
+2026-09-29T14:36:16.228-04:00 pid=44051 class=capture label=Z event=acquire util=50 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:36:16.334-04:00 pid=44051 class=capture label=Z event=run util=50 child_pid=44063 max_hold_s=2400.0 cmd="python3 /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520/job.py /Users/midir/sm2-n1/_scratch/gpu/test-GPUSLOTTEST42702_24520 Z 0.1"
+2026-09-29T14:36:16.463-04:00 pid=44051 class=capture label=Z event=release util=50 exit=0 hold_s=0.24 wait_s=0.02 util_before=50 util_after=50 instances_before=0 instances_max=0 contaminated=true reasons=no-exclusive-lock

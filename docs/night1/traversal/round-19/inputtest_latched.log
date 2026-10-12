@@ -1,0 +1,25 @@
+[2026.10.01-16.59.58:820][  0]LogWebHomage: Display: WH_INPUTTEST pauseRelease armed (round-18 event-latched input)
+[2026.10.01-16.59.59:750][  1]LogWebHomage: Display: WH_INPUT t 0.00 state: player-captured 0, viewport capture 0, viewport focus 1, app active 1, menu 0 (mode air, rmb 0)
+[2026.10.01-16.59.59:890][ 38]LogWebHomage: Display: WH_INPUTTEST t 0.60 press 1 (RightMouseButton, mode ground)
+[2026.10.01-16.59.59:894][ 45]LogWebHomage: Display: WH_INPUTTEST press 1 -> swing after 0.12 s
+[2026.10.01-16.59.59:921][110]LogWebHomage: Display: WH_INPUTTEST t 1.80 release (RightMouseButton)
+[2026.10.01-16.59.59:933][146]LogWebHomage: Display: WH_INPUTTEST t 2.40 press 2 (RightMouseButton, mode air)
+[2026.10.01-16.59.59:934][147]LogWebHomage: Display: WH_INPUTTEST press 2 -> swing after 0.02 s
+[2026.10.01-16.59.59:958][206]LogWebHomage: Display: WH_INPUTTEST t 3.40 pause
+[2026.10.01-16.59.59:958][224]LogWebHomage: Display: WH_INPUTTEST t 3.70 release (RightMouseButton) while PAUSED
+[2026.10.01-16.59.59:960][254]LogWebHomage: Display: WH_INPUTTEST t 4.20 unpause
+[2026.10.01-16.59.59:974][290]LogWebHomage: Display: WH_INPUTTEST t 4.80 press 3 (RightMouseButton, mode air)
+[2026.10.01-16.59.59:975][291]LogWebHomage: Display: WH_INPUTTEST press 3 -> swing after 0.02 s
+[2026.10.01-17.00.00:003][362]LogWebHomage: Display: WH_INPUTTEST t 6.00 release (RightMouseButton)
+[2026.10.01-17.00.00:016][398]LogWebHomage: Display: WH_INPUTTEST t 6.60 press 4 (RightMouseButton, mode air)
+[2026.10.01-17.00.00:017][399]LogWebHomage: Display: WH_INPUTTEST press 4 -> swing after 0.02 s
+[2026.10.01-17.00.00:039][458]LogWebHomage: Display: WH_INPUTTEST t 7.60 pause
+[2026.10.01-17.00.00:040][476]LogWebHomage: Display: WH_INPUTTEST t 7.90 release (RightMouseButton) while PAUSED
+[2026.10.01-17.00.00:040][488]LogWebHomage: Display: WH_INPUTTEST t 8.10 press 5 (RightMouseButton, mode swing)
+[2026.10.01-17.00.00:041][506]LogWebHomage: Display: WH_INPUTTEST t 8.40 unpause
+[2026.10.01-17.00.00:063][566]LogWebHomage: Display: WH_INPUTTEST t 9.40 release (RightMouseButton)
+[2026.10.01-17.00.00:076][602]LogWebHomage: Display: WH_INPUTTEST t 10.00 press 6 (RightMouseButton, mode air)
+[2026.10.01-17.00.00:077][603]LogWebHomage: Display: WH_INPUTTEST press 6 -> swing after 0.02 s
+[2026.10.01-17.00.00:099][662]LogWebHomage: Display: WH_INPUTTEST t 11.00 release (RightMouseButton)
+[2026.10.01-17.00.00:112][696]LogWebHomage: Display: WH_INPUT 10 s: mouse 0 px over 0 frames (player-captured 0, viewport capture 0), rmb presses 5, swings 5, searches without anchor 0, zip presses 0, recaptures 0
+[2026.10.01-17.00.00:113][698]LogWebHomage: Display: WH_INPUTTEST RESULT pauseRelease: 6 presses, 5 swings started (round-18 event-latched input)

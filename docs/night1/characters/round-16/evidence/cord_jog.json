@@ -1,0 +1,115 @@
+{
+ "tessera": {
+  "ok": true,
+  "columns": 411,
+  "x_range": [
+   1204,
+   1625
+  ],
+  "max_jump_px": 0.9,
+  "jump_at": [
+   1305,
+   1312
+  ],
+  "jumps_over_4": []
+ },
+ "verdant": {
+  "ok": true,
+  "columns": 491,
+  "x_range": [
+   1209,
+   1699
+  ],
+  "max_jump_px": 0.5,
+  "jump_at": [
+   1586,
+   1316
+  ],
+  "jumps_over_4": []
+ },
+ "plum": {
+  "ok": true,
+  "columns": 516,
+  "x_range": [
+   1130,
+   1699
+  ],
+  "max_jump_px": 0.9,
+  "jump_at": [
+   1169,
+   1288
+  ],
+  "jumps_over_4": []
+ },
+ "cinder": {
+  "ok": true,
+  "columns": 371,
+  "x_range": [
+   1159,
+   1529
+  ],
+  "max_jump_px": 0.6,
+  "jump_at": [
+   1481,
+   1315
+  ],
+  "jumps_over_4": []
+ },
+ "glacier": {
+  "ok": true,
+  "columns": 439,
+  "x_range": [
+   1248,
+   1699
+  ],
+  "max_jump_px": 0.5,
+  "jump_at": [
+   1588,
+   1269
+  ],
+  "jumps_over_4": []
+ },
+ "ash": {
+  "ok": true,
+  "columns": 501,
+  "x_range": [
+   1199,
+   1699
+  ],
+  "max_jump_px": 0.9,
+  "jump_at": [
+   1431,
+   1310
+  ],
+  "jumps_over_4": []
+ },
+ "saffron": {
+  "ok": true,
+  "columns": 480,
+  "x_range": [
+   1219,
+   1699
+  ],
+  "max_jump_px": 0.5,
+  "jump_at": [
+   1471,
+   1321
+  ],
+  "jumps_over_4": []
+ },
+ "sage": {
+  "ok": true,
+  "columns": 570,
+  "x_range": [
+   1130,
+   1699
+  ],
+  "max_jump_px": 0.6,
+  "jump_at": [
+   1158,
+   1285
+  ],
+  "jumps_over_4": []
+ },
+ "gate_max_jump_le_4": true
+}

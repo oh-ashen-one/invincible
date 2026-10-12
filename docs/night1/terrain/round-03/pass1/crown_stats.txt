@@ -1,0 +1,29 @@
+{"crown_crops": 24, "min_hp_sd": 4.28, "median_hp_sd": 7.74, "max_hp_sd": 12.09, "pass_crown_sd_ge_9": false, "reference_hp_sd": [], "max_flat_width_px": {"p1_south.jpg": 24.7, "p10_lawn_eye.jpg": 16.0}, "pass_no_flat_hull_face_gt_40px": true, "crops_ge_9": 5, "longest_straight_silhouette_px": {"p10_lawn_eye.jpg": 47.4, "p1_south.jpg": 109.0}, "pass_no_straight_silhouette_gt_40px_p10": false}
+p1_south.jpg             [1800, 450]    hp_sd  11.04  luma 134.0
+p1_south.jpg             [2100, 450]    hp_sd  12.09  luma 130.3
+p1_south.jpg             [2400, 450]    hp_sd  11.48  luma 141.9
+p1_south.jpg             [1200, 600]    hp_sd   8.53  luma 127.9
+p1_south.jpg             [1500, 600]    hp_sd   6.65  luma 130.4
+p1_south.jpg             [1800, 600]    hp_sd   8.31  luma 133.1
+p1_south.jpg             [2100, 600]    hp_sd   8.33  luma 131.0
+p1_south.jpg             [2700, 600]    hp_sd   7.72  luma 127.8
+p1_south.jpg             [3000, 750]    hp_sd   9.31  luma 126.7
+p1_south.jpg             [1350, 750]    hp_sd   8.61  luma 115.8
+p1_south.jpg             [1800, 750]    hp_sd   8.96  luma 116.8
+p1_south.jpg             [3000, 900]    hp_sd   9.80  luma 137.2
+p1_south.jpg             [3300, 900]    hp_sd   7.82  luma 115.0
+p1_south.jpg             [3150, 1050]   hp_sd   6.95  luma 108.5
+p1_south.jpg             [3450, 1200]   hp_sd   6.31  luma  93.1
+p1_south.jpg             [450, 1350]    hp_sd   6.76  luma 127.8
+p1_south.jpg             [450, 1500]    hp_sd   6.66  luma 110.6
+p1_south.jpg             [1200, 1800]   hp_sd   7.31  luma 125.0
+p1_south.jpg             [1350, 1800]   hp_sd   7.77  luma 121.2
+p1_south.jpg             [1950, 1800]   hp_sd   7.26  luma 115.4
+p1_south.jpg             [2400, 1650]   hp_sd   6.68  luma  96.8
+p1_south.jpg             [2250, 1800]   hp_sd   4.28  luma  92.8
+p1_south.jpg             [1500, 1950]   hp_sd   5.31  luma  87.2
+p1_south.jpg             [2100, 1950]   hp_sd   5.93  luma  93.8
+flat p1_south.jpg max_flat_width 24.7 patches>40: 0 flat% of foliage 2.73 dark pockets 0.06%
+flat p10_lawn_eye.jpg max_flat_width 16.0 patches>40: 0 flat% of foliage 0.57 dark pockets 0.35%
+silhouette p10_lawn_eye.jpg longest straight 47.4 px; segments > 40 px: 4 sky 19.7% foliage 80.0% [{'len_px': 47.4, 'from': [129, 420], 'to': [87, 398]}, {'len_px': 47.2, 'from': [1620, 358], 'to': [1603, 314]}, {'len_px': 41.0, 'from': [2684, 588], 'to': [2693, 628]}]
+silhouette p1_south.jpg longest straight 109.0 px; segments > 40 px: 10 sky 8.9% foliage 90.8% [{'len_px': 109.0, 'from': [3470, 185], 'to': [3485, 77]}, {'len_px': 107.4, 'from': [2944, 285], 'to': [2953, 178]}, {'len_px': 92.4, 'from': [706, 268], 'to': [697, 176]}]

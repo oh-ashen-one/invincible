@@ -1,0 +1,62 @@
+[
+  {
+    "clip": "s3b_flip_cases.mp4",
+    "frame": 96,
+    "time_s": 1.6,
+    "manual_visible_bbox": [
+      824,
+      163,
+      1220,
+      653
+    ],
+    "visible_height_pixels": 491,
+    "height_fraction": 0.4546296296296296,
+    "clipped": false,
+    "uncertainty_px": 10
+  },
+  {
+    "clip": "s3b_flip_cases.mp4",
+    "frame": 102,
+    "time_s": 1.7,
+    "manual_visible_bbox": [
+      850,
+      189,
+      1183,
+      615
+    ],
+    "visible_height_pixels": 427,
+    "height_fraction": 0.39537037037037037,
+    "clipped": false,
+    "uncertainty_px": 10
+  },
+  {
+    "clip": "s3b_flip_cases.mp4",
+    "frame": 1425,
+    "time_s": 23.75,
+    "manual_visible_bbox": [
+      946,
+      0,
+      1236,
+      874
+    ],
+    "visible_height_pixels": 875,
+    "height_fraction": 0.8101851851851852,
+    "clipped": true,
+    "uncertainty_px": 10
+  },
+  {
+    "clip": "s3b_flip_cases.mp4",
+    "frame": 1426,
+    "time_s": 23.766666666666666,
+    "manual_visible_bbox": [
+      911,
+      0,
+      1251,
+      862
+    ],
+    "visible_height_pixels": 863,
+    "height_fraction": 0.799074074074074,
+    "clipped": true,
+    "uncertainty_px": 10
+  }
+]

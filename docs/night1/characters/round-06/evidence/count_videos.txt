@@ -1,0 +1,5 @@
+crowd_tracking.mp4 n 16 people med 9.0 p10 8.0 max 11 | >=3%H med 9.0 | height med 0.217 p90 0.552 max 0.584
+crowd_wide.mp4 n 12 people med 15.0 p10 13.1 max 16 | >=3%H med 15.0 | height med 0.164 p90 0.293 max 0.498
+street_fight_wide.mp4 n 16 people med 6.0 p10 6.0 max 8 | >=3%H med 6.0 | height med 0.293 p90 0.397 max 0.402
+street_fight_34.mp4 n 16 people med 7.0 p10 7.0 max 7 | >=3%H med 7.0 | height med 0.309 p90 0.398 max 0.403
+street_fight_orbit.mp4 n 16 people med 7.0 p10 7.0 max 9 | >=3%H med 7.0 | height med 0.330 p90 0.465 max 0.510

@@ -1,0 +1,49 @@
+{
+  "choices_locked_before_identity_guesses": true,
+  "phase1_locked_utc": "2026-10-12T04:21:46Z",
+  "phase2_locked_utc": "2026-10-12T04:31:12Z",
+  "AB_CHOICES_sha256": "9e61a7912bd98b8071d7a8ac4d3b4b9e4ce96378bf095e5eafc65b7f56e4e709",
+  "normalization": "equal84percent crop,1280x720,30fps,equalpairduration,noaudioormetadata",
+  "results": {
+    "flip-progress": {
+      "choice": "B",
+      "selected": "final runtime19521659",
+      "assignment": {
+        "A": "prior round13 closeout",
+        "B": "final runtime19521659"
+      }
+    },
+    "chain-progress": {
+      "choice": "B",
+      "selected": "final runtime19521659",
+      "assignment": {
+        "A": "prior round13 closeout",
+        "B": "final runtime19521659"
+      }
+    },
+    "flip-reference": {
+      "choice": "A",
+      "selected": "authentic reference",
+      "assignment": {
+        "A": "authentic reference",
+        "B": "final runtime19521659"
+      }
+    },
+    "press-progress": {
+      "choice": "B",
+      "selected": "prior round13 closeout",
+      "assignment": {
+        "A": "final runtime19521659",
+        "B": "prior round13 closeout"
+      }
+    },
+    "press-reference": {
+      "choice": "A",
+      "selected": "authentic reference",
+      "assignment": {
+        "A": "authentic reference",
+        "B": "final runtime19521659"
+      }
+    }
+  }
+}

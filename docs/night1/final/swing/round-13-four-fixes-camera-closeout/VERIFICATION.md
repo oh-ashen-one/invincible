@@ -1,0 +1,5 @@
+# Camera reset closeout
+
+Source4220b33b extends the existing collision-honest full-body output guard/watchdog for one second after reset. No camera collision/angle/position limit or animation/gameplay source was changed. Native S2c1 startup now retains the hero at.0833,.1000,.1167,.3333; the previous complete frame escapes are removed. All299case rows have visible masks, in-frame flags, no frame-edge contacts and no lens/geometry overlaps. Seven constrained backtracks cover the formerly failing reseats.
+
+Regressionc3(262rows) andc6(265rows) also retain the hero with no absent/frame-edge/lens/geometry failures. Sampled gameplay/animation columns match19521659 across allthreecases. Rotation peaks remain corkscrew774.6,rudi779.0,wallFront652.6degrees/s. Source and runtime are separate from the older full17-case suite. The independent CAMERA_DELTA.md in the sibling final folder confirms the startup correction while retaining two nativeframes(~.033s) of lower-body parapet occlusion in c6; the upper body remainsvisible. This is not an all-camera-spec or owner-acceptance claim.

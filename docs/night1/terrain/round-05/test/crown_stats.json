@@ -1,0 +1,848 @@
+{
+ "crowns": [
+  {
+   "box_xywh": [
+    1800,
+    450,
+    150,
+    150
+   ],
+   "hp_sd": 10.88,
+   "mean_luma": 145.8,
+   "mean_hsv_sat": 0.553,
+   "rgb_mean": [
+    156.5,
+    155.1,
+    70.1
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    2100,
+    450,
+    150,
+    150
+   ],
+   "hp_sd": 11.8,
+   "mean_luma": 138.5,
+   "mean_hsv_sat": 0.551,
+   "rgb_mean": [
+    155.0,
+    143.9,
+    67.7
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    2400,
+    450,
+    150,
+    150
+   ],
+   "hp_sd": 11.39,
+   "mean_luma": 153.8,
+   "mean_hsv_sat": 0.574,
+   "rgb_mean": [
+    170.4,
+    161.4,
+    71.0
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    1200,
+    600,
+    150,
+    150
+   ],
+   "hp_sd": 10.59,
+   "mean_luma": 139.3,
+   "mean_hsv_sat": 0.616,
+   "rgb_mean": [
+    146.4,
+    151.5,
+    58.3
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    1500,
+    600,
+    150,
+    150
+   ],
+   "hp_sd": 9.98,
+   "mean_luma": 125.5,
+   "mean_hsv_sat": 0.604,
+   "rgb_mean": [
+    134.2,
+    135.0,
+    53.8
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    1800,
+    600,
+    150,
+    150
+   ],
+   "hp_sd": 11.56,
+   "mean_luma": 140.4,
+   "mean_hsv_sat": 0.648,
+   "rgb_mean": [
+    150.5,
+    152.1,
+    53.6
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    2100,
+    600,
+    150,
+    150
+   ],
+   "hp_sd": 10.72,
+   "mean_luma": 147.1,
+   "mean_hsv_sat": 0.622,
+   "rgb_mean": [
+    156.5,
+    159.3,
+    60.1
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    2700,
+    600,
+    150,
+    150
+   ],
+   "hp_sd": 9.83,
+   "mean_luma": 133.1,
+   "mean_hsv_sat": 0.598,
+   "rgb_mean": [
+    139.7,
+    144.3,
+    58.5
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    3000,
+    750,
+    150,
+    150
+   ],
+   "hp_sd": 10.75,
+   "mean_luma": 136.0,
+   "mean_hsv_sat": 0.624,
+   "rgb_mean": [
+    147.3,
+    146.4,
+    53.3
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    1350,
+    750,
+    150,
+    150
+   ],
+   "hp_sd": 10.01,
+   "mean_luma": 120.0,
+   "mean_hsv_sat": 0.614,
+   "rgb_mean": [
+    125.7,
+    130.6,
+    50.5
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    1800,
+    750,
+    150,
+    150
+   ],
+   "hp_sd": 10.38,
+   "mean_luma": 112.8,
+   "mean_hsv_sat": 0.594,
+   "rgb_mean": [
+    120.3,
+    121.4,
+    49.2
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    3000,
+    900,
+    150,
+    150
+   ],
+   "hp_sd": 11.99,
+   "mean_luma": 101.9,
+   "mean_hsv_sat": 0.641,
+   "rgb_mean": [
+    113.4,
+    108.2,
+    39.2
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    3300,
+    900,
+    150,
+    150
+   ],
+   "hp_sd": 10.01,
+   "mean_luma": 117.7,
+   "mean_hsv_sat": 0.678,
+   "rgb_mean": [
+    126.7,
+    128.2,
+    39.9
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    3150,
+    1050,
+    150,
+    150
+   ],
+   "hp_sd": 9.14,
+   "mean_luma": 94.0,
+   "mean_hsv_sat": 0.614,
+   "rgb_mean": [
+    100.8,
+    101.1,
+    39.7
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    3450,
+    1200,
+    150,
+    150
+   ],
+   "hp_sd": 6.88,
+   "mean_luma": 72.9,
+   "mean_hsv_sat": 0.601,
+   "rgb_mean": [
+    80.6,
+    77.2,
+    30.8
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    450,
+    1350,
+    150,
+    150
+   ],
+   "hp_sd": 9.72,
+   "mean_luma": 116.5,
+   "mean_hsv_sat": 0.815,
+   "rgb_mean": [
+    125.3,
+    130.2,
+    22.6
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    450,
+    1500,
+    150,
+    150
+   ],
+   "hp_sd": 7.89,
+   "mean_luma": 83.5,
+   "mean_hsv_sat": 0.744,
+   "rgb_mean": [
+    90.0,
+    92.5,
+    20.4
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    1200,
+    1800,
+    150,
+    150
+   ],
+   "hp_sd": 9.91,
+   "mean_luma": 110.0,
+   "mean_hsv_sat": 0.74,
+   "rgb_mean": [
+    114.2,
+    123.4,
+    30.1
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    1350,
+    1800,
+    150,
+    150
+   ],
+   "hp_sd": 10.12,
+   "mean_luma": 105.8,
+   "mean_hsv_sat": 0.669,
+   "rgb_mean": [
+    105.3,
+    119.3,
+    37.8
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    1950,
+    1800,
+    150,
+    150
+   ],
+   "hp_sd": 8.95,
+   "mean_luma": 94.9,
+   "mean_hsv_sat": 0.712,
+   "rgb_mean": [
+    96.6,
+    106.9,
+    28.9
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    2400,
+    1650,
+    150,
+    150
+   ],
+   "hp_sd": 6.77,
+   "mean_luma": 71.3,
+   "mean_hsv_sat": 0.649,
+   "rgb_mean": [
+    71.8,
+    79.6,
+    27.5
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    2250,
+    1800,
+    150,
+    150
+   ],
+   "hp_sd": 5.66,
+   "mean_luma": 75.0,
+   "mean_hsv_sat": 0.827,
+   "rgb_mean": [
+    74.0,
+    87.3,
+    14.1
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    1500,
+    1950,
+    150,
+    150
+   ],
+   "hp_sd": 5.01,
+   "mean_luma": 60.8,
+   "mean_hsv_sat": 0.718,
+   "rgb_mean": [
+    60.1,
+    69.5,
+    18.0
+   ],
+   "image": "p1_south.jpg"
+  },
+  {
+   "box_xywh": [
+    2100,
+    1950,
+    150,
+    150
+   ],
+   "hp_sd": 6.71,
+   "mean_luma": 73.2,
+   "mean_hsv_sat": 0.744,
+   "rgb_mean": [
+    72.8,
+    83.4,
+    21.6
+   ],
+   "image": "p1_south.jpg"
+  }
+ ],
+ "reference": [],
+ "flat": [
+  {
+   "image": "p1_south.jpg",
+   "foliage_pct": 50.5,
+   "dark_pocket_pct": 1.89,
+   "flat_pct_of_foliage": 0.06,
+   "max_flat_width_px": 10.8,
+   "patches_wider_than_40_px": 0,
+   "widest": []
+  },
+  {
+   "image": "p10_lawn_eye.jpg",
+   "foliage_pct": 29.2,
+   "dark_pocket_pct": 1.58,
+   "flat_pct_of_foliage": 0.2,
+   "max_flat_width_px": 29.7,
+   "patches_wider_than_40_px": 0,
+   "widest": []
+  }
+ ],
+ "silhouette": [
+  {
+   "image": "p10_lawn_eye.jpg",
+   "sky_pct": 20.1,
+   "foliage_pct": 79.6,
+   "sky_boundary_points": 9453,
+   "longest_straight_px": 44.0,
+   "segments_longer_than_40_px": 3,
+   "longest": [
+    {
+     "len_px": 44.0,
+     "from": [
+      3671,
+      338
+     ],
+     "to": [
+      3629,
+      351
+     ]
+    },
+    {
+     "len_px": 40.3,
+     "from": [
+      2693,
+      628
+     ],
+     "to": [
+      2709,
+      665
+     ]
+    },
+    {
+     "len_px": 40.0,
+     "from": [
+      2684,
+      589
+     ],
+     "to": [
+      2693,
+      628
+     ]
+    },
+    {
+     "len_px": 34.7,
+     "from": [
+      2716,
+      507
+     ],
+     "to": [
+      2691,
+      531
+     ]
+    },
+    {
+     "len_px": 32.6,
+     "from": [
+      3707,
+      305
+     ],
+     "to": [
+      3676,
+      315
+     ]
+    },
+    {
+     "len_px": 25.7,
+     "from": [
+      3173,
+      465
+     ],
+     "to": [
+      3148,
+      471
+     ]
+    },
+    {
+     "len_px": 24.8,
+     "from": [
+      249,
+      428
+     ],
+     "to": [
+      230,
+      412
+     ]
+    },
+    {
+     "len_px": 23.5,
+     "from": [
+      904,
+      477
+     ],
+     "to": [
+      881,
+      482
+     ]
+    }
+   ],
+   "set_aside": [
+    {
+     "len_px": 90.0,
+     "from": [
+      131,
+      519
+     ],
+     "to": [
+      131,
+      429
+     ],
+     "why": "axis-aligned"
+    },
+    {
+     "len_px": 79.0,
+     "from": [
+      3252,
+      467
+     ],
+     "to": [
+      3173,
+      465
+     ],
+     "why": "axis-aligned"
+    },
+    {
+     "len_px": 46.1,
+     "from": [
+      128,
+      419
+     ],
+     "to": [
+      87,
+      398
+     ],
+     "why": "hue"
+    },
+    {
+     "len_px": 43.0,
+     "from": [
+      3503,
+      503
+     ],
+     "to": [
+      3503,
+      546
+     ],
+     "why": "axis-aligned"
+    },
+    {
+     "len_px": 42.0,
+     "from": [
+      3287,
+      431
+     ],
+     "to": [
+      3288,
+      473
+     ],
+     "why": "axis-aligned"
+    },
+    {
+     "len_px": 42.0,
+     "from": [
+      3707,
+      263
+     ],
+     "to": [
+      3707,
+      305
+     ],
+     "why": "axis-aligned"
+    },
+    {
+     "len_px": 36.0,
+     "from": [
+      3392,
+      494
+     ],
+     "to": [
+      3393,
+      458
+     ],
+     "why": "axis-aligned"
+    },
+    {
+     "len_px": 36.0,
+     "from": [
+      3121,
+      481
+     ],
+     "to": [
+      3085,
+      480
+     ],
+     "why": "axis-aligned"
+    }
+   ]
+  },
+  {
+   "image": "p1_south.jpg",
+   "sky_pct": 8.9,
+   "foliage_pct": 90.9,
+   "sky_boundary_points": 9291,
+   "longest_straight_px": 75.7,
+   "segments_longer_than_40_px": 1,
+   "longest": [
+    {
+     "len_px": 75.7,
+     "from": [
+      248,
+      114
+     ],
+     "to": [
+      258,
+      189
+     ]
+    },
+    {
+     "len_px": 38.3,
+     "from": [
+      3285,
+      122
+     ],
+     "to": [
+      3247,
+      127
+     ]
+    },
+    {
+     "len_px": 38.1,
+     "from": [
+      777,
+      199
+     ],
+     "to": [
+      780,
+      237
+     ]
+    },
+    {
+     "len_px": 35.1,
+     "from": [
+      902,
+      142
+     ],
+     "to": [
+      867,
+      139
+     ]
+    },
+    {
+     "len_px": 30.1,
+     "from": [
+      977,
+      220
+     ],
+     "to": [
+      974,
+      190
+     ]
+    },
+    {
+     "len_px": 29.2,
+     "from": [
+      1007,
+      137
+     ],
+     "to": [
+      1010,
+      166
+     ]
+    },
+    {
+     "len_px": 24.2,
+     "from": [
+      1125,
+      205
+     ],
+     "to": [
+      1128,
+      229
+     ]
+    },
+    {
+     "len_px": 23.2,
+     "from": [
+      3638,
+      57
+     ],
+     "to": [
+      3615,
+      60
+     ]
+    }
+   ],
+   "set_aside": [
+    {
+     "len_px": 108.0,
+     "from": [
+      3470,
+      185
+     ],
+     "to": [
+      3485,
+      78
+     ],
+     "why": "hue"
+    },
+    {
+     "len_px": 107.4,
+     "from": [
+      2944,
+      285
+     ],
+     "to": [
+      2953,
+      178
+     ],
+     "why": "hue"
+    },
+    {
+     "len_px": 104.0,
+     "from": [
+      1533,
+      293
+     ],
+     "to": [
+      1536,
+      397
+     ],
+     "why": "axis-aligned"
+    },
+    {
+     "len_px": 98.1,
+     "from": [
+      1517,
+      400
+     ],
+     "to": [
+      1513,
+      302
+     ],
+     "why": "axis-aligned"
+    },
+    {
+     "len_px": 95.4,
+     "from": [
+      706,
+      269
+     ],
+     "to": [
+      697,
+      174
+     ],
+     "why": "thin"
+    },
+    {
+     "len_px": 93.1,
+     "from": [
+      1307,
+      251
+     ],
+     "to": [
+      1303,
+      158
+     ],
+     "why": "axis-aligned"
+    },
+    {
+     "len_px": 79.0,
+     "from": [
+      456,
+      181
+     ],
+     "to": [
+      377,
+      180
+     ],
+     "why": "axis-aligned"
+    },
+    {
+     "len_px": 75.3,
+     "from": [
+      662,
+      245
+     ],
+     "to": [
+      655,
+      170
+     ],
+     "why": "hue"
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "crown_crops": 24,
+  "min_hp_sd": 5.01,
+  "median_hp_sd": 10.0,
+  "max_hp_sd": 11.99,
+  "pass_crown_sd_ge_9": false,
+  "median_hsv_sat": 0.633,
+  "pass_r05_crowns": false,
+  "reference_hp_sd": [],
+  "max_flat_width_px": {
+   "p1_south.jpg": 10.8,
+   "p10_lawn_eye.jpg": 29.7
+  },
+  "pass_no_flat_hull_face_gt_40px": true,
+  "crops_ge_9": 17,
+  "longest_straight_silhouette_px": {
+   "p10_lawn_eye.jpg": 44.0,
+   "p1_south.jpg": 75.7
+  },
+  "pass_no_straight_silhouette_gt_40px_p10": false
+ }
+}

@@ -1,0 +1,433 @@
+{
+ "regions": 6,
+ "straight_runs": 705,
+ "longest_run_px": 1148,
+ "max_step_px": 58.1,
+ "n_jogs": 46,
+ "jogs": [
+  {
+   "step": 58.1,
+   "x": 2312,
+   "y": 768,
+   "run_a": 108,
+   "run_b": 43,
+   "connector": 60,
+   "angle": 0.5
+  },
+  {
+   "step": 20.9,
+   "x": 2042,
+   "y": 1942,
+   "run_a": 70,
+   "run_b": 123,
+   "connector": 49,
+   "angle": 0.1
+  },
+  {
+   "step": 18.5,
+   "x": 2390,
+   "y": 1731,
+   "run_a": 55,
+   "run_b": 161,
+   "connector": 81,
+   "angle": 3.1
+  },
+  {
+   "step": 17.1,
+   "x": 3038,
+   "y": 1700,
+   "run_a": 48,
+   "run_b": 141,
+   "connector": 93,
+   "angle": 7.3
+  },
+  {
+   "step": 16.1,
+   "x": 2102,
+   "y": 1462,
+   "run_a": 71,
+   "run_b": 67,
+   "connector": 65,
+   "angle": 1.7
+  },
+  {
+   "step": 14.8,
+   "x": 2218,
+   "y": 702,
+   "run_a": 83,
+   "run_b": 145,
+   "connector": 102,
+   "angle": 4.7
+  },
+  {
+   "step": 12.4,
+   "x": 2757,
+   "y": 1043,
+   "run_a": 90,
+   "run_b": 70,
+   "connector": 96,
+   "angle": 4.1
+  },
+  {
+   "step": 11.8,
+   "x": 1889,
+   "y": 2038,
+   "run_a": 44,
+   "run_b": 51,
+   "connector": 56,
+   "angle": 7.8
+  },
+  {
+   "step": 11.7,
+   "x": 2105,
+   "y": 1322,
+   "run_a": 269,
+   "run_b": 41,
+   "connector": 63,
+   "angle": 2.0
+  },
+  {
+   "step": 11.2,
+   "x": 3081,
+   "y": 1189,
+   "run_a": 50,
+   "run_b": 69,
+   "connector": 103,
+   "angle": 4.6
+  },
+  {
+   "step": 10.3,
+   "x": 2394,
+   "y": 1286,
+   "run_a": 61,
+   "run_b": 136,
+   "connector": 73,
+   "angle": 2.4
+  },
+  {
+   "step": 9.4,
+   "x": 2567,
+   "y": 1994,
+   "run_a": 158,
+   "run_b": 66,
+   "connector": 68,
+   "angle": 2.2
+  },
+  {
+   "step": 9.3,
+   "x": 3077,
+   "y": 1455,
+   "run_a": 116,
+   "run_b": 153,
+   "connector": 96,
+   "angle": 7.6
+  },
+  {
+   "step": 9.1,
+   "x": 2126,
+   "y": 693,
+   "run_a": 100,
+   "run_b": 70,
+   "connector": 71,
+   "angle": 4.2
+  },
+  {
+   "step": 9.1,
+   "x": 1287,
+   "y": 1974,
+   "run_a": 87,
+   "run_b": 76,
+   "connector": 68,
+   "angle": 1.3
+  },
+  {
+   "step": 7.6,
+   "x": 2398,
+   "y": 1049,
+   "run_a": 104,
+   "run_b": 86,
+   "connector": 109,
+   "angle": 7.7
+  },
+  {
+   "step": 7.6,
+   "x": 2827,
+   "y": 1067,
+   "run_a": 55,
+   "run_b": 42,
+   "connector": 20,
+   "angle": 2.8
+  },
+  {
+   "step": 7.3,
+   "x": 1724,
+   "y": 320,
+   "run_a": 41,
+   "run_b": 43,
+   "connector": 63,
+   "angle": 2.0
+  },
+  {
+   "step": 7.3,
+   "x": 2387,
+   "y": 943,
+   "run_a": 109,
+   "run_b": 151,
+   "connector": 104,
+   "angle": 7.0
+  },
+  {
+   "step": 7.0,
+   "x": 1831,
+   "y": 1309,
+   "run_a": 79,
+   "run_b": 137,
+   "connector": 94,
+   "angle": 2.9
+  },
+  {
+   "step": 6.9,
+   "x": 1362,
+   "y": 741,
+   "run_a": 84,
+   "run_b": 59,
+   "connector": 103,
+   "angle": 7.3
+  },
+  {
+   "step": 6.7,
+   "x": 2089,
+   "y": 953,
+   "run_a": 102,
+   "run_b": 144,
+   "connector": 87,
+   "angle": 7.2
+  },
+  {
+   "step": 6.6,
+   "x": 2654,
+   "y": 715,
+   "run_a": 67,
+   "run_b": 53,
+   "connector": 80,
+   "angle": 3.6
+  },
+  {
+   "step": 6.5,
+   "x": 1108,
+   "y": 1844,
+   "run_a": 93,
+   "run_b": 50,
+   "connector": 69,
+   "angle": 2.6
+  },
+  {
+   "step": 6.3,
+   "x": 1010,
+   "y": 1073,
+   "run_a": 92,
+   "run_b": 189,
+   "connector": 103,
+   "angle": 5.6
+  },
+  {
+   "step": 6.0,
+   "x": 1142,
+   "y": 324,
+   "run_a": 46,
+   "run_b": 48,
+   "connector": 65,
+   "angle": 1.2
+  },
+  {
+   "step": 5.8,
+   "x": 1338,
+   "y": 1871,
+   "run_a": 49,
+   "run_b": 52,
+   "connector": 72,
+   "angle": 7.5
+  },
+  {
+   "step": 5.8,
+   "x": 1424,
+   "y": 707,
+   "run_a": 82,
+   "run_b": 88,
+   "connector": 105,
+   "angle": 5.0
+  },
+  {
+   "step": 5.6,
+   "x": 1195,
+   "y": 1501,
+   "run_a": 46,
+   "run_b": 80,
+   "connector": 44,
+   "angle": 4.4
+  },
+  {
+   "step": 5.2,
+   "x": 1208,
+   "y": 1303,
+   "run_a": 56,
+   "run_b": 57,
+   "connector": 42,
+   "angle": 4.0
+  },
+  {
+   "step": 5.2,
+   "x": 1947,
+   "y": 2010,
+   "run_a": 56,
+   "run_b": 43,
+   "connector": 72,
+   "angle": 5.1
+  },
+  {
+   "step": 5.1,
+   "x": 2201,
+   "y": 1890,
+   "run_a": 117,
+   "run_b": 60,
+   "connector": 81,
+   "angle": 6.6
+  },
+  {
+   "step": 5.0,
+   "x": 2097,
+   "y": 1048,
+   "run_a": 47,
+   "run_b": 87,
+   "connector": 102,
+   "angle": 7.2
+  },
+  {
+   "step": 4.9,
+   "x": 2822,
+   "y": 1163,
+   "run_a": 101,
+   "run_b": 40,
+   "connector": 75,
+   "angle": 6.7
+  },
+  {
+   "step": 4.9,
+   "x": 3083,
+   "y": 1260,
+   "run_a": 68,
+   "run_b": 116,
+   "connector": 62,
+   "angle": 0.1
+  },
+  {
+   "step": 4.8,
+   "x": 1172,
+   "y": 780,
+   "run_a": 52,
+   "run_b": 61,
+   "connector": 62,
+   "angle": 7.9
+  },
+  {
+   "step": 4.8,
+   "x": 1541,
+   "y": 1315,
+   "run_a": 43,
+   "run_b": 86,
+   "connector": 60,
+   "angle": 0.7
+  },
+  {
+   "step": 4.7,
+   "x": 1984,
+   "y": 1515,
+   "run_a": 67,
+   "run_b": 74,
+   "connector": 61,
+   "angle": 6.4
+  },
+  {
+   "step": 4.7,
+   "x": 1682,
+   "y": 1110,
+   "run_a": 101,
+   "run_b": 59,
+   "connector": 76,
+   "angle": 1.2
+  },
+  {
+   "step": 4.7,
+   "x": 1663,
+   "y": 1028,
+   "run_a": 88,
+   "run_b": 128,
+   "connector": 72,
+   "angle": 1.4
+  },
+  {
+   "step": 4.3,
+   "x": 1729,
+   "y": 1335,
+   "run_a": 162,
+   "run_b": 47,
+   "connector": 46,
+   "angle": 0.8
+  },
+  {
+   "step": 4.3,
+   "x": 1232,
+   "y": 1680,
+   "run_a": 80,
+   "run_b": 154,
+   "connector": 65,
+   "angle": 1.2
+  },
+  {
+   "step": 4.3,
+   "x": 2671,
+   "y": 1196,
+   "run_a": 47,
+   "run_b": 76,
+   "connector": 99,
+   "angle": 4.4
+  },
+  {
+   "step": 4.2,
+   "x": 1854,
+   "y": 1200,
+   "run_a": 47,
+   "run_b": 41,
+   "connector": 58,
+   "angle": 6.8
+  },
+  {
+   "step": 4.2,
+   "x": 2915,
+   "y": 1543,
+   "run_a": 63,
+   "run_b": 45,
+   "connector": 15,
+   "angle": 5.5
+  },
+  {
+   "step": 4.1,
+   "x": 2447,
+   "y": 1245,
+   "run_a": 54,
+   "run_b": 73,
+   "connector": 61,
+   "angle": 4.2
+  }
+ ],
+ "image": "/Users/midir/sm2-n1/_scratch/characters/r16/chain3/run/stills/skin_saffron_chest_4k.png",
+ "gate": 4.0,
+ "run": 40,
+ "box": [
+  691,
+  259,
+  3148,
+  2095
+ ],
+ "pass": false
+}

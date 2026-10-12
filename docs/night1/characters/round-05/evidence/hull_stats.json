@@ -1,0 +1,344 @@
+{
+ "03_white_tee": {
+  "name": "03_white_tee",
+  "garment_verts": 5861,
+  "garment_tris": 4999,
+  "hull_verts": 7221,
+  "hull_tris": 12643,
+  "hull_tris_raw": 10340,
+  "hull_tris_before_cull": 10340,
+  "hole_patches_filled": 123,
+  "hull_tris_before_purity": 8342,
+  "hull_to_garment_vertex_mm_median": 18.926688184681815,
+  "hull_to_garment_vertex_mm_max": 75.22699943033449,
+  "hull_height_m": 1.7007569988554272,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 488
+ },
+ "12_sundress_mom": {
+  "name": "12_sundress_mom",
+  "garment_verts": 6408,
+  "garment_tris": 5000,
+  "hull_verts": 8020,
+  "hull_tris": 12891,
+  "hull_tris_raw": 13980,
+  "hull_tris_before_cull": 13564,
+  "hole_patches_filled": 197,
+  "hull_tris_before_purity": 8639,
+  "hull_to_garment_vertex_mm_median": 17.611785774043458,
+  "hull_to_garment_vertex_mm_max": 60.95205015671946,
+  "hull_height_m": 1.711474497412702,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 978
+ },
+ "13_construction_worker": {
+  "name": "13_construction_worker",
+  "garment_verts": 6149,
+  "garment_tris": 5000,
+  "hull_verts": 8529,
+  "hull_tris": 14752,
+  "hull_tris_raw": 12044,
+  "hull_tris_before_cull": 11660,
+  "hole_patches_filled": 227,
+  "hull_tris_before_purity": 9255,
+  "hull_to_garment_vertex_mm_median": 19.023878162460296,
+  "hull_to_garment_vertex_mm_max": 83.00781308379976,
+  "hull_height_m": 1.663585463306007,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 677
+ },
+ "15_executive": {
+  "name": "15_executive",
+  "garment_verts": 5976,
+  "garment_tris": 5000,
+  "hull_verts": 6250,
+  "hull_tris": 10700,
+  "hull_tris_raw": 9576,
+  "hull_tris_before_cull": 9284,
+  "hole_patches_filled": 153,
+  "hull_tris_before_purity": 7179,
+  "hull_to_garment_vertex_mm_median": 18.46998566755073,
+  "hull_to_garment_vertex_mm_max": 60.149846247413635,
+  "hull_height_m": 1.681929575657914,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 420
+ },
+ "04_blue_sweatshirt": {
+  "name": "04_blue_sweatshirt",
+  "garment_verts": 5607,
+  "garment_tris": 5000,
+  "hull_verts": 7516,
+  "hull_tris": 12510,
+  "hull_tris_raw": 12036,
+  "hull_tris_before_cull": 12016,
+  "hole_patches_filled": 147,
+  "hull_tris_before_purity": 8123,
+  "hull_to_garment_vertex_mm_median": 19.108429312664903,
+  "hull_to_garment_vertex_mm_max": 64.32191195822224,
+  "hull_height_m": 1.6592691790745422,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 527
+ },
+ "08_black_suit": {
+  "name": "08_black_suit",
+  "garment_verts": 6417,
+  "garment_tris": 5000,
+  "hull_verts": 7214,
+  "hull_tris": 12402,
+  "hull_tris_raw": 10420,
+  "hull_tris_before_cull": 10252,
+  "hole_patches_filled": 160,
+  "hull_tris_before_purity": 8203,
+  "hull_to_garment_vertex_mm_median": 21.62525212391659,
+  "hull_to_garment_vertex_mm_max": 65.99567685718728,
+  "hull_height_m": 1.6807008370999283,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 530
+ },
+ "10_silver_tie": {
+  "name": "10_silver_tie",
+  "garment_verts": 5940,
+  "garment_tris": 5000,
+  "hull_verts": 6991,
+  "hull_tris": 12114,
+  "hull_tris_raw": 9568,
+  "hull_tris_before_cull": 9304,
+  "hole_patches_filled": 104,
+  "hull_tris_before_purity": 7645,
+  "hull_to_garment_vertex_mm_median": 18.561375529606824,
+  "hull_to_garment_vertex_mm_max": 62.28944039247294,
+  "hull_height_m": 1.7098584210584398,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 382
+ },
+ "14_teen_skater": {
+  "name": "14_teen_skater",
+  "garment_verts": 6182,
+  "garment_tris": 5000,
+  "hull_verts": 7975,
+  "hull_tris": 13178,
+  "hull_tris_raw": 14424,
+  "hull_tris_before_cull": 13888,
+  "hole_patches_filled": 218,
+  "hull_tris_before_purity": 9331,
+  "hull_to_garment_vertex_mm_median": 20.448030142008466,
+  "hull_to_garment_vertex_mm_max": 79.26120252663841,
+  "hull_height_m": 1.6734755714440557,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 796
+ },
+ "18_dapper_elder": {
+  "name": "18_dapper_elder",
+  "garment_verts": 6324,
+  "garment_tris": 4999,
+  "hull_verts": 7815,
+  "hull_tris": 13334,
+  "hull_tris_raw": 11864,
+  "hull_tris_before_cull": 11192,
+  "hole_patches_filled": 204,
+  "hull_tris_before_purity": 8636,
+  "hull_to_garment_vertex_mm_median": 21.813324650168898,
+  "hull_to_garment_vertex_mm_max": 67.37080194574607,
+  "hull_height_m": 1.5789450128237346,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 709
+ },
+ "19_marathon_runner": {
+  "name": "19_marathon_runner",
+  "garment_verts": 6604,
+  "garment_tris": 5000,
+  "hull_verts": 7184,
+  "hull_tris": 11989,
+  "hull_tris_raw": 11088,
+  "hull_tris_before_cull": 11032,
+  "hole_patches_filled": 179,
+  "hull_tris_before_purity": 8097,
+  "hull_to_garment_vertex_mm_median": 18.362021908107213,
+  "hull_to_garment_vertex_mm_max": 79.82918699745541,
+  "hull_height_m": 1.6923767109163848,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 635
+ },
+ "01_retired_gent": {
+  "name": "01_retired_gent",
+  "garment_verts": 6463,
+  "garment_tris": 5000,
+  "hull_verts": 7303,
+  "hull_tris": 11413,
+  "hull_tris_raw": 13044,
+  "hull_tris_before_cull": 12456,
+  "hole_patches_filled": 241,
+  "hull_tris_before_purity": 8466,
+  "hull_to_garment_vertex_mm_median": 21.97552090051539,
+  "hull_to_garment_vertex_mm_max": 85.23850386818414,
+  "hull_height_m": 1.6612769567653252,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 1117
+ },
+ "20_punk_artist": {
+  "name": "20_punk_artist",
+  "garment_verts": 6431,
+  "garment_tris": 5000,
+  "hull_verts": 6725,
+  "hull_tris": 11287,
+  "hull_tris_raw": 11120,
+  "hull_tris_before_cull": 10800,
+  "hole_patches_filled": 190,
+  "hull_tris_before_purity": 7586,
+  "hull_to_garment_vertex_mm_median": 17.302268364338946,
+  "hull_to_garment_vertex_mm_max": 72.42409717201114,
+  "hull_height_m": 1.6842242843252437,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 341
+ },
+ "02_leather_jacket": {
+  "name": "02_leather_jacket",
+  "garment_verts": 5938,
+  "garment_tris": 5000,
+  "hull_verts": 7728,
+  "hull_tris": 13581,
+  "hull_tris_raw": 11784,
+  "hull_tris_before_cull": 11520,
+  "hole_patches_filled": 224,
+  "hull_tris_before_purity": 8746,
+  "hull_to_garment_vertex_mm_median": 16.088794194370784,
+  "hull_to_garment_vertex_mm_max": 57.01241035411686,
+  "hull_height_m": 1.6702534337557027,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 498
+ },
+ "05_black_tee": {
+  "name": "05_black_tee",
+  "garment_verts": 5448,
+  "garment_tris": 5000,
+  "hull_verts": 6811,
+  "hull_tris": 12092,
+  "hull_tris_raw": 9192,
+  "hull_tris_before_cull": 9192,
+  "hole_patches_filled": 109,
+  "hull_tris_before_purity": 7690,
+  "hull_to_garment_vertex_mm_median": 19.31700322538388,
+  "hull_to_garment_vertex_mm_max": 77.2410022166093,
+  "hull_height_m": 1.6851868578603812,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 326
+ },
+ "06_chrome_shades": {
+  "name": "06_chrome_shades",
+  "garment_verts": 6136,
+  "garment_tris": 4999,
+  "hull_verts": 8444,
+  "hull_tris": 14169,
+  "hull_tris_raw": 12900,
+  "hull_tris_before_cull": 12624,
+  "hole_patches_filled": 189,
+  "hull_tris_before_purity": 9345,
+  "hull_to_garment_vertex_mm_median": 19.96513023730428,
+  "hull_to_garment_vertex_mm_max": 77.49575333186313,
+  "hull_height_m": 1.6574169917301689,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 878
+ },
+ "09_kurta_waistcoat": {
+  "name": "09_kurta_waistcoat",
+  "garment_verts": 5515,
+  "garment_tris": 4999,
+  "hull_verts": 8470,
+  "hull_tris": 13280,
+  "hull_tris_raw": 13892,
+  "hull_tris_before_cull": 13472,
+  "hole_patches_filled": 176,
+  "hull_tris_before_purity": 9214,
+  "hull_to_garment_vertex_mm_median": 22.26262699727806,
+  "hull_to_garment_vertex_mm_max": 101.75903216988907,
+  "hull_height_m": 1.6635454176215168,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 1073
+ },
+ "16_lumberjack_hipster": {
+  "name": "16_lumberjack_hipster",
+  "garment_verts": 6051,
+  "garment_tris": 4999,
+  "hull_verts": 8389,
+  "hull_tris": 14292,
+  "hull_tris_raw": 12620,
+  "hull_tris_before_cull": 12148,
+  "hole_patches_filled": 252,
+  "hull_tris_before_purity": 9233,
+  "hull_to_garment_vertex_mm_median": 16.828398914960253,
+  "hull_to_garment_vertex_mm_max": 56.08638435616569,
+  "hull_height_m": 1.6938573629474696,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 727
+ },
+ "17_hijabi_student": {
+  "name": "17_hijabi_student",
+  "garment_verts": 5927,
+  "garment_tris": 5000,
+  "hull_verts": 8567,
+  "hull_tris": 14056,
+  "hull_tris_raw": 15340,
+  "hull_tris_before_cull": 14608,
+  "hole_patches_filled": 239,
+  "hull_tris_before_purity": 9945,
+  "hull_to_garment_vertex_mm_median": 21.94114328078521,
+  "hull_to_garment_vertex_mm_max": 96.7185492692346,
+  "hull_height_m": 1.6586929951920908,
+  "layers_mm": [
+   4.0,
+   12.0
+  ],
+  "hull_tris_stretched_dropped": 1141
+ }
+}

@@ -1,0 +1,78 @@
+{
+ "image": "hero_key_face_a_4k.png",
+ "size": [
+  3840,
+  2160
+ ],
+ "key_rgb": [
+  8,
+  235,
+  3
+ ],
+ "exterior_key_px": 4141501,
+ "mode": "flat",
+ "eyes": {
+  "L": {
+   "roi": [
+    1847,
+    978,
+    2739,
+    1568
+   ],
+   "lens_px": 123280,
+   "bezel_px": 103775,
+   "lens_bbox": [
+    1987,
+    1118,
+    2598,
+    1427
+   ],
+   "background_between_rim_and_lens_px": 0,
+   "enclosed_key_px_in_roi": 0,
+   "lens_touch_key_px": 0,
+   "lens_min_dist_exterior_px": 560.0,
+   "lens_outline_px": 1326,
+   "lens_outline_bezel_neighbours": 40,
+   "lens_outline_suit_or_key_neighbours": 0,
+   "lens_outline_unclassified_neighbours": 1290,
+   "ring3_px": 4002,
+   "ring3_bezel_px": 2580,
+   "ring3_suit_px": 0,
+   "ring3_key_px": 0,
+   "ring3_blend_px": 1422,
+   "bezel_touch_key_px": 0,
+   "bezel_min_dist_exterior_px": 514.0
+  },
+  "R": {
+   "roi": [
+    2721,
+    977,
+    3312,
+    1559
+   ],
+   "lens_px": 64833,
+   "bezel_px": 57125,
+   "lens_bbox": [
+    2861,
+    1117,
+    3171,
+    1418
+   ],
+   "background_between_rim_and_lens_px": 0,
+   "enclosed_key_px_in_roi": 0,
+   "lens_touch_key_px": 0,
+   "lens_min_dist_exterior_px": 20.9,
+   "lens_outline_px": 845,
+   "lens_outline_bezel_neighbours": 27,
+   "lens_outline_suit_or_key_neighbours": 0,
+   "lens_outline_unclassified_neighbours": 822,
+   "ring3_px": 2557,
+   "ring3_bezel_px": 1684,
+   "ring3_suit_px": 0,
+   "ring3_key_px": 0,
+   "ring3_blend_px": 873,
+   "bezel_touch_key_px": 151,
+   "bezel_min_dist_exterior_px": 1.0
+  }
+ }
+}

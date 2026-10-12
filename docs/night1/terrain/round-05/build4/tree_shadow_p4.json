@@ -1,0 +1,32 @@
+{
+ "summary": {
+  "still": "p4_greatlawn.jpg",
+  "shot": "p4_greatlawn",
+  "sun_elev_deg": 9.0,
+  "sun_az_deg": 238.0,
+  "isolation_m": 12.0,
+  "trees_measured": 1,
+  "max_ratio": 1.008,
+  "median_ratio": 1.008,
+  "pass_all_le_0.6": false
+ },
+ "trees": [
+  {
+   "tree_xz": [
+    -49.0,
+    -1185.7
+   ],
+   "kind": "elm",
+   "nearest_tree_m": 13.3,
+   "trunk_px": [
+    1103,
+    1211
+   ],
+   "core_n": 37,
+   "lit_n": 20,
+   "core_luma": 112.5,
+   "lit_luma": 111.6,
+   "ratio": 1.008
+  }
+ ]
+}

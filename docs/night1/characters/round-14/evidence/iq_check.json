@@ -1,0 +1,106 @@
+{
+ "Q1_ash_sash_end": {
+  "r13": {
+   "ok": true,
+   "panel_x_min": 1413,
+   "end_rows": [
+    861,
+    1054
+   ],
+   "end_rms_px": 7.24,
+   "end_max_dev_px": 25.8,
+   "end_slope_px_per_row": -0.017,
+   "stitch_dashes_beyond_end": 1
+  },
+  "r14": {
+   "ok": true,
+   "panel_x_min": 1580,
+   "end_rows": [
+    1064,
+    1194
+   ],
+   "end_rms_px": 6.73,
+   "end_max_dev_px": 21.0,
+   "end_slope_px_per_row": 0.025,
+   "stitch_dashes_beyond_end": 8
+  }
+ },
+ "Q2_ash_armpit": {
+  "r13": {
+   "box": [
+    1050,
+    1400,
+    1300,
+    1700
+   ],
+   "dashes_in_box": 7,
+   "orientation_spread_deg": 7.6,
+   "dashes_in_critic_box": 2,
+   "dash_angles": [
+    89,
+    89,
+    99,
+    87,
+    98,
+    104,
+    108
+   ]
+  },
+  "r14": {
+   "box": [
+    1050,
+    1400,
+    1300,
+    1700
+   ],
+   "dashes_in_box": 0,
+   "orientation_spread_deg": 0.0,
+   "dashes_in_critic_box": 0,
+   "dash_angles": []
+  }
+ },
+ "Q3_sage_trapezius": {
+  "r13": {
+   "box": [
+    770,
+    1630,
+    1040,
+    1830
+   ],
+   "dark_line_fraction_pct": 10.311,
+   "longest_dark_line_px": 262,
+   "components": 9
+  },
+  "r14": {
+   "box": [
+    770,
+    1630,
+    1040,
+    1830
+   ],
+   "dark_line_fraction_pct": 0.07,
+   "longest_dark_line_px": 9,
+   "components": 2
+  }
+ },
+ "Q4_cinder_shoulder": {
+  "r13": {
+   "ok": true,
+   "arc_px": 1066,
+   "vertices_eps4": 13,
+   "vertices_per_1000px": 12.19,
+   "longest_segment_px": 118.5,
+   "median_segment_px": 80.8,
+   "max_turn_deg": 12.4
+  },
+  "r14": {
+   "ok": true,
+   "arc_px": 1012,
+   "vertices_eps4": 11,
+   "vertices_per_1000px": 10.87,
+   "longest_segment_px": 146.7,
+   "median_segment_px": 100.2,
+   "max_turn_deg": 58.1
+  }
+ }
+}

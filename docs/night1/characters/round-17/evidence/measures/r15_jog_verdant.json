@@ -1,0 +1,1 @@
+{"image": "docs/night1/characters/round-16/stills/skin_verdant_chest_4k.jpg", "roi": [1290, 1500, 1640, 1850], "columns": 66, "max_dev_px": 102.06, "max_jump_px": 194.95, "jump_at": [1580, 1621], "jump_at_critic_x1320_1400": null, "verdict": "FAIL", "verdict_at_critic_x": "FAIL"}

@@ -1,0 +1,1 @@
+events 381 vs 396, identical (text + time within 0.020 s): 11; first difference (1.917, 'shot e3 missed', 1.883, 'still /Users/midir/sm2-n1/_scratch/combat/r04c/final/stills/still_00_t01.87.png')

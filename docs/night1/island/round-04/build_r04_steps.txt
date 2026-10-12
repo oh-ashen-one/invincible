@@ -1,0 +1,203 @@
+[build_city     0s] cleaned
+[build_city    27s] textures done
+[build_city    28s] sunmask_h imported
+[build_city    28s] DONE
+[build_city     6s] car instances re-parented to M_CityCar: 0
+[build_city     9s] materials done
+[build_city     9s] DONE
+[build_city     0s] mesh step: 1642 missing meshes to import
+[build_city     8s] finish_mesh: LOD build settings differ after import: SM_grandCentralGlow__t1_-1 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city    12s] finish_mesh: LOD build settings differ after import: SM_grandCentral__t1_-1 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city    21s] finish_mesh: LOD build settings differ after import: SM_grandCentralGlass__t1_-1 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city    57s] mesh batch: 20 imported, 1622 left, finish {'lod_set': 20, 'lod_skip': 0}
+[build_city    79s] mesh batch: 40 imported, 1602 left, finish {'lod_set': 40, 'lod_skip': 0}
+[build_city   113s] mesh batch: 60 imported, 1582 left, finish {'lod_set': 60, 'lod_skip': 0}
+[build_city   157s] mesh batch: 80 imported, 1562 left, finish {'lod_set': 80, 'lod_skip': 0}
+[build_city   200s] mesh batch: 100 imported, 1542 left, finish {'lod_set': 100, 'lod_skip': 0}
+[build_city   245s] mesh batch: 120 imported, 1522 left, finish {'lod_set': 120, 'lod_skip': 0}
+[build_city   290s] mesh batch: 140 imported, 1502 left, finish {'lod_set': 140, 'lod_skip': 0}
+[build_city   328s] mesh batch: 160 imported, 1482 left, finish {'lod_set': 160, 'lod_skip': 0}
+[build_city   367s] mesh batch: 180 imported, 1462 left, finish {'lod_set': 180, 'lod_skip': 0}
+[build_city   395s] mesh batch: 200 imported, 1442 left, finish {'lod_set': 200, 'lod_skip': 0}
+[build_city   425s] mesh batch: 220 imported, 1422 left, finish {'lod_set': 220, 'lod_skip': 0}
+[build_city   456s] mesh batch: 240 imported, 1402 left, finish {'lod_set': 240, 'lod_skip': 0}
+[build_city   487s] mesh batch: 260 imported, 1382 left, finish {'lod_set': 260, 'lod_skip': 0}
+[build_city   513s] mesh batch: 280 imported, 1362 left, finish {'lod_set': 280, 'lod_skip': 0}
+[build_city   535s] mesh batch: 300 imported, 1342 left, finish {'lod_set': 300, 'lod_skip': 0}
+[build_city   556s] mesh batch: 320 imported, 1322 left, finish {'lod_set': 320, 'lod_skip': 0}
+[build_city   581s] mesh batch: 340 imported, 1302 left, finish {'lod_set': 340, 'lod_skip': 0}
+[build_city   603s] mesh batch: 360 imported, 1282 left, finish {'lod_set': 360, 'lod_skip': 0}
+[build_city   628s] mesh batch: 380 imported, 1262 left, finish {'lod_set': 380, 'lod_skip': 0}
+[build_city   649s] mesh batch: 400 imported, 1242 left, finish {'lod_set': 400, 'lod_skip': 0}
+[build_city   669s] mesh batch: 420 imported, 1222 left, finish {'lod_set': 420, 'lod_skip': 0}
+[build_city   689s] mesh batch: 440 imported, 1202 left, finish {'lod_set': 440, 'lod_skip': 0}
+[build_city   705s] mesh batch: 460 imported, 1182 left, finish {'lod_set': 460, 'lod_skip': 0}
+[build_city   724s] mesh batch: 480 imported, 1162 left, finish {'lod_set': 480, 'lod_skip': 0}
+[build_city   744s] mesh batch: 500 imported, 1142 left, finish {'lod_set': 500, 'lod_skip': 0}
+[build_city   777s] mesh batch: 520 imported, 1122 left, finish {'lod_set': 520, 'lod_skip': 0}
+[build_city   816s] mesh batch: 540 imported, 1102 left, finish {'lod_set': 540, 'lod_skip': 0}
+[build_city   845s] mesh batch: 560 imported, 1082 left, finish {'lod_set': 560, 'lod_skip': 0}
+[build_city   938s] mesh batch: 580 imported, 1062 left, finish {'lod_set': 580, 'lod_skip': 0}
+[build_city  1156s] mesh batch: 600 imported, 1042 left, finish {'lod_set': 600, 'lod_skip': 0}
+[build_city  1864s] mesh batch: 620 imported, 1022 left, finish {'lod_set': 620, 'lod_skip': 0}
+[build_city  2293s] mesh batch: 640 imported, 1002 left, finish {'lod_set': 640, 'lod_skip': 0}
+[build_city  2293s] meshes 640
+[build_city  2293s] MESH_REMAINING 1002
+[build_city  2293s] DONE
+[build_city     0s] mesh step: 1002 missing meshes to import
+[build_city    16s] finish_mesh: LOD build settings differ after import: SM_detail__t0_-2 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city    23s] finish_mesh: LOD build settings differ after import: SM_detail__t0_-1 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city    35s] finish_mesh: LOD build settings differ after import: SM_detail__t0_0 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city   146s] mesh batch: 10 imported, 992 left, 146 s, finish {'lod_set': 10, 'lod_skip': 0}
+[build_city   356s] mesh batch: 20 imported, 982 left, 209 s, finish {'lod_set': 20, 'lod_skip': 0}
+[build_city   508s] mesh batch: 30 imported, 972 left, 152 s, finish {'lod_set': 30, 'lod_skip': 0}
+[build_city   739s] mesh batch: 40 imported, 962 left, 231 s, finish {'lod_set': 40, 'lod_skip': 0}
+[build_city   831s] mesh batch: 50 imported, 952 left, 92 s, finish {'lod_set': 50, 'lod_skip': 0}
+[build_city  1009s] mesh batch: 60 imported, 942 left, 178 s, finish {'lod_set': 60, 'lod_skip': 0}
+[build_city  1226s] mesh batch: 70 imported, 932 left, 217 s, finish {'lod_set': 70, 'lod_skip': 0}
+[build_city  1232s] mesh batch: 80 imported, 922 left, 5 s, finish {'lod_set': 80, 'lod_skip': 0}
+[build_city  1237s] mesh batch: 90 imported, 912 left, 5 s, finish {'lod_set': 90, 'lod_skip': 0}
+[build_city  1242s] mesh batch: 100 imported, 902 left, 5 s, finish {'lod_set': 100, 'lod_skip': 0}
+[build_city  1248s] mesh batch: 110 imported, 892 left, 5 s, finish {'lod_set': 110, 'lod_skip': 0}
+[build_city  1253s] mesh batch: 120 imported, 882 left, 6 s, finish {'lod_set': 120, 'lod_skip': 0}
+[build_city  1259s] mesh batch: 130 imported, 872 left, 5 s, finish {'lod_set': 130, 'lod_skip': 0}
+[build_city  1264s] mesh batch: 140 imported, 862 left, 5 s, finish {'lod_set': 140, 'lod_skip': 0}
+[build_city  1270s] mesh batch: 150 imported, 852 left, 5 s, finish {'lod_set': 150, 'lod_skip': 0}
+[build_city  1275s] mesh batch: 160 imported, 842 left, 5 s, finish {'lod_set': 160, 'lod_skip': 0}
+[build_city  1281s] mesh batch: 170 imported, 832 left, 6 s, finish {'lod_set': 170, 'lod_skip': 0}
+[build_city  1286s] mesh batch: 180 imported, 822 left, 5 s, finish {'lod_set': 180, 'lod_skip': 0}
+[build_city  1291s] mesh batch: 190 imported, 812 left, 5 s, finish {'lod_set': 190, 'lod_skip': 0}
+[build_city  1297s] mesh batch: 200 imported, 802 left, 5 s, finish {'lod_set': 200, 'lod_skip': 0}
+[build_city  1302s] mesh batch: 210 imported, 792 left, 5 s, finish {'lod_set': 210, 'lod_skip': 0}
+[build_city  1307s] mesh batch: 220 imported, 782 left, 5 s, finish {'lod_set': 220, 'lod_skip': 0}
+[build_city  1313s] mesh batch: 230 imported, 772 left, 6 s, finish {'lod_set': 230, 'lod_skip': 0}
+[build_city  1319s] mesh batch: 240 imported, 762 left, 5 s, finish {'lod_set': 240, 'lod_skip': 0}
+[build_city  1324s] mesh batch: 250 imported, 752 left, 5 s, finish {'lod_set': 250, 'lod_skip': 0}
+[build_city  1330s] mesh batch: 260 imported, 742 left, 5 s, finish {'lod_set': 260, 'lod_skip': 0}
+[build_city  1335s] mesh batch: 270 imported, 732 left, 6 s, finish {'lod_set': 270, 'lod_skip': 0}
+[build_city  1342s] mesh batch: 280 imported, 722 left, 7 s, finish {'lod_set': 280, 'lod_skip': 0}
+[build_city  1348s] mesh batch: 290 imported, 712 left, 6 s, finish {'lod_set': 290, 'lod_skip': 0}
+[build_city  1354s] mesh batch: 300 imported, 702 left, 6 s, finish {'lod_set': 300, 'lod_skip': 0}
+[build_city  1359s] mesh batch: 310 imported, 692 left, 5 s, finish {'lod_set': 310, 'lod_skip': 0}
+[build_city  1365s] mesh batch: 320 imported, 682 left, 6 s, finish {'lod_set': 320, 'lod_skip': 0}
+[build_city  1370s] mesh batch: 330 imported, 672 left, 5 s, finish {'lod_set': 330, 'lod_skip': 0}
+[build_city  1376s] mesh batch: 340 imported, 662 left, 6 s, finish {'lod_set': 340, 'lod_skip': 0}
+[build_city  1382s] mesh batch: 350 imported, 652 left, 6 s, finish {'lod_set': 350, 'lod_skip': 0}
+[build_city  1388s] mesh batch: 360 imported, 642 left, 6 s, finish {'lod_set': 360, 'lod_skip': 0}
+[build_city  1395s] mesh batch: 370 imported, 632 left, 6 s, finish {'lod_set': 370, 'lod_skip': 0}
+[build_city  1401s] mesh batch: 380 imported, 622 left, 6 s, finish {'lod_set': 380, 'lod_skip': 0}
+[build_city  1409s] mesh batch: 390 imported, 612 left, 7 s, finish {'lod_set': 390, 'lod_skip': 0}
+[build_city  1416s] mesh batch: 400 imported, 602 left, 7 s, finish {'lod_set': 400, 'lod_skip': 0}
+[build_city  1424s] mesh batch: 410 imported, 592 left, 8 s, finish {'lod_set': 410, 'lod_skip': 0}
+[build_city  1431s] mesh batch: 420 imported, 582 left, 7 s, finish {'lod_set': 420, 'lod_skip': 0}
+[build_city  1439s] mesh batch: 430 imported, 572 left, 8 s, finish {'lod_set': 430, 'lod_skip': 0}
+[build_city  1446s] mesh batch: 440 imported, 562 left, 7 s, finish {'lod_set': 440, 'lod_skip': 0}
+[build_city  1453s] mesh batch: 450 imported, 552 left, 7 s, finish {'lod_set': 450, 'lod_skip': 0}
+[build_city  1461s] mesh batch: 460 imported, 542 left, 7 s, finish {'lod_set': 460, 'lod_skip': 0}
+[build_city  1469s] mesh batch: 470 imported, 532 left, 8 s, finish {'lod_set': 470, 'lod_skip': 0}
+[build_city  1477s] mesh batch: 480 imported, 522 left, 8 s, finish {'lod_set': 480, 'lod_skip': 0}
+[build_city  1484s] mesh batch: 490 imported, 512 left, 7 s, finish {'lod_set': 490, 'lod_skip': 0}
+[build_city  1492s] mesh batch: 500 imported, 502 left, 7 s, finish {'lod_set': 500, 'lod_skip': 0}
+[build_city  1498s] mesh batch: 510 imported, 492 left, 7 s, finish {'lod_set': 510, 'lod_skip': 0}
+[build_city  1506s] mesh batch: 520 imported, 482 left, 7 s, finish {'lod_set': 520, 'lod_skip': 0}
+[build_city  1515s] mesh batch: 530 imported, 472 left, 9 s, finish {'lod_set': 530, 'lod_skip': 0}
+[build_city  1526s] mesh batch: 540 imported, 462 left, 11 s, finish {'lod_set': 540, 'lod_skip': 0}
+[build_city  1535s] mesh batch: 550 imported, 452 left, 9 s, finish {'lod_set': 550, 'lod_skip': 0}
+[build_city  1555s] mesh batch: 560 imported, 442 left, 19 s, finish {'lod_set': 560, 'lod_skip': 0}
+[build_city  1598s] mesh batch: 570 imported, 432 left, 43 s, finish {'lod_set': 570, 'lod_skip': 0}
+[build_city  1631s] mesh batch: 580 imported, 422 left, 33 s, finish {'lod_set': 580, 'lod_skip': 0}
+[build_city  1668s] mesh batch: 590 imported, 412 left, 38 s, finish {'lod_set': 590, 'lod_skip': 0}
+[build_city  1696s] mesh batch: 600 imported, 402 left, 27 s, finish {'lod_set': 600, 'lod_skip': 0}
+[build_city  1717s] mesh batch: 610 imported, 392 left, 21 s, finish {'lod_set': 610, 'lod_skip': 0}
+[build_city  1738s] mesh batch: 620 imported, 382 left, 20 s, finish {'lod_set': 620, 'lod_skip': 0}
+[build_city  1743s] mesh batch: 630 imported, 372 left, 5 s, finish {'lod_set': 630, 'lod_skip': 0}
+[build_city  1748s] mesh batch: 640 imported, 362 left, 5 s, finish {'lod_set': 640, 'lod_skip': 0}
+[build_city  1755s] mesh batch: 650 imported, 352 left, 7 s, finish {'lod_set': 650, 'lod_skip': 0}
+[build_city  1760s] mesh batch: 660 imported, 342 left, 5 s, finish {'lod_set': 660, 'lod_skip': 0}
+[build_city  1765s] mesh batch: 670 imported, 332 left, 4 s, finish {'lod_set': 670, 'lod_skip': 0}
+[build_city  1770s] mesh batch: 680 imported, 322 left, 5 s, finish {'lod_set': 680, 'lod_skip': 0}
+[build_city  1776s] mesh batch: 690 imported, 312 left, 6 s, finish {'lod_set': 690, 'lod_skip': 0}
+[build_city  1782s] mesh batch: 700 imported, 302 left, 6 s, finish {'lod_set': 700, 'lod_skip': 0}
+[build_city  1790s] mesh batch: 710 imported, 292 left, 7 s, finish {'lod_set': 710, 'lod_skip': 0}
+[build_city  1797s] mesh batch: 720 imported, 282 left, 7 s, finish {'lod_set': 720, 'lod_skip': 0}
+[build_city  1808s] mesh batch: 730 imported, 272 left, 10 s, finish {'lod_set': 730, 'lod_skip': 0}
+[build_city  1818s] mesh batch: 740 imported, 262 left, 10 s, finish {'lod_set': 740, 'lod_skip': 0}
+[build_city  1827s] mesh batch: 750 imported, 252 left, 9 s, finish {'lod_set': 750, 'lod_skip': 0}
+[build_city  1835s] mesh batch: 760 imported, 242 left, 8 s, finish {'lod_set': 760, 'lod_skip': 0}
+[build_city  1843s] mesh batch: 770 imported, 232 left, 8 s, finish {'lod_set': 770, 'lod_skip': 0}
+[build_city  1849s] mesh batch: 780 imported, 222 left, 6 s, finish {'lod_set': 780, 'lod_skip': 0}
+[build_city  1880s] mesh batch: 790 imported, 212 left, 31 s, finish {'lod_set': 790, 'lod_skip': 0}
+[build_city  1911s] mesh batch: 800 imported, 202 left, 32 s, finish {'lod_set': 800, 'lod_skip': 0}
+[build_city  1912s] meshes 800
+[build_city  1912s] MESH_REMAINING 202
+[build_city  1912s] DONE
+[build_city     0s] mesh step: 202 missing meshes to import
+[build_city     6s] finish_mesh: LOD build settings differ after import: SM_bridgeStone__t0_0_p0 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city     9s] finish_mesh: LOD build settings differ after import: SM_bridgeStone__t0_0_p1 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city    14s] finish_mesh: LOD build settings differ after import: SM_bridgeStone__t0_0_p2 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city    49s] mesh batch: 10 imported, 192 left, 48 s, finish {'lod_set': 10, 'lod_skip': 0}
+[build_city    94s] mesh batch: 20 imported, 182 left, 46 s, finish {'lod_set': 20, 'lod_skip': 0}
+[build_city   174s] mesh batch: 30 imported, 172 left, 79 s, finish {'lod_set': 30, 'lod_skip': 0}
+[build_city   262s] mesh batch: 40 imported, 162 left, 89 s, finish {'lod_set': 40, 'lod_skip': 0}
+[build_city   339s] mesh batch: 50 imported, 152 left, 76 s, finish {'lod_set': 50, 'lod_skip': 0}
+[build_city   406s] mesh batch: 60 imported, 142 left, 67 s, finish {'lod_set': 60, 'lod_skip': 0}
+[build_city   435s] mesh batch: 70 imported, 132 left, 30 s, finish {'lod_set': 70, 'lod_skip': 0}
+[build_city   452s] mesh batch: 80 imported, 122 left, 16 s, finish {'lod_set': 80, 'lod_skip': 0}
+[build_city   472s] mesh batch: 90 imported, 112 left, 20 s, finish {'lod_set': 90, 'lod_skip': 0}
+[build_city   494s] mesh batch: 100 imported, 102 left, 22 s, finish {'lod_set': 100, 'lod_skip': 0}
+[build_city   523s] mesh batch: 110 imported, 92 left, 29 s, finish {'lod_set': 110, 'lod_skip': 0}
+[build_city   549s] mesh batch: 120 imported, 82 left, 25 s, finish {'lod_set': 120, 'lod_skip': 0}
+[build_city   571s] mesh batch: 130 imported, 72 left, 22 s, finish {'lod_set': 130, 'lod_skip': 0}
+[build_city   581s] mesh batch: 140 imported, 62 left, 10 s, finish {'lod_set': 140, 'lod_skip': 0}
+[build_city   591s] mesh batch: 150 imported, 52 left, 10 s, finish {'lod_set': 150, 'lod_skip': 0}
+[build_city   600s] mesh batch: 160 imported, 42 left, 9 s, finish {'lod_set': 160, 'lod_skip': 0}
+[build_city   611s] mesh batch: 170 imported, 32 left, 10 s, finish {'lod_set': 170, 'lod_skip': 0}
+[build_city   620s] mesh batch: 180 imported, 22 left, 9 s, finish {'lod_set': 180, 'lod_skip': 0}
+[build_city   627s] mesh batch: 190 imported, 12 left, 8 s, finish {'lod_set': 190, 'lod_skip': 0}
+[build_city   634s] mesh batch: 200 imported, 2 left, 7 s, finish {'lod_set': 200, 'lod_skip': 0}
+[build_city   636s] mesh batch: 202 imported, 0 left, 1 s, finish {'lod_set': 202, 'lod_skip': 0}
+[build_city   636s] meshes 202
+[build_city   636s] MESH_REMAINING 0
+[build_city   637s] DONE
+[build_city    17s] finish_mesh: LOD build settings differ after import: SM_hinterland ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city    18s] finish_mesh: LOD build settings differ after import: SM_parklamp ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city    19s] finish_mesh: LOD build settings differ after import: SM_lamp ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city   279s] protos 98
+[build_city   279s] DONE
+[build_city    87s] finish_mesh: LOD build settings differ after import: SM_streetkit__t-3_-6 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city    99s] finish_mesh: LOD build settings differ after import: SM_streetkit__t-3_-5 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city   112s] finish_mesh: LOD build settings differ after import: SM_streetkit__t-3_-4 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city   208s] kit batch /Game/City/Meshes/streetkit 8 / 136 207 s {'lod_set': 8, 'lod_skip': 0}
+[build_city   454s] kit batch /Game/City/Meshes/streetkit 16 / 136 246 s {'lod_set': 16, 'lod_skip': 0}
+[build_city   708s] kit batch /Game/City/Meshes/streetkit 24 / 136 254 s {'lod_set': 24, 'lod_skip': 0}
+[build_city  1109s] kit batch /Game/City/Meshes/streetkit 32 / 136 401 s {'lod_set': 32, 'lod_skip': 0}
+[build_city  1353s] kit batch /Game/City/Meshes/streetkit 40 / 136 244 s {'lod_set': 40, 'lod_skip': 0}
+[build_city  1566s] kit batch /Game/City/Meshes/streetkit 48 / 136 213 s {'lod_set': 48, 'lod_skip': 0}
+[build_city  1836s] kit batch /Game/City/Meshes/streetkit 56 / 136 270 s {'lod_set': 56, 'lod_skip': 0}
+[build_city  1836s] kit meshes /Game/City/Meshes/streetkit 56 visual-only
+[build_city  1837s] kit meshes /Game/City/Meshes/fireescape 0 solid
+[build_city  1837s] KIT_REMAINING 216
+[build_city  1837s] DONE
+[build_city   197s] finish_mesh: LOD build settings differ after import: SM_streetkit__t-1_6 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city   258s] finish_mesh: LOD build settings differ after import: SM_streetkit__t-1_7 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city   337s] finish_mesh: LOD build settings differ after import: SM_streetkit__t-1_8 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city   491s] kit batch /Game/City/Meshes/streetkit 8 / 80 491 s {'lod_set': 8, 'lod_skip': 0}
+[build_city   893s] kit batch /Game/City/Meshes/streetkit 16 / 80 401 s {'lod_set': 16, 'lod_skip': 0}
+[build_city  1445s] kit batch /Game/City/Meshes/streetkit 24 / 80 552 s {'lod_set': 24, 'lod_skip': 0}
+[build_city  1445s] kit meshes /Game/City/Meshes/streetkit 24 visual-only
+[build_city  1446s] kit meshes /Game/City/Meshes/fireescape 0 solid
+[build_city  1446s] KIT_REMAINING 192
+[build_city  1446s] DONE
+[build_city   134s] finish_mesh: LOD build settings differ after import: SM_streetkit__t1_-12 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city   151s] finish_mesh: LOD build settings differ after import: SM_streetkit__t1_-11 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city   181s] finish_mesh: LOD build settings differ after import: SM_streetkit__t1_-10 ['use_full_precision_u_vs', 'recompute_tangents']
+[build_city   319s] kit batch /Game/City/Meshes/streetkit 8 / 56 318 s {'lod_set': 8, 'lod_skip': 0}
+[build_city   696s] kit batch /Game/City/Meshes/streetkit 16 / 56 377 s {'lod_set': 16, 'lod_skip': 0}
+[build_city  1071s] kit batch /Game/City/Meshes/streetkit 24 / 56 375 s {'lod_set': 24, 'lod_skip': 0}
+[build_city  1266s] kit batch /Game/City/Meshes/streetkit 32 / 56 195 s {'lod_set': 32, 'lod_skip': 0}
+[build_city  1543s] kit batch /Game/City/Meshes/streetkit 40 / 56 277 s {'lod_set': 40, 'lod_skip': 0}
+[build_city  1900s] kit batch /Game/City/Meshes/streetkit 48 / 56 357 s {'lod_set': 48, 'lod_skip': 0}
+[build_city  1900s] kit meshes /Game/City/Meshes/streetkit 48 visual-only
+[build_city  1900s] kit meshes /Game/City/Meshes/fireescape 0 solid
+[build_city  1900s] KIT_REMAINING 144
+[build_city  1901s] DONE

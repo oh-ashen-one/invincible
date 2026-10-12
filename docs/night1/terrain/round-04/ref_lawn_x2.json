@@ -1,0 +1,100 @@
+{
+ "scale": 2.0,
+ "crops": [
+  {
+   "image": "centralpark-meadow-skyline__cp_0605.jpg",
+   "box_xywh": [
+    200,
+    1320,
+    512,
+    400
+   ],
+   "label": "meadow-skyline lawn L",
+   "hp6_sd": 5.73,
+   "hp3_sd": 3.23,
+   "mean_hsv_sat": 0.822,
+   "mean_luma": 81.7,
+   "mean_rgb": [
+    80.1,
+    95.0,
+    17.6
+   ]
+  },
+  {
+   "image": "centralpark-meadow-skyline__cp_0605.jpg",
+   "box_xywh": [
+    2200,
+    1360,
+    512,
+    460
+   ],
+   "label": "meadow-skyline lawn R",
+   "hp6_sd": 7.35,
+   "hp3_sd": 4.45,
+   "mean_hsv_sat": 0.808,
+   "mean_luma": 85.5,
+   "mean_rgb": [
+    84.2,
+    98.9,
+    19.9
+   ]
+  },
+  {
+   "image": "centralpark-meadow-skyline__cp_0605.jpg",
+   "box_xywh": [
+    200,
+    1700,
+    512,
+    400
+   ],
+   "label": "meadow-skyline lawn low",
+   "hp6_sd": 8.61,
+   "hp3_sd": 5.23,
+   "mean_hsv_sat": 0.855,
+   "mean_luma": 74.8,
+   "mean_rgb": [
+    75.3,
+    86.4,
+    13.5
+   ]
+  },
+  {
+   "image": "centralpark-aerial-ballfields__cp_0554.jpg",
+   "box_xywh": [
+    900,
+    1120,
+    512,
+    400
+   ],
+   "label": "aerial-ballfields lawn",
+   "hp6_sd": 2.25,
+   "hp3_sd": 1.25,
+   "mean_hsv_sat": 0.894,
+   "mean_luma": 119.8,
+   "mean_rgb": [
+    139.6,
+    130.2,
+    14.9
+   ]
+  },
+  {
+   "image": "centralpark-aerial-ballfields__cp_0554.jpg",
+   "box_xywh": [
+    120,
+    1760,
+    512,
+    400
+   ],
+   "label": "aerial-ballfields lawn 2",
+   "hp6_sd": 1.43,
+   "hp3_sd": 0.7,
+   "mean_hsv_sat": 0.887,
+   "mean_luma": 98.1,
+   "mean_rgb": [
+    108.6,
+    109.3,
+    12.9
+   ]
+  }
+ ]
+}

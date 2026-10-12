@@ -1,0 +1,611 @@
+{
+ "03_white_tee": {
+  "name": "03_white_tee",
+  "tris": 5894,
+  "views": 72,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 445,
+  "silhouette_spike_px": 31471,
+  "crack_px_by_group": {},
+  "gap_px": 2872,
+  "wide_px": 72391,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.7538212376974704,
+  "worst": []
+ },
+ "12_sundress_mom": {
+  "name": "12_sundress_mom",
+  "tris": 6192,
+  "views": 72,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 658,
+  "silhouette_spike_px": 47294,
+  "crack_px_by_group": {},
+  "gap_px": 5829,
+  "wide_px": 94266,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.4248794411619974,
+  "worst": []
+ },
+ "13_construction_worker": {
+  "name": "13_construction_worker",
+  "tris": 6038,
+  "views": 88,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 512,
+  "silhouette_spike_px": 27568,
+  "crack_px_by_group": {},
+  "gap_px": 6302,
+  "wide_px": 43650,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.521037959567881,
+  "worst": []
+ },
+ "15_executive": {
+  "name": "15_executive",
+  "tris": 6260,
+  "views": 72,
+  "crack_components": 8,
+  "crack_px": 102,
+  "crack2s_components": 8,
+  "crack2s_px": 102,
+  "silhouette_spike_components": 644,
+  "silhouette_spike_px": 65647,
+  "crack_px_by_group": {
+   "1": 102
+  },
+  "gap_px": 15981,
+  "wide_px": 50579,
+  "views_with_cracks": 6,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 2.7714798817120885,
+  "worst": [
+   [
+    24,
+    "walkBrisk",
+    0,
+    270.0,
+    2
+   ],
+   [
+    24,
+    "walkBrisk",
+    0,
+    90.0,
+    2
+   ],
+   [
+    18,
+    "idle",
+    0,
+    270.0,
+    1
+   ]
+  ]
+ },
+ "04_blue_sweatshirt": {
+  "name": "04_blue_sweatshirt",
+  "tris": 5802,
+  "views": 72,
+  "crack_components": 5,
+  "crack_px": 337,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 474,
+  "silhouette_spike_px": 37166,
+  "crack_px_by_group": {
+   "1": 23,
+   "4": 314
+  },
+  "gap_px": 2410,
+  "wide_px": 17659,
+  "views_with_cracks": 4,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.670095328682137,
+  "worst": [
+   [
+    189,
+    "walkF",
+    20,
+    180.0,
+    2
+   ],
+   [
+    70,
+    "walkF",
+    16,
+    180.0,
+    1
+   ],
+   [
+    55,
+    "walkF",
+    24,
+    180.0,
+    1
+   ]
+  ]
+ },
+ "08_black_suit": {
+  "name": "08_black_suit",
+  "tris": 5758,
+  "views": 72,
+  "crack_components": 8,
+  "crack_px": 198,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 621,
+  "silhouette_spike_px": 35292,
+  "crack_px_by_group": {
+   "4": 141,
+   "5": 57
+  },
+  "gap_px": 6158,
+  "wide_px": 11327,
+  "views_with_cracks": 8,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.271426771645408,
+  "worst": [
+   [
+    61,
+    "walkBrisk",
+    20,
+    180.0,
+    1
+   ],
+   [
+    39,
+    "walkBrisk",
+    16,
+    0.0,
+    1
+   ],
+   [
+    26,
+    "walkBrisk",
+    28,
+    0.0,
+    1
+   ]
+  ]
+ },
+ "10_silver_tie": {
+  "name": "10_silver_tie",
+  "tris": 6188,
+  "views": 72,
+  "crack_components": 5,
+  "crack_px": 1227,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 435,
+  "silhouette_spike_px": 26647,
+  "crack_px_by_group": {
+   "1": 1227
+  },
+  "gap_px": 7006,
+  "wide_px": 89635,
+  "views_with_cracks": 4,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.074854498605203,
+  "worst": [
+   [
+    475,
+    "idle",
+    0,
+    90.0,
+    2
+   ],
+   [
+    392,
+    "walk",
+    20,
+    90.0,
+    1
+   ],
+   [
+    336,
+    "walk",
+    16,
+    90.0,
+    1
+   ]
+  ]
+ },
+ "14_teen_skater": {
+  "name": "14_teen_skater",
+  "tris": 5872,
+  "views": 72,
+  "crack_components": 60,
+  "crack_px": 4100,
+  "crack2s_components": 51,
+  "crack2s_px": 3528,
+  "silhouette_spike_components": 761,
+  "silhouette_spike_px": 41122,
+  "crack_px_by_group": {
+   "1": 3307,
+   "4": 381,
+   "5": 412
+  },
+  "gap_px": 3368,
+  "wide_px": 99777,
+  "views_with_cracks": 40,
+  "spike_over_5cm": 3,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 5.471438223277956,
+  "worst": [
+   [
+    314,
+    "walk",
+    12,
+    315.0,
+    2
+   ],
+   [
+    300,
+    "walk",
+    0,
+    45.0,
+    1
+   ],
+   [
+    258,
+    "idle",
+    0,
+    135.0,
+    2
+   ]
+  ]
+ },
+ "18_dapper_elder": {
+  "name": "18_dapper_elder",
+  "tris": 6250,
+  "views": 88,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 577,
+  "silhouette_spike_px": 39851,
+  "crack_px_by_group": {},
+  "gap_px": 6176,
+  "wide_px": 38161,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 2,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 5.375821344203616,
+  "worst": []
+ },
+ "19_marathon_runner": {
+  "name": "19_marathon_runner",
+  "tris": 6521,
+  "views": 72,
+  "crack_components": 17,
+  "crack_px": 762,
+  "crack2s_components": 6,
+  "crack2s_px": 463,
+  "silhouette_spike_components": 355,
+  "silhouette_spike_px": 18046,
+  "crack_px_by_group": {
+   "4": 380,
+   "5": 382
+  },
+  "gap_px": 2564,
+  "wide_px": 42059,
+  "views_with_cracks": 15,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.822385566866346,
+  "worst": [
+   [
+    98,
+    "walkBrisk",
+    28,
+    315.0,
+    1
+   ],
+   [
+    88,
+    "walkBrisk",
+    12,
+    225.0,
+    1
+   ],
+   [
+    80,
+    "walkBrisk",
+    12,
+    45.0,
+    1
+   ]
+  ]
+ },
+ "01_retired_gent": {
+  "name": "01_retired_gent",
+  "tris": 6244,
+  "views": 88,
+  "crack_components": 30,
+  "crack_px": 1834,
+  "crack2s_components": 18,
+  "crack2s_px": 749,
+  "silhouette_spike_components": 986,
+  "silhouette_spike_px": 58226,
+  "crack_px_by_group": {
+   "1": 48,
+   "4": 833,
+   "5": 953
+  },
+  "gap_px": 6590,
+  "wide_px": 71831,
+  "views_with_cracks": 25,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.675383748648137,
+  "worst": [
+   [
+    191,
+    "walkOld",
+    12,
+    225.0,
+    1
+   ],
+   [
+    180,
+    "walkOld",
+    28,
+    270.0,
+    1
+   ],
+   [
+    163,
+    "walkOld",
+    12,
+    270.0,
+    1
+   ]
+  ]
+ },
+ "20_punk_artist": {
+  "name": "20_punk_artist",
+  "tris": 5864,
+  "views": 72,
+  "crack_components": 57,
+  "crack_px": 2827,
+  "crack2s_components": 119,
+  "crack2s_px": 5459,
+  "silhouette_spike_components": 817,
+  "silhouette_spike_px": 68970,
+  "crack_px_by_group": {
+   "1": 1348,
+   "4": 758,
+   "5": 721
+  },
+  "gap_px": 13597,
+  "wide_px": 105949,
+  "views_with_cracks": 39,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.6798940631716057,
+  "worst": [
+   [
+    229,
+    "walkF",
+    20,
+    225.0,
+    2
+   ],
+   [
+    229,
+    "walkF",
+    20,
+    45.0,
+    2
+   ],
+   [
+    122,
+    "walkF",
+    28,
+    225.0,
+    3
+   ]
+  ]
+ },
+ "02_leather_jacket": {
+  "name": "02_leather_jacket",
+  "tris": 6364,
+  "views": 72,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 493,
+  "silhouette_spike_px": 31824,
+  "crack_px_by_group": {},
+  "gap_px": 2291,
+  "wide_px": 79919,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.9466920547357924,
+  "worst": []
+ },
+ "05_black_tee": {
+  "name": "05_black_tee",
+  "tris": 5991,
+  "views": 72,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 347,
+  "silhouette_spike_px": 20719,
+  "crack_px_by_group": {},
+  "gap_px": 5075,
+  "wide_px": 22166,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.140323058742722,
+  "worst": []
+ },
+ "06_chrome_shades": {
+  "name": "06_chrome_shades",
+  "tris": 6083,
+  "views": 88,
+  "crack_components": 2,
+  "crack_px": 18,
+  "crack2s_components": 2,
+  "crack2s_px": 18,
+  "silhouette_spike_components": 519,
+  "silhouette_spike_px": 30264,
+  "crack_px_by_group": {
+   "5": 18
+  },
+  "gap_px": 2785,
+  "wide_px": 8582,
+  "views_with_cracks": 2,
+  "spike_over_5cm": 2,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 5.591090534429166,
+  "worst": [
+   [
+    9,
+    "walkStroll",
+    8,
+    270.0,
+    1
+   ],
+   [
+    9,
+    "walkStroll",
+    8,
+    90.0,
+    1
+   ]
+  ]
+ },
+ "09_kurta_waistcoat": {
+  "name": "09_kurta_waistcoat",
+  "tris": 5995,
+  "views": 72,
+  "crack_components": 5,
+  "crack_px": 455,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 798,
+  "silhouette_spike_px": 42536,
+  "crack_px_by_group": {
+   "1": 455
+  },
+  "gap_px": 7538,
+  "wide_px": 60855,
+  "views_with_cracks": 4,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.308392379944051,
+  "worst": [
+   [
+    131,
+    "walk",
+    28,
+    225.0,
+    1
+   ],
+   [
+    120,
+    "walk",
+    8,
+    225.0,
+    2
+   ],
+   [
+    107,
+    "walk",
+    0,
+    225.0,
+    1
+   ]
+  ]
+ },
+ "16_lumberjack_hipster": {
+  "name": "16_lumberjack_hipster",
+  "tris": 6411,
+  "views": 88,
+  "crack_components": 47,
+  "crack_px": 1502,
+  "crack2s_components": 47,
+  "crack2s_px": 1501,
+  "silhouette_spike_components": 753,
+  "silhouette_spike_px": 39344,
+  "crack_px_by_group": {
+   "4": 715,
+   "5": 787
+  },
+  "gap_px": 6459,
+  "wide_px": 59889,
+  "views_with_cracks": 45,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.8897099591189046,
+  "worst": [
+   [
+    68,
+    "walkStroll",
+    36,
+    315.0,
+    1
+   ],
+   [
+    67,
+    "walkStroll",
+    20,
+    225.0,
+    1
+   ],
+   [
+    67,
+    "walkStroll",
+    20,
+    45.0,
+    1
+   ]
+  ]
+ },
+ "17_hijabi_student": {
+  "name": "17_hijabi_student",
+  "tris": 6436,
+  "views": 72,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 517,
+  "silhouette_spike_px": 25975,
+  "crack_px_by_group": {},
+  "gap_px": 6365,
+  "wide_px": 6352,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 6,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 5.415449018881036,
+  "worst": []
+ }
+}

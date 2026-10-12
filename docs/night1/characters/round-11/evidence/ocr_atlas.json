@@ -1,0 +1,76 @@
+{
+ "total_hits": 0,
+ "deny_terms": 42,
+ "images": {
+  "ash_atlas.png": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "INANE",
+    "INNIT",
+    "SEES",
+    "TALL",
+    "WANE",
+    "WEES",
+    "WENN"
+   ]
+  },
+  "cinder_atlas.png": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "ININISNNINMENMEEEE",
+    "SENG",
+    "SORE"
+   ]
+  },
+  "glacier_atlas.png": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "OOENCENEEEEEEEEEE"
+   ]
+  },
+  "plum_atlas.png": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "BERENS",
+    "COSC",
+    "SECS",
+    "SEES",
+    "SENA",
+    "SIEEIES",
+    "SINAIA"
+   ]
+  },
+  "saffron_atlas.png": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AIEA",
+    "JEAEERE"
+   ]
+  },
+  "sage_atlas.png": {
+   "denylist_hits": [],
+   "words_ge4": []
+  },
+  "tessera_atlas.png": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "AEEEEEEEE",
+    "AEESEE",
+    "AREA",
+    "NINININICNNSCCC",
+    "NINININICNNSCECS",
+    "OEEEEEEEE",
+    "SOMOS"
+   ]
+  },
+  "verdant_atlas.png": {
+   "denylist_hits": [],
+   "words_ge4": [
+    "COSCREERAE",
+    "COSER",
+    "EERETES",
+    "EERETESE"
+   ]
+  }
+ }
+}

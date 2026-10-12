@@ -1,0 +1,109 @@
+# TRAVERSAL-SPEC engine-side check, round 13 — lit /Game/Maps/Manhattan (golden), 1080p60 telemetry; generated 2026-09-30 11:24
+# (homage fan game; not affiliated with Marvel, Sony or Insomniac). Video instruments (YOLO / vp_cam / nearflow) NOT run this round.
+# Read with care: only a and d are swing-chain windows. b and c are single-release sequences (one swing, flip / wall-run cameras): their T8-T14 lines are not the chain test. a T11 p5 -51 deg = the flip camera looking up at the sky (by design); a T19 = 2 frames of tree foliage at f4/a swing bottoms (see FLOW_CHECK / HANDOFF).
+
+================ a_swing_chain (window 0.4-15.6 s)
+---- T1-T4 / T7 (rhythm_check.py)
+round-13/a_swing_chain_telemetry.csv  window 0.40-15.57 s
+ swings (T1 held 0.5-1.6 s): 0.40-1.65 (1.25s, low 11.2 m, rel 15.7 m)  2.47-3.83 (1.37s, low 4.6 m, rel 11.7 m)  4.65-5.80 (1.15s, low 6.2 m, rel 13.7 m)  7.30-8.47 (1.17s, low 4.7 m, rel 12.6 m)  9.28-10.37 (1.08s, low 6.4 m, rel 14.6 m)  11.18-12.32 (1.13s, low 4.6 m, rel 12.5 m)  13.82-14.78 (0.97s, low 4.4 m, rel 11.7 m)
+ web-less phases (T4: > 0.6 s needs a changing silhouette at every 0.1 s; T7: peak at roofline -> 3-13 m low within 4 s):
+   1.67-2.45 0.78s  peak 19.7 m @2.33  next low 4.6 m @3.30 (peak->low 0.97s)  pose changes 1.00  roofs beside low/high 44.800000000000004/154.2  [release > rise > apex]
+   3.85-4.63 0.78s  peak 17.1 m @4.62  next low 6.2 m @5.28 (peak->low 0.67s)  pose changes 1.00  roofs beside low/high 70/217.10000000000002  [release > rise > apex]
+   5.82-7.28 1.47s  peak 18.2 m @6.75  next low 4.7 m @7.95 (peak->low 1.20s)  pose changes 1.00  roofs beside low/high 52.00000000000001/173.2  [trick:backDouble]
+   8.48-9.27 0.78s  peak 17.9 m @9.23  next low 6.4 m @9.87 (peak->low 0.63s)  pose changes 1.00  roofs beside low/high 113.10000000000001/262.00000000000006  [release > rise > apex]
+   10.38-11.17 0.78s  peak 19.1 m @11.08  next low 4.6 m @11.83 (peak->low 0.75s)  pose changes 1.00  roofs beside low/high 195.10000000000002/253  [release > rise > apex]
+   12.33-13.80 1.47s  peak 16.7 m @13.22  next low 4.4 m @14.30 (peak->low 1.08s)  pose changes 1.00  roofs beside low/high 70/252.20000000000002  [trick:frontPikeSwan]
+ 8 s windows (start: web_on share, attaches) [T2 2-4 attaches, T3 video 25-45 %]:
+   0.4:0.61/4 0.9:0.56/3 1.4:0.51/4 1.9:0.54/4 2.4:0.60/4 2.9:0.55/3 3.4:0.51/4 3.9:0.52/4 4.4:0.57/4 4.9:0.54/3 5.4:0.48/3 5.9:0.44/4 6.4:0.50/4 6.9:0.55/4 7.4:0.54/3
+ web_on whole window 0.54; max height 21.7 m, min in air 11.8 m
+---- T8-T14, T16, T19 (spec_cam_check.py, AVENUE_YAW=90)
+a_swing_chain: 0.40-15.60 s (910 frames)
+  T8   PASS  hero height / frame: p10 0.137 p50 0.226 p90 0.278, min while swinging 0.085
+  T9   PASS  hero centre x: p5 0.476 p95 0.534 (inside 0.44-0.56)
+  T10  FAIL  hero centre y: p5 0.391 p95 0.558 spread 0.167
+  T11  FAIL  pitch down: p5 -51.3 p50 +7.2 p95 +22.0 deg
+  T12  PASS  |yaw| off the avenue axis: p50 6.5 p90 16.8 deg
+  T13  PASS  |roll|: p50 0.4 p90 1.8 max 2.4 deg
+  T14  PASS  horizontal FOV while swinging: p10 98.5 p50 103.5 p90 108.2 deg
+  T16  PASS  hero pixels present 908/910 = 99.8 %
+  T19  FAIL  hero occluded (> 2 % of his pixels) in 2 frames; camera inside geometry in 2 frames
+  arc low points (m over the floor): 11.1, 4.4, 6.1, 4.6, 3.5, 4.4, 4.3; consecutive differences min 0.2 m
+a_swing_chain: 6/9 camera lines pass
+
+================ b_release_trick_dive_zip (window 0-7 s)
+---- T1-T4 / T7 (rhythm_check.py)
+round-13/b_release_trick_dive_zip_telemetry.csv  window 0.00-6.97 s
+ swings (T1 held 0.5-1.6 s): 0.00-1.38 (1.38s, low 18.6 m, rel 31.2 m)
+ web-less phases (T4: > 0.6 s needs a changing silhouette at every 0.1 s; T7: peak at roofline -> 3-13 m low within 4 s):
+ 8 s windows (start: web_on share, attaches) [T2 2-4 attaches, T3 video 25-45 %]:
+   0.0:0.24/1
+ web_on whole window 0.24; max height 48.2 m, min in air 31.2 m
+---- T8-T14, T16, T19 (spec_cam_check.py, AVENUE_YAW=90)
+b_release_trick_dive_zip: 0.00-7.00 s (418 frames)
+  T8   PASS  hero height / frame: p10 0.185 p50 0.215 p90 0.319, min while swinging 0.170
+  T9   PASS  hero centre x: p5 0.469 p95 0.507 (inside 0.44-0.56)
+  T10  PASS  hero centre y: p5 0.328 p95 0.689 spread 0.361
+  T11  FAIL  pitch down: p5 -54.1 p50 +3.9 p95 +19.4 deg
+  T12  FAIL  |yaw| off the avenue axis: p50 17.2 p90 82.5 deg
+  T13  PASS  |roll|: p50 0.1 p90 1.6 max 2.5 deg
+  T14  FAIL  horizontal FOV while swinging: p10 90.0 p50 96.1 p90 98.8 deg
+  T16  PASS  hero pixels present 418/418 = 100.0 %
+  T19  PASS  hero occluded (> 2 % of his pixels) in 0 frames; camera inside geometry in 0 frames
+  arc low points (m over the floor): 18.4; consecutive differences min nan m
+b_release_trick_dive_zip: 6/9 camera lines pass
+
+================ c_wallrun_perch (window 0-10.5 s)
+---- T1-T4 / T7 (rhythm_check.py)
+round-13/c_wallrun_perch_telemetry.csv  window 0.00-10.47 s
+ swings (T1 held 0.5-1.6 s): 0.00-1.68 (1.68s, low 10.5 m, rel 21.1 m)
+ web-less phases (T4: > 0.6 s needs a changing silhouette at every 0.1 s; T7: peak at roofline -> 3-13 m low within 4 s):
+ 8 s windows (start: web_on share, attaches) [T2 2-4 attaches, T3 video 25-45 %]:
+   0.0:0.21/1 0.5:0.15/0 1.0:0.11/0 1.5:0.05/0 2.0:0.02/0
+ web_on whole window 0.18; max height 61.9 m, min in air 21.2 m
+---- T8-T14, T16, T19 (spec_cam_check.py, AVENUE_YAW=90)
+c_wallrun_perch: 0.00-10.50 s (628 frames)
+  T8   FAIL  hero height / frame: p10 0.196 p50 0.285 p90 0.433, min while swinging 0.193
+  T9   PASS  hero centre x: p5 0.470 p95 0.533 (inside 0.44-0.56)
+  T10  FAIL  hero centre y: p5 0.393 p95 0.828 spread 0.436
+  T11  FAIL  pitch down: p5 -55.8 p50 -0.9 p95 +30.9 deg
+  T12  FAIL  |yaw| off the avenue axis: p50 83.4 p90 90.0 deg
+  T13  PASS  |roll|: p50 0.0 p90 0.5 max 1.7 deg
+  T14  FAIL  horizontal FOV while swinging: p10 89.9 p50 97.6 p90 98.7 deg
+  T16  PASS  hero pixels present 628/628 = 100.0 %
+  T19  PASS  hero occluded (> 2 % of his pixels) in 0 frames; camera inside geometry in 0 frames
+  arc low points (m over the floor): 10.3; consecutive differences min nan m
+c_wallrun_perch: 4/9 camera lines pass
+
+================ d_sprint_jump_first_swing (window 2.6-12 s)
+---- T1-T4 / T7 (rhythm_check.py)
+round-13/d_sprint_jump_first_swing_telemetry.csv  window 2.60-11.97 s
+ swings (T1 held 0.5-1.6 s): 2.68-3.93 (1.25s, low 3.6 m, rel 4.9 m)  4.75-6.07 (1.32s, low 4.8 m, rel 8.4 m)  6.88-8.03 (1.15s, low 4.5 m, rel 5.2 m)  8.85-9.83 (0.98s, low 9.2 m, rel 16.7 m)  10.65-11.77 (1.12s, low 8.9 m, rel 16.9 m)
+ web-less phases (T4: > 0.6 s needs a changing silhouette at every 0.1 s; T7: peak at roofline -> 3-13 m low within 4 s):
+   3.95-4.73 0.78s  peak 10.4 m @4.72  next low 4.8 m @5.55 (peak->low 0.83s)  pose changes 1.00  roofs beside low/high 44.800000000000004/154.2  [release > rise > apex]
+   6.08-6.87 0.78s  peak 13.8 m @6.85  next low 4.5 m @7.80 (peak->low 0.95s)  pose changes 1.00  roofs beside low/high 68/217.10000000000002  [release > rise > apex]
+   8.05-8.83 0.78s  peak 10.7 m @8.82  next low 9.2 m @9.22 (peak->low 0.40s)  pose changes 1.00  roofs beside low/high 70/217.10000000000002  [release > rise > apex]
+   9.85-10.63 0.78s  peak 20.3 m @10.50  next low 8.9 m @11.27 (peak->low 0.77s)  pose changes 1.00  roofs beside low/high 70/187.10000000000002  [release > rise > apex]
+ 8 s windows (start: web_on share, attaches) [T2 2-4 attaches, T3 video 25-45 %]:
+   2.6:0.61/4 3.1:0.60/4 3.6:0.60/4
+ web_on whole window 0.64; max height 20.3 m, min in air 4.8 m
+---- T8-T14, T16, T19 (spec_cam_check.py, AVENUE_YAW=90)
+d_sprint_jump_first_swing: 2.60-12.00 s (562 frames)
+  T8   FAIL  hero height / frame: p10 0.189 p50 0.241 p90 0.303, min while swinging 0.111
+  T9   FAIL  hero centre x: p5 0.377 p95 0.572 (inside 0.44-0.56)
+  T10  PASS  hero centre y: p5 0.422 p95 0.665 spread 0.243
+  T11  PASS  pitch down: p5 -1.9 p50 +6.3 p95 +15.8 deg
+  T12  PASS  |yaw| off the avenue axis: p50 5.0 p90 10.9 deg
+  T13  PASS  |roll|: p50 0.9 p90 2.0 max 2.9 deg
+  T14  FAIL  horizontal FOV while swinging: p10 92.2 p50 99.3 p90 103.8 deg
+  T16  PASS  hero pixels present 562/562 = 100.0 %
+  T19  PASS  hero occluded (> 2 % of his pixels) in 0 frames; camera inside geometry in 0 frames
+  arc low points (m over the floor): 3.4, 4.6, 4.3, 2.2, 0.9; consecutive differences min 0.3 m
+d_sprint_jump_first_swing: 6/9 camera lines pass
+
+================ c wall-run (T22)
+c: wall-run 2.08-3.83 s (1.75 s, 11 samples at 6 fps)
+  distinct limb phases at 6 fps: 11 (need >= 4)  PASS
+  head above hips: 11/11 samples  PASS
+  steps (foot L/R height crossings): 5 in 1.75 s = 2.86 steps/s
+  hero fully in frame 2.08-5.12 s (wall-run + top-out + landing): 183/183 frames  PASS
+  camera on the wall: pitch -8.4..55.8 deg (+ = up), below the hero -0.41..2.20 m, distance 2.67..4.32 m

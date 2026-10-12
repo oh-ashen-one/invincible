@@ -1,0 +1,9 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# Round 02 look-preserving preset: perf60_mpe6 (Nanite error 6 px at 4K output) + hardware-RT Lumen REFLECTIONS with software Lumen GI.
+# Restores the glass reflections and lit windows that software Lumen loses (docs/night1/perf/round-02/NOTES.md section 2). Needs the RT-lite content
+# (hinterland / trees / far ground out of the ray-tracing scene: make_variants.py `Cl<N>RT`, perf_apply.py step rt_lite) and the 4 km cloud tracing distance;
+# measured at TSR 46 % (1766x994 internal). Without RT-lite the ray-tracing scene costs +2.2 ms more.
+set:perf60_mpe6
+r.Lumen.HardwareRayTracing=1
+r.Lumen.ScreenProbeGather.HardwareRayTracing=0
+r.Lumen.Reflections.HardwareRayTracing=1

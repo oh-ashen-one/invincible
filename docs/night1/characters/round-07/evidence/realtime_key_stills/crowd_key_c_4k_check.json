@@ -1,0 +1,98 @@
+{
+ "image": "crowd_key_c_4k.png",
+ "size": [
+  3840,
+  2160
+ ],
+ "key_bgr": [
+  3,
+  235,
+  8
+ ],
+ "key_exact_bg_px": 7540924,
+ "person_px": 753476,
+ "bg_median_bgr": [
+  3,
+  235,
+  8
+ ],
+ "g_gt_r40_person_px": 189,
+ "g_gt_r40_in_clusters_px": 0,
+ "fringe_px": 189,
+ "g_dominant_person_px": 0,
+ "g_dominant_in_clusters_px": 0,
+ "clusters": [],
+ "enclosed_key_components": 6,
+ "enclosed_key_px": 537,
+ "enclosed_key_thin_components": 4,
+ "enclosed_key_top": [
+  {
+   "bbox": [
+    3785,
+    984,
+    24,
+    42
+   ],
+   "px": 278,
+   "width_px": 8.2,
+   "thin": false
+  },
+  {
+   "bbox": [
+    3792,
+    1001,
+    16,
+    26
+   ],
+   "px": 112,
+   "width_px": 6.3,
+   "thin": true
+  },
+  {
+   "bbox": [
+    3771,
+    1032,
+    10,
+    32
+   ],
+   "px": 110,
+   "width_px": 7.2,
+   "thin": false
+  },
+  {
+   "bbox": [
+    2566,
+    1399,
+    8,
+    4
+   ],
+   "px": 18,
+   "width_px": 4.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    2588,
+    898,
+    3,
+    7
+   ],
+   "px": 10,
+   "width_px": 2.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    547,
+    916,
+    3,
+    4
+   ],
+   "px": 9,
+   "width_px": 2.8,
+   "thin": true
+  }
+ ],
+ "detached_components": 0,
+ "detached": []
+}

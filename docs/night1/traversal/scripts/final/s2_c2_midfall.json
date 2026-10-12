@@ -1,0 +1,38 @@
+{
+ "name": "s2_c2_midfall",
+ "note": "free fall over the avenue (vz -14, 20 m/s north), swing pressed 0.5 s in",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   150,
+   62
+  ],
+  "yaw": -90.0,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -20,
+   -14
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.5,
+   "swing": true
+  },
+  {
+   "t": 2.6,
+   "swing": false
+  }
+ ]
+}

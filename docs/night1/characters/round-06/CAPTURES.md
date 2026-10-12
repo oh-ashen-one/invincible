@@ -1,0 +1,34 @@
+# Round 06: captures of the running characters maps
+
+> Fan homage project. Not an official Marvel, Sony or Insomniac game. No affiliation. See `DISCLAIMER.md`.
+
+**Source:** real `-game` runs (UE 5.8.3, Metal, offscreen `-RenderOffScreen -NoSound`) through `unreal/WebHomage/Scripts/run_game.sh`, driven by `tools/ue_char/run_r6_captures.sh` -> `capture_r5.sh`, on 2026-09-30 10:09-11:41 (the Studio had just been rebooted after the 06:55 WindowServer reset). Content was rebuilt from scratch (`clean,tex,mat,mesh,citizens,rename,abp,map,maps5,mapkey`, `-nullrhi` commandlet, 65 s) from the committed scripts plus the refit citizens (`refit.py` + `weights_r6.py`, round 06's seam fix). No `.uasset` / `.umap` is committed. Every Unreal launch (build, 6 movie / still groups, 2 diagnostic runs) ran inside `gpu_slot.sh capture --label characters`, one engine of mine at a time; the queue waited behind other agents' exclusive perf runs (up to 19 min) and was never bypassed. Every release logged `contaminated=true reasons=no-exclusive-lock` (shared capture slot): **no frame time here is a performance result** (the `perf_*.json` files only prove the internal resolution).
+
+**Resolution (disclosed).** Stills: native 3840x2160 output with internal 3840x2160 (`r.ScreenPercentage 100`, mode `manual`, in every `evidence/perf_*.json`). Movies: fixed-step `-movie` runs (1/60 s step), 1920x1080 output = 1920x1080 internal, H.264 crf 20 (crf 17 for the four trimmed clips), motion blur OFF (`r.MotionBlurQuality 0`); every clip is <= 5.6 MB. `-movie` output says nothing about real-time speed.
+
+**Trimmed clips (texture-streaming warm-up).** The first ~0.4 s of every `-movie` run shows the citizen / hero textures still in their lowest mip (washed suit, pale patches on trousers) although the 2048 / 4096 px textures are sharp from frame ~30. The first clip of each run (`hero_run_side`, `hero_run_chase`, `street_fight_wide`, `crowd_tracking`) therefore starts 0.6 s into the run (re-encoded crf 17 from the original cut; the 0.5-5.9 s measurement windows in `evidence/` were taken on the un-trimmed originals). The other clips start later in their runs and are not affected.
+
+**Maps** (unchanged from round 05: a flat test stage, sun 8 lux + atmosphere, real-time sky light, height fog, auto exposure; not the city): `Char_Hero`, `Char_Fight`, `Char_Crowd` (18 distinct citizens, two-way flow, near lane 4.5 m from the tracking camera), `Char_CrowdKey` (the crowd on an unlit pure-green street, no sky / fog: green enclosed by a person = see-through), `Char_Lineup` (standing enemies, face close-ups only).
+
+**Lineup lighting changed in this round (only `Char_Lineup`, so only the five `*_face_4k` stills).** The round-05 critic called the dark shapes in the thug hoodie collar "black shards". A diagnostic run with shadows off (`evidence/collar_shadow_test.jpg`, left = default, right = `r.ShadowQuality 0` + `r.Shadow.Virtual.Enable 0`) shows they are hard-edged sun shadows of the hood rim / mask hem, not geometry. `build_characters.py` now gives the lineup sun a 3 deg source angle (`sun_angle`) and lifts the shadowless enemy fill 0.8 -> 1.4 lux (`enemy_fill`): the penumbra is soft and the neck region calmer, the hard-edged shadow wedge inside the hood is softer but still there (`evidence/collar_lighting_before_after.jpg`, left = first lighting, right = final). All five face stills in `captures/` are from the final lighting (a second build of the `map` step only + one `E` capture group); the first-lighting `thug_face_4k` is kept as `evidence/thug_face_4k_first_lighting.jpg`. Everything else in `captures/` comes from the first build.
+
+| File | Shot | Content |
+|---|---|---|
+| `hero_run_side.mp4` (5.4 s, trimmed), `hero_run_34.mp4` (5 s) | side 5.6 m / 3/4 4.8 m, FOV 40 | Hero running on an empty street |
+| `hero_run_leap_side.mp4` (6.5 s) | side 8.2 m, FOV 42 | Run, take-off crouch (~1.4 s), leap, landing, run, second jump |
+| `hero_run_chase.mp4` (5.4 s, trimmed), `hero_run_toward.mp4` (6 s) | behind 5 m / toward 5.6 m, FOV 62 | Gameplay cameras (CH1 / CH2) |
+| `street_fight_wide.mp4` (7.4 s, trimmed), `street_fight_34.mp4`, `street_fight_orbit.mp4` (8 s each) | static wide 10 m / static 3/4 / orbit 9.5 m | The staged fight, motion blur off |
+| `crowd_tracking.mp4` (7.4 s, trimmed), `crowd_wide.mp4` (6 s) | side tracking 11.5 m, FOV 64 / wide | Two-way flow, near-lane walkers |
+| `crowd_tracking_1080.jpg`, `crowd_wide_1080.jpg`, `street_fight_1080.jpg` | | 1080p frames of the movie runs |
+| `hero_turntable_4k`, `hero_run_side_4k`, `hero_jump_4k` (+ `_t1.95`), `suit_closeup_4k`, `hero_face_lens_4k` | | Hero: whole-body turntable, run side, the leap at 1.85 s, chest close-up, face + lens |
+| `street_fight_wide_4k`, `street_fight_34_4k`, `street_fight_orbit_4k` | | The fight |
+| `crowd_tracking_4k`, `crowd_wide_4k` | | The crowd (CH18 test images) |
+| `crowd_key_a_4k`, `crowd_key_tracking_4k`, `crowd_key_c_4k`, `crowd_key_wide_4k` | | Chroma-key crowd, 3.5 / 5.5 / 7.5 / 11.5 s of one 13 s run |
+| `thug_face_4k`, `brute_face_4k`, `hood_face_4k`, `tee_face_4k`, `beard_face_4k` | | Masks and faces of the five enemies (final lighting) |
+| `crops_3x/*_3x.jpg` | | **3x crops of the exact boxes the round-05 critic cited** (left = round 05, right = round 06; the collar sheet is 6008x2730): `coat_tracking` (crowd_tracking_4k 2950,1300-3350,1750), `hand_tracking` (3300,1280-3560,1480), `trousers_tracking` (3560,1300-3840,1800), `armpit_key_a` (crowd_key_a_4k 300,1050-560,1300), `collar_thug` (thug_face_4k 1100,1250-2100,2160) |
+
+**Evidence (`evidence/`):**
+- CH18 in the engine: `keyreport_round06/` (per-still `_report.json`, `_holes.jpg` overlays, the 6 largest interior components as 3x crops) and `keyreport_round05/` (the same tool on the round-05 stills, re-run with the final version), `truekey_interior_components_round05.jpg` / `truekey_interior_components_round06.jpg` (every component that shows the key colour itself, 22 in round 05, 20 in round 06, as 3x crops), `key_holes_after.jsonl` (round-05's own legacy counter), `spike_key_round05.jsonl` / `spike_key_round06.jsonl` (silhouette spikes on the key stills), `cracks_stills.txt` + `cracks_classify.jsonl` (the critic's `cracks.py`), offline gate `offline_ch18_*` (`eval_r6.py`, the proxy of the engine's skinning on the crowd's own clips).
+- Other SPEC lines: `count_videos.txt`, `yolo_*_4k.json` (YOLO11x people counts / heights), `video_hero_run_*.json` (step rate, chase height, lean), `leap_track.json`, `gait_phase.json`.
+- Measurement device: the YOLO passes ran on CPU (`YOLO_DEVICE=cpu`, the tools default to `mps`) so they did not load the GPU while other agents held the exclusive perf lock.
+- `perf_*.json` (internal resolution; contaminated), `gpu_util_before_4k.txt`, `seg*_gpu_util_before.txt` (GPU utilisation just before each launch: 0-100 %, shared).

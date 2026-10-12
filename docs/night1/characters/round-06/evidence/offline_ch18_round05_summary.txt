@@ -1,0 +1,19 @@
+03_white_tee            tris  17642 cracks  22 (  703 px) 2sided  18 (  532) sil-spikes  1104 spikes>5cm  51 >10cm  11 max 27.2 cm  by group {'1': 282, '4': 41, '5': 380}
+12_sundress_mom         tris  17891 cracks  97 ( 4155 px) 2sided  32 ( 1003) sil-spikes  1693 spikes>5cm 200 >10cm 102 max 27.0 cm  by group {'1': 1585, '2': 118, '3': 108, '4': 1310, '5': 1034}
+13_construction_worker  tris  19752 cracks  75 ( 3003 px) 2sided  22 (  389) sil-spikes  1927 spikes>5cm  75 >10cm  31 max 51.5 cm  by group {'1': 1837, '2': 23, '3': 385, '4': 457, '5': 301}
+15_executive            tris  15700 cracks  97 ( 6331 px) 2sided  98 ( 3545) sil-spikes  1780 spikes>5cm  77 >10cm  42 max 42.0 cm  by group {'1': 1736, '2': 18, '3': 208, '4': 3001, '5': 1368}
+04_blue_sweatshirt      tris  17510 cracks  12 (  247 px) 2sided  15 (  357) sil-spikes  1075 spikes>5cm 148 >10cm  65 max 38.0 cm  by group {'1': 18, '2': 29, '3': 50, '4': 120, '5': 30}
+08_black_suit           tris  17402 cracks  28 (  847 px) 2sided  33 (  897) sil-spikes  1502 spikes>5cm  33 >10cm   9 max 14.2 cm  by group {'1': 187, '2': 30, '4': 140, '5': 490}
+10_silver_tie           tris  17114 cracks  32 ( 1468 px) 2sided  32 (  713) sil-spikes  1398 spikes>5cm  39 >10cm  11 max 19.8 cm  by group {'1': 1148, '2': 79, '3': 18, '4': 46, '5': 177}
+14_teen_skater          tris  18178 cracks 109 ( 6302 px) 2sided  73 ( 2169) sil-spikes  2077 spikes>5cm 262 >10cm 117 max 49.4 cm  by group {'1': 1601, '2': 18, '3': 176, '4': 2170, '5': 2337}
+18_dapper_elder         tris  18333 cracks  40 ( 1003 px) 2sided  23 (  296) sil-spikes  1779 spikes>5cm  66 >10cm  22 max 28.3 cm  by group {'1': 434, '2': 110, '3': 45, '4': 333, '5': 81}
+19_marathon_runner      tris  16989 cracks  42 ( 1266 px) 2sided  40 ( 1072) sil-spikes  1291 spikes>5cm  47 >10cm   8 max 14.4 cm  by group {'1': 158, '2': 225, '3': 94, '4': 222, '5': 567}
+01_retired_gent         tris  16413 cracks  79 ( 2685 px) 2sided  61 ( 1671) sil-spikes  2326 spikes>5cm 293 >10cm 149 max 39.6 cm  by group {'1': 1364, '2': 21, '4': 313, '5': 987}
+20_punk_artist          tris  16287 cracks 113 ( 4347 px) 2sided 148 ( 4343) sil-spikes  2227 spikes>5cm  43 >10cm  26 max 34.5 cm  by group {'1': 1969, '3': 9, '4': 626, '5': 1743}
+02_leather_jacket       tris  18581 cracks  37 ( 1171 px) 2sided  36 (  538) sil-spikes  1435 spikes>5cm  53 >10cm   3 max 14.9 cm  by group {'1': 211, '2': 18, '4': 101, '5': 841}
+05_black_tee            tris  17092 cracks  16 (  810 px) 2sided  25 (  458) sil-spikes   902 spikes>5cm   3 >10cm   0 max 5.7 cm  by group {'1': 732, '2': 50, '4': 19, '5': 9}
+06_chrome_shades        tris  19168 cracks  54 ( 1815 px) 2sided  48 (  583) sil-spikes  1895 spikes>5cm 112 >10cm  21 max 29.5 cm  by group {'1': 967, '2': 137, '3': 27, '4': 181, '5': 503}
+09_kurta_waistcoat      tris  18279 cracks  33 ( 2260 px) 2sided  35 ( 1477) sil-spikes  1882 spikes>5cm 360 >10cm 177 max 50.3 cm  by group {'1': 1237, '2': 12, '4': 682, '5': 329}
+16_lumberjack_hipster   tris  19291 cracks 105 ( 3120 px) 2sided  55 (  850) sil-spikes  2538 spikes>5cm 107 >10cm  53 max 33.4 cm  by group {'1': 1622, '2': 110, '3': 68, '4': 403, '5': 917}
+17_hijabi_student       tris  19056 cracks  44 ( 1018 px) 2sided  36 (  735) sil-spikes  1437 spikes>5cm 165 >10cm  68 max 33.8 cm  by group {'1': 149, '3': 18, '4': 212, '5': 639}
+TOTAL {"crack_components": 1035, "crack_px": 42551, "crack2s_components": 830, "crack2s_px": 21628, "silhouette_spike_components": 30268, "silhouette_spike_px": 1375622, "spike_over_5cm": 2134, "spike_over_10cm": 915}

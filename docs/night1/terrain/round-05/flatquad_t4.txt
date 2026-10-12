@@ -1,0 +1,2 @@
+{"movie": "t4_lawn_sprint.mp4", "frames_at_4fps": 54, "flat_sd_threshold": 0.9, "pass": false, "components_wider_than_100px": 1}
+{'t_s': 1.0, 'bbox_xywh': [957, 533, 109, 52], 'area_px': 3337, 'fill': 0.59, 'mean_rgb': [202.8, 194.1, 174.4]}

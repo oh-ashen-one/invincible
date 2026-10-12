@@ -1,0 +1,23 @@
+{
+ "note": "stencil id -> walker actor label (build log of step mapkey); id colour in Char_CrowdID = r + 3g + 9b, levels 0 / ~179 / ~221 after tonemapping",
+ "ids": {
+  "1": "Citizen_03_white_tee",
+  "2": "Citizen_12_sundress_mom",
+  "3": "Citizen_13_construction_worker",
+  "4": "Citizen_15_executive",
+  "5": "Citizen_04_blue_sweatshirt",
+  "6": "Citizen_19_marathon_runner",
+  "7": "Citizen_10_silver_tie",
+  "8": "Citizen_14_teen_skater",
+  "9": "Citizen_01_retired_gent",
+  "10": "Citizen_20_punk_artist",
+  "11": "Citizen_18_dapper_elder",
+  "12": "Citizen_08_black_suit",
+  "13": "CitizenNear_02_leather_jacket",
+  "14": "CitizenNear_06_chrome_shades",
+  "15": "CitizenNear_16_lumberjack_hipster",
+  "16": "CitizenNear_05_black_tee",
+  "17": "CitizenNear_17_hijabi_student",
+  "18": "CitizenNear_09_kurta_waistcoat"
+ }
+}

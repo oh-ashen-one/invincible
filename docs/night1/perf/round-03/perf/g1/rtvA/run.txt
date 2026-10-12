@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/perf/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/g1/rtvA -map /Game/PerfF/RTvA/Manhattan -res 3840x2160 -perf 15:45 -name rtvA -timeout 900 -exec  -- -WHTravScript=/Users/midir/sm2-n1/perf/docs/night1/manhattan/scripts/route_30s_warmup15.json -WHTravCsv=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/g1/rtvA/trav_telemetry.csv -csvGpuStats -benchmark -fps=60 -notraceserver
+
+run_game: out=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/g1/rtvA res=3840x2160 quit=46.0 window=0 movie=0
+WH_PERF_START t=15.00
+WH_PERF frames=1800 avg_ms=17.87 fps=56.0 p95_ms=20.47 p99_ms=22.05 gpu_avg_ms=16.14 out=3840x2160 internal=1920x1080 (manual) -> /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/g1/rtvA/rtvA_perf.json
+WH_QUIT t=46.00
+

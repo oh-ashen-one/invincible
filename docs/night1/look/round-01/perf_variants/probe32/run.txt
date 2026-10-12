@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/look/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_variants/probe32 -map /Game/Tests/Look/Look_Midtown -res 3840x2160 -perf 22:52 -name probe32 -timeout 900 -exec r.ScreenPercentage 50,r.Lumen.ScreenProbeGather.DownsampleFactor 32 -- -WHTravScript=/Users/midir/sm2-n1/look/tools/perf_ue/scripts/city_swing_avenue.json -WHTravCsv=/Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_variants/probe32/trav_telemetry.csv -csvGpuStats -benchmark -fps=60
+
+run_game: out=/Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_variants/probe32 res=3840x2160 quit=53.0 window=0 movie=0
+WH_PERF_START t=22.00
+WH_PERF frames=1800 avg_ms=23.01 fps=43.5 p95_ms=28.09 p99_ms=32.44 gpu_avg_ms=21.51 out=3840x2160 internal=1920x1080 (manual) -> /Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_variants/probe32/probe32_perf.json
+WH_QUIT t=53.00
+

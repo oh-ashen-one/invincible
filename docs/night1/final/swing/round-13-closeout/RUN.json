@@ -1,0 +1,120 @@
+{
+  "scope": "Finish interrupted round13 flips/held poses, trick-camera containment and existing web fix; one consistent capture set and one independent critic; stop for owner playtest",
+  "started_utc": "2026-10-11T18:48:43Z",
+  "deadline_utc": "2026-10-11T21:48:43Z",
+  "branch": "codex/round13-closeout-20261011",
+  "preserved_source": "4f2a10daa1281db9c6816028544b104449bd9eb1",
+  "host": "midirstudio.local",
+  "hardware": "Mac15,14 Apple M3 Ultra",
+  "models": {
+    "orchestrator_requested": "gpt-6-astra high",
+    "flip_builder": "gpt-6.1-sol xhigh",
+    "tooling_scout": "gpt-6-sol high",
+    "critic_planned": "gpt-6.1-sol xhigh, fresh context"
+  },
+  "phase": "Bounded pass complete; stop for owner playtest; final publication/cleanup",
+  "native_mcp": {
+    "engine_plugins_present": true,
+    "task_project_AllToolsets_enabled": true,
+    "port_planned": 18765,
+    "verified_live": true,
+    "editor_pid": 30360,
+    "editor_stopped_gracefully": true,
+    "transport": "native Epic HTTP MCP via repository client",
+    "auto_start": false,
+    "start_flags": "-ModelContextProtocolStartServer -ModelContextProtocolPort=18765"
+  },
+  "limits": {
+    "task_renderer_limit": 1,
+    "global_renderer_limit": 2,
+    "automatic_next_round": false
+  },
+  "scratch": "/Users/midir/sm2-r13-closeout-cache",
+  "initial_build": {
+    "source_parent": "4f2a10daa1281db9c6816028544b104449bd9eb1",
+    "result": "Succeeded",
+    "duration_seconds": 54.49,
+    "command": "DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer bash unreal/WebHomage/Scripts/build_editor.sh -MaxParallelActions=6",
+    "log_local": "unreal/WebHomage/Saved/Round13Closeout/build-initial.log",
+    "runtime_verified": false
+  },
+  "offline_assets": {
+    "status": "ready_on_disk",
+    "missing": [],
+    "suit_references_checked": 25
+  },
+  "tooling_commits": [
+    "2bb17f46abde75b0002c2e25efd184f16420a8da",
+    "13358449e4d1c3130ebc7259eba4b4db5cdb3375"
+  ],
+  "source_build_commit": "21e43450",
+  "final_build": {
+    "result": "Succeeded",
+    "duration_seconds": 8.93,
+    "module_sha256": "f94a190b6dc0673aff8535db3af608a88addab369252c20c7f2babd9c01b2d5b",
+    "log_local": "unreal/WebHomage/Saved/Round13Closeout/build-camera-probe.log",
+    "runtime_verified": true
+  },
+  "builder_commit": "5516d9f66cabfec99b726252a3ae019568125f7e",
+  "source_fixes": [
+    "Freeze open held clip phases before Pencil leg scaling; settle Straddle at authored straight split",
+    "Use separate horizontal/vertical frustum margins while trick camera blends in/out",
+    "Defer ordinary ground crane until trick view blends out; residual brief landing loss remains"
+  ],
+  "source_checks": {
+    "cache_tests": 2,
+    "asset_check": "ready_on_disk; no missing",
+    "secret_scan": "5 commits; no leaks",
+    "builder_program_math": "13 programs, uniform tempo .95/1/1.01; peaks576.6-754.2deg/s; slow windows.350-.508s; excludes jitter/rendered blending",
+    "held_pose_limitation": "Seven primary open holds inspected in probe: .4067-.4900s at <=147.1deg/s; excludes Kickout/Reach. Secondary wallFront tail truncated; no all-eight pass. Strict rendered F3 peak failures retained."
+  },
+  "desktop_clear_confirmed": true,
+  "focused_camera_probe": {
+    "change": "Delay ordinary ground crane until trick camera blendout",
+    "missing_hero_mask_frames_before": 4,
+    "missing_hero_mask_frames_after": 3,
+    "note": "Improved but not eliminated; retain as a known limit for independent review. No further source iteration in this pass."
+  },
+  "critic_actual": {
+    "task": "round13_independent_critic",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "fresh_context": true,
+    "review_budget_minutes": 30,
+    "status": "complete",
+    "review_minutes_approx": 17,
+    "verdict": "APPROACHES TARGET",
+    "scores": {
+      "web_deployment": 6,
+      "web_readability": 8,
+      "swing_body": 6,
+      "flips_tricks": 7,
+      "air_catches": 6,
+      "camera": 5
+    }
+  },
+  "owner_playtest": {
+    "source_commit": "21e43450c772292c6d9bc51b3ce1c3397ec1ae77",
+    "artifact_path": "/Users/midir/SpiderMan-R13-OwnerPlaytest-20261011",
+    "verified_utc": "2026-10-11T20:12:59.488654+00:00",
+    "runtime_verified": true,
+    "verification_scope": "Relocated UnrealEditor -game scripted offscreen launch; Manhattan_Island, Tessera, 1920x1080 and 100% scale. Two screenshots viewed; clean self-exit at WHQuitAt=8. Not manual controls, gameplay acceptance or realtime performance evidence.",
+    "exit_code": 0,
+    "wall_seconds": 46.2,
+    "files_verified_after_runtime": 51168,
+    "hash_mismatches": [],
+    "screenshots": {
+      "staged-smoke_00_t003.0.png": "277fbf83365539754dddd38f0234c18f9dad192da40bab15395de4a319081f11",
+      "staged-smoke_01_t005.0.png": "441277d0a213a997bea337cd2b08d289bbd03a973d12e8615e369869a0dfae44"
+    },
+    "known_nonfatal_log_diagnostics": [
+      "Existing distance-field DoubleFloat matrix precision ensure",
+      "Editor-only Python toolset types unavailable under -game",
+      "Non-Mac SDK validation warnings"
+    ],
+    "local_build_evidence": "/Users/midir/SpiderMan-R13-OwnerPlaytest-20261011/Saved/BuildEvidence/"
+  },
+  "owner_acceptance": "pending; no automatic next round",
+  "runtime_engines": "all task-owned editor/game processes stopped",
+  "completed_utc": "2026-10-11T20:30:26.514266+00:00"
+}

@@ -1,0 +1,4 @@
+VArmOut=32
+VKneeLat=0.45,VTr=0.88
+VArmOut=32,VArmK=0.3
+VSw=40,VTrack=8

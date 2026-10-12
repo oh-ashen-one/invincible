@@ -1,0 +1,9 @@
+{
+ "name": "t4_lawn_sprint",
+ "note": "Terrain r01 movie: ground-level sprint north across the Sheep-Meadow-like lawn onto a park path (grass tufts, mowing stripes, path edge, collision on the terrain ground). UE metres: x east, y south, z up.",
+ "seed": 1234,
+ "spawn": { "pos": [-70, -640, 1.2], "yaw": -90, "camPitch": 0.16 },
+ "keys": [
+  { "t": 0.0, "move": [0, 1], "heading": -90, "sprint": true }
+ ]
+}

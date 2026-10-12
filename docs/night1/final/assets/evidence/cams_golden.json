@@ -1,0 +1,130 @@
+[
+ {
+  "t": 16.0,
+  "name": "midtown_street",
+  "ue_pos_cm": [
+   34000.3,
+   3107.5,
+   170.0
+  ],
+  "ue_target_cm": [
+   33034.4,
+   2848.7,
+   35.0
+  ],
+  "fov": 74.078,
+  "hero_visible": false
+ },
+ {
+  "t": 30.0,
+  "name": "midtown_high",
+  "ue_pos_cm": [
+   35715.6,
+   5098.4,
+   2500.0
+  ],
+  "ue_target_cm": [
+   33034.4,
+   2848.7,
+   0.0
+  ],
+  "fov": 74.078,
+  "hero_visible": false
+ },
+ {
+  "t": 44.0,
+  "name": "parksouth_street",
+  "ue_pos_cm": [
+   -15092.3,
+   -63543.4,
+   170.0
+  ],
+  "ue_target_cm": [
+   -15351.1,
+   -62577.5,
+   35.0
+  ],
+  "fov": 74.078,
+  "hero_visible": false
+ },
+ {
+  "t": 58.0,
+  "name": "parksouth_high",
+  "ue_pos_cm": [
+   -11122.5,
+   -61038.4,
+   2500.0
+  ],
+  "ue_target_cm": [
+   -15351.1,
+   -62577.5,
+   0.0
+  ],
+  "fov": 74.078,
+  "hero_visible": false
+ },
+ {
+  "t": 72.0,
+  "name": "westpiers_street",
+  "ue_pos_cm": [
+   -71925.2,
+   -100309.0,
+   170.0
+  ],
+  "ue_target_cm": [
+   -72184.1,
+   -101275.0,
+   35.0
+  ],
+  "fov": 74.078,
+  "hero_visible": false
+ },
+ {
+  "t": 86.0,
+  "name": "westpiers_high",
+  "ue_pos_cm": [
+   -70303.0,
+   -96106.7,
+   2500.0
+  ],
+  "ue_target_cm": [
+   -72184.1,
+   -101275.0,
+   0.0
+  ],
+  "fov": 74.078,
+  "hero_visible": false
+ },
+ {
+  "t": 100.0,
+  "name": "downtown_street",
+  "ue_pos_cm": [
+   -2351.1,
+   316386.4,
+   170.0
+  ],
+  "ue_target_cm": [
+   -3351.1,
+   316386.4,
+   35.0
+  ],
+  "fov": 74.078,
+  "hero_visible": false
+ },
+ {
+  "t": 114.0,
+  "name": "downtown_high",
+  "ue_pos_cm": [
+   -5232.2,
+   321554.7,
+   2500.0
+  ],
+  "ue_target_cm": [
+   -3351.1,
+   316386.4,
+   0.0
+  ],
+  "fov": 74.078,
+  "hero_visible": false
+ }
+]

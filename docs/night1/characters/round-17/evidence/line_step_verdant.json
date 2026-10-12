@@ -1,0 +1,388 @@
+{
+ "regions": 6,
+ "straight_runs": 682,
+ "longest_run_px": 1200,
+ "max_step_px": 20.7,
+ "n_jogs": 41,
+ "jogs": [
+  {
+   "step": 20.7,
+   "x": 1104,
+   "y": 1707,
+   "run_a": 40,
+   "run_b": 72,
+   "connector": 77,
+   "angle": 6.6
+  },
+  {
+   "step": 16.0,
+   "x": 2995,
+   "y": 1698,
+   "run_a": 62,
+   "run_b": 201,
+   "connector": 96,
+   "angle": 7.6
+  },
+  {
+   "step": 14.0,
+   "x": 2003,
+   "y": 934,
+   "run_a": 43,
+   "run_b": 42,
+   "connector": 88,
+   "angle": 5.4
+  },
+  {
+   "step": 10.5,
+   "x": 1587,
+   "y": 855,
+   "run_a": 79,
+   "run_b": 109,
+   "connector": 99,
+   "angle": 4.1
+  },
+  {
+   "step": 10.2,
+   "x": 2539,
+   "y": 854,
+   "run_a": 102,
+   "run_b": 139,
+   "connector": 95,
+   "angle": 4.1
+  },
+  {
+   "step": 10.1,
+   "x": 3039,
+   "y": 1437,
+   "run_a": 80,
+   "run_b": 66,
+   "connector": 104,
+   "angle": 5.6
+  },
+  {
+   "step": 9.8,
+   "x": 2713,
+   "y": 1003,
+   "run_a": 40,
+   "run_b": 49,
+   "connector": 95,
+   "angle": 0.9
+  },
+  {
+   "step": 9.7,
+   "x": 2605,
+   "y": 1513,
+   "run_a": 48,
+   "run_b": 42,
+   "connector": 94,
+   "angle": 3.0
+  },
+  {
+   "step": 9.7,
+   "x": 2508,
+   "y": 366,
+   "run_a": 105,
+   "run_b": 98,
+   "connector": 50,
+   "angle": 6.5
+  },
+  {
+   "step": 9.2,
+   "x": 1632,
+   "y": 1142,
+   "run_a": 90,
+   "run_b": 127,
+   "connector": 95,
+   "angle": 4.2
+  },
+  {
+   "step": 9.0,
+   "x": 1571,
+   "y": 698,
+   "run_a": 41,
+   "run_b": 139,
+   "connector": 82,
+   "angle": 4.3
+  },
+  {
+   "step": 8.5,
+   "x": 2542,
+   "y": 1120,
+   "run_a": 52,
+   "run_b": 63,
+   "connector": 78,
+   "angle": 3.0
+  },
+  {
+   "step": 8.4,
+   "x": 1749,
+   "y": 840,
+   "run_a": 54,
+   "run_b": 170,
+   "connector": 97,
+   "angle": 3.2
+  },
+  {
+   "step": 8.0,
+   "x": 3046,
+   "y": 1268,
+   "run_a": 81,
+   "run_b": 102,
+   "connector": 102,
+   "angle": 0.0
+  },
+  {
+   "step": 8.0,
+   "x": 3047,
+   "y": 1166,
+   "run_a": 102,
+   "run_b": 77,
+   "connector": 102,
+   "angle": 2.4
+  },
+  {
+   "step": 7.9,
+   "x": 2479,
+   "y": 1577,
+   "run_a": 109,
+   "run_b": 62,
+   "connector": 66,
+   "angle": 2.2
+  },
+  {
+   "step": 7.8,
+   "x": 1463,
+   "y": 683,
+   "run_a": 52,
+   "run_b": 112,
+   "connector": 94,
+   "angle": 1.5
+  },
+  {
+   "step": 7.7,
+   "x": 1729,
+   "y": 1146,
+   "run_a": 283,
+   "run_b": 40,
+   "connector": 101,
+   "angle": 1.1
+  },
+  {
+   "step": 7.4,
+   "x": 2058,
+   "y": 678,
+   "run_a": 206,
+   "run_b": 84,
+   "connector": 71,
+   "angle": 3.2
+  },
+  {
+   "step": 7.3,
+   "x": 1674,
+   "y": 840,
+   "run_a": 63,
+   "run_b": 97,
+   "connector": 54,
+   "angle": 2.8
+  },
+  {
+   "step": 7.0,
+   "x": 2278,
+   "y": 1818,
+   "run_a": 123,
+   "run_b": 55,
+   "connector": 95,
+   "angle": 7.5
+  },
+  {
+   "step": 6.8,
+   "x": 2556,
+   "y": 700,
+   "run_a": 200,
+   "run_b": 79,
+   "connector": 72,
+   "angle": 4.6
+  },
+  {
+   "step": 6.5,
+   "x": 1728,
+   "y": 1577,
+   "run_a": 106,
+   "run_b": 40,
+   "connector": 61,
+   "angle": 0.6
+  },
+  {
+   "step": 6.4,
+   "x": 1025,
+   "y": 1115,
+   "run_a": 60,
+   "run_b": 151,
+   "connector": 104,
+   "angle": 5.4
+  },
+  {
+   "step": 6.3,
+   "x": 1119,
+   "y": 1614,
+   "run_a": 41,
+   "run_b": 40,
+   "connector": 32,
+   "angle": 1.3
+  },
+  {
+   "step": 5.7,
+   "x": 3047,
+   "y": 1346,
+   "run_a": 89,
+   "run_b": 66,
+   "connector": 80,
+   "angle": 8.0
+  },
+  {
+   "step": 5.6,
+   "x": 1765,
+   "y": 1321,
+   "run_a": 147,
+   "run_b": 302,
+   "connector": 97,
+   "angle": 0.3
+  },
+  {
+   "step": 5.5,
+   "x": 1470,
+   "y": 1307,
+   "run_a": 45,
+   "run_b": 52,
+   "connector": 83,
+   "angle": 1.6
+  },
+  {
+   "step": 5.3,
+   "x": 1354,
+   "y": 1308,
+   "run_a": 72,
+   "run_b": 48,
+   "connector": 59,
+   "angle": 6.8
+  },
+  {
+   "step": 5.3,
+   "x": 2636,
+   "y": 2010,
+   "run_a": 80,
+   "run_b": 71,
+   "connector": 33,
+   "angle": 5.0
+  },
+  {
+   "step": 5.1,
+   "x": 935,
+   "y": 1791,
+   "run_a": 88,
+   "run_b": 50,
+   "connector": 40,
+   "angle": 3.3
+  },
+  {
+   "step": 5.0,
+   "x": 2149,
+   "y": 1280,
+   "run_a": 67,
+   "run_b": 301,
+   "connector": 83,
+   "angle": 0.2
+  },
+  {
+   "step": 5.0,
+   "x": 2518,
+   "y": 1299,
+   "run_a": 202,
+   "run_b": 105,
+   "connector": 47,
+   "angle": 0.0
+  },
+  {
+   "step": 4.7,
+   "x": 1274,
+   "y": 1316,
+   "run_a": 198,
+   "run_b": 61,
+   "connector": 59,
+   "angle": 0.3
+  },
+  {
+   "step": 4.6,
+   "x": 1669,
+   "y": 1317,
+   "run_a": 116,
+   "run_b": 107,
+   "connector": 67,
+   "angle": 2.1
+  },
+  {
+   "step": 4.5,
+   "x": 1658,
+   "y": 302,
+   "run_a": 48,
+   "run_b": 40,
+   "connector": 66,
+   "angle": 2.8
+  },
+  {
+   "step": 4.3,
+   "x": 1838,
+   "y": 1148,
+   "run_a": 51,
+   "run_b": 53,
+   "connector": 55,
+   "angle": 1.2
+  },
+  {
+   "step": 4.3,
+   "x": 802,
+   "y": 1760,
+   "run_a": 40,
+   "run_b": 44,
+   "connector": 41,
+   "angle": 1.4
+  },
+  {
+   "step": 4.1,
+   "x": 2647,
+   "y": 487,
+   "run_a": 68,
+   "run_b": 67,
+   "connector": 7,
+   "angle": 1.5
+  },
+  {
+   "step": 4.1,
+   "x": 1498,
+   "y": 1662,
+   "run_a": 57,
+   "run_b": 130,
+   "connector": 71,
+   "angle": 5.7
+  },
+  {
+   "step": 4.1,
+   "x": 1981,
+   "y": 673,
+   "run_a": 71,
+   "run_b": 171,
+   "connector": 84,
+   "angle": 5.2
+  }
+ ],
+ "image": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_verdant_chest_4k.png",
+ "gate": 4.0,
+ "run": 40,
+ "box": [
+  691,
+  259,
+  3148,
+  2095
+ ],
+ "pass": false
+}

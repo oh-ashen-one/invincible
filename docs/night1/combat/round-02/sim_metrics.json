@@ -1,0 +1,66 @@
+{
+ "frames": 1831,
+ "enemies_ge5_frac": 0.957,
+ "enemies_median": 8.0,
+ "hero_margin_ge5_frac": 1.0,
+ "hero_margin_min": 0.057,
+ "occluder_max_pct": 6.0,
+ "occluder_gt15_frames": 0,
+ "fg_body_frames": 5,
+ "warn_frac": 0.917,
+ "frozen_frames": 208,
+ "attack_starts": 65,
+ "max_attack_gap": 0.82,
+ "top_gaps": [
+  [
+   0.82,
+   21.53
+  ],
+  [
+   0.8,
+   30.07
+  ],
+  [
+   0.8,
+   26.88
+  ],
+  [
+   0.8,
+   25.72
+  ]
+ ],
+ "first_start_after": 0.0,
+ "cam_dist_m": [
+  4.47,
+  5.52,
+  7.5
+ ],
+ "cam_pitch_down_deg": [
+  16.2,
+  21.0,
+  21.0
+ ],
+ "cam_height_over_hero_m": [
+  1.65,
+  2.04,
+  2.87
+ ],
+ "enemies_lt5_times": [
+  3.8,
+  3.9,
+  3.9,
+  4.3,
+  4.4,
+  4.5,
+  4.5,
+  4.6,
+  4.7,
+  4.8,
+  4.9,
+  5.0,
+  5.3,
+  5.4,
+  5.5,
+  5.5
+ ]
+}

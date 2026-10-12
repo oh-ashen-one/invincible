@@ -1,0 +1,66 @@
+{
+ "csv": "/Users/midir/sm2-n1/_scratch/island/r04/sim_fe3/r3_crosstown_east/r3_crosstown_east_telemetry.csv",
+ "t0": 2.4,
+ "frames": 1823,
+ "t_end": 30.3667,
+ "stuck_1s_windows_under_3m": 47,
+ "stuck_spans_t": [
+  [
+   4.0,
+   5.217
+  ],
+  [
+   10.017,
+   11.083
+  ],
+  [
+   15.317,
+   16.35
+  ],
+  [
+   18.75,
+   19.933
+  ],
+  [
+   24.1,
+   25.3
+  ]
+ ],
+ "min_1s_displacement_m": 0.79,
+ "min_at_t": 10.05,
+ "topouts_after_t0": 3,
+ "topout_events": [
+  [
+   5.183,
+   -206.57,
+   621.24,
+   56.39
+  ],
+  [
+   24.067,
+   -40.37,
+   651.42,
+   38.28
+  ],
+  [
+   30.233,
+   15.44,
+   657.04,
+   63.14
+  ]
+ ],
+ "topout_loops_same_spot": 0,
+ "x_at_3p5": -218.075,
+ "pos_at_3p5": [
+  -218.07,
+  630.64,
+  46.1
+ ],
+ "within_4m_of_r03_loop_after_3p5_s": 0,
+ "pass": {
+  "never_stuck": false,
+  "topout_loops_le_1": true,
+  "past_x_by_3p5": true,
+  "all": false
+ }
+}

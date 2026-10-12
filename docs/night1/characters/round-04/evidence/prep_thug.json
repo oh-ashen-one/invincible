@@ -1,0 +1,25 @@
+{
+ "landmarks": {
+  "eye": 1.652,
+  "nose": 1.62,
+  "ear_lobe": 1.591,
+  "chin": 1.535,
+  "nose_r": 0.1531
+ },
+ "mask_subdivided_tris": 645,
+ "tris_after_subdiv": 8426,
+ "tris_before": 6364,
+ "draped_verts": 1033,
+ "drape_max_cm": 6.36,
+ "metal_px": 101067,
+ "seam_blend_px": 927343,
+ "mask_px": 239565,
+ "tint_Oxblood_px": 5369855,
+ "name": "StreetThug",
+ "verts": 8235,
+ "tris": 8426,
+ "variants": [
+  "Oxblood"
+ ],
+ "seconds": 14.6
+}

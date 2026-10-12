@@ -1,0 +1,956 @@
+{
+ "name": "water",
+ "mode": "film",
+ "W": 1920,
+ "H": 1080,
+ "render": {
+  "pixelRatio": 1,
+  "drawingBuffer": [
+   1920,
+   1080
+  ],
+  "css": [
+   1920,
+   1080
+  ],
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Ultra, Unspecified Version)",
+  "quality": "high",
+  "maxTexUnits": 16
+ },
+ "gameSeconds": 14.03,
+ "wallSeconds": 65.4,
+ "marks": [
+  {
+   "t": 2,
+   "label": "seawall at x=-736: run W west into the river"
+  },
+  {
+   "t": 5.5,
+   "label": "in / over water"
+  },
+  {
+   "t": 8.5,
+   "label": "jump + swing attempt over the river"
+  }
+ ],
+ "console": {
+  "warning: THREE.WebGLTextures: Trying to use 17 texture units while this GPU supports only 16": 1139
+ },
+ "log": [
+  {
+   "t": 0,
+   "pos": [
+    -1,
+    1,
+    -440
+   ],
+   "spd": 0.2,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.25,
+   "pos": [
+    -1,
+    0.9,
+    -440
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.5,
+   "pos": [
+    -1,
+    0.9,
+    -440
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.75,
+   "pos": [
+    -1,
+    0.9,
+    -440
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1,
+   "pos": [
+    -730,
+    1.1,
+    -440
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.25,
+   "pos": [
+    -730,
+    1.1,
+    -440
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.5,
+   "pos": [
+    -730,
+    1.1,
+    -440
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.75,
+   "pos": [
+    -730,
+    1.1,
+    -440
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2,
+   "pos": [
+    -730,
+    1.1,
+    -440
+   ],
+   "spd": 0.8,
+   "mode": "ground",
+   "sub": "walk",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.76 k0.79",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.25,
+   "pos": [
+    -731.4,
+    1.1,
+    -440
+   ],
+   "spd": 9.2,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.04 r1.93 k1.34",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.5,
+   "pos": [
+    -733.8,
+    1.1,
+    -440
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.75,
+   "pos": [
+    -736.3,
+    1.1,
+    -440
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3,
+   "pos": [
+    -737.5,
+    2.3,
+    -440
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "vault",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchSmall",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.25,
+   "pos": [
+    -739.5,
+    2,
+    -440
+   ],
+   "spd": 10.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.5,
+   "pos": [
+    -742,
+    0.8,
+    -440
+   ],
+   "spd": 12.4,
+   "mode": "air",
+   "sub": "fall",
+   "trick": null,
+   "node": "air",
+   "clip": "fallCalm",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.75,
+   "pos": [
+    -743.8,
+    -1.8,
+    -440
+   ],
+   "spd": 8.6,
+   "mode": "air",
+   "sub": "dive",
+   "trick": null,
+   "node": "air",
+   "clip": "fallCalm",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4,
+   "pos": [
+    -744.3,
+    -3.2,
+    -440
+   ],
+   "spd": 3.8,
+   "mode": "air",
+   "sub": "dive",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.25,
+   "pos": [
+    -744.6,
+    -3.5,
+    -440
+   ],
+   "spd": 0.7,
+   "mode": "air",
+   "sub": "dive",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.5,
+   "pos": [
+    -744.7,
+    -3.2,
+    -440
+   ],
+   "spd": 2.1,
+   "mode": "air",
+   "sub": "dive",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.75,
+   "pos": [
+    -744.7,
+    -2.5,
+    -440
+   ],
+   "spd": 3,
+   "mode": "air",
+   "sub": "dive",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5,
+   "pos": [
+    -744.2,
+    0.6,
+    -439.7
+   ],
+   "spd": 18.9,
+   "mode": "air",
+   "sub": "pointLaunch",
+   "trick": null,
+   "node": "pointLaunch",
+   "clip": "pointLaunch",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.25,
+   "pos": [
+    -741.9,
+    3.7,
+    -438.3
+   ],
+   "spd": 14.4,
+   "mode": "air",
+   "sub": "pointLaunch",
+   "trick": null,
+   "node": "pointLaunch",
+   "clip": "pointLaunch",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.5,
+   "pos": [
+    -739.5,
+    5.3,
+    -437
+   ],
+   "spd": 11.4,
+   "mode": "air",
+   "sub": "rise",
+   "trick": null,
+   "node": "pointLaunch",
+   "clip": "pointLaunch",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.75,
+   "pos": [
+    -737.2,
+    5.7,
+    -435.6
+   ],
+   "spd": 10.8,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "pointLaunch",
+   "clip": "pointLaunch",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6,
+   "pos": [
+    -734.8,
+    5.4,
+    -434.3
+   ],
+   "spd": 11.3,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.25,
+   "pos": [
+    -732.5,
+    3.9,
+    -432.9
+   ],
+   "spd": 14,
+   "mode": "air",
+   "sub": "fall",
+   "trick": null,
+   "node": "air",
+   "clip": "fallCalm",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.5,
+   "pos": [
+    -730.2,
+    1.1,
+    -431.5
+   ],
+   "spd": 9.2,
+   "mode": "ground",
+   "sub": "landRoll",
+   "trick": null,
+   "node": "land",
+   "clip": "landRoll",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.75,
+   "pos": [
+    -728.5,
+    1.1,
+    -430.3
+   ],
+   "spd": 7.7,
+   "mode": "ground",
+   "sub": "landRoll",
+   "trick": null,
+   "node": "land",
+   "clip": "landRoll",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 7,
+   "pos": [
+    -727,
+    1.1,
+    -428.8
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "land",
+   "clip": "landRoll",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 7.25,
+   "pos": [
+    -725.4,
+    1.1,
+    -426.9
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 7.5,
+   "pos": [
+    -723.7,
+    1.1,
+    -425.1
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 7.75,
+   "pos": [
+    -722.1,
+    1.1,
+    -423.3
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 8,
+   "pos": [
+    -720.4,
+    1.1,
+    -421.5
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 8.25,
+   "pos": [
+    -718.7,
+    1.1,
+    -419.8
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 8.5,
+   "pos": [
+    -717,
+    1.1,
+    -418
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "jumpCharge",
+   "trick": null,
+   "node": "jumpCharge",
+   "clip": "jumpCrouch+loco",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 8.75,
+   "pos": [
+    -715.3,
+    2.6,
+    -416.1
+   ],
+   "spd": 13.4,
+   "mode": "air",
+   "sub": "jumpLaunch",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchSmall",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 9,
+   "pos": [
+    -712.3,
+    4.5,
+    -413
+   ],
+   "spd": 12.6,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 9.25,
+   "pos": [
+    -708.9,
+    5.2,
+    -409.7
+   ],
+   "spd": 14.4,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 9.5,
+   "pos": [
+    -704.5,
+    5.3,
+    -406.7
+   ],
+   "spd": 17.3,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 9.75,
+   "pos": [
+    -699.2,
+    5,
+    -404.3
+   ],
+   "spd": 20.4,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 10,
+   "pos": [
+    -692.9,
+    5.2,
+    -402.9
+   ],
+   "spd": 23,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingBottomL",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 10.25,
+   "pos": [
+    -686.9,
+    6.1,
+    -400.6
+   ],
+   "spd": 26.9,
+   "mode": "air",
+   "sub": "release",
+   "trick": null,
+   "node": "air",
+   "clip": "releaseSpread",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 10.5,
+   "pos": [
+    -680.6,
+    6.3,
+    -398.1
+   ],
+   "spd": 26.9,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "releaseSpread",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 10.75,
+   "pos": [
+    -674.8,
+    5.5,
+    -394.9
+   ],
+   "spd": 27.3,
+   "mode": "air",
+   "sub": "fall",
+   "trick": null,
+   "node": "air",
+   "clip": "releaseSpread",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 11,
+   "pos": [
+    -669.9,
+    4.2,
+    -391.4
+   ],
+   "spd": 15.9,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 11.25,
+   "pos": [
+    -669.7,
+    7.7,
+    -391.6
+   ],
+   "spd": 11.4,
+   "mode": "air",
+   "sub": "jumpLaunch",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 11.5,
+   "pos": [
+    -669.5,
+    9.7,
+    -391.4
+   ],
+   "spd": 5.3,
+   "mode": "air",
+   "sub": "rise",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 11.75,
+   "pos": [
+    -669.5,
+    10.4,
+    -391.4
+   ],
+   "spd": 1.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 12,
+   "pos": [
+    -669.5,
+    10.4,
+    -391.4
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 12.25,
+   "pos": [
+    -669.5,
+    13.9,
+    -391.4
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 12.5,
+   "pos": [
+    -669.5,
+    17.4,
+    -391.4
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 12.75,
+   "pos": [
+    -669.5,
+    20.9,
+    -391.4
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 13,
+   "pos": [
+    -669.5,
+    24.4,
+    -391.4
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 13.25,
+   "pos": [
+    -669.5,
+    24.6,
+    -391.4
+   ],
+   "spd": 0,
+   "mode": "wall",
+   "sub": "crawl",
+   "trick": null,
+   "node": "crawl",
+   "clip": "wallIdle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 13.5,
+   "pos": [
+    -669.5,
+    24.6,
+    -391.4
+   ],
+   "spd": 0,
+   "mode": "wall",
+   "sub": "crawl",
+   "trick": null,
+   "node": "crawl",
+   "clip": "wallIdle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 13.75,
+   "pos": [
+    -669.5,
+    24.6,
+    -391.4
+   ],
+   "spd": 0,
+   "mode": "wall",
+   "sub": "crawl",
+   "trick": null,
+   "node": "crawl",
+   "clip": "wallIdle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 14,
+   "pos": [
+    -669.5,
+    24.6,
+    -391.4
+   ],
+   "spd": 0,
+   "mode": "wall",
+   "sub": "crawl",
+   "trick": null,
+   "node": "crawl",
+   "clip": "wallIdle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  }
+ ],
+ "clip": "docs/night1/baseline/clips/water.mp4",
+ "clipMB": 13.05,
+ "captureFps": "60 (frame-stepped game time, 1/60 s per frame)"
+}

@@ -1,0 +1,122 @@
+[
+ {
+  "id": "fight-clip-34",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_34.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/street-combo__nm_0214-0224.mp4",
+  "note": "hero among a group of street criminals, mid camera above: judge hit reactions, knockdowns and whether any of them stands idle"
+ },
+ {
+  "id": "fight-clip-cars",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_34.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/street-fight-cars__nm_0500-0510.mp4",
+  "note": "hero fighting a group of criminals: judge enemy reactions to hits, knockdown and recovery"
+ },
+ {
+  "id": "fight-clip-wide",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_wide.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/plaza-fight__dn_0818-0828.mp4",
+  "note": "hero and a group of enemies closing in and trading blows, wide camera"
+ },
+ {
+  "id": "fight-orbit",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_orbit.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/street-fight-cars__nm_0500-0510.mp4",
+  "note": "orbiting camera around a hero fighting a group"
+ },
+ {
+  "id": "enemy-knockdown",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_34_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/enemy-launched-og__og_0149.jpg",
+  "note": "an enemy knocked to the ground by the hero: judge the pose, the contact with the ground and the other enemies"
+ },
+ {
+  "id": "thugs-group",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_wide_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thugs-group-nm__nm_0049.jpg",
+  "note": "a group of street criminals around the hero"
+ },
+ {
+  "id": "thug-close",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/thug_face_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thug-closeup-dn__dn_0523.jpg",
+  "note": "street criminal close-up"
+ },
+ {
+  "id": "citizens-clip",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/crowd_tracking.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/clips/street-npcs-idle__dn_0600-0608.mp4",
+  "note": "pedestrians near the camera"
+ },
+ {
+  "id": "citizens-still",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/crowd_tracking_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/npc-group-dn__dn_0725.jpg",
+  "note": "a group of pedestrians on a street"
+ },
+ {
+  "id": "hero-run",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-08/captures/hero_run_side.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-crosswalk__dn_0329-0337.mp4",
+  "note": "masked acrobat hero running, full body"
+ },
+ {
+  "id": "hero-standing",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-08/captures/hero_turntable_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-idle-street-og__og_0000.jpg",
+  "note": "hero full body on a street"
+ },
+ {
+  "id": "hero-face",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-08/captures/hero_face_lens_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-face-closeup__gr_0230.jpg",
+  "note": "mask and eye lens close-up"
+ },
+ {
+  "id": "progress-fight",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_34.mp4",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-08/captures/street_fight_34.mp4",
+  "note": "two versions of the same staged street fight (same camera): judge hit reactions, knockdowns and idle enemies"
+ },
+ {
+  "id": "progress-fight-still",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/street_fight_34_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-08/captures/street_fight_34_4k.jpg",
+  "note": "two versions of the same fight, one frame: judge what the enemies are doing"
+ },
+ {
+  "id": "progress-tee-mask",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/tee_face_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-08/captures/tee_face_4k.jpg",
+  "note": "two versions of the same masked face: judge holes through the cloth mask (background showing through)"
+ },
+ {
+  "id": "progress-thug-collar",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/thug_face_4k.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-08/captures/thug_face_4k.jpg",
+  "note": "two versions of the same street criminal close-up: judge a skin-coloured wedge at the jacket collar"
+ },
+ {
+  "id": "progress-crowd",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/crowd_tracking.mp4",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-08/captures/crowd_tracking.mp4",
+  "note": "two versions of the same pedestrians clip: judge the legs of the walkers (how high a swinging foot is lifted) and long coats"
+ },
+ {
+  "id": "tee-mouth-3x",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/crops_3x/r9_tee-mouth.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/crops_3x/r8_tee-mouth.jpg",
+  "note": "masked face around the nose / mouth, 3x crop, two versions: judge holes through the mask"
+ },
+ {
+  "id": "thug-collar-3x",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/crops_3x/r9_thug-collar.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/crops_3x/r8_thug-collar.jpg",
+  "note": "street criminal collar, 3x crop, two versions: judge a skin-coloured wedge"
+ },
+ {
+  "id": "knockdown-3x",
+  "x": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/crops_3x/r9_knockdown.jpg",
+  "y": "/Users/midir/sm2-n1/characters/docs/night1/characters/round-09/captures/crops_3x/r8_knockdown.jpg",
+  "note": "enemy lying on the ground, 3x crop, two versions of the choreography"
+ }
+]

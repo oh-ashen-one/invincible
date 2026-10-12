@@ -1,0 +1,164 @@
+{
+ "image": "crowd_key_c_4k.png",
+ "size": [
+  3840,
+  2160
+ ],
+ "key_bgr": [
+  4,
+  236,
+  10
+ ],
+ "key_exact_bg_px": 7456165,
+ "person_px": 838235,
+ "bg_median_bgr": [
+  4,
+  236,
+  10
+ ],
+ "g_gt_r40_person_px": 185,
+ "g_gt_r40_in_clusters_px": 0,
+ "fringe_px": 185,
+ "g_dominant_person_px": 0,
+ "g_dominant_in_clusters_px": 0,
+ "clusters": [],
+ "enclosed_key_components": 12,
+ "enclosed_key_px": 1563,
+ "enclosed_key_thin_components": 7,
+ "enclosed_key_top": [
+  {
+   "bbox": [
+    3751,
+    1195,
+    28,
+    39
+   ],
+   "px": 569,
+   "width_px": 20.4,
+   "thin": false
+  },
+  {
+   "bbox": [
+    804,
+    1331,
+    24,
+    35
+   ],
+   "px": 392,
+   "width_px": 17.1,
+   "thin": false
+  },
+  {
+   "bbox": [
+    3776,
+    1026,
+    11,
+    47
+   ],
+   "px": 220,
+   "width_px": 8.0,
+   "thin": false
+  },
+  {
+   "bbox": [
+    2103,
+    893,
+    13,
+    26
+   ],
+   "px": 143,
+   "width_px": 8.2,
+   "thin": false
+  },
+  {
+   "bbox": [
+    3640,
+    990,
+    12,
+    29
+   ],
+   "px": 114,
+   "width_px": 6.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    3701,
+    929,
+    11,
+    9
+   ],
+   "px": 62,
+   "width_px": 7.2,
+   "thin": false
+  },
+  {
+   "bbox": [
+    887,
+    1699,
+    7,
+    5
+   ],
+   "px": 23,
+   "width_px": 4.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    2436,
+    1390,
+    7,
+    4
+   ],
+   "px": 16,
+   "width_px": 4.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    3742,
+    888,
+    5,
+    4
+   ],
+   "px": 8,
+   "width_px": 2.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    145,
+    1118,
+    1,
+    6
+   ],
+   "px": 6,
+   "width_px": 2.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    1188,
+    917,
+    2,
+    3
+   ],
+   "px": 5,
+   "width_px": 2.0,
+   "thin": true
+  },
+  {
+   "bbox": [
+    1445,
+    1064,
+    1,
+    5
+   ],
+   "px": 5,
+   "width_px": 2.0,
+   "thin": true
+  }
+ ],
+ "detached_components": 0,
+ "detached": []
+}

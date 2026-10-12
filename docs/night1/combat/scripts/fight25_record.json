@@ -1,0 +1,268 @@
+{
+ "spec": "mgbmgm",
+ "dist": 7,
+ "seed": 7,
+ "start": 1.0,
+ "quit": 27.0,
+ "beats": [
+  {
+   "t": 1.5,
+   "key": "attack",
+   "toward": "e4",
+   "label": "combo A 1 (jab/cross)"
+  },
+  {
+   "t": 1.95,
+   "key": "attack",
+   "toward": "e4",
+   "label": "combo A 2"
+  },
+  {
+   "t": 2.4,
+   "key": "attack",
+   "toward": "e4",
+   "label": "combo A 3"
+  },
+  {
+   "t": 2.85,
+   "key": "attack",
+   "toward": "e4",
+   "label": "combo A ender"
+  },
+  {
+   "t": 3.3,
+   "key": "dodge",
+   "react": "threat",
+   "window": 2.5,
+   "label": "perfect dodge 1 (slow-mo)"
+  },
+  {
+   "t": 3.4,
+   "key": "attack",
+   "react": "free",
+   "window": 1.0,
+   "label": "counter"
+  },
+  {
+   "t": 4.6,
+   "key": "attack",
+   "toward": "e6",
+   "label": "combo B 1"
+  },
+  {
+   "t": 5.0,
+   "key": "attack",
+   "toward": "e6",
+   "hold": 0.35,
+   "label": "launcher (hold)"
+  },
+  {
+   "t": 5.95,
+   "key": "attack",
+   "label": "air combo 1"
+  },
+  {
+   "t": 6.3,
+   "key": "attack",
+   "label": "air combo 2"
+  },
+  {
+   "t": 6.65,
+   "key": "attack",
+   "label": "air combo 3 (slam)"
+  },
+  {
+   "t": 7.8,
+   "key": "web",
+   "toward": "e2",
+   "label": "web shooter -> gunman e2 (disarm)"
+  },
+  {
+   "t": 8.15,
+   "key": "web",
+   "toward": "e2",
+   "label": "web shooter -> e2"
+  },
+  {
+   "t": 8.6,
+   "key": "web",
+   "toward": "e5",
+   "label": "web shooter -> gunman e5 (disarm)"
+  },
+  {
+   "t": 8.95,
+   "key": "web",
+   "toward": "e5",
+   "label": "web shooter -> e5"
+  },
+  {
+   "t": 9.6,
+   "key": "dodge",
+   "react": "threat",
+   "window": 2.0,
+   "label": "perfect dodge 2"
+  },
+  {
+   "t": 9.7,
+   "key": "strike",
+   "react": "free",
+   "window": 1.5,
+   "label": "web strike (E)"
+  },
+  {
+   "t": 11.4,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo C 1"
+  },
+  {
+   "t": 11.85,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo C 2"
+  },
+  {
+   "t": 12.3,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo C 3"
+  },
+  {
+   "t": 12.75,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo C ender"
+  },
+  {
+   "t": 13.3,
+   "key": "dodge",
+   "react": "threat",
+   "window": 2.0,
+   "label": "perfect dodge 3"
+  },
+  {
+   "t": 13.4,
+   "key": "finisher",
+   "react": "free",
+   "window": 1.5,
+   "label": "finisher (Q)"
+  },
+  {
+   "t": 16.6,
+   "key": "web",
+   "toward": "e3",
+   "react": "free",
+   "window": 1.5,
+   "label": "web brute 1"
+  },
+  {
+   "t": 17.15,
+   "key": "web",
+   "toward": "e3",
+   "label": "web brute 2 (stun)"
+  },
+  {
+   "t": 17.55,
+   "key": "attack",
+   "toward": "e3",
+   "react": "free",
+   "window": 1.0,
+   "label": "strike stunned brute"
+  },
+  {
+   "t": 17.95,
+   "key": "attack",
+   "toward": "e3",
+   "hold": 0.35,
+   "label": "launcher brute (hold)"
+  },
+  {
+   "t": 18.9,
+   "key": "attack",
+   "label": "air 1"
+  },
+  {
+   "t": 19.25,
+   "key": "attack",
+   "label": "air 2"
+  },
+  {
+   "t": 19.6,
+   "key": "attack",
+   "label": "air 3 (slam)"
+  },
+  {
+   "t": 20.4,
+   "key": "dodge",
+   "react": "threat",
+   "window": 2.0,
+   "label": "perfect dodge 4"
+  },
+  {
+   "t": 20.5,
+   "key": "attack",
+   "toward": "e1",
+   "react": "free",
+   "window": 1.0,
+   "label": "counter 2"
+  },
+  {
+   "t": 21.0,
+   "key": "attack",
+   "toward": "e1",
+   "react": "free",
+   "window": 1.0,
+   "label": "combo D 2"
+  },
+  {
+   "t": 21.4,
+   "key": "attack",
+   "toward": "e1",
+   "react": "free",
+   "window": 1.0,
+   "label": "combo D 3"
+  },
+  {
+   "t": 21.8,
+   "key": "attack",
+   "toward": "e1",
+   "react": "free",
+   "window": 1.0,
+   "label": "combo D ender"
+  },
+  {
+   "t": 22.6,
+   "key": "finisher",
+   "toward": "e3",
+   "react": "free",
+   "window": 1.5,
+   "label": "finisher 2 (brute)"
+  },
+  {
+   "t": 24.3,
+   "key": "attack",
+   "toward": "e5",
+   "react": "free",
+   "window": 1.0,
+   "label": "combo E 1"
+  },
+  {
+   "t": 24.75,
+   "key": "attack",
+   "toward": "e5",
+   "label": "combo E 2"
+  },
+  {
+   "t": 25.2,
+   "key": "attack",
+   "toward": "e5",
+   "label": "combo E 3"
+  },
+  {
+   "t": 25.65,
+   "key": "attack",
+   "toward": "e5",
+   "label": "combo E ender"
+  }
+ ]
+}

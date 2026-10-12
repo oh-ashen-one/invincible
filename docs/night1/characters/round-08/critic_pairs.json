@@ -1,0 +1,128 @@
+[
+ {
+  "id": "hero-run",
+  "x": "docs/night1/characters/round-08/captures/hero_run_side.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-crosswalk__dn_0329-0337.mp4",
+  "note": "masked acrobat hero running, full body"
+ },
+ {
+  "id": "hero-chase",
+  "x": "docs/night1/characters/round-08/captures/hero_run_chase.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/animation/clips/run-toward-camera__dn_0418-0425.mp4",
+  "note": "hero running away from a chase camera behind"
+ },
+ {
+  "id": "hero-standing",
+  "x": "docs/night1/characters/round-08/captures/hero_turntable_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/hero-idle-street-og__og_0000.jpg",
+  "note": "hero full body on a street"
+ },
+ {
+  "id": "suit-close",
+  "x": "docs/night1/characters/round-08/captures/suit_closeup_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/press-suit-closeup-fire__psblog_14.jpg",
+  "note": "suit fabric close-up"
+ },
+ {
+  "id": "hero-face",
+  "x": "docs/night1/characters/round-08/captures/hero_face_lens_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/miles-face-closeup__gr_0230.jpg",
+  "note": "mask and eye lens close-up"
+ },
+ {
+  "id": "thugs-group",
+  "x": "docs/night1/characters/round-08/captures/street_fight_wide_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thugs-group-nm__nm_0049.jpg",
+  "note": "a group of street criminals around the hero"
+ },
+ {
+  "id": "fight-clip",
+  "x": "docs/night1/characters/round-08/captures/street_fight_34.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/combat/clips/street-combo__nm_0214-0224.mp4",
+  "note": "hero among a group of thugs, mid camera above"
+ },
+ {
+  "id": "thug-close",
+  "x": "docs/night1/characters/round-08/captures/thug_face_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/thug-closeup-dn__dn_0523.jpg",
+  "note": "street criminal close-up"
+ },
+ {
+  "id": "citizens-clip",
+  "x": "docs/night1/characters/round-08/captures/crowd_tracking.mp4",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/clips/street-npcs-idle__dn_0600-0608.mp4",
+  "note": "pedestrians near the camera"
+ },
+ {
+  "id": "citizens-still",
+  "x": "docs/night1/characters/round-08/captures/crowd_tracking_4k.jpg",
+  "y": "/Users/midir/spiderman-learnings/refs/characters/npc-group-dn__dn_0725.jpg",
+  "note": "a group of pedestrians on a street"
+ },
+ {
+  "id": "progress-hero-face",
+  "x": "docs/night1/characters/round-08/captures/hero_face_lens_4k.jpg",
+  "y": "docs/night1/characters/round-07/captures/hero_face_lens_4k.jpg",
+  "note": "two versions of the same hero mask close-up (eye lens and rim): judge the lens sitting inside the head, any background showing between rim and lens, and any lens beyond the mask outline"
+ },
+ {
+  "id": "progress-hero-standing",
+  "x": "docs/night1/characters/round-08/captures/hero_turntable_4k.jpg",
+  "y": "docs/night1/characters/round-07/captures/hero_turntable_4k.jpg",
+  "note": "two versions of the same hero, full body: judge whether either suit copies a well-known existing suit design (layout, emblem, colour blocking, web pattern)"
+ },
+ {
+  "id": "progress-suit-close",
+  "x": "docs/night1/characters/round-08/captures/suit_closeup_4k.jpg",
+  "y": "docs/night1/characters/round-07/captures/suit_closeup_4k.jpg",
+  "note": "two versions of the same suit close-up: judge line quality (stair-stepped or wobbling lines), emblem and panel originality"
+ },
+ {
+  "id": "progress-crowd-still",
+  "x": "docs/night1/characters/round-08/captures/crowd_tracking_4k.jpg",
+  "y": "docs/night1/characters/round-07/captures/crowd_tracking_4k.jpg",
+  "note": "two versions of our pedestrians (still): judge fused or overlapping heads"
+ },
+ {
+  "id": "progress-thug-collar",
+  "x": "docs/night1/characters/round-08/captures/thug_face_4k.jpg",
+  "y": "docs/night1/characters/round-07/captures/thug_face_4k.jpg",
+  "note": "two versions of the same street criminal close-up: judge jagged skin-coloured shards at the jacket collar"
+ },
+ {
+  "id": "progress-tee-mask",
+  "x": "docs/night1/characters/round-08/captures/tee_face_4k.jpg",
+  "y": "docs/night1/characters/round-07/captures/tee_face_4k.jpg",
+  "note": "two versions of the same masked face: judge lips or a mouth slit showing through the cloth mask"
+ },
+ {
+  "id": "hero-eye-3x",
+  "x": "docs/night1/characters/round-08/captures/crops_3x/r8_hero-eye.jpg",
+  "y": "docs/night1/characters/round-08/captures/crops_3x/r7_hero-eye.jpg",
+  "note": "hero eye, 3x crop, two versions: judge background pixels between rim and lens, and any lens reaching beyond the mask outline"
+ },
+ {
+  "id": "hero-lines-3x",
+  "x": "docs/night1/characters/round-08/captures/crops_3x/r8_hero-lines.jpg",
+  "y": "docs/night1/characters/round-08/captures/crops_3x/r7_hero-lines.jpg",
+  "note": "hero suit line work, 3x crop, two versions: judge stair-stepped lines"
+ },
+ {
+  "id": "thug-collar-3x",
+  "x": "docs/night1/characters/round-08/captures/crops_3x/r8_thug-collar.jpg",
+  "y": "docs/night1/characters/round-08/captures/crops_3x/r7_thug-collar.jpg",
+  "note": "street criminal collar, 3x crop, two versions: judge jagged shards"
+ },
+ {
+  "id": "tee-mouth-3x",
+  "x": "docs/night1/characters/round-08/captures/crops_3x/r8_tee-mouth.jpg",
+  "y": "docs/night1/characters/round-08/captures/crops_3x/r7_tee-mouth.jpg",
+  "note": "masked face mouth area, 3x crop, two versions: judge lips showing through the mask"
+ },
+ {
+  "id": "crowd-heads-3x",
+  "x": "docs/night1/characters/round-08/captures/crops_3x/r8_crowd-heads.jpg",
+  "y": "docs/night1/characters/round-08/captures/crops_3x/r7_crowd-heads.jpg",
+  "note": "two pedestrians heads, 3x crop, two versions: judge fused heads"
+ }
+]

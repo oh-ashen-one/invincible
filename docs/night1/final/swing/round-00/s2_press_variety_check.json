@@ -1,0 +1,87 @@
+{
+ "W1": {
+  "value": "0.0 % of 878 frames; error p50 46.6 p95 559.0 max 634.1 cm (hero speed median 26 m/s); press/attach frame median 50.2 cm; same-row bone read max 623.4 cm; release-phase frames (88): median 1444 cm",
+  "pass": false,
+  "note": ""
+ },
+ "W2": {
+  "value": "arrival median 37 deg (1/9 <= 20); max over swing median 53 deg (2/9 <= 30); motion start (angle -5 deg) median 0.017 s (9 of 9 strands started)",
+  "pass": false,
+  "note": ""
+ },
+ "W3": {
+  "value": "1/9 shots pass; shoot s median 0.092 (0.050-0.131); tip speed median 374 m/s; first-frame progress median 0.45; tension starts -0.03 s relative to tip landing (median; negative = before)",
+  "pass": false,
+  "note": ""
+ },
+ "W4": {
+  "value": "chest rate max within -3..+5 frames of attach: 0 % <= 400, worst 2241 deg/s (>700: 6 of 9); hand speed ratio median 1.21, max 2.02 (> 2.5: 0 of 9)",
+  "pass": false,
+  "note": ""
+ },
+ "W5": {
+  "value": "114/130 judged frames pass (88 %); measured width median 3.50 px; contrast median 93/255; not judged (short / off-screen) 4 of 147 web-on",
+  "pass": false,
+  "note": ""
+ },
+ "W6": {
+  "value": "wave in flight median 16.5 cm (max 25.8); at landing median 12.8; 0.10 s after landing median 3.5 cm (max 5.8)",
+  "pass": false,
+  "note": ""
+ },
+ "W7": {
+  "value": "170/966 drawn frames blocked; min clear fraction 0.006",
+  "pass": false,
+  "note": ""
+ },
+ "W8": {
+  "value": "9 releases; drawn-after-release duration median 0.17 s (min 0.15 max 0.17)",
+  "pass": true,
+  "note": ""
+ },
+ "W9": {
+  "value": "7/9 attaches match (78 %); where the anchor side alternated the hand alternated 4/6",
+  "pass": false,
+  "note": ""
+ },
+ "W10": {
+  "value": "8/11 presses resolve; no visible response at t=[2.25, 0.3, 1.4]; anchor behind the hero 0",
+  "pass": false,
+  "note": ""
+ },
+ "A1": {
+  "value": "56 % of 43 sample pairs in 9 swings; median 0.17; (legs-lag 0.05-0.15 s: n/m, no per-bone timing logged)",
+  "pass": false,
+  "note": ""
+ },
+ "A2": {
+  "value": "9 swings; distinct in 6-windows [5, 4, 4, 4]; styles ['swingBottom', 'swingCornerBank', 'swingCornerBankL', 'swingHigh', 'swingLowL']",
+  "pass": true,
+  "note": ""
+ },
+ "A3": {
+  "value": "9 releases; signature change in 0.1 s median 0.31 (9/9 >= 0.10); vz at release median 7.8 m/s, speed 20.7 m/s",
+  "pass": true,
+  "note": ""
+ },
+ "A4": {
+  "value": "longest held stretch 0.33 s over 22 air spans",
+  "pass": true,
+  "note": ""
+ },
+ "A5": {
+  "value": "2 tricks, 2 caught by a web; catch delay median 0.00 s (1/2 <= 0.25); chest-rate max through catch median 769 deg/s (0/2 <= 400)",
+  "pass": false,
+  "note": ""
+ },
+ "A6": {
+  "value": "2 tricks; distinct end clips 2: ['flipThrone/flip_wallFront', 'flipTuck/flip_backSingle']",
+  "pass": null,
+  "note": ""
+ },
+ "A7": {
+  "value": "7 shape segments; 100 % >= 8 frames; shortest 14 frames",
+  "pass": true,
+  "note": ""
+ }
+}

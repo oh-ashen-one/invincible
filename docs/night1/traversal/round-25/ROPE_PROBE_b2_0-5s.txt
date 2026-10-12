@@ -1,0 +1,5 @@
+rprobe_b2: 50 samples at 10 fps, web_on 26 (52.0 %), judged 26, short/not drawn 0
+  PASS 25/26 judged web_on frames (pt_med >= 25, pt_pass >= .8, width 2-4 px)
+  pt_med p10/p50 80.0/90.9; pt_pass median 1.00; glob (whole-rope literal) >= 25: 20/26; width median 3.25 px (drawn 3.88); edge 26/26
+  pale facades 0.9-1.1 s: 0.9:P(med 85, pass 1.00, glob 25, rope 139/band 113, w 3.0) 1.0:P(med 86, pass 1.00, glob 27, rope 141/band 110, w 3.5) 1.1:P(med 87, pass 0.98, glob 24, rope 138/band 113, w 3.0)
+  failing: 0.4(med 20 pass 0.39 w 4.0)

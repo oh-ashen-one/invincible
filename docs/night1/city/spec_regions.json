@@ -1,0 +1,611 @@
+{
+ "_doc": [
+  "CITY spec measurement regions (P1 City, round 07). ONE source of truth for builder and critic: run tools/export/city_spec_check.py <round_dir>.",
+  "Boxes are [x0,y0,x1,y1] pixels. '1080' boxes refer to 1920x1080 frames, '4k' boxes to 3840x2160 frames (exactly 2x).",
+  "Measurement rule (CITY-SPEC header): texture statistics (mean |Laplacian|, RMS contrast, flat 8x8 blocks) are taken on a 1920x1080 frame; a 4K frame is downscaled with INTER_AREA first.",
+  "Mean-type statistics (Y, B-R, share of pixels above 204, percentiles) use the native frame with the box of that resolution. Y = .2126 R + .7152 G + .0722 B on the 8-bit sRGB frame.",
+  "Facade boxes are hand-placed inside facade-only areas of the current S-view cameras (no sky, no street); if a camera changes they must be re-placed and the file version bumped.",
+  "S4 far-field boxes: sky = top band left of the right-hand tower; far_shore = the skyline across the river only (no near-city pixels); river = open water right of the slab, left of the piers; near = the near roof (bottom-left).",
+  "Round 06 disagreement (builder far_shore 0-900 x 215-300 / river 450-1250 x 330-400 vs critic far_shore 420-1400 x 180-235 / river 450-1000 x 260-330): the builder boxes contained near-city and pier pixels; these boxes replace both.",
+  "Version 2 (round 09): the r08 street trees (S1 west sidewalk, S6 right foreground) grew over four v1 boxes, so their C1 / C2 numbers measured foliage, not facades (green-dominant share 36 % / 82 % / 30 % / 67 %). Re-placed to foliage-free wall (green share <= 1 %): s1_left_stone (0,0,190,235), s1_right_brick (1075,0,1335,230), s1_right_dark (1360,0,1690,290), s6_left_brown (0,20,270,180). Dropped, no foliage-free wall left in frame: s1_left_glass (fully behind a crown), s6_right_white. 16 daylight boxes + 3 dusk boxes remain (was 18 + 3). The v1 file is spec_regions_v1.json (r07 / r08 numbers).",
+  "v3 (r10): crit_boxes = the r09 critic boxes, share of pixels above Y 204 <= max_pct204 (C1 1.5 %; S4 far band 10 %); S4 also gets T1 silhouette-top std >= 12 px from s4_far_check.silhouette_tops."
+ ],
+ "version": 3,
+ "frames": {
+  "1080": [
+   1920,
+   1080
+  ],
+  "4k": [
+   3840,
+   2160
+  ]
+ },
+ "thresholds": {
+  "C1": {
+   "pct_above_204_max": 1.5,
+   "p95_max": 192,
+   "p99_max": 206
+  },
+  "C2": {
+   "mean_Y_min": 52,
+   "mean_Y_max": 119
+  },
+  "C4": {
+   "cars_min": 5,
+   "cars_max": 19,
+   "people_min": 6,
+   "people_max": 32,
+   "traffic_lights_min": 1
+  },
+  "C6": {
+   "vehicles_min": 14,
+   "vehicles_max": 22
+  },
+  "C11": {
+   "far_over_sky_lap_min": 6.0,
+   "flat_blocks_pct_max": 40
+  },
+  "C12": {
+   "br_diff_max": 10
+  },
+  "C13": {
+   "far_minus_sky_Y": [
+    -35,
+    -25
+   ]
+  },
+  "C14": {
+   "river_below_far_Y": [
+    5,
+    35
+   ]
+  },
+  "C15": {
+   "rms_far_over_near": [
+    0.25,
+    0.45
+   ]
+  }
+ },
+ "ip_denylist": [
+  "OSCORP",
+  "OSBORN",
+  "ROXX",
+  "BUGLE",
+  "FROSTED",
+  "HALOS",
+  "BOTANICA",
+  "MIRA",
+  "HYDRA",
+  "EMPIRE STATE",
+  "COLTEX",
+  "COLEX",
+  "HAUTE",
+  "ASTOR",
+  "MADISON",
+  "BOREAL",
+  "OUTDOOR",
+  "KNIGHTS",
+  "HELL'S KITCHEN",
+  "STARK",
+  "WAYNE",
+  "SEE SOMETHING",
+  "SAY SOMETHING",
+  "NEO RACER",
+  "NEON RACER",
+  "NEED FOR",
+  "OUT NOW",
+  "RACER"
+ ],
+ "views": {
+  "S1_avenue_street": {
+   "daylight": true,
+   "C1_C2_facade": {
+    "s1_left_stone": {
+     "1080": [
+      0,
+      0,
+      190,
+      235
+     ],
+     "4k": [
+      0,
+      0,
+      380,
+      470
+     ]
+    },
+    "s1_right_brick": {
+     "1080": [
+      1075,
+      0,
+      1335,
+      230
+     ],
+     "4k": [
+      2150,
+      0,
+      2670,
+      460
+     ]
+    },
+    "s1_right_dark": {
+     "1080": [
+      1360,
+      0,
+      1690,
+      290
+     ],
+     "4k": [
+      2720,
+      0,
+      3380,
+      580
+     ]
+    }
+   },
+   "C4_yolo": {
+    "1080": [
+     0,
+     0,
+     1920,
+     1080
+    ],
+    "4k": [
+     0,
+     0,
+     3840,
+     2160
+    ]
+   }
+  },
+  "S2_avenue_swing": {
+   "daylight": true,
+   "C1_C2_facade": {
+    "s2_left_stone": {
+     "1080": [
+      150,
+      100,
+      600,
+      900
+     ],
+     "4k": [
+      300,
+      200,
+      1200,
+      1800
+     ]
+    },
+    "s2_gold_glass": {
+     "1080": [
+      1475,
+      60,
+      1900,
+      900
+     ],
+     "4k": [
+      2950,
+      120,
+      3800,
+      1800
+     ]
+    },
+    "s2_white_tower": {
+     "1080": [
+      1345,
+      80,
+      1455,
+      700
+     ],
+     "4k": [
+      2690,
+      160,
+      2910,
+      1400
+     ]
+    },
+    "s2_dark_tower": {
+     "1080": [
+      1220,
+      60,
+      1330,
+      900
+     ],
+     "4k": [
+      2440,
+      120,
+      2660,
+      1800
+     ]
+    }
+   },
+   "C6_yolo": {
+    "1080": [
+     0,
+     0,
+     1920,
+     1080
+    ],
+    "4k": [
+     0,
+     0,
+     3840,
+     2160
+    ]
+   }
+  },
+  "S3_rooftop_watertower": {
+   "daylight": true,
+   "C9": "manual: count wooden water towers in frame (target >= 2) and note rooftop clutter; not measurable by pixels"
+  },
+  "S4_perch_skyline": {
+   "daylight": true,
+   "C11_C15_far": {
+    "sky": {
+     "1080": [
+      0,
+      0,
+      1650,
+      80
+     ],
+     "4k": [
+      0,
+      0,
+      3300,
+      160
+     ]
+    },
+    "far_shore": {
+     "1080": [
+      450,
+      192,
+      1350,
+      236
+     ],
+     "4k": [
+      900,
+      384,
+      2700,
+      472
+     ]
+    },
+    "river": {
+     "1080": [
+      720,
+      298,
+      1000,
+      338
+     ],
+     "4k": [
+      1440,
+      596,
+      2000,
+      676
+     ]
+    },
+    "mid_city": {
+     "1080": [
+      900,
+      450,
+      1350,
+      650
+     ],
+     "4k": [
+      1800,
+      900,
+      2700,
+      1300
+     ]
+    },
+    "near_city": {
+     "1080": [
+      0,
+      750,
+      500,
+      1000
+     ],
+     "4k": [
+      0,
+      1500,
+      1000,
+      2000
+     ]
+    },
+    "horizon_far": {
+     "1080": [
+      420,
+      160,
+      1400,
+      190
+     ],
+     "4k": [
+      840,
+      320,
+      2800,
+      380
+     ]
+    }
+   },
+   "crit_boxes": {
+    "s4_far_band": {
+     "1080": [
+      0,
+      150,
+      1300,
+      300
+     ],
+     "4k": [
+      0,
+      300,
+      2600,
+      600
+     ],
+     "max_pct204": 10.0
+    }
+   }
+  },
+  "S5_timessq_south": {
+   "daylight": true,
+   "C1_C2_facade": {
+    "s5_left_dark": {
+     "1080": [
+      290,
+      30,
+      450,
+      250
+     ],
+     "4k": [
+      580,
+      60,
+      900,
+      500
+     ]
+    },
+    "s5_grey_tower": {
+     "1080": [
+      660,
+      20,
+      820,
+      300
+     ],
+     "4k": [
+      1320,
+      40,
+      1640,
+      600
+     ]
+    },
+    "s5_teal_glass": {
+     "1080": [
+      1100,
+      230,
+      1330,
+      480
+     ],
+     "4k": [
+      2200,
+      460,
+      2660,
+      960
+     ]
+    }
+   },
+   "crit_boxes": {
+    "s5_mid_tower": {
+     "1080": [
+      640,
+      40,
+      880,
+      700
+     ],
+     "4k": [
+      1280,
+      80,
+      1760,
+      1400
+     ],
+     "max_pct204": 1.5
+    }
+   }
+  },
+  "S6_timessq_street": {
+   "daylight": true,
+   "C1_C2_facade": {
+    "s6_left_brown": {
+     "1080": [
+      0,
+      20,
+      270,
+      180
+     ],
+     "4k": [
+      0,
+      40,
+      540,
+      360
+     ]
+    }
+   },
+   "C4_yolo": {
+    "1080": [
+     0,
+     0,
+     1920,
+     1080
+    ],
+    "4k": [
+     0,
+     0,
+     3840,
+     2160
+    ]
+   },
+   "crit_boxes": {
+    "s6_curb_plaza": {
+     "1080": [
+      1150,
+      760,
+      1920,
+      1080
+     ],
+     "4k": [
+      2300,
+      1520,
+      3840,
+      2160
+     ],
+     "max_pct204": 1.5
+    }
+   }
+  },
+  "S7_sunset_crosstown": {
+   "daylight": false,
+   "C1_C2_facade": {
+    "s7_left_glass": {
+     "1080": [
+      0,
+      0,
+      490,
+      1000
+     ],
+     "4k": [
+      0,
+      0,
+      980,
+      2000
+     ]
+    },
+    "s7_mid_dark": {
+     "1080": [
+      635,
+      340,
+      830,
+      940
+     ],
+     "4k": [
+      1270,
+      680,
+      1660,
+      1880
+     ]
+    },
+    "s7_right_masonry": {
+     "1080": [
+      1300,
+      0,
+      1900,
+      700
+     ],
+     "4k": [
+      2600,
+      0,
+      3800,
+      1400
+     ]
+    }
+   }
+  },
+  "S8_aerial_midtown": {
+   "daylight": true,
+   "C1_C2_facade": {
+    "s8_glass_right": {
+     "1080": [
+      1270,
+      350,
+      1600,
+      1000
+     ],
+     "4k": [
+      2540,
+      700,
+      3200,
+      2000
+     ]
+    },
+    "s8_pale_glass": {
+     "1080": [
+      370,
+      300,
+      560,
+      700
+     ],
+     "4k": [
+      740,
+      600,
+      1120,
+      1400
+     ]
+    },
+    "s8_brick_a": {
+     "1080": [
+      720,
+      580,
+      960,
+      900
+     ],
+     "4k": [
+      1440,
+      1160,
+      1920,
+      1800
+     ]
+    },
+    "s8_brick_b": {
+     "1080": [
+      1000,
+      620,
+      1240,
+      900
+     ],
+     "4k": [
+      2000,
+      1240,
+      2480,
+      1800
+     ]
+    },
+    "s8_grey_tower": {
+     "1080": [
+      910,
+      290,
+      1160,
+      520
+     ],
+     "4k": [
+      1820,
+      580,
+      2320,
+      1040
+     ]
+    }
+   },
+   "crit_boxes": {
+    "s8_glass_upper": {
+     "1080": [
+      1270,
+      0,
+      1640,
+      300
+     ],
+     "4k": [
+      2540,
+      0,
+      3280,
+      600
+     ],
+     "max_pct204": 1.5
+    }
+   }
+  }
+ },
+ "manual_lines": {
+  "C3": "window-opening depth (frames/sills/recess, varied interior states): judged side by side with the named refs",
+  "C5": "night street frame: no night view in the S-set",
+  "C7": "S1 trees >= 3, signed storefronts >= 2 per side: hand count",
+  "C8": "per-20 m clutter checklist: presence list, not numeric",
+  "C9": "S3 wooden water towers >= 2: hand count",
+  "C10": "clutter per rooftop: judged",
+  "C16": "shore embankment strip vs water: unmeasured in the spec"
+ }
+}

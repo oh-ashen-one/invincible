@@ -1,0 +1,110 @@
+{"rt": 1.0, "gt": 2.117, "ts": 1, "move": "free", "ev": "fight start e1:melee(243.8,186.5) e2:gunman(242.6,191.5) e3:brute(247.5,189.8) e4:melee(250.0,190.3) e5:gunman(253.9,193.6) e6:melee(254.7,188.5) types melee,gunman,brute,melee,gunman,melee"}
+{"rt": 1.5, "gt": 2.617, "ts": 1, "move": "strike", "ev": "move strike -> e4"}
+{"rt": 1.8, "gt": 2.917, "ts": 1, "move": "strike", "ev": "hit light -> e4 dmg 9 hp 41 state stagger combo 1 focus 0.08"}
+{"rt": 2.133, "gt": 3.222, "ts": 1, "move": "strike", "ev": "threat e3 heavy lead 0.55"}
+{"rt": 2.166, "gt": 3.255, "ts": 1, "move": "strike", "ev": "hit light -> e4 dmg 11 hp 30 state stagger combo 2 focus 0.16"}
+{"rt": 2.2, "gt": 3.274, "ts": 0.15, "move": "strike", "ev": "slowmo 0.28 s x0.45"}
+{"rt": 2.3, "gt": 3.314, "ts": 0.45, "move": "strike", "ev": "threat e5 gun lead 0.95"}
+{"rt": 2.616, "gt": 3.582, "ts": 1, "move": "strike", "ev": "hit light -> e4 dmg 11 hp 19 state stagger combo 3 focus 0.26"}
+{"rt": 2.833, "gt": 3.771, "ts": 1, "move": "strike", "ev": "slowmo 0.28 s x0.45"}
+{"rt": 2.866, "gt": 3.786, "ts": 0.45, "move": "down", "ev": "hero hit by e3 thugPunch1 dmg 18 hp 82"}
+{"rt": 2.866, "gt": 3.786, "ts": 0.06, "move": "down", "ev": "move down -> e4"}
+{"rt": 3.483, "gt": 4.284, "ts": 1, "move": "down", "ev": "shot e5 missed"}
+{"rt": 3.75, "gt": 4.551, "ts": 1, "move": "down", "ev": "shot e5 missed"}
+{"rt": 4.016, "gt": 4.818, "ts": 1, "move": "down", "ev": "shot e5 missed"}
+{"rt": 4.8, "gt": 5.601, "ts": 1, "move": "dodge", "ev": "dodge plain threat=none"}
+{"rt": 4.816, "gt": 5.618, "ts": 1, "move": "dodge", "ev": "move dodge -> e4"}
+{"rt": 4.95, "gt": 5.751, "ts": 1, "move": "dodge", "ev": "threat e6 melee lead 0.50"}
+{"rt": 5.2, "gt": 6.001, "ts": 1, "move": "strike", "ev": "move strike -> e6"}
+{"rt": 5.233, "gt": 6.034, "ts": 1, "move": "launch", "ev": "move launch -> e6"}
+{"rt": 5.466, "gt": 6.268, "ts": 1, "move": "hit", "ev": "hero hit by e6 thugKick dmg 9 hp 73"}
+{"rt": 5.466, "gt": 6.268, "ts": 0.12, "move": "hit", "ev": "move hit -> e6"}
+{"rt": 5.95, "gt": 6.707, "ts": 1, "move": "strike", "ev": "move strike -> e4"}
+{"rt": 6.25, "gt": 7.007, "ts": 1, "move": "strike", "ev": "hit light -> e4 dmg 9 hp 10 state stagger combo 1 focus 0.34"}
+{"rt": 6.366, "gt": 7.095, "ts": 1, "move": "dive", "ev": "move dive -> e4"}
+{"rt": 6.55, "gt": 7.279, "ts": 1, "move": "dive", "ev": "threat e2 gun lead 0.95"}
+{"rt": 6.55, "gt": 7.279, "ts": 1, "move": "dive", "ev": "hit strike -> e4 dmg 16 hp 0 state knock combo 2 focus 0.49"}
+{"rt": 6.65, "gt": 7.333, "ts": 1, "move": "strike", "ev": "move strike -> e4"}
+{"rt": 6.916, "gt": 7.599, "ts": 1, "move": "strike", "ev": "hit light -> e4 dmg 11 hp 0 state knock combo 3 focus 0.58"}
+{"rt": 7.583, "gt": 8.238, "ts": 1, "move": "hit", "ev": "shot e2 HIT hp 67"}
+{"rt": 7.583, "gt": 8.238, "ts": 1, "move": "hit", "ev": "move hit -> e4"}
+{"rt": 7.85, "gt": 8.504, "ts": 1, "move": "hit", "ev": "shot e2 missed"}
+{"rt": 8.083, "gt": 8.738, "ts": 1, "move": "free", "ev": "web hit e2 web 0.17 state hold"}
+{"rt": 8.3, "gt": 8.954, "ts": 1, "move": "free", "ev": "web hit e2 web 0.50 state hold"}
+{"rt": 8.75, "gt": 9.404, "ts": 1, "move": "free", "ev": "out e4 ko"}
+{"rt": 8.766, "gt": 9.421, "ts": 1, "move": "free", "ev": "web hit e1 web 0.34 state approach"}
+{"rt": 9.116, "gt": 9.771, "ts": 1, "move": "free", "ev": "web hit e6 web 0.34 state hold"}
+{"rt": 9.7, "gt": 10.354, "ts": 1, "move": "webStrike", "ev": "move webStrike -> e2"}
+{"rt": 10.066, "gt": 10.721, "ts": 1, "move": "webStrike", "ev": "hit strike -> e2 dmg 20 hp 18 state knock combo 1 focus 0.85"}
+{"rt": 10.45, "gt": 11.058, "ts": 1, "move": "free", "ev": "threat e5 gun lead 0.95"}
+{"rt": 10.75, "gt": 11.358, "ts": 1, "move": "free", "ev": "threat e3 heavy lead 0.85"}
+{"rt": 11.4, "gt": 12.008, "ts": 1, "move": "strike", "ev": "shot e5 HIT hp 61"}
+{"rt": 11.4, "gt": 12.008, "ts": 1, "move": "strike", "ev": "move strike -> e1"}
+{"rt": 11.616, "gt": 12.225, "ts": 1, "move": "strike", "ev": "enemy swing e3 bruteSlam missed"}
+{"rt": 11.666, "gt": 12.275, "ts": 1, "move": "strike", "ev": "shot e5 missed"}
+{"rt": 11.7, "gt": 12.308, "ts": 1, "move": "strike", "ev": "hit light -> e1 dmg 9 hp 41 state stagger combo 1 focus 0.93"}
+{"rt": 11.85, "gt": 12.43, "ts": 1, "move": "dive", "ev": "move dive -> e1"}
+{"rt": 11.966, "gt": 12.547, "ts": 1, "move": "dive", "ev": "shot e5 missed"}
+{"rt": 12.033, "gt": 12.613, "ts": 1, "move": "dive", "ev": "hit strike -> e1 dmg 16 hp 25 state knock combo 2 focus 1.09"}
+{"rt": 12.3, "gt": 12.834, "ts": 1, "move": "strike", "ev": "move strike -> e1"}
+{"rt": 12.633, "gt": 13.167, "ts": 1, "move": "strike", "ev": "hit light -> e1 dmg 11 hp 14 state stagger combo 3 focus 1.18"}
+{"rt": 12.9, "gt": 13.406, "ts": 1, "move": "strike", "ev": "hit light -> e1 dmg 9 hp 5 state stagger combo 4 focus 1.28"}
+{"rt": 13.35, "gt": 13.827, "ts": 1, "move": "dodge", "ev": "dodge plain threat=none"}
+{"rt": 13.366, "gt": 13.844, "ts": 1, "move": "dodge", "ev": "move dodge -> e1"}
+{"rt": 13.616, "gt": 14.094, "ts": 1, "move": "dodge", "ev": "threat e6 melee lead 0.42"}
+{"rt": 14.05, "gt": 14.527, "ts": 1, "move": "hit", "ev": "hero hit by e6 thugPunch2 dmg 9 hp 52"}
+{"rt": 14.05, "gt": 14.527, "ts": 0.12, "move": "hit", "ev": "move hit -> e1"}
+{"rt": 14.583, "gt": 15.017, "ts": 1, "move": "finisher", "ev": "slowmo 1.20 s x0.45"}
+{"rt": 14.583, "gt": 15.017, "ts": 1, "move": "finisher", "ev": "cine finisher e6 1.45 s"}
+{"rt": 14.6, "gt": 15.033, "ts": 0.45, "move": "finisher", "ev": "move finisher -> e6"}
+{"rt": 15.7, "gt": 15.59, "ts": 0.938, "move": "finisher", "ev": "hit finisher -> e6 dmg 999 hp 0 state knock combo 1 focus 0.36"}
+{"rt": 16.6, "gt": 16.378, "ts": 1, "move": "finisher", "ev": "out e6 ground"}
+{"rt": 16.65, "gt": 16.428, "ts": 1, "move": "free", "ev": "threat e5 gun lead 0.95"}
+{"rt": 16.933, "gt": 16.712, "ts": 1, "move": "free", "ev": "web hit e3 web 0.34 state hold"}
+{"rt": 17.083, "gt": 16.862, "ts": 1, "move": "free", "ev": "threat e1 melee lead 0.50"}
+{"rt": 17.316, "gt": 17.095, "ts": 1, "move": "free", "ev": "web hit e3 web 0.66 state hold"}
+{"rt": 17.55, "gt": 17.328, "ts": 1, "move": "strike", "ev": "move strike -> e3"}
+{"rt": 17.6, "gt": 17.378, "ts": 1, "move": "strike", "ev": "shot e5 HIT hp 46"}
+{"rt": 17.6, "gt": 17.378, "ts": 1, "move": "hit", "ev": "hero hit by e1 thugKick dmg 9 hp 37"}
+{"rt": 17.6, "gt": 17.378, "ts": 0.12, "move": "hit", "ev": "move hit -> e3"}
+{"rt": 17.916, "gt": 17.651, "ts": 1, "move": "hit", "ev": "shot e5 missed"}
+{"rt": 17.966, "gt": 17.701, "ts": 1, "move": "strike", "ev": "move strike -> e3"}
+{"rt": 18.183, "gt": 17.918, "ts": 1, "move": "launch", "ev": "shot e5 HIT hp 31"}
+{"rt": 18.183, "gt": 17.918, "ts": 1, "move": "launch", "ev": "move launch -> e3"}
+{"rt": 18.4, "gt": 18.134, "ts": 1, "move": "launch", "ev": "threat e3 heavy lead 0.85"}
+{"rt": 18.433, "gt": 18.168, "ts": 1, "move": "launch", "ev": "hit launch -> e3 dmg 10 hp 140 state air combo 1 focus 0.57"}
+{"rt": 18.866, "gt": 18.555, "ts": 1, "move": "air", "ev": "move air -> e3"}
+{"rt": 18.9, "gt": 18.588, "ts": 1, "move": "airStrike", "ev": "move airStrike -> e3"}
+{"rt": 19.0, "gt": 18.688, "ts": 1, "move": "airStrike", "ev": "hit air -> e3 dmg 9 hp 131 state air combo 2 focus 0.65"}
+{"rt": 19.116, "gt": 18.777, "ts": 1, "move": "air", "ev": "move air -> e3"}
+{"rt": 19.25, "gt": 18.91, "ts": 1, "move": "airStrike", "ev": "move airStrike -> e3"}
+{"rt": 19.3, "gt": 18.96, "ts": 1, "move": "airStrike", "ev": "hit air -> e3 dmg 9 hp 122 state air combo 3 focus 0.74"}
+{"rt": 19.466, "gt": 19.098, "ts": 1, "move": "air", "ev": "move air -> e3"}
+{"rt": 19.6, "gt": 19.232, "ts": 1, "move": "airStrike", "ev": "move airStrike -> e3"}
+{"rt": 19.733, "gt": 19.365, "ts": 1, "move": "airStrike", "ev": "hit slam -> e3 dmg 14 hp 108 state air combo 4 focus 0.92"}
+{"rt": 19.75, "gt": 19.382, "ts": 0.08, "move": "slamDown", "ev": "move slamDown -> e3"}
+{"rt": 20.0, "gt": 19.586, "ts": 1, "move": "slamDown", "ev": "hit ender -> e3 dmg 8 hp 100 state knock combo 4 focus 0.92"}
+{"rt": 20.016, "gt": 19.602, "ts": 1, "move": "landing", "ev": "move landing -> e3"}
+{"rt": 20.5, "gt": 20.086, "ts": 1, "move": "strike", "ev": "move strike -> e1"}
+{"rt": 20.816, "gt": 20.402, "ts": 1, "move": "dodge", "ev": "dodge plain threat=none"}
+{"rt": 20.833, "gt": 20.419, "ts": 1, "move": "dodge", "ev": "move dodge -> e1"}
+{"rt": 20.85, "gt": 20.436, "ts": 1, "move": "dodge", "ev": "threat e1 melee lead 0.50"}
+{"rt": 21.366, "gt": 20.952, "ts": 1, "move": "dodge", "ev": "enemy swing e1 thugKick missed"}
+{"rt": 22.0, "gt": 21.586, "ts": 1, "move": "strike", "ev": "move strike -> e1"}
+{"rt": 22.316, "gt": 21.902, "ts": 1, "move": "strike", "ev": "hit light -> e1 dmg 9 hp 0 state knock combo 5 focus 1.02"}
+{"rt": 22.566, "gt": 22.124, "ts": 1, "move": "strike", "ev": "threat e5 gun lead 0.95"}
+{"rt": 22.566, "gt": 22.124, "ts": 1, "move": "strike", "ev": "hit light -> e1 dmg 10 hp 0 state knock combo 6 focus 1.12"}
+{"rt": 23.116, "gt": 22.646, "ts": 1, "move": "strike", "ev": "hit light -> e1 dmg 11 hp 0 state knock combo 7 focus 1.23"}
+{"rt": 23.25, "gt": 22.751, "ts": 1, "move": "finisher", "ev": "slowmo 1.20 s x0.45"}
+{"rt": 23.25, "gt": 22.751, "ts": 1, "move": "finisher", "ev": "cine finisher e1 1.45 s"}
+{"rt": 23.266, "gt": 22.767, "ts": 0.45, "move": "finisher", "ev": "move finisher -> e1"}
+{"rt": 23.933, "gt": 23.067, "ts": 0.45, "move": "finisher", "ev": "shot e5 missed"}
+{"rt": 24.366, "gt": 23.324, "ts": 0.938, "move": "finisher", "ev": "hit finisher -> e1 dmg 999 hp 0 state knock combo 8 focus 0.35"}
+{"rt": 24.383, "gt": 23.34, "ts": 0.938, "move": "finisher", "ev": "shot e5 missed"}
+{"rt": 24.766, "gt": 23.612, "ts": 1, "move": "finisher", "ev": "shot e5 missed"}
+{"rt": 25.216, "gt": 24.062, "ts": 1, "move": "finisher", "ev": "slowmo 0.70 s x0.40"}
+{"rt": 25.216, "gt": 24.062, "ts": 1, "move": "finisher", "ev": "cine pin e1 1.00 s"}
+{"rt": 25.216, "gt": 24.062, "ts": 1, "move": "finisher", "ev": "out e1 wall"}
+{"rt": 25.433, "gt": 24.149, "ts": 0.4, "move": "strike", "ev": "move strike -> e5"}
+{"rt": 26.016, "gt": 24.527, "ts": 1, "move": "strike", "ev": "hit light -> e5 dmg 9 hp 29 state stagger combo 9 focus 0.67"}
+{"rt": 26.35, "gt": 24.832, "ts": 1, "move": "strike", "ev": "hit light -> e5 dmg 11 hp 18 state stagger combo 10 focus 0.79"}

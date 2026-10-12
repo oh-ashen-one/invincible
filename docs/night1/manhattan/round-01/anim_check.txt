@@ -1,0 +1,22 @@
+route_30s: 1798 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 25 consecutive air pairs, 0 with the same silhouette (min distance 0.281 m, threshold 0.08 m)
+  air cycles: 18; consecutive identical cycles: 0
+    cycle 1: air_tuck > air_reachR
+    cycle 2: air_fallCalm > air_reachL
+    cycle 3: trick_corkscrew
+    cycle 4: air_spread > air_reachL
+    cycle 5: air_fallCalm
+    cycle 6: trick_layout
+    cycle 7: air_spread
+    cycle 8: air_rise
+    cycle 9: trick_scissor
+    cycle 10: air_fallCalm
+    cycle 11: air_rise
+    cycle 12: trick_tuckFlip
+    cycle 13: air_fallCalm > air_reachR
+    cycle 14: air_tuck > air_reachL
+    cycle 15: trick_corkscrew
+    cycle 16: air_rise
+    cycle 17: air_tuck
+    cycle 18: trick_tuckFlip

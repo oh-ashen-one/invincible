@@ -1,0 +1,19 @@
+{
+ "clip": "s5_night_swing",
+ "map": "island-night",
+ "cases": [
+  {
+   "case": "s5_night_swing",
+   "frames_rendered": 1291,
+   "preroll_frames_cut": 92,
+   "rows": 1199,
+   "wall_s": 206.0,
+   "fps_render": 6.27
+  }
+ ],
+ "frames": 1199,
+ "duration_s": 19.98,
+ "mp4_mb": 13.07,
+ "crf": 28,
+ "wall_s_total": 206.0
+}

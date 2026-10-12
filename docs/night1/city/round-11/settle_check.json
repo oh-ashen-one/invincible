@@ -1,0 +1,114 @@
+[
+ {
+  "view": "S1_avenue_street_1920x1080",
+  "mean_abs_luma_diff": 0.278,
+  "pct_gt8": 0.069,
+  "mean_luma_t24": 78.1,
+  "mean_luma_t28": 78.1
+ },
+ {
+  "view": "S1_avenue_street_3840x2160",
+  "mean_abs_luma_diff": 0.331,
+  "pct_gt8": 0.065,
+  "mean_luma_t24": 76.25,
+  "mean_luma_t28": 76.28
+ },
+ {
+  "view": "S2_avenue_swing_1920x1080",
+  "mean_abs_luma_diff": 0.253,
+  "pct_gt8": 0.048,
+  "mean_luma_t24": 84.16,
+  "mean_luma_t28": 84.16
+ },
+ {
+  "view": "S2_avenue_swing_3840x2160",
+  "mean_abs_luma_diff": 0.254,
+  "pct_gt8": 0.028,
+  "mean_luma_t24": 82.76,
+  "mean_luma_t28": 82.77
+ },
+ {
+  "view": "S3_rooftop_watertower_1920x1080",
+  "mean_abs_luma_diff": 0.182,
+  "pct_gt8": 0.009,
+  "mean_luma_t24": 60.16,
+  "mean_luma_t28": 60.16
+ },
+ {
+  "view": "S3_rooftop_watertower_3840x2160",
+  "mean_abs_luma_diff": 0.184,
+  "pct_gt8": 0.012,
+  "mean_luma_t24": 59.39,
+  "mean_luma_t28": 59.4
+ },
+ {
+  "view": "S4_perch_skyline_1920x1080",
+  "mean_abs_luma_diff": 0.337,
+  "pct_gt8": 0.057,
+  "mean_luma_t24": 128.26,
+  "mean_luma_t28": 128.25
+ },
+ {
+  "view": "S4_perch_skyline_3840x2160",
+  "mean_abs_luma_diff": 0.361,
+  "pct_gt8": 0.029,
+  "mean_luma_t24": 127.41,
+  "mean_luma_t28": 127.4
+ },
+ {
+  "view": "S5_timessq_south_1920x1080",
+  "mean_abs_luma_diff": 0.302,
+  "pct_gt8": 0.148,
+  "mean_luma_t24": 82.75,
+  "mean_luma_t28": 82.75
+ },
+ {
+  "view": "S5_timessq_south_3840x2160",
+  "mean_abs_luma_diff": 0.312,
+  "pct_gt8": 0.059,
+  "mean_luma_t24": 81.2,
+  "mean_luma_t28": 81.22
+ },
+ {
+  "view": "S6_timessq_street_1920x1080",
+  "mean_abs_luma_diff": 0.311,
+  "pct_gt8": 0.086,
+  "mean_luma_t24": 85.21,
+  "mean_luma_t28": 85.23
+ },
+ {
+  "view": "S6_timessq_street_3840x2160",
+  "mean_abs_luma_diff": 0.373,
+  "pct_gt8": 0.083,
+  "mean_luma_t24": 81.23,
+  "mean_luma_t28": 81.29
+ },
+ {
+  "view": "S7_sunset_crosstown_1920x1080",
+  "mean_abs_luma_diff": 0.202,
+  "pct_gt8": 0.044,
+  "mean_luma_t24": 63.97,
+  "mean_luma_t28": 63.96
+ },
+ {
+  "view": "S7_sunset_crosstown_3840x2160",
+  "mean_abs_luma_diff": 0.208,
+  "pct_gt8": 0.038,
+  "mean_luma_t24": 64.76,
+  "mean_luma_t28": 64.75
+ },
+ {
+  "view": "S8_aerial_midtown_1920x1080",
+  "mean_abs_luma_diff": 0.278,
+  "pct_gt8": 0.021,
+  "mean_luma_t24": 87.84,
+  "mean_luma_t28": 87.83
+ },
+ {
+  "view": "S8_aerial_midtown_3840x2160",
+  "mean_abs_luma_diff": 0.297,
+  "pct_gt8": 0.039,
+  "mean_luma_t24": 84.85,
+  "mean_luma_t28": 84.85
+ }
+]

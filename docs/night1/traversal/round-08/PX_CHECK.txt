@@ -1,0 +1,39 @@
+# Pixel check, round 08 (px_check.py on the telemetry of the round-08 videos)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+a_swing_chain: 934 frames (t <= 15.55 s)
+  hero pixel height (1080p): min 72  median 224  max 488; >= 160 px in 858/934 frames (91.9%)
+  frames with no hero pixels: 0
+  attach 1 t= 0.40s anchor on screen at attach frame: no (x 0.82, y -0.31); first on screen after nan s
+  attach 2 t= 2.53s anchor on screen at attach frame: no (x -1.19, y -3.42); first on screen after nan s
+  attach 3 t= 4.40s anchor on screen at attach frame: no (x 0.23, y -0.19); first on screen after nan s
+  attach 4 t= 6.32s anchor on screen at attach frame: no (x 0.65, y -0.03); first on screen after nan s
+  attach 5 t= 8.02s anchor on screen at attach frame: no (x 0.35, y -0.04); first on screen after nan s
+  attach 6 t= 9.52s anchor on screen at attach frame: no (x 0.17, y -0.29); first on screen after nan s
+  attach 7 t=11.82s anchor on screen at attach frame: no (x 0.36, y -0.13); first on screen after nan s
+  attach 8 t=13.27s anchor on screen at attach frame: no (x 1.00, y -0.77); first on screen after nan s
+  attach 9 t=14.70s anchor on screen at attach frame: no (x -0.30, y -1.40); first on screen after nan s
+  anchors on screen: 0/9 at the attach frame, 0/9 within 0.4 s
+
+b_release_trick_dive_zip: 418 frames (t <= 6.95 s)
+  hero pixel height (1080p): min 96  median 228  max 552; >= 160 px in 398/418 frames (95.2%)
+  frames with no hero pixels: 0
+  attach 1 t= 0.00s anchor on screen at attach frame: yes (x 0.31, y 0.11); first on screen after 0.00 s
+  anchors on screen: 1/1 at the attach frame, 1/1 within 0.4 s
+
+c_wallrun_perch: 598 frames (t <= 9.95 s)
+  hero pixel height (1080p): min 88  median 308  max 520; >= 160 px in 568/598 frames (95.0%)
+  frames with no hero pixels: 0
+  anchors on screen: 0/0 at the attach frame, 0/0 within 0.4 s
+
+d_sprint_jump_first_swing: 718 frames (t <= 11.95 s)
+  hero pixel height (1080p): min 76  median 248  max 520; >= 160 px in 686/718 frames (95.5%)
+  frames with no hero pixels: 0
+  attach 1 t= 2.68s anchor on screen at attach frame: no (x 1.34, y -1.30); first on screen after nan s
+  attach 2 t= 4.55s anchor on screen at attach frame: no (x 0.11, y -0.64); first on screen after nan s
+  attach 3 t= 6.75s anchor on screen at attach frame: no (x 0.00, y 0.00); first on screen after nan s
+  attach 4 t= 8.85s anchor on screen at attach frame: no (x 0.74, y -0.24); first on screen after nan s
+  attach 5 t=10.60s anchor on screen at attach frame: no (x 0.33, y -0.19); first on screen after nan s
+  attach 6 t=11.95s anchor on screen at attach frame: no (x 0.28, y -0.30); first on screen after nan s
+  anchors on screen: 0/6 at the attach frame, 0/6 within 0.4 s
+

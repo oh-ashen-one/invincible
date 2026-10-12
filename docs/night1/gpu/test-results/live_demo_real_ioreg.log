@@ -1,0 +1,8 @@
+2026-09-29T14:35:03.691-04:00 pid=42283 class=capture label=demo event=enqueue util=100 cmd="echo captured under a real slot"
+2026-09-29T14:35:03.728-04:00 pid=42283 class=capture label=demo event=acquire util=100 slot=0 waited_s=0.0 phase=lock
+2026-09-29T14:35:03.883-04:00 pid=42283 class=capture label=demo event=run util=100 child_pid=42297 max_hold_s=2400.0 cmd="echo captured under a real slot"
+2026-09-29T14:35:03.936-04:00 pid=42283 class=capture label=demo event=release util=0 exit=0 hold_s=0.18 wait_s=0.07 util_before=100 util_after=12 instances_before=3 instances_max=3 contaminated=true reasons=no-exclusive-lock
+2026-09-29T14:35:04.013-04:00 pid=42301 class=perf label=demo event=enqueue util=0 cmd="echo SHOULD NOT RUN unless GPU idle"
+2026-09-29T14:35:04.043-04:00 pid=42301 class=perf label=demo event=acquire util=0 slot=perf waited_s=0.0 phase=lock
+2026-09-29T14:35:04.167-04:00 pid=42301 class=perf label=demo event=wait util=0 phase=settle waited_s=0.2 need_util_lt=15.0 calm_s=10.0 streak_s=0 foreign_captures=40718,41878,42196
+2026-09-29T14:35:12.110-04:00 pid=42301 class=perf label=demo event=wait-timeout util=45 phase=settle waited_s=8.1 foreign_captures=2

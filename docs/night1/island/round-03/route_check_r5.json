@@ -1,0 +1,179 @@
+{
+ "summary": {
+  "routes": 1,
+  "seconds": 30.4,
+  "fall_through": 0,
+  "stuck": 0,
+  "mid_air_frames": 0,
+  "wall_air_frames": 0,
+  "anchors": 35,
+  "web_air": 2,
+  "facadeLod_min_dist_m": null,
+  "boxes": 173097,
+  "facadeLod_tiles": 0,
+  "drawn": {
+   "solids": 947650,
+   "kit_fireescape_platforms": 58770,
+   "ue_street_trunks": 1436
+  }
+ },
+ "routes": [
+  {
+   "csv": "r5_m2_avenue_telemetry.csv",
+   "frames": 1823,
+   "seconds": 30.37,
+   "path_m": 1481.6,
+   "modes": {
+    "air": 468,
+    "swing": 1355
+   },
+   "supported_frames": 0,
+   "fall_through": 0,
+   "stuck": 0,
+   "mid_air_frames": 0,
+   "wall_air_frames": 0,
+   "anchors": 35,
+   "web_air": 2,
+   "facadeLod_min_dist_m": null,
+   "events": {
+    "fall_through": [],
+    "stuck": [],
+    "mid_air": [],
+    "wall_air": [],
+    "web_air": [
+     [
+      10.117,
+      "anchor",
+      14.8,
+      1373.2,
+      21.0,
+      1.21
+     ],
+     [
+      26.617,
+      "anchor",
+      25.0,
+      2123.5,
+      26.5,
+      2.69
+     ]
+    ]
+   },
+   "drawn": {
+    "mid_air_drawn_frames": 0,
+    "feet_overlap_frames": 0,
+    "feet_overlap_by_kind": {},
+    "feet_point_inside_frames": 0,
+    "web_air_drawn": 0,
+    "wall_air_drawn_frames": 0,
+    "swing": {
+     "releases_rewebbed": 20,
+     "unanswered_release_at_s": 30.167,
+     "max_reweb_gap_s": 0.3,
+     "reweb_gaps_over_0_5s": 0,
+     "ground_land_frac": 0.0,
+     "distinct_swing_anchors": 26,
+     "gaps": [
+      [
+       1.667,
+       0.3
+      ],
+      [
+       3.25,
+       0.3
+      ],
+      [
+       4.467,
+       0.3
+      ],
+      [
+       6.017,
+       0.3
+      ],
+      [
+       7.433,
+       0.3
+      ],
+      [
+       8.633,
+       0.3
+      ],
+      [
+       10.283,
+       0.3
+      ],
+      [
+       11.617,
+       0.3
+      ],
+      [
+       12.9,
+       0.3
+      ],
+      [
+       14.233,
+       0.3
+      ],
+      [
+       15.583,
+       0.3
+      ],
+      [
+       17.083,
+       0.3
+      ],
+      [
+       18.7,
+       0.3
+      ],
+      [
+       20.233,
+       0.3
+      ],
+      [
+       21.55,
+       0.3
+      ],
+      [
+       23.067,
+       0.3
+      ],
+      [
+       24.467,
+       0.3
+      ],
+      [
+       25.867,
+       0.3
+      ],
+      [
+       27.367,
+       0.3
+      ],
+      [
+       28.867,
+       0.3
+      ]
+     ]
+    },
+    "land_events": [],
+    "events": {
+     "mid_air_drawn": [],
+     "feet_overlap": [],
+     "web_air_drawn": [],
+     "wall_air_drawn": []
+    }
+   },
+   "start": [
+    0.0,
+    1010.4,
+    44.997
+   ],
+   "end": [
+    -2.018,
+    2285.451,
+    19.612
+   ]
+  }
+ ]
+}

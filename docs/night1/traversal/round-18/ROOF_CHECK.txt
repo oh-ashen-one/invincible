@@ -1,0 +1,61 @@
+# P3 round 18 ROOF CHECK (roof_check.py = TC8 + the critic r16 single-gap test per flip: apex hips >= lower roofline within 30 m + 3, flipcam_k at flip_t .35 >= .9, view_sun_deg min >= 100 over program + 0.5 s)
+# Homage fan game; not affiliated with Marvel, Sony or Insomniac. Heightmap: city/heightmap_5m.csv.gz (engine traversal world, 5 m grid).
+
+# f1_flow_backDouble: 3 flip programs (roof_check.py, TC8 + critic r16 test)
+  1 backDouble     t 1.35-2.92  hips start 26.0 apex 28.4 (t 2.08) catch 24.7 | lower roofline 21.1 (sides 21 / 93) -> apex margin +7.3 m PASS, rows >= roof+3 100 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 133 p50 134 PASS | side -48 deg tier 0 | solver roof 23.1 apex want 28.4
+  2 backDouble     t 4.32-5.88  hips start 22.2 apex 29.9 (t 5.55) catch 29.4 | lower roofline 23.8 (sides 24 / 67) -> apex margin +6.1 m PASS, rows >= roof+3 69 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 136 p50 137 PASS | side -44 deg tier 2 | solver roof 27.6 apex want 30.0
+  3 backDouble     t 6.93-8.50  hips start 27.0 apex 33.1 (t 8.02) catch 31.9 | lower roofline 23.5 (sides 24 / 308) -> apex margin +9.6 m PASS, rows >= roof+3 100 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 136 p50 136 PASS | side -48 deg tier 0 | solver roof 31.0 apex want 33.4
+  => ALL PASS (3 programs; mean share of rows >= roofline + 3: 90 %)
+
+# f2_flow_pikeSwan: 3 flip programs (roof_check.py, TC8 + critic r16 test)
+  1 frontPikeSwan  t 1.35-2.75  hips start 26.0 apex 28.4 (t 2.03) catch 25.7 | lower roofline 21.1 (sides 21 / 93) -> apex margin +7.3 m PASS, rows >= roof+3 100 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 134 p50 134 PASS | side -48 deg tier 0 | solver roof 22.3 apex want 28.5
+  2 frontPikeSwan  t 4.22-5.62  hips start 23.5 apex 28.2 (t 5.17) catch 27.1 | lower roofline 23.4 (sides 23 / 67) -> apex margin +4.8 m PASS, rows >= roof+3 73 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 136 p50 136 PASS | side -44 deg tier 0 | solver roof 25.8 apex want 28.2
+  3 frontPikeSwan  t 6.72-8.12  hips start 25.5 apex 33.2 (t 7.92) catch 33.0 | lower roofline 18.9 (sides 19 / 308) -> apex margin +14.3 m PASS, rows >= roof+3 100 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 144 p50 144 PASS | side -48 deg tier 0 | solver roof 31.1 apex want 33.5
+  => ALL PASS (3 programs; mean share of rows >= roofline + 3: 91 %)
+
+# f3_flow_corkscrew: 3 flip programs (roof_check.py, TC8 + critic r16 test)
+  1 corkscrew      t 1.35-2.83  hips start 21.4 apex 26.1 (t 2.30) catch 24.6 | lower roofline 20.8 (sides 21 / 91) -> apex margin +5.3 m PASS, rows >= roof+3 80 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 135 p50 136 PASS | side -44 deg tier 0 | solver roof 23.8 apex want 26.2
+  2 corkscrew      t 4.22-5.70  hips start 22.6 apex 30.0 (t 5.38) catch 29.4 | lower roofline 25.1 (sides 25 / 87) -> apex margin +4.9 m PASS, rows >= roof+3 60 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 133 p50 133 PASS | side -48 deg tier 0 | solver roof 27.6 apex want 30.0
+  3 corkscrew      t 6.75-8.23  hips start 27.4 apex 32.6 (t 7.73) catch 31.3 | lower roofline 29.4 (sides 29 / 308) -> apex margin +3.2 m PASS, rows >= roof+3 28 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 135 p50 136 PASS | side -48 deg tier 0 | solver roof 31.0 apex want 33.4
+  => ALL PASS (3 programs; mean share of rows >= roofline + 3: 56 %)
+
+# f4_chain_flips: 4 flip programs (roof_check.py, TC8 + critic r16 test)
+  1 backDouble     t 1.35-2.92  hips start 21.4 apex 26.1 (t 2.33) catch 24.3 | lower roofline 21.1 (sides 21 / 93) -> apex margin +5.0 m PASS, rows >= roof+3 76 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 132 p50 133 PASS | side -48 deg tier 0 | solver roof 23.8 apex want 26.2
+  2 frontPikeSwan  t 4.32-5.72  hips start 23.4 apex 29.1 (t 5.35) catch 28.3 | lower roofline 23.8 (sides 24 / 67) -> apex margin +5.3 m PASS, rows >= roof+3 72 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 141 p50 141 PASS | side -40 deg tier 2 | solver roof 26.7 apex want 29.1
+  3 corkscrew      t 6.63-8.12  hips start 28.1 apex 33.4 (t 7.63) catch 32.1 | lower roofline 29.4 (sides 29 / 308) -> apex margin +4.0 m PASS, rows >= roof+3 57 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 137 p50 138 PASS | side -44 deg tier 0 | solver roof 31.0 apex want 33.4
+  4 backDouble     t 10.88-12.45  hips start 28.0 apex 30.4 (t 11.62) catch 26.6 | lower roofline 16.0 (sides 17 / 16) -> apex margin +14.4 m PASS, rows >= roof+3 100 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 136 p50 136 PASS | side -44 deg tier 0 | solver roof 23.3 apex want 30.4
+  => ALL PASS (4 programs; mean share of rows >= roofline + 3: 76 %)
+
+# f5_canyon_backDouble: 3 flip programs (roof_check.py, TC8 + critic r16 test)
+  1 backDouble     t 1.35-2.92  hips start 26.0 apex 28.4 (t 2.08) catch 24.7 | lower roofline 19.1 (sides 19 / 98) -> apex margin +9.3 m PASS, rows >= roof+3 100 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 141 p50 142 PASS | side -40 deg tier 0 | solver roof 23.1 apex want 28.4
+  2 backDouble     t 3.93-5.50  hips start 14.1 apex 28.2 (t 5.50) catch 28.2 | lower roofline 23.8 (sides 24 / 67) -> apex margin +4.4 m PASS, rows >= roof+3 28 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 139 p50 140 PASS | side -40 deg tier 0 | solver roof 25.9 apex want 28.3
+  3 backDouble     t 6.55-8.12  hips start 20.9 apex 25.0 (t 7.48) catch 22.8 | lower roofline 19.0 (sides 19 / 25) -> apex margin +6.0 m PASS, rows >= roof+3 91 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 136 p50 137 PASS | side -48 deg tier 0 | solver roof 22.6 apex want 25.0
+  => ALL PASS (3 programs; mean share of rows >= roofline + 3: 73 %)
+
+# a_swing_chain: 2 flip programs (roof_check.py, TC8 + critic r16 test)
+  1 backDouble     t 5.68-7.25  hips start 11.5 apex 16.1 (t 6.65) catch 14.2 | lower roofline 71.5 (sides 143 / 72) -> apex margin -55.4 m FAIL, rows >= roof+3 0 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 114 p50 120 PASS | side +48 deg tier 0 | solver roof 70.0 apex want 0.0
+  2 frontPikeSwan  t 11.93-13.33  hips start 9.4 apex 13.3 (t 12.80) catch 11.8 | lower roofline 63.4 (sides 63 / 261) -> apex margin -50.1 m FAIL, rows >= roof+3 0 %
+      flipcam_k at flip_t .35 = 0.00 FAIL | view_sun min 64 p50 82 FAIL | side +48 deg tier 3 | solver roof 19.5 apex want 0.0
+  => FAIL (2 programs; mean share of rows >= roofline + 3: 0 %)
+
+# b_release_trick_dive_zip: 1 flip programs (roof_check.py, TC8 + critic r16 test)
+  1 frontPikeSwan  t 1.40-2.87  hips start 32.2 apex 36.5 (t 2.30) catch 34.8 | lower roofline 96.7 (sides 217 / 97) -> apex margin -60.2 m FAIL, rows >= roof+3 0 %
+      flipcam_k at flip_t .35 = 1.00 PASS | view_sun min 100 p50 112 PASS | side +48 deg tier 0 | solver roof 93.4 apex want 0.0
+  => FAIL (1 programs; mean share of rows >= roofline + 3: 0 %)

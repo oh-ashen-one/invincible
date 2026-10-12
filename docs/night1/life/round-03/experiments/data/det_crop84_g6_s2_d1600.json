@@ -1,0 +1,57 @@
+{
+ "g6_s2_d1600_00_t012.0.jpg": {
+  "people": 0,
+  "people_left": 0,
+  "people_right": 0,
+  "people_h3": 0,
+  "people_h10": 0,
+  "vehicles": 13,
+  "buses": 0,
+  "trucks": 3,
+  "ph": []
+ },
+ "g6_s2_d1600_01_t016.0.jpg": {
+  "people": 0,
+  "people_left": 0,
+  "people_right": 0,
+  "people_h3": 0,
+  "people_h10": 0,
+  "vehicles": 12,
+  "buses": 0,
+  "trucks": 3,
+  "ph": []
+ },
+ "g6_s2_d1600_02_t020.0.jpg": {
+  "people": 0,
+  "people_left": 0,
+  "people_right": 0,
+  "people_h3": 0,
+  "people_h10": 0,
+  "vehicles": 15,
+  "buses": 0,
+  "trucks": 3,
+  "ph": []
+ },
+ "g6_s2_d1600_03_t024.0.jpg": {
+  "people": 0,
+  "people_left": 0,
+  "people_right": 0,
+  "people_h3": 0,
+  "people_h10": 0,
+  "vehicles": 11,
+  "buses": 0,
+  "trucks": 1,
+  "ph": []
+ },
+ "g6_s2_d1600_04_t028.0.jpg": {
+  "people": 0,
+  "people_left": 0,
+  "people_right": 0,
+  "people_h3": 0,
+  "people_h10": 0,
+  "vehicles": 14,
+  "buses": 0,
+  "trucks": 2,
+  "ph": []
+ }
+}

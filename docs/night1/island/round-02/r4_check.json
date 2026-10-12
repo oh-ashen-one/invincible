@@ -1,0 +1,43 @@
+{
+ "csv": "r4_wallrun_roofs_telemetry.csv",
+ "run_t": 11.0,
+ "run_t0": 11.6167,
+ "run_end_t": 13.3833,
+ "run_start": [
+  287.382,
+  193.179,
+  48.41
+ ],
+ "run_end": [
+  287.382,
+  175.94,
+  46.09
+ ],
+ "run_end_reason": "vault (vault)",
+ "run_subs": [
+  "apex",
+  "dive",
+  "fall",
+  "idle",
+  "run"
+ ],
+ "overlap_frames_during_run": 0,
+ "overlap_examples": [],
+ "run_pass": true,
+ "fell_through_platforms": [],
+ "drop_touchdown": {
+  "t": 15.5833,
+  "mode": "ground",
+  "sub": "idle",
+  "feet": [
+   287.382,
+   151.477,
+   -0.06
+  ],
+  "surface": "street",
+  "dz_m": -0.06,
+  "on_drawn_surface": true,
+  "on_fireescape_or_roof": false,
+  "no_pass_through": true
+ }
+}

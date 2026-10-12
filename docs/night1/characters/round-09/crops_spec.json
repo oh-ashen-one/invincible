@@ -1,0 +1,65 @@
+[
+ {
+  "name": "tee-mouth",
+  "prev": [
+   "tee_face_4k.jpg",
+   [
+    1950,
+    880,
+    2650,
+    1380
+   ]
+  ],
+  "this": [
+   "tee_face_4k.jpg",
+   [
+    1950,
+    880,
+    2650,
+    1380
+   ]
+  ]
+ },
+ {
+  "name": "thug-collar",
+  "prev": [
+   "thug_face_4k.jpg",
+   [
+    1450,
+    1100,
+    2100,
+    1750
+   ]
+  ],
+  "this": [
+   "thug_face_4k.jpg",
+   [
+    1450,
+    1100,
+    2100,
+    1750
+   ]
+  ]
+ },
+ {
+  "name": "knockdown",
+  "prev": [
+   "street_fight_34_4k.jpg",
+   [
+    1000,
+    1450,
+    2000,
+    2100
+   ]
+  ],
+  "this": [
+   "street_fight_34_4k.jpg",
+   [
+    1000,
+    1450,
+    2000,
+    2100
+   ]
+  ]
+ }
+]

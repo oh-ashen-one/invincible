@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/perf/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/hero_in -map /Game/Maps/Manhattan -res 3840x2160 -perf 15:45 -name hero_in -timeout 900 -exec r.RayTracing.Geometry.SkeletalMeshes 1 -- -WHTravScript=/Users/midir/sm2-n1/perf/docs/night1/manhattan/scripts/route_30s_warmup15.json -WHTravCsv=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/hero_in/trav_telemetry.csv -csvGpuStats -benchmark -fps=60 -notraceserver -dpcvars=r.RayTracing.Geometry.SkeletalMeshes=1
+
+run_game: out=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/hero_in res=3840x2160 quit=46.0 window=0 movie=0
+WH_PERF_START t=15.00
+WH_PERF frames=1800 avg_ms=16.78 fps=59.6 p95_ms=19.47 p99_ms=21.55 gpu_avg_ms=15.53 out=3840x2160 internal=1843x1037 (manual) -> /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/hero_in/hero_in_perf.json
+WH_QUIT t=46.00
+

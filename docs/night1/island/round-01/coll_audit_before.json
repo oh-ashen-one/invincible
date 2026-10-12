@@ -1,0 +1,25 @@
+{
+ "export": "/Users/midir/sm2-n1/_scratch/island/export/midtown",
+ "boxes_source": "whboxes.json (island_boxes.py)",
+ "region": {
+  "x0": -768,
+  "z0": -1280,
+  "x1": 1024,
+  "z1": 1024
+ },
+ "grid_m": 1.0,
+ "tolerance_m": 1.5,
+ "boxes": 53405,
+ "building_cells_m2": 1622890,
+ "phantom_pct": 0.21,
+ "phantom_mass_pct (>6 m)": 0.18,
+ "hollow_pct": 5.81,
+ "hollow_mass_pct (>6 m)": 0.39,
+ "raw (no erosion)": {
+  "match_pct": 74.89,
+  "phantom_pct": 1.09,
+  "hollow_pct": 24.02,
+  "hollow_mass_pct": 12.2
+ },
+ "facadeLod_meshes_inside_region": 0
+}

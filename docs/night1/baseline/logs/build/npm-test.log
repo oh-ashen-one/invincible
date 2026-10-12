@@ -1,0 +1,28 @@
+
+> test
+> node --test test/*.test.mjs
+
+✔ components: welded parts, colours, part ids and the watertight flag (1.573292ms)
+✔ planPieces: solids -> 3D Voronoi, glass -> 2.5D slab, thin parts rigid (2.63025ms)
+✔ fractureJob: pieces tile the source (3D, stretched splinters, 2.5D glass) (53.11975ms)
+✔ same seed -> identical skeleton at every detail level (LOD silhouettes agree) (65.040792ms)
+✔ bark carries a wind weight: 0 at the trunk base, rising to the twig tips (9.462333ms)
+✔ metric bark UVs run along the branch (14.671625ms)
+✔ wind patch keeps the instancing path (fix 1) and samples world space + instance phase (fix 2) (0.313916ms)
+✔ shadow pass sways too: createDepthMaterial applies the same wind (fix 3) (10.766291ms)
+✔ velocity projection strips pulling-away and pushing-in components (0.396292ms)
+✔ tension formula: F = m g cos(theta) + m v^2 / |R| (0.087375ms)
+✔ arc keeps its length and stays perpendicular to the web (3.59625ms)
+✔ energy is (nearly) conserved: a smooth circular arc, no web jerks (0.61425ms)
+✔ tension at the bottom matches m g + m v^2 / R (0.080875ms)
+✔ small swings have the pendulum period 2 pi sqrt(R / g) (2.297459ms)
+✔ full loop over the top with a rigid web (never falls inside the circle) (0.577958ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 208.616334
+npm test  0.68s user 0.16s system 178% cpu 0.469 total

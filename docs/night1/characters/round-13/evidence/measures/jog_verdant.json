@@ -1,0 +1,1 @@
+{"image": "/Users/midir/sm2-n1/_scratch/characters/r13/chainA/v2/stills/skin_verdant_chest_4k.png", "roi": [1290, 1500, 1640, 1850], "columns": 258, "max_dev_px": 32.75, "max_jump_px": 58.18, "jump_at": [1427, 1650], "jump_at_critic_x1320_1400": 14.4, "verdict": "FAIL", "verdict_at_critic_x": "FAIL"}

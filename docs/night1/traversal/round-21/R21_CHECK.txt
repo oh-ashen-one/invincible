@@ -1,0 +1,25 @@
+== W21  wall-run stride (sprint): along-run foot separation peaks >= .35 m every cycle; lateral knee gap <= .35 m; a foot touches down every <= .18 s;
+         swing knee off the wall; vertical body within 15 deg of wall-up; side body 10-40 deg above the run line (head leading); limbs (hands / toes) <= .3 m
+  c_wallrun_perch wallRun: 101 rows | along-run foot sep med 0.32 max 0.56 m, per-step peaks min 0.43 (10/10 steps >= .35) | lateral knee gap med 0.16 max 0.19 m | knee off wall med 0.10 max 0.30 m | hands/toes off surface max 0.30 m (p90 0.23) | touchdowns 11, longest gap 0.383 s (med 0.150) | body-to-wall-up <= 15 deg 82 % (med 6.9)
+  r1_roofrun_zip wallRun: 101 rows | along-run foot sep med 0.32 max 0.56 m, per-step peaks min 0.43 (10/10 steps >= .35) | lateral knee gap med 0.16 max 0.19 m | knee off wall med 0.10 max 0.30 m | hands/toes off surface max 0.30 m (p90 0.23) | touchdowns 11, longest gap 0.383 s (med 0.150) | body-to-wall-up <= 15 deg 82 % (med 6.9)
+  s1_high_swing wallRun: 12 rows | along-run foot sep med 0.37 max 0.48 m, per-step peaks min 0.48 (2/2 steps >= .35) | lateral knee gap med 0.16 max 0.17 m | knee off wall med 0.07 max 0.14 m | hands/toes off surface max 0.22 m (p90 0.22) | touchdowns 2, longest gap 0.117 s (med 0.117) | body-to-wall-up <= 15 deg 55 % (med 14.1)
+  w1_wallrun_tall_zip wallRunSide: 39 rows | along-run foot sep med 0.29 max 0.59 m, per-step peaks min 0.42 (3/3 steps >= .35) | lateral knee gap med 0.14 max 0.15 m | knee off wall med 0.05 max 0.16 m | hands/toes off surface max 0.22 m (p90 0.20) | touchdowns 4, longest gap 0.167 s (med 0.167) | body above run line 10-40 deg 100 % (med 24.4, min 23.3, max 24.8)
+  w2_wallrun_side_zip wallRunSide: 38 rows | along-run foot sep med 0.30 max 0.62 m, per-step peaks min 0.41 (3/3 steps >= .35) | lateral knee gap med 0.14 max 0.14 m | knee off wall med 0.05 max 0.16 m | hands/toes off surface max 0.24 m (p90 0.20) | touchdowns 4, longest gap 0.183 s (med 0.167) | body above run line 10-40 deg 100 % (med 27.7, min 25.0, max 28.3)
+  x2_rmb_cancel_wall wallRunSide: 15 rows | along-run foot sep med 0.37 max 0.59 m, per-step peaks min 0.43 (1/1 steps >= .35) | lateral knee gap med 0.14 max 0.15 m | knee off wall med 0.05 max 0.14 m | hands/toes off surface max 0.22 m (p90 0.22) | touchdowns 1, longest gap nan s (med nan) | body above run line 10-40 deg 100 % (med 23.6, min 23.3, max 24.6)
+
+== S21  side run before the first input (target >= 0.6 s)
+  w1_wallrun_tall_zip: wallRunSide from 2.85 s; first button press 3.60 s -> side run before input 0.75 s; side run ends 3.60 s -> PASS
+  w2_wallrun_side_zip: wallRunSide from 3.17 s; first button press 3.85 s -> side run before input 0.68 s; side run ends 3.85 s -> PASS
+  x2_rmb_cancel_wall: wallRunSide from 2.85 s; first button press 3.20 s -> side run before input 0.35 s; side run ends 3.20 s -> FAIL
+
+== F8  critic r20 frame test: w1 2.9-3.6 s at 8 fps, legs apart (along-run foot sep >= .30 m) in >= 3 of 6 frames
+  w1_wallrun_tall_zip 2.9-3.6 s: 2.900:wallRunSide:0.20/0.42, 3.025:wallRunSide:0.38/0.05, 3.150:wallRunSide:0.37/0.13, 3.275:wallRunSide:0.50/0.07, 3.400:wallRunSide:0.18/0.04, 3.525:wallRunSide:0.03/0.03  (sep / knee off wall) -> 3/6 apart -> PASS
+     sheet docs/night1/traversal/round-21/sheets/w1_wallrun_tall_zip_2.9-3.6_8fps.png
+  w2_wallrun_side_zip 3.2-3.9 s: 3.200:wallRunSide:0.46/-0.04, 3.325:wallRunSide:0.12/0.01, 3.450:wallRunSide:0.02/0.03, 3.575:wallRunSide:0.37/0.07, 3.700:wallRunSide:0.41/0.16, 3.825:wallRunSide:-1.00/-1.00  (sep / knee off wall) -> 3/6 apart -> PASS
+     sheet docs/night1/traversal/round-21/sheets/w2_wallrun_side_zip_3.2-3.9_8fps.png
+  c_wallrun_perch 2.8-3.5 s: 2.800:wallRun:0.44/0.09, 2.925:wallRun:0.21/0.05, 3.050:wallRun:0.06/0.06, 3.175:wallRun:0.24/0.10, 3.300:wallRun:0.39/0.14, 3.425:wallRun:0.38/0.11  (sep / knee off wall) -> 3/6 apart -> PASS
+     sheet docs/night1/traversal/round-21/sheets/c_wallrun_perch_2.8-3.5_8fps.png
+
+== M21  setback step (critic r20: c 3.4-3.7 s every limb within 0.3 m of the wall; r20 = a 3 m hop)
+  c 3.4-3.7 s: 19 rows, hands / toes off the support surface max 0.27 m, knees max 0.30 m, modes ['wall/wallRun'] -> PASS
+  setbacks 1, top-outs 1; hero z over 3.4-3.7 s 36.0 .. 36.9 m

@@ -1,0 +1,4 @@
+| config | SP | internal | avg ms (fps) | p50 ms (fps) | p95 ms (fps) | p99 | hitches | GPU ms | RT ms | GT ms | RHI ms | draw calls | cvars |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| f_base100 | 100 | 3840x2160 | 42.92 (23.3) | 42.52 (23.5) | 50.13 (19.9) | 54.57 | 0 | 39.86 | 42.92 | 1.93 | 3.33 | 0 | - |
+| f_perf60_100 | 100 | 3840x2160 | 28.68 (34.9) | 28.65 (34.9) | 32.25 (31.0) | 34.34 | 0 | 27.98 | 28.68 | 2.05 | 2.35 | 0 | r.Nanite.MaxPixelsPerEdge=4 r.Lumen.HardwareRayTracing=0 r.TSR.History.ScreenPercentage=100 r.Shadow.Virtual.ResolutionLodBiasDirectional=1 r.SkyLight.RealTimeReflectionCapture.ResolutionOverride=64 r.VolumetricFog.GridPixelSize=16 r.VolumetricCloud.ViewRaySampleMaxCount=256 r.Shadow.Virtual.SMRT.RayCountDirectional=4 r.SkyLight.RealTimeReflectionCapture.TimeSlice=1 r.Shadow.Virtual.ResolutionLodBiasDirectionalMoving=1 |

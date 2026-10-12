@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/perf/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/pd32 -map /Game/Maps/Manhattan -res 3840x2160 -perf 15:45 -name pd32 -timeout 900 -exec r.Lumen.ScreenProbeGather.DownsampleFactor 32 -- -WHTravScript=/Users/midir/sm2-n1/perf/docs/night1/manhattan/scripts/route_30s_warmup15.json -WHTravCsv=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/pd32/trav_telemetry.csv -csvGpuStats -benchmark -fps=60 -notraceserver -dpcvars=r.Lumen.ScreenProbeGather.DownsampleFactor=32
+
+run_game: out=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/pd32 res=3840x2160 quit=46.0 window=0 movie=0
+WH_PERF_START t=15.00
+WH_PERF frames=1800 avg_ms=15.24 fps=65.6 p95_ms=17.90 p99_ms=20.06 gpu_avg_ms=13.92 out=3840x2160 internal=1843x1037 (manual) -> /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/pd32/pd32_perf.json
+WH_QUIT t=46.00
+

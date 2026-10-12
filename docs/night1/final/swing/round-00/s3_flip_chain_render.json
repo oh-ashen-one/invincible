@@ -1,0 +1,67 @@
+{
+ "clip": "s3_flip_chain",
+ "map": "island",
+ "cases": [
+  {
+   "case": "s3_c1_fwd",
+   "frames_rendered": 319,
+   "preroll_frames_cut": 92,
+   "rows": 227,
+   "wall_s": 56.0,
+   "fps_render": 5.7
+  },
+  {
+   "case": "s3_c2_back",
+   "frames_rendered": 319,
+   "preroll_frames_cut": 92,
+   "rows": 227,
+   "wall_s": 58.0,
+   "fps_render": 5.5
+  },
+  {
+   "case": "s3_c3_right",
+   "frames_rendered": 319,
+   "preroll_frames_cut": 92,
+   "rows": 227,
+   "wall_s": 52.0,
+   "fps_render": 6.13
+  },
+  {
+   "case": "s3_c4_left",
+   "frames_rendered": 319,
+   "preroll_frames_cut": 92,
+   "rows": 227,
+   "wall_s": 52.0,
+   "fps_render": 6.13
+  },
+  {
+   "case": "s3_c5_neutral",
+   "frames_rendered": 319,
+   "preroll_frames_cut": 92,
+   "rows": 227,
+   "wall_s": 52.0,
+   "fps_render": 6.13
+  },
+  {
+   "case": "s3_c6_fwd_right",
+   "frames_rendered": 319,
+   "preroll_frames_cut": 92,
+   "rows": 227,
+   "wall_s": 52.0,
+   "fps_render": 6.13
+  },
+  {
+   "case": "s3_c7_back_left",
+   "frames_rendered": 319,
+   "preroll_frames_cut": 92,
+   "rows": 227,
+   "wall_s": 52.0,
+   "fps_render": 6.13
+  }
+ ],
+ "frames": 1589,
+ "duration_s": 26.48,
+ "mp4_mb": 14.06,
+ "crf": 31,
+ "wall_s_total": 374.0
+}

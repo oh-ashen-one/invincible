@@ -1,0 +1,10 @@
+S1_avenue_street_3840x2160.jpg clean
+S2_avenue_swing_3840x2160.jpg clean
+S3_rooftop_watertower_3840x2160.jpg clean
+S4_perch_skyline_3840x2160.jpg clean
+S5_timessq_south_3840x2160.jpg clean
+S6_timessq_street_3840x2160.jpg clean
+S7_sunset_crosstown_3840x2160.jpg clean
+S8_aerial_midtown_3840x2160.jpg clean
+atlas scan done
+TOTAL HITS 0

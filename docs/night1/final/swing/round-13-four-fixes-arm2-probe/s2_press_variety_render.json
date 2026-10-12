@@ -1,0 +1,19 @@
+{
+ "clip": "s2_press_variety",
+ "map": "island",
+ "cases": [
+  {
+   "case": "s2_c1_roof_jump",
+   "frames_rendered": 391,
+   "preroll_frames_cut": 92,
+   "rows": 299,
+   "wall_s": 78.0,
+   "fps_render": 5.01
+  }
+ ],
+ "frames": 299,
+ "duration_s": 4.98,
+ "mp4_mb": 6.17,
+ "crf": 22,
+ "wall_s_total": 78.0
+}

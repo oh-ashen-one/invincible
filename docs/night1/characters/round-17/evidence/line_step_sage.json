@@ -1,0 +1,253 @@
+{
+ "regions": 6,
+ "straight_runs": 626,
+ "longest_run_px": 1060,
+ "max_step_px": 66.9,
+ "n_jogs": 26,
+ "jogs": [
+  {
+   "step": 66.9,
+   "x": 1922,
+   "y": 890,
+   "run_a": 61,
+   "run_b": 53,
+   "connector": 87,
+   "angle": 1.6
+  },
+  {
+   "step": 12.6,
+   "x": 2688,
+   "y": 1961,
+   "run_a": 45,
+   "run_b": 49,
+   "connector": 86,
+   "angle": 7.3
+  },
+  {
+   "step": 11.0,
+   "x": 3031,
+   "y": 1620,
+   "run_a": 64,
+   "run_b": 66,
+   "connector": 64,
+   "angle": 4.3
+  },
+  {
+   "step": 10.4,
+   "x": 2573,
+   "y": 1243,
+   "run_a": 45,
+   "run_b": 48,
+   "connector": 84,
+   "angle": 2.7
+  },
+  {
+   "step": 7.9,
+   "x": 2452,
+   "y": 1250,
+   "run_a": 44,
+   "run_b": 133,
+   "connector": 65,
+   "angle": 5.2
+  },
+  {
+   "step": 7.3,
+   "x": 3042,
+   "y": 1540,
+   "run_a": 64,
+   "run_b": 126,
+   "connector": 97,
+   "angle": 6.2
+  },
+  {
+   "step": 7.2,
+   "x": 1200,
+   "y": 1790,
+   "run_a": 115,
+   "run_b": 181,
+   "connector": 86,
+   "angle": 2.5
+  },
+  {
+   "step": 7.0,
+   "x": 1412,
+   "y": 1275,
+   "run_a": 50,
+   "run_b": 72,
+   "connector": 100,
+   "angle": 4.7
+  },
+  {
+   "step": 6.7,
+   "x": 2860,
+   "y": 1466,
+   "run_a": 55,
+   "run_b": 68,
+   "connector": 42,
+   "angle": 3.6
+  },
+  {
+   "step": 6.5,
+   "x": 1713,
+   "y": 1164,
+   "run_a": 45,
+   "run_b": 82,
+   "connector": 86,
+   "angle": 3.5
+  },
+  {
+   "step": 5.9,
+   "x": 2524,
+   "y": 1110,
+   "run_a": 40,
+   "run_b": 59,
+   "connector": 78,
+   "angle": 3.8
+  },
+  {
+   "step": 5.9,
+   "x": 1747,
+   "y": 1276,
+   "run_a": 232,
+   "run_b": 52,
+   "connector": 106,
+   "angle": 0.1
+  },
+  {
+   "step": 5.7,
+   "x": 2533,
+   "y": 654,
+   "run_a": 57,
+   "run_b": 44,
+   "connector": 63,
+   "angle": 3.5
+  },
+  {
+   "step": 5.7,
+   "x": 3054,
+   "y": 1221,
+   "run_a": 52,
+   "run_b": 40,
+   "connector": 86,
+   "angle": 0.7
+  },
+  {
+   "step": 5.3,
+   "x": 2153,
+   "y": 1576,
+   "run_a": 58,
+   "run_b": 48,
+   "connector": 8,
+   "angle": 0.5
+  },
+  {
+   "step": 5.0,
+   "x": 2444,
+   "y": 948,
+   "run_a": 67,
+   "run_b": 70,
+   "connector": 67,
+   "angle": 3.1
+  },
+  {
+   "step": 5.0,
+   "x": 2193,
+   "y": 656,
+   "run_a": 47,
+   "run_b": 58,
+   "connector": 88,
+   "angle": 1.0
+  },
+  {
+   "step": 5.0,
+   "x": 1124,
+   "y": 283,
+   "run_a": 49,
+   "run_b": 94,
+   "connector": 49,
+   "angle": 2.2
+  },
+  {
+   "step": 5.0,
+   "x": 792,
+   "y": 1129,
+   "run_a": 64,
+   "run_b": 79,
+   "connector": 81,
+   "angle": 6.9
+  },
+  {
+   "step": 5.0,
+   "x": 1057,
+   "y": 276,
+   "run_a": 43,
+   "run_b": 46,
+   "connector": 73,
+   "angle": 0.0
+  },
+  {
+   "step": 4.7,
+   "x": 1487,
+   "y": 1275,
+   "run_a": 165,
+   "run_b": 73,
+   "connector": 50,
+   "angle": 0.0
+  },
+  {
+   "step": 4.6,
+   "x": 1624,
+   "y": 635,
+   "run_a": 47,
+   "run_b": 119,
+   "connector": 66,
+   "angle": 4.9
+  },
+  {
+   "step": 4.5,
+   "x": 1039,
+   "y": 1075,
+   "run_a": 51,
+   "run_b": 76,
+   "connector": 51,
+   "angle": 7.5
+  },
+  {
+   "step": 4.4,
+   "x": 1035,
+   "y": 1187,
+   "run_a": 50,
+   "run_b": 111,
+   "connector": 61,
+   "angle": 7.0
+  },
+  {
+   "step": 4.2,
+   "x": 1301,
+   "y": 1290,
+   "run_a": 70,
+   "run_b": 47,
+   "connector": 73,
+   "angle": 0.8
+  },
+  {
+   "step": 4.0,
+   "x": 2217,
+   "y": 825,
+   "run_a": 69,
+   "run_b": 75,
+   "connector": 85,
+   "angle": 0.4
+  }
+ ],
+ "image": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_sage_chest_4k.png",
+ "gate": 4.0,
+ "run": 40,
+ "box": [
+  691,
+  259,
+  3148,
+  2095
+ ],
+ "pass": false
+}

@@ -1,0 +1,550 @@
+{
+ "what": "every telemetry-only (nullrhi) sim of the M2 route search, 2026-10-03; each one 30.4 s, swing held, autoChain gap 0.3 s; spawn (x, y, z) in UE metres; max_gap_s / frac_gaps_le_0_5 / ground_land_frames_after_1s = the pass lines; last_web_anchor_y_m = the farthest-south web anchor of the run",
+ "sims": 30,
+ "passing_all_swing_lines": [
+  "q_b2_x0_z45_p65_t0",
+  "s1_r5"
+ ],
+ "runs": [
+  {
+   "frames": 1823,
+   "releases_rewebbed": 9,
+   "max_gap_s": 1.97,
+   "frac_gaps_le_0_5": 0.56,
+   "unanswered_release_at_s": 18.15,
+   "ground_land_frames_after_1s": 497,
+   "first_ground_t": 20.0,
+   "last_web_anchor_y_m": 1418,
+   "spawn": [
+    244.0,
+    1010.4,
+    36.0
+   ],
+   "name": "b1_x244_z36_p55",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "10:34"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 10,
+   "max_gap_s": 1.9,
+   "frac_gaps_le_0_5": 0.9,
+   "unanswered_release_at_s": 18.92,
+   "ground_land_frames_after_1s": 562,
+   "first_ground_t": 21.02,
+   "last_web_anchor_y_m": 1503,
+   "spawn": [
+    250.0,
+    1010.4,
+    30.0
+   ],
+   "name": "b1_x250_z30_p55",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "10:30"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 9,
+   "max_gap_s": 5.23,
+   "frac_gaps_le_0_5": 0.67,
+   "unanswered_release_at_s": 25.0,
+   "ground_land_frames_after_1s": 394,
+   "first_ground_t": 11.35,
+   "last_web_anchor_y_m": 1506,
+   "spawn": [
+    250.0,
+    1010.4,
+    45.0
+   ],
+   "name": "b1_x250_z45_p55",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "10:57"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 7,
+   "max_gap_s": 2.03,
+   "frac_gaps_le_0_5": 0.71,
+   "unanswered_release_at_s": 12.93,
+   "ground_land_frames_after_1s": 921,
+   "first_ground_t": 15.03,
+   "last_web_anchor_y_m": 1495,
+   "spawn": [
+    256.0,
+    1010.4,
+    36.0
+   ],
+   "name": "b1_x256_z36_p55",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "10:39"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 11,
+   "max_gap_s": 1.97,
+   "frac_gaps_le_0_5": 0.82,
+   "unanswered_release_at_s": 20.47,
+   "ground_land_frames_after_1s": 468,
+   "first_ground_t": 22.58,
+   "last_web_anchor_y_m": 1471,
+   "spawn": [
+    0.0,
+    1010.4,
+    30.0
+   ],
+   "name": "b2_x0_z30_p55_t0",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "10:45"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 9,
+   "max_gap_s": 1.17,
+   "frac_gaps_le_0_5": 0.67,
+   "unanswered_release_at_s": 15.73,
+   "ground_land_frames_after_1s": 748,
+   "first_ground_t": 5.28,
+   "last_web_anchor_y_m": 1461,
+   "spawn": [
+    0.0,
+    1010.4,
+    36.0
+   ],
+   "name": "b2_x0_z36_p55_t0",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "10:42"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 8,
+   "max_gap_s": 0.3,
+   "frac_gaps_le_0_5": 1.0,
+   "unanswered_release_at_s": 12.8,
+   "ground_land_frames_after_1s": 933,
+   "first_ground_t": 14.83,
+   "last_web_anchor_y_m": 1481,
+   "spawn": [
+    0.0,
+    1010.4,
+    45.0
+   ],
+   "name": "b2_x0_z45_p65_t0",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "10:47"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 9,
+   "max_gap_s": 1.9,
+   "frac_gaps_le_0_5": 0.44,
+   "unanswered_release_at_s": 19.32,
+   "ground_land_frames_after_1s": 593,
+   "first_ground_t": 20.5,
+   "last_web_anchor_y_m": 1422,
+   "spawn": [
+    430.0,
+    1010.4,
+    36.0
+   ],
+   "name": "b2_x430_z36_p55_t0",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "10:51"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 0,
+   "max_gap_s": null,
+   "frac_gaps_le_0_5": null,
+   "unanswered_release_at_s": null,
+   "ground_land_frames_after_1s": 1723,
+   "first_ground_t": 1.67,
+   "last_web_anchor_y_m": null,
+   "spawn": [
+    246.0,
+    1580.4,
+    40.0
+   ],
+   "name": "b4_x246_z40_y1580",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:21"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 0,
+   "max_gap_s": null,
+   "frac_gaps_le_0_5": null,
+   "unanswered_release_at_s": null,
+   "ground_land_frames_after_1s": 1723,
+   "first_ground_t": 1.67,
+   "last_web_anchor_y_m": null,
+   "spawn": [
+    250.0,
+    1580.4,
+    40.0
+   ],
+   "name": "b4_x250_z40_y1580",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:18"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 0,
+   "max_gap_s": null,
+   "frac_gaps_le_0_5": null,
+   "unanswered_release_at_s": null,
+   "ground_land_frames_after_1s": 1727,
+   "first_ground_t": 1.6,
+   "last_web_anchor_y_m": null,
+   "spawn": [
+    246.0,
+    1700.4,
+    34.0
+   ],
+   "name": "b4_x250_z40_y1700",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:30"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 0,
+   "max_gap_s": null,
+   "frac_gaps_le_0_5": null,
+   "unanswered_release_at_s": null,
+   "ground_land_frames_after_1s": 1737,
+   "first_ground_t": 1.43,
+   "last_web_anchor_y_m": null,
+   "spawn": [
+    250.0,
+    1660.4,
+    28.0
+   ],
+   "name": "b4_x250_z48_y1620",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:27"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 0,
+   "max_gap_s": null,
+   "frac_gaps_le_0_5": null,
+   "unanswered_release_at_s": null,
+   "ground_land_frames_after_1s": 1727,
+   "first_ground_t": 1.6,
+   "last_web_anchor_y_m": null,
+   "spawn": [
+    250.0,
+    1700.4,
+    34.0
+   ],
+   "name": "b4_x254_z48_y1580",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:24"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 13,
+   "max_gap_s": 1.63,
+   "frac_gaps_le_0_5": 0.62,
+   "unanswered_release_at_s": 23.52,
+   "ground_land_frames_after_1s": 290,
+   "first_ground_t": 25.55,
+   "last_web_anchor_y_m": 1473,
+   "spawn": [
+    250.0,
+    1010.4,
+    36.0
+   ],
+   "name": "cand_c2",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "10:24"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 8,
+   "max_gap_s": 0.3,
+   "frac_gaps_le_0_5": 1.0,
+   "unanswered_release_at_s": 12.82,
+   "ground_land_frames_after_1s": 932,
+   "first_ground_t": 14.85,
+   "last_web_anchor_y_m": 1481,
+   "spawn": [
+    0.0,
+    1010.4,
+    45.0
+   ],
+   "name": "d1_h100_11",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:00"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 8,
+   "max_gap_s": 0.3,
+   "frac_gaps_le_0_5": 1.0,
+   "unanswered_release_at_s": 12.85,
+   "ground_land_frames_after_1s": 931,
+   "first_ground_t": 14.87,
+   "last_web_anchor_y_m": 1481,
+   "spawn": [
+    0.0,
+    1010.4,
+    45.0
+   ],
+   "name": "d2_h112_11",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:02"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 8,
+   "max_gap_s": 0.3,
+   "frac_gaps_le_0_5": 1.0,
+   "unanswered_release_at_s": 12.78,
+   "ground_land_frames_after_1s": 935,
+   "first_ground_t": 14.8,
+   "last_web_anchor_y_m": 1481,
+   "spawn": [
+    0.0,
+    1010.4,
+    45.0
+   ],
+   "name": "d3_h80_11",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:05"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 8,
+   "max_gap_s": 0.3,
+   "frac_gaps_le_0_5": 1.0,
+   "unanswered_release_at_s": 12.8,
+   "ground_land_frames_after_1s": 933,
+   "first_ground_t": 14.83,
+   "last_web_anchor_y_m": 1481,
+   "spawn": [
+    0.0,
+    1010.4,
+    45.0
+   ],
+   "name": "d4_rp40_11",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:07"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 8,
+   "max_gap_s": 0.3,
+   "frac_gaps_le_0_5": 1.0,
+   "unanswered_release_at_s": 12.78,
+   "ground_land_frames_after_1s": 931,
+   "first_ground_t": 14.87,
+   "last_web_anchor_y_m": 1478,
+   "spawn": [
+    0.0,
+    1010.4,
+    45.0
+   ],
+   "name": "d5_rp80_11",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:10"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 11,
+   "max_gap_s": 2.1,
+   "frac_gaps_le_0_5": 0.64,
+   "unanswered_release_at_s": 20.53,
+   "ground_land_frames_after_1s": 467,
+   "first_ground_t": 5.23,
+   "last_web_anchor_y_m": 1478,
+   "spawn": [
+    0.0,
+    1010.4,
+    43.0
+   ],
+   "name": "f1_z43",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:12"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 8,
+   "max_gap_s": 1.3,
+   "frac_gaps_le_0_5": 0.88,
+   "unanswered_release_at_s": 14.28,
+   "ground_land_frames_after_1s": 843,
+   "first_ground_t": 16.33,
+   "last_web_anchor_y_m": 1449,
+   "spawn": [
+    0.0,
+    1010.4,
+    47.0
+   ],
+   "name": "f2_z47",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "11:15"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 17,
+   "max_gap_s": 2.3,
+   "frac_gaps_le_0_5": 0.65,
+   "unanswered_release_at_s": null,
+   "ground_land_frames_after_1s": 21,
+   "first_ground_t": 21.35,
+   "last_web_anchor_y_m": 1577,
+   "spawn": [
+    250.0,
+    1010.4,
+    36.0
+   ],
+   "name": "p1_t1",
+   "map": "map with a second PlayerStart (random pick, 11:37-11:57): not repeatable",
+   "finished": "11:40"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 11,
+   "max_gap_s": 1.97,
+   "frac_gaps_le_0_5": 0.82,
+   "unanswered_release_at_s": 20.47,
+   "ground_land_frames_after_1s": 468,
+   "first_ground_t": 22.58,
+   "last_web_anchor_y_m": 1471,
+   "spawn": [
+    0.0,
+    1010.4,
+    30.0
+   ],
+   "name": "q_b2_x0_z30_p55_t0",
+   "map": "map with a second PlayerStart (random pick, 11:37-11:57): not repeatable",
+   "finished": "11:45"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 20,
+   "max_gap_s": 0.3,
+   "frac_gaps_le_0_5": 1.0,
+   "unanswered_release_at_s": 30.17,
+   "ground_land_frames_after_1s": 0,
+   "first_ground_t": null,
+   "last_web_anchor_y_m": 2261,
+   "spawn": [
+    0.0,
+    1010.4,
+    45.0
+   ],
+   "name": "q_b2_x0_z45_p65_t0",
+   "map": "map with a second PlayerStart (random pick, 11:37-11:57): not repeatable",
+   "finished": "11:43"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 20,
+   "max_gap_s": 0.3,
+   "frac_gaps_le_0_5": 1.0,
+   "unanswered_release_at_s": 30.17,
+   "ground_land_frames_after_1s": 0,
+   "first_ground_t": null,
+   "last_web_anchor_y_m": 2261,
+   "spawn": [
+    0.0,
+    1010.4,
+    45.0
+   ],
+   "name": "s1_r5",
+   "map": "final map (WH_StreamSrc_M2)",
+   "finished": "12:00"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 15,
+   "max_gap_s": 1.77,
+   "frac_gaps_le_0_5": 0.8,
+   "unanswered_release_at_s": 27.52,
+   "ground_land_frames_after_1s": 45,
+   "first_ground_t": 29.63,
+   "last_web_anchor_y_m": 1490,
+   "spawn": [
+    250.0,
+    1010.4,
+    36.0
+   ],
+   "name": "t1_x250_z36_trick4",
+   "map": "default map (one PlayerStart y 178): loaded region y -1024..1536",
+   "finished": "10:19"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 17,
+   "max_gap_s": 2.1,
+   "frac_gaps_le_0_5": 0.76,
+   "unanswered_release_at_s": null,
+   "ground_land_frames_after_1s": 3,
+   "first_ground_t": 5.23,
+   "last_web_anchor_y_m": 1880,
+   "spawn": [
+    0.0,
+    1010.4,
+    43.0
+   ],
+   "name": "v_z43",
+   "map": "final map (WH_StreamSrc_M2)",
+   "finished": "12:08"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 15,
+   "max_gap_s": 2.17,
+   "frac_gaps_le_0_5": 0.53,
+   "unanswered_release_at_s": 29.77,
+   "ground_land_frames_after_1s": 0,
+   "first_ground_t": null,
+   "last_web_anchor_y_m": 1608,
+   "spawn": [
+    0.0,
+    1010.4,
+    44.0
+   ],
+   "name": "v_z44",
+   "map": "final map (WH_StreamSrc_M2)",
+   "finished": "12:11"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 18,
+   "max_gap_s": 1.77,
+   "frac_gaps_le_0_5": 0.83,
+   "unanswered_release_at_s": null,
+   "ground_land_frames_after_1s": 0,
+   "first_ground_t": null,
+   "last_web_anchor_y_m": 1849,
+   "spawn": [
+    0.0,
+    1010.4,
+    46.0
+   ],
+   "name": "v_z46",
+   "map": "final map (WH_StreamSrc_M2)",
+   "finished": "12:59"
+  },
+  {
+   "frames": 1823,
+   "releases_rewebbed": 18,
+   "max_gap_s": 2.3,
+   "frac_gaps_le_0_5": 0.83,
+   "unanswered_release_at_s": null,
+   "ground_land_frames_after_1s": 0,
+   "first_ground_t": null,
+   "last_web_anchor_y_m": 1849,
+   "spawn": [
+    0.0,
+    1010.4,
+    47.0
+   ],
+   "name": "v_z47",
+   "map": "final map (WH_StreamSrc_M2)",
+   "finished": "13:01"
+  }
+ ]
+}

@@ -1,0 +1,60 @@
+GPU0-Graphics0 top-level events (ms from the first SceneRender start):
+      0.00 ->    23.14   23.14  SceneRender
+     23.28 ->    24.27    0.99  VolumetricCloud
+    ---- idle 2.87 ms
+     27.31 ->    28.32    1.01  PostProcessing
+     28.47 ->    53.28   24.81  SceneRender
+     53.44 ->    54.46    1.02  VolumetricCloud
+    ---- idle 2.89 ms
+     57.53 ->    58.49    0.96  PostProcessing
+     58.64 ->    82.51   23.87  SceneRender
+     82.66 ->    83.71    1.05  VolumetricCloud
+
+RenderThread 0 long scopes (>4 ms):
+  d0    30.37 ms  Frame
+  d1    30.12 ms  SceneRender
+  d0    29.35 ms  Frame
+  d1    29.12 ms  SceneRender
+  d2    28.44 ms  FDeferredShadingSceneRenderer_Render
+  d3    27.74 ms  Scene
+  d4    25.88 ms  VisibilityCommands
+  d5    25.88 ms  FDeferredShadingSceneRenderer_InitViews
+  d6    25.82 ms  ProcessVisibilityTasks
+  d7    25.82 ms  WaitForVisibilityTasks
+  d8    25.81 ms  WaitUntilTasksComplete
+  d9    25.81 ms  WaitForTasks
+  d0    28.96 ms  Frame
+  d1    28.73 ms  SceneRender
+
+GameThread long scopes (>4 ms):
+  d0    30.38 ms  FEngineLoop::Tick
+  d1    30.38 ms  Frame
+  d2    28.65 ms  Sync_RenderingThread
+  d3    28.65 ms  GameThreadWaitForTask
+  d0    29.34 ms  FEngineLoop::Tick
+  d1    29.34 ms  Frame
+  d2    27.66 ms  Sync_RenderingThread
+  d3    27.65 ms  GameThreadWaitForTask
+  d0    28.98 ms  FEngineLoop::Tick
+  d1    28.97 ms  Frame
+  d2    27.37 ms  Sync_RenderingThread
+  d3    27.37 ms  GameThreadWaitForTask
+  d0    28.20 ms  FEngineLoop::Tick
+  d1    28.20 ms  Frame
+
+RHIThread long scopes (>4 ms):
+  d0    21.81 ms  WaitForTasks
+  d0    21.25 ms  WaitForTasks
+  d0    19.96 ms  WaitForTasks
+
+worker-thread long tasks (>4 ms):
+  Foreground Worker #0     d0    25.70 ms  ExecuteForegroundTask
+  Foreground Worker #0     d1    25.69 ms  OcclusionCullPipe
+  Foreground Worker #0     d2    25.68 ms  GPUBound_WaitingForGPUForOcclusionQueries_SeeGPUTrack
+  Foreground Worker #0     d3    25.67 ms  RHIGetRenderQueryResult_GPU_Wait
+  Foreground Worker #0     d4    25.67 ms  SyncPoint_Wait
+  Foreground Worker #0     d5    25.67 ms  FTaskBase::WaitWithNamedThreadsSupport
+  Foreground Worker #0     d6    25.67 ms  FTaskBase::WaitImpl_StateChangeEvent_WaitFor
+  Foreground Worker #0     d7    25.67 ms  Oversubscription
+  Background Worker #0     d0    25.23 ms  ExecuteForegroundTask
+  Background Worker #0     d1    25.23 ms  OcclusionCullPipe

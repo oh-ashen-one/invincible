@@ -1,0 +1,1 @@
+{"image": "docs/night1/characters/round-16/stills/skin_ash_chest_4k.jpg", "accent": "#a8e05a", "panel_px": 253286, "panel_luma_median": 219.2, "longest_dark_run_px": 3, "longest_run_at": [1849, 1346], "dark_components_gt10px": 0, "worst_components": [], "probes": [{"x": 1412, "y": 1240, "luma": 41.6, "local_panel_median": 0.0, "inside_panel": false}], "verdict": "PASS"}

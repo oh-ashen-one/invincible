@@ -1,0 +1,49 @@
+{
+ "name": "route_30s_warmup15",
+ "note": "Perf variant of route_30s: 15 s standing warm-up (shader / Lumen / streaming settle, not measured), then the identical 30 s route from t = 15 s; measure -perf 15:45.",
+ "seed": 20260929,
+ "spawn": {
+  "pos": [
+   249,
+   176,
+   0.95
+  ],
+  "yaw": -90,
+  "camPitch": 0.14
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    0
+   ]
+  },
+  {
+   "t": 15.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "sprint": true
+  },
+  {
+   "t": 16.8,
+   "jump": true
+  },
+  {
+   "t": 17.2,
+   "jump": false
+  },
+  {
+   "t": 17.6,
+   "swing": true,
+   "autoChain": true,
+   "releasePhase": 0.7,
+   "gap": 0.15,
+   "repressVz": 99.0,
+   "trickEvery": 3
+  }
+ ]
+}

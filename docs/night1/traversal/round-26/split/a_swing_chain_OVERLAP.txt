@@ -1,0 +1,4 @@
+# split capture a_swing_chain at t=7.0: A 499 frames / 449 rows (skip 50), B 515 frames / 935 rows, first B row 420 (t=7.0000)
+  telemetry A vs B over 449 rows: max |pos / cam| diff 0.0000 m -> SAME
+  overlap frames (A row 420+k vs B frame k): k0: mean 1.05/255, px>24 0.05 %, k6: mean 1.16/255, px>24 0.17 %, k12: mean 0.97/255, px>24 0.19 %, k18: mean 0.91/255, px>24 0.04 %, k24: mean 1.03/255, px>24 0.11 %
+  merged 985 frames, telemetry rows 935 -> trim 50

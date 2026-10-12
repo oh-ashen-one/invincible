@@ -1,0 +1,154 @@
+{
+ "ref": "/Users/midir/sm2-n1/_scratch/perf/r03/before",
+ "crops": {
+  "S1": {
+   "S1_glass": [
+    485,
+    0,
+    710,
+    490
+   ]
+  },
+  "S2": {
+   "S2_windows": [
+    0,
+    38,
+    576,
+    960
+   ],
+   "S2_gold": [
+    1459,
+    0,
+    1920,
+    1056
+   ]
+  }
+ },
+ "tests": {
+  "/Users/midir/sm2-n1/_scratch/perf/r04/final": {
+   "stills": {
+    "view_S1": {
+     "meanY_ref": 92.1,
+     "meanY_test": 91.3,
+     "canopy_frac_pct": 12.01,
+     "canopy_ref": 68.2,
+     "canopy_test": 62.1,
+     "canopy_ratio": 0.912,
+     "canopy_pass": true,
+     "sat_ref": 121.8,
+     "sat_test": 122.2,
+     "sat_ratio": 1.004,
+     "sky_std_ref": 59.01,
+     "sky_std_test": 59.22,
+     "sky_grad_ref": 53.16,
+     "sky_grad_test": 53.11,
+     "sky_grad_ratio": 0.999
+    },
+    "view_S2": {
+     "meanY_ref": 96.6,
+     "meanY_test": 97.2,
+     "canopy_frac_pct": 2.35,
+     "canopy_ref": 76.3,
+     "canopy_test": 78.3,
+     "canopy_ratio": 1.026,
+     "canopy_pass": true,
+     "sat_ref": 130.5,
+     "sat_test": 132.2,
+     "sat_ratio": 1.013,
+     "sky_std_ref": 62.63,
+     "sky_std_test": 62.56,
+     "sky_grad_ref": 57.99,
+     "sky_grad_test": 57.89,
+     "sky_grad_ratio": 0.998
+    },
+    "view_S7": {
+     "meanY_ref": 55.4,
+     "meanY_test": 55.7,
+     "canopy_frac_pct": 0.33,
+     "sat_ref": 117.8,
+     "sat_test": 118.4,
+     "sat_ratio": 1.005,
+     "sky_std_ref": 60.34,
+     "sky_std_test": 60.34,
+     "sky_grad_ref": 25.21,
+     "sky_grad_test": 25.45,
+     "sky_grad_ratio": 1.009
+    },
+    "route_t20": {
+     "meanY_ref": 89.5,
+     "meanY_test": 90.2,
+     "canopy_frac_pct": 15.89,
+     "canopy_ref": 72.0,
+     "canopy_test": 68.2,
+     "canopy_ratio": 0.948,
+     "canopy_pass": true,
+     "sat_ref": 143.2,
+     "sat_test": 140.7,
+     "sat_ratio": 0.983,
+     "sat_pass": true,
+     "sky_std_ref": 65.17,
+     "sky_std_test": 65.3,
+     "sky_grad_ref": 37.25,
+     "sky_grad_test": 36.79,
+     "sky_grad_ratio": 0.988
+    },
+    "route_t28": {
+     "meanY_ref": 60.0,
+     "meanY_test": 61.6,
+     "canopy_frac_pct": 0.57,
+     "sat_ref": 115.2,
+     "sat_test": 117.5,
+     "sat_ratio": 1.02,
+     "sat_pass": true,
+     "sky_std_ref": 74.04,
+     "sky_std_test": 73.66,
+     "sky_grad_ref": 38.0,
+     "sky_grad_test": 38.73,
+     "sky_grad_ratio": 1.019
+    },
+    "route_t38": {
+     "meanY_ref": 69.6,
+     "meanY_test": 69.2,
+     "canopy_frac_pct": 0.38,
+     "sat_ref": 160.0,
+     "sat_test": 160.3,
+     "sat_ratio": 1.002,
+     "sat_pass": true,
+     "sky_std_ref": 62.3,
+     "sky_std_test": 62.4,
+     "sky_grad_ref": 24.41,
+     "sky_grad_test": 24.05,
+     "sky_grad_ratio": 0.985
+    },
+    "route_t42": {
+     "meanY_ref": 98.7,
+     "meanY_test": 102.4,
+     "canopy_frac_pct": 2.48,
+     "canopy_ref": 87.3,
+     "canopy_test": 90.9,
+     "canopy_ratio": 1.042,
+     "canopy_pass": true,
+     "sat_ref": 122.8,
+     "sat_test": 124.1,
+     "sat_ratio": 1.011,
+     "sat_pass": true,
+     "sky_std_ref": 14.09,
+     "sky_std_test": 13.87,
+     "sky_grad_ref": 2.88,
+     "sky_grad_test": 2.92,
+     "sky_grad_ratio": 1.013
+    }
+   },
+   "crops": {
+    "S1_glass": 0.9508,
+    "S2_windows": 0.9932,
+    "S2_gold": 0.9853
+   },
+   "pass": {
+    "crops_r02_ge_0.97": false,
+    "canopy_within_10pct": true,
+    "route_sat_within_5pct": true
+   }
+  }
+ }
+}

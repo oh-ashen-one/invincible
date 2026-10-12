@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/look/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_variants/no_dfshadow -map /Game/Tests/Look/Look_Midtown -res 3840x2160 -perf 22:52 -name no_dfshadow -timeout 900 -exec r.ScreenPercentage 50,r.DistanceFieldShadowing 0 -- -WHTravScript=/Users/midir/sm2-n1/look/tools/perf_ue/scripts/city_swing_avenue.json -WHTravCsv=/Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_variants/no_dfshadow/trav_telemetry.csv -csvGpuStats -benchmark -fps=60
+
+run_game: out=/Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_variants/no_dfshadow res=3840x2160 quit=53.0 window=0 movie=0
+WH_PERF_START t=22.00
+WH_PERF frames=1800 avg_ms=30.71 fps=32.6 p95_ms=46.47 p99_ms=54.02 gpu_avg_ms=28.52 out=3840x2160 internal=1920x1080 (manual) -> /Users/midir/sm2-n1/look/docs/night1/look/round-01/perf_variants/no_dfshadow/no_dfshadow_perf.json
+WH_QUIT t=53.00
+

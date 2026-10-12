@@ -1,0 +1,5 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# Hardware occlusion queries off. Unreal Insights trace (round 01): every frame the render thread sat in InitViews > OcclusionCullPipe >
+# RHIGetRenderQueryResult_GPU_Wait for ~26 of 28 ms, i.e. it could not start frame N+1 until the GPU had finished frame N (no CPU/GPU pipelining;
+# the GPU idled 2-5 ms per frame while the render thread recorded). Nanite culls on the GPU (HZB); the few non-Nanite pieces are cheap to draw.
+r.AllowOcclusionQueries=0

@@ -1,0 +1,15 @@
+{
+  "meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "{\n  \"name\": \"SM2_Hero_Animation\",\n  \"object_count\": 3,\n  \"objects\": [\n    {\n      \"name\": \"Cube\",\n      \"type\": \"MESH\",\n      \"location\": [\n        0.0,\n        0.0,\n        0.0\n      ]\n    },\n    {\n      \"name\": \"Light\",\n      \"type\": \"LIGHT\",\n      \"location\": [\n        4.08,\n        1.01,\n        5.9\n      ]\n    },\n    {\n      \"name\": \"Camera\",\n      \"type\": \"CAMERA\",\n      \"location\": [\n        7.36,\n        -6.93,\n        4.96\n      ]\n    }\n  ],\n  \"materials_count\": 2\n}",
+      "annotations": null,
+      "meta": null
+    }
+  ],
+  "structuredContent": {
+    "result": "{\n  \"name\": \"SM2_Hero_Animation\",\n  \"object_count\": 3,\n  \"objects\": [\n    {\n      \"name\": \"Cube\",\n      \"type\": \"MESH\",\n      \"location\": [\n        0.0,\n        0.0,\n        0.0\n      ]\n    },\n    {\n      \"name\": \"Light\",\n      \"type\": \"LIGHT\",\n      \"location\": [\n        4.08,\n        1.01,\n        5.9\n      ]\n    },\n    {\n      \"name\": \"Camera\",\n      \"type\": \"CAMERA\",\n      \"location\": [\n        7.36,\n        -6.93,\n        4.96\n      ]\n    }\n  ],\n  \"materials_count\": 2\n}"
+  },
+  "isError": false
+}

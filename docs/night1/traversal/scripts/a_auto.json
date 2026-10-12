@@ -1,0 +1,36 @@
+{
+ "name": "a_swing_chain_auto",
+ "spawn": {
+  "pos": [
+   0,
+   0,
+   22
+  ],
+  "yaw": 0,
+  "camPitch": 0.12,
+  "vel": [
+   22,
+   0,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 0,
+   "swing": false
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.7,
+   "gap": 0.15,
+   "repressVz": 99.0,
+   "trickEvery": 3
+  }
+ ]
+}

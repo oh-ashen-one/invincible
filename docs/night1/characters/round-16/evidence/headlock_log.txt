@@ -1,0 +1,8 @@
+[2026.10.02-18.11.41:856][100]LogTemp: Display: WH_HEADLOCK shot 6 head turn 6.88 deg (yaw -2.48 pitch 6.41 roll -0.47)
+[2026.10.02-18.12.22:965][179]LogTemp: Display: WH_HEADLOCK shot 13 head turn 6.79 deg (yaw -3.11 pitch 6.03 roll -0.49)
+[2026.10.02-18.13.03:631][257]LogTemp: Display: WH_HEADLOCK shot 20 head turn 7.59 deg (yaw 0.42 pitch 7.58 roll 0.08)
+[2026.10.02-18.14.22:912][332]LogTemp: Display: WH_HEADLOCK shot 27 head turn 4.52 deg (yaw -0.00 pitch 4.52 roll -0.00)
+[2026.10.02-18.15.29:051][411]LogTemp: Display: WH_HEADLOCK shot 34 head turn 7.18 deg (yaw 0.30 pitch 7.17 roll 0.06)
+[2026.10.02-18.17.04:064][487]LogTemp: Display: WH_HEADLOCK shot 41 head turn 6.79 deg (yaw -2.78 pitch 6.18 roll -0.52)
+[2026.10.02-18.18.38:592][561]LogTemp: Display: WH_HEADLOCK shot 48 head turn 6.69 deg (yaw -4.70 pitch 4.73 roll -0.73)
+[2026.10.02-18.19.16:486][638]LogTemp: Display: WH_HEADLOCK shot 55 head turn 7.45 deg (yaw 0.44 pitch 7.44 roll 0.08)

@@ -1,0 +1,254 @@
+{
+ "spec": "mgbmgm",
+ "dist": 7,
+ "seed": 7,
+ "start": 1.0,
+ "quit": 27.0,
+ "beats": [
+  {
+   "t": 1.4958,
+   "key": "attack",
+   "toward": "e4",
+   "label": "combo A 1 (jab/cross)"
+  },
+  {
+   "t": 1.9458,
+   "key": "attack",
+   "toward": "e4",
+   "label": "combo A 2"
+  },
+  {
+   "t": 2.3958,
+   "key": "attack",
+   "toward": "e4",
+   "label": "combo A 3"
+  },
+  {
+   "t": 2.8458,
+   "key": "attack",
+   "toward": "e4",
+   "label": "combo A ender"
+  },
+  {
+   "t": 3.6458,
+   "key": "attack",
+   "label": "counter",
+   "recorded": "free: hero free"
+  },
+  {
+   "t": 4.5958,
+   "key": "attack",
+   "toward": "e6",
+   "label": "combo B 1"
+  },
+  {
+   "t": 4.6628,
+   "key": "dodge",
+   "label": "perfect dodge 1 (slow-mo)",
+   "recorded": "threat: threat e3 in 0.250"
+  },
+  {
+   "t": 4.9958,
+   "key": "attack",
+   "toward": "e6",
+   "hold": 0.35,
+   "label": "launcher (hold)"
+  },
+  {
+   "t": 5.9458,
+   "key": "attack",
+   "label": "air combo 1"
+  },
+  {
+   "t": 6.2958,
+   "key": "attack",
+   "label": "air combo 2"
+  },
+  {
+   "t": 6.6458,
+   "key": "attack",
+   "label": "air combo 3 (slam)"
+  },
+  {
+   "t": 7.7958,
+   "key": "web",
+   "toward": "e2",
+   "label": "web shooter -> gunman e2 (disarm)"
+  },
+  {
+   "t": 8.1458,
+   "key": "web",
+   "toward": "e2",
+   "label": "web shooter -> e2"
+  },
+  {
+   "t": 8.5958,
+   "key": "web",
+   "toward": "e5",
+   "label": "web shooter -> gunman e5 (disarm)"
+  },
+  {
+   "t": 8.9458,
+   "key": "web",
+   "toward": "e5",
+   "label": "web shooter -> e5"
+  },
+  {
+   "t": 9.6958,
+   "key": "strike",
+   "label": "web strike (E)",
+   "recorded": "free: hero free"
+  },
+  {
+   "t": 9.8958,
+   "key": "dodge",
+   "label": "perfect dodge 2",
+   "recorded": "threat: threat e3 in 0.250"
+  },
+  {
+   "t": 11.3958,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo C 1"
+  },
+  {
+   "t": 11.8458,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo C 2"
+  },
+  {
+   "t": 12.2958,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo C 3"
+  },
+  {
+   "t": 12.7458,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo C ender"
+  },
+  {
+   "t": 13.3628,
+   "key": "dodge",
+   "label": "perfect dodge 3",
+   "recorded": "threat: threat e5 in 0.237"
+  },
+  {
+   "t": 14.5958,
+   "key": "finisher",
+   "label": "finisher (Q)",
+   "recorded": "free: hero free"
+  },
+  {
+   "t": 16.7628,
+   "key": "web",
+   "toward": "e3",
+   "label": "web brute 1",
+   "recorded": "free: hero free"
+  },
+  {
+   "t": 17.1458,
+   "key": "web",
+   "toward": "e3",
+   "label": "web brute 2 (stun)"
+  },
+  {
+   "t": 17.5458,
+   "key": "attack",
+   "toward": "e3",
+   "label": "strike stunned brute",
+   "recorded": "free: hero free"
+  },
+  {
+   "t": 17.9458,
+   "key": "attack",
+   "toward": "e3",
+   "hold": 0.35,
+   "label": "launcher brute (hold)"
+  },
+  {
+   "t": 18.8958,
+   "key": "attack",
+   "label": "air 1"
+  },
+  {
+   "t": 19.2458,
+   "key": "attack",
+   "label": "air 2"
+  },
+  {
+   "t": 19.5958,
+   "key": "attack",
+   "label": "air 3 (slam)"
+  },
+  {
+   "t": 20.4958,
+   "key": "attack",
+   "toward": "e1",
+   "label": "counter 2",
+   "recorded": "free: hero free"
+  },
+  {
+   "t": 20.8288,
+   "key": "dodge",
+   "label": "perfect dodge 4",
+   "recorded": "threat: threat e5 in 0.250"
+  },
+  {
+   "t": 21.9958,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo D 2",
+   "recorded": "free: window timeout"
+  },
+  {
+   "t": 22.3958,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo D 3",
+   "recorded": "free: window timeout"
+  },
+  {
+   "t": 22.7958,
+   "key": "attack",
+   "toward": "e1",
+   "label": "combo D ender",
+   "recorded": "free: window timeout"
+  },
+  {
+   "t": 23.2628,
+   "key": "finisher",
+   "toward": "e3",
+   "label": "finisher 2 (brute)",
+   "recorded": "free: hero free"
+  },
+  {
+   "t": 24.7458,
+   "key": "attack",
+   "toward": "e5",
+   "label": "combo E 2"
+  },
+  {
+   "t": 25.1958,
+   "key": "attack",
+   "toward": "e5",
+   "label": "combo E 3"
+  },
+  {
+   "t": 25.2958,
+   "key": "attack",
+   "toward": "e5",
+   "label": "combo E 1",
+   "recorded": "free: window timeout"
+  },
+  {
+   "t": 25.6458,
+   "key": "attack",
+   "toward": "e5",
+   "label": "combo E ender"
+  }
+ ],
+ "frozen_from": "fight25_record.json"
+}

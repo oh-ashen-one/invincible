@@ -1,0 +1,83 @@
+{
+ "video": "/Users/midir/sm2-n1/combat/docs/night1/combat/round-03/fight30_1080p60.mp4",
+ "label": "published fight30_1080p60.mp4 (x264)",
+ "lag_frames": 2,
+ "lag_calib_mean_hero_diff": 1.258,
+ "frames_measured": 1831,
+ "fight_start_rt": 1.0,
+ "hero_blows_measured": 34,
+ "crop_run_ge3": 24,
+ "good_run_ge3": 15,
+ "crop_run_median": 4.0,
+ "good_run_median": 2.0,
+ "hero_hit_contacts": 9,
+ "hero_hit_crop_run_ge3": 7,
+ "flare_peak_min": 1.41,
+ "flare_peak_median": 2.415,
+ "flare_peak_max": 3.31,
+ "flare_in_1_3": 28,
+ "flare_f8_max": 0.719,
+ "flare_f7_median": 0.749,
+ "flare_gone_by_8": 32,
+ "flare_uncrowded": 33,
+ "whole_frozen_pct_60fps": 0.0,
+ "whole_frozen_pct_30fps": 0.0,
+ "whole_diff_median": 7.09,
+ "whole_diff_in_hold_min": 0.59,
+ "whole_diff_in_hold_p10": 1.01,
+ "held_frames": 189,
+ "shake_px_max": 3.5,
+ "reaction": {
+  "hero_blows": 34,
+  "push03_ge_0_5": 34,
+  "rot03_ge_30": 34,
+  "rot_measured": 34,
+  "heavy_blows": 18,
+  "heavy_dmax1_ge_2": 18,
+  "push03_min": 0.52,
+  "rot03_min": 36.8,
+  "heavy_dmax1_min": 2.71,
+  "misses": []
+ },
+ "attack_starts": 65,
+ "first_attack_after_start_s": 0.0,
+ "max_attack_gap_s": 0.8,
+ "top_gaps": [
+  [
+   0.8,
+   29.37
+  ],
+  [
+   0.8,
+   23.78
+  ],
+  [
+   0.8,
+   22.98
+  ],
+  [
+   0.8,
+   20.38
+  ],
+  [
+   0.8,
+   19.58
+  ]
+ ],
+ "min_warning_lead_s": 0.42,
+ "enemies_ge5_frac": 0.899,
+ "enemies_in_frame_median": 8.0,
+ "hero_margin_ge5_frac": 1.0,
+ "hero_margin_min": 0.057,
+ "occluder_max_pct": 7.9,
+ "occluder_gt15_frames": 0,
+ "snaps": [
+  [
+   15.3,
+   28.7
+  ]
+ ],
+ "warn_frames_frac": 0.915
+}
+strips -> /Users/midir/sm2-n1/combat/docs/night1/combat/round-03/hit_strips
+sheet /Users/midir/sm2-n1/combat/docs/night1/combat/round-03/boxes_check.jpg

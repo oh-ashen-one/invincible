@@ -1,0 +1,98 @@
+{
+ "summary": {
+  "pass_E1": true,
+  "crops": 1,
+  "min_hp_sd": 8.93,
+  "images_without_crops": [
+   "p1_south.jpg",
+   "p2_reservoir.jpg",
+   "p3_lake.jpg",
+   "p4_greatlawn.jpg",
+   "p9_park_panorama.jpg"
+  ]
+ },
+ "images": [
+  {
+   "image": "p1_south.jpg",
+   "size": [
+    3840,
+    2160
+   ],
+   "grass_pixels_pct": 13.3,
+   "candidates": 0,
+   "all_candidates_hp_sd": null,
+   "crops": []
+  },
+  {
+   "image": "p2_reservoir.jpg",
+   "size": [
+    3840,
+    2160
+   ],
+   "grass_pixels_pct": 9.6,
+   "candidates": 0,
+   "all_candidates_hp_sd": null,
+   "crops": []
+  },
+  {
+   "image": "p3_lake.jpg",
+   "size": [
+    3840,
+    2160
+   ],
+   "grass_pixels_pct": 9.7,
+   "candidates": 0,
+   "all_candidates_hp_sd": null,
+   "crops": []
+  },
+  {
+   "image": "p4_greatlawn.jpg",
+   "size": [
+    3840,
+    2160
+   ],
+   "grass_pixels_pct": 21.6,
+   "candidates": 0,
+   "all_candidates_hp_sd": null,
+   "crops": []
+  },
+  {
+   "image": "p9_park_panorama.jpg",
+   "size": [
+    3840,
+    2160
+   ],
+   "grass_pixels_pct": 11.0,
+   "candidates": 0,
+   "all_candidates_hp_sd": null,
+   "crops": []
+  },
+  {
+   "image": "p10_lawn_eye.jpg",
+   "size": [
+    3840,
+    2160
+   ],
+   "grass_pixels_pct": 40.4,
+   "candidates": 3,
+   "all_candidates_hp_sd": {
+    "min": 8.93,
+    "median": 9.03,
+    "max": 9.05
+   },
+   "crops": [
+    {
+     "box_xywh": [
+      3072,
+      1152,
+      512,
+      512
+     ],
+     "grass_share": 0.965,
+     "hp_sd": 8.93,
+     "mean_luma": 80.5
+    }
+   ]
+  }
+ ]
+}

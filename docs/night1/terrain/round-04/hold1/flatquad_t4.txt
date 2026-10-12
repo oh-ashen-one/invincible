@@ -1,0 +1,6 @@
+{"movie": "t4_lawn_sprint.mp4", "frames_at_4fps": 54, "flat_sd_threshold": 0.9, "pass": false, "components_wider_than_100px": 5}
+{'t_s': 0.0, 'bbox_xywh': [2, 435, 521, 167], 'area_px': 53619, 'fill': 0.62, 'mean_rgb': [94.2, 91.1, 82.0]}
+{'t_s': 0.0, 'bbox_xywh': [891, 654, 422, 424], 'area_px': 107913, 'fill': 0.6, 'mean_rgb': [173.4, 169.0, 160.7]}
+{'t_s': 0.0, 'bbox_xywh': [1208, 757, 710, 321], 'area_px': 142984, 'fill': 0.63, 'mean_rgb': [159.0, 152.3, 143.6]}
+{'t_s': 0.25, 'bbox_xywh': [888, 705, 433, 373], 'area_px': 104775, 'fill': 0.65, 'mean_rgb': [189.8, 183.6, 174.2]}
+{'t_s': 0.25, 'bbox_xywh': [1231, 834, 687, 244], 'area_px': 109989, 'fill': 0.66, 'mean_rgb': [186.5, 178.0, 165.5]}

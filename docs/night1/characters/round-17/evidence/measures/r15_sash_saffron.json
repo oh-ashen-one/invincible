@@ -1,0 +1,1 @@
+{"image": "docs/night1/characters/round-16/stills/skin_saffron_chest_4k.jpg", "accent": "#efe3c4", "panel_px": 379893, "panel_luma_median": 227.7, "longest_dark_run_px": 5, "longest_run_at": [1689, 1939], "dark_components_gt10px": 0, "worst_components": [], "probes": [{"x": 1412, "y": 1240, "luma": 66.4, "local_panel_median": 0.0, "inside_panel": false}], "verdict": "PASS"}

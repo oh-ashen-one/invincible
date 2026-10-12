@@ -1,0 +1,50 @@
+{
+ "clip": "docs/night1/characters/round-15/crowd_tracking.mp4",
+ "frames": 480,
+ "fps": 60.0,
+ "duration": 8.0,
+ "median": 2.17,
+ "p99": 2.79,
+ "top": [
+  {
+   "t": 7.483,
+   "diff": 55.6
+  },
+  {
+   "t": 7.467,
+   "diff": 15.06
+  },
+  {
+   "t": 1.283,
+   "diff": 2.84
+  },
+  {
+   "t": 1.8,
+   "diff": 2.81
+  },
+  {
+   "t": 1.067,
+   "diff": 2.79
+  }
+ ],
+ "cuts": [
+  {
+   "t": 7.467,
+   "diff": 15.06,
+   "neighbours": 1.89
+  },
+  {
+   "t": 7.483,
+   "diff": 55.6,
+   "neighbours": 1.89
+  }
+ ],
+ "pass": false,
+ "at": [
+  {
+   "t": 7.483,
+   "diff": 55.6,
+   "neighbours": 1.89
+  }
+ ]
+}

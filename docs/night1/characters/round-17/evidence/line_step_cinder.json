@@ -1,0 +1,271 @@
+{
+ "regions": 6,
+ "straight_runs": 595,
+ "longest_run_px": 1116,
+ "max_step_px": 45.5,
+ "n_jogs": 28,
+ "jogs": [
+  {
+   "step": 45.5,
+   "x": 2183,
+   "y": 996,
+   "run_a": 79,
+   "run_b": 68,
+   "connector": 52,
+   "angle": 2.5
+  },
+  {
+   "step": 8.2,
+   "x": 2592,
+   "y": 1638,
+   "run_a": 45,
+   "run_b": 47,
+   "connector": 12,
+   "angle": 8.0
+  },
+  {
+   "step": 8.0,
+   "x": 1441,
+   "y": 901,
+   "run_a": 70,
+   "run_b": 90,
+   "connector": 101,
+   "angle": 7.0
+  },
+  {
+   "step": 8.0,
+   "x": 3081,
+   "y": 1438,
+   "run_a": 94,
+   "run_b": 168,
+   "connector": 94,
+   "angle": 7.6
+  },
+  {
+   "step": 7.3,
+   "x": 2231,
+   "y": 686,
+   "run_a": 84,
+   "run_b": 95,
+   "connector": 51,
+   "angle": 2.6
+  },
+  {
+   "step": 7.0,
+   "x": 1208,
+   "y": 1305,
+   "run_a": 59,
+   "run_b": 52,
+   "connector": 56,
+   "angle": 2.3
+  },
+  {
+   "step": 7.0,
+   "x": 1096,
+   "y": 1843,
+   "run_a": 131,
+   "run_b": 69,
+   "connector": 64,
+   "angle": 3.2
+  },
+  {
+   "step": 7.0,
+   "x": 1837,
+   "y": 301,
+   "run_a": 40,
+   "run_b": 42,
+   "connector": 39,
+   "angle": 2.7
+  },
+  {
+   "step": 7.0,
+   "x": 3082,
+   "y": 1279,
+   "run_a": 80,
+   "run_b": 85,
+   "connector": 82,
+   "angle": 1.4
+  },
+  {
+   "step": 6.5,
+   "x": 738,
+   "y": 1171,
+   "run_a": 45,
+   "run_b": 58,
+   "connector": 85,
+   "angle": 2.1
+  },
+  {
+   "step": 6.5,
+   "x": 2040,
+   "y": 845,
+   "run_a": 42,
+   "run_b": 68,
+   "connector": 108,
+   "angle": 7.5
+  },
+  {
+   "step": 6.4,
+   "x": 1493,
+   "y": 812,
+   "run_a": 52,
+   "run_b": 58,
+   "connector": 23,
+   "angle": 3.1
+  },
+  {
+   "step": 6.2,
+   "x": 3045,
+   "y": 1686,
+   "run_a": 168,
+   "run_b": 48,
+   "connector": 69,
+   "angle": 4.6
+  },
+  {
+   "step": 5.9,
+   "x": 2440,
+   "y": 1089,
+   "run_a": 77,
+   "run_b": 69,
+   "connector": 81,
+   "angle": 6.2
+  },
+  {
+   "step": 5.6,
+   "x": 1458,
+   "y": 1105,
+   "run_a": 54,
+   "run_b": 66,
+   "connector": 70,
+   "angle": 1.6
+  },
+  {
+   "step": 5.6,
+   "x": 2769,
+   "y": 1281,
+   "run_a": 69,
+   "run_b": 44,
+   "connector": 56,
+   "angle": 6.4
+  },
+  {
+   "step": 5.2,
+   "x": 1232,
+   "y": 1700,
+   "run_a": 76,
+   "run_b": 78,
+   "connector": 101,
+   "angle": 0.4
+  },
+  {
+   "step": 5.0,
+   "x": 2876,
+   "y": 1144,
+   "run_a": 43,
+   "run_b": 102,
+   "connector": 73,
+   "angle": 7.0
+  },
+  {
+   "step": 4.8,
+   "x": 1998,
+   "y": 702,
+   "run_a": 40,
+   "run_b": 70,
+   "connector": 104,
+   "angle": 4.3
+  },
+  {
+   "step": 4.8,
+   "x": 1432,
+   "y": 821,
+   "run_a": 63,
+   "run_b": 56,
+   "connector": 59,
+   "angle": 7.8
+  },
+  {
+   "step": 4.7,
+   "x": 1202,
+   "y": 323,
+   "run_a": 57,
+   "run_b": 101,
+   "connector": 47,
+   "angle": 2.5
+  },
+  {
+   "step": 4.5,
+   "x": 1251,
+   "y": 1787,
+   "run_a": 78,
+   "run_b": 101,
+   "connector": 76,
+   "angle": 0.4
+  },
+  {
+   "step": 4.4,
+   "x": 2647,
+   "y": 1526,
+   "run_a": 42,
+   "run_b": 57,
+   "connector": 83,
+   "angle": 2.2
+  },
+  {
+   "step": 4.4,
+   "x": 1415,
+   "y": 1325,
+   "run_a": 59,
+   "run_b": 59,
+   "connector": 99,
+   "angle": 4.9
+  },
+  {
+   "step": 4.3,
+   "x": 2035,
+   "y": 1249,
+   "run_a": 73,
+   "run_b": 49,
+   "connector": 64,
+   "angle": 7.7
+  },
+  {
+   "step": 4.3,
+   "x": 1448,
+   "y": 1044,
+   "run_a": 70,
+   "run_b": 140,
+   "connector": 54,
+   "angle": 2.5
+  },
+  {
+   "step": 4.2,
+   "x": 2340,
+   "y": 782,
+   "run_a": 68,
+   "run_b": 84,
+   "connector": 68,
+   "angle": 7.0
+  },
+  {
+   "step": 4.1,
+   "x": 1700,
+   "y": 680,
+   "run_a": 88,
+   "run_b": 51,
+   "connector": 61,
+   "angle": 0.5
+  }
+ ],
+ "image": "/Users/midir/sm2-n1/_scratch/characters/r17/final/stills/skin_cinder_chest_4k.png",
+ "gate": 4.0,
+ "run": 40,
+ "box": [
+  691,
+  259,
+  3148,
+  2095
+ ],
+ "pass": false
+}

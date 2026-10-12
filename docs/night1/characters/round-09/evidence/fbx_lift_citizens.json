@@ -1,0 +1,686 @@
+{
+ "01_retired_gent.fbx": {
+  "stature_m": 1.686,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.375
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.104
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  }
+ },
+ "02_leather_jacket.fbx": {
+  "stature_m": 1.684,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.375
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.104
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  }
+ },
+ "03_white_tee.fbx": {
+  "stature_m": 1.715,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.368
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.1
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.1
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.1
+  }
+ },
+ "04_blue_sweatshirt.fbx": {
+  "stature_m": 1.676,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.377
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.105
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.103
+  }
+ },
+ "05_black_tee.fbx": {
+  "stature_m": 1.701,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.371
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  }
+ },
+ "06_chrome_shades.fbx": {
+  "stature_m": 1.672,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.378
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.105
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.103
+  }
+ },
+ "08_black_suit.fbx": {
+  "stature_m": 1.699,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.372
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  }
+ },
+ "09_kurta_waistcoat.fbx": {
+  "stature_m": 1.682,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.376
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.104
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  }
+ },
+ "10_silver_tie.fbx": {
+  "stature_m": 1.727,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.366
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.1
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.1
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.099
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.1
+  }
+ },
+ "12_sundress_mom.fbx": {
+  "stature_m": 1.741,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.363
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.099
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.099
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.099
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.099
+  }
+ },
+ "13_construction_worker.fbx": {
+  "stature_m": 1.678,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.377
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.104
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.103
+  }
+ },
+ "14_teen_skater.fbx": {
+  "stature_m": 1.69,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.374
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.104
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.102
+  }
+ },
+ "15_executive.fbx": {
+  "stature_m": 1.708,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.37
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  }
+ },
+ "16_lumberjack_hipster.fbx": {
+  "stature_m": 1.709,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.37
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.1
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  }
+ },
+ "17_hijabi_student.fbx": {
+  "stature_m": 1.667,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.379
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.104
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.105
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.103
+  }
+ },
+ "18_dapper_elder.fbx": {
+  "stature_m": 1.701,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.371
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  }
+ },
+ "19_marathon_runner.fbx": {
+  "stature_m": 1.705,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.37
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  }
+ },
+ "20_punk_artist.fbx": {
+  "stature_m": 1.706,
+  "idle": {
+   "frames": 121,
+   "ankle_lift_m": 0.003,
+   "ankle_lift_frac_stature": 0.002
+  },
+  "run": {
+   "frames": 20,
+   "ankle_lift_m": 0.632,
+   "ankle_lift_frac_stature": 0.37
+  },
+  "walk": {
+   "frames": 33,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkBrisk": {
+   "frames": 30,
+   "ankle_lift_m": 0.173,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkF": {
+   "frames": 31,
+   "ankle_lift_m": 0.175,
+   "ankle_lift_frac_stature": 0.103
+  },
+  "walkOld": {
+   "frames": 41,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  },
+  "walkStroll": {
+   "frames": 39,
+   "ankle_lift_m": 0.172,
+   "ankle_lift_frac_stature": 0.101
+  }
+ }
+}

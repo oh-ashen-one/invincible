@@ -1,0 +1,42 @@
+{
+ "_note": "config native100 (3840x2160 output), static camera, exclusive gpu_slot perf lock; frame_delta = water - flat base GPU avg; SingleLayerWater = that pass alone (absolute); water_passes_sum = SLW + SLW depth prepass + LumenReflections/Basepass/Prepass deltas",
+ "Water_View_RiverLow": {
+  "gpu_avg_ms_water": 38.507,
+  "gpu_avg_ms_base": 38.755,
+  "internal": "3840x2160",
+  "frame_delta": -0.25,
+  "SingleLayerWater": 0.997,
+  "SLW_depth_prepass": 0.465,
+  "LumenReflections_delta": 1.217,
+  "Basepass_delta": -0.022,
+  "Prepass_delta": 0.0,
+  "contaminated": false,
+  "water_passes_sum": 2.66
+ },
+ "Water_Perf_S4": {
+  "gpu_avg_ms_water": 47.989,
+  "gpu_avg_ms_base": 47.074,
+  "internal": "3840x2160",
+  "frame_delta": 0.91,
+  "SingleLayerWater": 0.85,
+  "SLW_depth_prepass": 0.556,
+  "LumenReflections_delta": 0.207,
+  "Basepass_delta": -0.272,
+  "Prepass_delta": 0.035,
+  "contaminated": false,
+  "water_passes_sum": 1.38
+ },
+ "Water_View_RiverSun": {
+  "gpu_avg_ms_water": 31.667,
+  "gpu_avg_ms_base": 33.798,
+  "internal": "3840x2160",
+  "frame_delta": -2.13,
+  "SingleLayerWater": 1.625,
+  "SLW_depth_prepass": 0.475,
+  "LumenReflections_delta": 0.522,
+  "Basepass_delta": -0.434,
+  "Prepass_delta": 0.001,
+  "contaminated": false,
+  "water_passes_sum": 2.19
+ }
+}

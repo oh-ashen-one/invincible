@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/perf/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/sw48 -map /Game/Maps/Manhattan -res 3840x2160 -perf 15:45 -name sw48 -timeout 900 -exec r.Lumen.HardwareRayTracing 0 -- -WHTravScript=/Users/midir/sm2-n1/perf/docs/night1/manhattan/scripts/route_30s_warmup15.json -WHTravCsv=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/sw48/trav_telemetry.csv -csvGpuStats -benchmark -fps=60 -notraceserver -dpcvars=r.Lumen.HardwareRayTracing=0
+
+run_game: out=/Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/sw48 res=3840x2160 quit=46.0 window=0 movie=0
+WH_PERF_START t=15.00
+WH_PERF frames=1800 avg_ms=14.79 fps=67.6 p95_ms=17.29 p99_ms=19.16 gpu_avg_ms=14.10 out=3840x2160 internal=1843x1037 (manual) -> /Users/midir/sm2-n1/perf/docs/night1/perf/round-03/perf/d1/sw48/sw48_perf.json
+WH_QUIT t=46.00
+

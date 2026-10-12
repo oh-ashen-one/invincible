@@ -1,0 +1,173 @@
+# P3 round 14 TRICK CAMERA CHECK (trickcam_check.py; critic r13 single gap test on f4 + secondary 1 on every clip): P1 pitch <= 30 up, P2 median pitch 0.5-1.0 s after each attach 4-12 down, S1 view >= 60 deg out of the flip plane, A1 tuck axis >= 300 deg on screen, E1 ends >= 30 % slower than the middle, H1 shapes >= 0.3 s
+# Homage fan game; not affiliated with Marvel, Sony or Insomniac. Rendered 1080p60 telemetry, lit /Game/Maps/Manhattan golden.
+
+f4_chain_flips (f4_chain_flips_telemetry.csv): 5 flip programs, 11.6 s
+P1 camera pitch max 21.2 deg up at 4.83 s (whole clip) PASS | inside tricks max 21.2, p50 2.4
+P2 pitch 0.5-1.0 s after each attach (target -12..-4; * = attach out of a trick):
+   0.40 med -8.3 (at +0.5 s -11.5) PASS
+   2.93* med -5.5 (at +0.5 s -5.6) PASS
+   5.35* med -5.5 (at +0.5 s -6.0) PASS
+   7.88* med -5.5 (at +0.5 s -5.5) PASS
+   10.45* med -5.5 (at +0.5 s -8.4) PASS
+-- backDouble 1.35-2.92 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 66 frames): p10 58 / p50 68 / min 52 deg PASS
+   H1 shape runs: Tuck 1.20 Kickout 0.38
+   A1 tuck 1.35-2.53 s: head-hip axis turns 648 deg on screen (program 677 deg; 6/72 rows < 50% length) PASS
+   E1 Tuck 1.35-2.53 s rendered rate first25% 436 / mid50% 700 / last25% 427 deg/s (ends 62% / 61% of mid) peak 784 PASS
+   program rate peak 766 deg/s, rendered peak 784 deg/s
+-- frontPikeSwan 3.93-5.33 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 56 frames): p10 60 / p50 69 / min 58 deg PASS
+   H1 shape runs: Pike 0.40 Swan 0.55 Tuck 0.37 Reach 0.10
+      (final Reach 0.10 s: the web catch lands inside it by design, R2 <= .3 s; not judged)
+   A1 tuck 4.88-5.23 s: head-hip axis turns 162 deg on screen (program 152 deg; 0/22 rows < 50% length) (single: ok)
+   E1 Pike 3.93-4.32 s rendered rate first25% 183 / mid50% 541 / last25% 293 deg/s (ends 34% / 54% of mid) peak 691 PASS
+   E1 Tuck 4.88-5.23 s rendered rate first25% 323 / mid50% 561 / last25% 310 deg/s (ends 58% / 55% of mid) peak 627 PASS
+   program rate peak 624 deg/s, rendered peak 691 deg/s
+-- corkscrew 6.38-7.87 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 61 frames): p10 81 / p50 86 / min 76 deg PASS
+   H1 shape runs: Layout 0.30 Twist 0.42 Swan 0.37 Tuck 0.33 Reach 0.08
+      (final Reach 0.08 s: the web catch lands inside it by design, R2 <= .3 s; not judged)
+   A1 tuck 7.47-7.78 s: head-hip axis turns 164 deg on screen (program 152 deg; 0/20 rows < 50% length) (single: ok)
+   E1 Layout 6.38-6.67 s rendered rate first25% 113 / mid50% 192 / last25% 234 deg/s (ends 59% / 122% of mid) peak 255 FAIL
+   E1 Twist 6.68-7.08 s rendered rate first25% 217 / mid50% 208 / last25% 214 deg/s (ends 104% / 103% of mid) peak 234 FAIL
+   E1 Tuck 7.47-7.78 s rendered rate first25% 341 / mid50% 643 / last25% 370 deg/s (ends 53% / 58% of mid) peak 712 PASS
+   program rate peak 712 deg/s, rendered peak 712 deg/s
+-- backDouble 8.87-10.43 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 66 frames): p10 74 / p50 79 / min 70 deg PASS
+   H1 shape runs: Tuck 1.20 Kickout 0.38
+   A1 tuck 8.87-10.05 s: head-hip axis turns 697 deg on screen (program 677 deg; 6/72 rows < 50% length) PASS
+   E1 Tuck 8.87-10.05 s rendered rate first25% 270 / mid50% 692 / last25% 426 deg/s (ends 39% / 62% of mid) peak 760 PASS
+   program rate peak 766 deg/s, rendered peak 760 deg/s
+-- frontPikeSwan 11.42-11.57 s: still playing on the clip's last frame (the clip length cut it) -- not judged
+SUMMARY f4_chain_flips: 0 FAIL line(s)
+
+f1_flow_backDouble (f1_flow_backDouble_telemetry.csv): 1 flip programs, 8.0 s
+P1 camera pitch max 21.7 deg up at 4.47 s (whole clip) PASS | inside tricks max 21.7, p50 20.6
+P2 pitch 0.5-1.0 s after each attach (target -12..-4; * = attach out of a trick):
+   0.40 med -5.5 (at +0.5 s -11.5) PASS
+   2.42 med -11.5 (at +0.5 s -11.5) PASS
+   5.00* med -5.5 (at +0.5 s -5.5) PASS
+   6.93 med -5.5 (at +0.5 s -11.5) PASS
+-- backDouble 3.42-4.98 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 66 frames): p10 59 / p50 67 / min 53 deg PASS
+   H1 shape runs: Tuck 1.20 Kickout 0.38
+   A1 tuck 3.42-4.60 s: head-hip axis turns 695 deg on screen (program 677 deg; 0/72 rows < 50% length) PASS
+   E1 Tuck 3.42-4.60 s rendered rate first25% 378 / mid50% 698 / last25% 428 deg/s (ends 54% / 61% of mid) peak 763 PASS
+   program rate peak 766 deg/s, rendered peak 763 deg/s
+SUMMARY f1_flow_backDouble: 0 FAIL line(s)
+
+f2_flow_pikeSwan (f2_flow_pikeSwan_telemetry.csv): 1 flip programs, 8.0 s
+P1 camera pitch max 21.6 deg up at 4.80 s (whole clip) PASS | inside tricks max 21.5, p50 19.5
+P2 pitch 0.5-1.0 s after each attach (target -12..-4; * = attach out of a trick):
+   0.40 med -5.5 (at +0.5 s -11.5) PASS
+   2.37 med -11.5 (at +0.5 s -11.5) PASS
+   4.78* med -5.5 (at +0.5 s -5.5) PASS
+   6.67 med -10.5 (at +0.5 s -6.5) PASS
+-- frontPikeSwan 3.37-4.77 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 56 frames): p10 67 / p50 69 / min 67 deg PASS
+   H1 shape runs: Pike 0.40 Swan 0.55 Tuck 0.37 Reach 0.10
+      (final Reach 0.10 s: the web catch lands inside it by design, R2 <= .3 s; not judged)
+   A1 tuck 4.32-4.67 s: head-hip axis turns 160 deg on screen (program 152 deg; 0/22 rows < 50% length) (single: ok)
+   E1 Pike 3.37-3.75 s rendered rate first25% 104 / mid50% 511 / last25% 285 deg/s (ends 20% / 56% of mid) peak 627 PASS
+   E1 Tuck 4.32-4.67 s rendered rate first25% 326 / mid50% 559 / last25% 311 deg/s (ends 58% / 56% of mid) peak 625 PASS
+   program rate peak 624 deg/s, rendered peak 627 deg/s
+SUMMARY f2_flow_pikeSwan: 0 FAIL line(s)
+
+f3_flow_corkscrew (f3_flow_corkscrew_telemetry.csv): 1 flip programs, 8.0 s
+P1 camera pitch max 21.5 deg up at 2.87 s (whole clip) PASS | inside tricks max 21.5, p50 20.0
+P2 pitch 0.5-1.0 s after each attach (target -12..-4; * = attach out of a trick):
+   0.40 med -5.5 (at +0.5 s -11.5) PASS
+   2.85* med -11.5 (at +0.5 s -11.5) PASS
+   4.78 med -9.1 (at +0.5 s -11.8) PASS
+   6.62 med -5.5 (at +0.5 s -5.5) PASS
+-- corkscrew 1.35-2.83 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 61 frames): p10 68 / p50 69 / min 66 deg PASS
+   H1 shape runs: Layout 0.30 Twist 0.42 Swan 0.37 Tuck 0.33 Reach 0.08
+      (final Reach 0.08 s: the web catch lands inside it by design, R2 <= .3 s; not judged)
+   A1 tuck 2.43-2.75 s: head-hip axis turns 163 deg on screen (program 152 deg; 0/20 rows < 50% length) (single: ok)
+   E1 Layout 1.35-1.63 s rendered rate first25% 67 / mid50% 136 / last25% 224 deg/s (ends 49% / 165% of mid) peak 230 FAIL
+   E1 Twist 1.65-2.05 s rendered rate first25% 211 / mid50% 205 / last25% 213 deg/s (ends 103% / 104% of mid) peak 234 FAIL
+   E1 Tuck 2.43-2.75 s rendered rate first25% 341 / mid50% 643 / last25% 370 deg/s (ends 53% / 58% of mid) peak 713 PASS
+   program rate peak 712 deg/s, rendered peak 713 deg/s
+SUMMARY f3_flow_corkscrew: 0 FAIL line(s)
+
+f5_canyon_backDouble (f5_canyon_backDouble_telemetry.csv): 2 flip programs, 8.0 s
+P1 camera pitch max 1.5 deg up at 5.02 s (whole clip) PASS | inside tricks max -0.6, p50 -2.5
+P2 pitch 0.5-1.0 s after each attach (target -12..-4; * = attach out of a trick):
+   0.40 med -5.5 (at +0.5 s -11.5) PASS
+   2.33 med -11.5 (at +0.5 s -11.5) PASS
+   4.92* med -5.5 (at +0.5 s -5.5) PASS
+   6.70 med -11.2 (at +0.5 s -11.5) PASS
+-- backDouble 3.33-4.90 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 66 frames): p10 85 / p50 86 / min 81 deg PASS
+   H1 shape runs: Tuck 1.20 Kickout 0.38
+   A1 tuck 3.33-4.52 s: head-hip axis turns 692 deg on screen (program 677 deg; 0/72 rows < 50% length) PASS
+   E1 Tuck 3.33-4.52 s rendered rate first25% 413 / mid50% 699 / last25% 427 deg/s (ends 59% / 61% of mid) peak 782 PASS
+   program rate peak 766 deg/s, rendered peak 782 deg/s
+-- backDouble 7.78-7.97 s: still playing on the clip's last frame (the clip length cut it) -- not judged
+SUMMARY f5_canyon_backDouble: 0 FAIL line(s)
+
+a_swing_chain (a_swing_chain_telemetry.csv): 2 flip programs, 15.6 s
+P1 camera pitch max 7.6 deg up at 7.07 s (whole clip) PASS | inside tricks max 7.6, p50 -2.2
+P2 pitch 0.5-1.0 s after each attach (target -12..-4; * = attach out of a trick):
+   0.40 med -8.0 (at +0.5 s -11.5) PASS
+   2.47 med -11.5 (at +0.5 s -11.5) PASS
+   4.65 med -5.5 (at +0.5 s -9.4) PASS
+   7.27* med -5.5 (at +0.5 s -5.5) PASS
+   9.15 med -5.5 (at +0.5 s -5.5) PASS
+   10.92 med -11.5 (at +0.5 s -11.5) PASS
+   13.35* med -5.5 (at +0.5 s -5.5) PASS
+   15.03 n/a (clip ends)
+-- backDouble 5.68-7.25 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 66 frames): p10 72 / p50 86 / min 70 deg PASS
+   H1 shape runs: Tuck 1.20 Kickout 0.38
+   A1 tuck 5.68-6.87 s: head-hip axis turns 696 deg on screen (program 677 deg; 0/72 rows < 50% length) PASS
+   E1 Tuck 5.68-6.87 s rendered rate first25% 387 / mid50% 696 / last25% 428 deg/s (ends 56% / 61% of mid) peak 779 PASS
+   program rate peak 766 deg/s, rendered peak 779 deg/s
+-- frontPikeSwan 11.93-13.33 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 56 frames): p10 56 / p50 73 / min 49 deg PASS
+   H1 shape runs: Pike 0.40 Swan 0.55 Tuck 0.37 Reach 0.10
+      (final Reach 0.10 s: the web catch lands inside it by design, R2 <= .3 s; not judged)
+   A1 tuck 12.88-13.23 s: head-hip axis turns 163 deg on screen (program 152 deg; 0/22 rows < 50% length) (single: ok)
+   E1 Pike 11.93-12.32 s rendered rate first25% 188 / mid50% 579 / last25% 296 deg/s (ends 32% / 51% of mid) peak 780 PASS
+   E1 Tuck 12.88-13.23 s rendered rate first25% 323 / mid50% 561 / last25% 310 deg/s (ends 58% / 55% of mid) peak 627 PASS
+   program rate peak 624 deg/s, rendered peak 780 deg/s
+SUMMARY a_swing_chain: 0 FAIL line(s)
+
+b_release_trick_dive_zip (b_release_trick_dive_zip_telemetry.csv): 1 flip programs, 7.0 s
+P1 camera pitch max 0.4 deg up at 3.00 s (whole clip) PASS | inside tricks max -0.3, p50 -1.4
+P2 pitch 0.5-1.0 s after each attach (target -12..-4; * = attach out of a trick):
+-- frontPikeSwan 1.40-2.87 s
+   S1 view angle out of the flip plane (flipcam_k >= .9, 60 frames): p10 80 / p50 83 / min 79 deg PASS
+   H1 shape runs: Pike 0.40 Swan 0.55 Tuck 0.37 Reach 0.17
+      (final Reach 0.17 s: the web catch lands inside it by design, R2 <= .3 s; not judged)
+   A1 tuck 2.35-2.70 s: head-hip axis turns 164 deg on screen (program 152 deg; 0/22 rows < 50% length) (single: ok)
+   E1 Pike 1.40-1.78 s rendered rate first25% 92 / mid50% 437 / last25% 297 deg/s (ends 21% / 68% of mid) peak 488 PASS
+   E1 Tuck 2.35-2.70 s rendered rate first25% 323 / mid50% 561 / last25% 310 deg/s (ends 58% / 55% of mid) peak 627 PASS
+   program rate peak 624 deg/s, rendered peak 627 deg/s
+SUMMARY b_release_trick_dive_zip: 0 FAIL line(s)
+
+c_wallrun_perch (c_wallrun_perch_telemetry.csv): 1 flip programs, 10.5 s
+P1 camera pitch max 56.1 deg up at 3.87 s (whole clip) FAIL | inside tricks max 56.1, p50 50.1
+P2 pitch 0.5-1.0 s after each attach (target -12..-4; * = attach out of a trick):
+-- wallFront 3.85-4.75 s
+   S1 no frames with the flip camera fully in
+   H1 shape runs: Tuck 0.27 Layout 0.30 Tuck 0.27 Throne 0.08
+      FAIL Tuck shown 0.27 s < 0.3
+      FAIL Tuck shown 0.27 s < 0.3
+      FAIL Throne shown 0.08 s < 0.3
+   E1 Tuck 3.85-4.10 s rendered rate first25% 179 / mid50% 516 / last25% 469 deg/s (ends 35% / 91% of mid) peak 655 FAIL
+   E1 Layout 4.12-4.40 s rendered rate first25% 180 / mid50% 197 / last25% 296 deg/s (ends 91% / 150% of mid) peak 354 FAIL
+   E1 Tuck 4.42-4.67 s rendered rate first25% 472 / mid50% 630 / last25% 331 deg/s (ends 75% / 53% of mid) peak 655 FAIL
+   program rate peak 635 deg/s, rendered peak 655 deg/s
+SUMMARY c_wallrun_perch: 6 FAIL line(s)
+
+d_sprint_jump_first_swing (d_sprint_jump_first_swing_telemetry.csv): 0 flip programs, 12.0 s
+P1 camera pitch max 1.7 deg up at 2.25 s (whole clip) PASS | inside tricks max nan, p50 nan
+P2 pitch 0.5-1.0 s after each attach (target -12..-4; * = attach out of a trick):
+   2.68 med -5.5 (at +0.5 s -5.5) PASS
+   4.75 med -5.5 (at +0.5 s -5.5) PASS
+   6.88 med -7.3 (at +0.5 s -7.8) PASS
+   8.72 med -7.5 (at +0.5 s -10.0) PASS
+   10.50 med -5.5 (at +0.5 s -5.5) PASS
+SUMMARY d_sprint_jump_first_swing: 0 FAIL line(s)

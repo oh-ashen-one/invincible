@@ -1,0 +1,52 @@
+{
+ "name": "t5_avenue_to_park",
+ "note": "Terrain r04 movie: w5 from y -315 (probe x4_y315 of round-04/t5_candidates3: foot start (250, -315), street sprint + swing chain north up 5th Av, heading -130 from 9.5 s, sky launch with a 32-38 m apex at the park edge; the last 5 s are 100 % over the park rectangle, 83 % at 25-40 m, 99 % at 20-45 m). Chosen by tools/terrain/t5_score.py from headless -nullrhi telemetry probes.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   -315,
+   0.95
+  ],
+  "yaw": -90,
+  "camPitch": 0.14
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "sprint": true
+  },
+  {
+   "t": 1.8,
+   "jump": true
+  },
+  {
+   "t": 2.2,
+   "jump": false
+  },
+  {
+   "t": 2.6,
+   "swing": true,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.8,
+   "repressVz": 99.0,
+   "trickEvery": 0,
+   "skyEvery": 1,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  },
+  {
+   "t": 9.5,
+   "heading": -130
+  }
+ ],
+ "tune": "SkyPeakMin=32,SkyPeakMax=38,SkyHangK=0.12,SkyHangVz=10"
+}

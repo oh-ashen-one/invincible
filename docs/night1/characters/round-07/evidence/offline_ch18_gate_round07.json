@@ -1,0 +1,612 @@
+{
+ "01_retired_gent": {
+  "name": "01_retired_gent",
+  "tris": 6244,
+  "views": 88,
+  "crack_components": 18,
+  "crack_px": 491,
+  "crack2s_components": 10,
+  "crack2s_px": 183,
+  "silhouette_spike_components": 978,
+  "silhouette_spike_px": 57994,
+  "crack_px_by_group": {
+   "1": 48,
+   "4": 114,
+   "5": 329
+  },
+  "gap_px": 6539,
+  "wide_px": 70798,
+  "views_with_cracks": 13,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.675383748648137,
+  "worst": [
+   [
+    98,
+    "walkOld",
+    8,
+    45.0,
+    1
+   ],
+   [
+    89,
+    "walkOld",
+    12,
+    45.0,
+    1
+   ],
+   [
+    77,
+    "walkOld",
+    28,
+    315.0,
+    1
+   ]
+  ]
+ },
+ "02_leather_jacket": {
+  "name": "02_leather_jacket",
+  "tris": 6364,
+  "views": 72,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 493,
+  "silhouette_spike_px": 31824,
+  "crack_px_by_group": {},
+  "gap_px": 2287,
+  "wide_px": 80011,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.9466920547357924,
+  "worst": []
+ },
+ "03_white_tee": {
+  "name": "03_white_tee",
+  "tris": 5894,
+  "views": 72,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 445,
+  "silhouette_spike_px": 31471,
+  "crack_px_by_group": {},
+  "gap_px": 2862,
+  "wide_px": 72635,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.7538212376974704,
+  "worst": []
+ },
+ "04_blue_sweatshirt": {
+  "name": "04_blue_sweatshirt",
+  "tris": 5802,
+  "views": 72,
+  "crack_components": 8,
+  "crack_px": 422,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 473,
+  "silhouette_spike_px": 37135,
+  "crack_px_by_group": {
+   "1": 23,
+   "4": 399
+  },
+  "gap_px": 2404,
+  "wide_px": 17786,
+  "views_with_cracks": 5,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.670095328682137,
+  "worst": [
+   [
+    217,
+    "walkF",
+    20,
+    180.0,
+    2
+   ],
+   [
+    115,
+    "walkF",
+    16,
+    180.0,
+    3
+   ],
+   [
+    58,
+    "walkF",
+    24,
+    180.0,
+    1
+   ]
+  ]
+ },
+ "05_black_tee": {
+  "name": "05_black_tee",
+  "tris": 5991,
+  "views": 72,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 347,
+  "silhouette_spike_px": 20719,
+  "crack_px_by_group": {},
+  "gap_px": 5029,
+  "wide_px": 22605,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.140323058742722,
+  "worst": []
+ },
+ "06_chrome_shades": {
+  "name": "06_chrome_shades",
+  "tris": 6083,
+  "views": 88,
+  "crack_components": 2,
+  "crack_px": 89,
+  "crack2s_components": 2,
+  "crack2s_px": 89,
+  "silhouette_spike_components": 519,
+  "silhouette_spike_px": 30264,
+  "crack_px_by_group": {
+   "5": 89
+  },
+  "gap_px": 2653,
+  "wide_px": 9069,
+  "views_with_cracks": 2,
+  "spike_over_5cm": 2,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 5.591090534429166,
+  "worst": [
+   [
+    46,
+    "walkStroll",
+    8,
+    90.0,
+    1
+   ],
+   [
+    43,
+    "walkStroll",
+    8,
+    270.0,
+    1
+   ]
+  ]
+ },
+ "08_black_suit": {
+  "name": "08_black_suit",
+  "tris": 5758,
+  "views": 72,
+  "crack_components": 9,
+  "crack_px": 90,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 612,
+  "silhouette_spike_px": 35035,
+  "crack_px_by_group": {
+   "4": 36,
+   "5": 54
+  },
+  "gap_px": 6149,
+  "wide_px": 10856,
+  "views_with_cracks": 8,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.271426771645408,
+  "worst": [
+   [
+    18,
+    "walkBrisk",
+    16,
+    0.0,
+    2
+   ],
+   [
+    18,
+    "walkBrisk",
+    4,
+    180.0,
+    1
+   ],
+   [
+    9,
+    "walkBrisk",
+    28,
+    225.0,
+    1
+   ]
+  ]
+ },
+ "09_kurta_waistcoat": {
+  "name": "09_kurta_waistcoat",
+  "tris": 5995,
+  "views": 72,
+  "crack_components": 5,
+  "crack_px": 455,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 801,
+  "silhouette_spike_px": 42607,
+  "crack_px_by_group": {
+   "1": 455
+  },
+  "gap_px": 7550,
+  "wide_px": 61190,
+  "views_with_cracks": 4,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.308392379944051,
+  "worst": [
+   [
+    131,
+    "walk",
+    28,
+    225.0,
+    1
+   ],
+   [
+    120,
+    "walk",
+    8,
+    225.0,
+    2
+   ],
+   [
+    107,
+    "walk",
+    0,
+    225.0,
+    1
+   ]
+  ]
+ },
+ "10_silver_tie": {
+  "name": "10_silver_tie",
+  "tris": 6188,
+  "views": 72,
+  "crack_components": 5,
+  "crack_px": 1227,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 435,
+  "silhouette_spike_px": 26647,
+  "crack_px_by_group": {
+   "1": 1227
+  },
+  "gap_px": 6997,
+  "wide_px": 89881,
+  "views_with_cracks": 4,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.074854498605203,
+  "worst": [
+   [
+    475,
+    "idle",
+    0,
+    90.0,
+    2
+   ],
+   [
+    392,
+    "walk",
+    20,
+    90.0,
+    1
+   ],
+   [
+    336,
+    "walk",
+    16,
+    90.0,
+    1
+   ]
+  ]
+ },
+ "12_sundress_mom": {
+  "name": "12_sundress_mom",
+  "tris": 6192,
+  "views": 72,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 658,
+  "silhouette_spike_px": 47294,
+  "crack_px_by_group": {},
+  "gap_px": 5835,
+  "wide_px": 94238,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.4248794411619974,
+  "worst": []
+ },
+ "13_construction_worker": {
+  "name": "13_construction_worker",
+  "tris": 6038,
+  "views": 88,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 512,
+  "silhouette_spike_px": 27559,
+  "crack_px_by_group": {},
+  "gap_px": 6235,
+  "wide_px": 43771,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.521037959567881,
+  "worst": []
+ },
+ "14_teen_skater": {
+  "name": "14_teen_skater",
+  "tris": 5872,
+  "views": 72,
+  "crack_components": 58,
+  "crack_px": 4277,
+  "crack2s_components": 56,
+  "crack2s_px": 4424,
+  "silhouette_spike_components": 753,
+  "silhouette_spike_px": 42189,
+  "crack_px_by_group": {
+   "1": 3307,
+   "4": 500,
+   "5": 470
+  },
+  "gap_px": 3422,
+  "wide_px": 99167,
+  "views_with_cracks": 42,
+  "spike_over_5cm": 3,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 5.60121820508779,
+  "worst": [
+   [
+    314,
+    "walk",
+    12,
+    315.0,
+    2
+   ],
+   [
+    300,
+    "walk",
+    4,
+    135.0,
+    3
+   ],
+   [
+    300,
+    "walk",
+    0,
+    45.0,
+    1
+   ]
+  ]
+ },
+ "15_executive": {
+  "name": "15_executive",
+  "tris": 6260,
+  "views": 72,
+  "crack_components": 9,
+  "crack_px": 171,
+  "crack2s_components": 8,
+  "crack2s_px": 102,
+  "silhouette_spike_components": 645,
+  "silhouette_spike_px": 65306,
+  "crack_px_by_group": {
+   "1": 102,
+   "5": 69
+  },
+  "gap_px": 16016,
+  "wide_px": 49316,
+  "views_with_cracks": 7,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 2.7714798817120885,
+  "worst": [
+   [
+    69,
+    "walkBrisk",
+    4,
+    315.0,
+    1
+   ],
+   [
+    24,
+    "walkBrisk",
+    0,
+    270.0,
+    2
+   ],
+   [
+    24,
+    "walkBrisk",
+    0,
+    90.0,
+    2
+   ]
+  ]
+ },
+ "16_lumberjack_hipster": {
+  "name": "16_lumberjack_hipster",
+  "tris": 6411,
+  "views": 88,
+  "crack_components": 64,
+  "crack_px": 1797,
+  "crack2s_components": 64,
+  "crack2s_px": 1797,
+  "silhouette_spike_components": 756,
+  "silhouette_spike_px": 39596,
+  "crack_px_by_group": {
+   "4": 860,
+   "5": 937
+  },
+  "gap_px": 6437,
+  "wide_px": 60889,
+  "views_with_cracks": 60,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.8897099591189046,
+  "worst": [
+   [
+    60,
+    "walkStroll",
+    4,
+    315.0,
+    1
+   ],
+   [
+    58,
+    "walkStroll",
+    4,
+    135.0,
+    1
+   ],
+   [
+    57,
+    "walkStroll",
+    8,
+    135.0,
+    1
+   ]
+  ]
+ },
+ "17_hijabi_student": {
+  "name": "17_hijabi_student",
+  "tris": 6436,
+  "views": 72,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 513,
+  "silhouette_spike_px": 25939,
+  "crack_px_by_group": {},
+  "gap_px": 6380,
+  "wide_px": 5516,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 4.6531149275347445,
+  "worst": []
+ },
+ "18_dapper_elder": {
+  "name": "18_dapper_elder",
+  "tris": 6250,
+  "views": 88,
+  "crack_components": 0,
+  "crack_px": 0,
+  "crack2s_components": 0,
+  "crack2s_px": 0,
+  "silhouette_spike_components": 577,
+  "silhouette_spike_px": 39851,
+  "crack_px_by_group": {},
+  "gap_px": 6183,
+  "wide_px": 37778,
+  "views_with_cracks": 0,
+  "spike_over_5cm": 2,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 5.350943612388664,
+  "worst": []
+ },
+ "19_marathon_runner": {
+  "name": "19_marathon_runner",
+  "tris": 6521,
+  "views": 72,
+  "crack_components": 16,
+  "crack_px": 781,
+  "crack2s_components": 6,
+  "crack2s_px": 489,
+  "silhouette_spike_components": 351,
+  "silhouette_spike_px": 18155,
+  "crack_px_by_group": {
+   "4": 444,
+   "5": 337
+  },
+  "gap_px": 2554,
+  "wide_px": 42384,
+  "views_with_cracks": 14,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.822385566866346,
+  "worst": [
+   [
+    106,
+    "walkBrisk",
+    28,
+    315.0,
+    1
+   ],
+   [
+    91,
+    "walkBrisk",
+    28,
+    135.0,
+    1
+   ],
+   [
+    90,
+    "walkBrisk",
+    0,
+    315.0,
+    1
+   ]
+  ]
+ },
+ "20_punk_artist": {
+  "name": "20_punk_artist",
+  "tris": 5864,
+  "views": 72,
+  "crack_components": 57,
+  "crack_px": 2805,
+  "crack2s_components": 119,
+  "crack2s_px": 5416,
+  "silhouette_spike_components": 816,
+  "silhouette_spike_px": 68910,
+  "crack_px_by_group": {
+   "1": 1348,
+   "4": 751,
+   "5": 706
+  },
+  "gap_px": 13521,
+  "wide_px": 106179,
+  "views_with_cracks": 39,
+  "spike_over_5cm": 0,
+  "spike_over_10cm": 0,
+  "max_growth_cm": 3.6798940631716057,
+  "worst": [
+   [
+    229,
+    "walkF",
+    20,
+    225.0,
+    2
+   ],
+   [
+    229,
+    "walkF",
+    20,
+    45.0,
+    2
+   ],
+   [
+    122,
+    "walkF",
+    28,
+    225.0,
+    3
+   ]
+  ]
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "park_rect_m2": 740376.0,
+ "water_m2": 81991.28391631028,
+ "park_land_m2": 658090.0,
+ "path_and_drive_m2": 82320.5,
+ "met_lot_m2": 15834.0,
+ "open_land_m2": 559935.5,
+ "grass_mask_on_open_land_m2": 503384.0,
+ "grass_cover_of_open_land_pct": 89.9003545944131,
+ "grass_cover_of_all_park_land_pct": 76.49166527374675,
+ "tufts": 527552
+}

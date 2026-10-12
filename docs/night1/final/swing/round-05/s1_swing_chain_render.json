@@ -1,0 +1,19 @@
+{
+ "clip": "s1_swing_chain",
+ "map": "island",
+ "cases": [
+  {
+   "case": "s1_swing_chain",
+   "frames_rendered": 1291,
+   "preroll_frames_cut": 92,
+   "rows": 1199,
+   "wall_s": 252.0,
+   "fps_render": 5.12
+  }
+ ],
+ "frames": 1199,
+ "duration_s": 19.98,
+ "mp4_mb": 13.26,
+ "crf": 31,
+ "wall_s_total": 252.0
+}

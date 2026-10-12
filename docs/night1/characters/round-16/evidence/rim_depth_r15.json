@@ -1,0 +1,178 @@
+{
+ "tessera": {
+  "suit": "tessera",
+  "file": "skin_tessera_headside_4k.png",
+  "face_dir": 1,
+  "head_h_px": 1533,
+  "brow_front_x": 2251,
+  "brow_row": 763,
+  "ok": true,
+  "rim_front_x": 2216,
+  "rim_front_row": 1091,
+  "glass_front_x": 2194,
+  "rim_px_area": 23190,
+  "fabric_sat": 0.97,
+  "fabric_rgb": [
+   1,
+   43,
+   54
+  ],
+  "rim_behind_brow_px": 35.3,
+  "rim_behind_brow_pct_head_h": 2.3,
+  "R1_rim_ge_1pct_behind_brow": true
+ },
+ "verdant": {
+  "suit": "verdant",
+  "file": "skin_verdant_headside_4k.png",
+  "face_dir": 1,
+  "head_h_px": 1467,
+  "brow_front_x": 2342,
+  "brow_row": 850,
+  "ok": true,
+  "rim_front_x": 2308,
+  "rim_front_row": 1174,
+  "glass_front_x": 2288,
+  "rim_px_area": 6517,
+  "fabric_sat": 0.44,
+  "fabric_rgb": [
+   30,
+   50,
+   30
+  ],
+  "rim_behind_brow_px": 34.3,
+  "rim_behind_brow_pct_head_h": 2.34,
+  "R1_rim_ge_1pct_behind_brow": true
+ },
+ "plum": {
+  "suit": "plum",
+  "file": "skin_plum_headside_4k.png",
+  "face_dir": 1,
+  "head_h_px": 1486,
+  "brow_front_x": 2317,
+  "brow_row": 826,
+  "ok": true,
+  "rim_front_x": 2283,
+  "rim_front_row": 1150,
+  "glass_front_x": 2264,
+  "rim_px_area": 16801,
+  "fabric_sat": 0.69,
+  "fabric_rgb": [
+   43,
+   20,
+   62
+  ],
+  "rim_behind_brow_px": 34.0,
+  "rim_behind_brow_pct_head_h": 2.29,
+  "R1_rim_ge_1pct_behind_brow": true
+ },
+ "cinder": {
+  "suit": "cinder",
+  "file": "skin_cinder_headside_4k.png",
+  "face_dir": 1,
+  "head_h_px": 1530,
+  "brow_front_x": 2293,
+  "brow_row": 778,
+  "ok": true,
+  "rim_front_x": 2252,
+  "rim_front_row": 1107,
+  "glass_front_x": 2230,
+  "rim_px_area": 9121,
+  "fabric_sat": 0.15,
+  "fabric_rgb": [
+   36,
+   40,
+   40
+  ],
+  "rim_behind_brow_px": 41.0,
+  "rim_behind_brow_pct_head_h": 2.68,
+  "R1_rim_ge_1pct_behind_brow": true
+ },
+ "glacier": {
+  "suit": "glacier",
+  "file": "skin_glacier_headside_4k.png",
+  "face_dir": 1,
+  "head_h_px": 1514,
+  "brow_front_x": 2398,
+  "brow_row": 821,
+  "ok": true,
+  "rim_front_x": 2360,
+  "rim_front_row": 1132,
+  "glass_front_x": 2327,
+  "rim_px_area": 20483,
+  "fabric_sat": 0.4,
+  "fabric_rgb": [
+   82,
+   118,
+   130
+  ],
+  "rim_behind_brow_px": 38.3,
+  "rim_behind_brow_pct_head_h": 2.53,
+  "R1_rim_ge_1pct_behind_brow": true
+ },
+ "ash": {
+  "suit": "ash",
+  "file": "skin_ash_headside_4k.png",
+  "face_dir": 1,
+  "head_h_px": 1532,
+  "brow_front_x": 2244,
+  "brow_row": 761,
+  "ok": true,
+  "rim_front_x": 2208,
+  "rim_front_row": 1091,
+  "glass_front_x": 2187,
+  "rim_px_area": 11168,
+  "fabric_sat": 0.26,
+  "fabric_rgb": [
+   58,
+   67,
+   71
+  ],
+  "rim_behind_brow_px": 36.0,
+  "rim_behind_brow_pct_head_h": 2.35,
+  "R1_rim_ge_1pct_behind_brow": true
+ },
+ "saffron": {
+  "suit": "saffron",
+  "file": "skin_saffron_headside_4k.png",
+  "face_dir": 1,
+  "head_h_px": 1470,
+  "brow_front_x": 2337,
+  "brow_row": 847,
+  "ok": true,
+  "rim_front_x": 2288,
+  "rim_front_row": 1147,
+  "glass_front_x": 2282,
+  "rim_px_area": 7014,
+  "fabric_sat": 0.19,
+  "fabric_rgb": [
+   38,
+   47,
+   42
+  ],
+  "rim_behind_brow_px": 49.0,
+  "rim_behind_brow_pct_head_h": 3.33,
+  "R1_rim_ge_1pct_behind_brow": true
+ },
+ "sage": {
+  "suit": "sage",
+  "file": "skin_sage_headside_4k.png",
+  "face_dir": 1,
+  "head_h_px": 1483,
+  "brow_front_x": 2323,
+  "brow_row": 831,
+  "ok": true,
+  "rim_front_x": 2281,
+  "rim_front_row": 1161,
+  "glass_front_x": 2270,
+  "rim_px_area": 16440,
+  "fabric_sat": 0.27,
+  "fabric_rgb": [
+   70,
+   93,
+   68
+  ],
+  "rim_behind_brow_px": 42.3,
+  "rim_behind_brow_pct_head_h": 2.85,
+  "R1_rim_ge_1pct_behind_brow": true
+ }
+}

@@ -1,0 +1,30 @@
+# Animation check, round 06
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+
+a_swing_chain: 934 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 25 consecutive air pairs, 0 with the same silhouette (min distance 0.088 m, threshold 0.08 m)
+  air cycles: 3; consecutive identical cycles: 0
+    cycle 1: air_tuck > air_rise > air_fall > air_fallCalm > air_reachR
+    cycle 2: trick_layout > air_fallCalm > air_reachL
+    cycle 3: air_rise > air_spread > air_fallCalm > air_reachR
+
+b_release_trick_dive_zip: 418 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 8 consecutive air pairs, 0 with the same silhouette (min distance 0.153 m, threshold 0.08 m)
+  air cycles: 1; consecutive identical cycles: 0
+    cycle 1: trick_tuckFlip > air_fallCalm > air_dive
+
+c_wallrun_perch: 598 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 6 consecutive air pairs, 0 with the same silhouette (min distance 0.129 m, threshold 0.08 m)
+  air cycles: 0; consecutive identical cycles: 0
+
+d_sprint_jump_first_swing: 718 frames
+  T-pose / no-clip frames: 0
+  air silhouettes at 6 fps: 13 consecutive air pairs, 0 with the same silhouette (min distance 0.134 m, threshold 0.08 m)
+  air cycles: 3; consecutive identical cycles: 0
+    cycle 1: air_tuck > air_rise > air_reachR
+    cycle 2: trick_layout > air_fallCalm > air_reachL
+    cycle 3: air_rise
+

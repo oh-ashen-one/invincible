@@ -1,0 +1,114 @@
+[
+ {
+  "region": "S1 right tower",
+  "crop_xywh": [
+   2700,
+   0,
+   400,
+   400
+  ],
+  "facade_pixels": 160000,
+  "pct_above_204": 0.0,
+  "p95": 29.6,
+  "p99": 85.8,
+  "mean_Y": 20.4,
+  "C1_pass": true,
+  "C2_pass": false
+ },
+ {
+  "region": "S1 left buildings",
+  "crop_xywh": [
+   880,
+   0,
+   400,
+   400
+  ],
+  "facade_pixels": 160000,
+  "pct_above_204": 0.0,
+  "p95": 112.1,
+  "p99": 148.2,
+  "mean_Y": 56.9,
+  "C1_pass": true,
+  "C2_pass": true
+ },
+ {
+  "region": "S2 left stone tower",
+  "crop_xywh": [
+   0,
+   60,
+   400,
+   400
+  ],
+  "facade_pixels": 160000,
+  "pct_above_204": 30.69,
+  "p95": 221.1,
+  "p99": 239.1,
+  "mean_Y": 133.7,
+  "C1_pass": false,
+  "C2_pass": false
+ },
+ {
+  "region": "S2 right glass tower",
+  "crop_xywh": [
+   2460,
+   0,
+   400,
+   400
+  ],
+  "facade_pixels": 160000,
+  "pct_above_204": 3.79,
+  "p95": 202.6,
+  "p99": 213.1,
+  "mean_Y": 99.9,
+  "C1_pass": false,
+  "C2_pass": true
+ },
+ {
+  "region": "S7 left glass wall (sunset)",
+  "crop_xywh": [
+   0,
+   0,
+   400,
+   400
+  ],
+  "facade_pixels": 160000,
+  "pct_above_204": 0.0,
+  "p95": 61.1,
+  "p99": 63.1,
+  "mean_Y": 42.6,
+  "C1_pass": true,
+  "C2_pass": false
+ },
+ {
+  "region": "S7 right masonry wall (sunset)",
+  "crop_xywh": [
+   2600,
+   0,
+   400,
+   400
+  ],
+  "facade_pixels": 160000,
+  "pct_above_204": 0.0,
+  "p95": 25.6,
+  "p99": 30.9,
+  "mean_Y": 14.8,
+  "C1_pass": true,
+  "C2_pass": false
+ },
+ {
+  "region": "S8 brick towers centre",
+  "crop_xywh": [
+   1490,
+   1140,
+   400,
+   400
+  ],
+  "facade_pixels": 160000,
+  "pct_above_204": 0.0,
+  "p95": 117.3,
+  "p99": 151.0,
+  "mean_Y": 70.2,
+  "C1_pass": true,
+  "C2_pass": true
+ }
+]

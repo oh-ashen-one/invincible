@@ -1,0 +1,6 @@
+Exposure calibration of the skins stage (AEM_Manual, sun 8 lux), real game, 1920x1080, cinder front (stage 39.2 s) and cinder chest (45.2 s), bare-floor patch (x 72-96 %, y 86-97 %), mean sRGB luma:
+bias  +9.0: front 121.2, chest  80.9   (image mean 105.5 / 69.1)
+bias +10.0: front 171.9, chest 117.2   (image mean 152.3 / 103.0)   <- chosen (auto exposure's level on the same floor: tessera front 170.3, plum front 171.5)
+bias  -0.3 (the first manual build): front 0.9 (black)
+bias  +8.0: the engine received a SIGTERM (Mac GracefulTerminationHandler) 7 s after launch (not sent by this chain's scripts); no image.
+final 4K run (chain_r11_final2.sh, bias +10.0): tessera front floor luma 172.2; pawn movie frame 30: 141.1.

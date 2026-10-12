@@ -1,0 +1,11 @@
+# Round 03 perf sessions: the exact perf_queue.py config lists (each run under `gpu_slot.sh perf`, `--budget-s 870`; every config`s full command line is in perf/<session>/<config>/run.txt)
+
+a1: warm@ini,ctl@ini,occb2@ini+r.NumBufferedOcclusionQueries=2,occ0@ini+r.AllowOcclusionQueries=0,occ0_50@50+r.AllowOcclusionQueries=0,occ0_58@58+r.AllowOcclusionQueries=0,ctl2@ini,occb2_50@50+r.NumBufferedOcclusionQueries=2
+b1: warmB@ini+variant:Cl4P,p@ini+variant:Cl4P,ctl3@ini,sk0@ini+r.RayTracing.Geometry.SkeletalMeshes=0,p48@48+variant:Cl4P,p50@50+variant:Cl4P,sw@ini+r.Lumen.HardwareRayTracing=0,p2@ini+variant:Cl4P
+c1: warmC@ini,sk0_46@ini+r.RayTracing.Geometry.SkeletalMeshes=0,sk0_48@48+r.RayTracing.Geometry.SkeletalMeshes=0,sk0_50@50+r.RayTracing.Geometry.SkeletalMeshes=0,dg1@ini+r.RayTracing.DynamicGeometry.MaxUpdatePrimitivesPerFrame=1,sk0_48b@48+r.RayTracing.Geometry.SkeletalMeshes=0,sk0_50b@50+r.RayTracing.Geometry.SkeletalMeshes=0,sk0_46b@ini+r.RayTracing.Geometry.SkeletalMeshes=0
+d1: warmD@ini,ship_a@ini,ship_b@ini,ship_s2@ini+view:S2,hero_in@ini+r.RayTracing.Geometry.SkeletalMeshes=1,fb1@ini+r.RayTracing.Geometry.SkeletalMeshes=1+r.Metal.RayTracing.DebugForceBuildMode=1,pd32@ini+r.Lumen.ScreenProbeGather.DownsampleFactor=32,sw48@ini+r.Lumen.HardwareRayTracing=0
+e1: warmE@ini,gi48@ini+r.Lumen.ScreenProbeGather.HardwareRayTracing=1,gi50@50+r.Lumen.ScreenProbeGather.HardwareRayTracing=1,m8_50@50+r.Nanite.MaxPixelsPerEdge=8,m8_48@ini+r.Nanite.MaxPixelsPerEdge=8,gi50m8@50+r.Lumen.ScreenProbeGather.HardwareRayTracing=1+r.Nanite.MaxPixelsPerEdge=8,ship_c@ini,gi46@46+r.Lumen.ScreenProbeGather.HardwareRayTracing=1
+f1: warmF@ini,hwl_a@ini,hwl_b@ini,hwl_s2@ini+view:S2,hwl_m10@ini+r.Nanite.MaxPixelsPerEdge=10,hwl_smrt@ini+r.Shadow.Virtual.SMRT.SamplesPerRayDirectional=4,hwl_hero@ini+r.RayTracing.Geometry.SkeletalMeshes=1,hwl_sw@ini+r.Lumen.HardwareRayTracing=0
+g1: warmG@ini+variant:RTvC,rtvC@ini+variant:RTvC,rtvC_r100@ini+variant:RTvC+r.RayTracing.Culling.Radius=10000,rtvC_r50@ini+variant:RTvC+r.RayTracing.Culling.Radius=5000,rtvA@ini+variant:RTvA,rtvB@ini+variant:RTvB,hwl_c@ini,rtvC_b@ini+variant:RTvC
+
+Preset in Config/Mac/MacEngine.ini during each session: a1 b1 c1 = perf60_hwrefl at TSR 46 (software GI, hero in RT, Nanite 6); d1 = perf60_hwrefl_sk0 at TSR 48; e1 = same as d1; f1 g1 = perf60_hwl at TSR 50.

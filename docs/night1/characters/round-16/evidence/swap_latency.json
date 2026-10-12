@@ -1,0 +1,191 @@
+{
+ "other_steps": [
+  602
+ ],
+ "matched": 7,
+ "method": "colour histogram of the hero pixels (centre 40 pct minus side strips), step > 0.211 (median step 0.042)",
+ "frames": 691,
+ "swap_frames": [
+  91,
+  163,
+  235,
+  307,
+  379,
+  451,
+  523,
+  602
+ ],
+ "press_times": [
+  1.5,
+  2.7,
+  3.9,
+  5.1,
+  6.3,
+  7.5,
+  8.7
+ ],
+ "press_frames": [
+  89,
+  161,
+  233,
+  305,
+  377,
+  449,
+  521
+ ],
+ "hist_steps": [
+  0.264,
+  0.247,
+  0.298,
+  0.275,
+  0.227,
+  0.27,
+  0.269,
+  0.783
+ ],
+ "latency_frames": [
+  2,
+  2,
+  2,
+  2,
+  2,
+  2,
+  2
+ ],
+ "latency_ms": [
+  33.3,
+  33.3,
+  33.3,
+  33.3,
+  33.3,
+  33.3,
+  33.3
+ ],
+ "engine_sets": [
+  {
+   "i": 2,
+   "id": "plum",
+   "why": "console",
+   "t": 0.017,
+   "frame": 0,
+   "apply_ms": 1.31
+  },
+  {
+   "i": 3,
+   "id": "cinder",
+   "why": "key T",
+   "t": 1.517,
+   "frame": 90,
+   "apply_ms": 1.19
+  },
+  {
+   "i": 4,
+   "id": "glacier",
+   "why": "key T",
+   "t": 2.717,
+   "frame": 162,
+   "apply_ms": 2.28
+  },
+  {
+   "i": 5,
+   "id": "ash",
+   "why": "key T",
+   "t": 3.917,
+   "frame": 234,
+   "apply_ms": 1.08
+  },
+  {
+   "i": 6,
+   "id": "saffron",
+   "why": "key T",
+   "t": 5.117,
+   "frame": 306,
+   "apply_ms": 0.77
+  },
+  {
+   "i": 7,
+   "id": "sage",
+   "why": "key T",
+   "t": 6.317,
+   "frame": 378,
+   "apply_ms": 1.05
+  },
+  {
+   "i": 0,
+   "id": "tessera",
+   "why": "key T",
+   "t": 7.517,
+   "frame": 450,
+   "apply_ms": 1.56
+  },
+  {
+   "i": 1,
+   "id": "verdant",
+   "why": "key T",
+   "t": 8.717,
+   "frame": 522,
+   "apply_ms": 0.88
+  }
+ ],
+ "engine_swap_done": [
+  {
+   "i": 2,
+   "id": "plum",
+   "wall_ms": 3155.7,
+   "frames": 4,
+   "res": "3/4"
+  },
+  {
+   "i": 3,
+   "id": "cinder",
+   "wall_ms": 2093.6,
+   "frames": 2,
+   "res": "4/4"
+  },
+  {
+   "i": 4,
+   "id": "glacier",
+   "wall_ms": 1597.3,
+   "frames": 2,
+   "res": "4/4"
+  },
+  {
+   "i": 5,
+   "id": "ash",
+   "wall_ms": 1450.0,
+   "frames": 2,
+   "res": "4/4"
+  },
+  {
+   "i": 6,
+   "id": "saffron",
+   "wall_ms": 1832.8,
+   "frames": 2,
+   "res": "4/4"
+  },
+  {
+   "i": 7,
+   "id": "sage",
+   "wall_ms": 1672.8,
+   "frames": 2,
+   "res": "4/4"
+  },
+  {
+   "i": 0,
+   "id": "tessera",
+   "wall_ms": 1382.0,
+   "frames": 2,
+   "res": "4/4"
+  },
+  {
+   "i": 1,
+   "id": "verdant",
+   "wall_ms": 1494.8,
+   "frames": 2,
+   "res": "4/4"
+  }
+ ],
+ "max_latency_s": 0.033,
+ "swaps_found": 8,
+ "presses": 7
+}

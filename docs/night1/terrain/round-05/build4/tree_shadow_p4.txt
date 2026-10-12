@@ -1,0 +1,2 @@
+{"still": "p4_greatlawn.jpg", "shot": "p4_greatlawn", "sun_elev_deg": 9.0, "sun_az_deg": 238.0, "isolation_m": 12.0, "trees_measured": 1, "max_ratio": 1.008, "median_ratio": 1.008, "pass_all_le_0.6": false}
+tree [np.float64(-49.0), np.float64(-1185.7)] elm      nn  13.3 m  trunk px [1103, 1211] core 112.5 (n 37)  lit 111.6 (n 20)  ratio 1.008

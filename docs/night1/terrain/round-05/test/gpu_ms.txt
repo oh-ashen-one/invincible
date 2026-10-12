@@ -1,0 +1,3 @@
+r05 V_p4_greatlawn frames=33 avg_ms=109.05 fps=9.2 p95_ms=119.60 p99_ms=120.01 gpu_avg_ms=106.72 out=3840x2160 internal=1920x1080 (auto_display) -> /Users/midir/sm2-n1/_scratch/terrain/capture/V_p4_greatlawn/V_p4_greatlawn_perf.json
+r05 V_p1_south frames=33 avg_ms=170.74 fps=5.9 p95_ms=183.80 p99_ms=185.32 gpu_avg_ms=167.77 out=3840x2160 internal=1920x1080 (auto_display) -> /Users/midir/sm2-n1/_scratch/terrain/capture/V_p1_south/V_p1_south_perf.json
+r05 V_p10_lawn_eye frames=33 avg_ms=97.40 fps=10.3 p95_ms=125.64 p99_ms=191.22 gpu_avg_ms=94.64 out=3840x2160 internal=1920x1080 (auto_display) -> /Users/midir/sm2-n1/_scratch/terrain/capture/V_p10_lawn_eye/V_p10_lawn_eye_perf.json

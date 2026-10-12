@@ -1,0 +1,7 @@
+/Users/midir/sm2-n1/perf/unreal/WebHomage/Scripts/run_game.sh /Users/midir/sm2-n1/perf/docs/night1/perf/round-04/perf/w1/ck20 -map /Game/PerfF/RTvCk20/Manhattan -res 3840x2160 -perf 15:45 -name ck20 -timeout 900 -exec  -- -WHTravScript=/Users/midir/sm2-n1/perf/docs/night1/manhattan/scripts/route_30s_warmup15.json -WHTravCsv=/Users/midir/sm2-n1/perf/docs/night1/perf/round-04/perf/w1/ck20/trav_telemetry.csv -csvGpuStats -benchmark -fps=60 -notraceserver
+
+run_game: out=/Users/midir/sm2-n1/perf/docs/night1/perf/round-04/perf/w1/ck20 res=3840x2160 quit=46.0 window=0 movie=0
+WH_PERF_START t=15.00
+WH_PERF frames=1800 avg_ms=18.90 fps=52.9 p95_ms=22.32 p99_ms=23.99 gpu_avg_ms=17.29 out=3840x2160 internal=1920x1080 (manual) -> /Users/midir/sm2-n1/perf/docs/night1/perf/round-04/perf/w1/ck20/ck20_perf.json
+WH_QUIT t=46.00
+

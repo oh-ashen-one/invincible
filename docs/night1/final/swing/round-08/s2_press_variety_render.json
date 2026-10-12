@@ -1,0 +1,83 @@
+{
+ "clip": "s2_press_variety",
+ "map": "island",
+ "cases": [
+  {
+   "case": "s2_c1_roof_jump",
+   "frames_rendered": 391,
+   "preroll_frames_cut": 92,
+   "rows": 299,
+   "wall_s": 79.0,
+   "fps_render": 4.95
+  },
+  {
+   "case": "s2_c2_midfall",
+   "frames_rendered": 307,
+   "preroll_frames_cut": 92,
+   "rows": 215,
+   "wall_s": 68.0,
+   "fps_render": 4.51
+  },
+  {
+   "case": "s2_c3_wallrun",
+   "frames_rendered": 403,
+   "preroll_frames_cut": 92,
+   "rows": 311,
+   "wall_s": 73.0,
+   "fps_render": 5.52
+  },
+  {
+   "case": "s2_c4_flip_cancel",
+   "frames_rendered": 319,
+   "preroll_frames_cut": 92,
+   "rows": 227,
+   "wall_s": 69.0,
+   "fps_render": 4.62
+  },
+  {
+   "case": "s2_c5_repress",
+   "frames_rendered": 319,
+   "preroll_frames_cut": 92,
+   "rows": 227,
+   "wall_s": 68.0,
+   "fps_render": 4.69
+  },
+  {
+   "case": "s2_c6_side_anchor",
+   "frames_rendered": 283,
+   "preroll_frames_cut": 92,
+   "rows": 191,
+   "wall_s": 65.0,
+   "fps_render": 4.35
+  },
+  {
+   "case": "s2_c7_no_anchor",
+   "frames_rendered": 271,
+   "preroll_frames_cut": 92,
+   "rows": 179,
+   "wall_s": 64.0,
+   "fps_render": 4.23
+  },
+  {
+   "case": "s2_c8_close_facade",
+   "frames_rendered": 283,
+   "preroll_frames_cut": 92,
+   "rows": 191,
+   "wall_s": 65.0,
+   "fps_render": 4.35
+  },
+  {
+   "case": "s2_c9_trees",
+   "frames_rendered": 283,
+   "preroll_frames_cut": 92,
+   "rows": 191,
+   "wall_s": 64.0,
+   "fps_render": 4.42
+  }
+ ],
+ "frames": 2031,
+ "duration_s": 33.85,
+ "mp4_mb": 12.46,
+ "crf": 34,
+ "wall_s_total": 615.0
+}

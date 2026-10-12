@@ -1,0 +1,4 @@
+# split capture f4_chain_flips at t=6.0: A 439 frames / 389 rows (skip 50), B 437 frames / 797 rows, first B row 360 (t=6.0000)
+  telemetry A vs B over 389 rows: max |pos / cam| diff 0.0000 m -> SAME
+  overlap frames (A row 360+k vs B frame k): k0: mean 0.28/255, px>24 0.02 %, k6: mean 0.29/255, px>24 0.02 %, k12: mean 0.28/255, px>24 0.01 %, k18: mean 0.28/255, px>24 0.01 %, k24: mean 0.29/255, px>24 0.01 %
+  merged 847 frames, telemetry rows 797 -> trim 50

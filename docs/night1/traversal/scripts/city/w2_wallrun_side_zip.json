@@ -1,0 +1,58 @@
+{
+ "name": "w2_wallrun_side_zip",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   -240,
+   -57,
+   40
+  ],
+  "yaw": 0,
+  "camPitch": 0.12,
+  "vel": [
+   11,
+   0,
+   5
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 0,
+   "sprint": true
+  },
+  {
+   "t": 0.6,
+   "heading": false
+  },
+  {
+   "t": 2.85,
+   "move": [
+    1,
+    0
+   ],
+   "sprint": true
+  },
+  {
+   "t": 4.0,
+   "zip": true
+  },
+  {
+   "t": 4.1,
+   "zip": false
+  },
+  {
+   "t": 4.2,
+   "move": [
+    0,
+    0
+   ],
+   "sprint": false
+  }
+ ],
+ "note": "Round 22 (director: side run on a sun-facing facade): the west face of the 284 m tower at x ~-229.4 (y -61..-42; the only long west face whose sun line clears the hinterland at the 8 deg golden-hour sun: lit above ~48 m). Jump from the west avenue onto the face, vertical wall run up, stick sideways + sprint at 2.85 s (upright side run north, ends before the fin at y -40), E at 4.0 s -> zip. Variant t2_h."
+}

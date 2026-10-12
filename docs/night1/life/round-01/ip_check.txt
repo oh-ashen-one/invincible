@@ -1,0 +1,4 @@
+atlas scan done
+S1_street_4k.jpg clean
+S2_avenue_4k.jpg clean
+TOTAL HITS 0

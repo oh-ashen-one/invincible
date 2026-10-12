@@ -1,0 +1,11 @@
+{
+  "runtime_source_commit": "19521659",
+  "dylib_sha256": "01f9374b288464524637249c55ddb0535688e471572526dd161549f85792f596",
+  "status": "completion candidate; runtime gates pending",
+  "fixed_step_hz": 60,
+  "files": {
+    "unreal/WebHomage/Binaries/Mac/libUnrealEditor-WebHomage.dylib": "01f9374b288464524637249c55ddb0535688e471572526dd161549f85792f596",
+    "unreal/WebHomage/Content/Traversal/Materials/M_TravWeb.uasset": "8b881f34c3c3d7dd9f0847e45c47ce5c3cc4e0e10d89c423a5cf744708582474",
+    "unreal/WebHomage/Config/PerfPlayableFast.cvars": "922f536c92ab4b739e4f1c248f6051b841800ae4a88b1bc16ea62da4e9cc6daf"
+  }
+}

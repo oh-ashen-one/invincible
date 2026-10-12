@@ -1,0 +1,12 @@
+# hold 4: FarFill (sky bounce on the shaded faces of our far towers) sweep on the S4 view, S8 glass F0Scale 0.25 / 0.18, native-4K S3 billboard
+build mat
+mpc a1 FarLitK=0.30 FarFill=0.12 F0Scale=0.25
+cap C1 S4_perch_skyline
+score C1 S4_perch_skyline
+mpc a2 FarFill=0.24
+cap C2 S4_perch_skyline
+score C2 S4_perch_skyline
+cap C2 S8_aerial_midtown
+mpc a3 F0Scale=0.18
+cap C3 S8_aerial_midtown
+cap bb S3_rooftop_watertower 3840x2160 100

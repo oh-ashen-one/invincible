@@ -1,0 +1,42 @@
+{
+ "name": "route_30s",
+ "note": "Piece C 30 s Midtown route (Manhattan map): the P3 hero starts on the avenue at (249, 176) m facing north, sprints, charged jump at 1.8 s, first web at 2.6 s, then the P3 a/d autoChain rhythm rule (releasePhase 0.7, gap 0.15, trick every 3rd release) up the avenue. Metres, UE axes (X east, Y south, north = -Y), yaw deg.",
+ "seed": 20260929,
+ "spawn": {
+  "pos": [
+   249,
+   176,
+   0.95
+  ],
+  "yaw": -90,
+  "camPitch": 0.14
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "sprint": true
+  },
+  {
+   "t": 1.8,
+   "jump": true
+  },
+  {
+   "t": 2.2,
+   "jump": false
+  },
+  {
+   "t": 2.6,
+   "swing": true,
+   "autoChain": true,
+   "releasePhase": 0.7,
+   "gap": 0.15,
+   "repressVz": 99.0,
+   "trickEvery": 3
+  }
+ ]
+}

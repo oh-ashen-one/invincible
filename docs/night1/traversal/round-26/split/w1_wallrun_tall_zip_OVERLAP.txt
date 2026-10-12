@@ -1,0 +1,4 @@
+# split capture w1_wallrun_tall_zip at t=4.0: A 319 frames / 269 rows (skip 50), B 209 frames / 449 rows, first B row 240 (t=4.0000)
+  telemetry A vs B over 269 rows: max |pos / cam| diff 0.0000 m -> SAME
+  overlap frames (A row 240+k vs B frame k): k0: mean 0.16/255, px>24 0.00 %, k6: mean 0.14/255, px>24 0.00 %, k12: mean 0.16/255, px>24 0.00 %, k18: mean 0.23/255, px>24 0.00 %, k24: mean 0.36/255, px>24 0.00 %
+  merged 499 frames, telemetry rows 449 -> trim 50

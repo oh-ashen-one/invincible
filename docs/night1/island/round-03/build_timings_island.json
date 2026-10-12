@@ -1,0 +1,234 @@
+{
+ "runs": [
+  {
+   "region": "island",
+   "tiles": "-4,-14,3,13",
+   "steps_wanted": [
+    "city_prep",
+    "city_extra"
+   ],
+   "steps_done": [
+    {
+     "step": "city_prep",
+     "seconds": 885.4
+    },
+    {
+     "step": "city_extra",
+     "seconds": 190.9
+    }
+   ],
+   "commands": [
+    {
+     "cmd": "city_prep_textures.log",
+     "seconds": 604.4,
+     "rc": 0
+    },
+    {
+     "cmd": "city_street_signs.log",
+     "seconds": 2.4,
+     "rc": 0
+    },
+    {
+     "cmd": "city_street_kit.log",
+     "seconds": 226.6,
+     "rc": 0
+    },
+    {
+     "cmd": "city_street_props.log",
+     "seconds": 51.7,
+     "rc": 0
+    },
+    {
+     "cmd": "city_gen_shaders.log",
+     "seconds": 0.1,
+     "rc": 0
+    },
+    {
+     "cmd": "city_extra_export_vehicles.log",
+     "seconds": 1.0,
+     "rc": 0
+    },
+    {
+     "cmd": "city_extra_street_cars.log",
+     "seconds": 5.1,
+     "rc": 0
+    },
+    {
+     "cmd": "city_extra_street_trees.log",
+     "seconds": 10.8,
+     "rc": 0
+    },
+    {
+     "cmd": "city_extra_street_traffic.log",
+     "seconds": 9.8,
+     "rc": 0
+    },
+    {
+     "cmd": "city_extra_far_skyline.log",
+     "seconds": 1.1,
+     "rc": 0
+    },
+    {
+     "cmd": "city_extra_bake_sunmask.log",
+     "seconds": 76.9,
+     "rc": 0
+    },
+    {
+     "cmd": "city_extra_island_boxes.log",
+     "seconds": 85.7,
+     "rc": 0
+    }
+   ],
+   "total_seconds": 1076.3,
+   "finished": "2026-10-02 05:23:55"
+  },
+  {
+   "region": "island",
+   "tiles": "-4,-14,3,13",
+   "steps_wanted": [
+    "city",
+    "map"
+   ],
+   "steps_done": [],
+   "commands": [],
+   "env": {
+    "SM2_ISLAND_CITY_STEPS": "tex,mesh,kit,fsky,map,coll,wp",
+    "SM2_ISLAND_MESH_ONLY": "missing"
+   },
+   "total_seconds": 7206.2,
+   "finished": "2026-10-02 07:24:31"
+  },
+  {
+   "region": "island",
+   "tiles": "-4,-14,3,13",
+   "steps_wanted": [
+    "city",
+    "map"
+   ],
+   "steps_done": [
+    {
+     "step": "city",
+     "seconds": 11868.9
+    },
+    {
+     "step": "map",
+     "seconds": 34.1
+    }
+   ],
+   "commands": [
+    {
+     "cmd": "UE city_pass1",
+     "seconds": 11868.8,
+     "rc": 0,
+     "steps": [
+      "[build_city     0s] mesh step: 419 missing meshes to import",
+      "[build_city  4325s] meshes 419",
+      "[build_city  7438s] kit meshes /Game/City/Meshes/streetkit 136 visual-only",
+      "[build_city  9685s] kit meshes /Game/City/Meshes/fireescape 136 solid",
+      "[build_city  9687s] kit actors: 136 streetkit (visual-only), 136 fire-escape (solid)",
+      "[build_city  9687s] kit actors 272",
+      "[build_city  9752s] farsky meshes 16",
+      "[build_city  9756s] kit actors: 136 streetkit (visual-only), 136 fire-escape (solid)",
+      "[build_city  9756s] farsky instances 11885",
+      "[build_city  9868s] stopped traffic cars 1579",
+      "[build_city  9870s] hinterland 29208",
+      "[build_city  9870s] populate: 1642 meshes (316 ground, 757 solid, 542 visual-only), 272 kit, 198063 instances",
+      "[build_city  9982s] geo level /Game/Tests/City/City_Midtown_Geo 1642 meshes 198063 instances",
+      "[build_city  9985s] map City_Midtown",
+      "[build_city  9990s] map City_View_S1_avenue_street",
+      "[build_city 10005s] map City_View_S2_avenue_swing",
+      "[build_city 10067s] map City_View_S3_rooftop_watertower",
+      "[build_city 10114s] map City_View_S4_perch_skyline",
+      "[build_city 10140s] map City_View_S5_timessq_south",
+      "[build_city 10174s] map City_View_S6_timessq_street",
+      "[build_city 10183s] map City_View_S7_sunset_crosstown",
+      "[build_city 10191s] map City_View_S8_aerial_midtown",
+      "[build_city 10214s] collision level /Game/Tests/City/City_Midtown_Collision 0 WHBox cubes",
+      "[build_city 10218s] WP main grid: cell 25600 cm, loading range 120000 cm, block on slow streaming",
+      "[build_city 10232s] kit actors: 136 streetkit (visual-only), 136 fire-escape (solid)",
+      "[build_city 10232s] farsky instances 11885",
+      "[build_city 10727s] stopped traffic cars 1579",
+      "[build_city 10728s] hinterland 29208",
+      "[build_city 10729s] populate (WP): 1642 meshes (316 ground, 757 solid, 542 visual-only), 272 kit, 198063 instances",
+      "[build_city 10730s] WHBox source whboxes.json 173097",
+      "[build_city 10907s] WHBox comp tiles 20 / 170, 31908 boxes, 177 s",
+      "[build_city 11031s] WHBox comp tiles 40 / 170, 57488 boxes, 301 s",
+      "[build_city 11175s] WHBox comp tiles 60 / 170, 83761 boxes, 445 s",
+      "[build_city 11180s] WHBox comp tiles 80 / 170, 87415 boxes, 450 s",
+      "[build_city 11383s] WHBox comp tiles 100 / 170, 112618 boxes, 653 s",
+      "[build_city 11457s] WHBox comp tiles 120 / 170, 133236 boxes, 728 s",
+      "[build_city 11684s] WHBox comp tiles 140 / 170, 165381 boxes, 954 s",
+      "[build_city 11702s] WHBox comp tiles 160 / 170, 172913 boxes, 973 s",
+      "[build_city 11703s] WHBox comp tiles 170 cube components 173097 973 s",
+      "[build_city 11840s] WP map /Game/Maps/Manhattan_WP saved 1642 meshes 198063 instances 173097 WHBox cubes",
+      "[build_city 11840s] DONE"
+     ]
+    },
+    {
+     "cmd": "UE manhattan_map",
+     "seconds": 34.1,
+     "rc": 0,
+     "steps": []
+    }
+   ],
+   "env": {
+    "SM2_ISLAND_CITY_STEPS": "mesh,kit,fsky,map,coll,wp",
+    "SM2_ISLAND_MESH_ONLY": "missing"
+   },
+   "total_seconds": 11903.1,
+   "finished": "2026-10-02 10:43:25"
+  },
+  {
+   "region": "island",
+   "tiles": "-4,-14,3,13",
+   "steps_wanted": [
+    "map"
+   ],
+   "steps_done": [
+    {
+     "step": "map",
+     "seconds": 429.0
+    }
+   ],
+   "commands": [
+    {
+     "cmd": "UE manhattan_map",
+     "seconds": 428.8,
+     "rc": 0,
+     "steps": []
+    }
+   ],
+   "env": {},
+   "total_seconds": 429.0,
+   "finished": "2026-10-03 11:37:57"
+  },
+  {
+   "region": "island",
+   "tiles": "-4,-14,3,13",
+   "steps_wanted": [
+    "ism"
+   ],
+   "steps_done": [
+    {
+     "step": "ism",
+     "seconds": 260.9
+    }
+   ],
+   "commands": [
+    {
+     "cmd": "UE wp_ism",
+     "seconds": 255.5,
+     "rc": 0,
+     "steps": [
+      "[build_city   127s] stopped traffic cars 1579",
+      "[build_city   200s] WP map /Game/Maps/Manhattan_WP saved 198063 instances (per-tile HISM actors at their tile centre)",
+      "[build_city   201s] DONE"
+     ]
+    }
+   ],
+   "env": {},
+   "total_seconds": 260.9,
+   "finished": "2026-10-03 12:43:24"
+  }
+ ]
+}

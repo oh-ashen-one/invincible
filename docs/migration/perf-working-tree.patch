@@ -1,0 +1,32 @@
+diff --git a/unreal/WebHomage/Config/Mac/MacEngine.ini b/unreal/WebHomage/Config/Mac/MacEngine.ini
+deleted file mode 100644
+index 7ec2183f..00000000
+--- a/unreal/WebHomage/Config/Mac/MacEngine.ini
++++ /dev/null
+@@ -1,26 +0,0 @@
+-; >>> F perf preset (tools/perf_ue2/build_map.py step perf_preset) >>>
+-; preset perf60_hwl4 at r.ScreenPercentage 50, generated from tools/perf_ue2/overrides/perf60_hwl4.cvars; removed again with `build_map.py --preset-off`
+-[ConsoleVariables]
+-r.Lumen.HardwareRayTracing=1
+-r.Lumen.Reflections.HardwareRayTracing=1
+-r.Lumen.ScreenProbeGather.HardwareRayTracing=1
+-r.LumenScene.SurfaceCache.CardCaptureFactor=128
+-r.LumenScene.SurfaceCache.CardCaptureRefreshFraction=0
+-r.Nanite.MaxPixelsPerEdge=8
+-r.RayTracing.Culling.Angle=3
+-r.RayTracing.Geometry.SkeletalMeshes=0
+-r.ScreenPercentage=50
+-r.Shadow.Virtual.Clipmap.UseConservativeCulling=1
+-r.Shadow.Virtual.ResolutionLodBiasDirectional=1
+-r.Shadow.Virtual.ResolutionLodBiasDirectionalMoving=1
+-r.Shadow.Virtual.SMRT.RayCountDirectional=4
+-r.Shadow.Virtual.UseFarShadowCulling=0
+-r.SkinCache.Mode=0
+-r.SkyLight.RealTimeReflectionCapture.ResolutionOverride=64
+-r.SkyLight.RealTimeReflectionCapture.TimeSlice=1
+-r.SkyLight.RealTimeReflectionCapture.VolumetricCloudResolutionDivider=4
+-r.TSR.History.ScreenPercentage=100
+-r.VolumetricCloud.DistanceToSampleMaxCount=50
+-r.VolumetricCloud.ViewRaySampleMaxCount=256
+-r.VolumetricFog.GridPixelSize=16
+-; <<< F perf preset <<<

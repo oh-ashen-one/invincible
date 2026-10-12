@@ -1,0 +1,64 @@
+{
+ "rig": "golden",
+ "variants": {
+  "Cl4P": {
+   "km": 4.0,
+   "rt_lite": false,
+   "tree_draw_distance_m": 0,
+   "maps": {
+    "Manhattan": {
+     "saved": true,
+     "removed_old_rig": 1,
+     "levels": [
+      "Manhattan",
+      "Look_Boxes",
+      "City_Midtown_Geo",
+      "Look_Rig_golden",
+      "Manhattan_Actors"
+     ]
+    },
+    "Manhattan_View_S1": {
+     "saved": true,
+     "removed_old_rig": 1,
+     "levels": [
+      "Manhattan_View_S1",
+      "Look_Boxes",
+      "City_Midtown_Geo",
+      "Look_Rig_golden",
+      "Manhattan_Actors"
+     ]
+    },
+    "Manhattan_View_S2": {
+     "saved": true,
+     "removed_old_rig": 1,
+     "levels": [
+      "Manhattan_View_S2",
+      "Look_Boxes",
+      "City_Midtown_Geo",
+      "Look_Rig_golden",
+      "Manhattan_Actors"
+     ]
+    },
+    "View_S7": {
+     "saved": true,
+     "removed_old_rig": 1,
+     "levels": [
+      "View_S7",
+      "City_Midtown_Geo",
+      "Look_Boxes",
+      "Look_Rig_golden",
+      "Manhattan_Actors"
+     ]
+    }
+   },
+   "old_km": 4.0,
+   "new_km": 4.0,
+   "tracing_start_max_distance": 350.0,
+   "cloud_actors": 1,
+   "rig_saved": true,
+   "peds_rt_removed": 13,
+   "actors_saved": true
+  }
+ },
+ "secs": 6.2
+}

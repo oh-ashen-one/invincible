@@ -1,0 +1,15 @@
+{
+  "meta": null,
+  "content": [
+    {
+      "type": "text",
+      "text": "Code executed successfully: 23:17:00 | INFO: Data are loaded, start creating Blender stuff\n23:17:00 | INFO: Blender create Mesh node Lenses.001\n23:17:00 | INFO: Blender create Mesh node SpiderManMesh\n23:17:01 | INFO: glTF import finished in 0.84s\nInfo: Saved as \"hero.blend\"\n{\"owner\": \"sm2-astra-anim\", \"path\": \"/Users/midir/sm2-astra-anim/art/anim/hero.blend\", \"bones\": 58, \"actions\": 79, \"meshes\": 3}\n",
+      "annotations": null,
+      "meta": null
+    }
+  ],
+  "structuredContent": {
+    "result": "Code executed successfully: 23:17:00 | INFO: Data are loaded, start creating Blender stuff\n23:17:00 | INFO: Blender create Mesh node Lenses.001\n23:17:00 | INFO: Blender create Mesh node SpiderManMesh\n23:17:01 | INFO: glTF import finished in 0.84s\nInfo: Saved as \"hero.blend\"\n{\"owner\": \"sm2-astra-anim\", \"path\": \"/Users/midir/sm2-astra-anim/art/anim/hero.blend\", \"bones\": 58, \"actions\": 79, \"meshes\": 3}\n"
+  },
+  "isError": false
+}

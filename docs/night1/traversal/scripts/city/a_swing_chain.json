@@ -1,0 +1,43 @@
+{
+ "name": "a_swing_chain_city",
+ "note": "Round 13, lit city: airborne swing chain north up the Midtown avenue (x = 250 m, north = -Y). autoChain: release on the rising front (phase 0.55), re-press after 0.8 s; every 3rd release is a flow flip (program chosen by height, starts at the release, next web in its final reach). (r10-r12: every 2nd release a sky launch.) Round 24: the player re-presses the web once falling at 12 m/s (altitude chain: the release climbs to the roofline first). Round 25: re-press once falling at 8 m/s (critic r24 T2 attach gaps 3.35-3.5 s; -nullrhi probes: -12 -> 3.48/3.50/3.35, -10 -> 3.43/3.43/3.33, -9 -> 3.40/3.38/3.32, -8 -> 3.37/3.38/3.30 with T7 100/100, -6 / -5 -> <= 3.32 / <= 3.27 but T7 99 / 98 of 100).",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   240,
+   24
+  ],
+  "yaw": -90,
+  "camPitch": 0.12,
+  "vel": [
+   0,
+   -22,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": -90,
+   "swing": false
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.8,
+   "repressVz": -8.0,
+   "trickEvery": 3,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  }
+ ]
+}

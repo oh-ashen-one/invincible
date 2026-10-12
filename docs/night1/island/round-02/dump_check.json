@@ -1,0 +1,168 @@
+{
+ "dump": "/Users/midir/sm2-n1/_scratch/island/capture/warmup/prims.csv",
+ "rows": 62932,
+ "roles": {
+  "other": 4,
+  "box-index": 56816,
+  "solid": 490,
+  "far-off": 93,
+  "ground": 118,
+  "excluded-ism": 5199,
+  "excluded": 212
+ },
+ "visible_solid_tiles": {
+  "detail_ok": 45,
+  "facade_ok": 45,
+  "fireescape_ok": 45,
+  "roofs_ok": 45
+ },
+ "bad_tiles": [],
+ "far_off_rows": 93,
+ "far_off_centre_inside_M1": 6,
+ "far_off_overlapping_M1": 9,
+ "far_off_overlapping_M1_meshes": [
+  "SM_bridgeDeck__t0_-1",
+  "SM_bridgeSteel__t0_-1",
+  "SM_bridgeStone__t0_-1",
+  "SM_bridgeTruss__t0_-1",
+  "SM_farCityRoofs__t0_-1",
+  "SM_farCity__t0_-1",
+  "SM_farLand_east__t0_-1",
+  "SM_farLand_roos__t0_-1",
+  "SM_seawall_parkwall__t-1_-1"
+ ],
+ "whbox_cubes": 56816,
+ "whbox_cubes_with_collision_after_init": 0,
+ "sheds_subway": {
+  "SM_shedtop / solid / 1 / 3": 46,
+  "SM_shed / solid / 1 / 3": 46,
+  "SM_subway / solid / 1 / 3": 16
+ },
+ "solid_rows_by_ctf_coll": {
+  "ctf3_coll1": 490
+ },
+ "solid_rows_without_complex_ctf": [],
+ "excluded_by_mesh_prefix": [
+  [
+   "SM_ez_street2_l1_bark",
+   248
+  ],
+  [
+   "SM_ez_street2_l1_leaves",
+   248
+  ],
+  [
+   "SM_ez_street1_l1_bark",
+   242
+  ],
+  [
+   "SM_ez_street1_l1_leaves",
+   242
+  ],
+  [
+   "SM_ez_street0_l1_bark",
+   239
+  ],
+  [
+   "SM_ez_street0_l1_leaves",
+   239
+  ],
+  [
+   "SM_ez_small1_l1_leaves",
+   108
+  ],
+  [
+   "SM_ez_small1_l1_bark",
+   108
+  ],
+  [
+   "SM_ez_small0_l1_leaves",
+   108
+  ],
+  [
+   "SM_ez_small0_l1_bark",
+   108
+  ],
+  [
+   "SM_signage",
+   87
+  ],
+  [
+   "SM_veh_pickup",
+   71
+  ],
+  [
+   "SM_veh_cross",
+   69
+  ],
+  [
+   "SM_veh_suv2",
+   68
+  ],
+  [
+   "SM_veh_suv",
+   68
+  ],
+  [
+   "SM_veh_sedan",
+   66
+  ],
+  [
+   "SM_veh_sedan2",
+   60
+  ],
+  [
+   "SM_veh_hatch",
+   60
+  ],
+  [
+   "SM_ez_street2_l0_bark",
+   59
+  ],
+  [
+   "SM_ez_street0_l0_leaves",
+   59
+  ],
+  [
+   "SM_ez_street1_l0_bark",
+   59
+  ],
+  [
+   "SM_ez_street2_l0_leaves",
+   59
+  ],
+  [
+   "SM_ez_street0_l0_bark",
+   59
+  ],
+  [
+   "SM_ez_street1_l0_leaves",
+   59
+  ],
+  [
+   "SM_bench",
+   57
+  ],
+  [
+   "SM_veh_taxi_hy",
+   56
+  ],
+  [
+   "SM_ez_small1_l0_bark",
+   55
+  ],
+  [
+   "SM_ez_small1_l0_leaves",
+   55
+  ],
+  [
+   "SM_lamp",
+   54
+  ],
+  [
+   "SM_trash",
+   54
+  ]
+ ],
+ "pass": false
+}

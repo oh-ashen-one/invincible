@@ -1,0 +1,10 @@
+{
+ "engine": "ue5.8", "frames": 1920, "real_s": 32.000, "game_s": 25.392,
+ "enemies": 16, "enemies_alive": 10, "final_states": "m:attack:42 m:stuck-ground:0:w1.0 g:out:0 m:out:0 b:hold:108 m:out:0 g:hold:38 m:stuck-ground:0:w1.0 m:hold:22 m:out:0 m:hold:34:w0.3 g:hold:38 m:hold:23 m:hold:50 m:hold:50 b:attack:150:w0.3",
+ "hero_hp": 30, "hero_focus": 3.00, "damage_taken": 114,
+ "hits": 42, "whiffs": 0, "kos": 6, "launches": 3, "air_hits": 9, "finishers": 2,
+ "dodges": 15, "perfect_dodges": 14, "web_hits": 5, "enemy_melee_hits": 8, "shots": 36, "shot_hits": 4,
+ "hitstops": 41, "frozen_frames": 228, "slowmos": 11, "min_timescale": 0.002, "slowmo_game_s": 3.042, "slowmo_real_s": 9.650,
+ "attack_starts": 63, "max_attack_gap_s": 0.800, "spawned": 16, "reserve_left": 6,
+ "beats": 44, "beats_fired": 44, "fx_spawned": 782
+}

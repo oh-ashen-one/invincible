@@ -1,0 +1,29 @@
+{"crown_crops": 24, "min_hp_sd": 5.01, "median_hp_sd": 10.0, "max_hp_sd": 11.99, "pass_crown_sd_ge_9": false, "median_hsv_sat": 0.633, "pass_r05_crowns": false, "reference_hp_sd": [], "max_flat_width_px": {"p1_south.jpg": 10.8, "p10_lawn_eye.jpg": 29.7}, "pass_no_flat_hull_face_gt_40px": true, "crops_ge_9": 17, "longest_straight_silhouette_px": {"p10_lawn_eye.jpg": 44.0, "p1_south.jpg": 75.7}, "pass_no_straight_silhouette_gt_40px_p10": false}
+p1_south.jpg             [1800, 450]    hp_sd  10.88  luma 145.8  sat 0.553
+p1_south.jpg             [2100, 450]    hp_sd  11.80  luma 138.5  sat 0.551
+p1_south.jpg             [2400, 450]    hp_sd  11.39  luma 153.8  sat 0.574
+p1_south.jpg             [1200, 600]    hp_sd  10.59  luma 139.3  sat 0.616
+p1_south.jpg             [1500, 600]    hp_sd   9.98  luma 125.5  sat 0.604
+p1_south.jpg             [1800, 600]    hp_sd  11.56  luma 140.4  sat 0.648
+p1_south.jpg             [2100, 600]    hp_sd  10.72  luma 147.1  sat 0.622
+p1_south.jpg             [2700, 600]    hp_sd   9.83  luma 133.1  sat 0.598
+p1_south.jpg             [3000, 750]    hp_sd  10.75  luma 136.0  sat 0.624
+p1_south.jpg             [1350, 750]    hp_sd  10.01  luma 120.0  sat 0.614
+p1_south.jpg             [1800, 750]    hp_sd  10.38  luma 112.8  sat 0.594
+p1_south.jpg             [3000, 900]    hp_sd  11.99  luma 101.9  sat 0.641
+p1_south.jpg             [3300, 900]    hp_sd  10.01  luma 117.7  sat 0.678
+p1_south.jpg             [3150, 1050]   hp_sd   9.14  luma  94.0  sat 0.614
+p1_south.jpg             [3450, 1200]   hp_sd   6.88  luma  72.9  sat 0.601
+p1_south.jpg             [450, 1350]    hp_sd   9.72  luma 116.5  sat 0.815
+p1_south.jpg             [450, 1500]    hp_sd   7.89  luma  83.5  sat 0.744
+p1_south.jpg             [1200, 1800]   hp_sd   9.91  luma 110.0  sat 0.740
+p1_south.jpg             [1350, 1800]   hp_sd  10.12  luma 105.8  sat 0.669
+p1_south.jpg             [1950, 1800]   hp_sd   8.95  luma  94.9  sat 0.712
+p1_south.jpg             [2400, 1650]   hp_sd   6.77  luma  71.3  sat 0.649
+p1_south.jpg             [2250, 1800]   hp_sd   5.66  luma  75.0  sat 0.827
+p1_south.jpg             [1500, 1950]   hp_sd   5.01  luma  60.8  sat 0.718
+p1_south.jpg             [2100, 1950]   hp_sd   6.71  luma  73.2  sat 0.744
+flat p1_south.jpg max_flat_width 10.8 patches>40: 0 flat% of foliage 0.06 dark pockets 1.89%
+flat p10_lawn_eye.jpg max_flat_width 29.7 patches>40: 0 flat% of foliage 0.20 dark pockets 1.58%
+silhouette p10_lawn_eye.jpg longest straight 44.0 px; segments > 40 px: 3 sky 20.1% foliage 79.6% [{'len_px': 44.0, 'from': [3671, 338], 'to': [3629, 351]}, {'len_px': 40.3, 'from': [2693, 628], 'to': [2709, 665]}, {'len_px': 40.0, 'from': [2684, 589], 'to': [2693, 628]}]
+silhouette p1_south.jpg longest straight 75.7 px; segments > 40 px: 1 sky 8.9% foliage 90.9% [{'len_px': 75.7, 'from': [248, 114], 'to': [258, 189]}, {'len_px': 38.3, 'from': [3285, 122], 'to': [3247, 127]}, {'len_px': 38.1, 'from': [777, 199], 'to': [780, 237]}]

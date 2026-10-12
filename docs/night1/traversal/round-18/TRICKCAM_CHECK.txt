@@ -1,0 +1,158 @@
+# P3 round 18 TRICK CAMERA CHECK (trickcam_check.py v2 = TRICK_CAMERA_SPEC.md tests TC-A .. TC-K) on the rendered 1080p60 telemetry + movies, lit /Game/Maps/Manhattan golden.
+# Homage fan game; not affiliated with Marvel, Sony or Insomniac. WIN = flip program + 0.5 s; HOLD = program rows with flipcam_k >= .9; PASS(hold) = only the HOLD reading passes. TC-I is pooled: see SKY_CHECK.txt.
+
+f4_chain_flips (f4_chain_flips_telemetry.csv): 4 flip programs, 13.2 s, window rows 485, hold (flipcam_k >= .9) rows 365
+TC-A yaw offset from the release heading: HOLD p5-p95 36-45 deg (30-60), WIN 36-45; per-trick world-yaw range over the hold: backDouble@1.35 0.2 frontPikeSwan@4.32 0.0 corkscrew@6.63 0.2 backDouble@10.88 4.6 (<= 20) -> PASS
+TC-B yaw rate: HOLD p95 6.5 / max 33.6 deg/s (<= 40 / 60); WIN incl. blends max 45 deg/s (<= 150) -> PASS
+TC-C hero height p10/p50/p90 (>= .12 / .18-.28 / <= .36): MASK WIN 0.126/0.204/0.293, HOLD 0.122/0.181/0.289 | bone box WIN 0.140/0.230/0.324, HOLD 0.139/0.190/0.321 -> PASS
+TC-D placement: WIN cx 0.46-0.51 cy 0.31-0.43, HOLD cx 0.45-0.51 cy 0.31-0.44 (cx .35-.60, cy .28-.48) -> PASS
+TC-E pitch (+ up): WIN p5/p50/p95 -2.8/1.9/3.9, HOLD 1.8/1.9/4.3 (p5 >= -8, p95 <= +8, |p50| <= 5); median at attach +0.5..1.0 s (4-12 down): 2.93:-5.5 5.73:-5.5 8.13:-5.5 -> PASS
+TC-F lens below the hips (z_m - pcm_z): WIN p10/p50/p90 0.87/0.91/1.02, HOLD 0.89/0.91/1.01 m (p50 .5-2.0, p10 >= .2) -> PASS
+TC-G safety: hero out of frame 0 rows  | camera in geometry 0  | lens sphere 0.25 m touching 0  | hero occluded 0  -> PASS
+TC-H sun/glare: view_sun_deg min 132 (flipcam_k >= .5, r14 S1) / 132 (held, k >= .9) (>= 100); suit-mask luma>=245 share: p99 0.006 max 0.007 @ 11.00 s, frames > 5 %: 0 of 485 -> PASS
+TC-I sky: run sky_check.py <round dir> <clips> (pooled over f1-f5; >= 35 %% of trick samples with ring >= 50 %% sky and hero h >= .15)
+TC-J readability: backDouble tuck 1.35-2.53: axis turns 664 deg on screen (program 677) ok; frontPikeSwan tuck 5.27-5.62: axis turns 163 deg on screen (program 152) ok; corkscrew tuck 7.72-8.03: axis turns 162 deg on screen (program 152) ok; backDouble tuck 10.88-12.07: axis turns 655 deg on screen (program 677) ok -> PASS
+TC-K continuity (whole clip): max pitch 2.70 deg/frame @ 10.92 s (<= 3), yaw 2.40 @ 10.68 s (<= 4), position 0.94 m @ 13.12 s (<= 1.2); blend-out, seconds from the attach until flipcam_k <= .5 (and <= .02): 2.93:5.88(6.27) 5.73:3.08(3.47) 8.13:0.68(1.07) 12.47:nan(nan) (>= 0.40) -> PASS
+selection: backDouble@1.35 off -48 tier 0 dist 4.5->4.5 | frontPikeSwan@4.32 off -40 tier 2 dist 4.9->4.2 | corkscrew@6.63 off -44 tier 0 dist 4.6->4.5 | backDouble@10.88 off -44 tier 0 dist 4.5->4.5
+-- backDouble 1.35-2.92 s   H1 shapes: Tuck 1.20 Kickout 0.38
+      E1 Tuck 1.35-2.53 ends 55% / 56% of mid, peak 763 deg/s ok
+-- frontPikeSwan 4.32-5.72 s   H1 shapes: Pike 0.40 Swan 0.55 Tuck 0.37 Reach 0.10
+      E1 Pike 4.32-4.70 ends 40% / 72% of mid, peak 639 deg/s FAIL
+      E1 Tuck 5.27-5.62 ends 28% / 55% of mid, peak 626 deg/s ok
+-- corkscrew 6.63-8.12 s   H1 shapes: Layout 0.30 Twist 0.42 Straddle 0.37 Tuck 0.33 Reach 0.08
+      E1 Tuck 7.72-8.03 ends 26% / 58% of mid, peak 712 deg/s ok
+-- backDouble 10.88-12.45 s   H1 shapes: Tuck 1.20 Kickout 0.38
+      E1 Tuck 10.88-12.07 ends 46% / 56% of mid, peak 760 deg/s ok
+SUMMARY f4_chain_flips: 0 FAIL line(s)
+
+f1_flow_backDouble (f1_flow_backDouble_telemetry.csv): 3 flip programs, 8.9 s, window rows 372, hold (flipcam_k >= .9) rows 285
+TC-A yaw offset from the release heading: HOLD p5-p95 40-50 deg (30-60), WIN 40-50; per-trick world-yaw range over the hold: backDouble@1.35 0.1 backDouble@4.32 0.0 backDouble@6.93 0.0 (<= 20) -> PASS
+TC-B yaw rate: HOLD p95 0.0 / max 15.6 deg/s (<= 40 / 60); WIN incl. blends max 43 deg/s (<= 150) -> PASS
+TC-C hero height p10/p50/p90 (>= .12 / .18-.28 / <= .36): MASK WIN 0.126/0.178/0.285, HOLD 0.122/0.159/0.274 | bone box WIN 0.142/0.191/0.314, HOLD 0.141/0.176/0.306 -> FAIL
+TC-D placement: WIN cx 0.45-0.51 cy 0.30-0.43, HOLD cx 0.45-0.51 cy 0.30-0.43 (cx .35-.60, cy .28-.48) -> PASS
+TC-E pitch (+ up): WIN p5/p50/p95 -2.0/1.9/3.3, HOLD 1.8/1.9/3.5 (p5 >= -8, p95 <= +8, |p50| <= 5); median at attach +0.5..1.0 s (4-12 down): 2.93:-5.5 5.90:-5.5 -> PASS
+TC-F lens below the hips (z_m - pcm_z): WIN p10/p50/p90 0.80/0.90/1.02, HOLD 0.80/0.90/1.00 m (p50 .5-2.0, p10 >= .2) -> PASS
+TC-G safety: hero out of frame 0 rows  | camera in geometry 0  | lens sphere 0.25 m touching 0  | hero occluded 0  -> PASS
+TC-H sun/glare: view_sun_deg min 133 (flipcam_k >= .5, r14 S1) / 133 (held, k >= .9) (>= 100); suit-mask luma>=245 share: p99 0.004 max 0.007 @ 4.98 s, frames > 5 %: 0 of 372 -> PASS
+TC-I sky: run sky_check.py <round dir> <clips> (pooled over f1-f5; >= 35 %% of trick samples with ring >= 50 %% sky and hero h >= .15)
+TC-J readability: backDouble tuck 1.35-2.53: axis turns 694 deg on screen (program 677) ok; backDouble tuck 4.32-5.50: axis turns 648 deg on screen (program 677) ok; backDouble tuck 6.93-8.12: axis turns 687 deg on screen (program 677) ok -> PASS
+TC-K continuity (whole clip): max pitch 2.70 deg/frame @ 6.97 s (<= 3), yaw 2.14 @ 1.02 s (<= 4), position 1.10 m @ 3.63 s (<= 1.2); blend-out, seconds from the attach until flipcam_k <= .5 (and <= .02): 2.93:3.65(nan) 5.90:0.68(nan) 8.52:nan(nan) (>= 0.40) -> PASS
+selection: backDouble@1.35 off -48 tier 0 dist 4.5->4.5 | backDouble@4.32 off -44 tier 2 dist 4.7->4.0 | backDouble@6.93 off -48 tier 0 dist 5.2->4.5
+-- backDouble 1.35-2.92 s   H1 shapes: Tuck 1.20 Kickout 0.38
+      E1 Tuck 1.35-2.53 ends 67% / 56% of mid, peak 763 deg/s ok
+-- backDouble 4.32-5.88 s   H1 shapes: Tuck 1.20 Kickout 0.38
+      E1 Tuck 4.32-5.50 ends 44% / 56% of mid, peak 760 deg/s ok
+-- backDouble 6.93-8.50 s   H1 shapes: Tuck 1.20 Kickout 0.38
+      E1 Tuck 6.93-8.12 ends 66% / 55% of mid, peak 763 deg/s ok
+SUMMARY f1_flow_backDouble: 1 FAIL line(s)
+
+f2_flow_pikeSwan (f2_flow_pikeSwan_telemetry.csv): 3 flip programs, 8.9 s, window rows 345, hold (flipcam_k >= .9) rows 255
+TC-A yaw offset from the release heading: HOLD p5-p95 32-43 deg (30-60), WIN 32-43; per-trick world-yaw range over the hold: frontPikeSwan@1.35 0.1 frontPikeSwan@4.22 0.0 frontPikeSwan@6.72 0.1 (<= 20) -> PASS
+TC-B yaw rate: HOLD p95 0.0 / max 13.8 deg/s (<= 40 / 60); WIN incl. blends max 44 deg/s (<= 150) -> PASS
+TC-C hero height p10/p50/p90 (>= .12 / .18-.28 / <= .36): MASK WIN 0.167/0.248/0.315, HOLD 0.152/0.244/0.289 | bone box WIN 0.179/0.256/0.348, HOLD 0.173/0.244/0.321 -> PASS
+TC-D placement: WIN cx 0.46-0.52 cy 0.30-0.46, HOLD cx 0.46-0.52 cy 0.31-0.47 (cx .35-.60, cy .28-.48) -> PASS
+TC-E pitch (+ up): WIN p5/p50/p95 -2.8/1.9/3.2, HOLD 1.8/1.9/3.5 (p5 >= -8, p95 <= +8, |p50| <= 5); median at attach +0.5..1.0 s (4-12 down): 2.77:-5.5 5.63:-5.5 8.13:-5.5 -> PASS
+TC-F lens below the hips (z_m - pcm_z): WIN p10/p50/p90 0.88/0.91/1.02, HOLD 0.90/0.93/1.02 m (p50 .5-2.0, p10 >= .2) -> PASS
+TC-G safety: hero out of frame 0 rows  | camera in geometry 0  | lens sphere 0.25 m touching 0  | hero occluded 0  -> PASS
+TC-H sun/glare: view_sun_deg min 134 (flipcam_k >= .5, r14 S1) / 134 (held, k >= .9) (>= 100); suit-mask luma>=245 share: p99 0.007 max 0.008 @ 8.55 s, frames > 5 %: 0 of 345 -> PASS
+TC-I sky: run sky_check.py <round dir> <clips> (pooled over f1-f5; >= 35 %% of trick samples with ring >= 50 %% sky and hero h >= .15)
+TC-J readability: frontPikeSwan tuck 2.30-2.65: axis turns 160 deg on screen (program 152) ok; frontPikeSwan tuck 5.17-5.52: axis turns 161 deg on screen (program 152) ok; frontPikeSwan tuck 7.67-8.02: axis turns 164 deg on screen (program 152) ok -> PASS
+TC-K continuity (whole clip): max pitch 2.70 deg/frame @ 6.75 s (<= 3), yaw 2.14 @ 1.02 s (<= 4), position 0.86 m @ 8.88 s (<= 1.2); blend-out, seconds from the attach until flipcam_k <= .5 (and <= .02): 2.77:3.55(nan) 5.63:0.68(nan) 8.13:0.68(nan) (>= 0.40) -> PASS
+selection: frontPikeSwan@1.35 off -48 tier 0 dist 4.5->4.5 | frontPikeSwan@4.22 off -44 tier 0 dist 4.6->4.5 | frontPikeSwan@6.72 off -48 tier 0 dist 4.6->4.5
+-- frontPikeSwan 1.35-2.75 s   H1 shapes: Pike 0.40 Swan 0.55 Tuck 0.37 Reach 0.10
+      E1 Pike 1.35-1.73 ends 10% / 92% of mid, peak 524 deg/s FAIL
+      E1 Tuck 2.30-2.65 ends 28% / 55% of mid, peak 625 deg/s ok
+-- frontPikeSwan 4.22-5.62 s   H1 shapes: Pike 0.40 Swan 0.55 Tuck 0.37 Reach 0.10
+      E1 Pike 4.22-4.60 ends 40% / 72% of mid, peak 639 deg/s FAIL
+      E1 Tuck 5.17-5.52 ends 28% / 55% of mid, peak 628 deg/s ok
+-- frontPikeSwan 6.72-8.12 s   H1 shapes: Pike 0.40 Swan 0.55 Tuck 0.37 Reach 0.10
+      E1 Pike 6.72-7.10 ends 7% / 83% of mid, peak 526 deg/s FAIL
+      E1 Tuck 7.67-8.02 ends 28% / 55% of mid, peak 628 deg/s ok
+SUMMARY f2_flow_pikeSwan: 0 FAIL line(s)
+
+f3_flow_corkscrew (f3_flow_corkscrew_telemetry.csv): 3 flip programs, 8.9 s, window rows 360, hold (flipcam_k >= .9) rows 270
+TC-A yaw offset from the release heading: HOLD p5-p95 40-47 deg (30-60), WIN 39-47; per-trick world-yaw range over the hold: corkscrew@1.35 0.0 corkscrew@4.22 0.0 corkscrew@6.75 0.1 (<= 20) -> PASS
+TC-B yaw rate: HOLD p95 0.3 / max 1.8 deg/s (<= 40 / 60); WIN incl. blends max 45 deg/s (<= 150) -> PASS
+TC-C hero height p10/p50/p90 (>= .12 / .18-.28 / <= .36): MASK WIN 0.137/0.263/0.326, HOLD 0.111/0.233/0.315 | bone box WIN 0.157/0.279/0.358, HOLD 0.132/0.253/0.344 -> PASS
+TC-D placement: WIN cx 0.45-0.50 cy 0.30-0.42, HOLD cx 0.45-0.50 cy 0.31-0.42 (cx .35-.60, cy .28-.48) -> PASS
+TC-E pitch (+ up): WIN p5/p50/p95 -2.8/1.9/3.3, HOLD 1.8/1.9/3.6 (p5 >= -8, p95 <= +8, |p50| <= 5); median at attach +0.5..1.0 s (4-12 down): 2.85:-5.5 5.72:-5.5 -> PASS
+TC-F lens below the hips (z_m - pcm_z): WIN p10/p50/p90 0.89/0.91/0.99, HOLD 0.90/0.92/1.00 m (p50 .5-2.0, p10 >= .2) -> PASS
+TC-G safety: hero out of frame 0 rows  | camera in geometry 0  | lens sphere 0.25 m touching 0  | hero occluded 0  -> PASS
+TC-H sun/glare: view_sun_deg min 133 (flipcam_k >= .5, r14 S1) / 133 (held, k >= .9) (>= 100); suit-mask luma>=245 share: p99 0.004 max 0.004 @ 7.77 s, frames > 5 %: 0 of 360 -> PASS
+TC-I sky: run sky_check.py <round dir> <clips> (pooled over f1-f5; >= 35 %% of trick samples with ring >= 50 %% sky and hero h >= .15)
+TC-J readability: corkscrew tuck 2.43-2.75: axis turns 161 deg on screen (program 152) ok; corkscrew tuck 5.30-5.62: axis turns 159 deg on screen (program 152) ok; corkscrew tuck 7.83-8.15: axis turns 161 deg on screen (program 152) ok -> PASS
+TC-K continuity (whole clip): max pitch 2.70 deg/frame @ 6.78 s (<= 3), yaw 2.29 @ 3.48 s (<= 4), position 0.84 m @ 6.77 s (<= 1.2); blend-out, seconds from the attach until flipcam_k <= .5 (and <= .02): 2.85:6.08(nan) 5.72:3.22(nan) 8.25:0.68(nan) (>= 0.40) -> PASS
+selection: corkscrew@1.35 off -44 tier 0 dist 4.5->4.5 | corkscrew@4.22 off -48 tier 0 dist 4.6->4.5 | corkscrew@6.75 off -48 tier 0 dist 4.6->4.5
+-- corkscrew 1.35-2.83 s   H1 shapes: Layout 0.30 Twist 0.42 Straddle 0.37 Tuck 0.33 Reach 0.08
+      E1 Tuck 2.43-2.75 ends 26% / 58% of mid, peak 713 deg/s ok
+-- corkscrew 4.22-5.70 s   H1 shapes: Layout 0.30 Twist 0.42 Straddle 0.37 Tuck 0.33 Reach 0.08
+      E1 Tuck 5.30-5.62 ends 26% / 58% of mid, peak 712 deg/s ok
+-- corkscrew 6.75-8.23 s   H1 shapes: Layout 0.30 Twist 0.42 Straddle 0.37 Tuck 0.33 Reach 0.08
+      E1 Tuck 7.83-8.15 ends 26% / 58% of mid, peak 713 deg/s ok
+SUMMARY f3_flow_corkscrew: 0 FAIL line(s)
+
+f5_canyon_backDouble (f5_canyon_backDouble_telemetry.csv): 3 flip programs, 8.9 s, window rows 375, hold (flipcam_k >= .9) rows 285
+TC-A yaw offset from the release heading: HOLD p5-p95 32-44 deg (30-60), WIN 32-44; per-trick world-yaw range over the hold: backDouble@1.35 0.0 backDouble@3.93 0.0 backDouble@6.55 0.1 (<= 20) -> PASS
+TC-B yaw rate: HOLD p95 0.0 / max 0.6 deg/s (<= 40 / 60); WIN incl. blends max 39 deg/s (<= 150) -> PASS
+TC-C hero height p10/p50/p90 (>= .12 / .18-.28 / <= .36): MASK WIN 0.126/0.170/0.285, HOLD 0.130/0.170/0.287 | bone box WIN 0.145/0.188/0.317, HOLD 0.145/0.184/0.318 -> FAIL
+TC-D placement: WIN cx 0.45-0.51 cy 0.30-0.43, HOLD cx 0.45-0.51 cy 0.31-0.44 (cx .35-.60, cy .28-.48) -> PASS
+TC-E pitch (+ up): WIN p5/p50/p95 -2.8/2.5/4.0, HOLD 2.2/2.8/4.1 (p5 >= -8, p95 <= +8, |p50| <= 5); median at attach +0.5..1.0 s (4-12 down): 2.93:-5.5 5.52:-5.5 8.13:-5.5 -> PASS
+TC-F lens below the hips (z_m - pcm_z): WIN p10/p50/p90 0.90/0.91/1.02, HOLD 0.90/0.90/1.01 m (p50 .5-2.0, p10 >= .2) -> PASS
+TC-G safety: hero out of frame 0 rows  | camera in geometry 0  | lens sphere 0.25 m touching 0  | hero occluded 0  -> PASS
+TC-H sun/glare: view_sun_deg min 136 (flipcam_k >= .5, r14 S1) / 136 (held, k >= .9) (>= 100); suit-mask luma>=245 share: p99 0.006 max 0.008 @ 4.60 s, frames > 5 %: 0 of 375 -> PASS
+TC-I sky: run sky_check.py <round dir> <clips> (pooled over f1-f5; >= 35 %% of trick samples with ring >= 50 %% sky and hero h >= .15)
+TC-J readability: backDouble tuck 1.35-2.53: axis turns 698 deg on screen (program 677) ok; backDouble tuck 3.93-5.12: axis turns 693 deg on screen (program 677) ok; backDouble tuck 6.55-7.73: axis turns 679 deg on screen (program 677) ok -> PASS
+TC-K continuity (whole clip): max pitch 2.70 deg/frame @ 6.58 s (<= 3), yaw 2.14 @ 8.85 s (<= 4), position 0.66 m @ 8.40 s (<= 1.2); blend-out, seconds from the attach until flipcam_k <= .5 (and <= .02): 2.93:5.88(nan) 5.52:3.30(nan) 8.13:0.68(nan) (>= 0.40) -> PASS
+selection: backDouble@1.35 off -40 tier 0 dist 4.5->4.5 | backDouble@3.93 off -40 tier 0 dist 5.2->4.5 | backDouble@6.55 off -48 tier 0 dist 5.2->4.5
+-- backDouble 1.35-2.92 s   H1 shapes: Tuck 1.20 Kickout 0.38
+      E1 Tuck 1.35-2.53 ends 67% / 56% of mid, peak 763 deg/s ok
+-- backDouble 3.93-5.50 s   H1 shapes: Tuck 1.20 Kickout 0.38
+      E1 Tuck 3.93-5.12 ends 68% / 55% of mid, peak 764 deg/s ok
+-- backDouble 6.55-8.12 s   H1 shapes: Tuck 1.20 Kickout 0.38
+      E1 Tuck 6.55-7.73 ends 56% / 56% of mid, peak 763 deg/s ok
+SUMMARY f5_canyon_backDouble: 1 FAIL line(s)
+
+a_swing_chain (a_swing_chain_telemetry.csv): 2 flip programs, 15.6 s, window rows 125, hold (flipcam_k >= .9) rows 95
+  TC2 fallback to the plain chase (no obstruction-free spot at any distance >= 4.0 m; not judged by TC-A..F/H, TC-G below covers them): frontPikeSwan 11.93-13.33 s
+TC-A yaw offset from the release heading: HOLD p5-p95 48-48 deg (30-60), WIN 45-48; per-trick world-yaw range over the hold: backDouble@5.68 0.2 (<= 20) -> PASS
+TC-B yaw rate: HOLD p95 0.6 / max 14.4 deg/s (<= 40 / 60); WIN incl. blends max 56 deg/s (<= 150) -> PASS
+TC-C hero height p10/p50/p90 (>= .12 / .18-.28 / <= .36): MASK WIN 0.126/0.152/0.254, HOLD 0.122/0.148/0.263 | bone box WIN 0.141/0.168/0.283, HOLD 0.137/0.160/0.295 -> FAIL
+TC-D placement: WIN cx 0.50-0.55 cy 0.33-0.43, HOLD cx 0.50-0.55 cy 0.33-0.43 (cx .35-.60, cy .28-.48) -> PASS
+TC-E pitch (+ up): WIN p5/p50/p95 -2.1/1.8/3.7, HOLD 1.8/1.9/4.0 (p5 >= -8, p95 <= +8, |p50| <= 5); median at attach +0.5..1.0 s (4-12 down): 7.27:-5.5 -> PASS
+TC-F lens below the hips (z_m - pcm_z): WIN p10/p50/p90 0.89/0.90/1.02, HOLD 0.90/0.90/1.00 m (p50 .5-2.0, p10 >= .2) -> PASS
+TC-G safety: hero out of frame 0 rows  | camera in geometry 0  | lens sphere 0.25 m touching 0  | hero occluded 2 12.55-12.57 -> FAIL
+TC-H sun/glare: view_sun_deg min 113 (flipcam_k >= .5, r14 S1) / 120 (held, k >= .9) (>= 100); suit-mask luma>=245 share: p99 0.004 max 0.006 @ 11.98 s, frames > 5 %: 0 of 240 -> PASS
+TC-I sky: run sky_check.py <round dir> <clips> (pooled over f1-f5; >= 35 %% of trick samples with ring >= 50 %% sky and hero h >= .15)
+TC-J readability: backDouble tuck 5.68-6.87: axis turns 688 deg on screen (program 677) ok; frontPikeSwan tuck 12.88-13.23: axis turns 182 deg on screen (program 152) ok -> PASS
+TC-K continuity (whole clip): max pitch 2.70 deg/frame @ 13.53 s (<= 3), yaw 3.60 @ 15.27 s (<= 4), position 1.10 m @ 12.58 s (<= 1.2); blend-out, seconds from the attach until flipcam_k <= .5 (and <= .02): 7.27:0.68(1.07) (>= 0.40) -> PASS
+selection: backDouble@5.68 off +48 tier 0 dist 4.5->4.5
+-- backDouble 5.68-7.25 s   H1 shapes: Tuck 1.20 Kickout 0.38
+      E1 Tuck 5.68-6.87 ends 56% / 56% of mid, peak 779 deg/s ok
+-- frontPikeSwan 11.93-13.33 s   H1 shapes: Pike 0.40 Swan 0.55 Tuck 0.37 Reach 0.10
+      E1 Pike 11.93-12.32 ends 21% / 69% of mid, peak 733 deg/s ok
+      E1 Tuck 12.88-13.23 ends 28% / 56% of mid, peak 627 deg/s ok
+SUMMARY a_swing_chain: 2 FAIL line(s)
+
+b_release_trick_dive_zip (b_release_trick_dive_zip_telemetry.csv): 1 flip programs, 7.0 s, window rows 119, hold (flipcam_k >= .9) rows 77
+TC-A yaw offset from the release heading: HOLD p5-p95 45-45 deg (30-60), WIN 37-45; per-trick world-yaw range over the hold: frontPikeSwan@1.40 1.9 (<= 20) -> PASS
+TC-B yaw rate: HOLD p95 17.5 / max 46.8 deg/s (<= 40 / 60); WIN incl. blends max 65 deg/s (<= 150) -> PASS
+TC-C hero height p10/p50/p90 (>= .12 / .18-.28 / <= .36): MASK WIN 0.173/0.241/0.324, HOLD 0.171/0.274/0.325 | bone box WIN 0.185/0.260/0.342, HOLD 0.179/0.275/0.346 -> PASS
+TC-D placement: WIN cx 0.49-0.55 cy 0.30-0.47, HOLD cx 0.49-0.55 cy 0.32-0.47 (cx .35-.60, cy .28-.48) -> PASS
+TC-E pitch (+ up): WIN p5/p50/p95 -5.5/3.1/3.4, HOLD 1.2/3.2/3.4 (p5 >= -8, p95 <= +8, |p50| <= 5); median at attach +0.5..1.0 s (4-12 down): n/a -> PASS
+TC-F lens below the hips (z_m - pcm_z): WIN p10/p50/p90 0.65/0.91/1.02, HOLD 0.85/0.92/1.02 m (p50 .5-2.0, p10 >= .2) -> PASS
+TC-G safety: hero out of frame 0 rows  | camera in geometry 0  | lens sphere 0.25 m touching 0  | hero occluded 0  -> PASS
+TC-H sun/glare: view_sun_deg min 105 (flipcam_k >= .5, r14 S1) / 110 (held, k >= .9) (>= 100); suit-mask luma>=245 share: p99 0.002 max 0.004 @ 3.05 s, frames > 5 %: 0 of 119 -> PASS
+TC-I sky: run sky_check.py <round dir> <clips> (pooled over f1-f5; >= 35 %% of trick samples with ring >= 50 %% sky and hero h >= .15)
+TC-J readability: frontPikeSwan tuck 2.35-2.70: axis turns 170 deg on screen (program 152) ok -> PASS
+TC-K continuity (whole clip): max pitch 2.70 deg/frame @ 5.10 s (<= 3), yaw 3.60 @ 5.12 s (<= 4), position 1.10 m @ 4.95 s (<= 1.2); blend-out, seconds from the attach until flipcam_k <= .5 (and <= .02): n/a (>= 0.40) -> PASS
+selection: frontPikeSwan@1.40 off +48 tier 0 dist 4.9->4.5
+-- frontPikeSwan 1.40-2.87 s   H1 shapes: Pike 0.40 Swan 0.55 Tuck 0.37 Reach 0.17
+      E1 Pike 1.40-1.78 ends 4% / 89% of mid, peak 546 deg/s FAIL
+      E1 Tuck 2.35-2.70 ends 28% / 55% of mid, peak 627 deg/s ok
+SUMMARY b_release_trick_dive_zip: 0 FAIL line(s)
+
+c_wallrun_perch (c_wallrun_perch_telemetry.csv): 0 flip programs, 10.4 s, window rows 0, hold (flipcam_k >= .9) rows 0
+  no judged flip programs in this clip
+
+d_sprint_jump_first_swing (d_sprint_jump_first_swing_telemetry.csv): 0 flip programs, 11.9 s, window rows 0, hold (flipcam_k >= .9) rows 0
+  no judged flip programs in this clip

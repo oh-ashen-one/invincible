@@ -1,0 +1,280 @@
+{
+ "regions": 6,
+ "straight_runs": 701,
+ "longest_run_px": 1105,
+ "max_step_px": 26.9,
+ "n_jogs": 29,
+ "jogs": [
+  {
+   "step": 26.9,
+   "x": 2372,
+   "y": 1895,
+   "run_a": 139,
+   "run_b": 178,
+   "connector": 48,
+   "angle": 3.6
+  },
+  {
+   "step": 20.0,
+   "x": 2082,
+   "y": 1581,
+   "run_a": 291,
+   "run_b": 163,
+   "connector": 98,
+   "angle": 3.7
+  },
+  {
+   "step": 15.0,
+   "x": 2692,
+   "y": 2001,
+   "run_a": 46,
+   "run_b": 49,
+   "connector": 99,
+   "angle": 7.8
+  },
+  {
+   "step": 12.8,
+   "x": 2377,
+   "y": 1305,
+   "run_a": 218,
+   "run_b": 158,
+   "connector": 47,
+   "angle": 2.1
+  },
+  {
+   "step": 12.2,
+   "x": 1454,
+   "y": 2025,
+   "run_a": 77,
+   "run_b": 51,
+   "connector": 56,
+   "angle": 1.4
+  },
+  {
+   "step": 11.8,
+   "x": 1284,
+   "y": 1986,
+   "run_a": 40,
+   "run_b": 91,
+   "connector": 35,
+   "angle": 1.7
+  },
+  {
+   "step": 7.4,
+   "x": 753,
+   "y": 1885,
+   "run_a": 66,
+   "run_b": 80,
+   "connector": 73,
+   "angle": 3.9
+  },
+  {
+   "step": 6.9,
+   "x": 2093,
+   "y": 772,
+   "run_a": 56,
+   "run_b": 114,
+   "connector": 109,
+   "angle": 1.5
+  },
+  {
+   "step": 6.8,
+   "x": 787,
+   "y": 1286,
+   "run_a": 61,
+   "run_b": 44,
+   "connector": 55,
+   "angle": 2.7
+  },
+  {
+   "step": 6.4,
+   "x": 3077,
+   "y": 1437,
+   "run_a": 101,
+   "run_b": 123,
+   "connector": 83,
+   "angle": 6.8
+  },
+  {
+   "step": 6.3,
+   "x": 2889,
+   "y": 1186,
+   "run_a": 72,
+   "run_b": 47,
+   "connector": 18,
+   "angle": 2.0
+  },
+  {
+   "step": 5.8,
+   "x": 1504,
+   "y": 1325,
+   "run_a": 65,
+   "run_b": 167,
+   "connector": 36,
+   "angle": 1.7
+  },
+  {
+   "step": 5.2,
+   "x": 2399,
+   "y": 1121,
+   "run_a": 49,
+   "run_b": 61,
+   "connector": 36,
+   "angle": 2.0
+  },
+  {
+   "step": 5.2,
+   "x": 2545,
+   "y": 1071,
+   "run_a": 52,
+   "run_b": 83,
+   "connector": 91,
+   "angle": 5.2
+  },
+  {
+   "step": 5.1,
+   "x": 1185,
+   "y": 1310,
+   "run_a": 42,
+   "run_b": 48,
+   "connector": 54,
+   "angle": 0.5
+  },
+  {
+   "step": 5.0,
+   "x": 1148,
+   "y": 368,
+   "run_a": 50,
+   "run_b": 88,
+   "connector": 60,
+   "angle": 6.9
+  },
+  {
+   "step": 5.0,
+   "x": 1634,
+   "y": 675,
+   "run_a": 46,
+   "run_b": 102,
+   "connector": 48,
+   "angle": 3.5
+  },
+  {
+   "step": 5.0,
+   "x": 1348,
+   "y": 774,
+   "run_a": 48,
+   "run_b": 40,
+   "connector": 13,
+   "angle": 1.6
+  },
+  {
+   "step": 4.9,
+   "x": 2390,
+   "y": 1014,
+   "run_a": 201,
+   "run_b": 83,
+   "connector": 69,
+   "angle": 5.2
+  },
+  {
+   "step": 4.7,
+   "x": 2695,
+   "y": 1074,
+   "run_a": 78,
+   "run_b": 97,
+   "connector": 66,
+   "angle": 6.8
+  },
+  {
+   "step": 4.7,
+   "x": 1225,
+   "y": 1680,
+   "run_a": 60,
+   "run_b": 48,
+   "connector": 75,
+   "angle": 0.1
+  },
+  {
+   "step": 4.6,
+   "x": 1039,
+   "y": 1535,
+   "run_a": 58,
+   "run_b": 57,
+   "connector": 46,
+   "angle": 4.4
+  },
+  {
+   "step": 4.5,
+   "x": 1709,
+   "y": 671,
+   "run_a": 48,
+   "run_b": 74,
+   "connector": 102,
+   "angle": 4.8
+  },
+  {
+   "step": 4.5,
+   "x": 1624,
+   "y": 767,
+   "run_a": 77,
+   "run_b": 126,
+   "connector": 31,
+   "angle": 2.0
+  },
+  {
+   "step": 4.4,
+   "x": 1333,
+   "y": 508,
+   "run_a": 107,
+   "run_b": 91,
+   "connector": 66,
+   "angle": 1.3
+  },
+  {
+   "step": 4.1,
+   "x": 2503,
+   "y": 1013,
+   "run_a": 65,
+   "run_b": 91,
+   "connector": 52,
+   "angle": 7.8
+  },
+  {
+   "step": 4.1,
+   "x": 2901,
+   "y": 1491,
+   "run_a": 55,
+   "run_b": 53,
+   "connector": 26,
+   "angle": 0.2
+  },
+  {
+   "step": 4.0,
+   "x": 1265,
+   "y": 467,
+   "run_a": 66,
+   "run_b": 43,
+   "connector": 91,
+   "angle": 1.0
+  },
+  {
+   "step": 4.0,
+   "x": 2731,
+   "y": 1144,
+   "run_a": 102,
+   "run_b": 62,
+   "connector": 60,
+   "angle": 1.3
+  }
+ ],
+ "image": "/Users/midir/sm2-n1/_scratch/characters/r16/chain3/run/stills/skin_ash_chest_4k.png",
+ "gate": 4.0,
+ "run": 40,
+ "box": [
+  691,
+  259,
+  3148,
+  2095
+ ],
+ "pass": false
+}

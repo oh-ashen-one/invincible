@@ -1,0 +1,71 @@
+[2026.10.01-19.24.33:934][  0]LogWebHomage: Display: WH_SUIT 8 suits loaded: tessera verdant plum cinder glacier ash saffron sage 
+[2026.10.01-19.24.34:685][  0]LogWebHomage: Display: WH_SUIT 8 suits loaded: tessera verdant plum cinder glacier ash saffron sage 
+[2026.10.01-19.24.34:696][  0]LogTemp: Display: WH_EXPOSURE bias 10.00 on PostProcessVolume_0
+[2026.10.01-19.24.36:247][  1]LogWebHomage: Display: WH_SUIT set 0/8 tessera (default) changed=1 t=0.294 frame=1 apply_ms=0.02
+[2026.10.01-19.24.36:247][  1]LogWebHomage: Display: WH_SUIT start suit 0 (tessera) from default, persist=0 live=0
+[2026.10.01-19.24.36:247][  1]LogWebHomage: Display: WH_SUIT set 0/8 tessera (director shot) changed=0 t=0.294 frame=1 apply_ms=0.00
+[2026.10.01-19.24.36:315][  4]LogWebHomage: Display: WH_SUIT swap_done 0 tessera wall_ms=67.7 frames=3 textures_resident=4/4
+[2026.10.01-19.24.38:162][ 93]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_00_t002.2.png stage T=2.213 world=2.213
+[2026.10.01-19.24.43:682][270]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_01_t006.2.png stage T=6.212 world=6.213
+[2026.10.01-19.24.47:139][390]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_02_t009.2.png stage T=9.217 world=9.217
+[2026.10.01-19.24.50:637][511]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_03_t012.2.png stage T=12.208 world=12.209
+[2026.10.01-19.24.51:935][533]LogWebHomage: Display: WH_SUIT set 1/8 verdant (director shot) changed=1 t=13.015 frame=533 apply_ms=0.03
+[2026.10.01-19.24.52:001][536]LogWebHomage: Display: WH_SUIT swap_done 1 verdant wall_ms=65.5 frames=3 textures_resident=4/4
+[2026.10.01-19.24.54:133][638]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_04_t015.2.png stage T=15.212 world=15.213
+[2026.10.01-19.24.57:616][767]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_05_t018.2.png stage T=18.204 world=18.205
+[2026.10.01-19.25.01:079][887]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_06_t021.2.png stage T=21.204 world=21.205
+[2026.10.01-19.25.04:633][  9]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_07_t024.2.png stage T=24.218 world=24.218
+[2026.10.01-19.25.05:955][ 30]LogWebHomage: Display: WH_SUIT set 2/8 plum (director shot) changed=1 t=25.006 frame=1030 apply_ms=0.05
+[2026.10.01-19.25.06:020][ 33]LogWebHomage: Display: WH_SUIT swap_done 2 plum wall_ms=65.1 frames=3 textures_resident=4/4
+[2026.10.01-19.25.08:149][135]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_08_t027.2.png stage T=27.200 world=27.201
+[2026.10.01-19.25.11:683][264]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_09_t030.2.png stage T=30.211 world=30.211
+[2026.10.01-19.25.15:146][384]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_10_t033.2.png stage T=33.206 world=33.207
+[2026.10.01-19.25.18:672][506]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_11_t036.2.png stage T=36.220 world=36.220
+[2026.10.01-19.25.19:971][527]LogWebHomage: Display: WH_SUIT set 3/8 cinder (director shot) changed=1 t=37.001 frame=1527 apply_ms=0.03
+[2026.10.01-19.25.20:036][530]LogWebHomage: Display: WH_SUIT swap_done 3 cinder wall_ms=64.5 frames=3 textures_resident=4/4
+[2026.10.01-19.25.22:181][633]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_12_t039.2.png stage T=39.211 world=39.211
+[2026.10.01-19.25.25:690][762]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_13_t042.2.png stage T=42.207 world=42.207
+[2026.10.01-19.25.29:172][882]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_14_t045.2.png stage T=45.208 world=45.209
+[2026.10.01-19.25.32:699][  3]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_15_t048.2.png stage T=48.206 world=48.207
+[2026.10.01-19.25.34:042][ 25]LogWebHomage: Display: WH_SUIT set 4/8 glacier (director shot) changed=1 t=49.017 frame=2025 apply_ms=0.05
+[2026.10.01-19.25.34:109][ 28]LogWebHomage: Display: WH_SUIT swap_done 4 glacier wall_ms=66.7 frames=3 textures_resident=4/4
+[2026.10.01-19.25.36:242][130]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_16_t051.2.png stage T=51.217 world=51.217
+[2026.10.01-19.25.39:745][258]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_17_t054.2.png stage T=54.211 world=54.212
+[2026.10.01-19.25.43:236][378]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_18_t057.2.png stage T=57.212 world=57.212
+[2026.10.01-19.25.46:726][499]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_19_t060.2.png stage T=60.201 world=60.201
+[2026.10.01-19.25.48:003][521]LogWebHomage: Display: WH_SUIT set 5/8 ash (director shot) changed=1 t=61.004 frame=2521 apply_ms=0.05
+[2026.10.01-19.25.48:068][524]LogWebHomage: Display: WH_SUIT swap_done 5 ash wall_ms=65.3 frames=3 textures_resident=4/4
+[2026.10.01-19.25.50:211][627]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_20_t063.2.png stage T=63.211 world=63.212
+[2026.10.01-19.25.53:712][756]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_21_t066.2.png stage T=66.204 world=66.205
+[2026.10.01-19.25.57:158][876]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_22_t069.2.png stage T=69.204 world=69.205
+[2026.10.01-19.26.00:639][998]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_23_t072.2.png stage T=72.213 world=72.214
+[2026.10.01-19.26.01:906][ 20]LogWebHomage: Display: WH_SUIT set 6/8 saffron (director shot) changed=1 t=73.015 frame=3020 apply_ms=0.03
+[2026.10.01-19.26.01:972][ 23]LogWebHomage: Display: WH_SUIT swap_done 6 saffron wall_ms=66.0 frames=3 textures_resident=4/4
+[2026.10.01-19.26.04:099][125]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_24_t075.2.png stage T=75.207 world=75.208
+[2026.10.01-19.26.07:607][254]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_25_t078.2.png stage T=78.219 world=78.220
+[2026.10.01-19.26.11:079][372]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_26_t081.2.png stage T=81.214 world=81.215
+[2026.10.01-19.26.14:595][493]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_27_t084.2.png stage T=84.221 world=84.221
+[2026.10.01-19.26.15:898][514]LogWebHomage: Display: WH_SUIT set 7/8 sage (director shot) changed=1 t=85.016 frame=3514 apply_ms=0.05
+[2026.10.01-19.26.15:964][517]LogWebHomage: Display: WH_SUIT swap_done 7 sage wall_ms=65.5 frames=3 textures_resident=4/4
+[2026.10.01-19.26.18:096][619]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_28_t087.2.png stage T=87.213 world=87.213
+[2026.10.01-19.26.21:605][747]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_29_t090.2.png stage T=90.218 world=90.218
+[2026.10.01-19.26.25:076][866]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_30_t093.2.png stage T=93.215 world=93.215
+[2026.10.01-19.26.28:556][987]LogTemp: Display: WH_STAGE_SHOT /Users/midir/sm2-n1/_scratch/characters/r11/chain4/stills_a/skins_31_t096.2.png stage T=96.222 world=96.222
+[2026.10.01-19.26.29:816][  8]LogWebHomage: Display: WH_SUIT set 0/8 tessera (director shot) changed=1 t=97.006 frame=4008 apply_ms=0.03
+[2026.10.01-19.26.29:881][ 11]LogWebHomage: Display: WH_SUIT swap_done 0 tessera wall_ms=65.4 frames=3 textures_resident=4/4
+[2026.10.01-19.26.31:328][ 78]LogWebHomage: Display: WH_SUIT set 1/8 verdant (director shot) changed=1 t=98.519 frame=4078 apply_ms=0.04
+[2026.10.01-19.26.31:392][ 81]LogWebHomage: Display: WH_SUIT swap_done 1 verdant wall_ms=64.0 frames=3 textures_resident=4/4
+[2026.10.01-19.26.32:815][147]LogWebHomage: Display: WH_SUIT set 2/8 plum (director shot) changed=1 t=100.005 frame=4147 apply_ms=0.04
+[2026.10.01-19.26.32:881][150]LogWebHomage: Display: WH_SUIT swap_done 2 plum wall_ms=65.7 frames=3 textures_resident=4/4
+[2026.10.01-19.26.34:325][217]LogWebHomage: Display: WH_SUIT set 3/8 cinder (director shot) changed=1 t=101.515 frame=4217 apply_ms=0.04
+[2026.10.01-19.26.34:390][220]LogWebHomage: Display: WH_SUIT swap_done 3 cinder wall_ms=65.4 frames=3 textures_resident=4/4
+[2026.10.01-19.26.35:821][286]LogWebHomage: Display: WH_SUIT set 4/8 glacier (director shot) changed=1 t=103.012 frame=4286 apply_ms=0.04
+[2026.10.01-19.26.35:886][289]LogWebHomage: Display: WH_SUIT swap_done 4 glacier wall_ms=64.3 frames=3 textures_resident=4/4
+[2026.10.01-19.26.37:318][355]LogWebHomage: Display: WH_SUIT set 5/8 ash (director shot) changed=1 t=104.509 frame=4355 apply_ms=0.04
+[2026.10.01-19.26.37:383][358]LogWebHomage: Display: WH_SUIT swap_done 5 ash wall_ms=64.8 frames=3 textures_resident=4/4
+[2026.10.01-19.26.38:819][424]LogWebHomage: Display: WH_SUIT set 6/8 saffron (director shot) changed=1 t=106.010 frame=4424 apply_ms=0.04
+[2026.10.01-19.26.38:884][427]LogWebHomage: Display: WH_SUIT swap_done 6 saffron wall_ms=65.1 frames=3 textures_resident=4/4
+[2026.10.01-19.26.40:319][493]LogWebHomage: Display: WH_SUIT set 7/8 sage (director shot) changed=1 t=107.509 frame=4493 apply_ms=0.03
+[2026.10.01-19.26.40:383][496]LogWebHomage: Display: WH_SUIT swap_done 7 sage wall_ms=64.4 frames=3 textures_resident=4/4
+[2026.10.01-19.26.41:816][562]LogWebHomage: Display: WH_SUIT set 0/8 tessera (director shot) changed=1 t=109.006 frame=4562 apply_ms=0.04
+[2026.10.01-19.26.41:881][565]LogWebHomage: Display: WH_SUIT swap_done 0 tessera wall_ms=65.2 frames=3 textures_resident=4/4

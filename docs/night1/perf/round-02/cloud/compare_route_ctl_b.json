@@ -1,0 +1,31 @@
+{
+ "ref": "route_ctl_a",
+ "test": "route_ctl_b",
+ "label": "route_ctl_b",
+ "stills": {
+  "route_t20": {
+   "lt10_ref": 2.63,
+   "lt10_test": 2.58,
+   "clip_ref": 1.42,
+   "clip_test": 1.42,
+   "psnr_db": 42.62,
+   "ssim_luma": 0.9973,
+   "mean_abs_dY": 0.83,
+   "frac_dY_gt12": 0.0029,
+   "meanY_ref": 63.5,
+   "meanY_test": 63.6
+  },
+  "route_t28": {
+   "lt10_ref": 0.0,
+   "lt10_test": 0.0,
+   "clip_ref": 2.83,
+   "clip_test": 2.83,
+   "psnr_db": 39.85,
+   "ssim_luma": 0.9968,
+   "mean_abs_dY": 1.12,
+   "frac_dY_gt12": 0.0096,
+   "meanY_ref": 77.9,
+   "meanY_test": 78.7
+  }
+ }
+}

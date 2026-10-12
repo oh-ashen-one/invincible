@@ -1,0 +1,33 @@
+[2026.09.30-00.06.34:209][  0]LogWHLife: [life] lanes: 179 links, 253 connectors, 16 entries, 11 exits
+[2026.09.30-00.06.34:236][  0]LogWHLife: [life] BeginPlay: 653 moving, 1197 parked (140 taxis) instances, pre-roll 75 s
+[2026.09.30-00.06.34:236][  0]LogWHCrowd: [crowd] walk graph: 135 corners, 184 edges
+[2026.09.30-00.06.34:266][  0]LogWHCrowd: [crowd] BeginPlay: 1458 walkers, 292 live, 60 models, pool 480
+WH_LIFE_OCC blocked at 120.9 of 150.9 m by Actor_4 / HierarchicalInstancedStaticMesh
+WH_LIFE_OCC blocked at 30.1 of 82.8 m by Actor_33 / HierarchicalInstancedStaticMesh
+WH_LIFE_OCC blocked at 30.1 of 82.8 m by Actor_33 / HierarchicalInstancedStaticMesh
+WH_LIFE_OCC blocked at 63.5 of 158.7 m by StaticMeshActor_74 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 80.8 of 156.6 m by StaticMeshActor_74 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 89.5 of 154.5 m by StaticMeshActor_74 / StaticMeshComponent0
+WH_LIFE_FRAME t=8.1 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=9 (taxi 3) parked=12 (taxi 1) total=21 | >=44px: moving=6 parked=4 (taxi 1) total=10 | people unoccluded >=28px: 16 (models 16, identical looks in frame 0) | >=56px: 13 (models 13) | projected only (no size / occlusion test): vehicles moving=340 parked=634 people=85
+WH_LIFE_TRAFFIC [life] moving 654 (stopped 308) parked 1197 (taxis 140) sim 0.10 ms push 0.08 ms clock 95.2
+WH_LIFE_CROWD [crowd] walkers 1458 live 277 waiting 66 models 60 sim+apply 0.16 ms
+[2026.09.30-00.06.46:701][117]LogWHLife: [life] moving 657 (stopped 331) parked 1197 (taxis 140) sim 0.10 ms push 0.07 ms clock 97.2
+WH_LIFE_FOOT watching 14 walkers
+[2026.09.30-00.06.47:334][126]LogWHCrowd: [crowd] walkers 1458 live 281 waiting 66 models 60 sim+apply 0.15 ms
+WH_LIFE_FRAME t=14.1 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=11 (taxi 4) parked=12 (taxi 1) total=23 | >=44px: moving=5 parked=4 (taxi 1) total=9 | people unoccluded >=28px: 13 (models 13, identical looks in frame 0) | >=56px: 10 (models 10) | projected only (no size / occlusion test): vehicles moving=348 parked=634 people=87
+WH_LIFE_TRAFFIC [life] moving 664 (stopped 367) parked 1197 (taxis 140) sim 0.10 ms push 0.08 ms clock 101.2
+WH_LIFE_CROWD [crowd] walkers 1458 live 280 waiting 68 models 60 sim+apply 0.44 ms
+WH_LIFE_FRAME t=20.0 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=11 (taxi 4) parked=12 (taxi 1) total=23 | >=44px: moving=8 parked=4 (taxi 1) total=12 | people unoccluded >=28px: 15 (models 15, identical looks in frame 0) | >=56px: 9 (models 9) | projected only (no size / occlusion test): vehicles moving=352 parked=634 people=88
+WH_LIFE_TRAFFIC [life] moving 665 (stopped 341) parked 1197 (taxis 140) sim 0.08 ms push 0.07 ms clock 107.1
+WH_LIFE_CROWD [crowd] walkers 1458 live 281 waiting 5 models 60 sim+apply 0.16 ms
+[2026.09.30-00.06.56:752][263]LogWHLife: [life] moving 665 (stopped 343) parked 1197 (taxis 140) sim 0.13 ms push 0.08 ms clock 107.2
+[2026.09.30-00.06.57:379][272]LogWHCrowd: [crowd] walkers 1458 live 280 waiting 5 models 60 sim+apply 0.17 ms
+WH_LIFE_FOOT walkers=14 stance phases=304 | ankle world displacement during a planted stance (cm; ~20-25 = heel-toe roll, a stride is ~55) median 19.9 p95 40.8 max 56.6 | stances > 45 cm (sliding) 5 (1.6 %)
+WH_LIFE_FRAME t=28.0 res=3840x2160 fov=75 cam=(246.0,150.0,2.0)m | vehicles unoccluded >=22px: moving=11 (taxi 3) parked=12 (taxi 1) total=23 | >=44px: moving=10 parked=4 (taxi 1) total=14 | people unoccluded >=28px: 14 (models 14, identical looks in frame 0) | >=56px: 8 (models 8) | projected only (no size / occlusion test): vehicles moving=348 parked=634 people=84
+WH_LIFE_TRAFFIC [life] moving 660 (stopped 326) parked 1197 (taxis 140) sim 0.10 ms push 0.07 ms clock 115.1
+WH_LIFE_CROWD [crowd] walkers 1458 live 284 waiting 5 models 60 sim+apply 0.16 ms
+[2026.09.30-00.07.06:798][408]LogWHLife: [life] moving 661 (stopped 314) parked 1197 (taxis 140) sim 0.10 ms push 0.08 ms clock 117.3
+[2026.09.30-00.07.07:418][417]LogWHCrowd: [crowd] walkers 1458 live 281 waiting 5 models 60 sim+apply 0.19 ms
+[2026.09.30-00.07.16:899][500]LogWHLife: [life] moving 675 (stopped 149) parked 1197 (taxis 140) sim 0.18 ms push 0.10 ms clock 125.3
+[2026.09.30-00.07.19:852][534]LogWHCrowd: [crowd] walkers 1458 live 290 waiting 4 models 60 sim+apply 0.17 ms
+[2026.09.30-00.07.26:911][636]LogWHLife: [life] moving 689 (stopped 299) parked 1197 (taxis 140) sim 0.12 ms push 0.08 ms clock 135.0

@@ -1,0 +1,17 @@
+== f1_sky_backDouble: 1 flip programs
+ backDouble 3.35-5.83 s (release 1.65, +1.70 s): feet over street start 71.3 / max 77.9 / end 73.0 m; solver tallest roof 68.0 m, peak want 74.0 -> start +3.3 m over that roof
+    flip cam: yaw off p50 -50 deg, look-up elev p50 30 deg (max 30), predicted ring sky share min 1.00 p50 1.00
+    next web: 6.97 s (1.13 s after the program)
+== f2_sky_pikeSwan: 1 flip programs
+ frontPikeSwan 3.32-5.48 s (release 1.65, +1.67 s): feet over street start 71.3 / max 77.9 / end 75.4 m; solver tallest roof 67.8 m, peak want 73.8 -> start +3.5 m over that roof
+    flip cam: yaw off p50 -50 deg, look-up elev p50 30 deg (max 30), predicted ring sky share min 1.00 p50 1.00
+    next web: 7.02 s (1.53 s after the program)
+== f3_sky_corkscrew: 1 flip programs
+ corkscrew 3.22-5.25 s (release 1.65, +1.57 s): feet over street start 65.3 / max 71.7 / end 69.8 m; solver tallest roof 61.7 m, peak want 67.7 -> start +3.6 m over that roof
+    flip cam: yaw off p50 -65 deg, look-up elev p50 30 deg (max 30), predicted ring sky share min 1.00 p50 1.00
+    next web: 6.33 s (1.08 s after the program)
+== f4_chain_flips: 1 flip programs
+ backDouble 5.70-8.18 s (release 3.83, +1.87 s): feet over street start 66.0 / max 72.5 / end 67.6 m; solver tallest roof 62.4 m, peak want 68.4 -> start +3.6 m over that roof
+    flip cam: yaw off p50 -79 deg, look-up elev p50 30 deg (max 39), predicted ring sky share min 1.00 p50 1.00
+    next web: 8.25 s (0.07 s after the program)
+== f5_canyon_backDouble: 0 flip programs

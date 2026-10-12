@@ -1,0 +1,1760 @@
+{
+ "name": "skins",
+ "mode": "film",
+ "W": 1920,
+ "H": 1080,
+ "render": {
+  "pixelRatio": 1,
+  "drawingBuffer": [
+   1920,
+   1080
+  ],
+  "css": [
+   1920,
+   1080
+  ],
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Ultra, Unspecified Version)",
+  "quality": "high",
+  "maxTexUnits": 16
+ },
+ "gameSeconds": 26.38,
+ "wallSeconds": 220,
+ "marks": [
+  {
+   "t": 1.38,
+   "label": "suit advanced"
+  },
+  {
+   "t": 4.38,
+   "label": "suit iron"
+  },
+  {
+   "t": 7.38,
+   "label": "suit symbiote"
+  },
+  {
+   "t": 10.38,
+   "label": "suit claude"
+  },
+  {
+   "t": 13.38,
+   "label": "suit codex"
+  },
+  {
+   "t": 16.38,
+   "label": "suit gemini"
+  },
+  {
+   "t": 19.38,
+   "label": "suit kimi"
+  },
+  {
+   "t": 22.38,
+   "label": "suit qwen"
+  }
+ ],
+ "console": {
+  "warning: THREE.WebGLTextures: Trying to use 17 texture units while this GPU supports only 16": 973
+ },
+ "log": [
+  {
+   "t": 0,
+   "pos": [
+    250,
+    1,
+    167.3
+   ],
+   "spd": 0.2,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.25,
+   "pos": [
+    250,
+    0.9,
+    167.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.5,
+   "pos": [
+    250,
+    0.9,
+    167.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.75,
+   "pos": [
+    250,
+    0.9,
+    167.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1,
+   "pos": [
+    250,
+    0.9,
+    167.3
+   ],
+   "spd": 0.8,
+   "mode": "ground",
+   "sub": "jumpCharge",
+   "trick": null,
+   "node": "jumpCharge",
+   "clip": "jumpCrouch+idle",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.25,
+   "pos": [
+    250,
+    2.4,
+    166
+   ],
+   "spd": 11,
+   "mode": "air",
+   "sub": "jumpLaunch",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchSmall",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.5,
+   "pos": [
+    250.4,
+    4.1,
+    163.1
+   ],
+   "spd": 11.4,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.75,
+   "pos": [
+    251.7,
+    5.4,
+    158.7
+   ],
+   "spd": 14.1,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2,
+   "pos": [
+    254.1,
+    6.4,
+    154.2
+   ],
+   "spd": 17.2,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.25,
+   "pos": [
+    257.6,
+    7.8,
+    149.8
+   ],
+   "spd": 19.1,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.5,
+   "pos": [
+    261.7,
+    10.3,
+    146.4
+   ],
+   "spd": 19.5,
+   "mode": "swing",
+   "sub": "swingHigh",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.75,
+   "pos": [
+    264.3,
+    12.7,
+    142.2
+   ],
+   "spd": 21.8,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "tuckFlip",
+   "node": "trick#tuckFlip:5",
+   "clip": "trick:tuckFlip",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3,
+   "pos": [
+    265.2,
+    13.8,
+    137
+   ],
+   "spd": 22.7,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "tuckFlip",
+   "node": "trick#tuckFlip:5",
+   "clip": "trick:tuckFlip",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.25,
+   "pos": [
+    264.8,
+    13.5,
+    131.3
+   ],
+   "spd": 24.5,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.5,
+   "pos": [
+    262.8,
+    12.8,
+    125.2
+   ],
+   "spd": 26.1,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingBottomL",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.75,
+   "pos": [
+    260.2,
+    13.7,
+    119.2
+   ],
+   "spd": 27.5,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingBottomL",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4,
+   "pos": [
+    257.7,
+    16.6,
+    113.4
+   ],
+   "spd": 27.6,
+   "mode": "swing",
+   "sub": "swingHigh",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingBottomL",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.25,
+   "pos": [
+    255.3,
+    19.9,
+    107.7
+   ],
+   "spd": 28,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:6",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.5,
+   "pos": [
+    252.8,
+    22,
+    101.8
+   ],
+   "spd": 30.6,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:6",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 4.75,
+   "pos": [
+    250.7,
+    23.3,
+    94.7
+   ],
+   "spd": 29.7,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:6",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 5,
+   "pos": [
+    250.1,
+    23.1,
+    87.4
+   ],
+   "spd": 30,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 5.25,
+   "pos": [
+    251.3,
+    18.9,
+    79.8
+   ],
+   "spd": 34,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 5.5,
+   "pos": [
+    250.9,
+    15.4,
+    71
+   ],
+   "spd": 37.3,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 5.75,
+   "pos": [
+    251.1,
+    16.1,
+    61.7
+   ],
+   "spd": 38,
+   "mode": "air",
+   "sub": "release",
+   "trick": null,
+   "node": "air",
+   "clip": "releaseSpread",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 6,
+   "pos": [
+    250.8,
+    15.1,
+    52.3
+   ],
+   "spd": 38.9,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 6.25,
+   "pos": [
+    249.6,
+    11.6,
+    42.3
+   ],
+   "spd": 41.8,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 6.5,
+   "pos": [
+    250.3,
+    10,
+    31.2
+   ],
+   "spd": 43.6,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 6.75,
+   "pos": [
+    253.2,
+    11.3,
+    20.2
+   ],
+   "spd": 43.9,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 7,
+   "pos": [
+    257.8,
+    15.8,
+    10.7
+   ],
+   "spd": 44.9,
+   "mode": "swing",
+   "sub": "swingHigh",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 7.25,
+   "pos": [
+    262.5,
+    19.3,
+    0.4
+   ],
+   "spd": 48.2,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "scissor",
+   "node": "trick#scissor:7",
+   "clip": "trick:scissor",
+   "cmb": "free hp19 c0 ",
+   "suit": "iron"
+  },
+  {
+   "t": 7.5,
+   "pos": [
+    267.5,
+    21.6,
+    -11
+   ],
+   "spd": 49.3,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "scissor",
+   "node": "trick#scissor:7",
+   "clip": "trick:scissor",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 7.75,
+   "pos": [
+    271.2,
+    19.9,
+    -21.9
+   ],
+   "spd": 48.9,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 8,
+   "pos": [
+    275.1,
+    16.1,
+    -32.8
+   ],
+   "spd": 48.8,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingBottomL",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 8.25,
+   "pos": [
+    277.8,
+    16.2,
+    -38.4
+   ],
+   "spd": 1.5,
+   "mode": "swing",
+   "sub": "wallKick",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingBottomL",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 8.5,
+   "pos": [
+    277.3,
+    16.3,
+    -38.2
+   ],
+   "spd": 2.8,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingBottomL",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 8.75,
+   "pos": [
+    275.1,
+    17.5,
+    -37.5
+   ],
+   "spd": 10.8,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "corkscrew",
+   "node": "trick#corkscrew:8",
+   "clip": "trick:corkscrew",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 9,
+   "pos": [
+    271.5,
+    17.9,
+    -38
+   ],
+   "spd": 15.6,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "corkscrew",
+   "node": "trick#corkscrew:8",
+   "clip": "trick:corkscrew",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 9.25,
+   "pos": [
+    269.5,
+    19.5,
+    -38.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 9.5,
+   "pos": [
+    269.5,
+    23,
+    -38.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 9.75,
+   "pos": [
+    269.5,
+    26.5,
+    -38.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 10,
+   "pos": [
+    269.5,
+    30,
+    -38.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 10.25,
+   "pos": [
+    269.5,
+    33.5,
+    -38.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp19 c0 ",
+   "suit": "symbiote"
+  },
+  {
+   "t": 10.5,
+   "pos": [
+    269.1,
+    35.8,
+    -37.6
+   ],
+   "spd": 7.6,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 10.75,
+   "pos": [
+    265.2,
+    36,
+    -36.9
+   ],
+   "spd": 7.8,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 11,
+   "pos": [
+    261.2,
+    34.7,
+    -36.4
+   ],
+   "spd": 11.7,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 11.25,
+   "pos": [
+    256.8,
+    32.3,
+    -36.4
+   ],
+   "spd": 16.9,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 11.5,
+   "pos": [
+    251.8,
+    29.1,
+    -36.9
+   ],
+   "spd": 22.2,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 11.75,
+   "pos": [
+    247.7,
+    29.8,
+    -36.2
+   ],
+   "spd": 16.9,
+   "mode": "air",
+   "sub": "release",
+   "trick": null,
+   "node": "air",
+   "clip": "releaseSpread",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 12,
+   "pos": [
+    243.4,
+    29.9,
+    -35.4
+   ],
+   "spd": 17.2,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 12.25,
+   "pos": [
+    238.7,
+    28.8,
+    -34.9
+   ],
+   "spd": 19.5,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 12.5,
+   "pos": [
+    234.6,
+    26.7,
+    -36.5
+   ],
+   "spd": 22.7,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 12.75,
+   "pos": [
+    234.8,
+    24.5,
+    -41
+   ],
+   "spd": 21.2,
+   "mode": "swing",
+   "sub": "wallKick",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 13,
+   "pos": [
+    234.7,
+    24.1,
+    -46.4
+   ],
+   "spd": 22.4,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 13.25,
+   "pos": [
+    234.4,
+    26.6,
+    -52.4
+   ],
+   "spd": 26.3,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "tuckFlip",
+   "node": "trick#tuckFlip:9",
+   "clip": "trick:tuckFlip",
+   "cmb": "free hp19 c0 ",
+   "suit": "claude"
+  },
+  {
+   "t": 13.5,
+   "pos": [
+    235.5,
+    28.5,
+    -54.5
+   ],
+   "spd": 10,
+   "mode": "air",
+   "sub": "wallJump",
+   "trick": null,
+   "node": "wallJump",
+   "clip": "wallJump",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 13.75,
+   "pos": [
+    238.8,
+    29.2,
+    -55.8
+   ],
+   "spd": 7.2,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 14,
+   "pos": [
+    242.4,
+    28.5,
+    -57.6
+   ],
+   "spd": 10.1,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 14.25,
+   "pos": [
+    246.1,
+    26.4,
+    -59.6
+   ],
+   "spd": 15,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 14.5,
+   "pos": [
+    249.9,
+    23.3,
+    -62.3
+   ],
+   "spd": 20.4,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 14.75,
+   "pos": [
+    252.8,
+    24,
+    -62.8
+   ],
+   "spd": 11.7,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "scissor",
+   "node": "trick#scissor:10",
+   "clip": "trick:scissor",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 15,
+   "pos": [
+    256.5,
+    24.4,
+    -63.2
+   ],
+   "spd": 15,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "scissor",
+   "node": "trick#scissor:10",
+   "clip": "trick:scissor",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 15.25,
+   "pos": [
+    260.6,
+    24.1,
+    -64.4
+   ],
+   "spd": 16.1,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 15.5,
+   "pos": [
+    264.8,
+    22.4,
+    -67.5
+   ],
+   "spd": 20.2,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 15.75,
+   "pos": [
+    262.4,
+    18.9,
+    -72.4
+   ],
+   "spd": 25.1,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingBottomL",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 16,
+   "pos": [
+    260,
+    14.5,
+    -77.3
+   ],
+   "spd": 29.6,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingBottomL",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 16.25,
+   "pos": [
+    257.7,
+    15.1,
+    -82.8
+   ],
+   "spd": 25.2,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "corkscrew",
+   "node": "trick#corkscrew:11",
+   "clip": "trick:corkscrew",
+   "cmb": "free hp19 c0 ",
+   "suit": "codex"
+  },
+  {
+   "t": 16.5,
+   "pos": [
+    257.4,
+    15.3,
+    -90
+   ],
+   "spd": 30.2,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "corkscrew",
+   "node": "trick#corkscrew:11",
+   "clip": "trick:corkscrew",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 16.75,
+   "pos": [
+    258.3,
+    13.9,
+    -97.6
+   ],
+   "spd": 31.8,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 17,
+   "pos": [
+    258.9,
+    11.9,
+    -106.5
+   ],
+   "spd": 35.1,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 17.25,
+   "pos": [
+    258.7,
+    12,
+    -115.9
+   ],
+   "spd": 36.5,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 17.5,
+   "pos": [
+    258,
+    14,
+    -125
+   ],
+   "spd": 37.4,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 17.75,
+   "pos": [
+    257,
+    17.2,
+    -135.3
+   ],
+   "spd": 44.7,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:12",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 18,
+   "pos": [
+    255.9,
+    19.1,
+    -146.1
+   ],
+   "spd": 47.8,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:12",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 18.25,
+   "pos": [
+    256.1,
+    20.1,
+    -157.8
+   ],
+   "spd": 45.9,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:12",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 18.5,
+   "pos": [
+    256.8,
+    19.5,
+    -168.7
+   ],
+   "spd": 45.1,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 18.75,
+   "pos": [
+    255.4,
+    12.3,
+    -178.6
+   ],
+   "spd": 49.2,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 19,
+   "pos": [
+    255,
+    7.7,
+    -190.9
+   ],
+   "spd": 51.9,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 19.25,
+   "pos": [
+    254.3,
+    8.5,
+    -204
+   ],
+   "spd": 53.7,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "scissor",
+   "node": "trick#scissor:13",
+   "clip": "trick:scissor",
+   "cmb": "free hp19 c0 ",
+   "suit": "gemini"
+  },
+  {
+   "t": 19.5,
+   "pos": [
+    253.5,
+    8.9,
+    -218
+   ],
+   "spd": 55.4,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "scissor",
+   "node": "trick#scissor:13",
+   "clip": "trick:scissor",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 19.75,
+   "pos": [
+    253,
+    7,
+    -231.5
+   ],
+   "spd": 55,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 20,
+   "pos": [
+    253.3,
+    5.4,
+    -245.4
+   ],
+   "spd": 55,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 20.25,
+   "pos": [
+    256.5,
+    9.3,
+    -258.5
+   ],
+   "spd": 55.1,
+   "mode": "swing",
+   "sub": "swingHigh",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 20.5,
+   "pos": [
+    261.4,
+    18.6,
+    -267.5
+   ],
+   "spd": 52.1,
+   "mode": "swing",
+   "sub": "swingHigh",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingHigh",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 20.75,
+   "pos": [
+    265.5,
+    28.6,
+    -276.3
+   ],
+   "spd": 54.3,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "corkscrew",
+   "node": "trick#corkscrew:14",
+   "clip": "trick:corkscrew",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 21,
+   "pos": [
+    265.2,
+    37.7,
+    -286.8
+   ],
+   "spd": 54.5,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "corkscrew",
+   "node": "trick#corkscrew:14",
+   "clip": "trick:corkscrew",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 21.25,
+   "pos": [
+    265.8,
+    45.2,
+    -297.6
+   ],
+   "spd": 51.1,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "corkscrew",
+   "node": "trick#corkscrew:14",
+   "clip": "trick:corkscrew",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 21.5,
+   "pos": [
+    266.6,
+    51.3,
+    -308.4
+   ],
+   "spd": 48.6,
+   "mode": "air",
+   "sub": "rise",
+   "trick": null,
+   "node": "air",
+   "clip": "airRise",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 21.75,
+   "pos": [
+    267.4,
+    55.9,
+    -319.3
+   ],
+   "spd": 46.2,
+   "mode": "air",
+   "sub": "rise",
+   "trick": null,
+   "node": "air",
+   "clip": "airRise",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 22,
+   "pos": [
+    268.2,
+    58.9,
+    -330.1
+   ],
+   "spd": 44.6,
+   "mode": "air",
+   "sub": "rise",
+   "trick": null,
+   "node": "air",
+   "clip": "airRise",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 22.25,
+   "pos": [
+    268.8,
+    60.5,
+    -341
+   ],
+   "spd": 43,
+   "mode": "air",
+   "sub": "rise",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp19 c0 ",
+   "suit": "kimi"
+  },
+  {
+   "t": 22.5,
+   "pos": [
+    268.1,
+    61.7,
+    -348.1
+   ],
+   "spd": 6.1,
+   "mode": "swing",
+   "sub": "wallKick",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingBottomL",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 22.75,
+   "pos": [
+    266.7,
+    62.4,
+    -351.4
+   ],
+   "spd": 1.5,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingHighL",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 23,
+   "pos": [
+    265.2,
+    61.5,
+    -354.6
+   ],
+   "spd": 7,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingHighL",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 23.25,
+   "pos": [
+    263.6,
+    59.1,
+    -357.8
+   ],
+   "spd": 13.1,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 23.5,
+   "pos": [
+    261.7,
+    55.5,
+    -361.2
+   ],
+   "spd": 19.1,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#L",
+   "clip": "swingLowL",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 23.75,
+   "pos": [
+    260.7,
+    56.1,
+    -362.9
+   ],
+   "spd": 7.4,
+   "mode": "air",
+   "sub": "release",
+   "trick": null,
+   "node": "air",
+   "clip": "releaseSpread",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 24,
+   "pos": [
+    259.8,
+    56.3,
+    -365.1
+   ],
+   "spd": 10.4,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 24.25,
+   "pos": [
+    259.2,
+    55.3,
+    -369.5
+   ],
+   "spd": 13.6,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 24.5,
+   "pos": [
+    259.2,
+    53.6,
+    -374
+   ],
+   "spd": 17.7,
+   "mode": "swing",
+   "sub": "swingLow",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 24.75,
+   "pos": [
+    259.6,
+    51.8,
+    -378.7
+   ],
+   "spd": 20.6,
+   "mode": "swing",
+   "sub": "swingBottom",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingLow",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 25,
+   "pos": [
+    260.9,
+    51.8,
+    -383.8
+   ],
+   "spd": 21.7,
+   "mode": "swing",
+   "sub": "swingHigh",
+   "trick": null,
+   "node": "swing#R",
+   "clip": "swingBottom",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 25.25,
+   "pos": [
+    262.8,
+    54.6,
+    -389.3
+   ],
+   "spd": 25.8,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:15",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 25.5,
+   "pos": [
+    264.7,
+    56.2,
+    -395
+   ],
+   "spd": 28.7,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:15",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 25.75,
+   "pos": [
+    266.9,
+    57,
+    -401.7
+   ],
+   "spd": 28.1,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:15",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 26,
+   "pos": [
+    269.1,
+    57,
+    -408.4
+   ],
+   "spd": 28.1,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:15",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  },
+  {
+   "t": 26.25,
+   "pos": [
+    271.2,
+    56,
+    -408.4
+   ],
+   "spd": 10.8,
+   "mode": "air",
+   "sub": "trick",
+   "trick": "layout",
+   "node": "trick#layout:15",
+   "clip": "trick:layout",
+   "cmb": "free hp19 c0 ",
+   "suit": "qwen"
+  }
+ ],
+ "clip": "docs/night1/baseline/clips/skins.mp4",
+ "clipMB": 13.19,
+ "captureFps": "60 (frame-stepped game time, 1/60 s per frame)"
+}

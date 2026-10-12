@@ -1,0 +1,29 @@
+# P3 round 13 -- flow_check.py on the -nullrhi probes AFTER commit 14d0b97 (flow flips keep their program), re-run 2026-09-30 10:1x on the rebooted Studio
+# real game, /Game/Maps/Manhattan, 60 fps fixed step, NO pixels. Homage fan game; not affiliated with Marvel, Sony or Insomniac.
+
+f1_flow_backDouble: 3 releases, 4 attaches, 1 flip programs (8.0 s)
+  3.53 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 5.03 -> attach 5.02 = -0.02 s PASS | program 1.70 s, ended 5.00 s, cut at t_prog 1.47 | shapes Tuck/Kickout S1 2 shapes PASS
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.48 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.60 s (<= 3.3) PASS   (attaches at 0.40, 2.42, 5.02, 6.97)
+  C1 per-frame camera: max |d pitch| 2.70 deg @5.47 s (<= 3), |d yaw| 3.60 deg @5.40 s (<= 4), |d pos| 1.10 m @5.50 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 5, pitch 10, yaw 17 frames (of 479)
+     camera in geometry: 0 frames
+  C2 5.00 s backDouble    flip camera k 1.00 at the program end -> < 0.02 after 1.33 s (>= 0.4) PASS
+  => PASS (0 failing lines / frames)
+
+f4_chain_flips: 5 releases, 6 attaches, 4 flip programs (13.0 s)
+  1.47 s backDouble    R1 release->shape 0.00 s PASS | R2 reach 2.97 -> attach 2.95 = -0.02 s PASS | program 1.70 s, ended 2.93 s, cut at t_prog 1.47 | shapes Tuck/Kickout S1 2 shapes PASS
+  4.07 s frontPikeSwan R1 release->shape 0.00 s PASS | R2 reach 5.48 -> attach 5.55 = +0.07 s PASS | program 1.65 s, ended 5.53 s, cut at t_prog 1.47 | shapes Pike/Pencil/Swan/Tuck/Reach
+  6.70 s corkscrew     R1 release->shape 0.00 s PASS | R2 reach 8.13 -> attach 8.18 = +0.05 s PASS | program 1.66 s, ended 8.17 s, cut at t_prog 1.47 | shapes Layout/Twist/Swan/Tuck/Reach
+  11.18 s frontPikeSwan R1 release->shape 0.00 s PASS | R2 reach 12.60 -> attach 12.80 = +0.20 s PASS | program 1.65 s, ended 12.78 s, cut at t_prog 1.60 | shapes Pike/Pencil/Swan/Tuck/Reach
+  T4 release -> end of the web-less air (web / zip / wall / perch / ground): max 1.62 s (<= 3.1) PASS
+  T2 attach -> attach: max 2.63 s (<= 3.3) PASS   (attaches at 0.40, 2.95, 5.55, 8.18, 10.20, 12.80)
+  C1 per-frame camera: max |d pitch| 2.70 deg @8.53 s (<= 3), |d yaw| 3.60 deg @3.17 s (<= 4), |d pos| 1.11 m @9.60 s (<= 1.2) -> 0 frames over PASS
+     slew limiter active: position 59, pitch 25, yaw 8 frames (of 779)
+     camera in geometry: 21 frames
+  C2 2.93 s backDouble    flip camera k 1.00 at the program end -> < 0.02 after 6.57 s (>= 0.4) PASS
+  C2 5.53 s frontPikeSwan flip camera k 1.00 at the program end -> < 0.02 after 3.97 s (>= 0.4) PASS
+  C2 8.17 s corkscrew     flip camera k 1.00 at the program end -> < 0.02 after 1.33 s (>= 0.4) PASS
+  C2 12.78 s frontPikeSwan: flip camera still blending at the clip end
+  => PASS (0 failing lines / frames)
+

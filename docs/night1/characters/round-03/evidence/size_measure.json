@@ -1,0 +1,29 @@
+{
+ "thug_mesh": {
+  "torso_width": 0.35774393379688263,
+  "height": 1.7586805555038154,
+  "shoulder_width": 0.6807897984981537,
+  "chest_depth": 0.35777878761291504,
+  "hip_width": 0.4178507626056671,
+  "n_sel": 510
+ },
+ "brute_mesh": {
+  "torso_width": 0.4030522406101227,
+  "height": 1.7867121091112494,
+  "shoulder_width": 0.6500867009162903,
+  "chest_depth": 0.3795987367630005,
+  "hip_width": 0.4687953293323517,
+  "n_sel": 417
+ },
+ "brute_world_shoulder_width": 0.9267636008262635,
+ "brute_world_torso_width": 0.574591274213791,
+ "brute_world_chest_depth": 0.5411559591293336,
+ "brute_world_hip_width": 0.6683146214962007,
+ "brute_world_height": 1.9296490778401496,
+ "thug_world_height": 1.7586805555038154,
+ "ratio_shoulder_width": 1.3613065337799373,
+ "ratio_torso_width": 1.6061523898264853,
+ "ratio_chest_depth": 1.5125434426671946,
+ "ratio_hip_width": 1.5994098403187567,
+ "ratio_height": 1.097214085753826
+}

@@ -1,0 +1,43 @@
+{
+ "name": "r3_crosstown_east",
+ "note": "Island r01 route 3 (30 s): airborne swing chain EAST along the cross street at y 640 m (new tiles), from x -300 at 40 m, 26 m/s. (r01 take 1 started at x -560 / 30 m / 24 m/s: the first rope (anchor 36 m) swung the hero BACK west, the re-press found nothing toward the region edge and it landed at 5.3 s and ran the sidewalk.) (r02: autoChain re-press gap 0.8 -> 0.3 s: the critic test is 'web attaches <= 0.5 s after each release', and the 0.8 s scripted wait alone failed it.)",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   -300,
+   640,
+   40
+  ],
+  "yaw": 0,
+  "camPitch": 0.12,
+  "vel": [
+   26,
+   0,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 0,
+   "swing": false
+  },
+  {
+   "t": 0.4,
+   "autoChain": true,
+   "releasePhase": 0.55,
+   "gap": 0.3,
+   "repressVz": 99.0,
+   "trickEvery": 0,
+   "skyEvery": 0,
+   "skyTricks": 1,
+   "skyRepressH": 30,
+   "skyPhase": 0.8,
+   "skyMax": 2.8
+  }
+ ]
+}

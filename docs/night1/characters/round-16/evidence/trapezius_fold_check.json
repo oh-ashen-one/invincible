@@ -1,0 +1,176 @@
+{
+ "region_vertices": 2510,
+ "region_faces": 5236,
+ "poses": {
+  "idle@0.00": {
+   "original": {
+    "folded": 0,
+    "bent": 2,
+    "min_dot": 0.656
+   },
+   "r12": {
+    "folded": 0,
+    "bent": 2,
+    "min_dot": 0.656
+   },
+   "r14": {
+    "folded": 0,
+    "bent": 2,
+    "min_dot": 0.678
+   }
+  },
+  "idle@1.00": {
+   "original": {
+    "folded": 0,
+    "bent": 2,
+    "min_dot": 0.663
+   },
+   "r12": {
+    "folded": 0,
+    "bent": 2,
+    "min_dot": 0.663
+   },
+   "r14": {
+    "folded": 0,
+    "bent": 2,
+    "min_dot": 0.687
+   }
+  },
+  "idle@2.20": {
+   "original": {
+    "folded": 0,
+    "bent": 2,
+    "min_dot": 0.658
+   },
+   "r12": {
+    "folded": 0,
+    "bent": 2,
+    "min_dot": 0.658
+   },
+   "r14": {
+    "folded": 0,
+    "bent": 2,
+    "min_dot": 0.681
+   }
+  },
+  "run@0.00": {
+   "original": {
+    "folded": 4,
+    "bent": 66,
+    "min_dot": 0.019
+   },
+   "r12": {
+    "folded": 2,
+    "bent": 58,
+    "min_dot": 0.019
+   },
+   "r14": {
+    "folded": 1,
+    "bent": 39,
+    "min_dot": 0.29
+   }
+  },
+  "run@0.10": {
+   "original": {
+    "folded": 0,
+    "bent": 18,
+    "min_dot": 0.369
+   },
+   "r12": {
+    "folded": 0,
+    "bent": 15,
+    "min_dot": 0.369
+   },
+   "r14": {
+    "folded": 0,
+    "bent": 20,
+    "min_dot": 0.391
+   }
+  },
+  "run@0.20": {
+   "original": {
+    "folded": 0,
+    "bent": 16,
+    "min_dot": 0.403
+   },
+   "r12": {
+    "folded": 0,
+    "bent": 12,
+    "min_dot": 0.403
+   },
+   "r14": {
+    "folded": 0,
+    "bent": 16,
+    "min_dot": 0.424
+   }
+  },
+  "run@0.30": {
+   "original": {
+    "folded": 4,
+    "bent": 69,
+    "min_dot": 0.009
+   },
+   "r12": {
+    "folded": 2,
+    "bent": 61,
+    "min_dot": 0.009
+   },
+   "r14": {
+    "folded": 1,
+    "bent": 39,
+    "min_dot": 0.289
+   }
+  },
+  "sprint@0.00": {
+   "original": {
+    "folded": 14,
+    "bent": 191,
+    "min_dot": -0.325
+   },
+   "r12": {
+    "folded": 14,
+    "bent": 174,
+    "min_dot": -0.325
+   },
+   "r14": {
+    "folded": 5,
+    "bent": 85,
+    "min_dot": 0.137
+   }
+  },
+  "sprint@0.15": {
+   "original": {
+    "folded": 0,
+    "bent": 24,
+    "min_dot": 0.522
+   },
+   "r12": {
+    "folded": 0,
+    "bent": 22,
+    "min_dot": 0.522
+   },
+   "r14": {
+    "folded": 0,
+    "bent": 11,
+    "min_dot": 0.53
+   }
+  },
+  "fightIdle@0.00": {
+   "original": {
+    "folded": 7,
+    "bent": 162,
+    "min_dot": 0.155
+   },
+   "r12": {
+    "folded": 5,
+    "bent": 167,
+    "min_dot": 0.219
+   },
+   "r14": {
+    "folded": 0,
+    "bent": 91,
+    "min_dot": 0.437
+   }
+  }
+ }
+}

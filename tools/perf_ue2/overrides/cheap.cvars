@@ -1,0 +1,7 @@
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# Piece F round 1: the small, quality-neutral wins of the cvar probe table (each measured alone at TSR 50 %, p50 frame ms vs base 27.96):
+# vsmbias1 -0.66, skyres64 -0.41, fog16 -0.31, cloud512 -0.19. Probe density / sky capture / fog grid only (director section 5: allowed cuts).
+r.Shadow.Virtual.ResolutionLodBiasDirectional=1
+r.SkyLight.RealTimeReflectionCapture.ResolutionOverride=64
+r.VolumetricFog.GridPixelSize=16
+r.VolumetricCloud.ViewRaySampleMaxCount=512

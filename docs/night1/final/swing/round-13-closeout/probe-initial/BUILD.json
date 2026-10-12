@@ -1,0 +1,23 @@
+{
+  "runtime_source_commit": "d61c7da9",
+  "cpp_source_commit": "1b655c5b",
+  "capture_settings": {
+    "map_day": "/Game/Showcase/Maps/Manhattan_Island",
+    "map_night": "/Game/Showcase/Maps/Manhattan_Island_Night",
+    "output": [
+      1920,
+      1080
+    ],
+    "internal_scale_percent": 100,
+    "suit": "tessera",
+    "fixed_step_hz": 60,
+    "preroll_seconds": 1.5,
+    "note": "Offline fixed-step capture; not real-time FPS evidence"
+  },
+  "files": {
+    "unreal/WebHomage/Binaries/Mac/libUnrealEditor-WebHomage.dylib": "7388d22839b8534b98a260fc8a6b47ce8861aa9fc4326e6b775be1705682b8ff",
+    "unreal/WebHomage/Content/Traversal/Materials/M_TravWeb.uasset": "8b881f34c3c3d7dd9f0847e45c47ce5c3cc4e0e10d89c423a5cf744708582474",
+    "unreal/WebHomage/Config/PerfPlayableFast.cvars": "922f536c92ab4b739e4f1c248f6051b841800ae4a88b1bc16ea62da4e9cc6daf",
+    "unreal/WebHomage/Scripts/traversal_web_material.py": "bb2a97f519f091cb81fcf84dc692d1b92070713ccaf04e20f6a6dd8120bec1a4"
+  }
+}

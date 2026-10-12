@@ -1,0 +1,12 @@
+## shots at 3840x2160 (DPR1), external GPU util before launch: 55%
+street                   frame median 52.70 ms  p95 60.90 ms  (cpu submit 9.64 ms)
+swing                    frame median 38.70 ms  p95 44.60 ms  (cpu submit 7.85 ms)
+swingBack                frame median 38.40 ms  p95 43.60 ms  (cpu submit 9.09 ms)
+parkHigh                 frame median 43.60 ms  p95 55.30 ms  (cpu submit 7.02 ms)
+riverHigh                frame median 29.80 ms  p95 35.90 ms  (cpu submit 7.16 ms)
+## shots at 1920x1080 (DPR1), external GPU util before launch: 97%
+street                   frame median 33.70 ms  p95 46.10 ms  (cpu submit 9.31 ms)
+swing                    frame median 36.70 ms  p95 45.90 ms  (cpu submit 8.11 ms)
+swingBack                frame median 38.50 ms  p95 47.40 ms  (cpu submit 9.12 ms)
+parkHigh                 frame median 29.60 ms  p95 37.70 ms  (cpu submit 6.58 ms)
+riverHigh                frame median 19.40 ms  p95 23.10 ms  (cpu submit 7.27 ms)

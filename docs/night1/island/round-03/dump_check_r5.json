@@ -1,0 +1,165 @@
+{
+ "dump": "/Users/midir/sm2-n1/_scratch/island/r5/dump1/r5/prims.csv",
+ "rows": 184272,
+ "roles": {
+  "other": 4,
+  "far-off": 75,
+  "ground": 317,
+  "solid": 918,
+  "box-index": 173097,
+  "excluded-ism": 9481,
+  "excluded": 380
+ },
+ "visible_solid_tiles": {
+  "detail_ok": 87,
+  "facade_ok": 86,
+  "fireescape_ok": 86,
+  "roofs_ok": 86
+ },
+ "bad_tiles": [],
+ "far_off_rows": 75,
+ "far_off_centre_inside_M1": 1,
+ "far_off_overlapping_M1": 6,
+ "far_off_overlapping_M1_meshes": [
+  "SM_farCityRoofs__t0_-1",
+  "SM_farCityRoofs__t0_1",
+  "SM_farCity__t0_-1",
+  "SM_farCity__t0_1",
+  "SM_farLand_east__t0_-1",
+  "SM_farLand_roos__t0_-1"
+ ],
+ "whbox_cubes": 173097,
+ "whbox_cubes_with_collision_after_init": 0,
+ "sheds_subway": {
+  "SM_shedtop / solid / 1 / 3": 121,
+  "SM_shed / solid / 1 / 3": 121,
+  "SM_subway / solid / 1 / 3": 42
+ },
+ "solid_rows_by_ctf_coll": {
+  "ctf3_coll1": 918
+ },
+ "solid_rows_without_complex_ctf": [],
+ "excluded_by_mesh_prefix": [
+  [
+   "SM_ez_street2_l1_leaves",
+   204
+  ],
+  [
+   "SM_ez_street2_l1_bark",
+   204
+  ],
+  [
+   "SM_ez_street1_l1_leaves",
+   201
+  ],
+  [
+   "SM_ez_street1_l1_bark",
+   201
+  ],
+  [
+   "SM_ez_street0_l1_leaves",
+   200
+  ],
+  [
+   "SM_ez_street0_l1_bark",
+   200
+  ],
+  [
+   "SM_ez_street2_l0_bark",
+   179
+  ],
+  [
+   "SM_ez_street2_l0_leaves",
+   179
+  ],
+  [
+   "SM_ez_street0_l0_leaves",
+   175
+  ],
+  [
+   "SM_ez_street1_l0_bark",
+   175
+  ],
+  [
+   "SM_ez_street1_l0_leaves",
+   175
+  ],
+  [
+   "SM_ez_street0_l0_bark",
+   175
+  ],
+  [
+   "SM_signage",
+   171
+  ],
+  [
+   "SM_veh_cross",
+   165
+  ],
+  [
+   "SM_veh_suv2",
+   164
+  ],
+  [
+   "SM_veh_pickup",
+   163
+  ],
+  [
+   "SM_ez_small1_l0_bark",
+   163
+  ],
+  [
+   "SM_ez_small1_l0_leaves",
+   163
+  ],
+  [
+   "SM_bench",
+   163
+  ],
+  [
+   "SM_ez_small0_l0_leaves",
+   162
+  ],
+  [
+   "SM_ez_small0_l0_bark",
+   162
+  ],
+  [
+   "SM_veh_sedan",
+   154
+  ],
+  [
+   "SM_veh_suv",
+   154
+  ],
+  [
+   "SM_veh_sedan2",
+   152
+  ],
+  [
+   "SM_trash",
+   149
+  ],
+  [
+   "SM_lamp",
+   149
+  ],
+  [
+   "SM_signpole",
+   148
+  ],
+  [
+   "SM_hydrant",
+   148
+  ],
+  [
+   "SM_veh_hatch",
+   143
+  ],
+  [
+   "SM_veh_taxi_hy",
+   142
+  ]
+ ],
+ "pass": false
+}

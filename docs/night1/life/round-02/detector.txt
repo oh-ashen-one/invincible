@@ -1,0 +1,17 @@
+S1_street_1080p.jpg                      people 30 (>=3%H 24, >=10%H 2) vehicles 10 (bus 0 truck 1)
+S1_street_4k.jpg                         people 30 (>=3%H 24, >=10%H 1) vehicles 9 (bus 0 truck 1)
+S2_avenue_1080p.jpg                      people 0 (>=3%H 0, >=10%H 0) vehicles 14 (bus 0 truck 4)
+S2_avenue_4k.jpg                         people 3 (>=3%H 0, >=10%H 0) vehicles 16 (bus 0 truck 5)
+S1_00_t012.0.jpg                         people 27 (>=3%H 24, >=10%H 1) vehicles 11 (bus 0 truck 2)
+S1_01_t016.0.jpg                         people 25 (>=3%H 22, >=10%H 3) vehicles 11 (bus 0 truck 1)
+S1_02_t020.0.jpg                         people 28 (>=3%H 25, >=10%H 4) vehicles 10 (bus 0 truck 3)
+S1_03_t024.0.jpg                         people 24 (>=3%H 22, >=10%H 2) vehicles 11 (bus 0 truck 2)
+S1_04_t028.0.jpg                         people 30 (>=3%H 24, >=10%H 2) vehicles 10 (bus 0 truck 1)
+S2_00_t012.0.jpg                         people 0 (>=3%H 0, >=10%H 0) vehicles 13 (bus 1 truck 3)
+S2_01_t016.0.jpg                         people 0 (>=3%H 0, >=10%H 0) vehicles 12 (bus 0 truck 3)
+S2_02_t020.0.jpg                         people 0 (>=3%H 0, >=10%H 0) vehicles 13 (bus 0 truck 4)
+S2_03_t024.0.jpg                         people 0 (>=3%H 0, >=10%H 0) vehicles 19 (bus 1 truck 5)
+S2_04_t028.0.jpg                         people 0 (>=3%H 0, >=10%H 0) vehicles 14 (bus 0 truck 4)
+street_clip_1080p60.mp4                  n36 people p10 17 med 19 p90 22 | >=3%H med 17 | vehicles p10 7 med 12 p90 15 max 17
+swing_clip_1080p60.mp4                   n20 people p10 0 med 0 p90 1 | >=3%H med 0 | vehicles p10 12 med 17 p90 21 max 24
+signal_clip_1080p60.mp4                  n25 people p10 30 med 35 p90 41 | >=3%H med 35 | vehicles p10 18 med 20 p90 24 max 26

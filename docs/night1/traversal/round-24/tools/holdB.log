@@ -1,0 +1,47 @@
+gpu_slot[capture/traversal]: acquire slot=0 waited_s=6410.1 phase=lock
+gpu_slot[capture/traversal]: run child_pid=23042 max_hold_s=2400.0 cmd=/Users/midir/sm2-n1/_scratch/traversal/r24/holdB.sh
+== holdB acquired 09:33:37
+WH_QUIT t=10.50
+default:   c_wallrun_perch 7.7-8.5 s (49 rows): hero_in_frame 49/49, hero_occl max -1.000, cam-hero min 3.83 m, yaw -88.6 -> -133.8 (turn -), max backtrack 18.9 deg, crane max 0.00 m -> FAIL [geometry part (frame, distance, reversal): GEOM_FAIL]
+default:   c zip 8.5000 -> perch 8.9000 (last perch/perchIdle)
+WH_QUIT t=10.50
+GndStopExtra=2.4:   c_wallrun_perch 7.7-8.5 s (49 rows): hero_in_frame 49/49, hero_occl max -1.000, cam-hero min 3.83 m, yaw -88.6 -> -133.8 (turn -), max backtrack 18.9 deg, crane max 0.00 m -> FAIL [geometry part (frame, distance, reversal): GEOM_FAIL]
+GndStopExtra=2.4:   c zip 8.5000 -> perch 8.9000 (last perch/perchIdle)
+WH_QUIT t=10.50
+GndStopExtra=2.4,GndStopR=0.9:   c_wallrun_perch 7.7-8.5 s (49 rows): hero_in_frame 48/49, hero_occl max -1.000, cam-hero min 3.83 m, yaw -88.6 -> -115.3 (turn -), max backtrack 0.0 deg, crane max 0.00 m -> FAIL [geometry part (frame, distance, reversal): GEOM_FAIL]
+GndStopExtra=2.4,GndStopR=0.9:   c zip 8.5000 -> perch 8.8833 (last perch/perchIdle)
+WH_QUIT t=10.50
+GndStopExtra=0.4:   c_wallrun_perch 7.7-8.5 s (49 rows): hero_in_frame 49/49, hero_occl max -1.000, cam-hero min 3.83 m, yaw -88.6 -> -133.8 (turn -), max backtrack 18.9 deg, crane max 0.00 m -> FAIL [geometry part (frame, distance, reversal): GEOM_FAIL]
+GndStopExtra=0.4:   c zip 8.5000 -> perch 8.9000 (last perch/perchIdle)
+== camera pick: 'none' at 55 s
+WH_QUIT t=16.00
+== build 3 vs captured a_swing_chain: SAME 0.000 935
+WH_QUIT t=7.60
+== build 3 vs captured w2_wallrun_side_zip: SAME 0.000 419
+WH_QUIT t=7.50
+== build 3 vs captured w1_wallrun_tall_zip: SAME 0.000 449
+WH_QUIT t=6.00
+== build 3 vs captured s1_high_swing: SAME 0.000 359
+WH_QUIT t=5.00
+== build 3 x2_rmb_cancel_wall vs ROUND 23: DIFF 12.212 299
+WH_QUIT t=9.50
+== build 3 r1_roofrun_zip vs ROUND 23: DIFF 7.088 569
+== capture list: c_wallrun_perch x2_rmb_cancel_wall r1_roofrun_zip m1_mouse_swing
+== capture c_wallrun_perch at 142 s
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/c_wallrun_perch/c_wallrun_perch.mp4
+frames 679, telemetry rows 629 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/c_wallrun_perch.mp4 12988325 bytes, 10.483333s
+== capture x2_rmb_cancel_wall at 341 s
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/x2_rmb_cancel_wall/x2_rmb_cancel_wall.mp4
+frames 349, telemetry rows 299 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/x2_rmb_cancel_wall.mp4 12050565 bytes, 4.983333s
+== capture r1_roofrun_zip at 452 s
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/r1_roofrun_zip/r1_roofrun_zip.mp4
+frames 619, telemetry rows 569 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/r1_roofrun_zip.mp4 12727598 bytes, 9.483333s
+== capture m1_mouse_swing at 631 s
+movie: /Users/midir/sm2-n1/_scratch/traversal/capture/m1_mouse_swing/m1_mouse_swing.mp4
+frames 409, telemetry rows 359 -> trimming the first 50 frames
+movie: /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-24/m1_mouse_swing.mp4 13492192 bytes, 5.983008s
+== hold B done 09:46:20, left: 
+gpu_slot[capture/traversal]: release exit=0 hold_s=763.77 wait_s=6410.16 util_before=0 util_after=0 instances_before=1 instances_max=2 contaminated=true reasons=no-exclusive-lock

@@ -1,0 +1,1 @@
+{"label": "r7_suit_closeup_white_emblem_edge", "image": "suit_closeup_4k.jpg", "roi": [768, 500, 905, 930], "direction": "vertical", "columns": 179, "line_width_px": 58.44, "max_dev_px": 0.97, "rms_dev_px": 0.406, "max_jump_px": 1.57, "worst_plateau_px": 3}

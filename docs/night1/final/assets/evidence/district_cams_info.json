@@ -1,0 +1,80 @@
+{
+ "midtown": {
+  "cluster_centre_m": [
+   330.3,
+   28.5
+  ],
+  "cluster": {
+   "oildrum": 3
+  },
+  "street_cam_m": [
+   340.0,
+   31.1
+  ],
+  "high_cam_m": [
+   357.2,
+   25.0,
+   51.0
+  ],
+  "high_ray_clear": true
+ },
+ "parksouth": {
+  "cluster_centre_m": [
+   -153.5,
+   -625.8
+  ],
+  "cluster": {
+   "pigeon": 14,
+   "squirrel": 2
+  },
+  "street_cam_m": [
+   -150.9,
+   -635.4
+  ],
+  "high_cam_m": [
+   -111.2,
+   25.0,
+   -610.4
+  ],
+  "high_ray_clear": true
+ },
+ "westpiers": {
+  "cluster_centre_m": [
+   -721.8,
+   -1012.7
+  ],
+  "cluster": {
+   "gull": 2,
+   "rat": 1
+  },
+  "street_cam_m": [
+   -719.3,
+   -1003.1
+  ],
+  "high_cam_m": [
+   -703.0,
+   25.0,
+   -961.1
+  ],
+  "high_ray_clear": true
+ },
+ "downtown": {
+  "cluster_centre_m": [
+   -33.5,
+   3163.9
+  ],
+  "cluster": {
+   "pigeon": 14
+  },
+  "street_cam_m": [
+   -23.5,
+   3163.9
+  ],
+  "high_cam_m": [
+   -52.3,
+   25.0,
+   3215.5
+  ],
+  "high_ray_clear": true
+ }
+}

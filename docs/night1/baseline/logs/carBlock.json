@@ -1,0 +1,517 @@
+{
+ "name": "carBlock",
+ "mode": "film",
+ "W": 1920,
+ "H": 1080,
+ "render": {
+  "devicePixelRatio": 1,
+  "pixelRatio": 1,
+  "drawingBuffer": [
+   1920,
+   1080
+  ],
+  "css": [
+   1920,
+   1080
+  ],
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Ultra, Unspecified Version)",
+  "quality": "high",
+  "maxTexUnits": 16
+ },
+ "gameSeconds": 7.3,
+ "wallSeconds": 25,
+ "marks": [
+  {
+   "t": 1,
+   "label": "parked car at [259.2,144]: W held straight at its side"
+  }
+ ],
+ "console": {
+  "warning: THREE.WebGLTextures: Trying to use 17 texture units while this GPU supports only 16": 1116
+ },
+ "log": [
+  {
+   "t": 0,
+   "pos": [
+    250,
+    1,
+    167.3
+   ],
+   "spd": 0.2,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.25,
+   "pos": [
+    250,
+    0.9,
+    167.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.5,
+   "pos": [
+    250,
+    0.9,
+    167.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.75,
+   "pos": [
+    250,
+    0.9,
+    167.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1,
+   "pos": [
+    253.2,
+    1,
+    144
+   ],
+   "spd": 0.2,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.25,
+   "pos": [
+    253.2,
+    0.9,
+    144
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.5,
+   "pos": [
+    253.2,
+    0.9,
+    144
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.75,
+   "pos": [
+    253.2,
+    0.9,
+    144
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2,
+   "pos": [
+    254.1,
+    0.9,
+    144
+   ],
+   "spd": 7.7,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.90 r1.82 k1.25",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.25,
+   "pos": [
+    256.5,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.5,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.75,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.25,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.5,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.75,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.25,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.5,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.75,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.25,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.5,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.75,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.25,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.5,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.75,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 7,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 3.7,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.39 r1.87 k1.21",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 7.25,
+   "pos": [
+    257.8,
+    0.9,
+    144
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "walk>jog@0.00 r0.81 k0.90",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  }
+ ],
+ "clip": "docs/night1/baseline/clips/carBlock.mp4",
+ "clipMB": 7.97,
+ "captureFps": "60 (frame-stepped game time, 1/60 s per frame)"
+}

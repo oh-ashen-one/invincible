@@ -1,0 +1,121 @@
+{
+  "status": "complete",
+  "ready_for_critic": true,
+  "runtime_source_commit": "21e43450",
+  "build_fingerprint_mismatches": [],
+  "expected_clips": [
+    "s1_swing_chain",
+    "s2_press_variety",
+    "s3_flip_chain",
+    "s3b_flip_cases",
+    "s4_release_float",
+    "s5_night_swing"
+  ],
+  "completed": {
+    "s3_flip_chain": {
+      "frames": 1439,
+      "cases": 1,
+      "video": "h264 1920x1080 yuv420p 60fps",
+      "mp4_bytes": 13991215,
+      "checker_complete": true,
+      "quality_fail_lines": [
+        "P1",
+        "W3",
+        "W4",
+        "W5",
+        "W7",
+        "A5",
+        "A7"
+      ],
+      "flip_checker_complete": true,
+      "build_fingerprints_match": true
+    },
+    "s3b_flip_cases": {
+      "frames": 1776,
+      "cases": 7,
+      "video": "h264 1920x1080 yuv420p 60fps",
+      "mp4_bytes": 15353930,
+      "checker_complete": true,
+      "quality_fail_lines": [
+        "W2",
+        "P1",
+        "W3",
+        "W5",
+        "W7",
+        "A2"
+      ],
+      "flip_checker_complete": true,
+      "build_fingerprints_match": true
+    },
+    "s1_swing_chain": {
+      "frames": 1199,
+      "cases": 1,
+      "video": "h264 1920x1080 yuv420p 60fps",
+      "mp4_bytes": 13166712,
+      "checker_complete": true,
+      "quality_fail_lines": [
+        "W2",
+        "P1",
+        "W4",
+        "W5",
+        "W7"
+      ],
+      "flip_checker_complete": false,
+      "build_fingerprints_match": true
+    },
+    "s4_release_float": {
+      "frames": 1199,
+      "cases": 1,
+      "video": "h264 1920x1080 yuv420p 60fps",
+      "mp4_bytes": 15112215,
+      "checker_complete": true,
+      "quality_fail_lines": [
+        "P1",
+        "W3",
+        "W4",
+        "W5"
+      ],
+      "flip_checker_complete": false,
+      "build_fingerprints_match": true
+    },
+    "s5_night_swing": {
+      "frames": 1199,
+      "cases": 1,
+      "video": "h264 1920x1080 yuv420p 60fps",
+      "mp4_bytes": 14585901,
+      "checker_complete": true,
+      "quality_fail_lines": [
+        "W2",
+        "P1",
+        "W4",
+        "W7"
+      ],
+      "flip_checker_complete": false,
+      "build_fingerprints_match": true
+    },
+    "s2_press_variety": {
+      "frames": 2031,
+      "cases": 9,
+      "video": "h264 1920x1080 yuv420p 60fps",
+      "mp4_bytes": 13484302,
+      "checker_complete": true,
+      "quality_fail_lines": [
+        "W2",
+        "P1",
+        "W3",
+        "W5",
+        "W7",
+        "W9",
+        "W10",
+        "A1",
+        "A5",
+        "A7"
+      ],
+      "flip_checker_complete": false,
+      "build_fingerprints_match": true
+    }
+  },
+  "pending": [],
+  "quality_failures_are_not_capture_failures": true,
+  "checked_utc": "2026-10-11T20:10:52.865811+00:00"
+}

@@ -1,0 +1,16 @@
+diff --git a/unreal/WebHomage/Source/WebHomage/Traversal/WebTravCharacter.cpp b/unreal/WebHomage/Source/WebHomage/Traversal/WebTravCharacter.cpp
+index f641633..e7c8789 100644
+--- a/unreal/WebHomage/Source/WebHomage/Traversal/WebTravCharacter.cpp
++++ b/unreal/WebHomage/Source/WebHomage/Traversal/WebTravCharacter.cpp
+@@ -381,7 +381,10 @@ void AWebTravCharacter::BeginPlay()
+ 	if (Script && Script->IsActive()) Traversal->SetVelocityM(Script->SpawnVelM());
+ 	Cam.Reset(Traversal->PosM(), FMath::DegreesToRadians(YawDeg));
+ 	Cam.Pitch = CamPitch;
+-	if (bHeroMesh && Script && Script->WantsTelemetry())
++	// [F perf local patch, P3 to adopt] the two 480x270 scene captures below re-render the scene every frame (the full-scene depth
++	// capture = a second Nanite/VSM/prepass pass). They only feed telemetry columns (hero mask / wall_frac / hero_occl), so they are
++	// off unless -WHTravMask is passed (C's route/anim checks pass it; perf runs do not).
++	if (bHeroMesh && Script && Script->WantsTelemetry() && FParse::Param(FCommandLine::Get(), TEXT("WHTravMask")))
+ 	{ // pixel mask of the hero for telemetry: scene depth of the hero meshes only, 480x270, from the view camera
+ 		MaskRT = NewObject<UTextureRenderTarget2D>(this, TEXT("HeroMaskRT"));
+ 		MaskRT->RenderTargetFormat = ETextureRenderTargetFormat::RTF_RGBA16f;

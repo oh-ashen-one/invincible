@@ -1,0 +1,21 @@
+[build_characters    15s] M_Char_Suit weave from pre-skinned position: connections [True, True, True, True, True, True, True, True, True, True, True]
+[build_characters    66s] skins: rim verdant hood luma 0.252 silver
+[build_characters    68s] skins: rim plum hood luma 0.180 silver
+[build_characters    73s] skins: rim cinder hood luma 0.253 silver
+[build_characters    75s] skins: rim glacier hood luma 0.670 graphite
+[build_characters    78s] skins: rim ash hood luma 0.319 silver
+[build_characters    80s] skins: rim saffron hood luma 0.217 silver
+[build_characters    82s] skins: rim sage hood luma 0.555 graphite
+[r14 05:32:47 +0s] build: clean,tex,mat,mesh,citizens,rename,fightclips,abp,map,maps5,skins,skinsmap
+[r14 05:32:47 +0s] steps: build stills lineup pawn orbit hero chase fight crowd, EV 10.0
+[r14 05:34:41 +114s] stills: 4K, internal 3840x2160, EV 10.0
+[r14 05:38:30 +343s] Char_Lineup shot 5 (7 enemies) 4K still
+[r14 05:38:51 +364s] Char_Lineup shot 6 (3/4) 4K still
+[r14 05:39:09 +382s] pawn swap movie
+[r14 05:42:01 +554s] orbit movie
+[r14 05:45:09 +742s] Char_Hero shots 1-3 movie
+[r14 05:49:46 +1019s] Char_Hero shots 6-7 movie
+[r14 05:53:02 +1215s] Char_Fight wide movie
+[r14 05:55:32 +1365s] Char_Crowd tracking movie
+[r14 05:57:47 +1500s] chain done (hold used 1500 s), crashes 0
+build_fight exit=0

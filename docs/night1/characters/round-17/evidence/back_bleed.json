@@ -1,0 +1,107 @@
+{
+ "tessera": {
+  "ok": true,
+  "torso_px": 43897,
+  "accent_px": 0,
+  "clusters_ge20": 0,
+  "largest": 0,
+  "clusters": [],
+  "torso_rows": [
+   729,
+   960
+  ],
+  "hero_px": 1360
+ },
+ "verdant": {
+  "ok": true,
+  "torso_px": 43574,
+  "accent_px": 0,
+  "clusters_ge20": 0,
+  "largest": 0,
+  "clusters": [],
+  "torso_rows": [
+   735,
+   965
+  ],
+  "hero_px": 1354
+ },
+ "plum": {
+  "ok": true,
+  "torso_px": 43964,
+  "accent_px": 0,
+  "clusters_ge20": 0,
+  "largest": 0,
+  "clusters": [],
+  "torso_rows": [
+   731,
+   962
+  ],
+  "hero_px": 1358
+ },
+ "cinder": {
+  "ok": true,
+  "torso_px": 43891,
+  "accent_px": 0,
+  "clusters_ge20": 0,
+  "largest": 0,
+  "clusters": [],
+  "torso_rows": [
+   730,
+   961
+  ],
+  "hero_px": 1359
+ },
+ "glacier": {
+  "ok": true,
+  "torso_px": 43698,
+  "accent_px": 0,
+  "clusters_ge20": 0,
+  "largest": 0,
+  "clusters": [],
+  "torso_rows": [
+   731,
+   962
+  ],
+  "hero_px": 1356
+ },
+ "ash": {
+  "ok": true,
+  "torso_px": 43849,
+  "accent_px": 0,
+  "clusters_ge20": 0,
+  "largest": 0,
+  "clusters": [],
+  "torso_rows": [
+   730,
+   961
+  ],
+  "hero_px": 1359
+ },
+ "saffron": {
+  "ok": true,
+  "torso_px": 43638,
+  "accent_px": 167,
+  "clusters_ge20": 0,
+  "largest": 0,
+  "clusters": [],
+  "torso_rows": [
+   735,
+   965
+  ],
+  "hero_px": 1354
+ },
+ "sage": {
+  "ok": true,
+  "torso_px": 43910,
+  "accent_px": 0,
+  "clusters_ge20": 0,
+  "largest": 0,
+  "clusters": [],
+  "torso_rows": [
+   731,
+   962
+  ],
+  "hero_px": 1358
+ },
+ "gate_no_cluster_ge20": true
+}

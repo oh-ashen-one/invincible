@@ -1,0 +1,1480 @@
+{
+ "name": "wallRun",
+ "mode": "film",
+ "W": 1920,
+ "H": 1080,
+ "render": {
+  "pixelRatio": 1,
+  "drawingBuffer": [
+   1920,
+   1080
+  ],
+  "css": [
+   1920,
+   1080
+  ],
+  "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Ultra, Unspecified Version)",
+  "quality": "high",
+  "maxTexUnits": 16
+ },
+ "gameSeconds": 22.18,
+ "wallSeconds": 91.1,
+ "marks": [
+  {
+   "t": 1,
+   "label": "tower facade roof 215 m, start [270.3,1,-163]"
+  },
+  {
+   "t": 1.8,
+   "label": "Shift+W into the facade"
+  },
+  {
+   "t": 5.8,
+   "label": "E: wall zip up"
+  },
+  {
+   "t": 12.9,
+   "label": "keep running up until the top-out (max 12 s)"
+  },
+  {
+   "t": 16.68,
+   "label": "left the wall (top-out / launch)"
+  },
+  {
+   "t": 19.18,
+   "label": "released: expect perch / top"
+  }
+ ],
+ "console": {
+  "warning: THREE.WebGLTextures: Trying to use 17 texture units while this GPU supports only 16": 2737
+ },
+ "log": [
+  {
+   "t": 0,
+   "pos": [
+    250,
+    1,
+    167.3
+   ],
+   "spd": 0.2,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.25,
+   "pos": [
+    250,
+    0.9,
+    167.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.5,
+   "pos": [
+    250,
+    0.9,
+    167.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 0.75,
+   "pos": [
+    250,
+    0.9,
+    167.3
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1,
+   "pos": [
+    270.3,
+    1,
+    -163
+   ],
+   "spd": 0.2,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.25,
+   "pos": [
+    270.3,
+    0.9,
+    -163
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.5,
+   "pos": [
+    270.3,
+    0.9,
+    -163
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 1.75,
+   "pos": [
+    270.3,
+    0.9,
+    -163
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2,
+   "pos": [
+    270.3,
+    0.9,
+    -163.8
+   ],
+   "spd": 6.4,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "jog>run@0.46 r1.86 k1.21",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.25,
+   "pos": [
+    270.5,
+    1.1,
+    -165.7
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.5,
+   "pos": [
+    270.7,
+    1.1,
+    -168.1
+   ],
+   "spd": 9.8,
+   "mode": "ground",
+   "sub": "run",
+   "trick": null,
+   "node": "ground",
+   "clip": "run>sprint@0.14 r1.97 k1.34",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 2.75,
+   "pos": [
+    270.7,
+    3.8,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3,
+   "pos": [
+    270.7,
+    7.1,
+    -168.3
+   ],
+   "spd": 11.2,
+   "mode": "air",
+   "sub": "jumpLaunch",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.25,
+   "pos": [
+    270.7,
+    9.1,
+    -168.3
+   ],
+   "spd": 5.2,
+   "mode": "air",
+   "sub": "rise",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.5,
+   "pos": [
+    270.7,
+    9.8,
+    -168.3
+   ],
+   "spd": 1.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 3.75,
+   "pos": [
+    270.8,
+    9.7,
+    -168.3
+   ],
+   "spd": 2.2,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4,
+   "pos": [
+    270.8,
+    12.8,
+    -168.3
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.25,
+   "pos": [
+    270.8,
+    16.3,
+    -168.3
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.5,
+   "pos": [
+    270.8,
+    19.8,
+    -168.3
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 4.75,
+   "pos": [
+    270.8,
+    23.3,
+    -168.3
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5,
+   "pos": [
+    270.8,
+    26.8,
+    -168.3
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.25,
+   "pos": [
+    270.8,
+    30.3,
+    -168.3
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.5,
+   "pos": [
+    270.8,
+    33.8,
+    -168.3
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 5.75,
+   "pos": [
+    270.8,
+    37.3,
+    -168.3
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6,
+   "pos": [
+    270.8,
+    47.4,
+    -168.3
+   ],
+   "spd": 42,
+   "mode": "wall",
+   "sub": "wallZip",
+   "trick": null,
+   "node": "zip",
+   "clip": "webZipPull",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.25,
+   "pos": [
+    270.8,
+    56.6,
+    -168.3
+   ],
+   "spd": 31.4,
+   "mode": "wall",
+   "sub": "wallZip",
+   "trick": null,
+   "node": "zip",
+   "clip": "webZipPull",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.5,
+   "pos": [
+    270.8,
+    63,
+    -168.3
+   ],
+   "spd": 20.5,
+   "mode": "wall",
+   "sub": "wallZip",
+   "trick": null,
+   "node": "zip",
+   "clip": "webZipPull",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 6.75,
+   "pos": [
+    270.8,
+    67.3,
+    -168.3
+   ],
+   "spd": 15.3,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 7,
+   "pos": [
+    270.8,
+    71,
+    -168.2
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 7.25,
+   "pos": [
+    270.8,
+    73.8,
+    -168.4
+   ],
+   "spd": 8.5,
+   "mode": "air",
+   "sub": "rise",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 7.5,
+   "pos": [
+    271.1,
+    75.1,
+    -168.6
+   ],
+   "spd": 3.1,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 7.75,
+   "pos": [
+    271.3,
+    75.4,
+    -168.6
+   ],
+   "spd": 0.5,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 8,
+   "pos": [
+    271.3,
+    76.8,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 8.25,
+   "pos": [
+    271.3,
+    80.3,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 8.5,
+   "pos": [
+    271.3,
+    83.8,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 8.75,
+   "pos": [
+    271.3,
+    87.3,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 9,
+   "pos": [
+    271.3,
+    90.8,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 9.25,
+   "pos": [
+    271.3,
+    94.3,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 9.5,
+   "pos": [
+    271.3,
+    97.8,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 9.75,
+   "pos": [
+    271.3,
+    101.3,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 10,
+   "pos": [
+    271.3,
+    109.5,
+    -168.6
+   ],
+   "spd": 44,
+   "mode": "wall",
+   "sub": "wallZip",
+   "trick": null,
+   "node": "zip",
+   "clip": "webZipPull",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 10.25,
+   "pos": [
+    271.3,
+    119.4,
+    -168.6
+   ],
+   "spd": 34.5,
+   "mode": "wall",
+   "sub": "wallZip",
+   "trick": null,
+   "node": "zip",
+   "clip": "webZipPull",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 10.5,
+   "pos": [
+    271.3,
+    126.5,
+    -168.6
+   ],
+   "spd": 23.1,
+   "mode": "wall",
+   "sub": "wallZip",
+   "trick": null,
+   "node": "zip",
+   "clip": "webZipPull",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 10.75,
+   "pos": [
+    271.3,
+    131.3,
+    -168.6
+   ],
+   "spd": 16.2,
+   "mode": "wall",
+   "sub": "wallZip",
+   "trick": null,
+   "node": "zip",
+   "clip": "webZipPull",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 11,
+   "pos": [
+    271.3,
+    135,
+    -168.6
+   ],
+   "spd": 14.2,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 11.25,
+   "pos": [
+    271.3,
+    138.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 11.5,
+   "pos": [
+    271.3,
+    142,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 11.75,
+   "pos": [
+    271.3,
+    145.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 12,
+   "pos": [
+    271.3,
+    149,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 12.25,
+   "pos": [
+    271.3,
+    152.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 12.5,
+   "pos": [
+    271.3,
+    156,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 12.75,
+   "pos": [
+    271.3,
+    159.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 13,
+   "pos": [
+    271.3,
+    163,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 13.25,
+   "pos": [
+    271.3,
+    166.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 13.5,
+   "pos": [
+    271.3,
+    170,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 13.75,
+   "pos": [
+    271.3,
+    173.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 14,
+   "pos": [
+    271.3,
+    177,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 14.25,
+   "pos": [
+    271.3,
+    180.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 14.5,
+   "pos": [
+    271.3,
+    184,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 14.75,
+   "pos": [
+    271.3,
+    187.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 15,
+   "pos": [
+    271.3,
+    191,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 15.25,
+   "pos": [
+    271.3,
+    194.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 15.5,
+   "pos": [
+    271.3,
+    198,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 15.75,
+   "pos": [
+    271.3,
+    201.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 16,
+   "pos": [
+    271.3,
+    205,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 16.25,
+   "pos": [
+    271.3,
+    208.5,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 16.5,
+   "pos": [
+    271.3,
+    212,
+    -168.6
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 16.75,
+   "pos": [
+    271.3,
+    215.4,
+    -168.1
+   ],
+   "spd": 12,
+   "mode": "air",
+   "sub": "jumpLaunch",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 17,
+   "pos": [
+    271.3,
+    217.7,
+    -168.3
+   ],
+   "spd": 6.4,
+   "mode": "air",
+   "sub": "rise",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 17.25,
+   "pos": [
+    271.3,
+    218.5,
+    -169.4
+   ],
+   "spd": 6.5,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 17.5,
+   "pos": [
+    271.3,
+    218.5,
+    -171.4
+   ],
+   "spd": 9.2,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 17.75,
+   "pos": [
+    271.3,
+    221,
+    -171.5
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 18,
+   "pos": [
+    271.3,
+    224.5,
+    -171.5
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 18.25,
+   "pos": [
+    271.3,
+    228,
+    -171.5
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 18.5,
+   "pos": [
+    271.3,
+    231.5,
+    -171.5
+   ],
+   "spd": 14,
+   "mode": "wall",
+   "sub": "wallRun",
+   "trick": null,
+   "node": "wallRun",
+   "clip": "run@wall(vertical)",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 18.75,
+   "pos": [
+    271.3,
+    234.8,
+    -171.1
+   ],
+   "spd": 11.2,
+   "mode": "air",
+   "sub": "jumpLaunch",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 19,
+   "pos": [
+    271.3,
+    236.9,
+    -171.3
+   ],
+   "spd": 6,
+   "mode": "air",
+   "sub": "rise",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 19.25,
+   "pos": [
+    271.3,
+    237.6,
+    -172.5
+   ],
+   "spd": 5.7,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "jumpLaunch",
+   "clip": "jumpLaunchHigh",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 19.5,
+   "pos": [
+    271.3,
+    237.4,
+    -173.9
+   ],
+   "spd": 2.2,
+   "mode": "air",
+   "sub": "apex",
+   "trick": null,
+   "node": "air",
+   "clip": "airApex",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 19.75,
+   "pos": [
+    271.2,
+    236.3,
+    -173.9
+   ],
+   "spd": 7.1,
+   "mode": "air",
+   "sub": "fall",
+   "trick": null,
+   "node": "air",
+   "clip": "fallCalm",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 20,
+   "pos": [
+    271.1,
+    234.9,
+    -173.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "landLight",
+   "trick": null,
+   "node": "land",
+   "clip": "landLight",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 20.25,
+   "pos": [
+    271.1,
+    234.9,
+    -173.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 20.5,
+   "pos": [
+    271.1,
+    234.9,
+    -173.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 20.75,
+   "pos": [
+    271.1,
+    234.9,
+    -173.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 21,
+   "pos": [
+    271.1,
+    234.9,
+    -173.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 21.25,
+   "pos": [
+    271.1,
+    234.9,
+    -173.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 21.5,
+   "pos": [
+    271.1,
+    234.9,
+    -173.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 21.75,
+   "pos": [
+    271.1,
+    234.9,
+    -173.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  },
+  {
+   "t": 22,
+   "pos": [
+    271.1,
+    234.9,
+    -173.9
+   ],
+   "spd": 0,
+   "mode": "ground",
+   "sub": "idle",
+   "trick": null,
+   "node": "ground",
+   "clip": "idle",
+   "cmb": "free hp100 c0 ",
+   "suit": "advanced"
+  }
+ ],
+ "clip": "docs/night1/baseline/clips/wallRun.mp4",
+ "clipMB": 12.53,
+ "captureFps": "60 (frame-stepped game time, 1/60 s per frame)"
+}

@@ -1,0 +1,7 @@
+# Round 25 gates (r25_checks.py)
+== /Users/midir/sm2-n1/traversal/docs/night1/traversal/round-25
+  c_wallrun_perch G1 8.6-10.5 s (113 rows): hero_in_frame 113/113, cam-hero 4.14-6.00 m (3.4-7), max pitch change in 0.3 s 14.3 deg at 8.68 s (<= 15), occl max 0.000 (rendered), perch yaw hold rows 47 -> PASS
+  c_wallrun_perch G1b 7.7-8.5 s (49 rows): hero_in_frame 49/49, occl max 0.000, cam-hero min 3.83 m, yaw -83.9 -> -83.9, max backtrack 0.0 deg -> PASS
+  p1_pawn_run P1 1.5-11 s (571 rows): speed 9.80-9.80 m/s (median 9.80), subs {'run': 571}, anim clips {'run': 571}, y 230.4 -> 137.3, in frame 571/571
+# pawn run cadence (cadence_r25.py, head-top FFT over 1.5-11 s)
+{"clip": "p1_pawn_run.mp4", "t0": 1.5, "t1": 11.0, "fps": 60.0, "frames": 571, "head_top_fft_hz": 3.549, "head_low_per_s": 3.66, "head_bob_sd_px": 4.8, "mask_top_fft_hz": 3.549, "mask_low_per_s": 3.66, "target": "3.2-3.8 Hz", "ok": true, "speed_median": 9.8, "anim_clips": {"run": 571}}

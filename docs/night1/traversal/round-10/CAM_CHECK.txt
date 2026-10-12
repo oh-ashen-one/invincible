@@ -1,0 +1,50 @@
+# Camera / framing check, round 10 (cam_check.py, model-based)
+# Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation.
+# lit /Game/Maps/Manhattan (golden), 1080p60 captures
+
+a_swing_chain: 935 frames
+  hero bbox height fraction  min 0.095  max 0.475   frames > 0.30: 73 (0.00-0.43s, 1.42-1.75s, 6.03-6.17s, 8.58-8.65s, 12.18-12.35s)
+  hero bbox width fraction   min 0.059  max 0.259
+  hero centre Y (0 top..1)   min 0.283  max 0.667
+  hero fully in frame        935/935 frames; out: none
+  camera-hero distance m     min 3.47  max 4.94   frames < 2 m: 0 (none)
+  camera pitch (deg down)    min -10.0  max 22.0   swing/air frames: -10.0..22.0
+  camera height over hero m  min -1.50  max 1.80
+  camera in geometry         0 frames (none)
+  swing 1 t0  0.40s  hero centre-Y 0.40..0.55  travel 14.4% <20%
+  swing 2 t0  4.53s  hero centre-Y 0.40..0.53  travel 12.8% <20%
+  swing 3 t0  6.77s  hero centre-Y 0.40..0.67  travel 26.9% ok
+  swing 4 t0 10.60s  hero centre-Y 0.40..0.50  travel 10.0% <20%
+  swing 5 t0 12.97s  hero centre-Y 0.41..0.58  travel 17.2% <20%
+b_release_trick_dive_zip: 419 frames
+  hero bbox height fraction  min 0.090  max 0.489   frames > 0.30: 19 (0.00-0.07s, 2.25-2.47s)
+  hero bbox width fraction   min 0.044  max 0.260
+  hero centre Y (0 top..1)   min 0.255  max 0.744
+  hero fully in frame        419/419 frames; out: none
+  camera-hero distance m     min 3.46  max 7.46   frames < 2 m: 0 (none)
+  camera pitch (deg down)    min -10.0  max 34.9   swing/air frames: -10.0..21.8
+  camera height over hero m  min -1.50  max 4.60
+  camera in geometry         0 frames (none)
+  swing 1 t0  0.00s  hero centre-Y 0.32..0.58  travel 26.2% ok
+c_wallrun_perch: 629 frames
+  hero bbox height fraction  min 0.108  max 0.616   frames > 0.30: 296 (0.00-0.08s, 1.02-1.27s, 1.78-2.58s, 2.72-3.02s, 3.05-3.35s, 3.47-4.07s, 5.32-5.35s, 5.38-5.62s, 5.65-6.17s, 6.20-7.85s)
+  hero bbox width fraction   min 0.035  max 0.249
+  hero centre Y (0 top..1)   min 0.353  max 0.905
+  hero fully in frame        608/629 frames; out: 7.83-7.85s, 9.55-9.85s
+  camera-hero distance m     min 2.66  max 7.72   frames < 2 m: 0 (none)
+  camera pitch (deg down)    min -56.1  max 41.3   swing/air frames: -56.1..41.3
+  camera height over hero m  min -2.20  max 5.80
+  camera in geometry         0 frames (none)
+  swing 1 t0  0.00s  hero centre-Y 0.39..0.59  travel 19.9% <20%
+d_sprint_jump_first_swing: 719 frames
+  hero bbox height fraction  min 0.097  max 0.542   frames > 0.30: 193 (0.00-0.50s, 0.55-0.78s, 0.82-1.05s, 1.10-1.33s, 1.37-1.60s, 1.65-1.88s, 2.40-3.18s, 4.10-4.17s, 4.65-4.73s, 7.62-8.07s)
+  hero bbox width fraction   min 0.059  max 0.235
+  hero centre Y (0 top..1)   min 0.309  max 0.667
+  hero fully in frame        719/719 frames; out: none
+  camera-hero distance m     min 3.86  max 4.88   frames < 2 m: 0 (none)
+  camera pitch (deg down)    min -10.0  max 22.0   swing/air frames: -10.0..22.0
+  camera height over hero m  min -1.50  max 1.64
+  camera in geometry         0 frames (none)
+  swing 1 t0  2.68s  hero centre-Y 0.48..0.67  travel 18.9% <20%
+  swing 2 t0  6.48s  hero centre-Y 0.39..0.47  travel  7.9% <20%
+  swing 3 t0  8.67s  hero centre-Y 0.34..0.62  travel 28.8% ok

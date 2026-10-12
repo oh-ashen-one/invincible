@@ -1,0 +1,55 @@
+refl1/perf60
+  S1_glass    ssim 0.5951 (full 0.6858)  psnr 14.83  warm 0.83 -> 0.05 %  meanY 91.6 -> 117.8
+  S2_windows  ssim 0.9667 (full 0.9671)  psnr 24.37  warm 4.77 -> 2.02 %  meanY 88.6 -> 83.5
+  S2_gold     ssim 0.7663 (full 0.8200)  psnr 21.62  warm 41.64 -> 25.31 %  meanY 80.8 -> 70.8
+  PASS (all crops >= 0.97): False
+refl1/hyb
+  S1_glass    ssim 0.9582 (full 0.9567)  psnr 34.27  warm 0.83 -> 0.84 %  meanY 91.6 -> 90.0
+  S2_windows  ssim 0.9917 (full 0.9885)  psnr 35.78  warm 4.77 -> 4.66 %  meanY 88.6 -> 85.7
+  S2_gold     ssim 0.9670 (full 0.9705)  psnr 32.23  warm 41.64 -> 37.76 %  meanY 80.8 -> 79.0
+  PASS (all crops >= 0.97): False
+refl1/hybrt
+  S1_glass    ssim 0.9604 (full 0.9585)  psnr 34.70  warm 0.83 -> 0.82 %  meanY 91.6 -> 90.3
+  S2_windows  ssim 0.9907 (full 0.9868)  psnr 36.07  warm 4.77 -> 4.60 %  meanY 88.6 -> 86.1
+  S2_gold     ssim 0.9658 (full 0.9695)  psnr 32.26  warm 41.64 -> 37.46 %  meanY 80.8 -> 79.2
+  PASS (all crops >= 0.97): False
+refl1/hybrt2
+  S1_glass    ssim 0.9609 (full 0.9584)  psnr 34.84  warm 0.83 -> 0.81 %  meanY 91.6 -> 90.4
+  S2_windows  ssim 0.9908 (full 0.9871)  psnr 35.80  warm 4.77 -> 4.56 %  meanY 88.6 -> 86.0
+  S2_gold     ssim 0.9630 (full 0.9676)  psnr 31.86  warm 41.64 -> 37.53 %  meanY 80.8 -> 79.3
+  PASS (all crops >= 0.97): False
+refl1/hybrt3
+  S1_glass    ssim 0.9615 (full 0.9596)  psnr 34.88  warm 0.83 -> 0.85 %  meanY 91.6 -> 90.9
+  S2_windows  ssim 0.9902 (full 0.9868)  psnr 35.62  warm 4.77 -> 4.56 %  meanY 88.6 -> 86.0
+  S2_gold     ssim 0.9059 (full 0.9287)  psnr 27.20  warm 41.64 -> 37.51 %  meanY 80.8 -> 79.2
+  PASS (all crops >= 0.97): False
+refl1/hybrt_ff0
+  S2_windows  ssim 0.9908 (full 0.9871)  psnr 36.17  warm 4.77 -> 4.61 %  meanY 88.6 -> 86.2
+  S2_gold     ssim 0.9665 (full 0.9702)  psnr 32.09  warm 41.64 -> 37.13 %  meanY 80.8 -> 79.0
+  PASS (all crops >= 0.97): False
+refl1/hybrt_ds2
+  S1_glass    ssim 0.9388 (full 0.9385)  psnr 30.57  warm 0.83 -> 0.50 %  meanY 91.6 -> 89.7
+  S2_windows  ssim 0.9758 (full 0.9766)  psnr 26.89  warm 4.77 -> 2.23 %  meanY 88.6 -> 85.0
+  S2_gold     ssim 0.9567 (full 0.9589)  psnr 32.08  warm 41.64 -> 37.35 %  meanY 80.8 -> 79.5
+  PASS (all crops >= 0.97): False
+refl1/hybrt_r25
+  S2_windows  ssim 0.9905 (full 0.9867)  psnr 35.76  warm 4.77 -> 4.53 %  meanY 88.6 -> 86.2
+  S2_gold     ssim 0.9503 (full 0.9484)  psnr 31.46  warm 41.64 -> 37.24 %  meanY 80.8 -> 79.5
+  PASS (all crops >= 0.97): False
+refl1/t1_bias100
+  S2_windows  ssim 0.9697 (full 0.9707)  psnr 24.35  warm 4.77 -> 2.17 %  meanY 88.6 -> 83.8
+  S2_gold     ssim 0.7618 (full 0.8173)  psnr 21.56  warm 41.64 -> 25.16 %  meanY 80.8 -> 70.8
+  PASS (all crops >= 0.97): False
+refl1/t2_refl_nomesh
+  S1_glass    ssim 0.5940 (full 0.6850)  psnr 14.82  warm 0.83 -> 0.06 %  meanY 91.6 -> 117.7
+  S2_windows  ssim 0.9664 (full 0.9667)  psnr 24.27  warm 4.77 -> 2.02 %  meanY 88.6 -> 83.5
+  S2_gold     ssim 0.7657 (full 0.8194)  psnr 21.59  warm 41.64 -> 25.20 %  meanY 80.8 -> 70.9
+  PASS (all crops >= 0.97): False
+refl1/t3_nomesh
+  S2_windows  ssim 0.9675 (full 0.9689)  psnr 24.37  warm 4.77 -> 2.02 %  meanY 88.6 -> 83.5
+  S2_gold     ssim 0.7641 (full 0.8183)  psnr 21.46  warm 41.64 -> 24.69 %  meanY 80.8 -> 70.6
+  PASS (all crops >= 0.97): False
+refl1/t5_scenecolor
+  S2_windows  ssim 0.9665 (full 0.9674)  psnr 24.23  warm 4.77 -> 2.00 %  meanY 88.6 -> 83.3
+  S2_gold     ssim 0.7610 (full 0.8161)  psnr 21.54  warm 41.64 -> 25.40 %  meanY 80.8 -> 71.0
+  PASS (all crops >= 0.97): False

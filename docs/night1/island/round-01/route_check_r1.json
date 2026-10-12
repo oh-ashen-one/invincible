@@ -1,0 +1,53 @@
+{
+ "summary": {
+  "routes": 1,
+  "seconds": 30.4,
+  "fall_through": 0,
+  "stuck": 0,
+  "mid_air_frames": 0,
+  "wall_air_frames": 0,
+  "anchors": 42,
+  "web_air": 0,
+  "facadeLod_min_dist_m": 289.2,
+  "boxes": 56816,
+  "facadeLod_tiles": 86
+ },
+ "routes": [
+  {
+   "csv": "r1_north_avenue_telemetry.csv",
+   "frames": 1823,
+   "seconds": 30.37,
+   "path_m": 1350.8,
+   "modes": {
+    "ground": 132,
+    "air": 842,
+    "swing": 849
+   },
+   "supported_frames": 132,
+   "fall_through": 0,
+   "stuck": 0,
+   "mid_air_frames": 0,
+   "wall_air_frames": 0,
+   "anchors": 42,
+   "web_air": 0,
+   "facadeLod_min_dist_m": 289.2,
+   "events": {
+    "fall_through": [],
+    "stuck": [],
+    "mid_air": [],
+    "wall_air": [],
+    "web_air": []
+   },
+   "start": [
+    250.0,
+    243.992,
+    0.95
+   ],
+   "end": [
+    262.819,
+    -985.671,
+    27.561
+   ]
+  }
+ ]
+}

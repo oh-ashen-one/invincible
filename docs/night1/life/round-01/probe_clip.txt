@@ -1,0 +1,16 @@
+WH_LIFE_OCC blocked at 46.0 of 99.6 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 71.7 of 98.6 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 34.0 of 101.3 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 27.6 of 100.9 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 30.0 of 98.6 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_OCC blocked at 37.9 of 96.9 m by StaticMeshActor_71 / StaticMeshComponent0
+WH_LIFE_FRAME t=8.0 res=1920x1080 fov=68 cam=(242.8,176.8,1.8)m | vehicles unoccluded >=22px: moving=6 (taxi 3) parked=5 (taxi 2) total=11 | >=44px: moving=4 parked=2 (taxi 1) total=6 | people unoccluded >=28px: 9 (models 9, identical looks in frame 0) | >=56px: 5 (models 5) | projected only (no size / occlusion test): vehicles moving=351 parked=660 people=76
+WH_LIFE_TRAFFIC [life] moving 653 (stopped 314) parked 1197 (taxis 140) sim 0.06 ms push 0.07 ms clock 95.8
+WH_LIFE_CROWD [crowd] walkers 1458 live 250 waiting 66 models 60 sim+apply 0.38 ms
+WH_LIFE_FOOT watching 14 walkers
+WH_LIFE_FRAME t=14.0 res=1920x1080 fov=68 cam=(242.8,162.4,1.8)m | vehicles unoccluded >=22px: moving=4 (taxi 1) parked=5 (taxi 2) total=9 | >=44px: moving=3 parked=3 (taxi 2) total=6 | people unoccluded >=28px: 10 (models 10, identical looks in frame 0) | >=56px: 4 (models 4) | projected only (no size / occlusion test): vehicles moving=307 parked=570 people=81
+WH_LIFE_TRAFFIC [life] moving 664 (stopped 372) parked 1197 (taxis 140) sim 0.00 ms push 0.08 ms clock 101.8
+WH_LIFE_CROWD [crowd] walkers 1458 live 263 waiting 68 models 60 sim+apply 0.14 ms
+WH_LIFE_FRAME t=20.0 res=1920x1080 fov=68 cam=(242.8,196.0,1.9)m | vehicles unoccluded >=22px: moving=3 (taxi 1) parked=6 (taxi 2) total=9 | >=44px: moving=1 parked=1 (taxi 0) total=2 | people unoccluded >=28px: 12 (models 12, identical looks in frame 0) | >=56px: 2 (models 2) | projected only (no size / occlusion test): vehicles moving=371 parked=693 people=109
+WH_LIFE_TRAFFIC [life] moving 664 (stopped 328) parked 1197 (taxis 140) sim 0.00 ms push 0.08 ms clock 107.8
+WH_LIFE_CROWD [crowd] walkers 1458 live 273 waiting 6 models 60 sim+apply 0.15 ms

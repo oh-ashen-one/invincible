@@ -1,0 +1,16 @@
+S1_avenue_street_1920x1080         mean|dY| 0.278  >8 levels 0.069 %  mean Y 78.1 -> 78.1
+S1_avenue_street_3840x2160         mean|dY| 0.331  >8 levels 0.065 %  mean Y 76.2 -> 76.3
+S2_avenue_swing_1920x1080          mean|dY| 0.253  >8 levels 0.048 %  mean Y 84.2 -> 84.2
+S2_avenue_swing_3840x2160          mean|dY| 0.254  >8 levels 0.028 %  mean Y 82.8 -> 82.8
+S3_rooftop_watertower_1920x1080    mean|dY| 0.182  >8 levels 0.009 %  mean Y 60.2 -> 60.2
+S3_rooftop_watertower_3840x2160    mean|dY| 0.184  >8 levels 0.012 %  mean Y 59.4 -> 59.4
+S4_perch_skyline_1920x1080         mean|dY| 0.337  >8 levels 0.057 %  mean Y 128.3 -> 128.2
+S4_perch_skyline_3840x2160         mean|dY| 0.361  >8 levels 0.029 %  mean Y 127.4 -> 127.4
+S5_timessq_south_1920x1080         mean|dY| 0.302  >8 levels 0.148 %  mean Y 82.8 -> 82.8
+S5_timessq_south_3840x2160         mean|dY| 0.312  >8 levels 0.059 %  mean Y 81.2 -> 81.2
+S6_timessq_street_1920x1080        mean|dY| 0.311  >8 levels 0.086 %  mean Y 85.2 -> 85.2
+S6_timessq_street_3840x2160        mean|dY| 0.373  >8 levels 0.083 %  mean Y 81.2 -> 81.3
+S7_sunset_crosstown_1920x1080      mean|dY| 0.202  >8 levels 0.044 %  mean Y 64.0 -> 64.0
+S7_sunset_crosstown_3840x2160      mean|dY| 0.208  >8 levels 0.038 %  mean Y 64.8 -> 64.8
+S8_aerial_midtown_1920x1080        mean|dY| 0.278  >8 levels 0.021 %  mean Y 87.8 -> 87.8
+S8_aerial_midtown_3840x2160        mean|dY| 0.297  >8 levels 0.039 %  mean Y 84.8 -> 84.8

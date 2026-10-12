@@ -1,0 +1,20 @@
+{
+  "case": "s3_c7_back_left",
+  "time_range_s": [
+    0.4,
+    0.9
+  ],
+  "a": {
+    "source": "docs/night1/final/swing/round-13-four-fixes-camera2-probe/s3b_flip_cases_telemetry.csv",
+    "sha256": "f99b3093fe50142fd97336c5e2684c39745c348e9074e3c8a426fa69420080e1",
+    "entry_s": 0.15,
+    "build_label": "ae8f"
+  },
+  "b": {
+    "source": "docs/night1/final/swing/round-13-four-fixes-entry-arm3-probe/s3b_flip_cases_telemetry.csv",
+    "sha256": "8eca539363a440d6cefbcc7756f00e1b1060849a7dea0da6acac3458734fd8cd",
+    "entry_s": 0.25,
+    "build_label": "4c8b"
+  },
+  "method": "Paired same-input final world-axis samples under different correction weights. Great-circle extrapolation approximates the small-circle orbit under residual sway; this is a candidate forecast, not rendered acceptance."
+}

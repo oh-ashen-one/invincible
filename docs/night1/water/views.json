@@ -1,0 +1,101 @@
+{
+ "_comment": "Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation. Capture views of the river-water A/B (UE cm, X east, Y south, Z up; yaw 0 = +X, -90 = north).",
+ "S4_perch_skyline": {
+  "id": "S4_perch_skyline",
+  "source": "unreal/WebHomage/Scripts/city_shots.json (same camera as /Game/Maps/Manhattan_View_S4)",
+  "browser_pos": [
+   182,
+   306,
+   -92
+  ],
+  "browser_target": [
+   -120,
+   150,
+   -470
+  ],
+  "ue_cm": [
+   18200.0,
+   -9200.0,
+   30600.0
+  ],
+  "yaw": -128.623,
+  "pitch": -17.871,
+  "hfov": 75,
+  "rig": "golden"
+ },
+ "river_low": {
+  "id": "river_low",
+  "desc": "low river view: Hudson waterfront nearest the Midtown block, 6 m above the water, looking north along the river",
+  "derivation": "x = -768.0 m: 4.8 m outboard of the built west seawall edge x = -763.2 m (westmost coast_m_1_1 vertex above y = 0 within 3 m of z = -128 in the city export; layout.js shoreX(-128)[0] = -744.16 m is the landward promenade line, waterfront.js builds the seawall 19 m further out); z = -128 m = centre latitude of the exported detailed block (region z -512..256 m); y = G.WATER_Y + 6 m = 4.4 m; yaw = along the shoreline tangent (shoreX(-228) - shoreX(-128) = +3.0 m per 100 m north) = atan2(-100, 3) deg in UE; pitch -3 deg; hFOV 90",
+  "browser_pos": [
+   -768.0,
+   4.4,
+   -128.0
+  ],
+  "ue_cm": [
+   -76800.0,
+   -12800.0,
+   440.0
+  ],
+  "yaw": -88.282,
+  "pitch": -3.0,
+  "hfov": 90.0,
+  "rig": "golden"
+ },
+ "river_low_dolly": {
+  "id": "river_low_dolly",
+  "of": "river_low",
+  "pre_m": 12.0,
+  "post_m": 20.0,
+  "duration_s": 16.0,
+  "speed_mps": 2.0,
+  "note": "InterpToMovement from river_low - 12 m to river_low + 20 m along the view yaw in 16 s (2 m/s); the camera is at river_low at t = 6 s; the clip is t = 6..16 s of a -benchmark -fps=60 -dumpmovie run (first 6 s = warm-up, trimmed)"
+ },
+ "river_sun": {
+  "id": "river_sun",
+  "desc": "round 02: low view across the Hudson INTO the golden-hour sun (glitter path), 19 m west of a pier head, 6 m above the water",
+  "derivation": "pier head = west-most water-line crossing of the pier at browser z -80..-40 m is x = -941 m (contact map, tools/water/water_inputs.py); camera x = -960 m, z = -60 m (pier centre line), y = G.WATER_Y + 6 m = 4.4 m; golden sun = look_presets golden elev 9 deg, compass az 238 deg = UE yaw 148 deg (UE: X east, Y south); camera yaw 160 deg puts the sun 12 deg left of centre so the glitter path crosses the lower-left (the critic's near-water crop); pitch -4; hFOV 90",
+  "browser_pos": [
+   -960.0,
+   4.4,
+   -60.0
+  ],
+  "ue_cm": [
+   -96000.0,
+   -6000.0,
+   440.0
+  ],
+  "yaw": 160.0,
+  "pitch": -4.0,
+  "hfov": 90.0,
+  "rig": "golden"
+ },
+ "river_sun_dolly": {
+  "id": "river_sun_dolly",
+  "of": "river_sun",
+  "pre_m": 12.0,
+  "post_m": 20.0,
+  "duration_s": 16.0,
+  "speed_mps": 2.0,
+  "note": "InterpToMovement from river_sun - 12 m to river_sun + 20 m along the view yaw (toward the sun) in 16 s; clip = t 6..16 s"
+ },
+ "harbour_high": {
+  "id": "harbour_high",
+  "desc": "round 02 coverage view: 260 m above the harbour, 1.2 km south of the island's southern tip, looking north up the island (both rivers + harbour)",
+  "derivation": "southern tip = south-most coast_m crossing z = 3489 m near x = 0 (contact map); camera browser (0, 260, 4700); yaw -90 (north), pitch -14, hFOV 75",
+  "browser_pos": [
+   0.0,
+   260.0,
+   4700.0
+  ],
+  "ue_cm": [
+   0.0,
+   470000.0,
+   26000.0
+  ],
+  "yaw": -90.0,
+  "pitch": -14.0,
+  "hfov": 75.0,
+  "rig": "golden"
+ }
+}

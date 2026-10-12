@@ -1,0 +1,48 @@
+{
+ "csv": "/Users/midir/sm2-n1/_scratch/island/r04/sim_extra/r5_m2_avenue_alt0/r5_m2_avenue_alt0_telemetry.csv",
+ "route_check": "/Users/midir/sm2-n1/_scratch/island/r04/sim_extra/r5_alt0_check_route_check.json",
+ "t_end": 30.0,
+ "unanswered_release_at_s": 30.167,
+ "pass_no_unanswered_release": true,
+ "n_gaps": 20,
+ "max_reweb_gap_s": 0.3,
+ "pass_max_gap_le_1_5": true,
+ "frac_gaps_le_0_5": 1.0,
+ "web_air_drawn": 0,
+ "pass_anchors_on_drawn": true,
+ "distinct_swing_anchors": 26,
+ "ground_land_frames_after_1s": 0,
+ "first_ground_land_t": null,
+ "pass_no_ground_after_1s": true,
+ "path_m": 1481.6,
+ "end": [
+  -2.018,
+  2285.451,
+  19.612
+ ],
+ "facadeLod_min_dist_m": null,
+ "pass_gaps_60pct_le_0_5": true,
+ "pass_all": true,
+ "fall_through": 0,
+ "stuck": 0,
+ "mid_air_drawn_frames": 0,
+ "wall_air_drawn_frames": 0,
+ "feet_overlap_frames": 0,
+ "feet_overlap_by_kind": {},
+ "feet_point_inside_frames": 0,
+ "r02_overlap_frames": null,
+ "pass_overlap_le_r02": null,
+ "pass_no_fall_stuck_midair_wallair": true,
+ "modes": {
+  "air": 468,
+  "swing": 1355
+ },
+ "start": [
+  0.0,
+  1010.4,
+  44.997
+ ],
+ "road_band": [],
+ "pass_road_band_all": false,
+ "pass_all_m2": false
+}

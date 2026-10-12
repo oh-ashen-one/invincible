@@ -1,0 +1,57 @@
+{
+ "name": "t2_d",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   -245,
+   -60,
+   44
+  ],
+  "yaw": 0,
+  "camPitch": 0.12,
+  "vel": [
+   16,
+   0,
+   7
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "move": [
+    0,
+    1
+   ],
+   "heading": 0,
+   "sprint": true
+  },
+  {
+   "t": 0.6,
+   "heading": false
+  },
+  {
+   "t": 2.9,
+   "move": [
+    1,
+    0
+   ],
+   "sprint": true
+  },
+  {
+   "t": 4.0,
+   "zip": true
+  },
+  {
+   "t": 4.1,
+   "zip": false
+  },
+  {
+   "t": 4.2,
+   "move": [
+    0,
+    0
+   ],
+   "sprint": false
+  }
+ ]
+}
