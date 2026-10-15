@@ -1,0 +1,1 @@
+{ "name": "invincible-hero-viewer", "private": true, "description": "Local rig viewer for the Invincible-homage hero (three.js, served by python http.server)", "dependencies": { "three": "0.186.0" } }

@@ -6,5 +6,60 @@
  "meshNode": "d77763ae-2da5-45b3-865c-3363a3e90a0c",
  "meshUrl": "https://public.customuse.com/uploader/files/b10202b1-933d-4464-a68e-6d9774685bf5/cfe1e98a-59f3-4a5f-842a-08fdc5a97c54.glb",
  "rigNode": "82e6dc44-f421-4aad-9b0d-452d3a6bd441",
- "rigUrl": "https://public.customuse.com/uploader/files/bcbc82d6-eb18-48e5-82a7-b8eaef5f8f0d/daf83c0a-0fca-49c1-8efa-68cf73d6b104.glb"
+ "rigUrl": "https://public.customuse.com/uploader/files/bcbc82d6-eb18-48e5-82a7-b8eaef5f8f0d/daf83c0a-0fca-49c1-8efa-68cf73d6b104.glb",
+ "mvNode": "e3ede7ca-1c58-43fe-b13f-ec9c334db859",
+ "mvChildren": [
+  {
+   "id": "020023be-6d67-4c6e-8d59-4137271b3007",
+   "type": "multiviewResult",
+   "url": "https://public.customuse.com/uploader/files/b59dbb32-8233-41d3-be35-5cc26a097fbe/4df6a72f-c6b5-4128-908e-be844387df84.png",
+   "label": null,
+   "view": "{\"generationStatus\": \"complete\", \"viewKey\": \"front\", \"viewLabel\": \"Front View\", \"pose\": \"Object\", \"modelId\": \"openai/gpt-image-2/edit\", \"generationRunId\": \"5ea8518b-7ecb-40fd-b18c-bab36ebcfd51\", \"mediaType\": \"image\", \"mediaArtifactModelId\": \"openai/gpt-image-2/edit\"}"
+  },
+  {
+   "id": "141c609d-33b7-4ec5-8a17-f318ab5bbc96",
+   "type": "multiviewResult",
+   "url": "https://public.customuse.com/uploader/files/de7cc68f-ede5-4617-a37c-9aacde5202ac/f7243833-9b8c-44d0-a45c-e76cc54a4f25.png",
+   "label": null,
+   "view": "{\"generationStatus\": \"complete\", \"viewKey\": \"left\", \"viewLabel\": \"Left-Facing View\", \"pose\": \"Object\", \"modelId\": \"openai/gpt-image-2/edit\", \"generationRunId\": \"5ea8518b-7ecb-40fd-b18c-bab36ebcfd51\", \"mediaType\": \"image\", \"mediaArtifactModelId\": \"openai/gpt-image-2/edit\"}"
+  },
+  {
+   "id": "b7e23ec6-3d8e-43b2-9453-268564f77f47",
+   "type": "multiviewResult",
+   "url": "https://public.customuse.com/uploader/files/dab06e09-0166-47ab-a768-4f5a621fbfce/d2946159-54bf-4289-8b31-94d9fe735383.png",
+   "label": null,
+   "view": "{\"generationStatus\": \"complete\", \"viewKey\": \"right\", \"viewLabel\": \"Right-Facing View\", \"pose\": \"Object\", \"modelId\": \"openai/gpt-image-2/edit\", \"generationRunId\": \"5ea8518b-7ecb-40fd-b18c-bab36ebcfd51\", \"mediaType\": \"image\", \"mediaArtifactModelId\": \"openai/gpt-image-2/edit\"}"
+  },
+  {
+   "id": "e5c8cbae-249a-4b6d-b3cd-c4d3b429a73c",
+   "type": "multiviewResult",
+   "url": "https://public.customuse.com/uploader/files/6cf7493b-0fb2-48f8-95b8-da324eb68b04/47437fca-e4cf-4a52-ab4a-416a0ddcde0f.png",
+   "label": null,
+   "view": "{\"generationStatus\": \"complete\", \"viewKey\": \"back\", \"viewLabel\": \"Back View\", \"pose\": \"Object\", \"modelId\": \"openai/gpt-image-2/edit\", \"generationRunId\": \"5ea8518b-7ecb-40fd-b18c-bab36ebcfd51\", \"mediaType\": \"image\", \"mediaArtifactModelId\": \"openai/gpt-image-2/edit\"}"
+  }
+ ],
+ "v2": {
+  "hi3d": {
+   "node": "edd33be2-3b5a-410e-917c-c3c887f56bf3",
+   "url": "https://public.customuse.com/uploader/files/0cea2800-f595-44a4-a128-09f0654378c0/988282ba-0380-4ac8-85cb-c1a948968404.glb"
+  },
+  "tripoP2": {
+   "node": "bbed9994-2827-4a44-98ae-69c27d3e09d5",
+   "url": "https://public.customuse.com/uploader/files/da09441b-4b66-4f22-aac8-e7a07d52a812/9d1af775-c6bd-4f0d-8af8-ba36913c4ceb.glb"
+  },
+  "meshy7": {
+   "node": "ec55fdd7-0503-403b-a4fa-ac409a1a76fe",
+   "url": "https://public.customuse.com/uploader/files/2b4f355d-2efa-4c08-951e-252d90d041a3/57fa1041-e871-4abb-8574-a93f6afbe120.glb"
+  },
+  "hunyuan": {
+   "node": "30653fa6-ab64-46ba-8504-55c67e73f2e6",
+   "url": "https://public.customuse.com/uploader/files/47fc848a-6826-4b58-8a6d-031b99b7bf4e/30162830-e4a7-4564-b15e-7be8b8b77fda.glb"
+  },
+  "hunyuanTex": {
+   "node": "f50214f5-d6c5-4c66-9a3a-a12f21b2a39e",
+   "url": "https://public.customuse.com/uploader/files/3953cd38-26a9-4b9a-be5a-ae17c6c68dae/85527db4-a780-4d6e-a6d3-bf0c66c421d2.glb"
+  }
+ },
+ "v2rigNode": "9afba2bf-97fa-49d8-b71a-f713a5e8eb05",
+ "v2rigUrl": "https://public.customuse.com/uploader/files/74f04e9a-384f-4b1c-933a-4bf0491c137d/f48a2df3-7566-47ee-bf34-8d277aacb4e1.glb"
 }

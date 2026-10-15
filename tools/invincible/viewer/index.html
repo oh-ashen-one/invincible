@@ -1,0 +1,172 @@
+<!doctype html>
+<!-- Homage fan game tooling. Not an official Marvel, Sony, Image Comics or Skybound project; no affiliation. See DISCLAIMER.md. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Invincible hero — rig viewer</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #1d2026; color: #e8e8e8; font: 13px/1.4 -apple-system, system-ui, sans-serif; overflow: hidden; }
+  #view { position: absolute; inset: 0; }
+  #panel { position: absolute; top: 12px; left: 12px; width: 300px; max-height: calc(100% - 24px); overflow: auto; background: rgba(20,22,27,.92);
+           border: 1px solid #333a45; border-radius: 8px; padding: 12px; box-sizing: border-box; }
+  h1 { font-size: 15px; margin: 0 0 6px; } h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #9aa4b2; margin: 14px 0 6px; }
+  .row { display: flex; align-items: center; gap: 8px; margin: 4px 0; } label { cursor: pointer; }
+  #stats div { color: #c7cdd6; } #bones { max-height: 220px; overflow: auto; border: 1px solid #2c323c; border-radius: 4px; }
+  .bone { padding: 2px 6px; cursor: pointer; white-space: nowrap; } .bone:hover { background: #2a303a; } .bone.sel { background: #3b5bdb; color: #fff; }
+  input[type=range] { flex: 1; } .val { width: 38px; text-align: right; color: #9aa4b2; }
+  button { background: #2c323c; color: #e8e8e8; border: 1px solid #3c4450; border-radius: 4px; padding: 4px 8px; cursor: pointer; }
+  button:hover { background: #3a414d; }
+  #concept { position: absolute; right: 12px; bottom: 12px; width: 220px; border: 1px solid #333a45; border-radius: 6px; background: #fff; }
+  #conceptLbl { position: absolute; right: 12px; bottom: calc(12px + 293px + 4px); color: #9aa4b2; font-size: 11px; }
+  .lbl { position: absolute; font-size: 10px; color: #ffd43b; text-shadow: 0 0 3px #000, 0 0 3px #000; pointer-events: none; white-space: nowrap; transform: translate(6px, -50%); }
+  #msg { position: absolute; top: 12px; right: 12px; background: rgba(20,22,27,.9); border: 1px solid #333a45; border-radius: 6px; padding: 6px 10px; color: #9aa4b2; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "./node_modules/three/build/three.module.js", "three/addons/": "./node_modules/three/examples/jsm/" } }
+</script>
+</head>
+<body>
+<div id="view"></div>
+<div id="panel">
+  <h1>Invincible hero — CustomUse rig</h1>
+  <div class="row"><select id="model" style="flex:1;background:#2c323c;color:#e8e8e8;border:1px solid #3c4450;border-radius:4px;padding:3px"></select></div>
+  <div id="stats">loading…</div>
+  <h2>Display</h2>
+  <div class="row"><label><input type="checkbox" id="skel" checked> Skeleton (bones)</label></div>
+  <div class="row"><label><input type="checkbox" id="joints" checked> Joint dots</label></div>
+  <div class="row"><label><input type="checkbox" id="labels"> Bone names</label></div>
+  <div class="row"><label><input type="checkbox" id="xray"> X-ray body</label></div>
+  <div class="row"><label><input type="checkbox" id="wire"> Wireframe</label></div>
+  <div class="row"><label><input type="checkbox" id="spin"> Turntable</label></div>
+  <h2>Pose a bone (click a bone or a joint dot)</h2>
+  <div id="selName" style="color:#ffd43b">none selected</div>
+  <div class="row">X <input type="range" id="rx" min="-180" max="180" value="0"><span class="val" id="vx">0</span></div>
+  <div class="row">Y <input type="range" id="ry" min="-180" max="180" value="0"><span class="val" id="vy">0</span></div>
+  <div class="row">Z <input type="range" id="rz" min="-180" max="180" value="0"><span class="val" id="vz">0</span></div>
+  <div class="row"><button id="resetBone">Reset bone</button><button id="resetAll">Reset all</button><button id="demo">Test pose</button></div>
+  <h2>Bones</h2>
+  <div id="bones"></div>
+</div>
+<div id="msg">drag = orbit · right-drag = pan · wheel = zoom</div>
+<div id="conceptLbl">CustomUse concept sheet</div>
+<img id="concept" src="../../../docs/invincible/character/customuse/concept.png" alt="concept">
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const C = '../../../docs/invincible/character/customuse/';
+const MODELS = [
+  ['v2 FINAL — Hunyuan sculpt + 4K texture, rigged', C + 'v2/rigged_hunyuanTex.glb'],
+  ['v1 — Tripo v3.1 single image, rigged', C + 'rigged.glb'],
+  ['v2 candidate — Hunyuan sculpt + 4K texture (unrigged)', C + 'v2/hunyuanTex.glb'],
+  ['v2 candidate — Hi3D V3 (unrigged)', C + 'v2/hi3d.glb'],
+  ['v2 candidate — Meshy 7 (unrigged)', C + 'v2/meshy7.glb'],
+  ['v2 candidate — Tripo P2 quad (unrigged)', C + 'v2/tripoP2.glb'],
+  ['v2 candidate — Hunyuan 3.1 raw geometry', C + 'v2/hunyuan.glb'],
+];
+const GLB = new URLSearchParams(location.search).get('glb') || MODELS[0][1];
+{ const sel = document.getElementById('model');
+  MODELS.forEach(([label, url]) => { const o = document.createElement('option'); o.value = url; o.textContent = label; if (url === GLB) o.selected = true; sel.appendChild(o); });
+  sel.onchange = () => { location.search = '?glb=' + encodeURIComponent(sel.value); }; }
+const view = document.getElementById('view');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(devicePixelRatio); renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping;
+view.appendChild(renderer.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x2a2e36);
+const camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.01, 1000);
+const controls = new OrbitControls(camera, renderer.domElement); controls.enableDamping = true;
+scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x3a3326, 1.4));
+const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(2, 4, 3); scene.add(sun);
+const rim = new THREE.DirectionalLight(0x9fb8ff, 1.0); rim.position.set(-3, 2, -3); scene.add(rim);
+
+let skelHelper, skinned = [], bones = [], selected = null, jointDots = [], labels = [], rest = new Map(), root;
+const dotMat = new THREE.MeshBasicMaterial({ color: 0xffd43b, depthTest: false, transparent: true });
+const selMat = new THREE.MeshBasicMaterial({ color: 0xff6b6b, depthTest: false, transparent: true });
+
+new GLTFLoader().load(GLB, (g) => {
+  root = g.scene; scene.add(root);
+  root.traverse((o) => {
+    if (o.isMesh && /icosphere/i.test(o.name)) o.visible = false;
+    if (o.isSkinnedMesh) skinned.push(o);
+    if (o.isBone) bones.push(o);
+  });
+  // normalise to a 1.8 m hero standing on the grid (the GLB arrives at arbitrary scale)
+  const box = new THREE.Box3().setFromObject(root); const h = box.max.y - box.min.y;
+  const s = 1.8 / h; root.scale.multiplyScalar(s); root.updateMatrixWorld(true);
+  const b2 = new THREE.Box3().setFromObject(root); root.position.y -= b2.min.y; root.position.x -= (b2.min.x + b2.max.x) / 2; root.position.z -= (b2.min.z + b2.max.z) / 2;
+  root.updateMatrixWorld(true);
+  const grid = new THREE.GridHelper(4, 16, 0x556070, 0x3a414d); scene.add(grid);
+  camera.position.set(0, 1.1, 4.2); controls.target.set(0, 0.95, 0); controls.update();
+  skelHelper = new THREE.SkeletonHelper(root); skelHelper.material.depthTest = false; skelHelper.material.linewidth = 2; skelHelper.renderOrder = 10; scene.add(skelHelper);
+  const dotGeo = new THREE.SphereGeometry(0.012, 10, 8);
+  const list = document.getElementById('bones');
+  bones.forEach((b) => {
+    rest.set(b, b.quaternion.clone());
+    const d = new THREE.Mesh(dotGeo, dotMat); d.renderOrder = 11; d.userData.bone = b; scene.add(d); jointDots.push(d);
+    const l = document.createElement('div'); l.className = 'lbl'; l.textContent = b.name; l.style.display = 'none'; document.body.appendChild(l); labels.push(l);
+    const e = document.createElement('div'); e.className = 'bone'; e.textContent = b.name; e.onclick = () => select(b); b.userData.el = e; list.appendChild(e);
+  });
+  let verts = 0, mats = new Set(); skinned.forEach((m) => { verts += m.geometry.attributes.position.count; [].concat(m.material).forEach((x) => mats.add(x)); });
+  document.getElementById('stats').innerHTML =
+    `<div>Bones: <b>${bones.length}</b> (skeleton from CustomUse auto-rig, Cartwheel biped)</div>` +
+    `<div>Skinned meshes: <b>${skinned.length}</b> · vertices: <b>${verts.toLocaleString()}</b></div>` +
+    `<div>Materials: <b>${mats.size}</b> · shown at 1.80 m</div>`;
+}, undefined, (e) => { document.getElementById('stats').textContent = 'failed to load ' + GLB + ': ' + e; });
+
+function select(b) {
+  if (selected) { selected.userData.el.classList.remove('sel'); }
+  selected = b; b.userData.el.classList.add('sel'); b.userData.el.scrollIntoView({ block: 'nearest' });
+  document.getElementById('selName').textContent = b.name;
+  const e = new THREE.Euler().setFromQuaternion(rest.get(b).clone().invert().multiply(b.quaternion));
+  ['x', 'y', 'z'].forEach((k) => { const v = Math.round(THREE.MathUtils.radToDeg(e[k])); document.getElementById('r' + k).value = v; document.getElementById('v' + k).textContent = v; });
+  jointDots.forEach((d) => (d.material = d.userData.bone === b ? selMat : dotMat));
+}
+function applySliders() {
+  if (!selected) return;
+  const v = ['x', 'y', 'z'].map((k) => +document.getElementById('r' + k).value);
+  ['x', 'y', 'z'].forEach((k, i) => (document.getElementById('v' + k).textContent = v[i]));
+  const q = new THREE.Quaternion().setFromEuler(new THREE.Euler(...v.map(THREE.MathUtils.degToRad)));
+  selected.quaternion.copy(rest.get(selected)).multiply(q);
+}
+['rx', 'ry', 'rz'].forEach((id) => document.getElementById(id).addEventListener('input', applySliders));
+document.getElementById('resetBone').onclick = () => { if (selected) { selected.quaternion.copy(rest.get(selected)); select(selected); } };
+document.getElementById('resetAll').onclick = () => { bones.forEach((b) => b.quaternion.copy(rest.get(b))); if (selected) select(selected); };
+document.getElementById('demo').onclick = () => {   // a quick flying-hero test pose: one fist forward, other arm back, legs together and slightly bent
+  const set = (n, x, y, z) => { const b = bones.find((bb) => bb.name === n); if (b) b.quaternion.copy(rest.get(b)).multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(...[x, y, z].map(THREE.MathUtils.degToRad)))); };
+  bones.forEach((b) => b.quaternion.copy(rest.get(b)));
+  set('right_shoulder', -80, 0, 40); set('right_elbow', 0, 0, 0); set('left_shoulder', 30, 0, -10); set('left_elbow', 0, -40, 0);
+  set('left_knee', 25, 0, 0); set('right_knee', 15, 0, 0); set('spine2', 10, 0, 0); set('head', -20, 0, 0);
+  if (selected) select(selected);
+};
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+renderer.domElement.addEventListener('dblclick', (ev) => {
+  mouse.set((ev.clientX / innerWidth) * 2 - 1, -(ev.clientY / innerHeight) * 2 + 1); ray.setFromCamera(mouse, camera);
+  const hit = ray.intersectObjects(jointDots.filter((d) => d.visible))[0]; if (hit) select(hit.object.userData.bone);
+});
+renderer.domElement.addEventListener('click', (ev) => {
+  mouse.set((ev.clientX / innerWidth) * 2 - 1, -(ev.clientY / innerHeight) * 2 + 1); ray.setFromCamera(mouse, camera);
+  const hit = ray.intersectObjects(jointDots.filter((d) => d.visible))[0]; if (hit) select(hit.object.userData.bone);
+});
+const chk = (id) => document.getElementById(id).checked;
+document.getElementById('xray').onchange = document.getElementById('wire').onchange = () => skinned.forEach((m) => [].concat(m.material).forEach((mt) => {
+  mt.transparent = chk('xray'); mt.opacity = chk('xray') ? 0.35 : 1; mt.depthWrite = !chk('xray'); mt.wireframe = chk('wire'); mt.needsUpdate = true; }));
+addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+const tmp = new THREE.Vector3();
+renderer.setAnimationLoop(() => {
+  if (root && chk('spin')) root.rotation.y += 0.006;
+  controls.update();
+  if (skelHelper) skelHelper.visible = chk('skel');
+  jointDots.forEach((d, i) => { d.userData.bone.getWorldPosition(tmp); d.position.copy(tmp); d.visible = chk('joints'); });
+  renderer.render(scene, camera);
+  const showL = chk('labels');
+  labels.forEach((l, i) => {
+    if (!showL) { l.style.display = 'none'; return; }
+    bones[i].getWorldPosition(tmp); tmp.project(camera);
+    l.style.display = tmp.z < 1 ? 'block' : 'none'; l.style.left = ((tmp.x + 1) / 2 * innerWidth) + 'px'; l.style.top = ((1 - tmp.y) / 2 * innerHeight) + 'px';
+  });
+});
+</script>
+</body>
+</html>
