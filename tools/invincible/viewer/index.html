@@ -38,6 +38,15 @@
   <div class="row"><label><input type="checkbox" id="xray"> X-ray body</label></div>
   <div class="row"><label><input type="checkbox" id="wire"> Wireframe</label></div>
   <div class="row"><label><input type="checkbox" id="spin"> Turntable</label></div>
+  <div id="animBox" style="display:none">
+    <h2>Animations</h2>
+    <div class="row"><select id="clip" style="flex:1;background:#2c323c;color:#e8e8e8;border:1px solid #3c4450;border-radius:4px;padding:3px"></select></div>
+    <div class="row"><button id="play">Pause</button><button id="prev">◀</button><button id="next">▶</button>
+      <label><input type="checkbox" id="loop" checked> loop</label></div>
+    <div class="row">speed <input type="range" id="speed" min="0.05" max="2" step="0.05" value="1"><span class="val" id="vspeed">1.0</span></div>
+    <div class="row">time <input type="range" id="scrub" min="0" max="1" step="0.001" value="0"><span class="val" id="vtime">0.00</span></div>
+    <div class="row"><label><input type="checkbox" id="inplace"> keep in place (no root travel)</label></div>
+  </div>
   <h2>Pose a bone (click a bone or a joint dot)</h2>
   <div id="selName" style="color:#ffd43b">none selected</div>
   <div class="row">X <input type="range" id="rx" min="-180" max="180" value="0"><span class="val" id="vx">0</span></div>
@@ -57,7 +66,10 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const C = '../../../docs/invincible/character/customuse/';
 const MODELS = [
+  ['v2 + 20 Meshy clips retargeted onto OUR rig', '../../../docs/invincible/character/meshy/hero_meshy_clips.glb'],
   ['v2 FINAL — Hunyuan sculpt + 4K texture, rigged', C + 'v2/rigged_hunyuanTex.glb'],
+  ['Meshy source clips 1 (Meshy 24-bone rig, for comparison)', '../../../docs/invincible/character/meshy/meshy_anims_01.glb'],
+  ['Meshy source clips 2 (Meshy 24-bone rig, for comparison)', '../../../docs/invincible/character/meshy/meshy_anims_02.glb'],
   ['v1 — Tripo v3.1 single image, rigged', C + 'rigged.glb'],
   ['v2 candidate — Hunyuan sculpt + 4K texture (unrigged)', C + 'v2/hunyuanTex.glb'],
   ['v2 candidate — Hi3D V3 (unrigged)', C + 'v2/hi3d.glb'],
@@ -108,6 +120,7 @@ new GLTFLoader().load(GLB, (g) => {
     const l = document.createElement('div'); l.className = 'lbl'; l.textContent = b.name; l.style.display = 'none'; document.body.appendChild(l); labels.push(l);
     const e = document.createElement('div'); e.className = 'bone'; e.textContent = b.name; e.onclick = () => select(b); b.userData.el = e; list.appendChild(e);
   });
+  if (g.animations.length) setupAnims(g.animations);
   let verts = 0, mats = new Set(); skinned.forEach((m) => { verts += m.geometry.attributes.position.count; [].concat(m.material).forEach((x) => mats.add(x)); });
   document.getElementById('stats').innerHTML =
     `<div>Bones: <b>${bones.length}</b> (skeleton from CustomUse auto-rig, Cartwheel biped)</div>` +
@@ -115,6 +128,30 @@ new GLTFLoader().load(GLB, (g) => {
     `<div>Materials: <b>${mats.size}</b> · shown at 1.80 m</div>`;
 }, undefined, (e) => { document.getElementById('stats').textContent = 'failed to load ' + GLB + ': ' + e; });
 
+let mixer = null, action = null, clips = [], playing = true, pelvisRest = null, rootBone = null;
+function setupAnims(list) {
+  clips = list.slice().sort((a, b) => a.name.localeCompare(b.name));
+  mixer = new THREE.AnimationMixer(root);
+  rootBone = bones.find((b) => /^(pelvis|hips)$/i.test(b.name)) || bones[0]; pelvisRest = rootBone.position.clone();
+  document.getElementById('animBox').style.display = '';
+  const sel = document.getElementById('clip');
+  clips.forEach((c, i) => { const o = document.createElement('option'); o.value = i; o.textContent = `${c.name.replace(/^HERO_/, '')}  (${c.duration.toFixed(2)} s)`; sel.appendChild(o); });
+  sel.onchange = () => playClip(+sel.value);
+  document.getElementById('play').onclick = () => { playing = !playing; document.getElementById('play').textContent = playing ? 'Pause' : 'Play'; };
+  document.getElementById('prev').onclick = () => { sel.value = (+sel.value - 1 + clips.length) % clips.length; playClip(+sel.value); };
+  document.getElementById('next').onclick = () => { sel.value = (+sel.value + 1) % clips.length; playClip(+sel.value); };
+  document.getElementById('speed').oninput = (e) => (document.getElementById('vspeed').textContent = (+e.target.value).toFixed(2));
+  document.getElementById('scrub').oninput = (e) => { if (action) { playing = false; document.getElementById('play').textContent = 'Play'; action.time = +e.target.value * action.getClip().duration; mixer.update(0); } };
+  document.getElementById('loop').onchange = () => { if (action) action.setLoop(document.getElementById('loop').checked ? THREE.LoopRepeat : THREE.LoopOnce); };
+  playClip(0);
+}
+function playClip(i) {
+  if (action) action.stop();
+  bones.forEach((b) => b.quaternion.copy(rest.get(b)));
+  action = mixer.clipAction(clips[i]); action.reset();
+  action.setLoop(document.getElementById('loop').checked ? THREE.LoopRepeat : THREE.LoopOnce); action.clampWhenFinished = true; action.play();
+  playing = true; document.getElementById('play').textContent = 'Pause';
+}
 function select(b) {
   if (selected) { selected.userData.el.classList.remove('sel'); }
   selected = b; b.userData.el.classList.add('sel'); b.userData.el.scrollIntoView({ block: 'nearest' });
@@ -154,8 +191,15 @@ document.getElementById('xray').onchange = document.getElementById('wire').oncha
   mt.transparent = chk('xray'); mt.opacity = chk('xray') ? 0.35 : 1; mt.depthWrite = !chk('xray'); mt.wireframe = chk('wire'); mt.needsUpdate = true; }));
 addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
 const tmp = new THREE.Vector3();
+const clock = new THREE.Clock();
 renderer.setAnimationLoop(() => {
   if (root && chk('spin')) root.rotation.y += 0.006;
+  if (mixer) {
+    const dt = clock.getDelta();
+    if (playing) mixer.update(dt * +document.getElementById('speed').value);
+    if (action) { const d = action.getClip().duration; document.getElementById('scrub').value = (action.time % d) / d; document.getElementById('vtime').textContent = action.time.toFixed(2); }
+    if (rootBone && chk('inplace')) { rootBone.position.x = pelvisRest.x; rootBone.position.z = pelvisRest.z; }
+  }
   controls.update();
   if (skelHelper) skelHelper.visible = chk('skel');
   jointDots.forEach((d, i) => { d.userData.bone.getWorldPosition(tmp); d.position.copy(tmp); d.visible = chk('joints'); });
