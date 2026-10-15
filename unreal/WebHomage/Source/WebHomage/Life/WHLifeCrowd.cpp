@@ -2,6 +2,8 @@
 #include "Life/WHLifeCrowd.h"
 #include "Look/WHNightK.h"
 #include "Life/WHLifeTraffic.h"
+#include "Flight/WHFlightWorld.h"
+#include "Flight/WHCrowdBrain.h"
 #include "Characters/WHCharAnimInstance.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/SceneComponent.h"
@@ -388,6 +390,86 @@ void AWHLifeCrowd::StepWalker(FWalker& W, float Dt)
 	}
 }
 
+// Invincible flight (owner request 2026-10-15): pedestrians flee impacts and look up at flyovers. The decision is the crowd brain's
+// (WHCrowdBrain::Get(): the rules brain unless another is registered); this only feeds it and plays its answer. Zero cost while the
+// legacy web-swing hero plays (no flight mode) or nothing is happening (no live stimuli): reacting walkers simply finish their reaction.
+void AWHLifeCrowd::UpdateReactions(float Dt)
+{
+	UWHFlightWorldSubsystem* FW = GetWorld() ? GetWorld()->GetSubsystem<UWHFlightWorldSubsystem>() : nullptr;
+	if (!FW || !FW->bFlightMode) return;
+	const float Now = float(GetWorld()->GetTimeSeconds());
+	const TArray<FWHCrowdStimulus>& Stim = FW->ActiveStimuli(Now);
+	if (Stim.Num() == 0) return;
+	FWHCrowdHeroView Hero;
+	Hero.PosCm = FW->HeroPosCm; Hero.VelCm = FW->HeroVelCm; Hero.bFlying = FW->bHeroFlying; Hero.bValid = FW->bHeroValid;
+	const IWHCrowdBrain& Brain = WHCrowdBrain::Get();
+	// only walkers inside some stimulus radius ask (live walkers every think, the rest too -- a fleeing crowd off screen still empties the street)
+	float MaxR = 0.f; for (const FWHCrowdStimulus& S : Stim) MaxR = FMath::Max(MaxR, S.RadiusCm);
+	int32 Budget = 400;   // decisions per frame (bounded; each is a loop over <= 64 stimuli)
+	NumReacting = 0;
+	for (FWalker& W : Walkers)
+	{
+		if (W.React != 0) ++NumReacting;
+		if (W.Edge < 0 || Now < W.NextThink || Budget <= 0) continue;
+		const FVector P(W.Pos.X * 100.f, W.Pos.Y * 100.f, SidewalkZ);
+		bool bNear = false;
+		for (const FWHCrowdStimulus& S : Stim) { if (FVector2D::DistSquared(FVector2D(P), FVector2D(S.PosCm)) <= S.RadiusCm * S.RadiusCm) { bNear = true; break; } }
+		if (!bNear) { W.NextThink = Now + 0.25f + 0.25f * Ff(W.Rng); continue; }
+		--Budget;
+		FWHCrowdAgentView A;
+		A.PosCm = P;
+		const FEdge& E = Edges[W.Edge];
+		A.WalkDir = E.U * float(W.Dir);
+		A.Current = EWHCrowdAction(FMath::Min<uint8>(W.React, 4));
+		A.ActionT = W.ReactT;
+		A.Seed = W.Rng ^ 0x9E3779B9u;
+		FWHCrowdDecision D;
+		Brain.Decide(A, TArrayView<const FWHCrowdStimulus>(Stim.GetData(), Stim.Num()), Hero, Now, D);
+		const uint8 NewReact = uint8(D.Action);
+		if (NewReact != W.React) W.ReactT = 0.f;
+		W.React = NewReact;
+		W.ReactHold = D.Hold;
+		W.NextThink = Now + FMath::Max(0.2f, D.Hold);
+		W.FleeDir = D.FleeDir;
+		W.ReactSpeed = W.Base * D.SpeedMul;
+		W.LookAtM = FVector2D(D.LookAtCm.X, D.LookAtCm.Y) * 0.01f;
+	}
+}
+
+void AWHLifeCrowd::StepReaction(FWalker& W, float Dt)
+{
+	W.ReactT += Dt;
+	const float Now = GetWorld() ? float(GetWorld()->GetTimeSeconds()) : 0.f;
+	if (W.ReactT > W.ReactHold + 0.5f && Now >= W.NextThink) { W.React = 0; W.ReactT = 0.f; return; } // nothing renewed it: back to walking (the graph step steers back onto the line)
+	if (W.React == uint8(EWHCrowdAction::Flee) && !W.FleeDir.IsNearlyZero())
+	{
+		const float Des = FMath::Atan2(W.FleeDir.Y, W.FleeDir.X);
+		W.Heading = WrapPi(W.Heading + FMath::Clamp(WrapPi(Des - W.Heading), -9.f * Dt, 9.f * Dt));
+		W.Speed = FMath::FInterpConstantTo(W.Speed, W.ReactSpeed, Dt, 6.f);
+		W.Pos += FVector2D(FMath::Cos(W.Heading), FMath::Sin(W.Heading)) * (W.Speed * Dt);
+		if (W.Edge >= 0)
+		{ // stay on the sidewalk: the along-edge progress follows, the edge is changed only by the graph step once the reaction ends
+			const FEdge& E = Edges[W.Edge];
+			const FVector2D Dv = E.U * float(W.Dir);
+			W.S = FMath::Clamp(FVector2D::DotProduct(W.Pos - LinePos(E, W.Dir, 0.f), Dv), 0.f, E.Len);
+		}
+		W.State = 0;
+		return;
+	}
+	// LookUp / Cower / Gawk: stop and turn to the target
+	W.Speed = FMath::FInterpConstantTo(W.Speed, 0.f, Dt, 4.f);
+	W.Pos += FVector2D(FMath::Cos(W.Heading), FMath::Sin(W.Heading)) * (W.Speed * Dt);
+	if (W.React != uint8(EWHCrowdAction::Cower))
+	{
+		const FVector2D To = W.LookAtM - W.Pos;
+		if (To.SizeSquared() > 0.25f)
+		{
+			const float Des = FMath::Atan2(To.Y, To.X);
+			W.Heading = WrapPi(W.Heading + FMath::Clamp(WrapPi(Des - W.Heading), -5.f * Dt, 5.f * Dt));
+		}
+	}
+}
+
 void AWHLifeCrowd::Assign(int32 WI, int32 Slot)
 {
 	FWalker& W = Walkers[WI]; USkeletalMeshComponent* C = Pool[Slot];
@@ -589,8 +671,10 @@ void AWHLifeCrowd::Tick(float Dt)
 	for (int32 I = 0; I < Walkers.Num(); ++I)   // live walkers every tick; the rest (no mesh) a quarter of the ticks with 4 x Dt: the 190 m population costs a fraction of its size
 	{
 		FWalker& W = Walkers[I];
-		if (W.Comp >= 0) StepWalker(W, Dt); else if (((I + TickCount) & 3) == 0) StepWalker(W, Dt * 4.f);
+		if (W.React != 0) StepReaction(W, Dt);   // Invincible flight: reacting walkers leave the graph step until the reaction ends
+		else if (W.Comp >= 0) StepWalker(W, Dt); else if (((I + TickCount) & 3) == 0) StepWalker(W, Dt * 4.f);
 	}
+	UpdateReactions(Dt);
 	RefreshT += Dt;
 	if (RefreshT > 0.25f) { RefreshT = 0.f; RefreshLive(CameraLocation()); UpdateAvoidance(); }
 	for (FWalker& W : Walkers) if (W.Comp >= 0) Apply(W);

@@ -36,6 +36,10 @@ namespace WHLife
 		float Tint = 1.f;
 		uint8 Shade = 0; float ShadeT = 0.f;      // 1 = the sun is blocked at this walker (fill light on), next sun-visibility test time (game s)
 		float LatAdj = 0.f, AdjTarget = 0.f;      // sidestep around walkers ahead (metres, right-hand positive); AdjTarget from UpdateAvoidance, LatAdj follows it
+		// Invincible flight (2026-10-15): reaction to the hero (IWHCrowdBrain decision; 0 Walk, 1 LookUp, 2 Flee, 3 Cower, 4 Gawk)
+		uint8 React = 0;
+		float ReactT = 0.f, ReactHold = 0.f, ReactSpeed = 0.f, NextThink = 0.f;
+		FVector2D FleeDir = FVector2D::ZeroVector, LookAtM = FVector2D::ZeroVector;
 	};
 }
 
@@ -172,6 +176,10 @@ private:
 	void PickNextEdge(WHLife::FWalker& W);
 	FVector2D LinePos(const FEdge& E, int8 Dir, float S) const { return Dir > 0 ? Pts[E.A] + E.U * S : Pts[E.B] - E.U * S; }
 	void StepWalker(WHLife::FWalker& W, float Dt);
+	/** Invincible flight (2026-10-15): live walkers ask the crowd brain (Flight/WHCrowdBrain.h) how to react to the hero's stimuli; only runs in flight mode with stimuli active. */
+	void UpdateReactions(float Dt);
+	void StepReaction(WHLife::FWalker& W, float Dt);
+	int32 NumReacting = 0;
 	void EnterEdge(WHLife::FWalker& W, int32 Edge, int32 FromNode, bool bKeepPos);
 	bool MayCross(const FEdge& E, float Speed) const;
 	/** No car body is on / next to the crosswalk edge right now (cached 0.25 s per edge): people wait for the crosswalk to clear as well as for the walk signal. */
