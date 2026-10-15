@@ -28,6 +28,8 @@ for src_path in SRCS:
     new = [o for o in bpy.data.objects if o not in before]
     src = next(o for o in new if o.type == 'ARMATURE')
     acts = [a for a in bpy.data.actions if a.name not in done and not a.name.startswith('HERO_')]
+    if len(acts) == 1:   # single-clip files (text-to-motion takes): name the clip after the file so takes never collide
+        import os; acts[0].name = os.path.splitext(os.path.basename(src_path))[0]
     # rest world matrices
     def rest_w(arm, n): return arm.matrix_world @ arm.data.bones[n].matrix_local
     s_hip_h = (src.matrix_world @ src.data.bones['Hips'].head_local).z

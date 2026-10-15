@@ -66,6 +66,19 @@ def main():
         if t.get('status') == 'SUCCEEDED':
             urllib.request.urlretrieve(t['result']['rigged_character_glb_url'], OUT / 'meshy_rigged.glb'); print('rigged ->', OUT / 'meshy_rigged.glb')
         else: print(json.dumps(t.get('task_error')))
+    elif a.step == 'motion':   # text-to-motion (prime, 10 credits) then apply it to the rigged hero (animation task); arg = JSON {"name":..,"prompt":..,"duration":..}
+        spec = json.loads(a.arg)
+        mid = req('POST', '/text-to-motion', {'prompt': spec['prompt'], 'mode': 'prime', 'duration': spec['duration']})['result']
+        m = wait('text-to-motion', mid)
+        rec = {'name': spec['name'], 'prompt': spec['prompt'], 'motion_task': mid, 'motion_status': m.get('status'), 'motion_credits': m.get('consumed_credits')}
+        if m.get('status') == 'SUCCEEDED':
+            tid = req('POST', '/animations', {'rig_task_id': s['rig_task'], 'motion_task_id': mid})['result']
+            t = wait('animations', tid)
+            rec.update(anim_task=tid, anim_status=t.get('status'), anim_credits=t.get('consumed_credits'), error=t.get('task_error'))
+            if t.get('status') == 'SUCCEEDED':
+                dst = OUT / ('motion_%s.glb' % spec['name']); urllib.request.urlretrieve(t['result']['animation_glb_url'], dst); rec['file'] = dst.name
+                print('motion ->', dst, dst.stat().st_size)
+        s.setdefault('motions', []).append(rec); save(s); print(json.dumps(rec)[:400])
     elif a.step == 'animate':
         ids = [int(x) for x in a.arg.split(',')]
         tid = req('POST', '/animations', {'rig_task_id': s['rig_task'], 'action_ids': ids, 'post_process': {'operation_type': 'change_fps', 'fps': 30}})['result']
