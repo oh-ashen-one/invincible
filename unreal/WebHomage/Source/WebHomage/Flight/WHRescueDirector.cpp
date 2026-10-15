@@ -826,7 +826,7 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 	{
 		// carried under the hero; interact (after a beat) or 10 s sets it down gently on the ground below
 		E.CarryT += Dt;
-		const FVector Want = Hero - FVector(0, 0, 250.0);
+		const FVector Want = Hero - FVector(0, 0, 170.0);   // critic r1 (fl17: never visibly held): top of the load at his hands, not 2.5 m below
 		E.LoadCm = FMath::Lerp(E.LoadCm, Want, float(1.0 - FMath::Exp(-10.0 * Dt)));
 		const bool bDrop = (S && S->bInteractPressed && E.CarryT > 0.4) || E.CarryT > 10.0;
 		if (bDrop)

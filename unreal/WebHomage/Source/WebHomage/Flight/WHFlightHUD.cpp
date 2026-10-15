@@ -96,7 +96,7 @@ void AWHFlightHUD::DrawHUD()
 	if (!W || !Sub || !Sub->bFlightMode) return;
 	if (PlayerOwner && PlayerOwner->IsPaused()) return;   // the settings menu is open: keep the screen clean under it
 
-	UiScale = FMath::Clamp(float(Canvas->ClipY) / 1080.f, 0.6f, 3.f);
+	UiScale = FMath::Clamp(1.45f * float(Canvas->ClipY) / 1080.f, 0.8f, 4.f);   // critic r1: ~12 px text at 1080p was unreadable
 	if (!Director.IsValid()) Director = AWHRescueDirector::Find(W);
 	const AWHRescueDirector* Dir = Director.Get();
 

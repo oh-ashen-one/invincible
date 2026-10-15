@@ -1,14 +1,14 @@
 {
  "name": "fl01_takeoff_hover",
- "note": "Ground takeoff (jump) into a hover, climb, strafe both ways, descend to a gentle touchdown.",
+ "note": "Ground takeoff (jump) into a hover over 5th Av, climb, strafe both ways, descend to a gentle touchdown.",
  "seed": 1234,
  "spawn": {
   "pos": [
-   -20.0,
-   -230.0,
-   0.9
+   250.0,
+   300.0,
+   0.95
   ],
-  "yaw": 90,
+  "yaw": -90,
   "camPitch": 0.14
  },
  "keys": [

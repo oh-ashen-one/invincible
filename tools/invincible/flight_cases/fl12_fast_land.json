@@ -1,12 +1,12 @@
 {
  "name": "fl12_fast_land",
- "note": "Fly from 90 m, look down 40 deg (0.5-1.5 s): high-speed street impact (> 30 m/s) = superhero landing without the slam key.",
+ "note": "Boost from 160 m, look down 40 deg (0.5-1.5 s): high-speed street impact = superhero landing without the slam key.",
  "seed": 1234,
  "spawn": {
   "pos": [
    250,
-   300,
-   90
+   500,
+   160
   ],
   "yaw": -90,
   "camPitch": 0.14,
@@ -26,6 +26,7 @@
   },
   {
    "swing": true,
+   "sprint": true,
    "t": 0.1
   },
   {

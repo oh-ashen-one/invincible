@@ -9,7 +9,7 @@
 //   - optional authored fracture: if /Game/Invincible/Destruction/GC_FacadeChunk exists (a UGeometryCollection built in the editor,
 //     see docs/invincible/HANDOFF steps), a crumbling geometry-collection actor is spawned at the hole too (cap MaxGcActors),
 //   - optional crater decal: /Game/Invincible/FX/M_CraterDecal (deferred decal material) if it exists,
-//   - a short global slow-mo on breach entry (-WHNoSlowMo or SlowMoScale 1 disables),
+//   - a short global slow-mo when the camera cuts to the hero bursting out of a breach (-WHNoSlowMo or SlowMoScale 1 disables),
 //   - synthesized audio (procedural sound waves: boom, crash, thud) when no authored cue exists at /Game/Invincible/Audio/S_*.
 // Collateral damage is added to UWHFlightWorldSubsystem; the crowd reacts through the stimuli the flight component pushes.
 #pragma once
@@ -48,7 +48,9 @@ public:
 	UPROPERTY(EditAnywhere, Category="Destruction") float ChunkLife = 6.f;
 	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxScars = 24;           // holes + craters kept in the world (oldest recycled)
 	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxGcActors = 4;
-	UPROPERTY(EditAnywhere, Category="Destruction") float SlowMoScale = 0.3f;      // global time dilation on a breach entry
+	UPROPERTY(EditAnywhere, Category="Destruction") float SlowMoScale = 0.3f;      // global time dilation at the breach exit cut
+	/** The pawn's camera cut to the breach exit: start the slow-mo beat. */
+	void CutSlowMo();
 	UPROPERTY(EditAnywhere, Category="Destruction") float SlowMoReal = 0.32f;      // real seconds at that scale (then eased back over 0.2 s)
 	UPROPERTY(EditAnywhere, Category="Destruction") float BreachUSD = 1500000.f;   // + BreachUSDPerSev x severity
 	UPROPERTY(EditAnywhere, Category="Destruction") float BreachUSDPerSev = 3000000.f;
@@ -94,5 +96,6 @@ private:
 	FRandomStream Rng = FRandomStream(20261015);
 	double SlowMoUntil = -1.0, SlowMoEaseEnd = -1.0;
 	bool bSlowMo = false, bNoSlowMo = false, bNoAudio = false;
+	double LastCutSlowMoT = -100.0;
 	FVector LastBreachEntry = FVector::ZeroVector;
 };

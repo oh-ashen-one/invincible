@@ -1,14 +1,14 @@
 {
  "name": "fl09_dash",
- "note": "Hover over Times Square at 40 m; dash right 1.5 s, left 3.0 s, forward 4.5 s.",
+ "note": "Hover over 5th Av at 30 m; dash right 1.5 s, left 3.0 s, forward 4.5 s.",
  "seed": 1234,
  "spawn": {
   "pos": [
-   -20,
-   -230,
-   40
+   250,
+   300,
+   30
   ],
-  "yaw": 90,
+  "yaw": -90,
   "camPitch": 0.2
  },
  "keys": [

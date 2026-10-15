@@ -10,7 +10,7 @@
    "grounded_end": true,
    "max_hero_lands": 0
   },
-  "note": "Ground takeoff (jump) into a hover, climb, strafe both ways, descend to a gentle touchdown."
+  "note": "Ground takeoff (jump) into a hover over 5th Av, climb, strafe both ways, descend to a gentle touchdown."
  },
  "fl02_takeoff_to_fly": {
   "quit": 10.0,
@@ -61,7 +61,7 @@
    "min_abs_bank_deg": 20.0,
    "max_hero_lands": 0
   },
-  "note": "Cruise east along the y 640 cross street at 70 m; stick right 2-4 s, centre, stick left 5-7.5 s: banked turns."
+  "note": "Cruise east over the y 640 cross street at 260 m (above the towers); stick right 2-4 s, centre, stick left 5-7.5 s: banked turns."
  },
  "fl06_look_steer": {
   "quit": 10.0,
@@ -112,7 +112,7 @@
    "dashes": 3,
    "max_hero_lands": 0
   },
-  "note": "Hover over Times Square at 40 m; dash right 1.5 s, left 3.0 s, forward 4.5 s."
+  "note": "Hover over 5th Av at 30 m; dash right 1.5 s, left 3.0 s, forward 4.5 s."
  },
  "fl10_slow_flight": {
   "quit": 8.0,
@@ -137,7 +137,7 @@
    "hero_lands": 1,
    "grounded_end": true
   },
-  "note": "Hover 60 m over Times Square, slam (F) at 1.5 s: straight dive into a superhero landing with a crater."
+  "note": "Hover 60 m over 5th Av, slam (F) at 1.5 s: straight dive into a superhero landing with a crater."
  },
  "fl12_fast_land": {
   "quit": 8.0,
@@ -147,9 +147,10 @@
     "fly"
    ],
    "hero_lands": 1,
-   "grounded_end": true
+   "grounded_end": true,
+   "min_speed": 90.0
   },
-  "note": "Fly from 90 m, look down 40 deg (0.5-1.5 s): high-speed street impact (> 30 m/s) = superhero landing without the slam key."
+  "note": "Boost from 160 m, look down 40 deg (0.5-1.5 s): high-speed street impact = superhero landing without the slam key."
  },
  "fl13_soft_land_walk": {
   "quit": 11.0,
@@ -162,7 +163,7 @@
    "max_hero_lands": 0,
    "walked": true
   },
-  "note": "Hover descent from 25 m to a gentle touchdown, walk forward on the street, take off again."
+  "note": "Hover descent from 25 m to a gentle touchdown on 5th Av, walk forward on the street, take off again."
  },
  "fl14_breach_cruise": {
   "quit": 8.0,
@@ -202,7 +203,7 @@
   "note": "Slow flight (stick back) straight into the 5th Av east facade at 30 m: no breach under 45 m/s, slides along the wall."
  },
  "fl17_rescue_crane": {
-  "quit": 20.0,
+  "quit": 23.0,
   "args": [
    "-WHRescue=1",
    "-WHRescueSeed=1977"
@@ -210,6 +211,6 @@
   "checks": {
    "rescue_saved_min": 1
   },
-  "note": "Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly to the crane load, catch it, carry, set it down (E)."
+  "note": "Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly over to the crane load, brake, drop onto it (catch), dive down with it, set it down on the street (E), touch down."
  }
 }

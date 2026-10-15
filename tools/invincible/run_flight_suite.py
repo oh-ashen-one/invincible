@@ -115,6 +115,10 @@ def run_case(name):
                             ''.join('[v%d]' % i for i in range(8)) + 'xstack=inputs=8:layout=0_0|w0_0|w0+w1_0|w0+w1+w2_0|0_h0|w0_h0|w0+w1_h0|w0+w1+w2_h0',
                             '-q:v', '4', str(docs / (name + '_sheet.jpg'))], check=False)
             rec['mp4_mb'] = round(mp4.stat().st_size / 1048576, 2) if mp4.exists() else 0
+            # per-frame mean luma (0-255) for the pixel visibility gate in check_flight.py (frame i = telemetry row i)
+            subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', str(mp4), '-vf',
+                            'signalstats,metadata=print:key=lavfi.signalstats.YAVG:file=%s' % (d / 'luma.txt'), '-f', 'null', '-'], check=False)
+            if (d / 'luma.txt').exists(): shutil.copy(d / 'luma.txt', docs / (name + '_luma.txt'))
         if not a.keep_frames:
             shutil.rmtree(fd, ignore_errors=True)
     if csv_path.exists():

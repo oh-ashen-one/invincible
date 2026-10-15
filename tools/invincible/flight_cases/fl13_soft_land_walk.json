@@ -1,14 +1,14 @@
 {
  "name": "fl13_soft_land_walk",
- "note": "Hover descent from 25 m to a gentle touchdown, walk forward on the street, take off again.",
+ "note": "Hover descent from 25 m to a gentle touchdown on 5th Av, walk forward on the street, take off again.",
  "seed": 1234,
  "spawn": {
   "pos": [
-   -20,
-   -230,
+   250,
+   300,
    25
   ],
-  "yaw": 90,
+  "yaw": -90,
   "camPitch": 0.2
  },
  "keys": [

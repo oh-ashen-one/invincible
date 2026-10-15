@@ -106,10 +106,11 @@ void AWHBreachDirector::Breach(const FVector& PosM, const FVector& DirM, float S
 	PlaceScar(P - D * (bEntry ? 5.0 : -5.0), Q, FVector(3.2 + 1.6 * Sev, 2.6 + 1.2 * Sev, 0.08), BdScorch);
 	if (GcAsset) SpawnGc(P, D);
 	PlaySynth(1, P, 0.8f + 0.2f * Sev);
+	// suite r2 sims: no slow-mo on the entry any more (the hero is hidden inside the solid then, so the held impact view stared at a hole
+	// for ~1.5 s); the pawn starts it with CutSlowMo() when the camera cuts to him bursting out of the exit
 	if (bEntry)
 	{
 		LastBreachEntry = P;
-		if (!bNoSlowMo && SlowMoScale < 0.999f) StartSlowMo();
 		if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this))
 		{
 			++FW->Breaches;
@@ -118,6 +119,15 @@ void AWHBreachDirector::Breach(const FVector& PosM, const FVector& DirM, float S
 	}
 	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT breach %s fx at %s sev %.2f (chunks live %d)"), bEntry ? TEXT("in") : TEXT("out"), *PosM.ToString(), Sev,
 		Chunks.FilterByPredicate([](const FChunk& C) { return C.bLive; }).Num());
+}
+
+void AWHBreachDirector::CutSlowMo()
+{
+	// one beat per burst: a chain of buildings smashed back to back would otherwise stack the slow-mo into every next pass
+	const double Now = GetWorld() ? GetWorld()->GetTimeSeconds() : 0.0;
+	if (Now - LastCutSlowMoT < 2.0) return;
+	LastCutSlowMoT = Now;
+	if (!bNoSlowMo && SlowMoScale < 0.999f) StartSlowMo();
 }
 
 void AWHBreachDirector::Crater(const FVector& PosM, float Sev)
@@ -182,6 +192,18 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 		Rg->Pos = PosM * 100.0 - D * 150.0;
 		Rg->Q = FRotationMatrix::MakeFromZX(D, BdAnyPerp(D)).ToQuat();
 		Rg->Comp->SetVisibility(true);
+	}
+	{ // critic r1 (fl04: the boom had no visible trace): a vapour collar -- a ring of puffs square-on to the flight line just behind him --
+	  // and a white flash on the line
+		const FVector D = DirM.GetSafeNormal(), A = BdAnyPerp(D), B = FVector::CrossProduct(D, A);
+		for (int32 K = 0; K < 12; ++K)
+		{
+			const double Ang = 2.0 * PI * K / 12.0;
+			Fx.Dust(PosM - D * 3.0 + (A * FMath::Cos(Ang) + B * FMath::Sin(Ang)) * 3.2, 2.2);
+		}
+		Fx.Dust(PosM - D * 6.0, 3.0);
+		const FLinearColor Flash(4.f, 4.f, 4.2f);
+		Fx.Hit(PosM - D * 1.5, -D, 1.0, &Flash);
 	}
 	PlaySynth(0, PosM * 100.0, 1.f);
 }

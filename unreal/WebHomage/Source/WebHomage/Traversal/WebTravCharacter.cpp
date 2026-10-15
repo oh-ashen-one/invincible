@@ -1024,10 +1024,22 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 	}
 	// Invincible flight (suite r1, fl02: the chase camera followed him into the solid -- black frames): through a breach the view holds on
 	// the impact (debris, hole, slow-mo), then cuts to a fresh chase view behind him at the exit
-	const bool bBreachHold = bFlightMode && Flight && Flight->IsBreaching();
+	// (suite r2 sims: the cut waits until a chase spot behind him is out of the building -- cutting at the exit put the lens inside the
+	//  facade he had just left -- at most 0.4 s; the player's heading (camera yaw) is kept across the cut, the slow-mo starts with it)
+	bool bBreachHold = bFlightMode && Flight && Flight->IsBreaching();
+	if (bFlightMode && Flight)
+	{
+		if (bBreachHold) BreachClearT = 0.0;
+		else if (bWasBreachHold && BreachClearT < 0.4)
+		{
+			const FVector P = Traversal->PosM(), Back = Traversal->VelM().GetSafeNormal2D();
+			const FVector Spot = P - Back * 4.5 + FVector(0, 0, 0.5);
+			if (Traversal->TravWorld.Inside(Spot, 0.05) || Traversal->TravWorld.SphereOverlaps(Spot, 0.4)) { BreachClearT += Dt; bBreachHold = true; }
+		}
+	}
 	if (!bBreachHold)
 	{
-		if (bWasBreachHold) { const FVector V = Traversal->VelM(); Cam.Reset(Traversal->PosM(), FMath::Atan2(V.Y, V.X)); }
+		if (bWasBreachHold) { Cam.Reset(Traversal->PosM(), Cam.Yaw); if (BreachDirector) BreachDirector->CutSlowMo(); }
 		Cam.HeroProjH = ProjectHeroH();
 		Cam.Update(Dt, CI, Traversal->TravWorld);
 		Traversal->TravWorld.PushOutOfCrowns(Cam.CamPos, 0.5);   // round 01 (Gap 3): the lens never sits inside a tree crown

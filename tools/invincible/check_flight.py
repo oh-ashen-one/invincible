@@ -13,6 +13,7 @@ a = ap.parse_args()
 meta = json.loads((HERE / 'flight_cases/cases.json').read_text())
 names = a.cases.split(',') if a.cases else list(meta)
 work, docs = Path(a.work), Path(a.docs)
+docs.mkdir(parents=True, exist_ok=True)
 
 
 def f(r, k, d=0.0):
@@ -96,13 +97,32 @@ for n in names:
     for r in rows:
         since = 0 if r.get('fl_sub') == 'breach' else since + 1
         in_b.append(since <= 6)
-    off = sum(1 for r, b in zip(rows, in_b) if f(r, 'hero_in_frame', 1) < 0.5 and not b)
-    chk('hero off-screen frames (outside breaches)', off <= max(6, len(rows) // 50), off, '<= %d' % max(6, len(rows) // 50))
-    run_, worst = 0, 0
-    for r, b in zip(rows, in_b):
-        run_ = run_ + 1 if (b and f(r, 'hero_in_frame', 1) < 0.5) else 0
+    # critic r1: hidden = projected off-screen OR occluded (hero_occl >= 0.9, the pixel mask) OR a dark frame (mean luma < 40/255, rendered
+    # runs: <case>/luma.txt from the mp4, frame i = row i). Outside breach windows no hidden run may exceed 6 frames.
+    luma = [float(v) for v in re.findall(r'lavfi\.signalstats\.YAVG=([\d.]+)', (d / 'luma.txt').read_text())] if (d / 'luma.txt').exists() else []
+    res['luma_frames'] = len(luma)
+    def hidden(i, r):
+        return f(r, 'hero_in_frame', 1) < 0.5 or f(r, 'hero_occl', -1) >= 0.9 or (i < len(luma) and luma[i] < 40.0)
+    hid = [hidden(i, r) for i, r in enumerate(rows)]
+    run_, worst, total = 0, 0, 0
+    for h_, b in zip(hid, in_b):
+        if h_ and not b: run_ += 1; total += 1
+        else: run_ = 0
         worst = max(worst, run_)
-    chk('longest hidden stretch inside a breach', worst <= 30, '%d frames' % worst, '<= 30 (0.5 s)')
+    chk('longest hidden run outside breaches (off-screen / occluded / dark)', worst <= 6, '%d frames (%d total)' % (worst, total), '<= 6')
+    dark = sum(1 for i, b in enumerate(in_b) if i < len(luma) and luma[i] < 40.0 and not b)
+    chk('dark frames outside breaches (luma < 40)', dark == 0, dark, 0)
+    run_, worst = 0, 0
+    for h_, b in zip(hid, in_b):
+        run_ = run_ + 1 if (b and h_) else 0
+        worst = max(worst, run_)
+    chk('longest hidden stretch inside a breach', worst <= 36, '%d frames' % worst, '<= 36 (0.6 s)')
+    # critic r1: frozen against geometry while the reported speed stays up (actual displacement vs speed_mps)
+    frozen = 0
+    for p, q, b in zip(rows, rows[1:], in_b[1:]):
+        act = math.dist((f(p, 'x_m'), f(p, 'y_m'), f(p, 'z_m')), (f(q, 'x_m'), f(q, 'y_m'), f(q, 'z_m'))) / max(1e-4, f(q, 't') - f(p, 't'))
+        if f(q, 'speed_mps') > 5.0 and act < 0.2 * f(q, 'speed_mps') and not b and q.get('mode') == 'air': frozen += 1
+    chk('frozen frames (speed > 5 m/s reported, < 20 % actual)', frozen <= 15, frozen, '<= 15')
     under = sum(1 for r in rows if f(r, 'height_above_floor_m', 1) < -0.5)
     chk('below the floor frames', under == 0, under, 0)
     jumps = 0

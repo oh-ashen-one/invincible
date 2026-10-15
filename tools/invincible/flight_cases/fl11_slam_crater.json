@@ -1,14 +1,14 @@
 {
  "name": "fl11_slam_crater",
- "note": "Hover 60 m over Times Square, slam (F) at 1.5 s: straight dive into a superhero landing with a crater.",
+ "note": "Hover 60 m over 5th Av, slam (F) at 1.5 s: straight dive into a superhero landing with a crater.",
  "seed": 1234,
  "spawn": {
   "pos": [
-   -20,
-   -230,
+   250,
+   300,
    60
   ],
-  "yaw": 90,
+  "yaw": -90,
   "camPitch": 0.3
  },
  "keys": [

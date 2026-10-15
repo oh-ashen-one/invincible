@@ -190,12 +190,19 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 		S.Pos = P0 + Dir * FMath::Max(0.0, HitD - 0.02);
 		if (HitN.Z >= 0.6)
 		{ // floor / roof under the flight line
+			// (suite r2 sim fl11: the 0.45 m sweep sphere touches the floor with its centre 0.45 m up, so "centre - H" put the feet 0.5 m
+			//  into the street and the hero then dropped through it into a hover; the floor is the sphere's contact height)
+			const double FloorZ = S.Pos.Z - 0.47;
 			const double Impact = FMath::Max(0.0, -S.Vel.Z);
-			if (Sub == NF_slam || Impact > SoftLandSpeed || (I.bDrop && Sub == NF_hover)) { HeroLand(T, S.Pos.Z - UWebTraversalComponent::H, FMath::Max(Impact, Sub == NF_slam ? Sp : 0.0), Sub == NF_slam); return true; }
+			if (Sub == NF_slam || Impact > SoftLandSpeed || (I.bDrop && Sub == NF_hover)) { HeroLand(T, FloorZ, FMath::Max(Impact, Sub == NF_slam ? Sp : 0.0), Sub == NF_slam); return true; }
+			S.Pos.Z = FMath::Max(S.Pos.Z, FloorZ + UWebTraversalComponent::H);
 			if (S.Vel.Z < 0) S.Vel.Z = 0;
 		}
 		else
 		{ // slide along the facade (slow, or a deep solid that cannot be breached)
+			// critic r1 (fl10 / fl16 frozen 4.7 s at 19 m/s): resting 2 cm off the wall, the next tangential sweep grazed the same face at
+			// distance 0 (normal square to the motion, so nothing was removed) every step -- stand a few cm clear of it
+			S.Pos += FVector(HitN.X, HitN.Y, 0.0) * 0.05;
 			const double VN = FVector::DotProduct(S.Vel, HitN);
 			if (VN < 0)
 			{
@@ -221,7 +228,9 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 	else S.Pos = P1;
 	// the floor below (street, roofs): land or skim
 	const double Feet = S.Pos.Z - UWebTraversalComponent::H;
-	const double Floor = W.GroundHeight(S.Pos.X, S.Pos.Y, Feet + 0.6);
+	// (suite r2 sim fl11: a 95 m/s slam step sank the feet 0.8 m under the street before this probe, which then started under it and
+	//  landed him at -0.5 m; probe from the higher of the old and new feet)
+	const double Floor = W.GroundHeight(S.Pos.X, S.Pos.Y, FMath::Max(Feet, P0.Z - UWebTraversalComponent::H) + 0.6);
 	if (Floor > -999.0 && Feet < Floor)
 	{
 		const double Impact = FMath::Max(0.0, -S.Vel.Z);
@@ -238,10 +247,20 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 	if (Sp < 25.0)
 	{
 		FTravContact C;
+		const FVector PreP = S.Pos;
 		if (T.Collide(UWebTraversalComponent::STEP, UWebTraversalComponent::R, C))
 		{
 			const double VN = S.Vel.X * C.Normal.X + S.Vel.Y * C.Normal.Y;
 			if (VN < 0) { S.Vel.X -= C.Normal.X * VN; S.Vel.Y -= C.Normal.Y * VN; }
+			// critic r1 (fl10 / fl16: frozen 4.7 s while speed read 19 m/s, body rocking): the push-out can also undo the step along the
+			// wall (an indexed solid the swept collision does not see); whatever it pushes against is taken out of the velocity as well
+			const FVector Corr(S.Pos.X - PreP.X, S.Pos.Y - PreP.Y, 0.0);
+			if (Corr.SizeSquared() > 1e-8)
+			{
+				const FVector Nc = Corr.GetSafeNormal();
+				const double VC = S.Vel.X * Nc.X + S.Vel.Y * Nc.Y;
+				if (VC < 0) { S.Vel.X -= Nc.X * VC; S.Vel.Y -= Nc.Y * VC; }
+			}
 		}
 	}
 	if (!bPinned) PinT = 0.0;
