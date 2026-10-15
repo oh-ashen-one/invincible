@@ -62,6 +62,11 @@ struct FWHEmergency
 	double StreetZ = 0, SnapAtT = 0, SnapT = -1, CarryT = 0;
 	bool bSnapped = false, bLanded = false, bSettling = false;
 	FVector SettleCm = FVector::ZeroVector;
+	// critic r2 (round 3 hero, fl17): the load's rotation (it turns with the hero's body while carried) and the eased set-down
+	// (from -> rest pose, levelled to its heading, clear of the hero's footprint)
+	FQuat LoadQ = FQuat::Identity, SettleQ = FQuat::Identity, SettleFromQ = FQuat::Identity;
+	FVector SettleFromCm = FVector::ZeroVector;
+	double SettleT = 0, SettleDur = 1;
 	// bus
 	double PullT = 0;                         // seconds of the pull-back animation once saved
 	double FallT = 0;                         // seconds of the fall once lost
@@ -105,6 +110,16 @@ public:
 
 	static const TCHAR* TypeName(EWHEmergencyType T);
 
+	/** Critic r2 (round 3 hero, fl17 "the hero stands on the load, no grip; the load leaves the frame in the carry dive"): the hero's
+	 *  anim instance holds the carried crane load. Each frame it publishes where the load sits in the hero mesh's component space (cm,
+	 *  rotation + translation, no scale); TickCrane (TG_PostPhysics, after the hero mesh ticked) renders the load at
+	 *  LoadInMeshCS * HeroMesh->GetComponentTransform(), so the hands and the load agree in the same frame. Without a fresh anchor
+	 *  (> 0.2 s old) the load follows the hero on the r2 fallback path. */
+	void SetCarryAnchor(const USceneComponent* HeroMesh, const FTransform& LoadInMeshCS);
+	/** Critic r2 (round 3 hero): the crane load being carried right now (false if none): its world transform (no scale) and half
+	 *  extents (cm). Settling (set-down) loads are not carried. */
+	bool GetCarriedLoad(FTransform& OutLoadWorld, FVector& OutHalfCm) const;
+
 	// ---- tuning
 	float FireRangeCm = 1200.f;
 	float FireBatchHoldS = 2.5f;
@@ -119,6 +134,8 @@ public:
 	float StimulusEveryS = 2.f;
 	float StimulusRadiusCm = 2500.f;
 	float LingerS = 8.f;             // resolved emergencies stay visible this long
+	float SetDownClearCm = 70.f;     // critic r2 (fl17): the set-down load's near face rests this far ahead of the hero's centre (he lands beside it)
+	float SetDownSpeedCm = 600.f;    // critic r2: vertical speed scale of the eased set-down (duration = drop / this, 0.6-4 s)
 
 private:
 	// ---- waves / sites
@@ -161,6 +178,10 @@ private:
 
 	TArray<FWHEmergency> Emergencies;
 	TArray<FVector> UsedSites;
+	// critic r2 (round 3 hero): carry anchor published by the hero's anim instance (SetCarryAnchor)
+	TWeakObjectPtr<const USceneComponent> CarryMesh;
+	FTransform CarryInMesh = FTransform::Identity;
+	double CarryAnchorT = -1.0;
 	UWHFlightWorldSubsystem* Sub() const;
 
 	bool bEnabled = true;

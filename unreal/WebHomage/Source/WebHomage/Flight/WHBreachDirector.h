@@ -12,6 +12,15 @@
 //   - a short global slow-mo when the camera cuts to the hero bursting out of a breach (-WHNoSlowMo or SlowMoScale 1 disables),
 //   - synthesized audio (procedural sound waves: boom, crash, thud) when no authored cue exists at /Game/Invincible/Audio/S_*.
 // Collateral damage is added to UWHFlightWorldSubsystem; the crowd reacts through the stimuli the flight component pushes.
+//
+// Round 3 (critic r2: breaches / sonic boom / craters looked fake). The assets below are built by Scripts/build_invincible_fx.py
+// (headless commandlet) into /Game/Invincible/FX/ and are all OPTIONAL: every path falls back to the round-2 proxies when one is missing.
+//   - M_BreachHole   deferred decal: procedural jagged near-black opening with a broken concrete rim, cracks and soot (facade, entry + exit),
+//   - M_CraterDecal  deferred decal: scorched centre, fractured slab band, radial cracks (ground),
+//   - M_InvVapour    translucent unlit fresnel-edged vapour (sonic-boom cone + rings, ground shock ring),
+//   - M_InvDust      translucent lit eroded-edge dust puff (dense, larger, longer-lived smoke than the combat FX puffs),
+//   - M_InvChunk     opaque lit concrete / brick speckle for debris pieces that did not get the hit facade's own material.
+// Debris pieces take the material of the facade component the breach line-traces (opaque / masked surface materials only).
 #pragma once
 
 #include "CoreMinimal.h"
@@ -40,13 +49,21 @@ public:
 	/** Feed this frame's flight events (metres, from UWebTraversalComponent::Events). */
 	void OnFlightEvents(const TArray<FWebTravEvent>& Events);
 
-	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxChunks = 140;
-	UPROPERTY(EditAnywhere, Category="Destruction") int32 ChunksPerBreach = 34;
-	UPROPERTY(EditAnywhere, Category="Destruction") int32 ChunksPerCrater = 14;
-	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxShards = 220;
-	UPROPERTY(EditAnywhere, Category="Destruction") int32 ShardsPerBreach = 70;
+	// critic r2 (breaches: "at least 20 debris chunks", mixed sizes): more, smaller pieces; the pool grew with them
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxChunks = 240;
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 ChunksPerBreach = 44;
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 ChunksPerCrater = 16;
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxShards = 120;
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 ShardsPerBreach = 26;
 	UPROPERTY(EditAnywhere, Category="Destruction") float ChunkLife = 6.f;
-	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxScars = 24;           // holes + craters kept in the world (oldest recycled)
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxScars = 24;           // fallback scar discs (no decal assets) kept in the world (oldest recycled)
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxHoleDecals = 12;      // r3: facade opening decals kept in the world (oldest recycled)
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxCraterDecals = 6;     // r3: crater decals kept in the world (oldest recycled)
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxPuffs = 110;          // r3: dense dust puffs alive at once
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxRubble = 72;          // r3: static crater-rim rubble pieces kept (oldest recycled)
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 PuffsPerBreach = 14;
+	UPROPERTY(EditAnywhere, Category="Destruction") float FacadeChunkFraction = 0.5f;   // r3: share of debris pieces that wear the traced facade material (-WHFacadeChunks=)
+	UPROPERTY(EditAnywhere, Category="Destruction") float HoleHalfCm = 400.f;      // r3: half size of the opening decal box (the opening is ~39 % of it: ~3.1 m across at severity 0, ~3.7 m at 1)
 	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxGcActors = 4;
 	UPROPERTY(EditAnywhere, Category="Destruction") float SlowMoScale = 0.3f;      // global time dilation at the breach exit cut
 	/** The pawn's camera cut to the breach exit: start the slow-mo beat. */
@@ -56,18 +73,38 @@ public:
 	UPROPERTY(EditAnywhere, Category="Destruction") float BreachUSDPerSev = 3000000.f;
 	UPROPERTY(EditAnywhere, Category="Destruction") float CraterUSD = 40000.f;
 	UPROPERTY(EditAnywhere, Category="Destruction") float CraterUSDPerSev = 400000.f;
+	// r3 sonic boom (critic r2: "a vapour cone or ring at least 25 % of frame width stays visible for at least 0.3 s")
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomLife = 0.9f;         // s: cone life (rings 0.75 x)
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomFollow = 0.45f;      // s the cone / rings stay glued to the hero before they hang in the air behind him
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomConeLenM = 7.f;      // cone length at its birth (grows 1.6x)
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomConeRadM = 2.4f;     // cone base radius at its birth (grows 2.4x)
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomOpacity = 0.62f;     // peak of the material's Opacity parameter
 
 private:
-	struct FChunk { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; double Born = -1e9; bool bLive = false; };
+	struct FChunk { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Scale = FVector::OneVector; double Born = -1e9, NextCheck = 0; bool bLive = false, bFrozen = false; };
 	struct FShard { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector, Vel = FVector::ZeroVector; FQuat Q = FQuat::Identity; FVector Spin = FVector::ZeroVector; double T = 0, Life = 1.5; bool bLive = false; };
 	struct FScar { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; };
 	struct FRing { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector; FQuat Q = FQuat::Identity; double T = 0, Life = 0.7, R1 = 30; bool bLive = false; };
+	/** r3: one dense dust puff (a sphere with the eroded-edge dust material). Hidden until Delay, then Life s; sizes in cm. */
+	struct FPuff { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector, Vel = FVector::ZeroVector; double T = 0, Delay = 0, Life = 1.6, S0 = 100, S1 = 300, Peak = 0.7, Drag = 2.2, Rise = 60; bool bLive = false, bShown = false; };
+	/** r3: a vapour cone (sonic boom) or a thin pancake ring (boom rings, ground shock ring). Anchor follows the hero for Follow s. */
+	struct FVapour { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Anchor = FVector::ZeroVector, Dir = FVector::ForwardVector; double T = 0, Life = 0.9, Follow = 0.45, OffsetCm = 0, Len0 = 700, Len1 = 1100, Rad0 = 240, Rad1 = 560, Peak = 0.55; bool bCone = true, bLive = false; };
+	/** r3: a deferred decal with an animated "Open" parameter (the opening / crater grows over Grow s). */
+	struct FDecalItem { UDecalComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; double T = 0, Grow = 0.2; bool bGrowing = false; };
+	/** r3: static (non-physics) rubble pieces of the crater rim: they sit on the traced ground, so they cannot hang in the air. */
+	struct FRubble { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector, Scale = FVector::OneVector; FQuat Q = FQuat::Identity; double T = 0, Delay = 0, Life = 25; bool bLive = false; };
+	/** r3: what the line trace at a breach / crater found (cm). */
+	struct FFacadeHit { bool bHit = false; FVector Point = FVector::ZeroVector, Normal = FVector::UpVector; UMaterialInterface* Mat = nullptr; };
 
 	void Breach(const FVector& PosM, const FVector& DirM, float Sev, bool bEntry);
 	void Crater(const FVector& PosM, float Sev);
 	void Boom(const FVector& PosM, const FVector& DirM);
 	void Bump(const FVector& PosM, const FVector& NormalM, float Sev);
+	/** the old signature: debris along DirN (kept for the fallback paths) */
 	void SpawnChunks(const FVector& PosCm, const FVector& DirN, int32 N, double SpeedCms, const FLinearColor& Tint, double SizeCm);
+	/** r3 debris: N pieces of mixed size (many 8-25 cm, a few to 50 cm) scattered on a disc of SpawnRadiusCm around OriginCm, flung along Axis (share AxisBias) and radially;
+	 *  a share of them (FacadeChunkFraction) wears Look (the traced facade material), the rest M_InvChunk / flat tints (Brick = share of those that are brick). */
+	void SpawnDebris(const FVector& OriginCm, const FVector& Axis, double SpawnRadiusCm, double SpeedCms, double AxisBias, int32 N, UMaterialInterface* Look, const FLinearColor& Tint, float Brick);
 	void SpawnShards(const FVector& PosCm, const FVector& DirN, int32 N, double SpeedCms);
 	void PlaceScar(const FVector& PosCm, const FQuat& Q, const FVector& ScaleM, const FLinearColor& Color);
 	void SpawnGc(const FVector& PosCm, const FVector& DirN);
@@ -76,26 +113,55 @@ private:
 	USoundBase* Authored(int32 Kind) const;
 	UStaticMeshComponent* MakeComp(UStaticMesh* Mesh, UMaterialInterface* Base, UMaterialInstanceDynamic*& OutMid, bool bShadow);
 
+	// ---- round 3
+	/** line trace A -> B (cm) against the world's solids; fills point / normal of the first hit and the first visible opaque surface material along the line */
+	bool TraceFacade(const FVector& StartCm, const FVector& EndCm, FFacadeHit& Out) const;
+	/** nearest ground below P (cm): z of the surface (or P.Z when nothing is found) and its material */
+	double TraceGroundZ(const FVector& PCm, UMaterialInterface** OutMat = nullptr) const;
+	void ProbeCone();
+	void ExcludeHeroFromDecals();
+	FDecalItem* AcquireDecal(TArray<FDecalItem>& Pool, int32& Next, int32 MaxN, UMaterialInterface* Mat);
+	void PlaceHole(const FVector& PointCm, const FVector& IntoWall, float Sev);
+	void PlaceCraterDecal(const FVector& PCm, float Sev);
+	void SpawnPuff(const FVector& PosCm, const FVector& VelCms, double S0, double S1, double Life, double Peak, double DelayS, const FLinearColor& Col);
+	void BreachDust(const FVector& PointCm, const FVector& OutN, const FVector& FlightDir, float Sev, bool bEntry);
+	void CraterDust(const FVector& PCm, float Sev);
+	void SpawnVapour(bool bCone, const FVector& AnchorCm, const FVector& Dir, double FollowS, double OffsetCm, double Len0, double Len1, double Rad0, double Rad1, double Peak, double Life, float EdgePow);
+	void SpawnRim(const FVector& PCm, float Sev, UMaterialInterface* GroundMat);
+
 	FWHCombatFx Fx;
 	UPROPERTY(Transient) TObjectPtr<UStaticMesh> Cube;
 	UPROPERTY(Transient) TObjectPtr<UStaticMesh> Cyl;
 	UPROPERTY(Transient) TObjectPtr<UStaticMesh> Sphere;
+	UPROPERTY(Transient) TObjectPtr<UStaticMesh> Cone;
 	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MSolid;
 	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MTrans;
 	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MGlow;
-	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MDecal;
+	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MDecal;     // crater decal (M_CraterDecal)
+	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MHole;      // facade opening decal (M_BreachHole)
+	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MVapour;    // M_InvVapour
+	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MDust;      // M_InvDust
+	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MChunk;     // M_InvChunk
 	UPROPERTY(Transient) TObjectPtr<UObject> GcAsset;
-	UPROPERTY(Transient) TArray<TObjectPtr<UObject>> KeepAlive;   // components / sound waves created at runtime
+	UPROPERTY(Transient) TArray<TObjectPtr<UObject>> KeepAlive;   // components / MIDs created at runtime (never trimmed)
+	UPROPERTY(Transient) TArray<TObjectPtr<UObject>> AudioKeep;   // procedural sound waves (trimmed)
 	UPROPERTY(Transient) TArray<TObjectPtr<AActor>> GcActors;
-	UPROPERTY(Transient) TArray<TObjectPtr<UDecalComponent>> Decals;
+	TWeakObjectPtr<UMaterialInterface> LastFacadeMat;             // the last traced facade material (bumps reuse it)
 	TArray<FChunk> Chunks;
 	TArray<FShard> Shards;
 	TArray<FScar> Scars;
 	TArray<FRing> Rings;
-	int32 NextChunk = 0, NextShard = 0, NextScar = 0, NextGc = 0, NextDecal = 0;
+	TArray<FPuff> Puffs;
+	TArray<FVapour> Vapours;
+	TArray<FDecalItem> HoleDecals, CraterDecals;
+	TArray<FRubble> Rubble;
+	int32 NextChunk = 0, NextShard = 0, NextScar = 0, NextGc = 0, NextPuff = 0, NextVapour = 0, NextHole = 0, NextCrater = 0, NextRubble = 0;
 	FRandomStream Rng = FRandomStream(20261015);
 	double SlowMoUntil = -1.0, SlowMoEaseEnd = -1.0;
 	bool bSlowMo = false, bNoSlowMo = false, bNoAudio = false;
 	double LastCutSlowMoT = -100.0;
+	double LastBumpTraceT = -100.0;
+	double ConeHCm = 100.0, ConeWCm = 100.0, ConeMidZCm = 0.0;   // /Engine/BasicShapes/Cone bounds (cm) and which end is the apex
+	bool bConeApexUp = true;
 	FVector LastBreachEntry = FVector::ZeroVector;
 };

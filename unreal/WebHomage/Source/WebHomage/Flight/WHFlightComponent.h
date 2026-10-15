@@ -74,6 +74,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float PunchPinTime = 0.3f;  // s of fly held head-on against a facade before punching through
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float HeroLandMinSpeed = 30.f; // impact speed for a crater landing
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SoftLandSpeed = 12.f;    // under this a floor contact is a gentle touchdown
+	// critic r2 (fl13: hover touchdowns still met the floor at ~5 m/s): a hover descent (drop held) is capped at
+	// sqrt(TouchdownV^2 + 2 TouchdownDecel max(0, h - TouchdownSlowH)) m/s at h m over the floor -- constant deceleration from VertSpeed
+	// (~4 m up) to TouchdownV, held at TouchdownV through the last TouchdownSlowH m (0 = none; 2.0 with TouchdownV 1.95 / Decel 26 gives
+	// |vz| <= 2 over the final 2 m at ~0.95 s extra)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float TouchdownV = 1.4f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float TouchdownDecel = 12.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float TouchdownSlowH = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float HeroLandLock = 0.9f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FlyoverEvery = 0.5f;     // s between flyover crowd stimuli
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FlyoverMaxH = 140.f;     // m over the street: higher passes are not noticed
@@ -95,6 +102,8 @@ private:
 	bool MoveAndCollide(UWebTraversalComponent& T, double H, const FWebTravInput& I);
 	bool StartBreach(UWebTraversalComponent& T, const FVector& HitPos, const FVector& HitN, const FVector& Dir);
 	void StepBreach(UWebTraversalComponent& T, double H);
+	/** critic r2 fl14: keep Speed, turned along the facade (normal HitN) toward the free direction (no dead stop against a solid). */
+	void DeflectFree(UWebTraversalComponent& T, const FVector& HitN, double Speed);
 	void HeroLand(UWebTraversalComponent& T, double Floor, double ImpactSpeed, bool bSlam);
 	void Takeoff(UWebTraversalComponent& T);
 	FQuat FlightOrient(UWebTraversalComponent& T, double Dt, const FWebTravInput& I);

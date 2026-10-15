@@ -88,7 +88,7 @@ CASES = [
          keys=[K(0, move=[0, -1]), K(0.1, swing=True)],
          checks=dict(subs=['fly'], breaches=0, max_hero_lands=0)),
     dict(name='fl17_rescue_crane', quit=23.0, args=['-WHRescue=1', '-WHRescueSeed=1977'],
-         note='Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly over to the crane load, brake, drop onto it (catch), dive down with it, set it down on the street (E), touch down.',
+         note='Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly over to the crane load (straight through the tower block east of 5th Av, which tops 185 m on this line), brake, drop onto it (catch), dive down with it, set it down on the street (E), touch down.',
          spawn=dict(pos=TS, yaw=90, camPitch=0.14),   # crane load logged by the seed-1977 probe: (355.7, -324.3, 135.3) m, heading -14.1 deg
          keys=[K(0, move=[0, 0]), K(3.3, jump=True), K(3.55, jump=False), K(3.7, jump=True), K(4.0, look=[-104.09, 0]), K(5.0, look=[0, 0]),
                K(5.2, jump=False), K(5.4, swing=True, look=[0, -130]), K(5.9, look=[0, 0]), K(LEVEL_T, look=[0, 130]), K(LEVEL_T + 0.5, look=[0, 0]),
@@ -97,7 +97,7 @@ CASES = [
                # carry the caught load down: dive steeply, brake low over the street (the interact press sets it down), touch down beside it
                K(DIVE_T - 0.7, look=[-360, 0]), K(DIVE_T - 0.2, look=[0, 0]), K(DIVE_T, swing=True, look=[0, 110]), K(DIVE_T + 0.5, look=[0, 0]), K(SET_T, zip=True, swing=False), K(SET_T + 0.1, zip=False),
                K(SET_T + 0.4, drop=True)],
-         checks=dict(rescue_saved_min=1)),
+         checks=dict(rescue_saved_min=1, breaches=1)),
 ]
 
 

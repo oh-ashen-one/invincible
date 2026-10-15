@@ -154,6 +154,12 @@ struct WEBHOMAGE_API FWebTravAnimFlight
 	UPROPERTY(BlueprintReadOnly, Category="Flight") bool bRightFist = true;
 	/** Seconds in flight (continuous across flight subs). */
 	UPROPERTY(BlueprintReadOnly, Category="Flight") float FlightT = 0.f;
+	/** Critic r2 (round 3 hero request, fl16 3.55 / 7.25 s "a fire escape went through his head and arm"): a facade alongside the body --
+	 *  WallSide in the body frame (-1 left .. +1 right, 0 none) and WallDist (m, body centre to the facade). Meant to be filled by the
+	 *  flight controller while it slides along / brushes a wall; until then the defaults change nothing. With a wall within 1.5 m the anim
+	 *  leads with the far-side fist and tucks the wall-side free arm and leg in. */
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float WallSide = 0.f;
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float WallDist = 99.f;
 };
 
 /**

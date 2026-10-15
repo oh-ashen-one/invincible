@@ -48,6 +48,28 @@ AWHRescueDirector* AWHRescueDirector::Find(const UWorld* World)
 	return nullptr;
 }
 
+// critic r2 (round 3 hero, fl17): carry anchor from the hero's anim instance (see the header)
+void AWHRescueDirector::SetCarryAnchor(const USceneComponent* HeroMesh, const FTransform& LoadInMeshCS)
+{
+	CarryMesh = HeroMesh;
+	CarryInMesh = LoadInMeshCS;
+	CarryInMesh.SetScale3D(FVector::OneVector);
+	const UWorld* W = GetWorld();
+	CarryAnchorT = W ? W->GetTimeSeconds() : -1.0;
+}
+
+bool AWHRescueDirector::GetCarriedLoad(FTransform& OutLoadWorld, FVector& OutHalfCm) const
+{
+	for (const FWHEmergency& E : Emergencies)
+	{
+		if (E.Type != EWHEmergencyType::Crane || !E.bCarried || !E.Load) continue;
+		OutLoadWorld = FTransform(E.LoadQ, E.LoadCm);
+		OutHalfCm = E.Load->GetComponentScale() * 50.0;   // basic cube: 100 cm per unit scale
+		return true;
+	}
+	return false;
+}
+
 const TCHAR* AWHRescueDirector::TypeName(EWHEmergencyType T)
 {
 	switch (T)
@@ -543,6 +565,7 @@ void AWHRescueDirector::BuildCrane(FWHEmergency& E, const FVector& MastBase, dou
 	E.Cable = AddMesh(E, Cylinder, MSolid, FLinearColor(0.05f, 0.05f, 0.05f), (TipCm + E.LoadCm) * 0.5, FRotator::ZeroRotator,
 		FVector(0.06, 0.06, (TipCm.Z - E.LoadCm.Z) / 100.0));
 	E.Load = AddMesh(E, Cube, MSolid, Steel, E.LoadCm, Yaw, FVector(4.0, 1.8, 1.5));
+	E.LoadQ = Yaw.Quaternion();   // critic r2 (round 3 hero): the load's rotation is tracked from here on (it turns with the hero while carried)
 	// a red warning beacon at the tip
 	AddMesh(E, Sphere, MGlow, FLinearColor(4.0f, 0.2f, 0.1f), TipCm + FVector(0, 0, 90.0), FRotator::ZeroRotator, FVector(0.5), 0.f, 0.9f);
 }
@@ -826,27 +849,74 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 	{
 		// carried under the hero; interact (after a beat) or 10 s sets it down gently on the ground below
 		E.CarryT += Dt;
-		const FVector Want = Hero - FVector(0, 0, 170.0);   // critic r1 (fl17: never visibly held): top of the load at his hands, not 2.5 m below
-		E.LoadCm = FMath::Lerp(E.LoadCm, Want, float(1.0 - FMath::Exp(-10.0 * Dt)));
+		// critic r2 (fl17 17.0 s: "the hero standing / sitting on top of the box, no grip"; 18.4-20.4 s: "the load is nowhere in frame during
+		// the carry dive"): the load is held in the hero's hands -- his anim instance publishes its place in the hero mesh's component
+		// space every frame (overhead / ahead of the head, turning with his body), rendered here in the same frame. The r1 placement below
+		// (world-down offset under the body centre, smoothed: he stood on it, and it lagged out of frame at dive speed) is only the fallback
+		// when no fresh anchor exists.
+		const USceneComponent* HeroMesh = CarryMesh.Get();
+		if (HeroMesh && CarryAnchorT >= 0.0 && Now - CarryAnchorT < 0.2)
+		{
+			const FTransform Held = CarryInMesh * HeroMesh->GetComponentTransform();
+			E.LoadCm = Held.GetLocation();
+			E.LoadQ = Held.GetRotation().GetNormalized();
+		}
+		else
+		{
+			const FVector Want = Hero - FVector(0, 0, 170.0);   // critic r1 (fl17: never visibly held): top of the load at his hands, not 2.5 m below
+			E.LoadCm = FMath::Lerp(E.LoadCm, Want, float(1.0 - FMath::Exp(-10.0 * Dt)));
+		}
 		const bool bDrop = (S && S->bInteractPressed && E.CarryT > 0.4) || E.CarryT > 10.0;
 		if (bDrop)
 		{
-			FVector G;
-			E.SettleCm = GroundAt(E.LoadCm, E.LoadCm.Z, E.LoadCm.Z - 100000.0, G) ? G + FVector(0, 0, 75.0) : E.LoadCm;
+			// critic r2 (fl17; test: "the set-down leaves the load resting on the surface below with the hero landing beside it, not on top"):
+			// the load is levelled to its heading (the hero's facing), slid clear ahead of the hero (near face SetDownClearCm ahead of his
+			// centre, so a straight descent lands him beside it) and rests on the HIGHEST surface under its footprint (centre + 4 corners;
+			// it never sinks into a step or a roof edge). r1/r2: straight down under the load centre at 9 m/s.
+			const FVector HalfCm = E.Load ? E.Load->GetComponentScale() * 50.0 : FVector(200.0, 90.0, 75.0);
+			FVector FwdH = Flat(E.LoadQ.GetAxisY());                      // the load's depth axis = the hero's body forward while carried
+			if (FwdH.Size() < 0.3) FwdH = Flat(E.LoadQ.GetAxisZ());       // carried on the fly line: body up = the travel
+			if (FwdH.Size() < 0.3) FwdH = Flat(E.LoadCm - Hero);
+			FwdH = FwdH.Size() > 1e-3 ? FwdH.GetSafeNormal() : E.OutDir;
+			const FVector SideH = FVector::CrossProduct(FVector::UpVector, FwdH).GetSafeNormal();
+			const FVector C = Flat(Hero) + FwdH * (double(SetDownClearCm) + HalfCm.Y);
+			const double TopZ = FMath::Max(E.LoadCm.Z, Hero.Z) + 100.0;
+			double RestZ = -TNumericLimits<double>::Max();
+			const double Px[5] = { 0.0, 0.9, 0.9, -0.9, -0.9 }, Py[5] = { 0.0, 0.9, -0.9, 0.9, -0.9 };
+			for (int32 k = 0; k < 5; ++k)
+			{
+				FVector G;
+				const FVector P = C + SideH * (Px[k] * HalfCm.X) + FwdH * (Py[k] * HalfCm.Y);
+				if (GroundAt(P, TopZ, TopZ - 100000.0, G)) RestZ = FMath::Max(RestZ, G.Z);
+			}
+			if (RestZ <= -TNumericLimits<double>::Max()) RestZ = E.StreetZ;
+			E.SettleCm = FVector(C.X, C.Y, RestZ + HalfCm.Z);
+			E.SettleQ = FRotationMatrix::MakeFromYZ(FwdH, FVector::UpVector).ToQuat();
+			E.SettleFromCm = E.LoadCm; E.SettleFromQ = E.LoadQ; E.SettleT = 0.0;
+			E.SettleDur = FMath::Clamp(FMath::Abs(E.SettleFromCm.Z - E.SettleCm.Z) / FMath::Max(100.0, double(SetDownSpeedCm)), 0.6, 4.0);
 			E.bCarried = false; E.bSettling = true;
-			UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load set down at (%.0f, %.0f, %.0f)"), E.Id, E.SettleCm.X, E.SettleCm.Y, E.SettleCm.Z);
+			UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load set down at (%.0f, %.0f, %.0f) over %.1f s, hero at (%.0f, %.0f, %.0f)"),
+				E.Id, E.SettleCm.X, E.SettleCm.Y, E.SettleCm.Z, E.SettleDur, Hero.X, Hero.Y, Hero.Z);
 		}
 	}
 	else if (E.bSettling)
 	{
-		const FVector D = E.SettleCm - E.LoadCm;
-		const double Step = 900.0 * Dt;
-		if (D.Size() <= Step) { E.LoadCm = E.SettleCm; E.bSettling = false; E.ResolvedT = Now; }
-		else E.LoadCm += D.GetSafeNormal() * Step;
+		// critic r2 (fl17): an eased set-down -- clear of the hero and levelled within 0.6 s, lowered onto the rest surface over SettleDur
+		// (ease in-out: it touches down slowly). r2: a linear 9 m/s slide to the point under the load.
+		E.SettleT += Dt;
+		const double Kxy = Ease(E.SettleT / 0.6);
+		const double Kz = Ease(E.SettleT / FMath::Max(0.3, E.SettleDur));
+		E.LoadCm = FVector(FMath::Lerp(E.SettleFromCm.X, E.SettleCm.X, Kxy), FMath::Lerp(E.SettleFromCm.Y, E.SettleCm.Y, Kxy), FMath::Lerp(E.SettleFromCm.Z, E.SettleCm.Z, Kz));
+		E.LoadQ = FQuat::Slerp(E.SettleFromQ, E.SettleQ, Kxy).GetNormalized();
+		if (E.SettleT >= FMath::Max(0.6, E.SettleDur))
+		{
+			E.LoadCm = E.SettleCm; E.LoadQ = E.SettleQ; E.bSettling = false; E.ResolvedT = Now;
+			UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load rests at (%.0f, %.0f, %.0f)"), E.Id, E.LoadCm.X, E.LoadCm.Y, E.LoadCm.Z);
+		}
 	}
 
 	E.FocusCm = E.LoadCm;
-	if (E.Load) E.Load->SetWorldLocation(E.LoadCm);
+	if (E.Load) E.Load->SetWorldLocationAndRotation(E.LoadCm, E.LoadQ);   // critic r2: + rotation (r2: SetWorldLocation only)
 	if (E.Cable)
 	{
 		const bool bShow = !E.bSnapped && E.State == EWHEmergencyState::Active;

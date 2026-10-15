@@ -120,22 +120,49 @@ bool UWHFlightComponent::StartBreach(UWebTraversalComponent& T, const FVector& H
 	// through the street), and the exit must leave the body above the street (fl14 exited 1.8 m under it and flew on underground)
 	if (FMath::Abs(Dir.Z) > 0.75 || S.Vel.Size() < double(BreachSpeed) * 0.95) return false;
 	// march through the solid along the flight line until the body fits outside it again (building boxes and visual solids)
+	auto FreeAt = [&W](const FVector& P) { return !W.Inside(P, 0.1) && !W.SphereOverlaps(P, 0.5); };
+	auto ExitAboveStreet = [&W, &HitPos, &Dir](double D)
+	{
+		const FVector Exit = HitPos + Dir * (D + 0.6);
+		const double Street = W.GroundHeight(Exit.X, Exit.Y, Exit.Z + 0.5);
+		return !(Street > -999.0 && Exit.Z - UWebTraversalComponent::H < Street - 0.05);
+	};
 	double Sx = -1.0;
 	for (double D = 0.6; D <= double(BreachMaxDepth); D += 0.5)
 	{
-		const FVector P = HitPos + Dir * D;
-		if (!W.Inside(P, 0.1) && !W.SphereOverlaps(P, 0.5)) { Sx = D; break; }
+		if (FreeAt(HitPos + Dir * D)) { Sx = D; break; }
 	}
 	if (Sx < 0.0) return false;
+	if (!ExitAboveStreet(Sx)) return false;
+	// critic r2 fl14 (after the exit he was at 0.000 m/s for 5.4 s, pinned against the next tower of a courtyard): the exit kept 0.8 x a
+	// cruise entry = 44 m/s, under BreachSpeed, and the 0.25 s cooldown blocked a second breach anyway, so the next facade a few metres on
+	// stopped him dead. The exit now keeps at least 1.05 x BreachSpeed, and a solid met within the run the exit speed covers in the
+	// cooldown (+ 4 m) is carried through in the same breach (same time bound), up to BreachMaxDepth in total. A next solid too deep to
+	// pass (or an exit under the street) keeps the first exit; the contact slide then steers along the free direction (DeflectFree).
+	const double ExitV = FMath::Max(double(BreachSpeed) * 1.05, S.Vel.Size() * double(BreachKeep));
 	{
-		const FVector Exit = HitPos + Dir * (Sx + 0.6);
-		const double Street = W.GroundHeight(Exit.X, Exit.Y, Exit.Z + 0.5);
-		if (Street > -999.0 && Exit.Z - UWebTraversalComponent::H < Street - 0.05) return false;
+		const double Run = FMath::Max(6.0, ExitV * double(BreachCooldown) + 4.0);
+		for (int32 Chain = 0; Chain < 4; ++Chain)
+		{
+			double Block = -1.0;
+			for (double D = Sx + 0.5; D <= Sx + Run; D += 0.5)
+			{
+				if (!FreeAt(HitPos + Dir * D)) { Block = D; break; }
+			}
+			if (Block < 0.0) break;   // clear run ahead of this exit
+			double Sx2 = -1.0;
+			for (double D = Block + 0.5; D <= double(BreachMaxDepth); D += 0.5)
+			{
+				if (FreeAt(HitPos + Dir * D)) { Sx2 = D; break; }
+			}
+			if (Sx2 < 0.0 || !ExitAboveStreet(Sx2)) break;
+			Sx = Sx2;
+		}
 	}
 	bBreach = true;
 	BreachA = HitPos - Dir * 0.05; BreachDir = Dir; BreachLen = Sx + 0.6; BreachS = 0.0;
 	BreachB = BreachA + Dir * BreachLen;
-	BreachExitV = FMath::Max(double(BreachSpeed) * 0.9, S.Vel.Size() * double(BreachKeep));
+	BreachExitV = ExitV;
 	// the body is out of sight inside the solid: the pass is time-bounded (fl14: 124 m at 44 m/s hid the hero for 2.8 s), the exit keeps
 	// the kept speed
 	BreachV = FMath::Max(BreachExitV, BreachLen / FMath::Max(0.1, double(BreachMaxTime)));
@@ -167,6 +194,33 @@ void UWHFlightComponent::StepBreach(UWebTraversalComponent& T, double H)
 	}
 }
 
+// critic r2 fl14 (pinned at 0.000 m/s against a glass tower after a breach exit): a contact that cannot be breached keeps its speed, turned
+// along the facade toward the free direction -- the tangential part of the travel when there is a real one, else up / along the wall to
+// either side, whichever has the longest clear run (ties: up, over the building)
+void UWHFlightComponent::DeflectFree(UWebTraversalComponent& T, const FVector& HitN, double Speed)
+{
+	auto& S = T.S;
+	const FWebTravWorld& W = T.TravWorld;
+	if (Speed < 1.0) return;
+	const FVector Tan = S.Vel - HitN * FVector::DotProduct(S.Vel, HitN);
+	if (Tan.Size() >= 0.5 * Speed) { S.Vel = Tan.GetSafeNormal() * Speed; return; }
+	const FVector Nh = FVector(HitN.X, HitN.Y, 0.0).GetSafeNormal();
+	if (Nh.IsNearlyZero()) return;
+	const FVector Along = FVector::CrossProduct(FlUp, Nh);
+	const FVector From = S.Pos + Nh * 0.6;
+	FVector Cands[3] = { FlUp, Along, -Along };
+	if (FVector::DotProduct(Tan, Along) < 0.0) Swap(Cands[1], Cands[2]);   // a little tangential travel picks its side first
+	FVector Best = FlUp;
+	double BestFree = -1.0;
+	for (const FVector& C : Cands)
+	{
+		double D = 0.0; FVector N = FVector::ZeroVector;
+		const double Free = W.SweepSolid(From, From + C * 15.0, 0.45, D, N) ? D : 15.0;
+		if (Free > BestFree + 0.5) { BestFree = Free; Best = C; }
+	}
+	S.Vel = Best * Speed;
+}
+
 bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, const FWebTravInput& I)
 {
 	auto& S = T.S;
@@ -182,10 +236,21 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 	{
 		const FVector Dir = Step / L;
 		const FVector HitPos = P0 + Dir * HitD;
-		if (FMath::Abs(HitN.Z) < 0.6 && Sp >= BreachSpeed && BreachCd <= 0.0 && Sub != NF_slam && StartBreach(T, HitPos, HitN, Dir))
+		// critic r2 fl14: inside the post-exit cooldown a NEW facade ahead (its inward normal along the last breach direction -- the face
+		// just left can only be met moving back into it) is breached as well instead of stopping him against it
+		const bool bNewFace = BreachCd > 0.0 && FVector::DotProduct(-HitN, BreachExitN) > 0.3;
+		// (a grazing contact -- under ~20 deg to the facade, e.g. the fast slide DeflectFree leaves him in -- slides: marching a breach
+		//  along the wall face found "free" space 0.6 m on and staged a 1 m breach with its camera hold / cut)
+		const bool bHeadOn = FVector::DotProduct(Dir, -HitN) > 0.34;
+		bool bBreachFailed = false;
+		if (FMath::Abs(HitN.Z) < 0.6 && Sp >= BreachSpeed && bHeadOn && (BreachCd <= 0.0 || bNewFace) && Sub != NF_slam)
 		{
-			StepBreach(T, FMath::Max(0.0, H - HitD / FMath::Max(Sp, 1.0)));
-			return true;
+			if (StartBreach(T, HitPos, HitN, Dir))
+			{
+				StepBreach(T, FMath::Max(0.0, H - HitD / FMath::Max(Sp, 1.0)));
+				return true;
+			}
+			bBreachFailed = true;
 		}
 		S.Pos = P0 + Dir * FMath::Max(0.0, HitD - 0.02);
 		if (HitN.Z >= 0.6)
@@ -209,6 +274,9 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 				S.Vel -= HitN * VN;
 				if (-VN > 15.0) { Event(T, NF_flyBump, FMath::Clamp(float(-VN / 60.0), 0.f, 1.f), HitPos, HitN); }
 			}
+			// critic r2 fl14 (0.000 m/s pinned against a tower after a breach exit): a fast fly-held contact that could not breach (solid
+			// deeper than BreachMaxDepth, exit under the street) keeps its speed and turns along the free direction instead of stopping dead
+			if (bBreachFailed && I.bSwing) DeflectFree(T, HitN, Sp);
 			// suite round 1 (sim fl14: pinned motionless for 1.1 s): fly held head-on into a facade under BreachSpeed accelerated, slid to
 			// zero and repeated every step. After PunchPinTime of pushing he punches through instead; slow flight (stick back) keeps sliding.
 			if (I.bSwing && I.Move.Y > -0.3 && Sub != NF_slam && BreachCd <= 0.0 && FMath::Abs(HitN.Z) < 0.6 && FVector::DotProduct(Dir, -HitN) > 0.6)
@@ -221,6 +289,10 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 					S.Vel = PD * FMath::Max(double(BreachSpeed), V0.Size());
 					if (StartBreach(T, HitPos, HitN, PD)) { PinT = 0.0; return true; }
 					S.Vel = V0;
+					// critic r2 fl14: a punch that cannot get through (too deep) no longer leaves him pinned at 0 m/s for good -- he is turned
+					// along / up the facade at no less than half the cruise speed
+					DeflectFree(T, HitN, FMath::Max3(Sp, V0.Size(), 0.5 * double(CruiseSpeed)));
+					PinT = 0.0;
 				}
 			}
 		}
@@ -238,7 +310,9 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 		S.Pos.Z = Floor + UWebTraversalComponent::H;
 		if (S.Vel.Z < 0) S.Vel.Z = 0;
 	}
-	else if (Floor > -999.0 && Sub == NF_hover && I.bDrop && Feet - Floor < 0.35 && S.Vel.Z <= 0.5)
+	// critic r2 (fl13 touchdown): the snap-down band 0.35 -> 0.05 m (at the capped descent a 0.35 m snap started from ~3.2 m/s and moved the
+	// body 0.35 m in one step; the feet-under-floor branch above now makes the contact at ~TouchdownV)
+	else if (Floor > -999.0 && Sub == NF_hover && I.bDrop && Feet - Floor < 0.05 && S.Vel.Z <= 0.5)
 	{ // hover + descend held right over the floor: a gentle touchdown
 		HeroLand(T, Floor, FMath::Max(0.0, -S.Vel.Z), false);
 		return true;
@@ -356,15 +430,24 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	else
 	{ // hover: stick strafes on the camera's ground plane, Space / C climb; a fast arrival glides down instead of stopping dead
 		double ClimbV = Climb * double(VertSpeed);
+		double DescCap = -1.0;   // m/s: fastest descent allowed at this height (-1 = no floor found)
 		if (Climb < 0.0)
 		{ // critic r2 (fl01 / fl13: "gentle" touchdowns stopped from 10 m/s in one frame): the descent eases out over the last 4 m
+			// critic r2 / r3 replay (fl13: the linear ease still met the floor at ~5 m/s -- the 4/s velocity damp lagged its target): the
+			// descent follows a constant-deceleration profile to TouchdownV at the floor, and the damped velocity is capped by it below
 			const double FeetZ = S.Pos.Z - UWebTraversalComponent::H;
 			const double Fl = T.TravWorld.GroundHeight(S.Pos.X, S.Pos.Y, FeetZ + 0.6);
-			if (Fl > -999.0) ClimbV *= FMath::Clamp((FeetZ - Fl) / 4.0, 0.15, 1.0);
+			if (Fl > -999.0)
+			{
+				const double Tv = double(TouchdownV);
+				DescCap = FMath::Sqrt(Tv * Tv + 2.0 * FMath::Max(0.1, double(TouchdownDecel)) * FMath::Max(0.0, FeetZ - Fl - double(TouchdownSlowH)));
+				ClimbV = -FMath::Min(-ClimbV, DescCap);
+			}
 		}
 		const FVector Want = (FwdF * I.Move.Y + RightF * I.Move.X) * double(HoverSpeed) + FlUp * ClimbV;
 		const double Rate = Sp > HoverSpeed * 1.5 ? HoverGlideRate : HoverRate;
 		V = FlDampV(V, Want, Rate, H);
+		if (DescCap >= 0.0 && V.Z < -DescCap) V.Z = -DescCap;
 		SetFlySub(T, NF_hover);
 	}
 	// ---- sonic boom (hysteresis)

@@ -55,6 +55,30 @@ public:
 	double BaseVFov = 58.0;
 	/** Invincible flight (2026-10-15): extra vertical FOV (deg) faded in over FlightFov0..FlightFov1 m/s (0 = off: the swing hero). */
 	double FlightFovAdd = 0.0, FlightFov0 = 40.0, FlightFov1 = 160.0;
+	// ---- critic r2 (Invincible flight, top defect "blue egg": fly / boost read from behind and slightly above, glutes dominate, head and
+	// leading arm hidden, hero 0.10-0.16 of the frame height by pixels): FLIGHT FRAMING. While the flight pawn reports a fly line
+	// (bFlightLine: airborne in fly / boost / dash / breach; set every frame by AWebTravCharacter::FlightFrame, never for -WHFlight=0) the
+	// chase spot is blended (FlightK spring, polar about the hero like the trick blend) onto a three-quarter rear spot: FlightElevDeg above
+	// the hero's spine line (= the fly line's pitch), FlightSideDeg off the travel-behind direction (camera Yaw, so the auto recenter and
+	// look input keep working), at a distance that holds the hero near FlightPixH of the frame height (body length / thickness model,
+	// with a bone-box safety band FlightFbLo..FlightFbHi on HeroProjH). The side is the outside of a bank (the camera sees his back as he
+	// rolls into the turn) or away from a near facade; side changes are a spring, never a cut. Banks roll the lens a little (<= FlightRollMaxDeg).
+	bool bFlightLine = false;
+	double FlightBank = 0.0;          // hero bank (rad, + = rolling right into a right turn), set with bFlightLine
+	double FlightK = 0.0, FlightKV = 0.0;   // weight 0 chase .. 1 flight framing (telemetry)
+	double FlightInT = 0.45, FlightOutT = 0.6;
+	double FlightElevDeg = 24.0, FlightElevMinDeg = -12.0, FlightElevMaxDeg = 55.0;   // above the spine line / world elevation band
+	double FlightSideDeg = 26.0, FlightLeadDeg = 6.0;   // three-quarter azimuth off behind / view yaw lead toward the travel
+	double FlightPixH = 0.24, FlightBodyLen = 2.0, FlightBodyThick = 0.4;   // target frame-height share; hero length (boots .. leading fist) / thickness (m)
+	double FlightDistMin = 2.8, FlightDistMax = 5.2;
+	double FlightFbLo = 0.27, FlightFbHi = 0.46, FlightFbK = 1.0;   // HeroProjH safety band (bone box ~1.3-1.8x the pixel mask)
+	double FlightSFrame = 0.52, FlightRollK = 0.12, FlightRollMaxDeg = 8.0;
+	double FlightBankSideDeg = 30.0, FlightSideHoldT = 1.0, FlightSideT = 0.8, FlightWallNear = 6.0;
+	double FlightSideS = 1.0, FlightSideV = 0.0, FlightSideGoal = 1.0, FlightSideHold = 0.0;
+	double FlightPitchS = 0.0, FlightPitchV = 0.0, FlightDistS = 3.4, FlightDistV = 0.0;
+	/** critic r2 fl14: the spot the first composed frame after Reset(Pos, Yaw) will use (the flight spot while flight framing is on, else
+	 *  the chase spot) is out of every solid and sees the hero's chest. The breach hold waits for it before its one cut. */
+	bool CutSpotClear(const FVector& Pos, const FVector& Vel, const FWebTravWorld& World) const;
 	bool bJolts = true;
 	/** Round 02: swing / air pitch follows height (looks down over the street when high, levels out at the arc bottom). */
 	double HeightPitchK = 0.024, HeightPitchRef = 10.0;
@@ -238,6 +262,9 @@ public:
 	void Update(double Dt, const FTravCamInput& P, const FWebTravWorld& World);
 
 private:
+	// critic r2 (flight framing): world elevation (rad) of the flight spot for a spine (fly line) pitch, and the spot itself
+	double FlightElevFor(double SpinePitch) const;
+	FVector FlightSpotFor(const FVector& Hero, double SpinePitch, double Radius) const;
 	// Smooth attack/decay for readable impact and speed shake, independent of the chase spring.
 	double ShakeEnvelope = 0.0, ShakeEnvelopeV = 0.0;
 	bool bWasSwinging = false;

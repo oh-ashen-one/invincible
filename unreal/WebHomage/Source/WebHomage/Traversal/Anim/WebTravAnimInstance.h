@@ -16,6 +16,8 @@
 #include "WebTravAnimInstance.generated.h"
 
 class UAnimSequence;
+class USkeletalMeshComponent;
+class AWHRescueDirector;   // critic r2 (round 3 hero): the carried crane load
 
 struct FWebTravAnimLayer
 {
@@ -91,6 +93,21 @@ struct FWebTravAnimFrame
 	float FlyStretchK = 0.f, FlyKneeK = 0.f, FlyFistR = 1.f, FlyBoomK = 0.f, FlyT = 0.f;
 	FVector2D FlyStick = FVector2D::ZeroVector;
 	FVector FlyDownCS = FVector(0.0, 0.0, -1.0);   // world down in component space
+	// critic r2 (round 3 hero piece):
+	//   FlyCarryW  carry channel (fl17: "stands on the load, no grip"): both hands on the bottom face of the carried crane load, held
+	//              overhead / ahead of the head; FlyCarryHand[0 = L, 1 = R] hand targets, FlyCarryFing finger directions, FlyCarryPole
+	//              elbow bias (component space, cm) -- all derived from the load transform the director renders this frame
+	//   FlyDiveAng slam dive roll of the whole body about the hips (rad; 0 upright, ~2.9 head-down along the dive, on to 2*PI = back on
+	//              the feet for the landing: fl11 "an upright, feet-first drop")
+	//   FlyStandW  heroic stand after the hero landing (fl11: "frog-squat landing", "identical idle pose"); FlyLandT hero-landing clock
+	//              (s since the impact, < 0 = none; it runs on through the traversal's landHero -> idle hand-over)
+	//   FlyBank    eased bank (rad, + = right turn), FlySecW secondary-motion weight of the fly line (pose_sig <= 0.13 m: "a rigid
+	//              statue"), FlySpeedK = FWebTravAnimFlight::SpeedK
+	//   FlyWallSide eased FWebTravAnimFlight::WallSide (fl16 clipping: wall-side arm / leg tuck; 0 while the controller does not fill it)
+	float FlyCarryW = 0.f, FlyDiveAng = 0.f, FlyStandW = 0.f, FlyLandT = -1.f, FlyBank = 0.f, FlySecW = 0.f, FlySpeedK = 0.f, FlyWallSide = 0.f;
+	FVector FlyCarryHand[2] = { FVector::ZeroVector, FVector::ZeroVector };
+	FVector FlyCarryFing[2] = { FVector::ForwardVector, FVector::ForwardVector };
+	FVector FlyCarryPole = FVector(0.0, 0.0, -1.0);
 };
 
 struct FWebTravAnimProxy : public FAnimInstanceProxy
@@ -137,6 +154,9 @@ public:
 		bReachRight = true; LastMode = EWebTravMode::Ground; Frame.LegW = 0.f; PendingLegs.Reset();
 		Frame.FlyArmW = Frame.FlyLegW = Frame.FlyHoverW = Frame.FlyBrakeW = Frame.FlySlamW = Frame.FlyBreachW = Frame.FlyKneelW = 0.f; // 2026-10-15 flight
 		Frame.FlyStretchK = Frame.FlyKneeK = Frame.FlyBoomK = 0.f;
+		// critic r2 (round 3 hero): carry / dive roll / heroic stand / secondary motion state
+		Frame.FlyCarryW = Frame.FlyDiveAng = Frame.FlyStandW = Frame.FlyBank = Frame.FlySecW = Frame.FlyWallSide = 0.f; Frame.FlyLandT = -1.f;
+		HeroLandT = -1.f; DiveAng = 0.f; bDiveRighting = false; bDiveDone = false; bCarryPrev = false; CarryAnimT = 0.f; FistSwapT = 0.f; bFistSwap = false;
 	}
 
 	/** Content folder with the hero clips and the asset-name prefix (set from AWebTravCharacter::HeroClipRoot / HeroClipPrefix). */
@@ -201,4 +221,18 @@ private:
 	bool bFlipClips = false;
 	TArray<FWebTravAnimLayer> PendingLegs;
 	void BuildFlipLayers(FName Program, float T, TArray<FWebTravAnimLayer>& Out, TArray<FWebTravAnimLayer>& OutLegs);
+	// critic r2 (round 3 hero piece, fl17 rescue): the carried crane load. UpdateCarry (game thread) finds the rescue director, blends the
+	// load from where it was caught into the overhead carry pose (component space), publishes that to the director (which renders the
+	// load there this frame) and fills Frame.FlyCarry*. CarryAxes caches the body axes / shoulders / arm length from the reference pose.
+	bool UpdateCarry(const USkeletalMeshComponent* SkelMesh, float DeltaS);
+	bool CarryAxes(const USkeletalMeshComponent* SkelMesh);
+	// critic r2 (fl11): seconds until the slam dive meets the floor under the hero (traversal ground index; 9 = unknown)
+	float SlamTimeToImpact() const;
+	TWeakObjectPtr<AWHRescueDirector> RescueDir;
+	float RescueFindT = 0.f, CarryAnimT = 0.f, HeroLandT = -1.f, DiveAng = 0.f, FistSwapT = 0.f;
+	bool bCarryPrev = false, bCarryAxesOk = false, bDiveRighting = false, bDiveDone = false, bFistSwap = false;
+	FTransform CarryCatchCS = FTransform::Identity;
+	FVector CarryUp = FVector::UpVector, CarryFwd = FVector::ForwardVector, CarryLat = FVector::RightVector;
+	FVector CarryShL = FVector::ZeroVector, CarryShR = FVector::ZeroVector;
+	double CarryArmLen = 60.0;
 };

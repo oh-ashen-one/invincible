@@ -1,6 +1,6 @@
 {
  "name": "fl17_rescue_crane",
- "note": "Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly over to the crane load, brake, drop onto it (catch), dive down with it, set it down on the street (E), touch down.",
+ "note": "Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly over to the crane load (straight through the tower block east of 5th Av, which tops 185 m on this line), brake, drop onto it (catch), dive down with it, set it down on the street (E), touch down.",
  "seed": 1234,
  "spawn": {
   "pos": [

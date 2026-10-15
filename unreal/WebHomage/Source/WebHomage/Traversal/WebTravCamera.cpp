@@ -263,6 +263,15 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	SD(Fov, FovV, WantFov, 0.4, Dt);   // round 11: 0.7 -> 0.4 s (see above)
 	// launch kick spring
 	KickV += (-KickK * 55.0 - KickV * 11.0) * Dt; KickK += KickV * Dt;
+	// ---- critic r2 (Invincible flight "blue egg", see bFlightLine in the header): flight framing weight. In only while the flight pawn
+	// reports a fly line and the body is airborne, faded in with speed (8..22 m/s) so a slow line start does not swing the lens; hover,
+	// takeoff, brake, slam and the ground keep the chase framing. Always 0 for the legacy hero (bFlightLine is never set there).
+	{
+		const double FlightGoal = (bFlightLine && bAir) ? Smooth(Speed, 8.0, 22.0) : 0.0;
+		SD(FlightK, FlightKV, FlightGoal, FlightGoal > FlightK ? FlightInT : FlightOutT, Dt);
+		FlightK = FMath::Clamp(FlightK, 0.0, 1.0);
+		if (FlightK <= 1e-4 && FlightGoal <= 0.0) { FlightK = 0.0; FlightKV = 0.0; }
+	}
 	// ---- roll: velocity yaw-rate + swing bank
 	const double VelYaw = FMath::Atan2(Vel.Y, Vel.X);
 	const double DY = bHasLastVelYaw ? WrapA(VelYaw - LastVelYaw) : 0.0;
@@ -273,6 +282,13 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	// toward the arc ends
 	const double ArcRoll = SideK * FMath::DegreesToRadians(AnchorRollMax) * Smooth(FMath::Abs(P.SwingAngle), 0.55, 1.0);
 	double WantRoll = FMath::Clamp(-YawRate * 0.03, -0.07, 0.07) - BankS * 0.04 + ArcRoll;
+	// critic r2 (fl05: "the camera never rolls" through 45-70 deg flight banks): a small lean with the hero's bank, same sign as the
+	// yaw-rate lean, the total capped at FlightRollMaxDeg so the horizon stays readable (FlightK = 0: unchanged)
+	if (FlightK > 1e-4)
+	{
+		const double RMax = FMath::DegreesToRadians(FlightRollMaxDeg);
+		WantRoll = FMath::Lerp(WantRoll, FMath::Clamp(WantRoll - FlightBank * FlightRollK, -RMax, RMax), FlightK);
+	}
 	// round 10 (critic r09 T13 |roll| median 1.6 > 1.5 deg): small leans (< RollDeadDeg) are dropped, larger ones keep their size
 	{
 		const double Dz = FMath::DegreesToRadians(RollDeadDeg);
@@ -687,6 +703,7 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		FlipZK = FMath::Clamp(FlipZK, 0.0, 1.0);
 	}
 	SWant = FMath::Lerp(SWant, FlipSFrame, FlipK);
+	SWant = FMath::Lerp(SWant, FlightSFrame, Smooth(FlightK, 0.0, 1.0));   // critic r2 (flight framing): hero near the centre, horizon in the top band
 	SWant = FMath::Clamp(SWant, 0.32, 0.72);
 	// round 10 (critic r09: camera pop at b 0.000-0.017 s): the first composed frame starts AT its framing / attach targets
 	// (FrameS was reset to 0.55 and sprang to ~0.40 over the first frames: 4 deg of pitch per frame)
@@ -699,7 +716,8 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 	const double AirClose = (bSwinging || bAir) ? SwingCloser : 0.0;
 	// round 05 (P1): closed-loop chase distance from the projected hero bone-box height (the trick camera's signal), so the hero
 	// pixel height holds its band while the pose / framing change; the watchdog adds VisBoostBack while he is out of view
-	if ((bSwinging || bAir) && !bFlipCam && HeroProjH > 0.0)
+	// (critic r2, flight framing: while the flight spot owns the lens, HeroProjH measures that view, not the chase -- the chase loop rests)
+	if ((bSwinging || bAir) && !bFlipCam && HeroProjH > 0.0 && FlightK < 0.5)
 	{
 		// round 07 (s4 P1: the speed FOV kick / its decay made the loop pull in and then leave the hero over the band top at
 		// the swing bottom / catch): normalize the measured projected height by the speed-kick fov part (Fov + Punch + Kick,
@@ -790,6 +808,68 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 		if (!bFlipCam && FlipKr > 1e-4 && !bLandingRadiusHold && !bFlipObstacleOut) SD(FlipDistNow, FlipDistV, RC, 0.18, Dt);
 		const double AB = AC + WrapA(AF - AC) * FlipK, RB = FMath::Lerp(RC, RF, FlipKr);
 		Cam = FVector(Hero.X + RB * FMath::Cos(AB), Hero.Y + RB * FMath::Sin(AB), Hero.Z + FMath::Lerp(Cam.Z - Hero.Z, FlipSpot.Z - Hero.Z, FlipZK));
+	}
+	// ---- critic r2 (Invincible flight, top defect "blue egg"; see bFlightLine in the header): flight framing. A three-quarter rear spot
+	// FlightElevDeg above the spine line and FlightSideDeg off behind, blended onto the chase spot in polar coordinates about the hero
+	// (azimuth, horizontal radius, height) by FlightK, so entering / leaving a fly line and side changes are continuous (no pop). The
+	// azimuth hangs off the camera Yaw: the auto recenter behind the travel and the player's look input move it as before. The collision /
+	// visibility passes below still own the final spot. FlightK = 0 (hover, ground, legacy hero): the springs are only re-seeded.
+	{
+		const double FlSp = P.Vel.Size();
+		const double SpinePitch = FlSp > 2.0 ? FMath::Atan2(P.Vel.Z, FVector2D(P.Vel.X, P.Vel.Y).Size()) : 0.0;
+		if (FlightK <= 1e-4)
+		{
+			FlightPitchS = SpinePitch; FlightPitchV = 0.0; FlightSideHold = 0.0; FlightFbK = 1.0;
+			FlightSideS = FlightSideGoal; FlightSideV = 0.0; FlightDistS = 0.0; FlightDistV = 0.0;
+		}
+		else
+		{
+			SD(FlightPitchS, FlightPitchV, SpinePitch, 0.25, Dt);
+			// side: the outside of a bank past FlightBankSideDeg (his back faces that side as he rolls), else kept; a facade within
+			// FlightWallNear m on the camera side moves it to a clearly more open other side. Held FlightSideHoldT s, eased over FlightSideT s.
+			FlightSideHold -= Dt;
+			if (FlightSideHold <= 0.0)
+			{
+				double SideWant = FlightSideGoal;
+				if (FMath::Abs(FlightBank) > FMath::DegreesToRadians(FlightBankSideDeg)) SideWant = FlightBank > 0.0 ? -1.0 : 1.0;
+				const FVector RtF = RightFlat();
+				auto FreeSide = [&](double S) -> double
+				{
+					FTravHit SH;
+					return World.Raycast(Chest, RtF * S, 12.0, SH) && FMath::Abs(SH.Normal.Z) < 0.5 ? SH.Distance : 12.0;
+				};
+				const double FreeWant = FreeSide(SideWant), FreeOther = FreeSide(-SideWant);
+				if (FreeWant < FlightWallNear && FreeOther > FreeWant + 3.0) SideWant = -SideWant;
+				if (SideWant != FlightSideGoal) { FlightSideGoal = SideWant; FlightSideHold = FlightSideHoldT; }
+			}
+			SD(FlightSideS, FlightSideV, FlightSideGoal, FlightSideT, Dt);
+			FlightSideS = FMath::Clamp(FlightSideS, -1.0, 1.0);
+			// distance: the hero's projected height from this spot (length x sin(elevation over the spine) x cos(side) + thickness x cos)
+			// at FlightPixH of the spring FOV (the speed FOV widening then shows on the city, not as a smaller hero); the launch kick still
+			// pulls back on top so the sonic boom kick reads. The bone box (HeroProjH) only corrects outside FlightFbLo..FlightFbHi.
+			const double ElevRel = FlightElevFor(FlightPitchS) + FlightPitchS;
+			const double SideA = FMath::DegreesToRadians(FlightSideDeg) * FMath::Abs(FlightSideS);
+			const double Ext = FlightBodyLen * FMath::Abs(FMath::Sin(ElevRel)) * FMath::Cos(SideA) + FlightBodyThick * FMath::Abs(FMath::Cos(ElevRel));
+			const double TanF = FMath::Tan(FMath::DegreesToRadians(FMath::Clamp(Fov, 20.0, 100.0)) * 0.5);
+			if (!bFirst && HeroProjH > 0.0 && FlightK > 0.5)
+			{
+				if (HeroProjH < FlightFbLo) FlightFbK -= (FlightFbLo - HeroProjH) / FlightFbLo * 1.5 * Dt;
+				else if (HeroProjH > FlightFbHi) FlightFbK += (HeroProjH - FlightFbHi) / FlightFbHi * 1.5 * Dt;
+				FlightFbK = FMath::Clamp(FlightFbK, 0.75, 1.3);
+			}
+			const double RWant = FMath::Clamp(Ext / (2.0 * TanF * FMath::Max(0.05, FlightPixH)) * FlightFbK, FlightDistMin, FlightDistMax)
+				+ 1.3 * FMath::Max(0.0, KickK);
+			if (FlightDistS <= 0.0) { FlightDistS = RWant; FlightDistV = 0.0; }
+			SD(FlightDistS, FlightDistV, RWant, 0.35, Dt);
+			// the follow lag (velocity-proportional, soft-clamped, sprung in Update) at 0.6: an acceleration still pulls the lens back a little
+			const FVector FSpot = FlightSpotFor(Hero, FlightPitchS, FlightDistS) + LagOff * 0.6;
+			const double Ks = Smooth(FlightK, 0.0, 1.0);
+			const double DxC = Cam.X - Hero.X, DyC = Cam.Y - Hero.Y, DxF = FSpot.X - Hero.X, DyF = FSpot.Y - Hero.Y;
+			const double AC = FMath::Atan2(DyC, DxC), AF = FMath::Atan2(DyF, DxF);
+			const double RC = FMath::Sqrt(DxC * DxC + DyC * DyC), RF = FMath::Sqrt(DxF * DxF + DyF * DyF);
+			const double AB = AC + WrapA(AF - AC) * Ks, RB = FMath::Lerp(RC, RF, Ks);
+			Cam = FVector(Hero.X + RB * FMath::Cos(AB), Hero.Y + RB * FMath::Sin(AB), Hero.Z + FMath::Lerp(Cam.Z - Hero.Z, FSpot.Z - Hero.Z, Ks));
+		}
 	}
 	const FVector ProbeRaw = Cam;
 	// A descending trick lens can hit the roof BEFORE the body lands. Sweeping the below-roof spot first shortened the
@@ -1201,7 +1281,39 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 	Pitch = PitchDown; // keep the orbit state coherent for Forward()
 	// (round 09: the hero stays centred horizontally — TRAVERSAL-SPEC T9; the off-axis look comes from the sideways slide)
 	// (round 16, TC7: a small lead-room yaw bias toward the hero's travel -- the hero sits on the trailing side of the frame, x ~ .45-.55)
-	CamRot = FRotator(FMath::RadiansToDegrees(-PitchDown), FMath::RadiansToDegrees(ToHeroYaw + AttachYaw - FlipSide * FMath::DegreesToRadians(FlipLeadDeg) * FlipKs), 0);
+	// (critic r2, flight framing: the view leads FlightLeadDeg toward the travel from the three-quarter side -- room ahead of the hero)
+	const double FlightLead = FlightSideS * FMath::DegreesToRadians(FlightLeadDeg) * Smooth(FlightK, 0.0, 1.0);
+	CamRot = FRotator(FMath::RadiansToDegrees(-PitchDown), FMath::RadiansToDegrees(ToHeroYaw + AttachYaw - FlipSide * FMath::DegreesToRadians(FlipLeadDeg) * FlipKs + FlightLead), 0);
+}
+
+// critic r2 (Invincible flight, "blue egg"): world elevation of the flight spot = FlightElevDeg above the spine line (the fly line's pitch,
+// + = climbing), kept inside the FlightElevMinDeg..FlightElevMaxDeg world band (a steep dive does not put the lens straight overhead)
+double FWebTravCamera::FlightElevFor(double SpinePitch) const
+{
+	return FMath::Clamp(FMath::DegreesToRadians(FlightElevDeg) - SpinePitch, FMath::DegreesToRadians(FlightElevMinDeg), FMath::DegreesToRadians(FlightElevMaxDeg));
+}
+
+FVector FWebTravCamera::FlightSpotFor(const FVector& Hero, double SpinePitch, double Radius) const
+{
+	const double E = FlightElevFor(SpinePitch);
+	const double Az = Yaw + PI - FlightSideS * FMath::DegreesToRadians(FlightSideDeg);   // + side = right of the travel
+	return Hero + FVector(FMath::Cos(E) * FMath::Cos(Az), FMath::Cos(E) * FMath::Sin(Az), FMath::Sin(E)) * Radius;
+}
+
+// critic r2 fl14 (camera jumped 74 m at the breach cut, then 33 near-black frames in a courtyard): the breach hold cuts only once the spot the
+// first composed frame after Reset will use is out of every solid and has a clear line to the hero's chest
+bool FWebTravCamera::CutSpotClear(const FVector& Pos, const FVector& Vel, const FWebTravWorld& World) const
+{
+	const FVector Chest = Pos + FVector(0, 0, 0.4);
+	FVector Spot;
+	if (bFlightLine || FlightK > 0.5)
+	{
+		const double Sp = Vel.Size();
+		const double SpinePitch = Sp > 2.0 ? FMath::Atan2(Vel.Z, FVector2D(Vel.X, Vel.Y).Size()) : 0.0;
+		Spot = FlightSpotFor(Pos, SpinePitch, FMath::Clamp(FlightDistS, FlightDistMin, FlightDistMax));
+	}
+	else Spot = Pos - ForwardFlat() * ChaseDist + RightFlat() * 0.3 + FVector(0, 0, ChaseHeight);
+	return !World.Inside(Spot, 0.05) && !World.SphereOverlaps(Spot, 0.4) && !World.LineBlocked(Spot, Chest);
 }
 
 // round 16 (TRICK_CAMERA_SPEC TC1 / TC2): choose the trick camera's view ONCE, at the release frame; it is never re-searched.
@@ -1328,7 +1440,14 @@ bool FWebTravCamera::SetTune(const FString& Name, double V)
 		{TEXT("SettleDownMax"), &SettleDownMax}, {TEXT("GlareDeg"), &GlareDeg}, {TEXT("GlareW"), &GlareW},
 		{TEXT("GndFloorPull"), &GndFloorPull}, {TEXT("GndFloorPullMin"), &GndFloorPullMin}, {TEXT("GndStop"), &GndStop}, {TEXT("GndHoldLens"), &GndHoldLens}, {TEXT("GndLensRelease"), &GndLensRelease}, {TEXT("GndStopExtra"), &GndStopExtra}, {TEXT("GndStopR"), &GndStopR}, {TEXT("GndMinDist"), &GndMinDist}, {TEXT("GndLookHold"), &GndLookHold}, {TEXT("GndAbsorb"), &GndAbsorb}, {TEXT("GndCraneT"), &GndCraneT}, {TEXT("GndCraneMax"), &GndCraneMax}, {TEXT("PerchHold"), &PerchHold}, {TEXT("GndZipHoldMax"), &GndZipHoldMax},
 		{TEXT("ChaseFbSwing"), &ChaseFbSwing}, {TEXT("ChaseFbAir"), &ChaseFbAir}, {TEXT("ChaseFbGain"), &ChaseFbGain}, {TEXT("ChaseFbMin"), &ChaseFbMin}, {TEXT("ChaseFbMax"), &ChaseFbMax},
-		{TEXT("VisWhipMul"), &VisWhipMul}, {TEXT("VisBoostT"), &VisBoostT}, {TEXT("VisBoostBack"), &VisBoostBack}, {TEXT("VisBoostUp"), &VisBoostUp} };
+		{TEXT("VisWhipMul"), &VisWhipMul}, {TEXT("VisBoostT"), &VisBoostT}, {TEXT("VisBoostBack"), &VisBoostBack}, {TEXT("VisBoostUp"), &VisBoostUp},
+		// critic r2 (Invincible flight framing)
+		{TEXT("FlightElevDeg"), &FlightElevDeg}, {TEXT("FlightElevMinDeg"), &FlightElevMinDeg}, {TEXT("FlightElevMaxDeg"), &FlightElevMaxDeg},
+		{TEXT("FlightSideDeg"), &FlightSideDeg}, {TEXT("FlightLeadDeg"), &FlightLeadDeg}, {TEXT("FlightPixH"), &FlightPixH},
+		{TEXT("FlightBodyLen"), &FlightBodyLen}, {TEXT("FlightBodyThick"), &FlightBodyThick}, {TEXT("FlightDistMin"), &FlightDistMin}, {TEXT("FlightDistMax"), &FlightDistMax},
+		{TEXT("FlightFbLo"), &FlightFbLo}, {TEXT("FlightFbHi"), &FlightFbHi}, {TEXT("FlightSFrame"), &FlightSFrame}, {TEXT("FlightRollK"), &FlightRollK},
+		{TEXT("FlightRollMaxDeg"), &FlightRollMaxDeg}, {TEXT("FlightBankSideDeg"), &FlightBankSideDeg}, {TEXT("FlightSideHoldT"), &FlightSideHoldT},
+		{TEXT("FlightSideT"), &FlightSideT}, {TEXT("FlightWallNear"), &FlightWallNear}, {TEXT("FlightInT"), &FlightInT}, {TEXT("FlightOutT"), &FlightOutT} };
 	for (const FT& T : Tab) if (Name == T.N) { *T.P = V; return true; }
 	return false;
 }

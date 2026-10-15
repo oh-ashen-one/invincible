@@ -1039,7 +1039,10 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 		{
 			const FVector P = Traversal->PosM(), Back = Traversal->VelM().GetSafeNormal2D();
 			const FVector Spot = P - Back * 4.5 + FVector(0, 0, 0.5);
-			if (Traversal->TravWorld.Inside(Spot, 0.05) || Traversal->TravWorld.SphereOverlaps(Spot, 0.4)) { BreachClearT += Dt; bBreachHold = true; }
+			// critic r2 fl14 (74 m camera jump at the cut, then 33 near-black frames): the cut also waits until the spot the camera will
+			// actually compose after Reset (the flight framing spot above / beside him while he is in a fly line) is clear and sees him
+			if (Traversal->TravWorld.Inside(Spot, 0.05) || Traversal->TravWorld.SphereOverlaps(Spot, 0.4)
+				|| !Cam.CutSpotClear(P, Traversal->VelM(), Traversal->TravWorld)) { BreachClearT += Dt; bBreachHold = true; }
 		}
 	}
 	if (!bBreachHold)
@@ -1122,6 +1125,16 @@ void AWebTravCharacter::FlightFrame(const FWebTravInput& I, double Dt)
 	Cam.SkyFloatH = 1e6;
 	Cam.AirPitchDownMax = 0.45;
 	Cam.FlightFovAdd = 7.0;
+	// critic r2 (top defect, "blue egg" from behind): the camera's flight framing (three-quarter rear view from above the spine line, see
+	// FWebTravCamera::bFlightLine) runs only while he is airborne in a fly line; hover / takeoff / brake / slam / ground keep the chase framing
+	{
+		static const FName NFlFly(TEXT("fly")), NFlBoost(TEXT("boost")), NFlDash(TEXT("dash")), NFlBreach(TEXT("breach"));
+		const FName FlSub = Flight ? Flight->FlightSub() : FName(NAME_None);
+		// (a dash keeps the framing it starts in: out of a fly line it stays on, out of a hover it never swings the lens for 0.28 s -- fl09)
+		Cam.bFlightLine = Traversal->Mode() == EWebTravMode::Air
+			&& (FlSub == NFlFly || FlSub == NFlBoost || FlSub == NFlBreach || (FlSub == NFlDash && Cam.FlightK > 0.5));
+		Cam.FlightBank = double(Traversal->Anim.Flight.Bank);
+	}
 	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this))
 	{
 		FW->bFlightMode = true;
