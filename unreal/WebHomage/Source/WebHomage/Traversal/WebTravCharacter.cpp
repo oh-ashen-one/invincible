@@ -1224,8 +1224,7 @@ void AWebTravCharacter::EndAnimTick()
 			FlightCols = FString::Printf(TEXT(",1,%s,%.3f,%.3f,%.3f,%d,%d,%d,%d"), *Flight->FlightSub().ToString(), F.SpeedK, FMath::RadiansToDegrees(F.Bank), F.BoomK,
 				Flight->BoomCount, Flight->BreachCount, Flight->HeroLandCount, FW ? FW->LivesSaved : 0);
 		}
-		if (UWebTravScript* Script = GetGameInstance() ? GetGameInstance()->GetSubsystem<UWebTravScript>() : nullptr)
-			Script->AddTelemetryRow(PendingRow + BuildCols25() + FinalSwingCols(PendingRowT) + FlightCols);
+		Script->AddTelemetryRow(PendingRow + BuildCols25() + FinalSwingCols(PendingRowT) + FlightCols);
 	}
 }
 
