@@ -67,7 +67,7 @@ protected:
 	TObjectPtr<class UWHFlightComponent> Flight;
 	UPROPERTY(Transient) TObjectPtr<class AWHBreachDirector> BreachDirector;
 	UPROPERTY(Transient) TObjectPtr<AActor> RescueDirector;
-	bool bFlightMode = true, bFlightHudSet = false;
+	bool bFlightMode = true, bFlightHudSet = false, bWasBreachHold = false;
 	void FlightFrame(const FWebTravInput& I, double Dt);
 
 	/** Root of the placeholder figure (feet, oriented by the traversal body quaternion). */

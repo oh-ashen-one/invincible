@@ -1022,9 +1022,17 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 				Best->IsUsedAsAtmosphereSunLight() ? TEXT("atmosphere sun") : TEXT("brightest directional"), SR.Yaw, SR.Pitch);
 		}
 	}
-	Cam.HeroProjH = ProjectHeroH();
-	Cam.Update(Dt, CI, Traversal->TravWorld);
-	Traversal->TravWorld.PushOutOfCrowns(Cam.CamPos, 0.5);   // round 01 (Gap 3): the lens never sits inside a tree crown
+	// Invincible flight (suite r1, fl02: the chase camera followed him into the solid -- black frames): through a breach the view holds on
+	// the impact (debris, hole, slow-mo), then cuts to a fresh chase view behind him at the exit
+	const bool bBreachHold = bFlightMode && Flight && Flight->IsBreaching();
+	if (!bBreachHold)
+	{
+		if (bWasBreachHold) { const FVector V = Traversal->VelM(); Cam.Reset(Traversal->PosM(), FMath::Atan2(V.Y, V.X)); }
+		Cam.HeroProjH = ProjectHeroH();
+		Cam.Update(Dt, CI, Traversal->TravWorld);
+		Traversal->TravWorld.PushOutOfCrowns(Cam.CamPos, 0.5);   // round 01 (Gap 3): the lens never sits inside a tree crown
+	}
+	bWasBreachHold = bBreachHold;
 
 	// ---- move the actor (capsule) with the simulated body
 	const FVector BodyCm = Traversal->PosM() * 100.0;

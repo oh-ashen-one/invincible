@@ -129,10 +129,12 @@ public:
 	/** Round 06: capture pre-roll end — back to the freshly initialised state (no blend from the pre-roll pose). */
 	void ResetForSequenceStart()
 	{
-		CurNode = NAME_None; Dominant = NAME_None; NodeT = 0.f; FadeT = 1.f; FadeDur = 0.2f; PrevLayers.Reset(); Frame.Layers.Reset();
+		CurNode = NAME_None; Dominant = NAME_None; NodeT = 0.f; FadeT = 1.f; FadeDur = 0.2f; PrevLayers.Reset();
+		// (Invincible suite r1: Frame.Layers / LegLayers are NOT cleared here any more -- the empty set rendered the bind pose for the first 2
+		//  frames of every capture; the next update replaces them)
 		Frame.ArmAimWeight = 0.f; LocoPhase = 0.f; WallRunPhase = 0.f; bGroundWInit = false; bInAirCycle = false; AirCycleT = 0.f; FlavorIdx = -1; CycleCount = 0;
 		Frame.ArmAimAge = 0.f; bWebAimPrev = false; PrevAimShotK = -1.f; VisualLaunchAge = 0.f;
-		bReachRight = true; LastMode = EWebTravMode::Ground; Frame.LegLayers.Reset(); Frame.LegW = 0.f; PendingLegs.Reset();
+		bReachRight = true; LastMode = EWebTravMode::Ground; Frame.LegW = 0.f; PendingLegs.Reset();
 		Frame.FlyArmW = Frame.FlyLegW = Frame.FlyHoverW = Frame.FlyBrakeW = Frame.FlySlamW = Frame.FlyBreachW = Frame.FlyKneelW = 0.f; // 2026-10-15 flight
 		Frame.FlyStretchK = Frame.FlyKneeK = Frame.FlyBoomK = 0.f;
 	}

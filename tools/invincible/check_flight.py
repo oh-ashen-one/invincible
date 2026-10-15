@@ -90,9 +90,19 @@ for n in names:
     # suite-wide sanity: camera never inside geometry for long, hero on screen, no NaN, no fall through the floor
     cig = sum(1 for r in rows if f(r, 'cam_in_geometry') > 0.5)
     chk('camera inside geometry frames', cig <= 6, cig, '<= 6')
-    inf = [f(r, 'hero_in_frame', 1) for r in rows]
-    off = sum(1 for v in inf if v < 0.5)
-    chk('hero off-screen frames', off <= max(6, len(rows) // 50), off, '<= %d' % max(6, len(rows) // 50))
+    # a breach puts the body inside a solid on purpose: those frames are judged by the blackout length, every other frame by the count
+    # (the camera follows him out of the exit hole: the first 6 frames after a breach count as part of it)
+    in_b, since = [], 99
+    for r in rows:
+        since = 0 if r.get('fl_sub') == 'breach' else since + 1
+        in_b.append(since <= 6)
+    off = sum(1 for r, b in zip(rows, in_b) if f(r, 'hero_in_frame', 1) < 0.5 and not b)
+    chk('hero off-screen frames (outside breaches)', off <= max(6, len(rows) // 50), off, '<= %d' % max(6, len(rows) // 50))
+    run_, worst = 0, 0
+    for r, b in zip(rows, in_b):
+        run_ = run_ + 1 if (b and f(r, 'hero_in_frame', 1) < 0.5) else 0
+        worst = max(worst, run_)
+    chk('longest hidden stretch inside a breach', worst <= 30, '%d frames' % worst, '<= 30 (0.5 s)')
     under = sum(1 for r in rows if f(r, 'height_above_floor_m', 1) < -0.5)
     chk('below the floor frames', under == 0, under, 0)
     jumps = 0
@@ -100,8 +110,12 @@ for n in names:
         dd = math.dist((f(p, 'x_m'), f(p, 'y_m'), f(p, 'z_m')), (f(q, 'x_m'), f(q, 'y_m'), f(q, 'z_m')))
         if dd > max(4.0, 1.6 * f(q, 'speed_mps') / 60 + 0.5): jumps += 1
     chk('position teleports', jumps == 0, jumps, 0)
-    errs = len(re.findall(r'(?m)^.*(LogWebHomage: Error|Ensure condition failed|Fatal error)', L))
-    chk('log errors', errs == 0, errs, 0)
+    # known pre-existing engine ensure in every RENDERED run, frame 0, also in the pre-change smoke log (2026-10-15): reported, not gated
+    KNOWN = 'Ensure condition failed: OriginX <= OriginMax'
+    lines_ = re.findall(r'(?m)^.*(?:LogWebHomage: Error|Ensure condition failed|Fatal error).*$', L)
+    res['known_preexisting_ensures'] = sum(1 for l in lines_ if KNOWN in l)
+    errs = [l for l in lines_ if KNOWN not in l]
+    chk('log errors', not errs, len(errs), 0)
     res['log_flight'] = re.findall(r'WH_FLIGHT (sonic boom|breach in|heroLand|breach out)[^\n]*', L)[:12]
     out[n] = res
     print('%-26s %s  %s' % (n, 'PASS' if res['pass'] else 'FAIL', '; '.join('%s=%s(want %s)' % (x['check'], x['value'], x['want']) for x in res['checks'] if not x['ok'])), flush=True)

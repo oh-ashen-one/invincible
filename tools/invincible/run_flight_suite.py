@@ -57,7 +57,7 @@ def run_case(name):
     shutil.rmtree(d, ignore_errors=True); d.mkdir(parents=True)
     script = CASES_DIR / (name + '.json')
     csv_path = d / (name + '_telemetry.csv')
-    quit_t = m['quit'] + (0 if a.sim else PRE) + 0.2
+    quit_t = m['quit'] + (0 if a.sim else PRE) + 5.0   # the quit clock counts map-load time and breach slow-mo the script clock does not
     args = [str(UE), str(UE_DIR / 'WebHomage.uproject'), MAP, '-game', '-NoCrashReports', '-NoSound', '-NoVSync', '-notraceserver',
             '-WHNoMouseCapture', '-WHShotDir=%s' % d, '-WHShotName=%s' % name, '-abslog=%s' % (d / (name + '.log')),
             '-WHTravScript=%s' % script, '-WHTravCsv=%s' % csv_path, '-benchmark', '-fps=60', '-WHSuit=invincible',
@@ -87,6 +87,12 @@ def run_case(name):
             except subprocess.TimeoutExpired: p.kill(); p.wait()
     wall = time.time() - t0
     rows = csv_path.read_text().count('\n') - 1 if csv_path.exists() else 0
+    n_case = rows
+    if rows > 0:   # the case ends at its script time; the quit margin's tail frames are dropped from telemetry and movie
+        lines = csv_path.read_text().splitlines()
+        body = [l for l in lines[1:] if float(l.split(',')[1]) <= m['quit'] + 1e-6]
+        n_case = len(body)
+        csv_path.write_text('\n'.join([lines[0]] + body) + '\n')
     rec = {'case': name, 'rc': p.returncode, 'wall_s': round(wall, 1), 'rows': rows}
     if not a.sim:
         frames = sorted(SHOTS.glob('MovieFrame*.png'))
@@ -94,7 +100,8 @@ def run_case(name):
         for f in frames: shutil.move(str(f), str(fd / f.name))
         skip = max(0, len(frames) - rows)
         rec.update(frames_rendered=len(frames), preroll_cut=skip)
-        keep = sorted(fd.glob('MovieFrame*.png'))[skip:]
+        keep = sorted(fd.glob('MovieFrame*.png'))[skip:skip + n_case]
+        rec['frames_kept'] = len(keep)
         lst = d / 'frames.txt'
         lst.write_text(''.join("file '%s'\nduration 0.0166667\n" % f for f in keep))
         if keep:

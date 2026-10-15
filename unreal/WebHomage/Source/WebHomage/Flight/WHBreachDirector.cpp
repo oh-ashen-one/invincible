@@ -96,7 +96,7 @@ void AWHBreachDirector::Breach(const FVector& PosM, const FVector& DirM, float S
 	const FVector D = DirM.GetSafeNormal();
 	// debris: entry blows inward (with the hero), exit blows outward; both spray forward along the flight line
 	const double Sp = 1800.0 + 2600.0 * Sev;
-	SpawnChunks(P, D, ChunksPerBreach, Sp, bEntry ? BdConcrete : BdBrick, 35.0 + 30.0 * Sev);
+	SpawnChunks(P, D, ChunksPerBreach, Sp, bEntry ? BdConcrete : BdBrick, 20.0 + 18.0 * Sev);   // suite r1: 35-65 cm read as boxes
 	SpawnShards(P, D, ShardsPerBreach, Sp * 1.2);
 	Fx.Dust(PosM, 2.5 + 2.5 * Sev);
 	Fx.Dust(PosM + D * 3.0, 2.0 + 2.0 * Sev);
@@ -142,8 +142,18 @@ void AWHBreachDirector::Crater(const FVector& PosM, float Sev)
 		Dc->SetWorldLocationAndRotation(P, FRotator(-90.0, 0.0, 0.0));
 		Dc->SetVisibility(true);
 	}
-	else PlaceScar(P + FVector(0, 0, 2.0), FQuat::Identity, FVector(4.2 + 4.0 * Sev, 4.2 + 4.0 * Sev, 0.03), BdScorch);
-	SpawnChunks(P + FVector(0, 0, 20.0), FVector::UpVector, ChunksPerCrater, 700.0 + 900.0 * Sev, BdConcrete, 25.0 + 25.0 * Sev);
+	else
+	{ // suite r1 (fl11: one 8 m flat disc read as an asphalt patch): a smaller black scorched core inside a dark soot apron
+		PlaceScar(P + FVector(0, 0, 1.5), FQuat::Identity, FVector(3.4 + 2.4 * Sev, 3.4 + 2.4 * Sev, 0.02), BdConcrete * 0.18f);
+		PlaceScar(P + FVector(0, 0, 2.5), FQuat::Identity, FVector(1.6 + 1.4 * Sev, 1.6 + 1.4 * Sev, 0.02), BdScorch);
+	}
+	SpawnChunks(P + FVector(0, 0, 20.0), FVector::UpVector, ChunksPerCrater, 700.0 + 900.0 * Sev, BdConcrete, 18.0 + 16.0 * Sev);
+	for (int32 K = 0; K < 8; ++K)
+	{ // rim: slabs kicked outward and low all round
+		const double A = 2.0 * PI * (K + Rng.FRand() * 0.5) / 8.0;
+		const FVector Out(FMath::Cos(A), FMath::Sin(A), 0.25);
+		SpawnChunks(P + Out * 120.0 + FVector(0, 0, 15.0), Out.GetSafeNormal(), 1, 500.0 + 500.0 * Sev, BdConcrete, 22.0 + 14.0 * Sev);
+	}
 	Fx.Dust(PosM, 3.0 + 4.0 * Sev);
 	{
 		FRing* Rg = nullptr;
@@ -212,8 +222,12 @@ void AWHBreachDirector::SpawnChunks(const FVector& PosCm, const FVector& DirN, i
 		C->SetWorldScale3D(FVector(S * Rng.FRandRange(0.6f, 1.4f), S * Rng.FRandRange(0.6f, 1.4f), S * Rng.FRandRange(0.4f, 1.0f)));
 		if (Ch->Mid)
 		{
-			const float V = Rng.FRandRange(0.8f, 1.15f);
-			Ch->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(Tint.R * V, Tint.G * V, Tint.B * V, 1.f));
+			// suite r1 sheet review (one flat light tint read as cardboard): darker, mixed rubble -- mostly the given tint, some brick /
+			// steel / scorched pieces, values spread wide
+			const float Pick = Rng.FRand();
+			const FLinearColor Base = Pick < 0.6f ? Tint : Pick < 0.8f ? BdBrick : Pick < 0.92f ? BdSteel : BdScorch * 4.f;
+			const float V = Rng.FRandRange(0.35f, 0.75f);
+			Ch->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(Base.R * V, Base.G * V, Base.B * V, 1.f));
 			Ch->Mid->SetScalarParameterValue(TEXT("Rough"), 0.9f);
 		}
 		C->SetVisibility(true);

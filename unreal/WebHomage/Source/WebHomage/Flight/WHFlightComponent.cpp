@@ -177,6 +177,7 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 	double HitD = 0.0; FVector HitN = FVector::ZeroVector;
 	const FVector Step = P1 - P0;
 	const double L = Step.Size();
+	bool bPinned = false;
 	if (L > 1e-5 && W.SweepSolid(P0, P1, 0.45, HitD, HitN))
 	{
 		const FVector Dir = Step / L;
@@ -200,6 +201,20 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 			{
 				S.Vel -= HitN * VN;
 				if (-VN > 15.0) { Event(T, NF_flyBump, FMath::Clamp(float(-VN / 60.0), 0.f, 1.f), HitPos, HitN); }
+			}
+			// suite round 1 (sim fl14: pinned motionless for 1.1 s): fly held head-on into a facade under BreachSpeed accelerated, slid to
+			// zero and repeated every step. After PunchPinTime of pushing he punches through instead; slow flight (stick back) keeps sliding.
+			if (I.bSwing && I.Move.Y > -0.3 && Sub != NF_slam && BreachCd <= 0.0 && FMath::Abs(HitN.Z) < 0.6 && FVector::DotProduct(Dir, -HitN) > 0.6)
+			{
+				bPinned = true; PinT += H;
+				if (PinT >= double(PunchPinTime))
+				{
+					const FVector PD = FVector(-HitN.X, -HitN.Y, 0.0).GetSafeNormal();
+					const FVector V0 = S.Vel;
+					S.Vel = PD * FMath::Max(double(BreachSpeed), V0.Size());
+					if (StartBreach(T, HitPos, HitN, PD)) { PinT = 0.0; return true; }
+					S.Vel = V0;
+				}
 			}
 		}
 	}
@@ -229,6 +244,7 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 			if (VN < 0) { S.Vel.X -= C.Normal.X * VN; S.Vel.Y -= C.Normal.Y * VN; }
 		}
 	}
+	if (!bPinned) PinT = 0.0;
 	return false;
 }
 

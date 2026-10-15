@@ -71,6 +71,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxDepth = 80.f; // m: deeper solids are not breached (slide instead)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxTime = 0.45f; // s: longest pass through a solid (the hero is hidden in it)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachCooldown = 0.25f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float PunchPinTime = 0.3f;  // s of fly held head-on against a facade before punching through
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float HeroLandMinSpeed = 30.f; // impact speed for a crater landing
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SoftLandSpeed = 12.f;    // under this a floor contact is a gentle touchdown
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float HeroLandLock = 0.9f;
@@ -108,7 +109,7 @@ private:
 	// breach: straight segment through the solid, entry -> exit (m), at BreachV m/s
 	bool bBreach = false;
 	FVector BreachA = FVector::ZeroVector, BreachB = FVector::ZeroVector, BreachDir = FVector::ForwardVector;
-	double BreachLen = 0.0, BreachS = 0.0, BreachV = 0.0, BreachExitV = 0.0;
+	double BreachLen = 0.0, BreachS = 0.0, BreachV = 0.0, BreachExitV = 0.0, PinT = 0.0;
 	FVector BreachExitN = FVector::ForwardVector;
 	// orientation springs
 	double Bank = 0.0, Pitch = 0.0, RollS = 0.0, LastVelYaw = 0.0, FlyK = 0.0, HoverYaw = 0.0;

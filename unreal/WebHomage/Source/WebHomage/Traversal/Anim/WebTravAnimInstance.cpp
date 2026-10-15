@@ -367,7 +367,8 @@ void UWebTravAnimInstance::BuildNode(FName Node, float T, TArray<FWebTravAnimLay
 			PhRate = (1.f - W1) * PhRate + W1 * (Sp / Loco[K + 1].V) / FMath::Max(Len1, 0.01f);
 		}
 		LocoPhase = FMath::Fmod(LocoPhase + Dt * PhRate, 1.f);
-		if (GroundW[0] > 0.001f) Add(TEXT("perchIdle"), T, GroundW[0], true);
+		// Invincible flight (suite r1, fl01: the flying hero rested in the spider crouch): he stands at rest in the upright idle
+		if (GroundW[0] > 0.001f) Add(A.Flight.bActive ? TEXT("idle") : TEXT("perchIdle"), T, GroundW[0], true);
 		for (int32 J = 0; J < 4; ++J)
 		{
 			UAnimSequence* S = Clip(Loco[J].C);
@@ -1797,8 +1798,9 @@ bool FWebTravAnimProxy::Evaluate(FPoseContext& Output)
 					}
 					{ // hover: arms loose by the sides, slightly out and forward, drifting
 						const double Sw = 0.05 * FMath::Sin(2.0 * PI * 0.45 * double(Frame.FlyT) + double(L) * 1.3);
-						const FVector D = (-Up1 * 0.9 + Lat1 * (Sd * 0.28) + Chest1 * (0.1 + Sw)).GetSafeNormal();
-						Goal.Add(WH, Sh + D * (0.86 * La), (-Chest1 * 0.7 + Lat1 * (Sd * 0.3)).GetSafeNormal(), D);
+						// (suite r1 sheets: 0.28 out at 0.86 reach read as a stiff A-pose; closer in, softer elbows)
+						const FVector D = (-Up1 * 0.95 + Lat1 * (Sd * 0.15) + Chest1 * (0.14 + Sw)).GetSafeNormal();
+						Goal.Add(WH, Sh + D * (0.80 * La), (-Chest1 * 0.7 + Lat1 * (Sd * 0.3)).GetSafeNormal(), D);
 					}
 					{ // brake: arms flare out to the sides
 						const FVector D = (Lat1 * (Sd * 0.85) + Chest1 * 0.3 + Up1 * 0.15).GetSafeNormal();
