@@ -120,10 +120,14 @@ void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
 	StartupFrameTail = 1.0;
 	Trauma = ShakeEnvelope = ShakeEnvelopeV = 0.0; bWasSwinging = false;
 	Punch = PunchV = Dip = DipV = KickK = KickV = 0.0;
+	FlightBoomPunch = FlightBoomPunchV = 0.0; FlightLaunchHoldT = 0.0; FlightYawV = 0.0;   // owner feedback 2026-10-15
 }
 
 void FWebTravCamera::ApplyLook(const FVector2D& Look)
 {
+	// owner feedback 2026-10-15 #3 (flight-sim feel): in the flight line the look input steers the hero's nose (UWHFlightComponent reads the
+	// same input); the camera does not orbit -- it chases his heading in Update (bFlightAttitude is never set for the legacy hero)
+	if (bFlightAttitude) return;
 	if (FMath::Abs(Look.X) + FMath::Abs(Look.Y) > 0.001) LastLook = 0.0;
 	if (FMath::Abs(Look.X) > 0.0005) LookYawDir = Look.X > 0.0 ? 1 : -1; // round 24
 	const double DY = Look.X * Sens, PreviousUserPitch = UserPitch;
@@ -195,9 +199,16 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		const double YawPre = Yaw;
 		if (Blend > 0)
 		{
-			Yaw = AngDamp(Yaw, AutoYaw, FMath::Max(0.0, AutoRate) * Blend, Dt);
+			if (!bFlightAttitude) Yaw = AngDamp(Yaw, AutoYaw, FMath::Max(0.0, AutoRate) * Blend, Dt);
 			Pitch = Damp(Pitch, AutoPitch, FMath::Max(0.0, AutoPRate) * Blend, Dt);
 		}
+		// owner feedback 2026-10-15 #3: in the flight line the heading follows the hero's attitude with lag (a chase plane), not the recenter
+		if (bFlightAttitude)
+		{
+			SDA(Yaw, FlightYawV, FlightNoseYaw, FMath::Max(0.05, FlightYawLagT), Dt);
+			AutoYaw = Yaw; AutoYawV = 0.0;
+		}
+		else FlightYawV = 0.0;
 		// round 25 (c 9.85 s, see PerchHold in the header): perched, the recenter never turns the view onto a lifted / blocked chase spot
 		PerchYawHeld = 0;
 		if (PerchHold > 0.0 && M == EWebTravMode::Perch && FMath::Abs(WrapA(Yaw - YawPre)) > 1e-7 && PerchSpotBad(Yaw, P, World) && !PerchSpotBad(YawPre, P, World))
@@ -263,11 +274,19 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	SD(Fov, FovV, WantFov, 0.4, Dt);   // round 11: 0.7 -> 0.4 s (see above)
 	// launch kick spring
 	KickV += (-KickK * 55.0 - KickV * 11.0) * Dt; KickK += KickV * Dt;
+	// owner feedback 2026-10-15 #1 / #3 (flight only, 0 for the legacy hero): the speed / super FOV term eases in over ~0.3 s, the sonic-boom FOV
+	// punch springs back over ~0.35 s, the launch hang counts down
+	SD(FlightFxFovS, FlightFxFovV, FMath::Max(0.0, FlightFxFov), FlightFxFov > FlightFxFovS ? 0.3 : 0.5, Dt);
+	if (!bJolts) { FlightBoomPunch = FlightBoomPunchV = 0.0; }
+	else if (FlightBoomPunch > 1e-3 || FMath::Abs(FlightBoomPunchV) > 1e-3) SD(FlightBoomPunch, FlightBoomPunchV, 0.0, 0.35, Dt);
+	else FlightBoomPunch = FlightBoomPunchV = 0.0;
+	FlightLaunchHoldT = FMath::Max(0.0, FlightLaunchHoldT - Dt);
 	// ---- critic r2 (Invincible flight "blue egg", see bFlightLine in the header): flight framing weight. In only while the flight pawn
 	// reports a fly line and the body is airborne, faded in with speed (8..22 m/s) so a slow line start does not swing the lens; hover,
 	// takeoff, brake, slam and the ground keep the chase framing. Always 0 for the legacy hero (bFlightLine is never set there).
 	{
-		const double FlightGoal = (bFlightLine && bAir) ? Smooth(Speed, 8.0, 22.0) : 0.0;
+		// (owner feedback 2026-10-15 #1: bFlightHold keeps it in through the super charge, a near-stop)
+		const double FlightGoal = (bFlightLine && bAir) ? (bFlightHold ? 1.0 : Smooth(Speed, 8.0, 22.0)) : 0.0;
 		SD(FlightK, FlightKV, FlightGoal, FlightGoal > FlightK ? FlightInT : FlightOutT, Dt);
 		FlightK = FMath::Clamp(FlightK, 0.0, 1.0);
 		if (FlightK <= 1e-4 && FlightGoal <= 0.0) { FlightK = 0.0; FlightKV = 0.0; }
@@ -304,7 +323,8 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	// Small events used to be squared and disappear in one or two frames. A smooth envelope gives catches/boosts
 	// a short readable beat; gentle speed feedback keeps enabled shake perceptible during the swing itself.
 	const double SpeedShake = bJolts && bSwinging ? 0.18 * Smooth(Speed, 12.0, 38.0) : 0.0;
-	const double ShakeTarget = bJolts ? FMath::Min(0.75, Trauma + SpeedShake) : 0.0;
+	// (owner feedback 2026-10-15 #1 / #3: + the flight speed / super-speed shake floor, 0 for the legacy hero)
+	const double ShakeTarget = bJolts ? FMath::Min(0.75, Trauma + SpeedShake + FMath::Clamp(FlightFxShake, 0.0, 0.75)) : 0.0;
 	SD(ShakeEnvelope, ShakeEnvelopeV, ShakeTarget, ShakeTarget > ShakeEnvelope ? 0.055 : 0.15, Dt);
 	Trauma = bJolts ? Trauma * FMath::Exp(-5.0 * Dt) : 0.0;
 	const double Sh = FMath::Clamp(ShakeEnvelope, 0.0, 0.75);
@@ -314,6 +334,9 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	R.Yaw += Sh * 0.7 * Noise(Time * 8.5, 7.0);
 	CamRot = R;
 	OutVFov = FMath::Min(Fov + Punch + 9.0 * FMath::Max(0.0, KickK) + FMath::RadiansToDegrees(AttachFov), 75.0);   // round 11: T14 caps the swing lens at hFOV 110 = vFOV 76; stay 1 deg under
+	// owner feedback 2026-10-15 #1 / #3: the flight speed / super FOV widening and the sonic-boom punch go past the swing cap, up to FlightFovCap
+	if (FlightFxFovS > 1e-3 || FlightBoomPunch > 1e-3)
+		OutVFov = FMath::Min(OutVFov + FlightFxFovS + FlightBoomPunch, FMath::Max(75.0, FlightFovCap));
 	(void)LookAt;
 	// ---- round 13: output slew limit (see the header): never a cut
 	SlewFlags = 0;
@@ -329,7 +352,10 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		const FVector D = CamPos - LastOutPos;
 		// Deliberate input receives its own orbit/aim budget. Procedural motion retains the original caps; a
 		// 3x stick turn (~356 deg/s) must not orbit the lens while its view is independently held to 120 deg/s.
-		const double Lm = MaxStepPosM * K * Boost + ManualOrbitTravel(LastOutPos, PrevComposeHero, AppliedLookYaw);
+		double Lm = MaxStepPosM * K * Boost + ManualOrbitTravel(LastOutPos, PrevComposeHero, AppliedLookYaw);
+		// owner feedback 2026-10-15 #1: the launch hang -- for FlightLaunchHoldT s after the sonic boom the lens moves at FlightLaunchHoldK of the
+		// hero's speed, so he rockets away from it, then the ordinary cap (MaxStepPosM, scaled with the flight speed by the pawn) catches up
+		if (FlightLaunchHoldT > 0.0) Lm = FMath::Min(Lm, FMath::Max(0.02, FMath::Clamp(FlightLaunchHoldK, 0.0, 1.0) * Speed * Dt));
 		// round 20: the position slew never leaves the lens behind a wall (T19 beats "never a cut")
 		const bool bSlewHidden = D.Size() > Lm && World.LineBlocked(P.Pos + FVector(0, 0, 0.3), LastOutPos + D.GetSafeNormal() * Lm);
 		if (bSlewHidden) SlewFlags |= 8;
@@ -462,7 +488,8 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	// speed motion blur: none on foot / walls, ramps in over fast swings / dives / zips
 	const bool bGroundish = M == EWebTravMode::Ground || M == EWebTravMode::Land || M == EWebTravMode::Wall;
 	// round 08: blur only at genuinely high speed (0 below 28 m/s, full at 50), none on foot / walls
-	const double MbTarget = (bGroundish ? 0.0 : bDive ? 1.3 : 1.0) * Smooth(Speed, 28, 50);
+	// (owner feedback 2026-10-15 #1: + the super-speed blur floor, 0 for the legacy hero)
+	const double MbTarget = bGroundish ? 0.0 : FMath::Max((bDive ? 1.3 : 1.0) * Smooth(Speed, 28, 50), FMath::Clamp(FlightFxBlur, 0.0, 1.8));
 	MotionBlur = FMath::Max(0.0, SD(MbK, MbKV, MbTarget, MbTarget > MbK ? 0.35 : 0.2, Dt));
 }
 
@@ -857,8 +884,9 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 				else if (HeroProjH > FlightFbHi) FlightFbK += (HeroProjH - FlightFbHi) / FlightFbHi * 1.5 * Dt;
 				FlightFbK = FMath::Clamp(FlightFbK, 0.75, 1.3);
 			}
-			const double RWant = FMath::Clamp(Ext / (2.0 * TanF * FMath::Max(0.05, FlightPixH)) * FlightFbK, FlightDistMin, FlightDistMax)
-				+ 1.3 * FMath::Max(0.0, KickK);
+			// (owner feedback 2026-10-15 #1: + FlightFxDist -- the super charge pulls the lens in, never nearer than MinHeroDist)
+			const double RWant = FMath::Max(MinHeroDist, FMath::Clamp(Ext / (2.0 * TanF * FMath::Max(0.05, FlightPixH)) * FlightFbK, FlightDistMin, FlightDistMax)
+				+ 1.3 * FMath::Max(0.0, KickK) + FlightFxDist);
 			if (FlightDistS <= 0.0) { FlightDistS = RWant; FlightDistV = 0.0; }
 			SD(FlightDistS, FlightDistV, RWant, 0.35, Dt);
 			// the follow lag (velocity-proportional, soft-clamped, sprung in Update) at 0.6: an acceleration still pulls the lens back a little

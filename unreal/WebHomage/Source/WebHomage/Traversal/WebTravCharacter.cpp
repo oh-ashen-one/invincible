@@ -1107,7 +1107,11 @@ void AWebTravCharacter::FlightFrame(const FWebTravInput& I, double Dt)
 	for (const FWebTravEvent& E : Traversal->Events)
 	{
 		const FString T = E.Type.ToString();
-		if (T == TEXT("sonicBoom")) { Cam.Kick(1.0); Cam.Shake(0.45); }
+		// owner feedback 2026-10-15 #1: the sonic boom is now the super-boost launch -- kick + shake + FOV punch + the launch hang (he rockets
+		// away from the lens for FlightLaunchLagT s); the charge start rumbles; owner feedback #2: the double-tap dive tips the view over
+		if (T == TEXT("sonicBoom")) { Cam.FlightBoom(1.0); }
+		else if (T == TEXT("superCharge")) { Cam.Shake(0.14); }
+		else if (T == TEXT("heroDive")) { Cam.Kick(0.3); Cam.Shake(0.1); }
 		else if (T == TEXT("breachIn")) { Cam.Impact(0.45 + 0.45 * E.Severity); }
 		else if (T == TEXT("breachOut")) { Cam.Shake(0.25 + 0.25 * E.Severity); Cam.Kick(0.35); }
 		else if (T == TEXT("heroLand")) { Cam.Impact(FMath::Max(0.4, double(E.Severity))); }
@@ -1124,16 +1128,39 @@ void AWebTravCharacter::FlightFrame(const FWebTravInput& I, double Dt)
 	Cam.ChaseDist = 3.1 + 1.1 * FMath::SmoothStep(40.0, 160.0, Sp);   // critic r2: the hero filled 0.10-0.16 of the frame height by pixels
 	Cam.SkyFloatH = 1e6;
 	Cam.AirPitchDownMax = 0.45;
-	Cam.FlightFovAdd = 7.0;
+	Cam.FlightFovAdd = Flight ? double(Flight->FlyFovAdd) : 7.0;   // owner feedback #3: speed FOV is a flight tunable (default 9, was 7)
 	// critic r2 (top defect, "blue egg" from behind): the camera's flight framing (three-quarter rear view from above the spine line, see
 	// FWebTravCamera::bFlightLine) runs only while he is airborne in a fly line; hover / takeoff / brake / slam / ground keep the chase framing
 	{
 		static const FName NFlFly(TEXT("fly")), NFlBoost(TEXT("boost")), NFlDash(TEXT("dash")), NFlBreach(TEXT("breach"));
 		const FName FlSub = Flight ? Flight->FlightSub() : FName(NAME_None);
 		// (a dash keeps the framing it starts in: out of a fly line it stays on, out of a hover it never swings the lens for 0.28 s -- fl09)
+		// (owner feedback #1: the super boost -- charge, super line, deceleration -- is a fly line for the camera too, held in at the charge's near-stop)
 		Cam.bFlightLine = Traversal->Mode() == EWebTravMode::Air
-			&& (FlSub == NFlFly || FlSub == NFlBoost || FlSub == NFlBreach || (FlSub == NFlDash && Cam.FlightK > 0.5));
+			&& (FlSub == NFlFly || FlSub == NFlBoost || FlSub == NFlBreach || (FlSub == NFlDash && Cam.FlightK > 0.5) || (Flight && Flight->IsSuperOn()));
 		Cam.FlightBank = double(Traversal->Anim.Flight.Bank);
+	}
+	// owner feedback 2026-10-15 #1 / #3: flight-sim chase camera + super-boost feel. Look input steers the nose while in the line (the camera
+	// chases the hero's heading with lag, horizon rolls with the bank); speed widens the lens, shakes and blurs it a little; the super line
+	// widens / shakes / blurs it a lot; the charge pulls it in tight. All values are UWHFlightComponent tunables (-WHFlightTune=Name=V).
+	if (Flight)
+	{
+		const double ChK = Flight->ChargeKNow(), SuK = Flight->SuperKNow();
+		const double SpK = FMath::SmoothStep(40.0, FMath::Max(41.0, double(Flight->BoostSpeed)), Sp);
+		Cam.bFlightAttitude = Traversal->Mode() == EWebTravMode::Air && Flight->IsAttitude();
+		Cam.bFlightHold = Flight->IsSuperCharging();
+		Cam.FlightNoseYaw = Flight->CameraYawGoal();
+		Cam.FlightYawLagT = FMath::Max(0.05, double(Flight->CamYawLagT));
+		Cam.FlightRollK = double(Flight->CamRollK);
+		Cam.FlightRollMaxDeg = double(Flight->CamRollMaxDeg);
+		Cam.FlightFxFov = double(Flight->SuperFovAdd) * SuK;
+		Cam.FlightFovCap = double(Flight->CamFovCap);
+		Cam.FlightFxDist = -double(Flight->SuperChargePullM) * ChK;
+		Cam.FlightFxShake = double(Flight->SpeedShake) * SpK + double(Flight->SuperShake) * SuK + 0.10 * ChK;
+		Cam.FlightFxBlur = double(Flight->SuperBlur) * SuK;
+		Cam.FlightBoomFovDeg = double(Flight->BoomFovDeg);
+		Cam.FlightLaunchLagT = double(Flight->LaunchLagT);
+		Cam.FlightLaunchHoldK = double(Flight->LaunchLagK);
 	}
 	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this))
 	{
@@ -1145,6 +1172,11 @@ void AWebTravCharacter::FlightFrame(const FWebTravInput& I, double Dt)
 		FW->bInteractPressed = I.bZipPressed;
 		FW->bInteractHeld = I.bZip;
 	}
+	// owner feedback #1 / #3: the breach director's continuous flight FX (charge vapour gather, super-speed streaks / body trail / street wake,
+	// lighter wind streaks at fast cruise)
+	if (BreachDirector && Flight)
+		BreachDirector->SetFlightFx(float(Flight->ChargeKNow()), float(Flight->SuperKNow()),
+			float(FMath::SmoothStep(60.0, FMath::Max(61.0, double(Flight->BoostSpeed)), Sp)), Traversal->PosM(), Traversal->VelM());
 	if (!bFlightHudSet && !FParse::Param(FCommandLine::Get(), TEXT("WHNoHUD")))
 	{
 		if (APlayerController* PC = Cast<APlayerController>(GetController()))

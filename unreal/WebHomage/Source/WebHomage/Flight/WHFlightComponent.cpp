@@ -8,6 +8,8 @@
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
 #include "UObject/UnrealType.h"
+#include "Engine/World.h"
+#include "GameFramework/WorldSettings.h"
 
 namespace
 {
@@ -17,6 +19,8 @@ namespace
 	// ground / events
 	WF_NAME(idle) WF_NAME(landLight)
 	WF_NAME(sonicBoom) WF_NAME(breachIn) WF_NAME(breachOut) WF_NAME(heroLand) WF_NAME(flyStop) WF_NAME(flyDash) WF_NAME(flyBump) WF_NAME(land)
+	// owner feedback 2026-10-15: super-boost charge start (Severity = charge slow-mo dilation, K = real charge s), double-tap dive start
+	WF_NAME(superCharge) WF_NAME(heroDive)
 #undef WF_NAME
 	const FVector FlUp(0, 0, 1);
 	double FlDamp(double A, double B, double Rate, double Dt) { return A + (B - A) * (1.0 - FMath::Exp(-Rate * Dt)); }
@@ -100,6 +104,8 @@ void UWHFlightComponent::HeroLand(UWebTraversalComponent& T, double Floor, doubl
 	S.LandSeverity = bHero ? FMath::Max(Sev, 0.35) : Sev;
 	S.LandLock = bHero ? HeroLandLock : 0.0;
 	bSlam = false; bBreach = false;
+	bDiveDrop = false;                                 // owner feedback #2: the double-tap dive ends here (superhero landing)
+	if (SuperState != ESuper::None) EndSuper(true);    // owner feedback #1: a super line into the street ends in a crater landing
 	Sub = NAME_None; SubT = 0.0;
 	if (bHero)
 	{
@@ -350,12 +356,16 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	auto& S = T.S;
 	FVector& V = S.Vel;
 	const FWebTravCamera* Cam = T.Cam;
+	// hover / takeoff frame: the camera's ground plane (hover stays the precise, camera-relative mode)
 	const FVector FwdF = Cam ? Cam->ForwardFlat() : FlYawDir(S.Facing);
-	// aim = camera yaw + the flight's own held pitch (see AimPitch in the header), never the camera's hero-framing look-down
-	const FVector Aim = (FwdF * FMath::Cos(AimPitch) - FlUp * FMath::Sin(AimPitch)).GetSafeNormal();
 	const FVector RightF = Cam ? Cam->RightFlat() : FVector(-FMath::Sin(S.Facing), FMath::Cos(S.Facing), 0.0);
+	// owner feedback #3 (flight-sim feel): in the fly / super line the hero steers by his own nose (AimYaw, moved by look input and stick X
+	// in StepFlight) -- the camera chases him instead of leading him
+	const FVector FwdN = bAttitude ? FlYawDir(AimYaw) : FwdF;
+	const FVector RightN = bAttitude ? FVector(-FMath::Sin(AimYaw), FMath::Cos(AimYaw), 0.0) : RightF;
+	// aim = nose yaw + the flight's own held pitch (see AimPitch in the header), never the camera's hero-framing look-down
+	const FVector Aim = (FwdN * FMath::Cos(AimPitch) - FlUp * FMath::Sin(AimPitch)).GetSafeNormal();
 	const bool bFly = I.bSwing;
-	const bool bBoost = bFly && I.bSprint;
 	Climb = (I.bJump ? 1.0 : 0.0) - (I.bDrop ? 1.0 : 0.0);
 	StickBody = I.Move;
 	if (!FlIsFlightSub(S.Sub)) SetFlySub(T, NF_hover); // walked off a ledge / any legacy air sub: hover
@@ -363,13 +373,14 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 
 	// ---- presses (cleared by the caller after the first substep)
 	if (I.bZipPressed && Sub != NF_slam)
-	{ // instant stop
+	{ // instant stop (also ends a super boost)
+		if (SuperState != ESuper::None) EndSuper(true);
 		SetFlySub(T, NF_brake); ++BrakeCount;
 		Event(T, NF_flyStop, FMath::Clamp(float(V.Size() / CruiseSpeed), 0.f, 1.5f), S.Pos, V.GetSafeNormal());
 	}
-	if (I.bQuickPressed && DashCd <= 0.0 && Sub != NF_slam)
+	if (I.bQuickPressed && DashCd <= 0.0 && Sub != NF_slam && SuperState == ESuper::None)
 	{
-		FVector D = FwdF * I.Move.Y + RightF * I.Move.X;
+		FVector D = (bAttitude ? FwdN : FwdF) * I.Move.Y + (bAttitude ? RightN : RightF) * I.Move.X;
 		DashDir = D.SizeSquared() > 0.09 ? D.GetSafeNormal() : Aim;
 		V += DashDir * double(DashDv);
 		DashCd = DashCooldown; ++DashCount;
@@ -378,11 +389,71 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	}
 	if (I.bTrickPressed && Sub != NF_slam)
 	{ // dive straight down for a superhero landing
-		SetFlySub(T, NF_slam); bSlam = true;
+		if (SuperState != ESuper::None) EndSuper(true);
+		SetFlySub(T, NF_slam); bSlam = true; bDiveDrop = false;
+	}
+	// owner feedback #2: a second airborne Space press within DoubleTapTime = the accelerating superhero-landing dive; the first press keeps
+	// its single-press meaning (climb). The takeoff press is handled on the ground and never opens the window.
+	if (I.bJumpPressed)
+	{
+		if (JumpTapT <= double(DoubleTapTime) && Sub != NF_slam) { StartDive(T); JumpTapT = 99.0; }
+		else JumpTapT = 0.0;
+	}
+	// owner feedback #1: Shift / L3 from fly or hover (any airborne flight sub but the slam) = the sonic-boom super boost: charge first
+	if (I.bSprintPressed && SuperState == ESuper::None && SuperCd <= 0.0 && Sub != NF_slam)
+	{
+		SuperState = ESuper::Charge; SuperT = 0.0; ++SuperCount;
+		SetFlySub(T, NF_brake);   // the snap stop / hang reads through the brake flare; FWebTravAnimFlight::ChargeK carries the coil
+		Event(T, NF_superCharge, FMath::Clamp(SuperChargeSlowMo, 0.05f, 1.f), S.Pos, Aim, SuperChargeTime);
+		UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT super charge at (%.1f, %.1f, %.1f) from %s %.1f m/s"), S.Pos.X, S.Pos.Y, S.Pos.Z, *Sub.ToString(), V.Size());
 	}
 
 	const double Sp = V.Size();
-	if (Sub == NF_takeoff)
+	// owner feedback #1 / #3: one fly-line step for cruise and super speed -- the travel turns toward the nose at no more than LatAccel of
+	// lateral acceleration (turn radius v^2 / LatAccel: momentum, wide turns at speed), climbing costs speed / diving gains a little
+	// (ClimbEnergyK x g x sin(climb)), then the acceleration curve toward Vt (or the decay above it at DecelRate)
+	auto StepLine = [&](double Vt, double LatAccel, double AccelUp, double DecelRate) -> double
+	{
+		FVector D = Aim;
+		if (FMath::Abs(Climb) > 0.01)
+		{
+			const FVector Rt = FVector::CrossProduct(FlUp, D).GetSafeNormal();
+			if (!Rt.IsNearlyZero()) D = FQuat(Rt, -FMath::DegreesToRadians(ClimbPitchDeg) * Climb).RotateVector(D); // +Climb pitches up
+		}
+		D = D.GetSafeNormal();
+		FVector Dir = Sp > 1.0 ? V / Sp : D;
+		const double MaxW = FMath::Min(FMath::DegreesToRadians(double(TurnRateSlow)), FMath::Max(1.0, LatAccel) / FMath::Max(Sp, 1.0));
+		Dir = FlTurnToward(Dir, D, MaxW * H);
+		double V1 = Sp - 9.81 * double(ClimbEnergyK) * Dir.Z * H;
+		if (V1 < Vt)
+		{
+			const double A = AccelUp * FMath::Max(0.06, 1.0 - FMath::Pow(FMath::Max(0.0, V1) / FMath::Max(Vt, 1.0), double(AccelExp)));
+			V1 = FMath::Min(Vt, V1 + A * H);
+		}
+		else V1 -= (V1 - Vt) * (1.0 - FMath::Exp(-DecelRate * H));
+		V1 = FMath::Max(0.0, V1);
+		V = Dir * V1;
+		return V1;
+	};
+	if (SuperState == ESuper::Charge)
+	{ // snap to a hang (SuperT runs in real seconds in StepFlight, so the slow-mo does not stretch the charge)
+		V *= FMath::Exp(-double(SuperChargeStopRate) * H);
+		SetFlySub(T, NF_brake);
+		if (SuperT >= double(SuperChargeTime)) SuperLaunch(T, Aim, RightN, I);
+	}
+	else if (SuperState == ESuper::Run)
+	{ // held Shift: the super-speed line (steerable, wide turns)
+		StepLine(double(SuperSpeed), double(SuperLatAccel), double(SuperAccel), double(Decel));
+		SetFlySub(T, NF_boost);
+		if (!I.bSprint) { SuperState = ESuper::Decel; SuperT = 0.0; }
+	}
+	else if (SuperState == ESuper::Decel)
+	{ // released: back to cruise over SuperDecelTime, then the ordinary fly / hover rules
+		const double V1 = StepLine(double(CruiseSpeed), double(SuperLatAccel), double(Accel), double(SuperDecelRate));
+		SetFlySub(T, V1 > SonicSpeed * 0.8 ? NF_boost : NF_fly);
+		if (SuperT >= double(SuperDecelTime) || V1 <= CruiseSpeed * 1.05) EndSuper(true);
+	}
+	else if (Sub == NF_takeoff)
 	{
 		const double K = FMath::Clamp(SubT / FMath::Max(0.05, double(TakeoffDur)), 0.0, 1.0);
 		V.Z = FMath::Max(V.Z, double(TakeoffVz) * FMath::Pow(1.0 - K, 1.5) + Climb * VertSpeed * K);
@@ -398,8 +469,16 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	}
 	else if (Sub == NF_slam)
 	{
-		const FVector Want(V.X * 0.15, V.Y * 0.15, -double(SlamSpeed));
-		V = FlDampV(V, Want, 7.0, H);
+		if (bDiveDrop)
+		{ // owner feedback #2 (double-tap Space): straight down, accelerating hard (DiveAccelNow grows with the height, see StartDive)
+			V.X = FlDamp(V.X, 0.0, 6.0, H); V.Y = FlDamp(V.Y, 0.0, 6.0, H);
+			V.Z = FMath::Max(-double(DiveMaxSpeed), V.Z - DiveAccelNow * H);
+		}
+		else
+		{
+			const FVector Want(V.X * 0.15, V.Y * 0.15, -double(SlamSpeed));
+			V = FlDampV(V, Want, 7.0, H);
+		}
 	}
 	else if (Sub == NF_dash && SubT < DashDur)
 	{
@@ -407,29 +486,12 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 		V *= FMath::Exp(-0.6 * H);
 	}
 	else if (bFly)
-	{
-		FVector D = Aim;
-		if (FMath::Abs(I.Move.X) > 0.05) D = FQuat(FlUp, FMath::DegreesToRadians(StickYawDeg) * I.Move.X).RotateVector(D);
-		if (FMath::Abs(Climb) > 0.01)
-		{
-			const FVector Rt = FVector::CrossProduct(FlUp, D).GetSafeNormal();
-			if (!Rt.IsNearlyZero()) D = FQuat(Rt, -FMath::DegreesToRadians(ClimbPitchDeg) * Climb).RotateVector(D); // +Climb pitches up
-		}
-		D = D.GetSafeNormal();
-		double Vt = bBoost ? BoostSpeed : CruiseSpeed;
+	{ // owner feedback #3: cruise line steered by the nose with momentum (StepLine); owner feedback #1: Shift no longer ramps a boost here
+		// (the old TurnRateSlow..TurnRateFast blend and StickYawDeg aim offset are replaced by FlyLatAccel and the stick turn in StepFlight)
+		double Vt = CruiseSpeed;
 		if (I.Move.Y < -0.3) Vt *= FMath::Lerp(1.0, 0.35, FMath::Clamp((-I.Move.Y - 0.3) / 0.7, 0.0, 1.0)); // stick back = slow flight
-		FVector Dir = Sp > 1.0 ? V / Sp : D;
-		const double TurnDeg = FMath::Lerp(double(TurnRateSlow), double(TurnRateFast), FlSmooth(Sp, CruiseSpeed * 0.5, BoostSpeed));
-		Dir = FlTurnToward(Dir, D, FMath::DegreesToRadians(TurnDeg) * H);
-		double V1 = Sp;
-		if (V1 < Vt)
-		{
-			const double A = (bBoost ? BoostAccel : Accel) * FMath::Max(0.06, 1.0 - FMath::Pow(V1 / Vt, double(AccelExp)));
-			V1 = FMath::Min(Vt, V1 + A * H);
-		}
-		else V1 -= (V1 - Vt) * (1.0 - FMath::Exp(-double(Decel) * H));
-		V = Dir * V1;
-		SetFlySub(T, bBoost && V1 > SonicSpeed * 0.8 ? NF_boost : NF_fly);
+		const double V1 = StepLine(Vt, double(FlyLatAccel), double(Accel), double(Decel));
+		SetFlySub(T, V1 > SonicSpeed * 0.8 ? NF_boost : NF_fly);
 	}
 	else
 	{ // hover: stick strafes on the camera's ground plane, Space / C climb; a fast arrival glides down instead of stopping dead
@@ -454,17 +516,54 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 		if (DescCap >= 0.0 && V.Z < -DescCap) V.Z = -DescCap;
 		SetFlySub(T, NF_hover);
 	}
-	// ---- sonic boom (hysteresis)
-	const double Sp1 = V.Size();
-	if (bBoomArmed && Sp1 >= SonicSpeed)
+	// (owner feedback #1: the speed-crossing sonic boom is gone -- the boom fires only at a super launch, SuperLaunch)
+}
+
+// owner feedback #1: the end of the charge -- sonic boom and launch toward the stick (camera-relative: in the line the nose and the camera
+// heading agree within CamLeadK of the lead) or, hands off the stick, the nose / aim
+void UWHFlightComponent::SuperLaunch(UWebTraversalComponent& T, const FVector& Aim, const FVector& RightN, const FWebTravInput& I)
+{
+	auto& S = T.S;
+	FVector D = Aim;
+	if (I.Move.SizeSquared() > 0.09)
 	{
-		bBoomArmed = false; BoomK = 1.0; ++BoomCount;
-		Event(T, NF_sonicBoom, 1.f, S.Pos, V / FMath::Max(Sp1, 1.0), float(Sp1));
-		if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(GetOwner()))
-			FW->PushStimulus(EWHCrowdStimulus::SonicBoom, S.Pos * 100.0, 15000.f, 1.f, 3.f, V * 100.0);
-		UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT sonic boom at (%.1f, %.1f, %.1f) %.1f m/s"), S.Pos.X, S.Pos.Y, S.Pos.Z, Sp1);
+		const FVector St = Aim * I.Move.Y + RightN * I.Move.X;
+		if (!St.IsNearlyZero()) D = St.GetSafeNormal();
 	}
-	else if (Sp1 < SonicReset) bBoomArmed = true;
+	if (FlHLen(D) > 1e-3) AimYaw = FMath::Atan2(D.Y, D.X);
+	AimPitch = FMath::Clamp(-FMath::Asin(FMath::Clamp(D.Z, -1.0, 1.0)), -1.35, 1.35);
+	S.Vel = D * double(SuperSpeed) * FMath::Clamp(double(SuperLaunchK), 0.1, 1.0);
+	SuperState = ESuper::Run; SuperT = 0.0; LaunchK = 1.0;
+	SetFlySub(T, NF_boost);
+	BoomK = 1.0; ++BoomCount;
+	const double Sp = S.Vel.Size();
+	Event(T, NF_sonicBoom, 1.f, S.Pos, D, float(Sp));
+	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(GetOwner()))
+		FW->PushStimulus(EWHCrowdStimulus::SonicBoom, S.Pos * 100.0, 15000.f, 1.f, 3.f, S.Vel * 100.0);
+	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT sonic boom (super launch) at (%.1f, %.1f, %.1f) dir (%.2f, %.2f, %.2f) %.1f m/s"), S.Pos.X, S.Pos.Y, S.Pos.Z, D.X, D.Y, D.Z, Sp);
+}
+
+void UWHFlightComponent::EndSuper(bool bCooldown)
+{
+	if (bCooldown && SuperState != ESuper::None) SuperCd = SuperCooldown;
+	SuperState = ESuper::None; SuperT = 0.0; ChargeK = 0.0;
+}
+
+// owner feedback #2: double-tap Space -- straight down into the superhero landing. The downward acceleration is at least DiveAccel and
+// grows with the height to the floor below so the dive lands in about DiveTime s from any height (h = a t^2 / 2), capped at DiveMaxSpeed.
+void UWHFlightComponent::StartDive(UWebTraversalComponent& T)
+{
+	auto& S = T.S;
+	if (SuperState != ESuper::None) EndSuper(true);
+	const double FeetZ = S.Pos.Z - UWebTraversalComponent::H;
+	const double Fl = T.TravWorld.GroundHeight(S.Pos.X, S.Pos.Y, FeetZ + 0.6);
+	const double Hh = Fl > -999.0 ? FMath::Max(0.0, FeetZ - Fl) : 0.0;
+	const double Td = FMath::Max(0.5, double(DiveTime));
+	DiveAccelNow = FMath::Max(double(DiveAccel), 2.0 * Hh / (Td * Td));
+	SetFlySub(T, NF_slam); bSlam = true; bDiveDrop = true; ++DiveCount;
+	S.Vel.Z = FMath::Min(S.Vel.Z, -8.0);   // he tips over at once (head-first dive in the anim's slam roll)
+	Event(T, NF_heroDive, float(FMath::Clamp(Hh / 200.0, 0.0, 1.0)), S.Pos, -FlUp, float(Hh));
+	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT double-tap dive at (%.1f, %.1f, %.1f) height %.1f m accel %.0f m/s^2"), S.Pos.X, S.Pos.Y, S.Pos.Z, Hh, DiveAccelNow);
 }
 
 FQuat UWHFlightComponent::FlightOrient(UWebTraversalComponent& T, double Dt, const FWebTravInput& I)
@@ -479,16 +578,21 @@ FQuat UWHFlightComponent::FlightOrient(UWebTraversalComponent& T, double Dt, con
 	double YR = 0.0;
 	if (bHaveVelYaw && HS > 4.0) YR = FlAngWrap(VelYaw - LastVelYaw) / FMath::Max(Dt, 1e-3);
 	LastVelYaw = VelYaw; bHaveVelYaw = HS > 4.0;
-	const double BankWant = FMath::Clamp(YR * HS / 30.0, -1.0, 1.0) * FMath::DegreesToRadians(double(BankMaxDeg)) * FlyK;
+	// owner feedback #3: bank follows the turn (centripetal lean) plus an optional roll on stick X in the line
+	const double BankMax = FMath::DegreesToRadians(double(BankMaxDeg));
+	const double BankWant = FMath::Clamp(FMath::Clamp(YR * HS / 30.0, -1.0, 1.0) * BankMax + FMath::DegreesToRadians(double(StickRollDeg)) * StickBody.X, -BankMax, BankMax) * FlyK;
 	Bank = FlDamp(Bank, BankWant, 5.0, Dt);
 	// hover frame: faces the camera's look, leans with the stick
 	const double CamYaw = T.Cam ? T.Cam->Yaw : S.Facing;
+	const bool bCharge = SuperState == ESuper::Charge;
 	if (!bHoverYawInit) { HoverYaw = S.Facing; bHoverYawInit = true; }
-	if (FlyK > 0.5 && HS > 4.0) HoverYaw = VelYaw; // coming out of a fly line the hover keeps the travel heading
+	if (bCharge) HoverYaw = HoverYaw + FlAngWrap(AimYaw - HoverYaw) * (1.0 - FMath::Exp(-10.0 * Dt)); // owner feedback #1: he turns to the launch line
+	else if (FlyK > 0.5 && HS > 4.0) HoverYaw = VelYaw; // coming out of a fly line the hover keeps the travel heading
 	else HoverYaw = HoverYaw + FlAngWrap(CamYaw - HoverYaw) * (1.0 - FMath::Exp(-6.0 * Dt));
 	const double Lean = FMath::DegreesToRadians(double(HoverLeanDeg));
 	double LeanP = I.Move.Y * Lean, LeanR = I.Move.X * Lean;
 	if (Sub == NF_brake) LeanP = -0.6;                       // legs swing forward under the stop
+	if (bCharge) { LeanP = -double(SuperChargeLean) * ChargeK; LeanR = 0.0; }   // owner feedback #1: the body coils back through the charge
 	if (Sub == NF_slam) { LeanP = 0.18; LeanR = 0.0; }        // feet first, slight forward pitch
 	if (Sub == NF_takeoff) { LeanP *= 0.4; LeanR *= 0.4; }
 	Pitch = FlDamp(Pitch, LeanP, 8.0, Dt);
@@ -499,7 +603,13 @@ FQuat UWHFlightComponent::FlightOrient(UWebTraversalComponent& T, double Dt, con
 	FQuat QL = QU;
 	if (Sp > 1.0)
 	{
-		const FVector Vd = V / Sp;
+		FVector Vd = V / Sp;
+		// owner feedback #3 (angle of attack): the body points NoseBodyK of the way toward the nose while the travel catches up with it
+		if (bAttitude && NoseBodyK > 0.f)
+		{
+			const FVector Nose = (FlYawDir(AimYaw) * FMath::Cos(AimPitch) - FlUp * FMath::Sin(AimPitch)).GetSafeNormal();
+			if (FVector::DotProduct(Nose, Vd) > 0.2) Vd = (Vd + (Nose - Vd) * FMath::Clamp(double(NoseBodyK), 0.0, 0.6)).GetSafeNormal();
+		}
 		FVector X0 = -FlUp - Vd * FVector::DotProduct(-FlUp, Vd);
 		if (X0.SizeSquared() < 0.04) { const FVector F = FlYawDir(HoverYaw); X0 = F - Vd * FVector::DotProduct(F, Vd); }
 		QL = FRotationMatrix::MakeFromZX(Vd, X0.GetSafeNormal()).ToQuat() * FQuat(FVector(0, 0, 1), -Bank);
@@ -520,12 +630,48 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 	SubT += Dt; FlightT += Dt;
 	DashCd -= Dt; BreachCd -= Dt;
 	BoomK = FMath::Max(0.0, BoomK - Dt / 0.6);
-	{ // flight aim pitch: picked up from the player's current look offset when the fly line starts, then moved only by vertical look input
-		const bool bAimLive = S.Mode == EWebTravMode::Air && I.bSwing;
-		if (bAimLive && !bAimWasLive) AimPitch = T.Cam ? T.Cam->LookPitchOffset() : 0.0;
-		if (bAimLive) AimPitch = FMath::Clamp(AimPitch + I.Look.Y, -1.35, 1.35);
+	// owner feedback #1 / #2 clocks: super cooldown, the double-tap window, the launch impulse (anim LaunchK, 0.5 s)
+	SuperCd -= Dt; JumpTapT += Dt;
+	LaunchK = FMath::Max(0.0, LaunchK - Dt / 0.5);
+	{ // owner feedback #1: the charge runs on REAL seconds (the breach director slows the world through it)
+		double Dil = 1.0;
+		if (const UWorld* W = GetWorld()) if (const AWorldSettings* WS = W->GetWorldSettings()) Dil = double(WS->GetEffectiveTimeDilation());
+		if (SuperState == ESuper::Charge) SuperT += Dt / FMath::Max(0.05, Dil);
+		else if (SuperState != ESuper::None) SuperT += Dt;
+		if (S.Mode != EWebTravMode::Air && SuperState != ESuper::None) EndSuper(true);   // (landed / grounded by another path)
+	}
+	// flight aim (the NOSE): picked up from the camera (yaw) and the player's current look offset (pitch) when the fly / super line starts,
+	// then moved only by look input -- held pitch = hands-off level flight holds its altitude (critic r1 fl03 fix kept).
+	// owner feedback #3 (flight-sim feel): in the line the look input steers the hero's nose (AimYaw too) instead of orbiting the camera; the
+	// camera chases his heading (CamYawGoal, FWebTravCamera::bFlightAttitude). Stick X turns the nose at StickTurnRate. The nose leads the
+	// travel by at most NoseLeadMaxDeg, so a hard mouse flick asks for the tightest turn the speed allows instead of an instant reversal.
+	{
+		const bool bAtt = S.Mode == EWebTravMode::Air && (I.bSwing || SuperState != ESuper::None);
+		if (bAtt && !bAttitude)
+		{
+			AimYaw = T.Cam ? T.Cam->Yaw : S.Facing;
+			AimPitch = T.Cam ? T.Cam->LookPitchOffset() : 0.0;
+		}
+		if (bAtt)
+		{
+			AimPitch = FMath::Clamp(AimPitch + I.Look.Y * double(LookPitchK), -1.35, 1.35);
+			AimYaw += I.Look.X * double(LookYawK);
+			if (SuperState != ESuper::Charge) AimYaw += FMath::DegreesToRadians(double(StickTurnRate)) * I.Move.X * Dt;
+			if (FlHLen(S.Vel) > 8.0 && SuperState != ESuper::Charge)
+			{
+				const double VY = FMath::Atan2(S.Vel.Y, S.Vel.X);
+				const double MaxL = FMath::DegreesToRadians(FMath::Clamp(double(NoseLeadMaxDeg), 5.0, 170.0));
+				const double Lead = FlAngWrap(AimYaw - VY);
+				if (FMath::Abs(Lead) > MaxL) AimYaw = VY + FMath::Sign(Lead) * MaxL;
+			}
+			AimYaw = FlAngWrap(AimYaw);
+		}
 		else AimPitch = 0.0;
-		bAimWasLive = bAimLive;
+		bAttitude = bAtt;
+		// the heading the camera chases: the travel heading plus CamLeadK of the nose lead (the nose itself at low speed / in the charge)
+		const double HSp = FlHLen(S.Vel);
+		const double Kv = SuperState == ESuper::Charge ? 0.0 : FlSmooth(HSp, 4.0, 15.0);
+		CamYawGoal = AimYaw - Kv * (1.0 - FMath::Clamp(double(CamLeadK), 0.0, 1.0)) * FlAngWrap(AimYaw - FMath::Atan2(S.Vel.Y, S.Vel.X));
 	}
 	// legacy web state never survives into flight
 	if (S.Mode == EWebTravMode::Swing || S.Mode == EWebTravMode::Zip || S.Mode == EWebTravMode::Perch || S.Mode == EWebTravMode::Wall)
@@ -589,6 +735,10 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 			if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(GetOwner()))
 				FW->PushStimulus(EWHCrowdStimulus::Flyover, FVector(S.Pos.X, S.Pos.Y, Street) * 100.0, float((25.0 + Hh) * 100.0), float(FMath::Clamp(SpeedM / 80.0, 0.3, 1.0)), 2.5f, S.Vel * 100.0);
 	}
+	// owner feedback #1: charge progress (coil / gather / camera pull-in) and the super-speed weight (streaks, shake, FOV, blur)
+	// (> 0 on every charge frame, the first one included: the breach director ends the charge slow-mo when it reads 0)
+	ChargeK = SuperState == ESuper::Charge ? FMath::Max(1e-3, FlSmooth(SuperT, 0.0, FMath::Max(0.05, double(SuperChargeTime)))) : 0.0;
+	SuperK = (SuperState == ESuper::Run || SuperState == ESuper::Decel) ? FlSmooth(SpeedM, double(BoostSpeed) * 0.8, double(SuperSpeed) * 0.85) : 0.0;
 	FQuat Q;
 	if (S.Mode == EWebTravMode::Air) Q = FlightOrient(T, Dt, I);
 	else { Q = T.Orient(Dt); bHaveVelYaw = false; FlyK = 0.0; Bank = 0.0; Pitch = 0.0; HoverYaw = S.Facing; }
@@ -603,6 +753,9 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 	WallT -= Dt;
 	F.WallSide = WallT > 0.0 ? float(WallSideV) : 0.f;
 	F.WallDist = WallT > 0.0 ? float(WallDistV) : 99.f;
+	// owner feedback #1 / #2: the anim's coil / launch / super-stretch / dive inputs (see FWebTravAnimFlight and owner1_fx_NOTES.md)
+	F.ChargeK = float(ChargeK); F.SuperK = float(SuperK); F.LaunchK = float(LaunchK);
+	F.DiveK = (bDiveDrop && Sub == NF_slam) ? float(FMath::Clamp(-S.Vel.Z / 120.0, 0.0, 1.0)) : 0.f;
 	if (S.Mode != EWebTravMode::Air) FlightT = 0.0;
 	// strands (none are attached in flight; any legacy one fades out)
 	for (FWebTravStrand& St : T.Strands)

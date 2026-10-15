@@ -79,6 +79,27 @@ public:
 	/** critic r2 fl14: the spot the first composed frame after Reset(Pos, Yaw) will use (the flight spot while flight framing is on, else
 	 *  the chase spot) is out of every solid and sees the hero's chest. The breach hold waits for it before its one cut. */
 	bool CutSpotClear(const FVector& Pos, const FVector& Vel, const FWebTravWorld& World) const;
+	// ---- owner feedback 2026-10-15 (Invincible flight playtest): flight-sim chase camera and super-boost feel. Every field below is set every
+	// frame by AWebTravCharacter::FlightFrame from UWHFlightComponent tunables (-WHFlightTune=...); the legacy hero never sets them, so all
+	// stay 0 / false and nothing changes there.
+	//   bFlightAttitude (#3): look input steers the hero's nose (ApplyLook leaves the orbit alone) and the camera Yaw chases FlightNoseYaw
+	//                   (the hero's heading + a share of his nose lead) with the FlightYawLagT spring -- the view follows the hero's attitude.
+	//   bFlightHold (#1): the flight framing stays in at any speed (the super charge is a near-stop) and FlightFxDist pulls it in.
+	//   FlightFxFov / FlightFxShake / FlightFxBlur (#1 / #3): speed and super-speed FOV (on top of the 75 deg swing cap, up to FlightFovCap),
+	//                   continuous shake floor and motion-blur floor. FlightBoom(): the sonic-boom kick, FOV punch and launch hang
+	//                   (the output position slew holds the lens at FlightLaunchHoldK of his speed for FlightLaunchHoldT s: he rockets away).
+	bool bFlightAttitude = false, bFlightHold = false;
+	double FlightNoseYaw = 0.0, FlightYawLagT = 0.32, FlightYawV = 0.0;
+	double FlightFxFov = 0.0, FlightFxFovS = 0.0, FlightFxFovV = 0.0, FlightFovCap = 90.0;
+	double FlightFxDist = 0.0, FlightFxShake = 0.0, FlightFxBlur = 0.0;
+	double FlightBoomFovDeg = 12.0, FlightBoomPunch = 0.0, FlightBoomPunchV = 0.0;
+	double FlightLaunchHoldT = 0.0, FlightLaunchLagT = 0.14, FlightLaunchHoldK = 0.35;
+	void FlightBoom(double Amt)
+	{
+		Kick(Amt); Shake(0.5 * Amt);
+		if (bJolts) { FlightBoomPunch = FMath::Max(FlightBoomPunch, FlightBoomFovDeg * Amt); FlightBoomPunchV = 0.0; }
+		FlightLaunchHoldT = FlightLaunchLagT;
+	}
 	bool bJolts = true;
 	/** Round 02: swing / air pitch follows height (looks down over the street when high, levels out at the arc bottom). */
 	double HeightPitchK = 0.024, HeightPitchRef = 10.0;

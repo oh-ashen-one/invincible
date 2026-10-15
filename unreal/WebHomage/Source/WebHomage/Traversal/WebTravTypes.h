@@ -160,6 +160,16 @@ struct WEBHOMAGE_API FWebTravAnimFlight
 	 *  leads with the far-side fist and tucks the wall-side free arm and leg in. */
 	UPROPERTY(BlueprintReadOnly, Category="Flight") float WallSide = 0.f;
 	UPROPERTY(BlueprintReadOnly, Category="Flight") float WallDist = 99.f;
+	/** Owner feedback 2026-10-15 #1 (Shift = sonic-boom super boost; filled by UWHFlightComponent, 0 until then):
+	 *  ChargeK 0..1 through the charge (sub "brake" while it runs: snap stop / hang) -- wanted pose: the coil (knees drawn up, fists pulled
+	 *  in to the chest, head down, shoulders hunched, slight back lean); LaunchK 1 at the boom, decays over 0.5 s -- wanted pose: explosive
+	 *  extension out of the coil (lead fist punched forward, body fully stretched, legs together); SuperK 0..1 super-speed weight (sub
+	 *  "boost") -- wanted pose: the boost stretch held tighter (both fists forward or lead fist + trailing arm pinned to the side). */
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float ChargeK = 0.f;
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float SuperK = 0.f;
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float LaunchK = 0.f;
+	/** Owner feedback #2 (double-tap Space dive, sub "slam"): 0..1 by the dive's fall speed (120 m/s = 1); 0 for the F / Square slam. */
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float DiveK = 0.f;
 };
 
 /**

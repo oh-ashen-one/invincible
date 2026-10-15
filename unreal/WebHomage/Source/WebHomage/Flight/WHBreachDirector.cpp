@@ -26,10 +26,18 @@ namespace
 {
 	const FName NB_breachIn(TEXT("breachIn")), NB_breachOut(TEXT("breachOut")), NB_heroLand(TEXT("heroLand")), NB_sonicBoom(TEXT("sonicBoom")),
 		NB_flyBump(TEXT("flyBump")), NB_takeoff(TEXT("takeoff"));
+	// owner feedback 2026-10-15 #1: super-boost charge start (Severity = slow-mo dilation, K = real charge seconds)
+	const FName NB_superCharge(TEXT("superCharge"));
 	const FLinearColor BdConcrete(0.42f, 0.40f, 0.37f), BdBrick(0.38f, 0.22f, 0.16f), BdSteel(0.20f, 0.21f, 0.23f), BdScorch(0.025f, 0.022f, 0.02f);
 	// r3: dust / rubble tones (linear): concrete dust, brick dust, dark asphalt
 	const FLinearColor BdDust(0.34f, 0.31f, 0.27f), BdBrickDust(0.36f, 0.28f, 0.22f), BdAsphalt(0.075f, 0.075f, 0.08f);
 	FVector BdAnyPerp(const FVector& N) { return FVector::CrossProduct(N, FMath::Abs(N.Z) < 0.9 ? FVector::UpVector : FVector::ForwardVector).GetSafeNormal(); }
+	/** owner feedback 2026-10-15: a unit vector perpendicular to D at angle A around it */
+	FVector BdRingDir(const FVector& D, double A)
+	{
+		const FVector P = BdAnyPerp(D), Q = FVector::CrossProduct(D, P);
+		return P * FMath::Cos(A) + Q * FMath::Sin(A);
+	}
 	double BdSmooth01(double X) { X = FMath::Clamp(X, 0.0, 1.0); return X * X * (3.0 - 2.0 * X); }
 	double BdEaseOut(double K) { K = FMath::Clamp(K, 0.0, 1.0); return 1.0 - (1.0 - K) * (1.0 - K); }
 	/** in-plane axes of a surface with normal N: U horizontal, V up-ish (a wall); any perpendicular pair for floors / roofs */
@@ -75,6 +83,8 @@ void AWHBreachDirector::BeginPlay()
 	MVapour = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Invincible/FX/M_InvVapour.M_InvVapour"));
 	MDust = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Invincible/FX/M_InvDust.M_InvDust"));
 	MChunk = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Invincible/FX/M_InvChunk.M_InvChunk"));
+	// owner feedback 2026-10-15 #1: additive speed-line material (optional; the streaks fall back to M_InvVapour)
+	MStreak = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Invincible/FX/M_InvStreak.M_InvStreak"));
 	Cone = LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Cone.Cone"));
 	ProbeCone();
 	GcAsset = LoadObject<UGeometryCollection>(nullptr, TEXT("/Game/Invincible/Destruction/GC_FacadeChunk.GC_FacadeChunk"));
@@ -89,6 +99,8 @@ void AWHBreachDirector::BeginPlay()
 	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT breach fx r3: hole decal %s, vapour %s (cone mesh %s, apex %s, %.0f x %.0f cm), dust %s, chunk material %s, facade chunk share %.2f"),
 		MHole ? TEXT("yes") : TEXT("no"), MVapour ? TEXT("yes") : TEXT("no (r2 rings)"), Cone ? TEXT("yes") : TEXT("no"), bConeApexUp ? TEXT("+Z") : TEXT("-Z"), ConeWCm, ConeHCm,
 		MDust ? TEXT("yes") : TEXT("no (combat puffs)"), MChunk ? TEXT("yes") : TEXT("no (flat tints)"), FacadeChunkFraction);
+	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT flight fx (owner feedback 2026-10-15): streak material %s, vapour pool cap %d"),
+		MStreak ? TEXT("M_InvStreak") : (MVapour ? TEXT("M_InvVapour (fallback)") : TEXT("none (no streaks)")), MaxVapours);
 }
 
 /** r3: bounds of /Engine/BasicShapes/Cone and which end is the apex (the vapour cone is built from it; its pivot / orientation are not assumed) */
@@ -134,7 +146,8 @@ void AWHBreachDirector::ExcludeHeroFromDecals()
 
 void AWHBreachDirector::EndPlay(const EEndPlayReason::Type Reason)
 {
-	if (bSlowMo) UGameplayStatics::SetGlobalTimeDilation(this, 1.f);
+	if (bSlowMo || bChargeSlow) UGameplayStatics::SetGlobalTimeDilation(this, 1.f);
+	bChargeSlow = false;
 	Fx.Clear();
 	Super::EndPlay(Reason);
 }
@@ -163,9 +176,10 @@ void AWHBreachDirector::OnFlightEvents(const TArray<FWebTravEvent>& Events)
 		if (E.Type == NB_breachIn) Breach(E.Pos, E.Dir, E.Severity, true);
 		else if (E.Type == NB_breachOut) Breach(E.Pos, E.Dir, E.Severity, false);
 		else if (E.Type == NB_heroLand) Crater(E.Pos, E.Severity);
-		else if (E.Type == NB_sonicBoom) Boom(E.Pos, E.Dir);
+		else if (E.Type == NB_sonicBoom) { EndChargeSlowMo(); Boom(E.Pos, E.Dir); }   // owner feedback #1: the boom ends the charge slow-mo
 		else if (E.Type == NB_flyBump) Bump(E.Pos, E.Dir, E.Severity);
 		else if (E.Type == NB_takeoff) Fx.Dust(E.Pos, 0.6);
+		else if (E.Type == NB_superCharge) ChargeFx(E.Pos, E.Dir, E.Severity, E.K);
 	}
 }
 
@@ -321,8 +335,191 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 	{ // the white flash on the line (additive sparks, small; r3: no opaque / lit flash disc)
 		const FLinearColor Flash(4.f, 4.f, 4.2f);
 		Fx.Hit(PosM - D * 1.5, -D, 1.0, &Flash);
+		// owner feedback 2026-10-15 #1: a second, brighter flash right at the body (the boom now marks the super launch)
+		const FLinearColor Flash2(7.f, 7.f, 7.5f);
+		Fx.Hit(PosM, D, 1.0, &Flash2);
 	}
+	// owner feedback 2026-10-15 #1 ("big expanding vapour ring / cone + flash + shock ring ... dust / glass shake on nearby facades"): the super
+	// launch leaves a big shock ring square-on to the launch line where it fired (BoomRingRadM, it hangs there as he rockets away from the
+	// lagging camera), a faint expanding shock shell, glass / dust shaken off facades within BoomShakeRadM and a dust ring on a street below
+	if (MVapour && Sphere)
+	{
+		SpawnVapour(false, PCm, D, 0.0, 0.0, 0.0, 0.0, 150.0, double(BoomRingRadM) * 100.0, BoomOpacity * 0.95, 0.75, 1.0f);
+		SpawnVapour(false, PCm - D * 250.0, D, 0.0, 0.0, 0.0, 0.0, 90.0, double(BoomRingRadM) * 60.0, BoomOpacity * 0.8, 0.6, 1.2f);
+		SpawnShape(2, PCm, D, 0.0, 0.0, 0.0, 0.0, 100.0, 1600.0, 0.3, 0.5, 2.2f, 0);
+	}
+	ShakeFacades(PCm);
 	PlaySynth(0, PosM * 100.0, 1.f);
+}
+
+// owner feedback 2026-10-15 #1: the super-boost charge -- a short global slow-mo (real time, ended by the boom) and a vapour shell that gathers
+// onto the hero (shrinking 7 m -> 1.4 m, opacity ramping up to the launch); the inward streaks run in FlightFxTick while ChargeK > 0
+void AWHBreachDirector::ChargeFx(const FVector& PosM, const FVector& DirM, float SlowScale, float RealDur)
+{
+	const FVector PCm = PosM * 100.0;
+	FVector D = DirM.GetSafeNormal();
+	if (D.IsNearlyZero()) D = FVector::ForwardVector;
+	const double Dur = FMath::Clamp(double(RealDur), 0.1, 2.0);
+	const double Scale = FMath::Clamp(double(SlowScale), 0.05, 1.0);
+	if (!bNoSlowMo && !bSlowMo && Scale < 0.999)
+	{
+		UGameplayStatics::SetGlobalTimeDilation(this, float(Scale));
+		bChargeSlow = true;
+		ChargeSlowEnd = FPlatformTime::Seconds() + Dur + 0.25;   // safety end (the boom or a cancelled charge ends it first)
+	}
+	const double LifeGame = Dur * (bChargeSlow ? Scale : 1.0);   // this director ticks in game seconds
+	if (MVapour && Sphere)
+	{
+		SpawnShape(2, PCm, D, LifeGame, 0.0, 0.0, 0.0, 700.0, 140.0, GatherOpacity, LifeGame, 2.6f, 1);
+		SpawnShape(2, PCm, D, LifeGame, 0.0, 0.0, 0.0, 420.0, 110.0, GatherOpacity * 0.7, LifeGame, 1.8f, 1);
+	}
+	GatherT = 0.0;
+	Fx.Dust(PosM - FVector(0.0, 0.0, 1.0), 0.8);
+}
+
+void AWHBreachDirector::EndChargeSlowMo()
+{
+	if (!bChargeSlow) return;
+	bChargeSlow = false;
+	if (!bSlowMo) UGameplayStatics::SetGlobalTimeDilation(this, 1.f);
+}
+
+// owner feedback 2026-10-15 #1: the boom's pressure wave -- 12 horizontal / downward rays; facades within BoomShakeRadM shed glass glints and a
+// small dust burst, a street within 30 m below gets a dust ring (cheap: 13 traces once per boom)
+void AWHBreachDirector::ShakeFacades(const FVector& PCm)
+{
+	const double R = FMath::Max(5.0, double(BoomShakeRadM)) * 100.0;
+	int32 NHit = 0;
+	for (int32 K = 0; K < 12; ++K)
+	{
+		const double A = 2.0 * PI * (K + 0.37) / 12.0;
+		const double Down = (K % 3 == 0) ? -0.35 : 0.0;
+		const FVector Dir = FVector(FMath::Cos(A), FMath::Sin(A), Down).GetSafeNormal();
+		FFacadeHit H;
+		if (!TraceFacade(PCm, PCm + Dir * R, H) || FMath::Abs(H.Normal.Z) > 0.6) continue;
+		++NHit;
+		const double Near = 1.0 - FMath::Clamp(FVector::Dist(PCm, H.Point) / R, 0.0, 1.0);
+		if (Cube) SpawnShards(H.Point + H.Normal * 30.0, H.Normal, 3 + int32(5 * Near), 300.0 + 500.0 * Near);
+		if (MDust && Sphere)
+		{
+			FVector U, V; BdPlaneBasis(H.Normal, U, V);
+			for (int32 P = 0; P < 2; ++P)
+			{
+				const FVector Rad = U * Rng.FRandRange(-1.f, 1.f) + V * Rng.FRandRange(-0.5f, 1.f);
+				const double S0 = Rng.FRandRange(70.f, 120.f);
+				SpawnPuff(H.Point + H.Normal * 40.0 + Rad * 120.0, H.Normal * Rng.FRandRange(100.f, 260.f) + Rad * 120.0, S0, S0 * 2.8, 1.3, 0.5, Rng.FRandRange(0.f, 0.1f), BdDust * Rng.FRandRange(0.85f, 1.05f));
+			}
+		}
+	}
+	FFacadeHit G;
+	if (TraceFacade(PCm, PCm - FVector(0.0, 0.0, 3000.0), G) && G.Normal.Z > 0.5 && MDust && Sphere)
+		CraterDust(G.Point, float(0.6 * (1.0 - FMath::Clamp((PCm.Z - G.Point.Z) / 3000.0, 0.0, 1.0))));
+	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT boom shake: %d facades within %.0f m%s"), NHit, R / 100.0, G.bHit ? TEXT(", street dust ring") : TEXT(""));
+}
+
+// owner feedback 2026-10-15 #1 / #3: the pawn's per-frame flight state for the continuous FX (FlightFxTick); a charge that ends without a boom
+// (brake / slam / landing) ends its slow-mo here
+void AWHBreachDirector::SetFlightFx(float ChargeK, float SuperK, float FastK, const FVector& PosM, const FVector& VelM)
+{
+	FxChargeK = FMath::Clamp(ChargeK, 0.f, 1.f);
+	FxSuperK = FMath::Clamp(SuperK, 0.f, 1.f);
+	FxFastK = FMath::Clamp(FastK, 0.f, 1.f);
+	FxPosCm = PosM * 100.0;
+	FxVelCm = VelM * 100.0;
+	bFxValid = true;
+	if (bChargeSlow && FxChargeK <= 0.f) EndChargeSlowMo();
+}
+
+// owner feedback 2026-10-15 #1 / #3 (speed read): continuous flight FX, game seconds
+//  - charge: streaks converging on the hero from 4.5-7.5 m (0.22 s each), the "pressure gathering"
+//  - super line / fast cruise: world wind streaks spawned ahead of him around the flight line (2.5-11 m out) that he and the chase camera
+//    fly past in 0.15-0.35 s (StreakRate x SuperK + FastStreakRate x FastK per second)
+//  - super line: a vapour trail glued to the body (TrailEvery) and two thinner contrails 45 cm to either side
+//  - super line under WakeMaxH: a dust wake blown out sideways on the street below
+void AWHBreachDirector::FlightFxTick(double Dt)
+{
+	if (!bFxValid || Dt <= 0.0) return;
+	const double Sp = FxVelCm.Size();
+	const FVector Vd = Sp > 1.0 ? FxVelCm / Sp : FVector::ForwardVector;
+	if (FxChargeK > 0.f && MVapour && Sphere)
+	{
+		GatherT += Dt;
+		while (GatherT >= 0.035)
+		{
+			GatherT -= 0.035;
+			for (int32 K = 0; K < 2; ++K)
+			{
+				const FVector U = Rng.GetUnitVector();
+				const double R = Rng.FRandRange(450.f, 750.f);
+				const double Life = 0.22;
+				if (FVapour* Vp = SpawnShape(3, FxPosCm + U * R, -U, 0.0, 0.0, Rng.FRandRange(150.f, 300.f), 80.0, Rng.FRandRange(4.f, 8.f), 3.0, GatherOpacity * (0.6 + 0.6 * FxChargeK), Life, 1.0f, 2))
+					Vp->VelCm = -U * (R / Life);
+			}
+		}
+	}
+	else GatherT = 0.0;
+	const double StreakPerS = double(StreakRate) * FxSuperK + double(FastStreakRate) * FxFastK * (1.0 - FxSuperK);
+	if (StreakPerS > 0.01 && Sp > 2000.0 && Sphere && (MStreak || MVapour))
+	{
+		StreakAcc += StreakPerS * Dt;
+		int32 N = 0;
+		while (StreakAcc >= 1.0 && N < 10)
+		{
+			StreakAcc -= 1.0; ++N;
+			const double Ahead = Sp * Rng.FRandRange(0.15f, 0.35f);
+			const double R = Rng.FRandRange(250.f, 1100.f);
+			const FVector At = FxPosCm + Vd * Ahead + BdRingDir(Vd, Rng.FRandRange(0.f, 2.f * PI)) * R;
+			const double Len = FMath::Clamp(Sp * 0.035, 400.0, 1400.0) * Rng.FRandRange(0.7f, 1.2f);
+			const double Rad = Rng.FRandRange(5.f, 11.f);
+			SpawnShape(3, At, Vd, 0.0, 0.0, Len, Len, Rad, Rad, double(StreakOpacity) * Rng.FRandRange(0.5f, 1.f) * FMath::Max(double(FxSuperK), 0.45), 0.5, 1.0f, 2);
+		}
+		if (N >= 10) StreakAcc = 0.0;
+	}
+	else StreakAcc = 0.0;
+	if (FxSuperK > 0.05f && Sphere && (MStreak || MVapour))
+	{
+		TrailT += Dt;
+		if (TrailT >= FMath::Max(0.02f, TrailEvery))
+		{
+			TrailT = 0.0;
+			const double Len = 900.0 + 600.0 * FxSuperK;
+			const double Peak = double(TrailOpacity) * FxSuperK;
+			const double Life = 0.16;
+			// the body trail: centre half a length behind the chest, glued to him
+			SpawnShape(3, FxPosCm - Vd * (Len * 0.5 + 40.0), Vd, Life, -(Len * 0.5 + 40.0), Len, Len * 1.1, 30.0, 55.0, Peak, Life, 1.0f, 2);
+			FVector Side = FVector::CrossProduct(Vd, FVector::UpVector);
+			if (Side.IsNearlyZero()) Side = BdAnyPerp(Vd);
+			Side = Side.GetSafeNormal();
+			for (const double S : { -1.0, 1.0 })
+				if (FVapour* Vp = SpawnShape(3, FxPosCm - Vd * (Len * 0.6) + Side * (45.0 * S), Vd, Life, -(Len * 0.6), Len * 1.2, Len * 1.3, 8.0, 14.0, Peak * 0.8, Life, 1.0f, 2))
+					Vp->SideCm = Side * (45.0 * S);
+		}
+	}
+	else TrailT = 0.0;
+	if (FxSuperK > 0.3f && MDust && Sphere)
+	{
+		WakeT += Dt;
+		if (WakeT >= 0.08)
+		{
+			WakeT = 0.0;
+			FFacadeHit G;
+			const double MaxH = FMath::Max(1.0, double(WakeMaxH)) * 100.0;
+			if (TraceFacade(FxPosCm, FxPosCm - FVector(0.0, 0.0, MaxH), G) && G.Normal.Z > 0.5)
+			{
+				const double K = 1.0 - FMath::Clamp((FxPosCm.Z - G.Point.Z) / MaxH, 0.0, 1.0);
+				FVector Side = FVector::CrossProduct(FVector(Vd.X, Vd.Y, 0.0).GetSafeNormal(), FVector::UpVector);
+				if (Side.IsNearlyZero()) Side = FVector::RightVector;
+				for (const double S : { -1.0, 1.0 })
+				{
+					const double S0 = Rng.FRandRange(110.f, 170.f) * (0.7 + 0.6 * K);
+					SpawnPuff(G.Point + FVector(0.0, 0.0, 40.0) + Side * (S * Rng.FRandRange(80.f, 200.f)),
+						Side * (S * Rng.FRandRange(500.f, 1100.f) * K) + FVector(Vd.X, Vd.Y, 0.0) * 300.0 + FVector(0.0, 0.0, Rng.FRandRange(60.f, 200.f)),
+						S0, S0 * Rng.FRandRange(2.6f, 3.4f), Rng.FRandRange(1.2f, 1.7f), 0.45 + 0.25 * K, 0.0, BdDust * Rng.FRandRange(0.85f, 1.05f));
+				}
+			}
+		}
+	}
+	else WakeT = 0.0;
 }
 
 void AWHBreachDirector::Bump(const FVector& PosM, const FVector& NormalM, float Sev)
@@ -643,29 +840,46 @@ void AWHBreachDirector::CraterDust(const FVector& PCm, float Sev)
 
 void AWHBreachDirector::SpawnVapour(bool bCone, const FVector& AnchorCm, const FVector& Dir, double FollowS, double OffsetCm, double Len0, double Len1, double Rad0, double Rad1, double Peak, double Life, float EdgePow)
 {
-	UStaticMesh* Mesh = bCone ? Cone.Get() : Sphere.Get();
-	if (!Mesh || !MVapour) return;
+	SpawnShape(bCone ? 0 : 1, AnchorCm, Dir, FollowS, OffsetCm, Len0, Len1, Rad0, Rad1, Peak, Life, EdgePow, 0);
+}
+
+// owner feedback 2026-10-15 #1 / #3: the pooled vapour pieces in four shapes (0 cone, 1 ring, 2 ball, 3 streak); streaks wear M_InvStreak when it
+// exists (its Dir / HalfLen parameters fade it along its length), else M_InvVapour. Pool cap MaxVapours (was a fixed 24); a full pool skips.
+AWHBreachDirector::FVapour* AWHBreachDirector::SpawnShape(int32 Shape, const FVector& AnchorCm, const FVector& Dir, double FollowS, double OffsetCm, double Len0, double Len1, double Rad0, double Rad1, double Peak, double Life, float EdgePow, int32 Env)
+{
+	UStaticMesh* Mesh = Shape == 0 ? Cone.Get() : Sphere.Get();
+	UMaterialInterface* Base = (Shape == 3 && MStreak) ? MStreak.Get() : MVapour.Get();
+	if (!Mesh || !Base) return nullptr;
 	FVapour* Vp = nullptr;
-	for (FVapour& X : Vapours) if (!X.bLive && X.bCone == bCone) { Vp = &X; break; }
+	for (FVapour& X : Vapours) if (!X.bLive && X.Shape == Shape) { Vp = &X; break; }
 	if (!Vp)
 	{
-		if (Vapours.Num() >= 24) return;
-		FVapour N; N.bCone = bCone;
-		N.Comp = MakeComp(Mesh, MVapour, N.Mid, false);
+		if (Vapours.Num() >= FMath::Max(24, MaxVapours)) return nullptr;
+		FVapour N; N.bCone = Shape == 0; N.Shape = Shape;
+		N.Comp = MakeComp(Mesh, Base, N.Mid, false);
 		KeepAlive.Add(N.Comp);
 		Vapours.Add(N);
 		Vp = &Vapours.Last();
 	}
-	Vp->Anchor = AnchorCm; Vp->Dir = Dir.GetSafeNormal(); Vp->T = 0.0; Vp->Life = Life; Vp->Follow = FollowS; Vp->OffsetCm = OffsetCm;
+	FVector Dn = Dir.GetSafeNormal();
+	if (Dn.IsNearlyZero()) Dn = FVector::ForwardVector;
+	Vp->Anchor = AnchorCm; Vp->Dir = Dn; Vp->T = 0.0; Vp->Life = FMath::Max(0.02, Life); Vp->Follow = FollowS; Vp->OffsetCm = OffsetCm;
 	Vp->Len0 = Len0; Vp->Len1 = Len1; Vp->Rad0 = Rad0; Vp->Rad1 = Rad1; Vp->Peak = Peak;
+	Vp->Env = Env; Vp->VelCm = FVector::ZeroVector; Vp->SideCm = FVector::ZeroVector;
 	Vp->bLive = true;
 	if (Vp->Mid)
 	{
-		Vp->Mid->SetVectorParameterValue(TEXT("Color"), bCone ? FLinearColor(0.92f, 0.95f, 1.0f, 1.f) : FLinearColor(0.9f, 0.93f, 1.0f, 1.f));
+		Vp->Mid->SetVectorParameterValue(TEXT("Color"), Shape == 0 ? FLinearColor(0.92f, 0.95f, 1.0f, 1.f) : FLinearColor(0.9f, 0.93f, 1.0f, 1.f));
 		Vp->Mid->SetScalarParameterValue(TEXT("EdgePow"), EdgePow);
 		Vp->Mid->SetScalarParameterValue(TEXT("Opacity"), 0.f);
+		if (Shape == 3)
+		{ // M_InvStreak: the axis and half length (cm) the speed line fades along (ignored by M_InvVapour)
+			Vp->Mid->SetVectorParameterValue(TEXT("Dir"), FLinearColor(float(Dn.X), float(Dn.Y), float(Dn.Z), 0.f));
+			Vp->Mid->SetScalarParameterValue(TEXT("HalfLen"), float(FMath::Max(1.0, Len0 * 0.5)));
+		}
 	}
 	Vp->Comp->SetVisibility(true);
+	return Vp;
 }
 
 void AWHBreachDirector::SpawnRim(const FVector& PCm, float Sev, UMaterialInterface* GroundMat)
@@ -837,6 +1051,9 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 			UGameplayStatics::SetGlobalTimeDilation(this, float(FMath::Lerp(double(SlowMoScale), 1.0, K * K * (3.0 - 2.0 * K))));
 		}
 	}
+	// owner feedback 2026-10-15 #1: the charge slow-mo's safety end (real time), then the continuous flight FX
+	if (bChargeSlow && FPlatformTime::Seconds() >= ChargeSlowEnd) EndChargeSlowMo();
+	FlightFxTick(Dt);
 	// chunks: retire after ChunkLife (or if they fell out of the world)
 	const double Now = GetWorld()->GetTimeSeconds();
 	for (FChunk& C : Chunks)
@@ -905,10 +1122,24 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 			Vp.T += Dt;
 			if (Vp.T >= Vp.Life) { Vp.bLive = false; Vp.Comp->SetVisibility(false); continue; }
 			const double K = Vp.T / Vp.Life;
-			if (Vp.T < Vp.Follow && FW && FW->bHeroValid) Vp.Anchor = FW->HeroPosCm + Vp.Dir * Vp.OffsetCm;
+			// (owner feedback 2026-10-15: + SideCm for the glued contrails; a piece that does not follow drifts at VelCm)
+			if (Vp.T < Vp.Follow && FW && FW->bHeroValid) Vp.Anchor = FW->HeroPosCm + Vp.Dir * Vp.OffsetCm + Vp.SideCm;
+			else Vp.Anchor += Vp.VelCm * Dt;
 			const double E = BdEaseOut(K);
 			const double Rad = FMath::Lerp(Vp.Rad0, Vp.Rad1, E);
-			if (Vp.bCone)
+			if (Vp.Shape == 2)
+			{ // owner feedback 2026-10-15 #1: a sphere shell (the boom's shock shell, the charge's gathering vapour)
+				Vp.Comp->SetWorldLocationAndRotation(Vp.Anchor, FRotationMatrix::MakeFromZ(Vp.Dir).ToQuat());
+				Vp.Comp->SetWorldScale3D(FVector(2.0 * Rad / 100.0));
+			}
+			else if (Vp.Shape == 3)
+			{ // owner feedback 2026-10-15 #1 / #3: a speed line -- an ellipsoid Len long along Dir, centred on Anchor
+				const double Len = FMath::Lerp(Vp.Len0, Vp.Len1, E);
+				Vp.Comp->SetWorldLocationAndRotation(Vp.Anchor, FRotationMatrix::MakeFromZ(Vp.Dir).ToQuat());
+				Vp.Comp->SetWorldScale3D(FVector(2.0 * Rad / 100.0, 2.0 * Rad / 100.0, FMath::Max(1.0, Len) / 100.0));
+				if (Vp.Mid && FMath::Abs(Vp.Len1 - Vp.Len0) > 1.0) Vp.Mid->SetScalarParameterValue(TEXT("HalfLen"), float(FMath::Max(1.0, Len * 0.5)));
+			}
+			else if (Vp.bCone)
 			{
 				// apex at Anchor, opening backwards along -Dir; the mesh's own pivot / apex end come from ProbeCone()
 				const double Len = FMath::Lerp(Vp.Len0, Vp.Len1, E);
@@ -924,7 +1155,13 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 				Vp.Comp->SetWorldLocationAndRotation(Vp.Anchor, FRotationMatrix::MakeFromZ(Vp.Dir).ToQuat());
 				Vp.Comp->SetWorldScale3D(FVector(2.0 * Rad / 100.0, 2.0 * Rad / 100.0, Thick / 100.0));
 			}
-			if (Vp.Mid) Vp.Mid->SetScalarParameterValue(TEXT("Opacity"), float(Vp.Peak * BdSmooth01(Vp.T / 0.05) * (1.0 - BdSmooth01((K - 0.40) / 0.60))));
+			if (Vp.Mid)
+			{ // envelopes (owner feedback 2026-10-15): 0 the r3 fade-out after 40 %, 1 gather (ramps up to the launch), 2 speed line (quick in, fades over the second half)
+				double Op = Vp.Peak * BdSmooth01(Vp.T / 0.05) * (1.0 - BdSmooth01((K - 0.40) / 0.60));
+				if (Vp.Env == 1) Op = Vp.Peak * BdSmooth01(K / 0.8) * (1.0 - BdSmooth01((K - 0.92) / 0.08));
+				else if (Vp.Env == 2) Op = Vp.Peak * BdSmooth01(Vp.T / 0.04) * (1.0 - BdSmooth01((K - 0.5) / 0.5));
+				Vp.Mid->SetScalarParameterValue(TEXT("Opacity"), float(Op));
+			}
 		}
 	}
 	// r3 decals: the opening / crater grows open (the material's Open parameter, ease-out) over Grow s

@@ -24,6 +24,10 @@
 #                  [Color=(0.34, 0.31, 0.27), Opacity=0.7, Emissive=0.12, Soft=1, Seed=0.5]
 #   M_InvChunk     opaque LIT. Concrete speckle, or brick courses with mortar (Brick >= 0.5), from the cube's object-relative position.
 #                  [Color=(0.40, 0.38, 0.35), Rough=0.9, Brick=0, Seed=0.5]
+#   M_InvStreak    (owner feedback 2026-10-15 #1, super-boost speed read) translucent ADDITIVE, UNLIT, two-sided. A speed line for a sphere
+#                  stretched along Dir: bright on the centre line facing the camera, fading to the silhouette and to 0 at both ends along Dir
+#                  (HalfLen cm), a little brighter at the front. Used for the world wind streaks, the charge's inward streaks, the body trail.
+#                  [Dir=(1, 0, 0), HalfLen=500, Opacity=0.5, Color=(0.9, 0.93, 1.0), Gain=1.6, EdgePow=1 (unused)]
 # The C++ side (Flight/WHBreachDirector.cpp) loads all of them optionally and falls back to the round-2 proxies when one is missing.
 #
 # Plain python3 (no Unreal): `python3 build_invincible_fx.py --dump-hlsl <dir>` writes the HLSL body of every Custom node to <dir>/*.hlsl
@@ -304,8 +308,30 @@ return float3(outc.x, outc.y, outc.z);
 """
 
 
+# owner feedback 2026-10-15 #1 (super boost speed read): a speed line on a sphere stretched along Dir (the director's streak pieces). Brightest on
+# the centre line facing the camera, fading to the silhouette (so it reads as a thin line, not a capsule) and to 0 at both ends along Dir
+# (|axial| / HalfLen, HalfLen in cm set per piece), a little brighter at the front end. Additive: the output is an emissive gain 0..1.
+STREAK_T = """
+float nl = sqrt(N.x * N.x + N.y * N.y + N.z * N.z) + 0.00001;
+float vl = sqrt(V.x * V.x + V.y * V.y + V.z * V.z) + 0.00001;
+float ndv = abs(N.x * V.x + N.y * V.y + N.z * V.z) / (nl * vl);
+float core = pow(saturate(ndv), 1.6);
+float dl = sqrt(Dir.x * Dir.x + Dir.y * Dir.y + Dir.z * Dir.z) + 0.00001;
+float ax = (RP.x * Dir.x + RP.y * Dir.y + RP.z * Dir.z) / dl;
+float hl = max(HalfLen, 1.0);
+float u = saturate(abs(ax) / hl);
+float along = (1.0 - u * u) * (1.0 - u * u);
+float head = 0.6 + 0.4 * saturate(ax / hl * 0.5 + 0.5);
+return saturate(Op * core * along * head);
+"""
+
+
 def vapour_code():
     return tpl(VAPOUR_T, FBM_NZ=fbm('nz', 'px', 'py', 3, 1.0, '0.0'))
+
+
+def streak_code():
+    return STREAK_T
 
 
 def dust_code():
@@ -326,6 +352,7 @@ CUSTOM_NODES = {
     'vapour': (vapour_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('T', 'float'), ('Op', 'float'), ('EP', 'float'), ('Soft', 'float')], 'float'),
     'dust': (dust_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('T', 'float'), ('Op', 'float'), ('Soft', 'float'), ('Seed', 'float')], 'float'),
     'chunk': (chunk_code, [('RP', 'float3'), ('C', 'float3'), ('B', 'float'), ('Seed', 'float')], 'float3'),
+    'streak': (streak_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('Dir', 'float3'), ('HalfLen', 'float'), ('Op', 'float')], 'float'),
 }
 
 
@@ -519,9 +546,30 @@ def build_in_unreal():
     prop(rgp, unreal.MaterialProperty.MP_ROUGHNESS, 'M_InvChunk')
     finish(mat, path)
 
+    # ---- owner feedback 2026-10-15 #1: speed lines -- translucent ADDITIVE unlit two-sided; emissive = Color x Gain x streak(N, V, RP, Dir, HalfLen, Opacity)
+    mat, path = material('M_InvStreak', material_domain=unreal.MaterialDomain.MD_SURFACE, blend_mode=unreal.BlendMode.BLEND_ADDITIVE,
+                         shading_model=unreal.MaterialShadingModel.MSM_UNLIT, two_sided=True)
+    pn = node(mat, unreal.MaterialExpressionPixelNormalWS, -1100, 0)
+    cv = node(mat, unreal.MaterialExpressionCameraVectorWS, -1100, 100)
+    wp = node(mat, unreal.MaterialExpressionWorldPosition, -1100, 200)
+    ob = node(mat, unreal.MaterialExpressionObjectPositionWS, -1100, 300)
+    rp = node(mat, unreal.MaterialExpressionSubtract, -900, 250)
+    MEL.connect_material_expressions(wp, '', rp, 'A'); MEL.connect_material_expressions(ob, '', rp, 'B')
+    drp = vparam(mat, 'Dir', (1.0, 0.0, 0.0, 0.0), -1100, 400)
+    hlp = sparam(mat, 'HalfLen', 500.0, -1100, 500)
+    opp = sparam(mat, 'Opacity', 0.5, -1100, 600)
+    colp = vparam(mat, 'Color', (0.9, 0.93, 1.0, 1.0), -1100, 700)
+    gnp = sparam(mat, 'Gain', 1.6, -1100, 800)
+    sparam(mat, 'EdgePow', 1.0, -1100, 900)   # (unused by the graph; the director sets it on every vapour piece)
+    stk = custom(mat, 'streak', {'N': (pn, ''), 'V': (cv, ''), 'RP': (rp, ''), 'Dir': (drp, ''), 'HalfLen': (hlp, ''), 'Op': (opp, '')}, -600, 300)
+    cg = mul(mat, colp, gnp, -500, 620)
+    prop(mul(mat, cg, stk, -350, 500), unreal.MaterialProperty.MP_EMISSIVE_COLOR, 'M_InvStreak')
+    finish(mat, path)
+
     # ---- verify: every asset reloads as the right kind with the right domain
     want = {'M_BreachHole': unreal.MaterialDomain.MD_DEFERRED_DECAL, 'M_CraterDecal': unreal.MaterialDomain.MD_DEFERRED_DECAL,
-            'M_InvVapour': unreal.MaterialDomain.MD_SURFACE, 'M_InvDust': unreal.MaterialDomain.MD_SURFACE, 'M_InvChunk': unreal.MaterialDomain.MD_SURFACE}
+            'M_InvVapour': unreal.MaterialDomain.MD_SURFACE, 'M_InvDust': unreal.MaterialDomain.MD_SURFACE, 'M_InvChunk': unreal.MaterialDomain.MD_SURFACE,
+            'M_InvStreak': unreal.MaterialDomain.MD_SURFACE}
     for n, dom in want.items():
         m = unreal.load_asset('%s/%s' % (DEST, n))
         if not isinstance(m, unreal.Material) or m.get_editor_property('material_domain') != dom:
