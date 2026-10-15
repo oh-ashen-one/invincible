@@ -38,6 +38,7 @@
   <div class="row"><label><input type="checkbox" id="xray"> X-ray body</label></div>
   <div class="row"><label><input type="checkbox" id="wire"> Wireframe</label></div>
   <div class="row"><label><input type="checkbox" id="spin"> Turntable</label></div>
+  <div class="row"><label><input type="checkbox" id="flat"> Flight orientation (lay him on the fly line, as in game)</label></div>
   <div id="animBox" style="display:none">
     <h2>Animations</h2>
     <div class="row"><select id="clip" style="flex:1;background:#2c323c;color:#e8e8e8;border:1px solid #3c4450;border-radius:4px;padding:3px"></select></div>
@@ -66,6 +67,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const C = '../../../docs/invincible/character/customuse/';
 const MODELS = [
+  ['FLIGHT — superman line, hand-keyed (tick Flight orientation)', '../../../docs/invincible/character/meshy/hero_fly_keyed.glb'],
   ['HOVER IDLE v2 — hand-keyed to the show reference (loop)', '../../../docs/invincible/character/meshy/hero_hover_keyed.glb'],
   ['HOVER IDLE — 3 Meshy text-to-motion takes on OUR rig', '../../../docs/invincible/character/meshy/hero_hover.glb'],
   ['v2 + 20 Meshy clips retargeted onto OUR rig', '../../../docs/invincible/character/meshy/hero_meshy_clips.glb'],
@@ -95,7 +97,7 @@ scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x3a3326, 1.4));
 const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(2, 4, 3); scene.add(sun);
 const rim = new THREE.DirectionalLight(0x9fb8ff, 1.0); rim.position.set(-3, 2, -3); scene.add(rim);
 
-let skelHelper, skinned = [], bones = [], selected = null, jointDots = [], labels = [], rest = new Map(), root;
+let pivot, skelHelper, skinned = [], bones = [], selected = null, jointDots = [], labels = [], rest = new Map(), root;
 const dotMat = new THREE.MeshBasicMaterial({ color: 0xffd43b, depthTest: false, transparent: true });
 const selMat = new THREE.MeshBasicMaterial({ color: 0xff6b6b, depthTest: false, transparent: true });
 
@@ -112,6 +114,8 @@ new GLTFLoader().load(GLB, (g) => {
   const b2 = new THREE.Box3().setFromObject(root); root.position.y -= b2.min.y; root.position.x -= (b2.min.x + b2.max.x) / 2; root.position.z -= (b2.min.z + b2.max.z) / 2;
   root.updateMatrixWorld(true);
   const grid = new THREE.GridHelper(4, 16, 0x556070, 0x3a414d); scene.add(grid);
+  pivot = new THREE.Group(); pivot.position.set(0, 1.0, 0); scene.add(pivot); pivot.attach(root);
+  document.getElementById('flat').onchange = (e) => { pivot.rotation.x = e.target.checked ? Math.PI / 2 : 0; pivot.position.y = e.target.checked ? 1.4 : 1.0; };
   camera.position.set(0, 1.1, 4.2); controls.target.set(0, 0.95, 0); controls.update();
   skelHelper = new THREE.SkeletonHelper(root); skelHelper.material.depthTest = false; skelHelper.material.linewidth = 2; skelHelper.renderOrder = 10; scene.add(skelHelper);
   const dotGeo = new THREE.SphereGeometry(0.012, 10, 8);
