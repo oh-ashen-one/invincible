@@ -62,7 +62,19 @@ namespace
 #define WA_NAME(x) const FName NA_##x(TEXT(#x));
 	WA_NAME(ground) WA_NAME(jumpCharge) WA_NAME(jumpLaunch) WA_NAME(land) WA_NAME(air) WA_NAME(trick) WA_NAME(swing) WA_NAME(zip)
 	WA_NAME(perch) WA_NAME(crawl) WA_NAME(wallRun) WA_NAME(wallJump) WA_NAME(corner) WA_NAME(pointLaunch) WA_NAME(vault) WA_NAME(topOut)
+	WA_NAME(fly)   // Invincible flight (2026-10-15): category of the fly_* nodes
 #undef WA_NAME
+	// Invincible flight: weighted average of the active flight channels' IK goals for one limb (target, pole, end-bone aim)
+	struct FFlyLimbAcc
+	{
+		FVector Tgt = FVector::ZeroVector, Pole = FVector::ZeroVector, End = FVector::ZeroVector;
+		double W = 0.0;
+		void Add(double Wi, const FVector& T, const FVector& P, const FVector& E)
+		{
+			if (Wi <= 0.001) return;
+			Tgt += T * Wi; Pole += P * Wi; End += E * Wi; W += Wi;
+		}
+	};
 }
 
 // ------------------------------------------------------------------ game thread
@@ -153,6 +165,7 @@ FName UWebTravAnimInstance::Category(FName Node)
 	if (S.StartsWith(TEXT("land_"))) return NA_land;
 	if (S.StartsWith(TEXT("zip_"))) return NA_zip;
 	if (S.StartsWith(TEXT("perch_"))) return NA_perch;
+	if (S.StartsWith(TEXT("fly_"))) return NA_fly;   // 2026-10-15 flight
 	return Node;
 }
 
@@ -191,6 +204,18 @@ float UWebTravAnimInstance::BlendTime(FName F, FName T)
 FName UWebTravAnimInstance::PickNode(float Dt)
 {
 	const FString Sub = A.Sub.ToString();
+	// Invincible flight (2026-10-15): the flight controller's subs map to fly_* nodes (any mode; landHero arrives in Land). Ground
+	// walking during flight keeps the ground subs and falls through to the legacy picks below. landHero is never a legacy sub.
+	{
+		static const FName NLandHero(TEXT("landHero"));
+		if (A.Flight.bActive || A.Sub == NLandHero)
+		{
+			static const FName FlySubs[] = { FName(TEXT("takeoff")), FName(TEXT("hover")), FName(TEXT("fly")), FName(TEXT("boost")), FName(TEXT("brake")),
+				FName(TEXT("dash")), FName(TEXT("slam")), FName(TEXT("breach")), NLandHero };
+			for (const FName& Fs : FlySubs)
+				if (A.Sub == Fs) return FName(*(TEXT("fly_") + Sub));
+		}
+	}
 	switch (A.Mode)
 	{
 	case EWebTravMode::Ground:
@@ -282,6 +307,22 @@ void UWebTravAnimInstance::BuildNode(FName Node, float T, TArray<FWebTravAnimLay
 	};
 	const FString N = Node.ToString();
 	const float Sp = A.Speed;
+	if (N.StartsWith(TEXT("fly_")))
+	{ // Invincible flight (2026-10-15): the clip gives the spine / head (upright idle, straight back) and the procedural flight channels
+	  // (FWebTravAnimFrame::FlyArmW ...) shape the limbs; takeoff = deep crouch into the high launch, landHero = the hard landing
+	  // under the procedural kneel (the clip's own recovery carries the rise as the kneel fades)
+		const FString S = N.Mid(4);
+		if (S == TEXT("takeoff"))
+		{
+			const float L = Smooth01((T - 0.1f) / 0.14f);
+			Add(TEXT("jumpCrouch"), 0.08f + FMath::Min(T, 0.12f) * 2.6f, 1.f - L, false);
+			Add(TEXT("jumpLaunchHigh"), FMath::Max(0.f, T - 0.1f), L, false);
+		}
+		else if (S == TEXT("landHero")) Add(Clip(TEXT("landHard")) ? TEXT("landHard") : TEXT("landMedium"), T, 1.f, false);
+		else Add(TEXT("idle"), T, 1.f, true);
+		if (!Out.Num()) Add(TEXT("perchIdle"), T, 1.f, true); // never an empty layer set (Evaluate would fall back to the ref pose)
+		return;
+	}
 	if (Node == NA_ground)
 	{ // locomotion anchors (browser LOCO): walk 1.6, jog 4.5, run 8.5, sprint 14 m/s; one shared normalized phase
 		struct FL { const TCHAR* C; float V; };
@@ -531,6 +572,16 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 		// t=6.57 / 18.85 -- the tucked / spread silhouette sits far from the swing entry pose): those two crossfade into the
 		// swing over 0.55 s instead of the 0.26 s air -> swing blend
 		if (Category(Node) == NA_swing && (CurNode == FName(TEXT("air_tuck")) || CurNode == FName(TEXT("air_spread")))) FadeDur = 0.55f;
+		// Invincible flight (2026-10-15): flight node crossfades 0.15-0.25 s; the hero-landing impact cuts in fast and its rise hands
+		// over to the ground pose slowly (legacy nodes never reach this: no legacy node is in the fly category)
+		if (Category(Node) == NA_fly || Category(CurNode) == NA_fly)
+		{
+			const FString To = Node.ToString();
+			if (To == TEXT("fly_landHero")) FadeDur = 0.1f;
+			else if (To == TEXT("fly_brake") || To == TEXT("fly_dash") || To == TEXT("fly_breach") || To == TEXT("fly_takeoff")) FadeDur = 0.15f;
+			else if (To == TEXT("fly_hover") || CurNode == FName(TEXT("fly_landHero"))) FadeDur = 0.25f;
+			else FadeDur = 0.2f;
+		}
 		FadeT = 0.f;
 		CurNode = Node;
 		NodeT = 0.f;
@@ -587,8 +638,9 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 	// procedural: web-hand arm aimed at the anchor while a web is held (swing / zip), spine bank with the swing
 	const USkeletalMeshComponent* Mesh = GetSkelMeshComponent();
 	// (round 07: also in the air — a web stuck on the rise before its swing starts, dash / boost webs)
-	const bool bAim = bWebActive && (A.Mode == EWebTravMode::Swing || A.Mode == EWebTravMode::Zip || A.Mode == EWebTravMode::Air) && Mesh;
-	const bool bReach = !bAim && A.NoAnchorT >= 0.f && Mesh;   // round 01 (W10): reach-and-miss gesture of a press with no anchor
+	// (2026-10-15: no web arm while the flight controller owns the body)
+	const bool bAim = bWebActive && !A.Flight.bActive && (A.Mode == EWebTravMode::Swing || A.Mode == EWebTravMode::Zip || A.Mode == EWebTravMode::Air) && Mesh;
+	const bool bReach = !bAim && !A.Flight.bActive && A.NoAnchorT >= 0.f && Mesh;   // round 01 (W10): reach-and-miss gesture of a press with no anchor
 	const bool bNewShot = bAim && (!bWebAimPrev || Frame.bArmRight != bWebRight
 		|| (A.WebShotK >= 0.f && (PrevAimShotK < 0.f || A.WebShotK + 0.25f < PrevAimShotK)));
 	if (bNewShot)
@@ -642,6 +694,7 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 		// (the traversal's rate-limited 20 deg pre-turn owns the lead-in now) and the align ROTATION itself is slew-limited in
 		// Evaluate (AlignPrevQ), so the hips reach the rope frame through the attach window instead of jumping at the attach frame
 		if (A.Mode == EWebTravMode::Air && A.WebShotK >= 0.f) Want = 0.25f * Smooth01(A.WebShotK * 1.5f);   // round 02: the hips start turning under the anchor while the tip flies
+		if (A.Flight.bActive) Want = 0.f;   // 2026-10-15 flight: no rope to align to
 		const float Step = Dt / (Want > Frame.BodyAlignW ? 0.3f : 0.2f);   // round 01 (W4): the hips-to-head alignment onto the rope eases in over 0.7 s (was 0.2 s)
 		Frame.BodyAlignW = Want > Frame.BodyAlignW ? FMath::Min(Want, Frame.BodyAlignW + Step) : FMath::Max(Want, Frame.BodyAlignW - Step);
 	}
@@ -790,7 +843,8 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 	{
 		static const FName NTrick(TEXT("trick")), NTop(TEXT("topOut")), NZipPull(TEXT("zipPull")), NJL(TEXT("jumpLaunch")), NWJ(TEXT("wallJump")),
 			NPL(TEXT("pointLaunch")), NVault(TEXT("vault"));
-		const bool bAirOk = bAirSpeedPose && A.Mode == EWebTravMode::Air && Mesh && A.Sub != NTrick && A.Sub != NTop && A.Sub != NZipPull && A.Sub != NJL
+		// (2026-10-15: the sky-dive arch / track and the float drift stay off in flight -- flight speeds would otherwise pull the track pose)
+		const bool bAirOk = bAirSpeedPose && !A.Flight.bActive && A.Mode == EWebTravMode::Air && Mesh && A.Sub != NTrick && A.Sub != NTop && A.Sub != NZipPull && A.Sub != NJL
 			&& A.Sub != NWJ && A.Sub != NPL && A.Sub != NVault;
 		const float Sp = A.Speed;
 		const float Want = bAirOk ? Smooth01((Sp - 20.f) / 10.f) * (1.f - FMath::Clamp(Frame.TuckW * 1.5f, 0.f, 1.f)) : 0.f;
@@ -815,6 +869,45 @@ void UWebTravAnimInstance::NativeUpdateAnimation(float Dt)
 		const float Step = Dt / 0.08f;
 		Frame.TuckW = PendingTuckW > Frame.TuckW ? FMath::Min(PendingTuckW, Frame.TuckW + Step) : FMath::Max(PendingTuckW, Frame.TuckW - Step);
 		PendingTuckW = 0.f;
+	}
+	// Invincible flight (2026-10-15): procedural flight pose channels (see FWebTravAnimFrame::FlyArmW). Targets come from the current
+	// fly_* node; every channel eases toward its target (0.12-0.2 s), so sub changes crossfade with the clip blend and the channels fade
+	// out when flight ends. Without a fly_* node every target is 0 and the channels stay at 0 (legacy pose path untouched).
+	{
+		const FString Cn = CurNode.ToString();
+		const bool bFly = Mesh && Cn.StartsWith(TEXT("fly_"));
+		const FString Fs = bFly ? Cn.Mid(4) : FString();
+		const FWebTravAnimFlight& F = A.Flight;
+		const float T = NodeT;
+		float WArm = 0.f, WLeg = 0.f, WHover = 0.f, WBrake = 0.f, WSlam = 0.f, WBreach = 0.f, WKneel = 0.f, Stretch = 0.f, Knee = 0.f;
+		if (Fs == TEXT("takeoff")) { WArm = Smooth01((T - 0.12f) / 0.18f); WLeg = 0.6f * Smooth01((T - 0.2f) / 0.15f); Knee = 0.3f; } // the fist goes up as he leaves the ground
+		else if (Fs == TEXT("hover")) WHover = 1.f;
+		else if (Fs == TEXT("fly")) { WArm = 1.f; WLeg = 1.f; Stretch = 0.5f * FMath::Clamp(F.SpeedK - 1.f, 0.f, 1.f); Knee = 0.4f * (1.f - Smooth01(F.SpeedK)); }
+		else if (Fs == TEXT("boost")) { WArm = 1.f; WLeg = 1.f; Stretch = 1.f; }
+		else if (Fs == TEXT("dash")) { WArm = 1.f; WLeg = 1.f; Stretch = 0.4f; Knee = 0.65f; }
+		else if (Fs == TEXT("brake")) WBrake = 1.f;
+		else if (Fs == TEXT("slam")) { WLeg = 1.f; WSlam = 1.f; Knee = 0.05f; }
+		else if (Fs == TEXT("breach")) { WLeg = 1.f; WBreach = 1.f; Knee = 0.3f; }
+		else if (Fs == TEXT("landHero")) WKneel = Smooth01(T / 0.06f) * (1.f - Smooth01((T - 0.42f) / 0.45f)); // impact, hold, rise by ~0.9 s
+		auto Ease = [Dt](float& X, float Want, float Tau)
+		{
+			const float Step = Dt / FMath::Max(0.01f, Tau);
+			X = Want > X ? FMath::Min(Want, X + Step) : FMath::Max(Want, X - Step);
+		};
+		Ease(Frame.FlyArmW, WArm, 0.2f);
+		Ease(Frame.FlyLegW, WLeg, 0.2f);
+		Ease(Frame.FlyHoverW, WHover, 0.22f);
+		Ease(Frame.FlyBrakeW, WBrake, WBrake > Frame.FlyBrakeW ? 0.12f : 0.2f);
+		Ease(Frame.FlySlamW, WSlam, 0.18f);
+		Ease(Frame.FlyBreachW, WBreach, 0.15f);
+		Ease(Frame.FlyKneelW, WKneel, WKneel > Frame.FlyKneelW ? 0.06f : 0.2f);
+		Ease(Frame.FlyStretchK, Stretch, 0.2f);
+		Ease(Frame.FlyKneeK, Knee, 0.18f);
+		Ease(Frame.FlyFistR, F.bRightFist ? 1.f : 0.f, 0.25f);
+		Frame.FlyBoomK = bFly ? FMath::Clamp(F.BoomK, 0.f, 1.f) : 0.f;
+		Frame.FlyT = F.FlightT;
+		Frame.FlyStick = bFly ? F.Stick : FVector2D::ZeroVector;
+		if (Mesh) Frame.FlyDownCS = Mesh->GetComponentTransform().InverseTransformVectorNoScale(FVector(0.0, 0.0, -1.0)).GetSafeNormal();
 	}
 	LastMode = A.Mode;
 }
@@ -1528,6 +1621,220 @@ bool FWebTravAnimProxy::Evaluate(FPoseContext& Output)
 			}
 			const double Ar = Frame.SwArch * Kk * CSn;
 			RotateCS(Idx(TEXT("spine")), FQuat(Lat, Ar * 0.45)); RotateCS(Idx(TEXT("spine1")), FQuat(Lat, Ar * 0.35)); RotateCS(Idx(TEXT("spine2")), FQuat(Lat, Ar * 0.2)); RotateCS(BHead, FQuat(Lat, -Ar * 0.5));
+		}
+	}
+	// ---- Invincible flight (2026-10-15): procedural flight poses over the upright idle clip (FWebTravAnimFrame::FlyArmW ...). All
+	// directions come from the posed body (hips -> head = Up, shoulders = Lat, Chest = body front) and world down, so no rig-axis signs
+	// are assumed beyond the existing ChestSign. Body pitch / bank are on the root already (BodyQ); only secondary lean is added here.
+	{
+		const float WA = Frame.FlyArmW, WL = Frame.FlyLegW, WH = Frame.FlyHoverW, WB = Frame.FlyBrakeW, WS = Frame.FlySlamW, WX = Frame.FlyBreachW, WK = Frame.FlyKneelW;
+		const float WAny = FMath::Max(FMath::Max3(WA, WL, WH), FMath::Max(FMath::Max3(WB, WS, WX), WK));
+		const FCompactPoseBoneIndex BHead = Idx(TEXT("head")), BUL = Idx(TEXT("upperArm_L")), BUR = Idx(TEXT("upperArm_R")),
+			BTL = Idx(TEXT("thigh_L")), BTR = Idx(TEXT("thigh_R"));
+		if (WAny > 0.01f && BHips.IsValid() && BHead.IsValid() && BUL.IsValid() && BUR.IsValid() && BTL.IsValid() && BTR.IsValid())
+		{
+			FVector Down = Frame.FlyDownCS.GetSafeNormal();
+			if (Down.IsNearlyZero()) Down = FVector(0.0, 0.0, -1.0);
+			const FVector UpW = -Down;
+			const double CSn = UWebTravAnimInstance::ChestSign;
+			auto Axes = [&](FVector& Up, FVector& Lat, FVector& Chest)
+			{
+				Up = (CS(BHead).GetLocation() - CS(BHips).GetLocation()).GetSafeNormal();
+				if (Up.IsNearlyZero()) Up = UpW;
+				Lat = CS(BUR).GetLocation() - CS(BUL).GetLocation();
+				Lat = (Lat - Up * FVector::DotProduct(Lat, Up)).GetSafeNormal();
+				if (Lat.IsNearlyZero()) { Lat = CS(BTR).GetLocation() - CS(BTL).GetLocation(); Lat = (Lat - Up * FVector::DotProduct(Lat, Up)).GetSafeNormal(); }
+				if (Lat.IsNearlyZero()) Lat = FVector::RightVector;
+				Chest = FVector::CrossProduct(Lat, Up).GetSafeNormal() * CSn;   // body front
+			};
+			// rotate a bone (component space) so the direction From turns toward Toward by Ang (rad); sign-free
+			auto Lean = [&](const TCHAR* Bn, const FVector& From, const FVector& Toward, double Ang)
+			{
+				if (FMath::Abs(Ang) < 1e-4) return;
+				const FVector Ax = FVector::CrossProduct(From, Toward).GetSafeNormal();
+				if (!Ax.IsNearlyZero()) RotateCS(Idx(Bn), FQuat(Ax, Ang));
+			};
+			FVector Up0, Lat0, Chest0;
+			Axes(Up0, Lat0, Chest0);
+			const FVector HipC0 = CS(BHips).GetLocation();
+			FVector ChestH = Chest0 - UpW * FVector::DotProduct(Chest0, UpW);   // body front along the ground (hero landing)
+			ChestH = ChestH.IsNearlyZero() ? Chest0 : ChestH.GetSafeNormal();
+			const FCompactPoseBoneIndex BSL = Idx(TEXT("shin_L")), BSR = Idx(TEXT("shin_R")), BFL = Idx(TEXT("foot_L")), BFR = Idx(TEXT("foot_R"));
+			const bool bLegs = BSL.IsValid() && BSR.IsValid() && BFL.IsValid() && BFR.IsValid();
+			double Ground = 0.0, ThighLen = 40.0, ShinLen = 40.0;
+			if (bLegs)
+			{ // ground level (along world up) under the clip's feet; ankles ~7 cm above it
+				Ground = FMath::Min(FVector::DotProduct(CS(BFL).GetLocation(), UpW), FVector::DotProduct(CS(BFR).GetLocation(), UpW)) - 7.0;
+				ThighLen = (CS(BSL).GetLocation() - CS(BTL).GetLocation()).Size();
+				ShinLen = (CS(BFL).GetLocation() - CS(BSL).GetLocation()).Size();
+			}
+			// hips: hover bob; hero landing drops the hips until the kneeling thigh stands vertical on the ground
+			{
+				FVector Move = FVector::ZeroVector;
+				if (WH > 0.01f) Move += Up0 * (1.6 * FMath::Sin(2.0 * PI * 0.45 * double(Frame.FlyT)) * WH);
+				if (WK > 0.01f && bLegs)
+				{
+					const double HipH = 0.5 * (FVector::DotProduct(CS(BTL).GetLocation(), UpW) + FVector::DotProduct(CS(BTR).GetLocation(), UpW)) - Ground;
+					Move -= UpW * (FMath::Max(0.0, HipH - (ThighLen + 6.0)) * WK);
+				}
+				if (!Move.IsNearlyZero())
+				{
+					const FCompactPoseBoneIndex PH = BC.GetParentBoneIndex(BHips);
+					const FTransform PT = PH.IsValid() ? CS(PH) : FTransform::Identity;
+					Pose[BHips].SetTranslation(PT.InverseTransformPosition(HipC0 + Move));
+				}
+			}
+			// spine / head (secondary lean only; parents before children)
+			{
+				const double Tf = Frame.FlyT;
+				if (WH > 0.01f)
+				{ // hover: lean into the stick
+					const FVector Dir = Chest0 * double(Frame.FlyStick.Y) + Lat0 * double(Frame.FlyStick.X);
+					const double Mag = FMath::Min(1.0, double(Dir.Size()));
+					if (Mag > 0.05) { Lean(TEXT("spine1"), Up0, Dir.GetSafeNormal(), 0.10 * Mag * WH); Lean(TEXT("spine2"), Up0, Dir.GetSafeNormal(), 0.07 * Mag * WH); }
+				}
+				if (WB > 0.01f) { Lean(TEXT("spine1"), Up0, -Chest0, 0.16 * WB); Lean(TEXT("spine2"), Up0, -Chest0, 0.10 * WB); }   // brake: torso back
+				if (WK > 0.01f)
+				{ // hero landing: torso folds forward over the front knee
+					Lean(TEXT("spine"), Up0, ChestH, 0.30 * WK); Lean(TEXT("spine1"), Up0, ChestH, 0.25 * WK); Lean(TEXT("spine2"), Up0, ChestH, 0.15 * WK);
+				}
+				if (WX > 0.01f) Lean(TEXT("spine2"), Up0, Chest0, 0.12 * WX);   // breach: hunch behind the arms
+				if (WA > 0.01f)
+				{ // banks: chest and head counter-roll toward the horizon (turn the shoulder line toward level about the body axis)
+					FVector LatLvl = Lat0 - UpW * FVector::DotProduct(Lat0, UpW);
+					LatLvl -= Up0 * FVector::DotProduct(LatLvl, Up0);
+					if (LatLvl.Size() > 0.2)
+					{
+						const FQuat Q = FQuat::FindBetweenNormals(Lat0, LatLvl.GetSafeNormal());
+						RotateCS(Idx(TEXT("spine2")), FQuat::Slerp(FQuat::Identity, Q, 0.15 * WA));
+						RotateCS(BHead, FQuat::Slerp(FQuat::Identity, Q, 0.30 * WA));
+					}
+				}
+				if (Frame.FlyBoomK > 0.01f)
+				{ // sonic boom: brief shudder through the chest, chin tucks (brace)
+					const double Bk = Frame.FlyBoomK;
+					Lean(TEXT("spine1"), Up0, Chest0, Bk * 0.05 * FMath::Sin(2.0 * PI * 19.0 * Tf));
+					Lean(TEXT("spine2"), Up0, Lat0, Bk * 0.035 * FMath::Sin(2.0 * PI * 23.0 * Tf + 1.0));
+					Lean(TEXT("head"), Up0, Chest0, Bk * (0.12 + 0.04 * FMath::Sin(2.0 * PI * 17.0 * Tf)));
+				}
+				// head: lifts to look along the flight while the body lies along it (not when upright); down in the slam / breach /
+				// hero landing; forward over the brake
+				const double Horiz = 1.0 - FMath::Abs(FVector::DotProduct(Up0, UpW));
+				Lean(TEXT("head"), Up0, -Chest0, 0.45 * Horiz * WA * (1.0 - 0.6 * Frame.FlyBoomK));
+				Lean(TEXT("head"), Up0, Chest0, 0.22 * WS + 0.28 * WX + 0.20 * WB);
+				Lean(TEXT("head"), Up0, ChestH, 0.30 * WK);
+			}
+			// legs: one IK goal per leg, weight-averaged over the active channels (pelvis frame: Up0 / Lat0 / Chest0)
+			if (bLegs && WL + WH + WB + WK > 0.01f)
+			{
+				const FVector HipC = CS(BHips).GetLocation();
+				const FVector DP = Down - Up0 * FVector::DotProduct(Down, Up0);   // gravity across the body: legs hang toward it in banks / climbs
+				const double S = Frame.FlyStretchK, Kn = Frame.FlyKneeK;
+				const int32 KneelLeg = Frame.FlyFistR >= 0.5f ? 1 : 0;   // the fist side's knee goes down
+				const FVector StickOff = -(Chest0 * double(Frame.FlyStick.Y) + Lat0 * double(Frame.FlyStick.X));
+				for (int32 L = 0; L < 2; ++L)
+				{
+					const double Sd = L == 0 ? -1.0 : 1.0;
+					const TCHAR* Th = L == 0 ? TEXT("thigh_L") : TEXT("thigh_R");
+					const TCHAR* Sh = L == 0 ? TEXT("shin_L") : TEXT("shin_R");
+					const TCHAR* Ft = L == 0 ? TEXT("foot_L") : TEXT("foot_R");
+					const FCompactPoseBoneIndex BT = L == 0 ? BTL : BTR, BS = L == 0 ? BSL : BSR, BF = L == 0 ? BFL : BFR;
+					const FVector Hip = CS(BT).GetLocation();
+					const double Ll = (CS(BS).GetLocation() - Hip).Size() + (CS(BF).GetLocation() - CS(BS).GetLocation()).Size();
+					const FVector LatOff = Lat0 * FVector::DotProduct(Hip - HipC, Lat0);
+					FFlyLimbAcc Goal;
+					// superman line: straight legs together, toes pointed; knees bend toward the chest side at low speed / in the dash tuck
+					Goal.Add(WL, Hip - Up0 * (Ll * (0.99 - 0.24 * Kn)) - LatOff * 0.8 - Chest0 * (0.2 * Kn * Ll) + DP * (0.12 * (1.0 - 0.6 * S) * Ll),
+						Chest0, (-Up0 * 0.85 - Chest0 * 0.45).GetSafeNormal());
+					// hover: legs loose and slightly bent, one a little forward, trailing against the stick lean
+					Goal.Add(WH, Hip - Up0 * (0.92 * Ll) + Chest0 * ((L == 0 ? 0.08 : -0.03) * Ll) - LatOff * 0.25 + StickOff * (0.1 * Ll),
+						(Chest0 + Up0 * 0.1).GetSafeNormal(), (-Up0 * 0.6 + Chest0 * 0.5).GetSafeNormal());
+					// brake: legs swing forward under the body, knees up
+					Goal.Add(WB, Hip - Up0 * (0.62 * Ll) + Chest0 * (0.55 * Ll) + LatOff * 0.3, (Chest0 + Up0 * 0.5).GetSafeNormal(), (Chest0 * 0.6 - Up0 * 0.4).GetSafeNormal());
+					if (WK > 0.001f)
+					{ // hero landing: the kneeling knee straight under the hip with the shin flat behind, the other foot planted forward
+						const FVector HipG = Hip - UpW * (FVector::DotProduct(Hip, UpW) - Ground);
+						if (L == KneelLeg)
+							Goal.Add(WK, HipG + UpW * 8.0 - ChestH * (0.95 * ShinLen), (ChestH * 0.5 - UpW * 0.85).GetSafeNormal(), (-ChestH * 0.7 - UpW * 0.3).GetSafeNormal());
+						else
+							Goal.Add(WK, HipG + UpW * 7.0 + ChestH * (0.5 * Ll) + Lat0 * (Sd * 4.0), (ChestH + UpW * 0.6).GetSafeNormal(), ChestH);
+					}
+					if (Goal.W > 0.001)
+					{
+						const float W = float(FMath::Min(1.0, Goal.W));
+						const FVector Toe = Goal.End.GetSafeNormal();
+						TwoBone(Th, Sh, Ft, Goal.Tgt / Goal.W, Goal.Pole.GetSafeNormal(), W, Toe.IsNearlyZero() ? nullptr : &Toe, 0.5f * W);
+					}
+				}
+			}
+			// arms: one IK goal per arm over the active channels (shoulder frame after the spine lean)
+			if (WA + WH + WB + WS + WX + WK > 0.01f)
+			{
+				FVector Up1, Lat1, Chest1;
+				Axes(Up1, Lat1, Chest1);
+				const double S = Frame.FlyStretchK, Bk = Frame.FlyBoomK;
+				const FVector HeadP = CS(BHead).GetLocation();
+				for (int32 L = 0; L < 2; ++L)
+				{
+					const double Sd = L == 0 ? -1.0 : 1.0;
+					const TCHAR* UA = L == 0 ? TEXT("upperArm_L") : TEXT("upperArm_R");
+					const TCHAR* FA = L == 0 ? TEXT("forearm_L") : TEXT("forearm_R");
+					const TCHAR* HA = L == 0 ? TEXT("hand_L") : TEXT("hand_R");
+					const FCompactPoseBoneIndex BU = Idx(UA), BF = Idx(FA), BH = Idx(HA);
+					if (!BU.IsValid() || !BF.IsValid() || !BH.IsValid()) continue;
+					const FVector Sh = CS(BU).GetLocation();
+					const double La = (CS(BF).GetLocation() - Sh).Size() + (CS(BH).GetLocation() - CS(BF).GetLocation()).Size();
+					const double Fs = L == 1 ? double(Frame.FlyFistR) : 1.0 - double(Frame.FlyFistR);   // this arm's share of the leading fist
+					FFlyLimbAcc Goal;
+					{ // superman line: leading fist straight out along the body axis (toward the centre line), free arm along the side
+					  // (tight in the boost); a fist swap swings the arms through the front, the boom brace bends the lead elbow a little
+						const FVector DFist = (Up1 - Lat1 * (Sd * 0.08)).GetSafeNormal();
+						const FVector DFree = (-Up1 * 0.95 + Lat1 * (Sd * FMath::Lerp(0.2, 0.03, S)) - Chest1 * FMath::Lerp(0.12, 0.02, S)).GetSafeNormal();
+						const FVector D = (FMath::Lerp(DFree, DFist, Fs) + Chest1 * (1.6 * Fs * (1.0 - Fs))).GetSafeNormal();
+						const double R = FMath::Lerp(FMath::Lerp(0.92, 0.99, S), 0.985 - 0.08 * Bk, Fs) * La;
+						const FVector P = FMath::Lerp(-Chest1 * 0.7 + Lat1 * (Sd * 0.3), Lat1 * (Sd * 0.6) - Chest1 * 0.4, Fs).GetSafeNormal();
+						Goal.Add(WA, Sh + D * R, P, D);
+					}
+					{ // hover: arms loose by the sides, slightly out and forward, drifting
+						const double Sw = 0.05 * FMath::Sin(2.0 * PI * 0.45 * double(Frame.FlyT) + double(L) * 1.3);
+						const FVector D = (-Up1 * 0.9 + Lat1 * (Sd * 0.28) + Chest1 * (0.1 + Sw)).GetSafeNormal();
+						Goal.Add(WH, Sh + D * (0.86 * La), (-Chest1 * 0.7 + Lat1 * (Sd * 0.3)).GetSafeNormal(), D);
+					}
+					{ // brake: arms flare out to the sides
+						const FVector D = (Lat1 * (Sd * 0.85) + Chest1 * 0.3 + Up1 * 0.15).GetSafeNormal();
+						Goal.Add(WB, Sh + D * (0.9 * La), (-Up1 * 0.6 - Chest1 * 0.4).GetSafeNormal(), D);
+					}
+					{ // slam: fist driven at the ground (world down), free arm up and out
+						const FVector DFist = (Down * 0.9 + Chest1 * 0.2).GetSafeNormal();
+						const FVector DFree = (Up1 * 0.55 + Lat1 * (Sd * 0.75) - Chest1 * 0.25).GetSafeNormal();
+						const FVector D = (FMath::Lerp(DFree, DFist, Fs) + Lat1 * (Sd * 0.8 * Fs * (1.0 - Fs))).GetSafeNormal();
+						Goal.Add(WS, Sh + D * (FMath::Lerp(0.88, 0.98, Fs) * La), (Lat1 * (Sd * 0.5) - Chest1 * 0.5).GetSafeNormal(), D);
+					}
+					{ // breach: forearms crossed in front of the face (each hand past the centre line, the lead one in front)
+						const FVector Tg = HeadP + Chest1 * (20.0 + 4.0 * Fs) - Lat1 * (Sd * 7.0) - Up1 * (6.0 - 4.0 * Fs);
+						Goal.Add(WX, Tg, (Lat1 * (Sd * 0.6) - Up1 * 0.7 + Chest1 * 0.2).GetSafeNormal(), (-Lat1 * (Sd * 0.6) + Up1 * 0.8).GetSafeNormal());
+					}
+					if (WK > 0.001f)
+					{ // hero landing: the fist on the ground ahead of the shoulder (reach clamps if the torso is too high), the other arm back and out
+						if (Fs >= 0.5)
+						{
+							const FVector G = Sh - UpW * (FVector::DotProduct(Sh, UpW) - Ground) + ChestH * 14.0 + Lat1 * (Sd * 4.0) + UpW * 5.0;
+							Goal.Add(WK, G, (-ChestH * 0.5 + Lat1 * (Sd * 0.5)).GetSafeNormal(), Down);
+						}
+						else
+						{
+							const FVector D = (-Up1 * 0.45 + Lat1 * (Sd * 0.65) - ChestH * 0.55).GetSafeNormal();
+							Goal.Add(WK, Sh + D * (0.88 * La), (-Up1 * 0.5 + Lat1 * (Sd * 0.3) - ChestH * 0.3).GetSafeNormal(), D);
+						}
+					}
+					if (Goal.W > 0.001)
+					{
+						const float W = float(FMath::Min(1.0, Goal.W));
+						const FVector Fing = Goal.End.GetSafeNormal();
+						TwoBone(UA, FA, HA, Goal.Tgt / Goal.W, Goal.Pole.GetSafeNormal(), W, Fing.IsNearlyZero() ? nullptr : &Fing, 0.5f * W);
+					}
+				}
+			}
 		}
 	}
 	ApplyArmAim();   // round 01: the firing arm aims at the anchor over whatever pose the layers above left

@@ -5,6 +5,8 @@
 // hero GLB (/Game/Traversal/HeroDev/<clip>, names unchanged from the browser) and applies procedural layers:
 // web-hand arm aim at the anchor, spine bank. Air phases between swings run a per-cycle flavor timeline
 // (spread / tuck / rise / reach for the next web) that never repeats the previous cycle's flavor.
+// 2026-10-15 (Invincible flight): while FWebTravAnim::Flight.bActive the flight subs pick fly_* nodes (upright idle / crouch-launch /
+// hard-landing clips) and procedural flight channels (superman line, hover, brake, slam, breach, hero landing) shape the limbs.
 #pragma once
 
 #include "CoreMinimal.h"
@@ -76,6 +78,19 @@ struct FWebTravAnimFrame
 	// node rotation alone does not move the outline): a slow alternating asymmetry over the air pose (one arm sweeps forward and down,
 	// the other back, legs scissor the other way; a full left/right cycle every ~1.1 s). AirDriftW = weight, AirDriftPh = cycles
 	float AirDriftW = 0.f, AirDriftPh = 0.f;
+	// Invincible flight (2026-10-15): procedural flight pose channels, each eased 0..1 on the game thread (all stay 0 unless
+	// FWebTravAnim::Flight.bActive picks a fly_* node, so the legacy pose path is untouched). Arm / leg targets of the active channels
+	// are weight-averaged into ONE two-bone IK target per limb (no sequential layers fighting each other during crossfades).
+	//   FlyArmW   superman arm line (leading fist along the body axis, free arm along the side)   FlyLegW  legs straight and together
+	//   FlyHoverW relaxed upright hover (bent legs, loose arms, bob, stick lean)                   FlyBrakeW legs forward under the body, arms flared
+	//   FlySlamW  dive: one fist down (world down), free arm up and out                            FlyBreachW forearms crossed in front of the face
+	//   FlyKneelW superhero landing (fist-side knee down, other foot planted forward, fist on the ground, head down)
+	float FlyArmW = 0.f, FlyLegW = 0.f, FlyHoverW = 0.f, FlyBrakeW = 0.f, FlySlamW = 0.f, FlyBreachW = 0.f, FlyKneelW = 0.f;
+	// FlyStretchK 0 fly .. 1 boost (tighter line), FlyKneeK knee bend of the line (low speed / dash tuck), FlyFistR 1 = right fist leads
+	// (eased, so a fist swap swings the arms through the front instead of popping), FlyBoomK sonic-boom shudder, FlyT flight clock (s)
+	float FlyStretchK = 0.f, FlyKneeK = 0.f, FlyFistR = 1.f, FlyBoomK = 0.f, FlyT = 0.f;
+	FVector2D FlyStick = FVector2D::ZeroVector;
+	FVector FlyDownCS = FVector(0.0, 0.0, -1.0);   // world down in component space
 };
 
 struct FWebTravAnimProxy : public FAnimInstanceProxy
@@ -118,6 +133,8 @@ public:
 		Frame.ArmAimWeight = 0.f; LocoPhase = 0.f; WallRunPhase = 0.f; bGroundWInit = false; bInAirCycle = false; AirCycleT = 0.f; FlavorIdx = -1; CycleCount = 0;
 		Frame.ArmAimAge = 0.f; bWebAimPrev = false; PrevAimShotK = -1.f; VisualLaunchAge = 0.f;
 		bReachRight = true; LastMode = EWebTravMode::Ground; Frame.LegLayers.Reset(); Frame.LegW = 0.f; PendingLegs.Reset();
+		Frame.FlyArmW = Frame.FlyLegW = Frame.FlyHoverW = Frame.FlyBrakeW = Frame.FlySlamW = Frame.FlyBreachW = Frame.FlyKneelW = 0.f; // 2026-10-15 flight
+		Frame.FlyStretchK = Frame.FlyKneeK = Frame.FlyBoomK = 0.f;
 	}
 
 	/** Content folder with the hero clips and the asset-name prefix (set from AWebTravCharacter::HeroClipRoot / HeroClipPrefix). */
