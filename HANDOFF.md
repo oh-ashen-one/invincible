@@ -1,3 +1,39 @@
+# Invincible flight conversion — rolling handoff (owner request 2026-10-15)
+
+**Status: C++ / tooling / docs written in a cloud session WITHOUT Unreal. Nothing on this branch has been compiled, cooked, launched, captured or played.** The studio (`midirstudio.local`) was unreachable from the cloud container (no ssh, no mDNS). Every studio-side item below is for a Claude session running ON the studio (e.g. `claude remote-control` in a task-owned worktree of this repo). It must not claim owner acceptance from builds or captures.
+
+The owner (Hari) confirmed the request directly in the builder session: replace Spider-Man / web-swinging with a flying hero in the style of Mark Grayson ("Invincible" comic homage: yellow/blue suit, black accents, short dark hair, yellow-tinted goggles, NO cape, no trademarked logo, no ripped assets). Branch `invincible` from main `0ca553f`; draft PR only; main merge needs explicit owner permission. Studio rules unchanged: shared GPU slot `~/.cache/gpu-slot`, hard cap two renderer-bearing engines, never clear PAUSED, never touch foreign processes, SIGTERM -> 60 s -> SIGKILL only for our own, no auto-relaunch after two crashes, no macOS permission dialogs, performance timing only from the logged-in desktop (`open -a`), Epic Unreal skill routing + native Unreal MCP only on a verified task-owned instance (`localhost:8765` may be someone else's). `/Users/midir/spider-man-2` stays read-only. The builder session could not add the dated header to `AGENTS.md` (its permission classifier refused that edit); the studio session should add it, with the owner's OK.
+
+## What the branch contains (all unverified until the studio build)
+- `Source/WebHomage/Flight/WHFlightComponent.*`: the flying hero. It steps the traversal component's body state (friend access), so camera, anim contract, telemetry and the capture harness keep working. Flight is ON by default; `-WHFlight=0` = the untouched web-swing hero. Subs: takeoff, hover, fly, boost, brake, dash, slam, breach, landHero (Land). Tunables via `-WHFlightTune=Name=Value,...` (Cruise 55 m/s, Boost 160, sonic boom at 120 with reset under 95, breach >= 45 m/s, crater landing >= 30 m/s).
+- `Flight/WHBreachDirector.*`: destruction PROXIES, not a fractured city. Pooled Chaos rigid-body rubble (cap 140), kinematic glass (cap 220), combat-FX dust, scorched hole plates / crater discs (cap 24), shock ring, 0.3x slow-mo for 0.32 s real time on breach entry, synthesized boom/crash/thud (procedural sound waves) unless authored cues exist. Optional assets it picks up if built: `/Game/Invincible/Destruction/GC_FacadeChunk` (UGeometryCollection, crumbled at the hole, cap 4), `/Game/Invincible/FX/M_CraterDecal` (deferred decal), `/Game/Invincible/Audio/S_SonicBoom|S_Breach|S_HeroLand`.
+- `Flight/WHFlightWorld.*`: per-world hub (hero state, crowd stimuli, collateral / lives score).
+- `Flight/WHCrowdBrain.*` + `Life/WHLifeCrowd.*`: isolated decision hook (`IWHCrowdBrain`, `WHCrowdBrain::Register` for the future Jev brain); rules brain flees impacts / landings / emergencies along the sidewalk, braces when close, looks up at flyovers / booms, gawks after landings. Zero cost when flight mode is off or no stimulus is live.
+- `Flight/WHRescueDirector.*` + `Flight/WHFlightHUD.*`: three simultaneous emergencies per wave (fire on a facade, falling crane load, bus teetering at an edge), 75-120 s clocks, score = lives saved; Canvas HUD (lives, collateral, per-emergency distance / clock, markers, hold prompt). `-WHRescue=0`, `-WHRescueSeed=N`, `-WHNoHUD`. Log lines `WH_RESCUE ...`.
+- `Traversal/Anim/WebTravAnimInstance.*`: flight poses (superman line with leading fist, hover, brake, slam, crossed-forearm breach, superhero kneel) guarded by `Anim.Flight.bActive`.
+- Camera: lens widens +12 deg over 40-160 m/s (cap 75 vFOV), output position slew follows flight speed, chase backs off to ~5.2 m at boost, long-float sky framing off in flight.
+- Telemetry: 9 `fl_*` columns appended to the scripted-run CSV. Log lines `WH_FLIGHT ...`.
+- Character / suit: see `docs/invincible/character/README.md` (Invincible-homage suit entry in the existing suit pipeline, Blender fallback, customuse runbook).
+- Captures: `tools/invincible/flight_cases/`, `tools/invincible/run_flight_suite.sh`, `docs/invincible/captures/PLAN.md`.
+- Staging: `tools/invincible/stage_playtest.py` (wraps the existing stager, adds `Play-Invincible.command` with `-WHSuit=invincible -WHSpawnTimesSquare`).
+
+## Studio steps, in order (each through the shared GPU coordinator; stop at the first failure and fix it in source)
+1. Worktree: `git -C /Users/midir/spider-man-2 fetch origin invincible` is NOT allowed (read-only original). Instead: `git clone https://github.com/oh-ashen-one/spider-man-2.git /Users/midir/spider-man-2-invincible && cd /Users/midir/spider-man-2-invincible && git checkout invincible`. Generated Content comes from the existing APFS-cloned content of the latest owner build (see `unreal/WebHomage/CONTENT.md`), never by writing into the original checkout.
+2. Compile: `unreal/WebHomage/Scripts/build_editor.sh` (stop only your own editor first). Expect first-compile fixes in the new code; record each fix as a commit. Known risk areas: GeometryCollection / procedural-sound / Canvas API signatures, unity-build name collisions, shadowed locals.
+3. Content: suits step for the new suit (`build_manhattan.py --steps characters` or the narrower suit step named in the character README). Optional assets (geometry collection, crater decal, audio) are not required to run.
+4. Smoke: guarded `-game` launch of `/Game/Showcase/Maps/Manhattan_Island` with `-WHSpawnTimesSquare` from the logged-in desktop; read the log for `WH_FLIGHT mode ON`, `breach director ready`, `WH_RESCUE director ready`; two 1080p screenshots.
+5. Captures: `tools/invincible/run_flight_suite.sh` (17 cases), then one fresh independent critic pass per `docs/night1/final/swing/round-13-four-fixes-final/REVIEW_PROTOCOL.md`, quoted defects, results into `docs/invincible/captures/` and `docs/invincible/RESULTS.md` (state that fixed-step footage is not real-time FPS proof).
+6. Character: follow `docs/invincible/character/README.md` (customuse in the owner's signed-in Chrome on the studio desktop, export rigged FBX/GLB, import through the suit/character pipeline; Blender fallback). Before/after renders into `docs/invincible/character/`.
+7. Stage: `python3 tools/invincible/stage_playtest.py --dest /Users/midir/Invincible-Playtest-<date> --source-commit <built commit>`; owner double-clicks `Play-Invincible.command`.
+8. Report to the managing session `session_01X7H8QQ1tjFZR5ydti6T7fF`, push, update the draft PR.
+
+## Not done yet
+- Omni-Man-style boss (stretch): not started.
+- Fist clench (finger curls) in the fly pose; true head look-at for pedestrians (they turn the whole body); pedestrians run with the walk clip played fast.
+- Authored fracture / decal / audio assets (code falls back to proxies / synthesized sound).
+
+---
+
 # PROJECT CLOSED — owner-authorized main merge, 2026-10-12
 
 The owner explicitly declared this project complete and authorized merging all current work into main and deleting obsolete branches/worktrees. This supersedes the earlier unmerged/active-pass instructions below, which are historical records. Do not resume a refinement loop or fix known issues without a new request. The later owner request to play in Times Square authorizes that play session; do not close it as part of the earlier shutdown request.
