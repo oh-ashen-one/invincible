@@ -53,6 +53,8 @@ public:
 	/** 2026-10-01 settings menu: base vertical FOV (deg; browser 58) and the camera-shake switch. Set from WHSettings() every frame
 	 *  by the pawn. Shake adds a bounded response to swing catches, speed and impacts. */
 	double BaseVFov = 58.0;
+	/** Invincible flight (2026-10-15): extra vertical FOV (deg) faded in over FlightFov0..FlightFov1 m/s (0 = off: the swing hero). */
+	double FlightFovAdd = 0.0, FlightFov0 = 40.0, FlightFov1 = 160.0;
 	bool bJolts = true;
 	/** Round 02: swing / air pitch follows height (looks down over the street when high, levels out at the arc bottom). */
 	double HeightPitchK = 0.024, HeightPitchRef = 10.0;

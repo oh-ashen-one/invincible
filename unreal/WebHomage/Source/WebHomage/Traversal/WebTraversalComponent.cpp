@@ -7,6 +7,7 @@
 #include "Traversal/Anim/WebTravAnimInstance.h"
 #include "Traversal/WebTravFlips.h"
 #include "Traversal/WebTravCamera.h"
+#include "Flight/WHFlightComponent.h"
 #include "WebHomage.h"
 #include "Engine/World.h"
 #include "Engine/Level.h"
@@ -15,7 +16,7 @@ namespace
 {
 #define WT_NAME(x) const FName N_##x(TEXT(#x));
 	WT_NAME(idle) WT_NAME(walk) WT_NAME(run) WT_NAME(sprint) WT_NAME(jumpCharge) WT_NAME(vault)
-	WT_NAME(landLight) WT_NAME(landMedium) WT_NAME(landHard) WT_NAME(landRoll)
+	WT_NAME(landLight) WT_NAME(landMedium) WT_NAME(landHard) WT_NAME(landRoll) WT_NAME(landHero)
 	WT_NAME(jumpLaunch) WT_NAME(rise) WT_NAME(apex) WT_NAME(fall) WT_NAME(dive) WT_NAME(release) WT_NAME(trick)
 	WT_NAME(pointLaunch) WT_NAME(wallJump) WT_NAME(zipPull)
 	WT_NAME(swingLow) WT_NAME(swingBottom) WT_NAME(swingHigh) WT_NAME(wallKick)
@@ -80,7 +81,7 @@ namespace
 		return Velocity + Direction * FMath::Min(FMath::Max(0.0, DeltaSpeed), Room);
 	}
 
-	bool IsLand(FName S) { return S == N_landLight || S == N_landMedium || S == N_landHard || S == N_landRoll || S == N_landTopOut; }
+	bool IsLand(FName S) { return S == N_landLight || S == N_landMedium || S == N_landHard || S == N_landRoll || S == N_landTopOut || S == N_landHero; } // landHero: Invincible flight superhero landing
 }
 
 UWebTraversalComponent::UWebTraversalComponent()
@@ -257,7 +258,7 @@ void UWebTraversalComponent::StepGround(double Hs, FWebTravInput& I)
 		if (S.Sub == N_landRoll) S.Speed = FMath::Max(S.Speed - 6 * Hs, FMath::Min(S.Speed, 6.0));
 		else if (S.LandLock > 0) S.Speed = FMath::Max(0.0, S.Speed - 40 * Hs);
 		const bool bCancel = S.LandLock <= 0 && (Mag > 0.2 || I.bJumpPressed || I.bJump);
-		const double Lim = S.Sub == N_landHard ? 0.75 : S.Sub == N_landRoll ? 0.6 : S.Sub == N_landTopOut ? 0.62 : S.Sub == N_landMedium ? 0.35 : 0.18;
+		const double Lim = S.Sub == N_landHero ? 0.95 : S.Sub == N_landHard ? 0.75 : S.Sub == N_landRoll ? 0.6 : S.Sub == N_landTopOut ? 0.62 : S.Sub == N_landMedium ? 0.35 : 0.18;
 		if (S.SubT > Lim || bCancel) SetSub(N_idle);
 	}
 	const bool bLocked = bLanding && S.LandLock > 0;
@@ -3276,6 +3277,7 @@ void UWebTraversalComponent::WriteAnim(const FQuat& Q)
 	A.bQuickActive = S.Q.bActive; A.QuickT = float(S.Q.T); A.bQuickRightHand = S.Q.bRightHand;
 	A.WebShotK = S.bWebPending && S.PendingShoot > 0.0 ? float(FMath::Clamp(S.PendingT / S.PendingShoot, 0.0, 1.0)) : -1.f;
 	A.NoAnchorT = float(S.NoAnchorReach); A.bNoAnchorRight = S.bNoAnchorRight; A.NoAnchorAim = S.NoAnchorAim;
+	A.Flight.bActive = false; // UWHFlightComponent::StepFlight fills the flight block after this
 }
 
 // ------------------------------------------------------------------ main update
@@ -3283,6 +3285,7 @@ void UWebTraversalComponent::UpdateTraversal(double Dt, FWebTravInput I)
 {
 	Events.Reset();
 	if (!bWorldReady || !Anchors) return;
+	if (Flight && Flight->IsFlightOn()) { Flight->StepFlight(*this, Dt, I); return; } // Invincible flight (2026-10-15)
 	LastInput = I;
 	if (I.bZipPressed) LastZipFrom = FString::Printf(TEXT("%d/%s"), int32(S.Mode), *S.Sub.ToString());
 	{ // round 17: route direction = horizontal velocity smoothed over ~1.5 s (the roofline capsule of FlowRoofTarget follows the route, not a

@@ -21,14 +21,20 @@
 #include "WebTraversalComponent.generated.h"
 
 class FWebTravCamera;
+class UWHFlightComponent;
 
 UCLASS(ClassGroup=(WebHomage), meta=(BlueprintSpawnableComponent))
 class WEBHOMAGE_API UWebTraversalComponent : public UActorComponent
 {
 	GENERATED_BODY()
+	// Invincible flight (2026-10-15): the flight controller steps this component's body state (S) instead of the swing machine
+	friend class UWHFlightComponent;
 
 public:
 	UWebTraversalComponent();
+
+	/** Invincible flight (2026-10-15): when set and on, UpdateTraversal hands the body to it (the web-swing machine stays on disk, bypassed). */
+	UPROPERTY(Transient) TObjectPtr<UWHFlightComponent> Flight;
 
 	/** World setup (building index) — call once the level is loaded. */
 	void InitWorld(UWorld* World, const AActor* Owner);

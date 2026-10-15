@@ -252,7 +252,8 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	// 5 -> 10 deg at 40+ m/s (base ~50 + 10 + the 5 deg dive = ~65 vFOV peak, still under T14's 68-76 band; OutVFov is
 	// hard-capped at 75 below). The Fov spring quickens 0.7 -> 0.4 s so the kick actually arrives inside the ~0.4 s the
 	// bottom of the arc lasts (the closed loop is normalized against the CURRENT Fov, so the faster spring does not fight it).
-	const double WantFov = BaseVFov + 10.0 * Smooth(Speed, 14, 40) * (1.0 - Smooth(FlipK, 0.0, 1.0)) + (bDive ? 5.0 : 0.0) + WallFovAdd * WallK;
+	const double WantFov = BaseVFov + 10.0 * Smooth(Speed, 14, 40) * (1.0 - Smooth(FlipK, 0.0, 1.0)) + (bDive ? 5.0 : 0.0) + WallFovAdd * WallK
+		+ FlightFovAdd * Smooth(Speed, FlightFov0, FlightFov1);   // Invincible flight: the lens keeps widening up to boost speed
 	SD(Dist, DistV, WantDist, 0.55, Dt);
 	SD(HeightOff, HeightOffV, WantH, 0.5, Dt);
 	SD(SideOff, SideOffV, WantSide, 0.6, Dt);
