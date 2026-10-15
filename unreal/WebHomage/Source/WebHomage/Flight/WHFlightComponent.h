@@ -129,6 +129,7 @@ private:
 	// offset that decays 1.5 s after the stick is released, so steering by Cam->Forward() made every hands-off fly line dive (fl03 sim:
 	// -51 m in 9 s) and let a held climb fade out. The fly line keeps its own pitch instead, moved only by vertical look input.
 	double AimPitch = 0.0;
+	double WallSideV = 0.0, WallDistV = 99.0, WallT = 0.0;   // last facade slide contact (anim wall-side tuck), held 0.25 s
 	bool bAimWasLive = false;
 	bool bFlyHeldPrev = false;
 };

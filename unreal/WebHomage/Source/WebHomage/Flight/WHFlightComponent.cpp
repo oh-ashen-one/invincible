@@ -268,6 +268,10 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 			// critic r1 (fl10 / fl16 frozen 4.7 s at 19 m/s): resting 2 cm off the wall, the next tangential sweep grazed the same face at
 			// distance 0 (normal square to the motion, so nothing was removed) every step -- stand a few cm clear of it
 			S.Pos += FVector(HitN.X, HitN.Y, 0.0) * 0.05;
+			{ // r3 hero request: the wall-side arm / leg tuck needs the facade side in the body frame and the distance to it
+				WallSideV = FMath::Clamp(FVector::DotProduct(-HitN, S.BodyQ.GetRightVector()), -1.0, 1.0);
+				WallDistV = 0.47; WallT = 0.25;
+			}
 			const double VN = FVector::DotProduct(S.Vel, HitN);
 			if (VN < 0)
 			{
@@ -596,6 +600,9 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 	F.Bank = float(Bank); F.Pitch = float(Pitch + FlyK * 0.5 * PI);
 	F.Stick = StickBody; F.Climb = float(Climb); F.BoomK = float(BoomK); F.bRightFist = bRightFist;
 	F.FlightT = float(S.Mode == EWebTravMode::Air ? FlightT : 0.0);
+	WallT -= Dt;
+	F.WallSide = WallT > 0.0 ? float(WallSideV) : 0.f;
+	F.WallDist = WallT > 0.0 ? float(WallDistV) : 99.f;
 	if (S.Mode != EWebTravMode::Air) FlightT = 0.0;
 	// strands (none are attached in flight; any legacy one fades out)
 	for (FWebTravStrand& St : T.Strands)
