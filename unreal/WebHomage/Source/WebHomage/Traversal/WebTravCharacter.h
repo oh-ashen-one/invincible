@@ -62,6 +62,14 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Traversal")
 	TObjectPtr<UWebTraversalComponent> Traversal;
 
+	/** Invincible flight (owner request 2026-10-15): flying hero controller; on by default, -WHFlight=0 = the legacy web-swing hero. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Flight")
+	TObjectPtr<class UWHFlightComponent> Flight;
+	UPROPERTY(Transient) TObjectPtr<class AWHBreachDirector> BreachDirector;
+	UPROPERTY(Transient) TObjectPtr<AActor> RescueDirector;
+	bool bFlightMode = true, bFlightHudSet = false;
+	void FlightFrame(const FWebTravInput& I, double Dt);
+
 	/** Root of the placeholder figure (feet, oriented by the traversal body quaternion). */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Placeholder")
 	TObjectPtr<USceneComponent> FigureRoot;

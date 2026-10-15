@@ -4,6 +4,11 @@
 #include "Traversal/WebTravScript.h"
 #include "Traversal/Anim/WebTravAnimInstance.h"
 #include "Traversal/WebTravFlips.h"
+#include "Flight/WHFlightComponent.h"
+#include "Flight/WHFlightWorld.h"
+#include "Flight/WHBreachDirector.h"
+#include "Flight/WHRescueDirector.h"
+#include "Flight/WHFlightHUD.h"
 #include "HAL/IConsoleManager.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -91,6 +96,7 @@ namespace
 AWebTravCharacter::AWebTravCharacter()
 {
 	Traversal = CreateDefaultSubobject<UWebTraversalComponent>(TEXT("Traversal"));
+	Flight = CreateDefaultSubobject<UWHFlightComponent>(TEXT("Flight"));
 
 	FigureRoot = CreateDefaultSubobject<USceneComponent>(TEXT("FigureRoot"));
 	FigureRoot->SetupAttachment(RootComponent);
@@ -605,6 +611,35 @@ void AWebTravCharacter::BeginPlay()
 	if (Script && Script->IsActive()) Traversal->SetVelocityM(Script->SpawnVelM());
 	Cam.Reset(Traversal->PosM(), FMath::DegreesToRadians(YawDeg));
 	Cam.Pitch = CamPitch;
+	{ // Invincible flight (owner request 2026-10-15): the flying hero is the default; -WHFlight=0 = the legacy web-swing hero (unchanged)
+		int32 FlightArg = 1;
+		FParse::Value(FCommandLine::Get(), TEXT("-WHFlight="), FlightArg);
+		bFlightMode = FlightArg != 0 && Flight != nullptr;
+		if (Flight)
+		{
+			Flight->bFlightOn = bFlightMode;
+			FString FTune;
+			if (FParse::Value(FCommandLine::Get(), TEXT("-WHFlightTune="), FTune, false) && !FTune.IsEmpty()) Flight->ApplyTune(FTune);
+		}
+		Traversal->Flight = bFlightMode ? Flight.Get() : nullptr;
+		if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this))
+		{
+			FW->bFlightMode = bFlightMode;
+			FW->HeroPosCm = Traversal->PosM() * 100.0; FW->HeroVelCm = FVector::ZeroVector; FW->bHeroValid = true;
+		}
+		if (bFlightMode && GetWorld())
+		{
+			FActorSpawnParameters SP;
+			SP.Owner = this;
+			SP.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+			BreachDirector = GetWorld()->SpawnActor<AWHBreachDirector>(FVector::ZeroVector, FRotator::ZeroRotator, SP);
+			int32 RescueArg = 1;
+			FParse::Value(FCommandLine::Get(), TEXT("-WHRescue="), RescueArg);
+			if (RescueArg != 0) RescueDirector = GetWorld()->SpawnActor<AWHRescueDirector>(FVector::ZeroVector, FRotator::ZeroRotator, SP);
+		}
+		UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT mode %s (breach director %s, rescue %s)"), bFlightMode ? TEXT("ON (Invincible)") : TEXT("off (web swing)"),
+			BreachDirector ? TEXT("yes") : TEXT("no"), RescueDirector ? TEXT("yes") : TEXT("no"));
+	}
 	// [F perf local patch, P3 to adopt] the two 480x270 scene captures below re-render the scene every frame (the full-scene depth
 	// capture = a second Nanite/VSM/prepass pass). They only feed telemetry columns (hero mask / wall_frac / hero_occl), so they are
 	// off unless -WHTravMask is passed (C's route/anim checks pass it; perf runs do not).
@@ -890,6 +925,7 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 		else if (T == TEXT("wall") && E.bRun) Cam.Shake(0.08);
 		else if (T == TEXT("swingWallKick")) Cam.Shake(0.1 + 0.3 * E.Severity);
 	}
+	if (bFlightMode && !bPre) FlightFrame(I, Dt);
 	if (!bPre && !(Script && Script->IsActive())) WatchInput(Cast<APlayerController>(GetController()), I, DeltaSeconds);
 	FTravCamInput CI;
 	CI.Pos = Traversal->PosM(); CI.Vel = Traversal->VelM(); CI.Mode = Traversal->Anim.Mode; CI.Sub = Traversal->Sub(); CI.ModeT = Traversal->ModeT();
@@ -1025,6 +1061,53 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 	++FrameIndex;
 }
 
+// Invincible flight (owner request 2026-10-15): flight events -> camera / destruction proxies, chase-camera tuning by speed, the shared
+// hero state for the crowd and the rescue clock. Runs after the traversal step and before the camera update.
+void AWebTravCharacter::FlightFrame(const FWebTravInput& I, double Dt)
+{
+	const double Sp = Traversal->VelM().Size();
+	for (const FWebTravEvent& E : Traversal->Events)
+	{
+		const FString T = E.Type.ToString();
+		if (T == TEXT("sonicBoom")) { Cam.Kick(1.0); Cam.Shake(0.45); }
+		else if (T == TEXT("breachIn")) { Cam.Impact(0.45 + 0.45 * E.Severity); }
+		else if (T == TEXT("breachOut")) { Cam.Shake(0.25 + 0.25 * E.Severity); Cam.Kick(0.35); }
+		else if (T == TEXT("heroLand")) { Cam.Impact(FMath::Max(0.4, double(E.Severity))); }
+		else if (T == TEXT("flyStop")) { Cam.Impact(0.12 + 0.25 * FMath::Min(1.0, double(E.Severity))); }
+		else if (T == TEXT("flyDash")) { Cam.Kick(0.45); }
+		else if (T == TEXT("flyBump")) { Cam.Shake(0.1 + 0.25 * E.Severity); }
+		else if (T == TEXT("takeoff")) { Cam.Shake(0.12); Cam.Kick(0.25); }
+	}
+	if (BreachDirector) BreachDirector->OnFlightEvents(Traversal->Events);
+	// chase camera at flight speeds: the output position slew follows the hero (1.1 m / frame = 66 m/s was the swing cap), the chase backs
+	// off a little and the lens widens with speed (FlightFovAdd over FlightFov0..FlightFov1 m/s, on top of the swing's 14-40 m/s kick);
+	// the long-float sky framing (camera under the hero looking up) is a swing-release look, not a flight one
+	Cam.MaxStepPosM = FMath::Max(1.1, Sp / 60.0 * 1.35 + 0.5);
+	Cam.ChaseDist = 3.8 + 1.4 * FMath::SmoothStep(40.0, 160.0, Sp);
+	Cam.SkyFloatH = 1e6;
+	Cam.AirPitchDownMax = 0.45;
+	Cam.FlightFovAdd = 12.0;
+	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this))
+	{
+		FW->bFlightMode = true;
+		FW->HeroPosCm = Traversal->PosM() * 100.0;
+		FW->HeroVelCm = Traversal->VelM() * 100.0;
+		FW->bHeroFlying = Traversal->Mode() == EWebTravMode::Air;
+		FW->bHeroValid = true;
+		FW->bInteractPressed = I.bZipPressed;
+		FW->bInteractHeld = I.bZip;
+	}
+	if (!bFlightHudSet && !FParse::Param(FCommandLine::Get(), TEXT("WHNoHUD")))
+	{
+		if (APlayerController* PC = Cast<APlayerController>(GetController()))
+		{
+			PC->ClientSetHUD(AWHFlightHUD::StaticClass());
+			bFlightHudSet = true;
+		}
+	}
+	(void)Dt;
+}
+
 void AWebTravCharacter::UpdateHeroFill()
 {
 	if (!HeroFill) return;
@@ -1131,7 +1214,19 @@ void AWebTravCharacter::EndAnimTick()
 	if (!bRowPending) return;
 	bRowPending = false;
 	if (UWebTravScript* Script = GetGameInstance() ? GetGameInstance()->GetSubsystem<UWebTravScript>() : nullptr)
-		Script->AddTelemetryRow(PendingRow + BuildCols25() + FinalSwingCols(PendingRowT));
+	{
+		// Invincible flight (2026-10-15): flight state columns (header: see PushTelemetry), appended after the final-loop swing columns
+		FString FlightCols = TEXT(",0,,0,0,0,0,0,0,0");
+		if (bFlightMode && Flight)
+		{
+			const FWebTravAnimFlight& F = Traversal->Anim.Flight;
+			const UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this);
+			FlightCols = FString::Printf(TEXT(",1,%s,%.3f,%.3f,%.3f,%d,%d,%d,%d"), *Flight->FlightSub().ToString(), F.SpeedK, FMath::RadiansToDegrees(F.Bank), F.BoomK,
+				Flight->BoomCount, Flight->BreachCount, Flight->HeroLandCount, FW ? FW->LivesSaved : 0);
+		}
+		if (UWebTravScript* Script = GetGameInstance() ? GetGameInstance()->GetSubsystem<UWebTravScript>() : nullptr)
+			Script->AddTelemetryRow(PendingRow + BuildCols25() + FinalSwingCols(PendingRowT) + FlightCols);
+	}
 }
 
 void AWebTravCharacter::PoseFigure(float Dt)
@@ -1801,7 +1896,8 @@ void AWebTravCharacter::PushTelemetry(double T, const FWebTravInput& I)
 		TEXT("fw_s0_on,fw_s0_hand,fw_s0_age,fw_s0_shoot,fw_s0_rel,fw_s0_drawn,fw_s0_ax,fw_s0_ay,fw_s0_az,fw_s0_sx,fw_s0_sy,fw_s0_sz,fw_s0_tx,fw_s0_ty,fw_s0_tz,fw_s0_taut,fw_s0_wave_cm,fw_s0_clear,")
 		TEXT("fw_s1_on,fw_s1_hand,fw_s1_age,fw_s1_shoot,fw_s1_rel,fw_s1_drawn,fw_s1_ax,fw_s1_ay,fw_s1_az,fw_s1_sx,fw_s1_sy,fw_s1_sz,fw_s1_tx,fw_s1_ty,fw_s1_tz,fw_s1_taut,fw_s1_wave_cm,fw_s1_clear,")
 		TEXT("fw_hl_x,fw_hl_y,fw_hl_z,fw_hr_x,fw_hr_y,fw_hr_z,fw_shl_x,fw_shl_y,fw_shl_z,fw_shr_x,fw_shr_y,fw_shr_z,fw_chest_rate_dps,fw_pl_x,fw_pl_y,fw_pl_z,fw_pr_x,fw_pr_y,fw_pr_z,fw_reach_t,hero_sil,")
-		TEXT("fw_body_axis_x,fw_body_axis_y,fw_body_axis_z,fw_body_pitch_deg,fw_body_axis_deg"));
+		TEXT("fw_body_axis_x,fw_body_axis_y,fw_body_axis_z,fw_body_pitch_deg,fw_body_axis_deg,")
+		TEXT("fl_on,fl_sub,fl_speed_k,fl_bank_deg,fl_boom_k,fl_booms,fl_breaches,fl_hero_lands,fl_lives_saved"));
 	const FVector P = Traversal->PosM(), V = Traversal->VelM();
 	const bool bSw = Traversal->IsSwinging();
 	const FVector An = bSw ? Traversal->SwingAnchor() : FVector::ZeroVector;

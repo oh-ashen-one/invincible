@@ -26,7 +26,26 @@ Some builders retain machine-specific source/export paths. Resolve them for your
 
 For an already prepared local owner copy, run its `Play.command`. It uses the installed Unreal Engine; it is not a standalone packaged application. The verified settings were a windowed 1920×1080 output, 100% internal scale and a 60 FPS cap. A cap is not measured sustained performance.
 
-## Controls
+## Controls — Invincible flight (branch `invincible`, owner request 2026-10-15)
+
+Flight is the default hero on the `invincible` branch; `-WHFlight=0` restores the web-swing hero and its table below. The same input actions are reused, so pads and keys did not move.
+
+| Action | Keyboard / mouse | PS5 DualSense |
+|---|---|---|
+| Move / strafe (hover), steer (flight) | WASD | Left stick |
+| Camera / flight aim | Mouse | Right stick |
+| Take off (ground) / climb (hold, air) | Space | Cross |
+| Fly forward along the camera aim (hold) | Hold right mouse | Hold R2 |
+| Boost while flying (sonic boom past the boom speed) | Shift | L3 |
+| Descend (hold); touch down near the floor | C / Left Ctrl | Circle |
+| Instant stop; rescue interact (hold near an emergency) | E / middle mouse | Triangle |
+| Dash | Q | L1 |
+| Slam dive into a superhero landing | F | Square |
+| Pause / resume | Escape / P | Options |
+
+Flight-only launch switches: `-WHFlightTune=Name=Value,...` (UWHFlightComponent float properties), `-WHRescue=0` (no emergencies), `-WHNoHUD`, `-WHNoSlowMo`, `-WHNoFlightAudio`. Staging: `tools/invincible/stage_playtest.py` adds `Play-Invincible.command` (Times Square start). Nothing on this branch has been compiled or played yet; see `HANDOFF.md`.
+
+## Controls — web-swing hero (`-WHFlight=0`, and `main`)
 
 | Action | Keyboard / mouse | PS5 DualSense |
 |---|---|---|
