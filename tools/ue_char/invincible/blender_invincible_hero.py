@@ -120,6 +120,23 @@ if eye_faces:
     loose = [v for v in bm.verts if not v.link_faces]
     if loose: bmesh.ops.delete(bm, geom=loose, context='VERTS')
 bm.verts.ensure_lookup_table(); bm.faces.ensure_lookup_table(); bm.normal_update()
+# clean seams (round 2, 2026-10-15): per-face zoning on the raw triangles left saw-tooth borders at the belt, collar and sleeves, so the
+# zone boundaries below are first cut into the mesh as exact edge loops (bisect interpolates UVs and skin weights on the new vertices)
+BELT_LO, BELT_HI, COLLAR_Y = 1.031, 1.079, 1.545
+def cut(co_g, n_g, near_g=None, rad=0.0):
+    co = from_g(np.asarray(co_g, float)); no = (MWi.to_3x3() @ Vector((n_g[0], -n_g[2], n_g[1]))).normalized()
+    geom = bm.faces[:] if near_g is None else [f for f in bm.faces if np.linalg.norm(to_g(f.calc_center_median()) - near_g) < rad]
+    if geom:
+        es = list({e for f in geom for e in f.edges}); vs = list({v for f in geom for v in f.verts})
+        bmesh.ops.bisect_plane(bm, geom=vs + es + geom, plane_co=co, plane_no=no)
+        bm.verts.ensure_lookup_table(); bm.faces.ensure_lookup_table()
+for yc in (BELT_LO, BELT_HI):
+    cut([0, yc, 0], [0, 1, 0], np.array([0, yc, 0]), 0.30)
+cut([0, COLLAR_Y, 0], [0, 1, 0], np.array([0, COLLAR_Y, -0.02]), 0.14)
+for s_ in ('L', 'R'):
+    A0, B0 = jpos('deltoid.' + s_), jpos('forearm.' + s_)
+    cut(A0, (B0 - A0) / np.linalg.norm(B0 - A0), A0, 0.16)
+bm.normal_update()
 
 GROUPS = {'head': ('head', 'neck'), 'torso': ('hips', 'glute', 'spine', 'spine1', 'spine2'), 'shoulder': ('shoulder', 'deltoid'),
           'armU': ('upperArm',), 'armF': ('forearm', 'forearmTwist'), 'hand': ('hand', 'index', 'middle', 'pinky', 'ring', 'thumb'),
@@ -191,7 +208,7 @@ for f in bm.faces:
     if head:
         th = math.atan2(fx - cx, fz - cz)
         if fy > hairline(th): m = 'InvHair'
-        elif fy < 1.545: m = 'InvYellow'                              # suit collar up to the jaw line
+        elif fy < COLLAR_Y: m = 'InvYellow'                           # suit collar up to the jaw line
         else: m = 'InvSkin'
     else:
         side = 'L' if fx > 0 else 'R'
@@ -201,8 +218,8 @@ for f in bm.faces:
         leg = w['thigh'] + w['shin'] + w['foot'] > 0.5
         if w['foot'] > 0.5 and (fy < 0.022 or fz > 0.085): m = 'InvBlack'      # sole, toe cap
         elif arm or leg: m = 'InvBlue'
-        elif 1.031 <= fy <= 1.079: m = 'InvBlack'                         # belt
-        elif fy < 1.031: m = 'InvBlue'                                    # hips / trunks
+        elif BELT_LO <= fy <= BELT_HI: m = 'InvBlack'                     # belt
+        elif fy < BELT_LO: m = 'InvBlue'                                  # hips / trunks
         else: m = 'InvYellow'
     f.material_index = MI[m]; counts[m] += 1
 

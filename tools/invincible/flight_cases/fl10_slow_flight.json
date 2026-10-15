@@ -1,0 +1,27 @@
+{
+ "name": "fl10_slow_flight",
+ "note": "Fly held with the stick pulled back: slow flight (~35 % of cruise) for precise approaches.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   600,
+   50
+  ],
+  "yaw": -90,
+  "camPitch": 0.0
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    -1
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "t": 0.1
+  }
+ ]
+}

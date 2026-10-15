@@ -115,6 +115,10 @@ void UWHFlightComponent::HeroLand(UWebTraversalComponent& T, double Floor, doubl
 bool UWHFlightComponent::StartBreach(UWebTraversalComponent& T, const FVector& HitPos, const FVector& HitN, const FVector& Dir)
 {
 	const FWebTravWorld& W = T.TravWorld;
+	auto& S = T.S;
+	// suite round 1 (sim fl01 / fl14): floors and roofs are landed on, never breached (a 10 m/s hover descent was carried straight down
+	// through the street), and the exit must leave the body above the street (fl14 exited 1.8 m under it and flew on underground)
+	if (FMath::Abs(Dir.Z) > 0.75 || S.Vel.Size() < double(BreachSpeed) * 0.95) return false;
 	// march through the solid along the flight line until the body fits outside it again (building boxes and visual solids)
 	double Sx = -1.0;
 	for (double D = 0.6; D <= double(BreachMaxDepth); D += 0.5)
@@ -123,11 +127,18 @@ bool UWHFlightComponent::StartBreach(UWebTraversalComponent& T, const FVector& H
 		if (!W.Inside(P, 0.1) && !W.SphereOverlaps(P, 0.5)) { Sx = D; break; }
 	}
 	if (Sx < 0.0) return false;
-	auto& S = T.S;
+	{
+		const FVector Exit = HitPos + Dir * (Sx + 0.6);
+		const double Street = W.GroundHeight(Exit.X, Exit.Y, Exit.Z + 0.5);
+		if (Street > -999.0 && Exit.Z - UWebTraversalComponent::H < Street - 0.05) return false;
+	}
 	bBreach = true;
 	BreachA = HitPos - Dir * 0.05; BreachDir = Dir; BreachLen = Sx + 0.6; BreachS = 0.0;
 	BreachB = BreachA + Dir * BreachLen;
-	BreachV = FMath::Max(double(BreachSpeed) * 0.9, S.Vel.Size() * double(BreachKeep));
+	BreachExitV = FMath::Max(double(BreachSpeed) * 0.9, S.Vel.Size() * double(BreachKeep));
+	// the body is out of sight inside the solid: the pass is time-bounded (fl14: 124 m at 44 m/s hid the hero for 2.8 s), the exit keeps
+	// the kept speed
+	BreachV = FMath::Max(BreachExitV, BreachLen / FMath::Max(0.1, double(BreachMaxTime)));
 	BreachExitN = Dir;
 	++BreachCount;
 	SetFlySub(T, NF_breach);
@@ -148,6 +159,7 @@ void UWHFlightComponent::StepBreach(UWebTraversalComponent& T, double H)
 	if (BreachS >= BreachLen)
 	{
 		bBreach = false; BreachCd = BreachCooldown;
+		S.Vel = BreachDir * BreachExitV;
 		Event(T, NF_breachOut, FMath::Clamp(float(BreachV / BoostSpeed), 0.f, 1.f), BreachB, BreachDir, float(BreachV));
 		if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(GetOwner()))
 			FW->PushStimulus(EWHCrowdStimulus::Impact, BreachB * 100.0, 4000.f, 1.f, 6.f, S.Vel * 100.0);
@@ -225,8 +237,9 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	auto& S = T.S;
 	FVector& V = S.Vel;
 	const FWebTravCamera* Cam = T.Cam;
-	const FVector Aim = Cam ? Cam->Forward().GetSafeNormal() : FlYawDir(S.Facing);
 	const FVector FwdF = Cam ? Cam->ForwardFlat() : FlYawDir(S.Facing);
+	// aim = camera yaw + the flight's own held pitch (see AimPitch in the header), never the camera's hero-framing look-down
+	const FVector Aim = (FwdF * FMath::Cos(AimPitch) - FlUp * FMath::Sin(AimPitch)).GetSafeNormal();
 	const FVector RightF = Cam ? Cam->RightFlat() : FVector(-FMath::Sin(S.Facing), FMath::Cos(S.Facing), 0.0);
 	const bool bFly = I.bSwing;
 	const bool bBoost = bFly && I.bSprint;
@@ -378,6 +391,13 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 	SubT += Dt; FlightT += Dt;
 	DashCd -= Dt; BreachCd -= Dt;
 	BoomK = FMath::Max(0.0, BoomK - Dt / 0.6);
+	{ // flight aim pitch: picked up from the player's current look offset when the fly line starts, then moved only by vertical look input
+		const bool bAimLive = S.Mode == EWebTravMode::Air && I.bSwing;
+		if (bAimLive && !bAimWasLive) AimPitch = T.Cam ? T.Cam->LookPitchOffset() : 0.0;
+		if (bAimLive) AimPitch = FMath::Clamp(AimPitch + I.Look.Y, -1.35, 1.35);
+		else AimPitch = 0.0;
+		bAimWasLive = bAimLive;
+	}
 	// legacy web state never survives into flight
 	if (S.Mode == EWebTravMode::Swing || S.Mode == EWebTravMode::Zip || S.Mode == EWebTravMode::Perch || S.Mode == EWebTravMode::Wall)
 	{
@@ -413,9 +433,11 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 			if (!bBreach) MoveAndCollide(T, Hs, I);
 		}
 		// safety net: never resolved inside a solid outside a breach -- carry on through it along the travel (or straight up)
-		if (!bBreach && S.Mode == EWebTravMode::Air && T.TravWorld.Inside(S.Pos + FVector(0, 0, 0.3)))
+		// (suite round 1: only a fast flight line can tunnel; slow flight trusts the swept / capsule collision -- the box index has solids
+		//  without render collision, e.g. over Times Square, and the old net turned a hover descent into a breach through the street)
+		if (!bBreach && S.Mode == EWebTravMode::Air && S.Vel.Size() >= double(BreachSpeed) && T.TravWorld.Inside(S.Pos + FVector(0, 0, 0.3)))
 		{
-			const FVector D = S.Vel.SizeSquared() > 4.0 ? S.Vel.GetSafeNormal() : FlUp;
+			const FVector D = S.Vel.GetSafeNormal();
 			if (!StartBreach(T, S.Pos, -D, D)) { FTravContact C; T.Collide(UWebTraversalComponent::STEP, UWebTraversalComponent::R + 0.05, C); }
 		}
 		if (K == 0)

@@ -1,0 +1,32 @@
+{
+ "name": "fl02_takeoff_to_fly",
+ "note": "Fly + climb pressed on the ground: takeoff blends straight into a climbing fly line; climb released at 2.5 s levels out.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   -20.0,
+   -230.0,
+   0.9
+  ],
+  "yaw": 90,
+  "camPitch": 0.14
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "jump": true,
+   "t": 1.0
+  },
+  {
+   "jump": false,
+   "t": 2.5
+  }
+ ]
+}

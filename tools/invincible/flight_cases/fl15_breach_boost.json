@@ -1,0 +1,47 @@
+{
+ "name": "fl15_breach_boost",
+ "note": "Boost east along the y 640 cross street at 40 m, then steer right (south) into the block at boost speed.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   -500,
+   640,
+   40
+  ],
+  "yaw": 0,
+  "camPitch": 0.0,
+  "vel": [
+   60,
+   0,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "sprint": true,
+   "t": 0.1
+  },
+  {
+   "look": [
+    90,
+    0
+   ],
+   "t": 3.0
+  },
+  {
+   "look": [
+    0,
+    0
+   ],
+   "t": 4.0
+  }
+ ]
+}

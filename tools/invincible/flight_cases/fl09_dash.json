@@ -1,0 +1,80 @@
+{
+ "name": "fl09_dash",
+ "note": "Hover over Times Square at 40 m; dash right 1.5 s, left 3.0 s, forward 4.5 s.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   -20,
+   -230,
+   40
+  ],
+  "yaw": 90,
+  "camPitch": 0.2
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "move": [
+    1,
+    0
+   ],
+   "quick": true,
+   "t": 1.5
+  },
+  {
+   "quick": false,
+   "t": 1.6
+  },
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 2.2
+  },
+  {
+   "move": [
+    -1,
+    0
+   ],
+   "quick": true,
+   "t": 3.0
+  },
+  {
+   "quick": false,
+   "t": 3.1
+  },
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 3.7
+  },
+  {
+   "move": [
+    0,
+    1
+   ],
+   "quick": true,
+   "t": 4.5
+  },
+  {
+   "quick": false,
+   "t": 4.6
+  },
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 5.2
+  }
+ ]
+}

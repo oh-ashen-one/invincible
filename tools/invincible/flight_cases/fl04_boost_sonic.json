@@ -1,0 +1,40 @@
+{
+ "name": "fl04_boost_sonic",
+ "note": "Cruise, then boost from 1.0 s to 8.0 s: one sonic boom past 120 m/s, then boost released glides back to cruise.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   1400,
+   120
+  ],
+  "yaw": -90,
+  "camPitch": 0.0,
+  "vel": [
+   0,
+   -40,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "t": 0.1
+  },
+  {
+   "sprint": true,
+   "t": 1.0
+  },
+  {
+   "sprint": false,
+   "t": 8.0
+  }
+ ]
+}

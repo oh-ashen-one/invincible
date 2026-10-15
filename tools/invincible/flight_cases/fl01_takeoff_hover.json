@@ -1,0 +1,64 @@
+{
+ "name": "fl01_takeoff_hover",
+ "note": "Ground takeoff (jump) into a hover, climb, strafe both ways, descend to a gentle touchdown.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   -20.0,
+   -230.0,
+   0.9
+  ],
+  "yaw": 90,
+  "camPitch": 0.14
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "jump": true,
+   "t": 1.0
+  },
+  {
+   "jump": false,
+   "t": 1.25
+  },
+  {
+   "jump": true,
+   "t": 2.5
+  },
+  {
+   "jump": false,
+   "t": 4.0
+  },
+  {
+   "move": [
+    1,
+    0
+   ],
+   "t": 4.5
+  },
+  {
+   "move": [
+    -1,
+    0
+   ],
+   "t": 6.0
+  },
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 7.5
+  },
+  {
+   "drop": true,
+   "t": 8.0
+  }
+ ]
+}

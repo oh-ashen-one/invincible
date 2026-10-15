@@ -218,6 +218,8 @@ public:
 	void ComposeChase(double Dt, const FTravCamInput& P, const FWebTravWorld& World, const FVector& Fwd);
 	double DebugOccHold() const { return OccHold; }
 	double DebugAutoPitch() const { return AutoPitch; }
+	/** The player's current vertical look offset (rad, + = down; decays 1.5 s after the last look input). Invincible flight aim seed. */
+	double LookPitchOffset() const { return UserPitch; }
 	// 2026-10-01 settings menu: bJolts = "Camera shake" (default on). Off = no trauma shake, no landing punch / dip, no launch kick.
 	void Shake(double Amt) { if (!bJolts) return; Trauma = FMath::Min(1.0, Trauma + FMath::Max(0.0, Amt) * 2.0); }
 	/** launch kick (zip slingshot / point launch): pull back + FOV widen, springs back */

@@ -1,0 +1,215 @@
+{
+ "fl01_takeoff_hover": {
+  "quit": 12.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "takeoff",
+    "hover"
+   ],
+   "grounded_end": true,
+   "max_hero_lands": 0
+  },
+  "note": "Ground takeoff (jump) into a hover, climb, strafe both ways, descend to a gentle touchdown."
+ },
+ "fl02_takeoff_to_fly": {
+  "quit": 10.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "takeoff",
+    "fly"
+   ],
+   "min_speed": 45.0,
+   "min_rise_m": 10.0
+  },
+  "note": "Fly + climb pressed on the ground: takeoff blends straight into a climbing fly line; climb released at 2.5 s levels out."
+ },
+ "fl03_cruise_hands_off": {
+  "quit": 10.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "fly"
+   ],
+   "min_speed": 50.0,
+   "max_alt_drift_m": 12.0,
+   "max_hero_lands": 0
+  },
+  "note": "Airborne over 5th Av at 60 m heading north, fly held, no look input: the fly line should hold its altitude (a player does not have to fight the camera)."
+ },
+ "fl04_boost_sonic": {
+  "quit": 12.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "fly",
+    "boost"
+   ],
+   "min_speed": 140.0,
+   "booms": 1
+  },
+  "note": "Cruise, then boost from 1.0 s to 8.0 s: one sonic boom past 120 m/s, then boost released glides back to cruise."
+ },
+ "fl05_bank_turns": {
+  "quit": 12.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "fly"
+   ],
+   "min_abs_bank_deg": 20.0,
+   "max_hero_lands": 0
+  },
+  "note": "Cruise east along the y 640 cross street at 70 m; stick right 2-4 s, centre, stick left 5-7.5 s: banked turns."
+ },
+ "fl06_look_steer": {
+  "quit": 10.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "fly"
+   ],
+   "min_yaw_change_deg": 60.0,
+   "max_hero_lands": 0
+  },
+  "note": "Fly held, steering with the camera only: yaw right 45 deg/s 2-4 s, pitch up 5-6 s, pitch down 6.5-7.5 s."
+ },
+ "fl07_climb_dive_keys": {
+  "quit": 10.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "fly"
+   ],
+   "min_rise_m": 15.0,
+   "max_hero_lands": 0
+  },
+  "note": "Fly held: climb key 2-4 s pitches the line up, descend key 5.5-7 s pitches it down, released holds."
+ },
+ "fl08_brake": {
+  "quit": 8.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "fly",
+    "brake",
+    "hover"
+   ],
+   "brakes": 1,
+   "max_end_speed": 3.0
+  },
+  "note": "Cruise, then brake (E) at 3.5 s: instant stop into a hover, held in place."
+ },
+ "fl09_dash": {
+  "quit": 8.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "hover",
+    "dash"
+   ],
+   "dashes": 3,
+   "max_hero_lands": 0
+  },
+  "note": "Hover over Times Square at 40 m; dash right 1.5 s, left 3.0 s, forward 4.5 s."
+ },
+ "fl10_slow_flight": {
+  "quit": 8.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "fly"
+   ],
+   "max_speed": 24.0,
+   "min_speed": 12.0,
+   "max_hero_lands": 0
+  },
+  "note": "Fly held with the stick pulled back: slow flight (~35 % of cruise) for precise approaches."
+ },
+ "fl11_slam_crater": {
+  "quit": 7.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "slam"
+   ],
+   "hero_lands": 1,
+   "grounded_end": true
+  },
+  "note": "Hover 60 m over Times Square, slam (F) at 1.5 s: straight dive into a superhero landing with a crater."
+ },
+ "fl12_fast_land": {
+  "quit": 8.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "fly"
+   ],
+   "hero_lands": 1,
+   "grounded_end": true
+  },
+  "note": "Fly from 90 m, look down 40 deg (0.5-1.5 s): high-speed street impact (> 30 m/s) = superhero landing without the slam key."
+ },
+ "fl13_soft_land_walk": {
+  "quit": 11.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "hover",
+    "takeoff"
+   ],
+   "max_hero_lands": 0,
+   "walked": true
+  },
+  "note": "Hover descent from 25 m to a gentle touchdown, walk forward on the street, take off again."
+ },
+ "fl14_breach_cruise": {
+  "quit": 8.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "fly",
+    "breach"
+   ],
+   "breaches": 1
+  },
+  "note": "Cruise north up 5th Av at 35 m, turn the camera right into the east facade at > 45 m/s: through-building breach."
+ },
+ "fl15_breach_boost": {
+  "quit": 10.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "boost",
+    "breach"
+   ],
+   "breaches": 1,
+   "min_speed": 110.0
+  },
+  "note": "Boost east along the y 640 cross street at 40 m, then steer right (south) into the block at boost speed."
+ },
+ "fl16_slow_facade_slide": {
+  "quit": 8.0,
+  "args": [],
+  "checks": {
+   "subs": [
+    "fly"
+   ],
+   "breaches": 0,
+   "max_hero_lands": 0
+  },
+  "note": "Slow flight (stick back) straight into the 5th Av east facade at 30 m: no breach under 45 m/s, slides along the wall."
+ },
+ "fl17_rescue_crane": {
+  "quit": 20.0,
+  "args": [
+   "-WHRescue=1",
+   "-WHRescueSeed=1977"
+  ],
+  "checks": {
+   "rescue_saved_min": 1
+  },
+  "note": "Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly to the crane load, catch it, carry, set it down (E)."
+ }
+}

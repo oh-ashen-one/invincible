@@ -1,0 +1,41 @@
+{
+ "name": "fl08_brake",
+ "note": "Cruise, then brake (E) at 3.5 s: instant stop into a hover, held in place.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   600,
+   60
+  ],
+  "yaw": -90,
+  "camPitch": 0.0,
+  "vel": [
+   0,
+   -50,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "t": 0.1
+  },
+  {
+   "zip": true,
+   "swing": false,
+   "t": 3.5
+  },
+  {
+   "zip": false,
+   "t": 3.6
+  }
+ ]
+}

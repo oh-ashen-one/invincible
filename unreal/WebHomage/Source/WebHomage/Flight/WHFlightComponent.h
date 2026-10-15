@@ -68,7 +68,8 @@ public:
 	// ---- contacts
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachSpeed = 45.f;    // facade hit at or above this = through-building
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachKeep = 0.8f;     // speed kept through a building
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxDepth = 160.f; // m: deeper solids are not breached (slide instead)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxDepth = 80.f; // m: deeper solids are not breached (slide instead)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxTime = 0.45f; // s: longest pass through a solid (the hero is hidden in it)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachCooldown = 0.25f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float HeroLandMinSpeed = 30.f; // impact speed for a crater landing
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SoftLandSpeed = 12.f;    // under this a floor contact is a gentle touchdown
@@ -107,12 +108,17 @@ private:
 	// breach: straight segment through the solid, entry -> exit (m), at BreachV m/s
 	bool bBreach = false;
 	FVector BreachA = FVector::ZeroVector, BreachB = FVector::ZeroVector, BreachDir = FVector::ForwardVector;
-	double BreachLen = 0.0, BreachS = 0.0, BreachV = 0.0;
+	double BreachLen = 0.0, BreachS = 0.0, BreachV = 0.0, BreachExitV = 0.0;
 	FVector BreachExitN = FVector::ForwardVector;
 	// orientation springs
 	double Bank = 0.0, Pitch = 0.0, RollS = 0.0, LastVelYaw = 0.0, FlyK = 0.0, HoverYaw = 0.0;
 	bool bHaveVelYaw = false, bHoverYawInit = false;
 	FVector2D StickBody = FVector2D::ZeroVector;
 	double Climb = 0.0;
+	// flight aim pitch (rad, + = down, same sign as the camera): the chase camera's output pitch is its look-down at the hero plus a look
+	// offset that decays 1.5 s after the stick is released, so steering by Cam->Forward() made every hands-off fly line dive (fl03 sim:
+	// -51 m in 9 s) and let a held climb fade out. The fly line keeps its own pitch instead, moved only by vertical look input.
+	double AimPitch = 0.0;
+	bool bAimWasLive = false;
 	bool bFlyHeldPrev = false;
 };

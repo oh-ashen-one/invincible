@@ -1,0 +1,93 @@
+{
+ "name": "fl17_rescue_crane",
+ "note": "Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly to the crane load, catch it, carry, set it down (E).",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   -20.0,
+   -230.0,
+   0.9
+  ],
+  "yaw": -14.09,
+  "camPitch": 0.14
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "jump": true,
+   "t": 4.0
+  },
+  {
+   "jump": false,
+   "t": 4.3
+  },
+  {
+   "swing": true,
+   "look": [
+    0,
+    -100
+   ],
+   "t": 4.6
+  },
+  {
+   "look": [
+    0,
+    0
+   ],
+   "t": 5.1
+  },
+  {
+   "look": [
+    0,
+    100
+   ],
+   "t": 7.6
+  },
+  {
+   "look": [
+    0,
+    0
+   ],
+   "t": 8.1
+  },
+  {
+   "zip": true,
+   "swing": false,
+   "t": 13.05
+  },
+  {
+   "zip": false,
+   "t": 13.15
+  },
+  {
+   "drop": true,
+   "move": [
+    -0.4,
+    0
+   ],
+   "t": 13.4
+  },
+  {
+   "drop": false,
+   "move": [
+    0,
+    0
+   ],
+   "t": 14.8
+  },
+  {
+   "zip": true,
+   "t": 16.55
+  },
+  {
+   "zip": false,
+   "t": 16.650000000000002
+  }
+ ]
+}

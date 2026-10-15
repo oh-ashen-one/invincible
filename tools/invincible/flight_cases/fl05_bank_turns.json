@@ -1,0 +1,60 @@
+{
+ "name": "fl05_bank_turns",
+ "note": "Cruise east along the y 640 cross street at 70 m; stick right 2-4 s, centre, stick left 5-7.5 s: banked turns.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   -400,
+   640,
+   70
+  ],
+  "yaw": 0,
+  "camPitch": 0.0,
+  "vel": [
+   30,
+   0,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "t": 0.1
+  },
+  {
+   "move": [
+    1,
+    0
+   ],
+   "t": 2.0
+  },
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 4.0
+  },
+  {
+   "move": [
+    -1,
+    0
+   ],
+   "t": 5.0
+  },
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 7.5
+  }
+ ]
+}

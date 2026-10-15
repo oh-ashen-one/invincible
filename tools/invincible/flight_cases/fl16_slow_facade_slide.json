@@ -1,0 +1,27 @@
+{
+ "name": "fl16_slow_facade_slide",
+ "note": "Slow flight (stick back) straight into the 5th Av east facade at 30 m: no breach under 45 m/s, slides along the wall.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   240,
+   500,
+   30
+  ],
+  "yaw": 0,
+  "camPitch": 0.0
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    -1
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "t": 0.1
+  }
+ ]
+}

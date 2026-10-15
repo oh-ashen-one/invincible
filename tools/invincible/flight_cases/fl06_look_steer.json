@@ -1,0 +1,74 @@
+{
+ "name": "fl06_look_steer",
+ "note": "Fly held, steering with the camera only: yaw right 45 deg/s 2-4 s, pitch up 5-6 s, pitch down 6.5-7.5 s.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   800,
+   80
+  ],
+  "yaw": -90,
+  "camPitch": 0.0,
+  "vel": [
+   0,
+   -30,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "t": 0.1
+  },
+  {
+   "look": [
+    45,
+    0
+   ],
+   "t": 2.0
+  },
+  {
+   "look": [
+    0,
+    0
+   ],
+   "t": 4.0
+  },
+  {
+   "look": [
+    0,
+    -20
+   ],
+   "t": 5.0
+  },
+  {
+   "look": [
+    0,
+    0
+   ],
+   "t": 6.0
+  },
+  {
+   "look": [
+    0,
+    25
+   ],
+   "t": 6.5
+  },
+  {
+   "look": [
+    0,
+    0
+   ],
+   "t": 7.5
+  }
+ ]
+}

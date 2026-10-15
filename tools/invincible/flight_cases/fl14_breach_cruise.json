@@ -1,0 +1,46 @@
+{
+ "name": "fl14_breach_cruise",
+ "note": "Cruise north up 5th Av at 35 m, turn the camera right into the east facade at > 45 m/s: through-building breach.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   500,
+   35
+  ],
+  "yaw": -90,
+  "camPitch": 0.0,
+  "vel": [
+   0,
+   -55,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "t": 0.1
+  },
+  {
+   "look": [
+    90,
+    0
+   ],
+   "t": 1.5
+  },
+  {
+   "look": [
+    0,
+    0
+   ],
+   "t": 2.5
+  }
+ ]
+}

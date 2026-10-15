@@ -1,0 +1,53 @@
+{
+ "name": "fl13_soft_land_walk",
+ "note": "Hover descent from 25 m to a gentle touchdown, walk forward on the street, take off again.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   -20,
+   -230,
+   25
+  ],
+  "yaw": 90,
+  "camPitch": 0.2
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "drop": true,
+   "t": 0.5
+  },
+  {
+   "drop": false,
+   "t": 6.5
+  },
+  {
+   "move": [
+    0,
+    1
+   ],
+   "t": 7.0
+  },
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 9.0
+  },
+  {
+   "jump": true,
+   "t": 9.5
+  },
+  {
+   "jump": false,
+   "t": 9.8
+  }
+ ]
+}

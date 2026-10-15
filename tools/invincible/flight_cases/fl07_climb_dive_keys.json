@@ -1,0 +1,48 @@
+{
+ "name": "fl07_climb_dive_keys",
+ "note": "Fly held: climb key 2-4 s pitches the line up, descend key 5.5-7 s pitches it down, released holds.",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   800,
+   70
+  ],
+  "yaw": -90,
+  "camPitch": 0.0,
+  "vel": [
+   0,
+   -40,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "t": 0.1
+  },
+  {
+   "jump": true,
+   "t": 2.0
+  },
+  {
+   "jump": false,
+   "t": 4.0
+  },
+  {
+   "drop": true,
+   "t": 5.5
+  },
+  {
+   "drop": false,
+   "t": 7.0
+  }
+ ]
+}

@@ -30,6 +30,7 @@
 #include "Misc/Parse.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "Misc/PackageName.h"
 
 #include "Camera/CameraComponent.h"
 #include "Camera/PlayerCameraManager.h"
@@ -336,6 +337,15 @@ bool AWebTravCharacter::SetupHeroMesh()
 	// round 04: the real hero; round 10: paths are properties (HeroMeshPath / HeroLensMeshPath / HeroClipRoot / HeroClipPrefix)
 	{
 		FString V;
+		// Invincible conversion (2026-10-15): the flying hero wears its own mesh (Scripts/import_invincible_hero.py) when it has been built;
+		// its goggles are part of the body (Lens / LensFrame slots), so there is no separate lens mesh. -WHFlight=0 keeps the web-swing hero.
+		int32 FlightArg = 1;
+		FParse::Value(FCommandLine::Get(), TEXT("-WHFlight="), FlightArg);
+		static const TCHAR* InvincibleMesh = TEXT("/Game/Invincible/Characters/SK_Invincible.SK_Invincible");
+		if (FlightArg != 0 && FPackageName::DoesPackageExist(TEXT("/Game/Invincible/Characters/SK_Invincible")))
+		{
+			HeroMeshPath = InvincibleMesh; HeroLensMeshPath.Empty();
+		}
 		if (FParse::Value(FCommandLine::Get(), TEXT("-WHHeroMesh="), V)) HeroMeshPath = V;
 		if (FParse::Value(FCommandLine::Get(), TEXT("-WHHeroLens="), V)) HeroLensMeshPath = V.Equals(TEXT("none"), ESearchCase::IgnoreCase) ? FString() : V;
 		if (FParse::Value(FCommandLine::Get(), TEXT("-WHHeroClips="), V)) HeroClipRoot = V;
@@ -604,7 +614,7 @@ void AWebTravCharacter::BeginPlay()
 	// This only chooses the starting transform; live keyboard/controller input remains active.
 	if (FParse::Param(FCommandLine::Get(), TEXT("WHSpawnTimesSquare")))
 	{
-		PosM = FVector(-20.0, -230.0, 1.5);
+		PosM = FVector(-20.0, -230.0, 0.9);   // body centre on the plaza (floor -0.06 m): 1.5 left the flying hero hovering 0.6 m up
 		YawDeg = 90.0;
 	}
 	Traversal->Teleport(PosM, FMath::DegreesToRadians(YawDeg));

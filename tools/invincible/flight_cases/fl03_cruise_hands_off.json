@@ -1,0 +1,32 @@
+{
+ "name": "fl03_cruise_hands_off",
+ "note": "Airborne over 5th Av at 60 m heading north, fly held, no look input: the fly line should hold its altitude (a player does not have to fight the camera).",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   250,
+   600,
+   60
+  ],
+  "yaw": -90,
+  "camPitch": 0.0,
+  "vel": [
+   0,
+   -20,
+   0
+  ]
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "swing": true,
+   "t": 0.1
+  }
+ ]
+}
