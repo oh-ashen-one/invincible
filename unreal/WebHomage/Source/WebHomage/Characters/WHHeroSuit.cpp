@@ -15,6 +15,7 @@
 #include "InputKeyEventArgs.h"
 #include "Materials/MaterialInterface.h"
 #include "Misc/CommandLine.h"
+#include "Misc/ConfigCacheIni.h"
 #include "Misc/Parse.h"
 #include "UObject/UObjectIterator.h"
 
@@ -98,7 +99,7 @@ void UWHHeroSuitSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	GLive = this;
 	ParseCommandLine();
 	Set = LoadObject<UWHHeroSuitSet>(nullptr, SetPath);
-	if (Set) Suits = Set->Suits;
+	if (Set) { Suits = Set->Suits; DefaultId = Set->DefaultSuitId; }
 	for (int32 i = Suits.Num() - 1; i >= 0; --i) if (!Suits[i].Material) { UE_LOG(LogWebHomage, Warning, TEXT("WH_SUIT entry %d (%s) has no material, dropped"), i, *Suits[i].Id.ToString()); Suits.RemoveAt(i); }
 	if (Suits.Num() == 0)
 	{
@@ -107,7 +108,7 @@ void UWHHeroSuitSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	else
 	{
 		FString Ids; for (const FWHHeroSuitEntry& E : Suits) Ids += E.Id.ToString() + TEXT(" ");
-		UE_LOG(LogWebHomage, Display, TEXT("WH_SUIT %d suits loaded: %s"), Suits.Num(), *Ids);
+		UE_LOG(LogWebHomage, Display, TEXT("WH_SUIT %d suits loaded: %s default=%s"), Suits.Num(), *Ids, DefaultId.IsNone() ? TEXT("(first)") : *DefaultId.ToString());
 	}
 }
 
@@ -169,6 +170,41 @@ void UWHHeroSuitSubsystem::ApplyToHeroes(bool bScanWorld)
 		const int32 FSlot = Frame ? M->GetMaterialIndex(FrameSlot) : INDEX_NONE;
 		if (FSlot != INDEX_NONE && M->GetMaterial(FSlot) != Frame) M->SetMaterial(FSlot, Frame);
 	}
+	ApplyLensMeshes();
+}
+
+int32 UWHHeroSuitSubsystem::DefaultIndex() const
+{
+	if (!DefaultId.IsNone())
+		for (int32 i = 0; i < Suits.Num(); ++i) if (Suits[i].Id == DefaultId) return i;
+	return 0;
+}
+
+void UWHHeroSuitSubsystem::ApplyLensMeshes()
+{
+	// 2026-10-15: the playable HeroDev pawn carries its lenses as a SEPARATE skeletal mesh (AWebTravCharacter 'HeroLenses', slots Lens / LensFrame);
+	// the body-slot path above never reaches it. Only player pawns, only meshes without a SpiderSuit slot that have a Lens slot.
+	const UWorld* W = GetWorld();
+	if (!W || !Suits.IsValidIndex(Index)) return;
+	const FWHHeroSuitEntry& E = Suits[Index];
+	for (FConstPlayerControllerIterator It = W->GetPlayerControllerIterator(); It; ++It)
+	{
+		const ACharacter* Ch = Cast<ACharacter>(It->IsValid() ? It->Get()->GetPawn() : nullptr);
+		if (!Ch) continue;
+		TInlineComponentArray<USkeletalMeshComponent*> Comps(Ch);
+		for (USkeletalMeshComponent* M : Comps)
+		{
+			if (!M || M == Ch->GetMesh() || !M->GetSkeletalMeshAsset() || M->GetMaterialIndex(SuitSlot) != INDEX_NONE) continue;
+			const int32 LSlot = M->GetMaterialIndex(LensSlot), FSlot = M->GetMaterialIndex(FrameSlot);
+			if (LSlot == INDEX_NONE) continue;
+			FLensOrig* O = LensOrig.Find(M);
+			if (!O) O = &LensOrig.Add(M, FLensOrig{ M->GetMaterial(LSlot), FSlot != INDEX_NONE ? M->GetMaterial(FSlot) : nullptr });
+			UMaterialInterface* WantL = (E.bTintLensMesh && E.LensMaterial) ? E.LensMaterial.Get() : O->Lens.Get();
+			UMaterialInterface* WantF = (E.bTintLensMesh && E.FrameMaterial) ? E.FrameMaterial.Get() : O->Frame.Get();
+			if (WantL && M->GetMaterial(LSlot) != WantL) M->SetMaterial(LSlot, WantL);
+			if (FSlot != INDEX_NONE && WantF && M->GetMaterial(FSlot) != WantF) M->SetMaterial(FSlot, WantF);
+		}
+	}
 }
 
 void UWHHeroSuitSubsystem::Prewarm(int32 Around)
@@ -223,13 +259,31 @@ void UWHHeroSuitSubsystem::InitialSync(APlayerController* PC)
 	FWHSettings& S = WHSettings();
 	if (bPreSync) { UE_LOG(LogWebHomage, Display, TEXT("WH_SUIT start suit %d (%s) was set before the first sync: kept"), Index, Suits.IsValidIndex(Index) ? *Suits[Index].Id.ToString() : TEXT("?")); return; }
 	if (bPersist && !S.bLive) S.LoadSuit();
-	int32 Start = 0; const TCHAR* Src = TEXT("default");
+	int32 Start = DefaultIndex(); const TCHAR* Src = TEXT("default");
 	auto Find = [this](const FString& X) -> int32 { for (int32 i = 0; i < Suits.Num(); ++i) if (Suits[i].Id.ToString().Equals(X, ESearchCase::IgnoreCase)) return i; return INDEX_NONE; };
 	if (!CmdSuit.IsEmpty()) { Start = CmdSuit.IsNumeric() ? FCString::Atoi(*CmdSuit) : FMath::Max(0, Find(CmdSuit)); Src = TEXT("-WHSuit"); }
 	else if (S.bLive || bPersist)
 	{
-		const int32 ById = S.SuitId.IsEmpty() ? INDEX_NONE : Find(S.SuitId);
-		Start = ById != INDEX_NONE ? ById : S.SuitIndex; Src = TEXT("settings");
+		// 2026-10-15: a default suit this install has not started in yet wins ONCE over the saved choice (the Invincible conversion's new default);
+		// afterwards the saved choice wins as before
+		bool bNewDefault = false;
+		if (!DefaultId.IsNone() && GConfig)
+		{
+			FString Seen;
+			GConfig->GetString(TEXT("WebHomage.Settings"), TEXT("HeroSuitDefaultSeen"), Seen, GGameUserSettingsIni);
+			if (!Seen.Equals(DefaultId.ToString(), ESearchCase::IgnoreCase))
+			{
+				bNewDefault = true;
+				GConfig->SetString(TEXT("WebHomage.Settings"), TEXT("HeroSuitDefaultSeen"), *DefaultId.ToString(), GGameUserSettingsIni);
+				GConfig->Flush(false, GGameUserSettingsIni);
+			}
+		}
+		if (bNewDefault) Src = TEXT("new default (first start since it became the default)");
+		else
+		{
+			const int32 ById = S.SuitId.IsEmpty() ? INDEX_NONE : Find(S.SuitId);
+			Start = ById != INDEX_NONE ? ById : S.SuitIndex; Src = TEXT("settings");
+		}
 	}
 	Index = -1;   // force the apply + log of the first SetSuit
 	const bool bWasPersist = bPersist; bPersist = false;   // the start-up choice is not a user change: do not write it back

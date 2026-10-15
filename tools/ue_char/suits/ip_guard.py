@@ -11,6 +11,9 @@ palette rules (all measured on the covered texels of the hero atlas, hue bands a
   P5 no white-dominant body: white <= 25 %
   P6 distinct from every other suit: structural key (net kind, sash kind, glyph kind) unique AND palette distance to every other suit >= 38 (RGB units, weighted nearest centroid of the 3 heaviest non-dark k-means clusters)
   P7 glyph kind is on the allowed list (abstract marks only: no animal, letter, star, shield, crescent, bolt)
+2026-10-15, ip_profile 'homage-flyer' (suits.json entry field; the owner-approved Invincible-homage suit): yellow / blue blocking IS the brief, so P1 and P3 do not
+apply to it; instead H1 red <= 2 %, H2 NO glyph at all (kind 'none': no chest letter / logo of any kind), H3 no cape (suit textures cannot add one: recorded
+for the mesh check in tools/ue_char/invincible/), plus P2, P4, P5, P6 as for every suit.  The OCR denylist also covers the comic's names / publisher.
 Exit code 1 when any rule fails.
 """
 import sys, os, json, subprocess, tempfile
@@ -18,8 +21,9 @@ import numpy as np
 import cv2
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '..', 'suit8')); sys.path.insert(0, os.path.join(HERE, '..'))
-ALLOWED_GLYPHS = {'hexvane', 'orbit', 'tally', 'lattice', 'gate', 'keystone', 'ladder', 'chevrons'}
-EXTRA_DENY = ['SPIDER', 'SPIDEY', 'MARVEL', 'SONY', 'INSOMNIAC', 'WEB-SLINGER', 'AVENGERS', 'STARK', 'OSCORP', 'DAILY BUGLE', 'PARKER', 'MILES', 'VENOM', 'GWEN']
+ALLOWED_GLYPHS = {'hexvane', 'orbit', 'tally', 'lattice', 'gate', 'keystone', 'ladder', 'chevrons', 'none'}
+EXTRA_DENY = ['SPIDER', 'SPIDEY', 'MARVEL', 'SONY', 'INSOMNIAC', 'WEB-SLINGER', 'AVENGERS', 'STARK', 'OSCORP', 'DAILY BUGLE', 'PARKER', 'MILES', 'VENOM', 'GWEN',
+              'INVINCIBLE', 'GRAYSON', 'OMNI-MAN', 'OMNIMAN', 'VILTRUM', 'SKYBOUND', 'IMAGE COMICS', 'KIRKMAN']      # 2026-10-15: no wordmark of the homage source on the hero / captures
 
 
 def load_cov(n=1024):
@@ -81,6 +85,10 @@ def palette_cmd(maps, out):
             'P1_no_red_and_blue': not (st['red'] >= 0.06 and st['blue'] >= 0.06), 'P2_red_le_6pct': st['red'] <= 0.06, 'P3_blue_le_6pct': st['blue'] <= 0.06,
             'P4_no_black_with_white_or_red': not (st['black'] >= 0.35 and (st['white'] >= 0.05 or st['red'] >= 0.03)), 'P5_white_le_25pct': st['white'] <= 0.25,
             'P7_glyph_allowed': gk in ALLOWED_GLYPHS}
+        if e.get('ip_profile') == 'homage-flyer':      # 2026-10-15: the Invincible-homage suit (see the module doc)
+            del rules['P1_no_red_and_blue'], rules['P3_blue_le_6pct']
+            rules.update({'H1_red_le_2pct': st['red'] <= 0.02, 'H2_no_glyph': gk == 'none'})
+            st['profile'] = 'homage-flyer'
         st['rules'] = rules
         res[sid] = st
         for k, v in rules.items():

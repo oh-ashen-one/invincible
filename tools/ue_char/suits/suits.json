@@ -1,7 +1,90 @@
 {
-  "_comment": "Homage fan game, not an official Marvel, Sony or Insomniac game; no affiliation. ORIGINAL hero suits: every entry is an override of suit8/design.py DEFAULT_STYLE (Tessera). Order = in-game cycle order (wh.Suit <n>). Palette rules (tools/ue_char/suits/ip_guard.py): no red/blue colour blocking, no white-on-black, no emblem that reads as an animal, letter, star or shield. No image generator is involved: every texel is a function of the body's 3D position.",
+  "_comment": "Homage fan game, not an official Marvel, Sony or Insomniac game; no affiliation. ORIGINAL hero suits: every entry is an override of suit8/design.py DEFAULT_STYLE (Tessera). Order = in-game cycle order (wh.Suit <n>). Palette rules (tools/ue_char/suits/ip_guard.py): no red/blue colour blocking, no white-on-black, no emblem that reads as an animal, letter, star or shield. No image generator is involved: every texel is a function of the body's 3D position. 2026-10-15: 'invincible' (first = cycle index 0, and 'default' below) is the owner-approved Invincible-homage flyer suit; it uses ip_profile 'homage-flyer' in ip_guard.py (yellow / blue blocking is the brief, red and every emblem stay banned). 'lens_mesh': the playable HeroDev pawn's separate lens mesh also takes this suit's lens / frame.",
   "size": 4096,
+  "default": "invincible",
   "suits": [
+    {
+      "id": "invincible",
+      "name": "Invincible",
+      "default_reason": "2026-10-15 owner-approved Invincible conversion (unofficial, non-commercial homage of Mark Grayson's look; no logo, no cape): the new default suit",
+      "lens_mesh": true,
+      "ip_profile": "homage-flyer",
+      "concept": "yellow torso, blue arms / legs / gloves / boots / cowl, black belt, collar, wrist rings, seams and toe caps; plain suit (no net, no sash, NO chest emblem); yellow-tinted lenses with a black frame. On the masked hero mesh the cowl stands in for the brief's short dark hair + goggles head (needs the new mesh: docs/invincible/character/README.md)",
+      "style": {
+        "palette": {
+          "body": "#f2c21b",
+          "crown": "#1f4ea6",
+          "deep": "#1f4ea6",
+          "ink": "#0e0f13",
+          "accent": "#14161b",
+          "accent_d": "#24272e",
+          "stitch": "#c99a10",
+          "sole": "#0b0c0f",
+          "lens": "#ffcc33",
+          "frame": "#101115"
+        },
+        "net": {
+          "kind": "none"
+        },
+        "sash": {
+          "kind": "none"
+        },
+        "wedge": {
+          "on": false
+        },
+        "trunks": {
+          "on": true,
+          "slope": 0.0,
+          "y0": 0.8,
+          "pipe": false
+        },
+        "belt": {
+          "on": true,
+          "buckle": "none",
+          "role": "ink"
+        },
+        "spine": false,
+        "arm": {
+          "upper": "body",
+          "fore": "body",
+          "other_fore": "body"
+        },
+        "limbs": {
+          "arm": "deep",
+          "leg": "deep",
+          "arm_s0": 0.0,
+          "arm_r": 0.095,
+          "seam": "ink"
+        },
+        "greave": "none",
+        "thigh_deep": false,
+        "sleeves": false,
+        "leg_stripe": false,
+        "ankle_bands": false,
+        "glyph": {
+          "kind": "none"
+        },
+        "crown": {
+          "kind": "plain",
+          "edge": false
+        },
+        "brow": "none",
+        "vent": "none",
+        "hood": "crown",
+        "glove": "deep",
+        "boot": "deep",
+        "face": {
+          "lift": 0.0,
+          "cheek_seams": false,
+          "seam": false
+        },
+        "fuzz": [
+          0.78,
+          0.74,
+          0.52
+        ]
+      }
+    },
     {
       "id": "tessera",
       "name": "Tessera",

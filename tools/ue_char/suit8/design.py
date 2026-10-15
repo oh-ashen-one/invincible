@@ -56,6 +56,12 @@ DEFAULT_STYLE = dict(
     cap=dict(r_out=0.108, r_in=0.075),                  # round 15: the DEEP shoulder cap's radius around the arm axis (r_out away from the torso, r_in on the torso side: no cord over the armpit crease)
     face=dict(tone_up=0.34, tone_dn=0.42, lift=1.0, amp_mm=8.0),
     relief=dict(kind='piping', net=1.30, pipe=1.80, ring=1.80, glyph=1.40, sash=0.60, border=1.60, rough_pipe=0.34, rough_net=0.40, cavity=0.35, net_tone=0.38, seam=2.2, rough_hood=0.50, rough_crown=0.60),
+    # 2026-10-15 (Invincible-homage flyer, suit 'invincible'): whole-limb colour blocking.  limbs.arm / limbs.leg = a colour role (body | crown | deep | ink | accent | accent_d)
+    # laid over the whole arm (from a plane cut at limbs.arm_s0 metres along the deltoid -> forearm axis, inside limbs.arm_r of it, plus the forearm / hand weights) and the
+    # whole leg; limbs.seam = a raised cord in that role on the arm cut.  None (the default) = no layer: every existing suit is unchanged texel for texel.
+    limbs=dict(arm=None, leg=None, arm_s0=0.0, arm_r=0.095, seam=None),
+    leg_stripe=True,                                   # the outer-seam leg stripes (accent right / body left)
+    ankle_bands=True,                                  # the two accent bands on the left shin
 )
 
 
@@ -376,8 +382,9 @@ def paint(P, N, G, mpt, gi, jp, style=None, dbg=None):
     # 2. waist belt band + trunks (DEEP) above a diagonal hip-wrap cut across the thighs
     tk = S['trunks']
     belt_d = np.abs(y - 1.055) - 0.024
+    ROLE_ALL = dict(deep=DEEP, body=TEAL, accent_d=AMBER_D, crown=TEAL_D, ink=INK, accent=AMBER)      # 2026-10-15: colour roles a style may name (belt.role, limbs.*)
     if S['belt']['on']:
-        C.lay(body_w * tors_w * cover(belt_d, aa), DEEP, rough=0.80)
+        C.lay(body_w * tors_w * cover(belt_d, aa), ROLE_ALL[S['belt'].get('role', 'deep')], rough=0.80)
     cut_norm = np.sqrt(1 + tk['slope'] ** 2)
     cut_d = (y - (tk['y0'] + tk['slope'] * x)) / cut_norm            # > 0 above the diagonal
     cut_along = (x + tk['slope'] * y) / (1.176 if abs(tk['slope'] - 0.62) < 1e-9 else cut_norm)
@@ -460,6 +467,20 @@ def paint(P, N, G, mpt, gi, jp, style=None, dbg=None):
         _, hp = cord(dist, hw, aa, H)
         C.lay(alpha * under, c, h=hp, rough=r_pipe if r_pipe is not None else RL['rough_pipe'], ao=ao)
         if dbg is not None and not net_layer[0]: mark_cord(alpha * under)
+    # 4b. (2026-10-15) whole-limb colour blocking (limbs.arm / limbs.leg; off by default).  Laid before the arm / leg details so gloves, wrist rings, boots and soles stay on top.
+    LB = S.get('limbs') or {}
+    if LB.get('arm'):
+        for side_, nm_ in ((1.0, 'L'), (-1.0, 'R')):
+            sidew_ = (sgn == side_).astype(np.float32)
+            A_ = J('deltoid.' + nm_); d_ = (J('forearm.' + nm_) - A_) / np.linalg.norm(J('forearm.' + nm_) - A_)
+            rel_ = P - A_; s_ = rel_ @ d_; rr_ = np.linalg.norm(rel_ - s_[..., None] * d_, axis=-1)
+            geo_ = sidew_ * body_w * cover(LB['arm_s0'] - s_, aa) * cover(rr_ - LB['arm_r'], aa)        # past the plane cut, inside the arm radius (a clean set-in sleeve line)
+            zone_a = np.maximum(geo_, sidew_ * body_w * np.clip(armF + hand, 0, 1))
+            C.lay(zone_a, ROLE_ALL[LB['arm']], rough=0.70)
+            if LB.get('seam'):
+                L(sidew_ * body_w * band(s_ - LB['arm_s0'], 0.0016, aa) * cover(rr_ - LB['arm_r'], aa), ROLE_ALL[LB['seam']], h=0.4, rough=0.45, H=RL['pipe'], dist=s_ - LB['arm_s0'], hw=0.0016)
+    if LB.get('leg'):
+        C.lay(body_w * leg_w * (1 - is_head), ROLE_ALL[LB['leg']], rough=0.70)
     # 5. arms.  Right arm = the amber "light" side, left arm = teal / dark side
     ar = S['arm']
     Rb = (x < 0)
@@ -496,9 +517,10 @@ def paint(P, N, G, mpt, gi, jp, style=None, dbg=None):
             C.lay(L_ * body_w * cover(_sa - 0.4015, aa) * cover(_rr - 0.16, aa) * cover(cut_d + 0.0018, aa), DEEP, rough=0.80)
     lat = np.abs(z - 0.0) - 0.011                                                   # outer seam stripe
     m_stripe = leg_w * np.clip(thigh + shin * ss(y, 0.42, 0.50), 0, 1) * cover(lat, aa) * ss(-sgn * nx, 0.4, 0.8)
-    L(m_stripe * R_ * (1 - m_greaveR), AMBER, h=0.35, rough=0.5, H=RL['pipe'], dist=lat + 0.011, hw=0.011)
-    L(m_stripe * L_, TEAL, h=0.35, rough=0.7, H=RL['pipe'] * 0.8, dist=lat + 0.011, hw=0.011, r_pipe=0.55)
-    for yc in (0.175, 0.205):                                                       # left shin ankle bands
+    if S.get('leg_stripe', True):
+        L(m_stripe * R_ * (1 - m_greaveR), AMBER, h=0.35, rough=0.5, H=RL['pipe'], dist=lat + 0.011, hw=0.011)
+        L(m_stripe * L_, TEAL, h=0.35, rough=0.7, H=RL['pipe'] * 0.8, dist=lat + 0.011, hw=0.011, r_pipe=0.55)
+    for yc in ((0.175, 0.205) if S.get('ankle_bands', True) else ()):               # left shin ankle bands
         L(shin * L_ * band(y - yc, 0.0040, aa), AMBER, h=0.4, rough=0.5, H=RL['ring'], dist=y - yc, hw=0.0040)
     m_boot = foot * body_w                                                          # boots: DEEP upper, INK toe cap, sole, amber welt
     C.lay(m_boot, ROLE[S['boot']], rough=0.72)
@@ -679,7 +701,9 @@ def paint(P, N, G, mpt, gi, jp, style=None, dbg=None):
     TONE_B = PIPE and gl.get('back', 'tone') == 'tone'
     BCOL = (0.55 * TEAL + 0.45 * DEEP) if TONE_B else AMBER
     BH = (RL['glyph'] * 0.8, RL['glyph'] * 0.7, 0.50) if TONE_B else (0.45, 0.40, 0.40)
-    if gl['kind'] == 'hexvane':
+    if gl['kind'] == 'none':          # 2026-10-15: no chest / back mark at all (the Invincible-homage suit carries no emblem)
+        pass
+    elif gl['kind'] == 'hexvane':
         ring, vanes, core = badge(gl['x'], gl['y'], 0.046 * gl['size'])
         gh = (RL['glyph'], RL['glyph'] * 0.9) if PIPE else (0.45, 0.40)
         C.lay(f_ * ring, gcol, h=gh[0], rough=0.40)
@@ -714,7 +738,7 @@ def paint(P, N, G, mpt, gi, jp, style=None, dbg=None):
     PK = dict(h=0.45, rough=0.45, H=RL['pipe'], hw=pip)
     L(body_w * tors_w * band(y - 1.0795, pip, aa), AMBER, dist=y - 1.0795, **PK)
     L(body_w * tors_w * band(y - 1.0305, pip, aa), AMBER, dist=y - 1.0305, **PK)
-    if tk['on']:
+    if tk['on'] and tk.get('pipe', True):      # (2026-10-15: trunks.pipe False = no piping / stitching on the hip-wrap cut)
         L(body_w * np.clip(tors_w + thigh, 0, 1) * band(cut_d, pip * 1.3, aa) * ss(1.03 - y, -0.002, 0.004), AMBER, h=0.45, rough=0.45, H=RL['pipe'], dist=cut_d, hw=pip * 1.3)
     wtop = (1.0 - ss(y, 1.195, 1.235)) if PIPE else 1.0       # round 14 (critic r13: the Ash armpit stitches zigzag): the wedge pipe + stitch rows end 3.5 cm below the armpit crease (the surface folds there and the dashes pile up)
     if TERM: wtop = np.maximum(wtop, ss(y, 1.285, 1.305) * cover(y - 1.435, aa))      # round 15: the wedge edge is the SIDE SEAM of the torso net panel from the yoke's bottom seam up to its top seam (the armpit crease, y 1.2 - 1.29, stays bare)
@@ -728,7 +752,7 @@ def paint(P, N, G, mpt, gi, jp, style=None, dbg=None):
     # top-stitching beside the piping (dashed, light teal): belt, hip-wrap cut, sash edges, side wedge
     STa = 0.85
     L(body_w * tors_w * np.maximum(stitch(y - 1.0795, x, aa), stitch(y - 1.0305, x, aa)) * STa, STITCH, h=0.12, rough=0.7)
-    if tk['on']:
+    if tk['on'] and tk.get('pipe', True):
         L(body_w * np.clip(tors_w + thigh, 0, 1) * stitch(cut_d, cut_along, aa, off=0.0034) * ss(1.03 - y, -0.002, 0.004) * STa, STITCH, h=0.12, rough=0.7)
     if zone_s is not None:
         for o in offs:
@@ -785,7 +809,8 @@ def paint(P, N, G, mpt, gi, jp, style=None, dbg=None):
     if PIPE:     # round 13: the face seam (critic r12: a 12 px black kinked ink seam on every suit) is a RAISED cord in the body colour, a lit / shadow pair, not ink
         seam_a, seam_h = cord(x, 0.0017, aa, RL['seam'])
         fcol = 0.55 * TEAL + 0.45 * STITCH
-        C.lay(is_head * cover(-z, aa) * seam_a, fcol, h=seam_h, rough=RL['rough_pipe'] + 0.05)     # round 14: a lighter tint than the lifted hood (a cord in the hood colour would only show by its shading)
+        if S['face'].get('seam', True):      # 2026-10-15: a suit may drop the dorsal / face seam cord (the Invincible-homage cowl is plain)
+            C.lay(is_head * cover(-z, aa) * seam_a, fcol, h=seam_h, rough=RL['rough_pipe'] + 0.05)     # round 14: a lighter tint than the lifted hood (a cord in the hood colour would only show by its shading)
         if S['face'].get('cheek_seams', True):
             # round 14: two raised PANEL SEAMS per cheek (the critic's G3 line - a horizontal luma line through the cheek bones - crosses them): the outer one runs from the eye frame down
             # the cheek bone plane to the jaw (bowing outward below the cheek bone), the inner one from the nose-bridge flank toward the mouth piece.  Light raised cords (like the face seam):

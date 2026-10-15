@@ -1263,10 +1263,11 @@ if 'skins' in STEPS:
             lift_ = float(stl_.get('face', {}).get('lift', 1.0)) if role_ == 'deep' else 0.0      # round 14: design.py lifts a 'deep' hood toward the body colour (face.lift, default 1.0)
             hc_ = [a * (1.0 - lift_) + b * lift_ for a, b in zip(hc_, body_)]
             luma_ = 0.2126 * hc_[0] + 0.7152 * hc_[1] + 0.0722 * hc_[2]
+            fr_hex_ = pl_.get('frame')      # 2026-10-15: a suit may name its own rim colour (invincible: black goggle frames), else silver / graphite by the hood luma
             dark_mask = luma_ < 0.36      # round 14: a polished silver rim reflects the sky / floor (luma 110 - 190) and reads on every hood up to ~0.35 (sRGB luma): r13's graphite rims on the MID hoods (Verdant, Ash, Saffron: hood 0.22 - 0.32) were open on 25 - 45 % of the angles; graphite stays for the pale hoods (Glacier 0.67, Sage 0.55)
             frame_ = mi('MI_HeroFrame_' + sid, SUITS_DIR + '/Materials', load(ROOT + '/Shared/Materials/M_Char_LensFrame'),
                         scal={'Roughness': 0.25 if dark_mask else 0.22, 'Specular': 0.6, 'Metallic': 0.9},
-                        vec={'Color': (0.22, 0.22, 0.24, 1.0) if dark_mask else (0.06, 0.06, 0.065, 1.0)})
+                        vec={'Color': tuple(_lin(fr_hex_[i:i + 2]) for i in (1, 3, 5)) + (1.0,) if fr_hex_ else ((0.22, 0.22, 0.24, 1.0) if dark_mask else (0.06, 0.06, 0.065, 1.0))})
             log('skins: rim', sid, 'hood luma %.3f' % luma_, 'silver' if dark_mask else 'graphite')
         except Exception as ex: _B.fail('frame instance failed for suit ' + sid, ex)
         return mat_, lens_, frame_
@@ -1280,6 +1281,9 @@ if 'skins' in STEPS:
             en.set_editor_property('id', sid); en.set_editor_property('display_name', e_.get('name', sid)); en.set_editor_property('material', mat_)
             if lens_ is not None: en.set_editor_property('lens_material', lens_)
             if frame_ is not None: en.set_editor_property('frame_material', frame_)
+            if e_.get('lens_mesh'):      # 2026-10-15: the playable pawn's separate lens mesh takes this suit's lens / frame too (WHHeroSuit.h bTintLensMesh)
+                try: en.set_editor_property('tint_lens_mesh', True)
+                except Exception as ex: _B.fail('skins: tint_lens_mesh not settable for %s (rebuild the WebHomage module first)' % sid, ex)
             entries.append(en)
             log('skins: suit', len(entries) - 1, sid, mat_.get_name(), 'lens', lens_.get_name() if lens_ is not None else None)
         except Exception as ex_:
@@ -1289,6 +1293,11 @@ if 'skins' in STEPS:
     if EAL.does_asset_exist(SUITS_DIR + '/DA_HeroSuits'): EAL.delete_asset(SUITS_DIR + '/DA_HeroSuits')
     da = AT.create_asset('DA_HeroSuits', SUITS_DIR, unreal.WHHeroSuitSet, unreal.DataAssetFactory())
     da.set_editor_property('suits', entries)
+    if SUITS_CFG.get('default'):      # 2026-10-15: the start-up suit (WHHeroSuit.h DefaultSuitId; the Invincible conversion's 'invincible')
+        try:
+            da.set_editor_property('default_suit_id', SUITS_CFG['default'])
+            log('skins: default suit', SUITS_CFG['default'])
+        except Exception as ex: _B.fail('skins: default_suit_id not settable (rebuild the WebHomage module first)', ex)
     EAL.save_directory(SUITS_DIR, only_if_is_dirty=False, recursive=True)
     EAL.save_directory(ROOT, only_if_is_dirty=True, recursive=True)      # everything the data asset references (MI_Hero_Suit, MI_Hero_Lens) is on disk
     log('skins ok:', len(entries), 'suits in', SUITS_DIR + '/DA_HeroSuits')
