@@ -355,7 +355,14 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	}
 	else
 	{ // hover: stick strafes on the camera's ground plane, Space / C climb; a fast arrival glides down instead of stopping dead
-		const FVector Want = (FwdF * I.Move.Y + RightF * I.Move.X) * double(HoverSpeed) + FlUp * (Climb * double(VertSpeed));
+		double ClimbV = Climb * double(VertSpeed);
+		if (Climb < 0.0)
+		{ // critic r2 (fl01 / fl13: "gentle" touchdowns stopped from 10 m/s in one frame): the descent eases out over the last 4 m
+			const double FeetZ = S.Pos.Z - UWebTraversalComponent::H;
+			const double Fl = T.TravWorld.GroundHeight(S.Pos.X, S.Pos.Y, FeetZ + 0.6);
+			if (Fl > -999.0) ClimbV *= FMath::Clamp((FeetZ - Fl) / 4.0, 0.15, 1.0);
+		}
+		const FVector Want = (FwdF * I.Move.Y + RightF * I.Move.X) * double(HoverSpeed) + FlUp * ClimbV;
 		const double Rate = Sp > HoverSpeed * 1.5 ? HoverGlideRate : HoverRate;
 		V = FlDampV(V, Want, Rate, H);
 		SetFlySub(T, NF_hover);

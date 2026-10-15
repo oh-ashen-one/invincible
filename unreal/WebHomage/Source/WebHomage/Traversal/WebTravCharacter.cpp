@@ -1118,10 +1118,10 @@ void AWebTravCharacter::FlightFrame(const FWebTravInput& I, double Dt)
 	// off a little and the lens widens with speed (FlightFovAdd over FlightFov0..FlightFov1 m/s, on top of the swing's 14-40 m/s kick);
 	// the long-float sky framing (camera under the hero looking up) is a swing-release look, not a flight one
 	Cam.MaxStepPosM = FMath::Max(1.1, Sp / 60.0 * 1.35 + 0.5);
-	Cam.ChaseDist = 3.8 + 1.4 * FMath::SmoothStep(40.0, 160.0, Sp);
+	Cam.ChaseDist = 3.1 + 1.1 * FMath::SmoothStep(40.0, 160.0, Sp);   // critic r2: the hero filled 0.10-0.16 of the frame height by pixels
 	Cam.SkyFloatH = 1e6;
 	Cam.AirPitchDownMax = 0.45;
-	Cam.FlightFovAdd = 12.0;
+	Cam.FlightFovAdd = 7.0;
 	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this))
 	{
 		FW->bFlightMode = true;
