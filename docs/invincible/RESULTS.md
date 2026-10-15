@@ -25,7 +25,7 @@ footage is **not** real-time FPS evidence; no real-time performance was measured
 | r1 | `7acea119` | 17 cases, 1080p fixed 60 | 17/17 on the first gates; **11/17** once the r1-critic pixel gates were added | FAILS TARGET; silhouette 3, suit 5, camera 2, speed 3, FX 2, glitches 2 (`captures/r1/CRITIC.md`) |
 | r2 | `ca3caa22` | 17 cases | **15/17** (fl14 hidden 49 frames before its breach, fl17 hidden 40 frames: the carried load occludes him) | FAILS TARGET; silhouette 3, suit 5, camera 3, speed 3, FX 2, glitches 2 (`captures/r2/CRITIC.md`) |
 | r2b | `45580f5c` | fl01, fl02, fl04, fl14, fl15 | 4/5 (fl14 11 hidden frames) | not reviewed (targeted replay of the r2 sheet fixes) |
-| r3 | see `captures/r3/RUN.json` | fl01, fl03, fl04, fl13, fl14 | see `captures/r3/CHECK.md` | not reviewed (final targeted replay) |
+| r3 | source of `04832f78` (built before that commit; RUN.json shows head 45580f5c + dirty) | fl01, fl03, fl04, fl13, fl14 | 4/5 (fl14 9 hidden frames); fl13 touchdown contact 10 -> ~5 m/s; hero larger in frame | not reviewed (final targeted replay; the r2 critic's other findings still stand) |
 
 ## What the night fixed (each from a sim, a sheet or the critic, each re-captured)
 
@@ -40,6 +40,9 @@ footage is **not** real-time FPS evidence; no real-time performance was measured
 - Times Square spawn was 0.6 m in the air (the flying hero hovered at spawn); body now on the plaza floor.
 - Hover descent eases out over the last 4 m (was a 10 m/s stop in one frame); flight chase camera closer, smaller FOV add.
 
+Clips in the repo are 960x540 review copies (`<case>_540p.mp4`; the critics judged the full-res `<case>.mp4`, kept only in the disposable
+cache `~/sm2-invincible-cache/<tag>/full/`); telemetry is gzipped.
+
 ## Open defects (critic r2 top 8, verbatim themes; acceptance tests in `captures/r2/CRITIC.md`)
 
 1. Breaches look fake: flat discs (removed after r2), see-through sprite smoke, light card-like cube debris. Needs a real fracture asset (`/Game/Invincible/Destruction/GC_FacadeChunk` is already loaded when present) and facade-textured debris.
@@ -51,4 +54,5 @@ footage is **not** real-time FPS evidence; no real-time performance was measured
 7. Clipping through fire escapes / glass (fl16, fl17).
 8. Gentle touchdowns stopped from 10 m/s (eased after r2, r3 replay) and clip-start crouch pop (fixed in r2b).
 
+Also: in sim15 (final build) fl17 shows 74 hidden frames by projection during the carry dive (the closer chase camera vs the carried load) -- re-check fl17 in a render before trusting the closer camera there.
 Also: telemetry `hero_bbox_h` overstates the hero's size ~1.8x vs pixel count (critic r2); every rendered run logs a pre-existing engine ensure `OriginX <= OriginMax` at frame 0 (also in the pre-change smoke log; reported, not gated).
