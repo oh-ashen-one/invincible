@@ -102,8 +102,8 @@ void AWHBreachDirector::Breach(const FVector& PosM, const FVector& DirM, float S
 	Fx.Dust(PosM + D * 3.0, 2.0 + 2.0 * Sev);
 	{ FLinearColor Spark(3.0f, 2.2f, 1.4f); Fx.Hit(PosM, D, 1.0, &Spark); }
 	// the hole: a scorched plate flush with the facade, square-on to the flight line (the facade normal is ~ -D at an entry)
-	const FQuat Q = FRotationMatrix::MakeFromZX(-D, BdAnyPerp(D)).ToQuat();
-	PlaceScar(P - D * (bEntry ? 5.0 : -5.0), Q, FVector(3.2 + 1.6 * Sev, 2.6 + 1.2 * Sev, 0.08), BdScorch);
+	// (critic r1 + r2 capture fl14: the scorched plate -- a flat 3-5 m cylinder disc flush with the facade -- read as a black ellipse
+	//  stamped on an intact wall and filled the frame when the camera was close; no plate until there is a real cut-out / fracture asset)
 	if (GcAsset) SpawnGc(P, D);
 	PlaySynth(1, P, 0.8f + 0.2f * Sev);
 	// suite r2 sims: no slow-mo on the entry any more (the hero is hidden inside the solid then, so the held impact view stared at a hole
@@ -196,12 +196,14 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 	{ // critic r1 (fl04: the boom had no visible trace): a vapour collar -- a ring of puffs square-on to the flight line just behind him --
 	  // and a white flash on the line
 		const FVector D = DirM.GetSafeNormal(), A = BdAnyPerp(D), B = FVector::CrossProduct(D, A);
-		for (int32 K = 0; K < 12; ++K)
-		{
-			const double Ang = 2.0 * PI * K / 12.0;
-			Fx.Dust(PosM - D * 3.0 + (A * FMath::Cos(Ang) + B * FMath::Sin(Ang)) * 3.2, 2.2);
-		}
-		Fx.Dust(PosM - D * 6.0, 3.0);
+		// (r2 capture: puffs behind him were passed by the chase camera within a few frames -- the collars sit ahead on the line, so the
+		//  camera sees him punch through them at 120+ m/s)
+		for (int32 R = 0; R < 3; ++R)
+			for (int32 K = 0; K < 12; ++K)
+			{
+				const double Ang = 2.0 * PI * (K + 0.5 * R) / 12.0;
+				Fx.Dust(PosM + D * (10.0 + 9.0 * R) + (A * FMath::Cos(Ang) + B * FMath::Sin(Ang)) * (2.6 + 0.9 * R), 2.6);
+			}
 		const FLinearColor Flash(4.f, 4.f, 4.2f);
 		Fx.Hit(PosM - D * 1.5, -D, 1.0, &Flash);
 	}

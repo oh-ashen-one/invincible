@@ -923,7 +923,12 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 	// pre-roll: the camera state is restored after the frame is set up and the traversal is only posed (not stepped), so the
 	// sequence that follows is bit-identical to a run without pre-roll
 	const FWebTravCamera PreCam = Cam;
-	if (bPre) Traversal->PosePreview(); else Traversal->UpdateTraversal(Dt, I);
+	if (bPre)
+	{
+		Traversal->PosePreview();
+		if (bFlightMode) Traversal->Anim.Flight.bActive = true;   // suite r2 sheets: the pre-roll pose (= clip frame 0) was the spider crouch
+	}
+	else Traversal->UpdateTraversal(Dt, I);
 	for (const FWebTravEvent& E : Traversal->Events)
 	{ // player.js event -> camera mapping
 		const FString T = E.Type.ToString();
