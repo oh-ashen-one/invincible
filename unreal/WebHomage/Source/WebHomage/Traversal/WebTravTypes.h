@@ -127,6 +127,36 @@ struct WEBHOMAGE_API FWebTravAnimPerch
 };
 
 /**
+ * Invincible flight block (2026-10-15, UWHFlightComponent). bActive = the flight controller owns the body this frame.
+ * Flight sub-states are written to FWebTravAnim::Sub (mode Air unless noted):
+ *   takeoff (crouch-launch off the ground, ~0.35 s) | hover (upright, slow) | fly (forward flight, superman line) |
+ *   boost (fly above the boost speed) | brake (instant stop, legs swing forward) | dash (short burst) |
+ *   slam (dive straight down for a superhero landing) | breach (passing through a building) |
+ *   landHero (mode Land: superhero landing, one knee + fist down, ~0.9 s) ; walking on the ground keeps the ground subs.
+ */
+USTRUCT(BlueprintType)
+struct WEBHOMAGE_API FWebTravAnimFlight
+{
+	GENERATED_BODY()
+	UPROPERTY(BlueprintReadOnly, Category="Flight") bool bActive = false;
+	/** 0 hover .. 1 at cruise speed .. up to 2 at max boost speed (speed / cruise, clamped). */
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float SpeedK = 0.f;
+	/** Bank (rad, + = rolling right into a right turn) and body pitch (rad, + = nose down) the controller applied to BodyQ. */
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float Bank = 0.f;
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float Pitch = 0.f;
+	/** Stick in the body frame (x right, y forward), for hover leans. */
+	UPROPERTY(BlueprintReadOnly, Category="Flight") FVector2D Stick = FVector2D::ZeroVector;
+	/** Vertical intent -1 (descend) .. +1 (ascend). */
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float Climb = 0.f;
+	/** 1 at a sonic boom, decays over ~0.6 s. */
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float BoomK = 0.f;
+	/** Leading fist: true = right arm forward in the fly pose. */
+	UPROPERTY(BlueprintReadOnly, Category="Flight") bool bRightFist = true;
+	/** Seconds in flight (continuous across flight subs). */
+	UPROPERTY(BlueprintReadOnly, Category="Flight") float FlightT = 0.f;
+};
+
+/**
  * C1 animation contract (browser traversal/anim.js), written by UWebTraversalComponent every frame.
  * P2's AnimBP reads this (AWebTravCharacter::GetTravAnim / UWebTraversalComponent::Anim).
  * Positions / velocities in cm and cm/s (Unreal units). Sub-state names match the browser strings.
@@ -177,6 +207,8 @@ struct WEBHOMAGE_API FWebTravAnim
 	FVector NoAnchorAim = FVector::ForwardVector;
 	float WebShotK = -1.f;   // round 02: progress of a web in flight while the body is still ballistic (0..1, < 0 = none)
 	UPROPERTY(BlueprintReadOnly, Category="Traversal") bool bQuickRightHand = true;
+	/** Invincible flight (2026-10-15): valid while Flight.bActive. */
+	UPROPERTY(BlueprintReadOnly, Category="Traversal") FWebTravAnimFlight Flight;
 };
 
 /** One-frame traversal event for camera / audio (browser `events`). */
@@ -187,6 +219,9 @@ struct FWebTravEvent
 	float Dist = 0.f;
 	float K = 1.f;
 	bool bRun = false;
+	// Invincible flight (2026-10-15): where / which way (metres, world) for flight events (sonicBoom, breachIn, breachOut, heroLand, ...)
+	FVector Pos = FVector::ZeroVector;
+	FVector Dir = FVector::ZeroVector;
 };
 
 /** A web strand to draw (the swing web, zip webs, dash / quick-boost webs). Metres. */
