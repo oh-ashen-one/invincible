@@ -41,8 +41,19 @@ if a.action and arm:
     act = bpy.data.actions.get(a.action)
     if act: arm.animation_data_create(); arm.animation_data.action = act
 frames = [int(f) for f in a.frames.split(',') if f] or [sc.frame_current]
+def posed_bounds():
+    # frame the POSED body (a horizontal flight pose is far longer than tall; rest-pose bounds zoomed the camera into the torso)
+    dg = bpy.context.evaluated_depsgraph_get(); lo2 = Vector((1e9,) * 3); hi2 = Vector((-1e9,) * 3)
+    for o in meshes:
+        if o.name.lower().startswith('icosphere'): continue
+        ev = o.evaluated_get(dg); me = ev.to_mesh()
+        for v in me.vertices:
+            w = o.matrix_world @ v.co; lo2 = Vector(map(min, lo2, w)); hi2 = Vector(map(max, hi2, w))
+        ev.to_mesh_clear()
+    return lo2, hi2
 for fr in frames:
     sc.frame_set(fr)
+    lo, hi = posed_bounds(); ctr = (lo + hi) / 2; h = max((hi - lo).length * 0.62, 0.01); dist = h * 2.6
     for name, ang in views.items():
         if len(frames) > 1 and name not in ('q34',): continue
         place(ang); sc.render.filepath = '%s_%s%s.png' % (a.out, name, ('_f%03d' % fr) if len(frames) > 1 else '')

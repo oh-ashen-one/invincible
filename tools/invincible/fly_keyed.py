@@ -9,6 +9,7 @@ from mathutils import Vector, Matrix, Quaternion
 argv = sys.argv[sys.argv.index('--') + 1:]
 SRC, OUT = argv[0], argv[1]
 MESHFIX = '--no-meshfix' not in argv
+VERTICAL = '--vertical' in argv          # upright variant = launch straight up from the ground
 FPS, N = 30, 120                                   # 4 s loop
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -88,20 +89,28 @@ def pose(t):
     TAU = 2 * math.pi
     for p in pb: p.matrix_basis = Matrix.Identity(4)
     bpy.context.view_layer.update()
+    # owner: flying straight ahead = lying on the flight line (head + fists forward, belly down). The upright variant (--vertical)
+    # is the launch-straight-up clip. Rotate the whole body from the pelvis, then pose in the body frame U/F/L.
+    if VERTICAL: U, F, L = UP, FWD, LEFT
+    else:
+        U, F, L = FWD, -UP, LEFT
+        m = world('pelvis'); q = UP.rotation_difference(FWD)
+        pb['pelvis'].matrix = AW.inverted() @ Matrix.LocRotScale(m.to_translation(), q @ m.to_quaternion(), m.to_scale())
+        bpy.context.view_layer.update()
     w1 = math.sin(TAU * 2 * t); w2 = math.sin(TAU * 3 * t + 0.8); w3 = math.sin(TAU * 5 * t + 2.1)   # wind layers (2 s, 1.33 s, 0.8 s)
     hip = math.sin(TAU * t)                                                                       # slow undulation driver (4 s)
-    turn('pelvis', LEFT, -3.0 + 2.0 * hip); turn('pelvis', FWD, 1.5 * w1)                          # hips drive
-    turn('spine1', LEFT, -2.0 + 1.5 * math.sin(TAU * t - 0.5)); turn('spine2', LEFT, -3.0 + 1.5 * math.sin(TAU * t - 1.0))   # chest lifted, overlap up the spine
-    turn('spine3', LEFT, -2.0 + 1.2 * math.sin(TAU * t - 1.5)); turn('spine2', FWD, -1.0 * w1)
-    aim('neck', (UP * 0.94 - FWD * 0.34).normalized())                                            # chin up ~20 deg: eyes ahead once the body lies on the fly line
+    turn('pelvis', L, -3.0 + 2.0 * hip); turn('pelvis', F, 1.5 * w1)                          # hips drive
+    turn('spine1', L, -2.0 + 1.5 * math.sin(TAU * t - 0.5)); turn('spine2', L, -3.0 + 1.5 * math.sin(TAU * t - 1.0))   # chest lifted, overlap up the spine
+    turn('spine3', L, -2.0 + 1.2 * math.sin(TAU * t - 1.5)); turn('spine2', F, -1.0 * w1)
+    aim('neck', (U * 0.94 - F * 0.34).normalized())                                            # chin up ~20 deg: eyes ahead once the body lies on the fly line
     for side, sgn in (('left', 1), ('right', -1)):
         ph = TAU * t - 2.0 + (0.0 if sgn > 0 else 1.7)                                            # arms lag the spine; sides offset
         lead = 0.06 if sgn < 0 else 0.0                                                            # right fist leads a touch (cover pose)
-        aim(side + '_collar', (LEFT * sgn * 0.75 + UP * 0.66).normalized())                       # shoulders raised with the reach
-        aim(side + '_shoulder', (UP * 0.96 + FWD * (0.16 + lead + 0.03 * math.sin(ph)) + LEFT * sgn * (0.17 + 0.02 * w2)).normalized())
-        aim(side + '_elbow', (UP * 0.90 + FWD * (0.40 + lead + 0.05 * math.sin(ph - 0.6)) + LEFT * sgn * (0.05 + 0.015 * w3)).normalized())   # soft elbows (covers)
-        aim(side + '_wrist', (UP * 0.92 + FWD * (0.38 + 0.03 * math.sin(ph - 1.1)) + LEFT * sgn * 0.03).normalized())
-        palm_n = FWD                                                                               # fists lead with the knuckles, palms to the front
+        aim(side + '_collar', (L * sgn * 0.75 + U * 0.66).normalized())                       # shoulders raised with the reach
+        aim(side + '_shoulder', (U * 0.97 - F * (0.12 - lead - 0.03 * math.sin(ph)) + L * sgn * (0.17 + 0.02 * w2)).normalized())   # reach forward + a touch above the line
+        aim(side + '_elbow', (U * 0.97 - F * (0.06 - 0.04 * math.sin(ph - 0.6)) + L * sgn * (0.05 + 0.015 * w3)).normalized())   # forearm on the line, soft elbow
+        aim(side + '_wrist', (U * 0.98 - F * (0.04 - 0.03 * math.sin(ph - 1.1)) + L * sgn * 0.03).normalized())
+        palm_n = F                                                                               # fists lead with the knuckles, palms to the front
         for fn in FINGERS:
             for j, deg in ((1, 80), (2, 95), (3, 75)):
                 n = '%s_%s%d' % (side, fn, j)
@@ -116,11 +125,11 @@ def pose(t):
     # legs: together, long, toes pointed; the wind flutters them on their own rhythms
     for side, sgn, soft in (('left', 1, 0.10), ('right', -1, 0.18)):
         f = math.sin(TAU * 3 * t + (0.0 if sgn > 0 else 1.9))
-        aim(side + '_hip', (-UP + FWD * (0.03 + 0.025 * f) - LEFT * sgn * 0.035).normalized())
-        aim(side + '_knee', (-UP - FWD * (soft + 0.04 * f)).normalized())
-        aim(side + '_ankle', (-UP * 0.96 - FWD * 0.05 + FWD * (0.27 + 0.03 * w3)).normalized())   # pointed toes
+        aim(side + '_hip', (-U + F * (0.03 + 0.025 * f) - L * sgn * 0.035).normalized())
+        aim(side + '_knee', (-U - F * (soft + 0.04 * f)).normalized())
+        aim(side + '_ankle', (-U * 0.96 - F * 0.05 + F * (0.27 + 0.03 * w3)).normalized())   # pointed toes
 
-act = bpy.data.actions.new('HERO_fly_keyed'); arm.animation_data_create(); arm.animation_data.action = act
+act = bpy.data.actions.new('HERO_launch_up' if VERTICAL else 'HERO_fly_keyed'); arm.animation_data_create(); arm.animation_data.action = act
 for f in range(0, N + 1):
     pose((f % N) / N)
     for p in pb:

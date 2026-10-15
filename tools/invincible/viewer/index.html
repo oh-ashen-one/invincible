@@ -38,7 +38,7 @@
   <div class="row"><label><input type="checkbox" id="xray"> X-ray body</label></div>
   <div class="row"><label><input type="checkbox" id="wire"> Wireframe</label></div>
   <div class="row"><label><input type="checkbox" id="spin"> Turntable</label></div>
-  <div class="row"><label><input type="checkbox" id="flat"> Flight orientation (lay him on the fly line, as in game)</label></div>
+  <div class="row"><label><input type="checkbox" id="flat"> Lay flat (only for upright clips)</label></div>
   <div id="animBox" style="display:none">
     <h2>Animations</h2>
     <div class="row"><select id="clip" style="flex:1;background:#2c323c;color:#e8e8e8;border:1px solid #3c4450;border-radius:4px;padding:3px"></select></div>
@@ -67,7 +67,8 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const C = '../../../docs/invincible/character/customuse/';
 const MODELS = [
-  ['FLIGHT — superman line, hand-keyed (tick Flight orientation)', '../../../docs/invincible/character/meshy/hero_fly_keyed.glb'],
+  ['FLIGHT — superman line, flying straight ahead (horizontal)', '../../../docs/invincible/character/meshy/hero_fly_keyed.glb'],
+  ['LAUNCH UP — fists overhead, flying straight up (takeoff base)', '../../../docs/invincible/character/meshy/hero_launch_up.glb'],
   ['HOVER IDLE v2 — hand-keyed to the show reference (loop)', '../../../docs/invincible/character/meshy/hero_hover_keyed.glb'],
   ['HOVER IDLE — 3 Meshy text-to-motion takes on OUR rig', '../../../docs/invincible/character/meshy/hero_hover.glb'],
   ['v2 + 20 Meshy clips retargeted onto OUR rig', '../../../docs/invincible/character/meshy/hero_meshy_clips.glb'],
