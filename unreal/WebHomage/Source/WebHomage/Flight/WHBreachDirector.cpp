@@ -23,8 +23,8 @@ namespace
 {
 	const FName NB_breachIn(TEXT("breachIn")), NB_breachOut(TEXT("breachOut")), NB_heroLand(TEXT("heroLand")), NB_sonicBoom(TEXT("sonicBoom")),
 		NB_flyBump(TEXT("flyBump")), NB_takeoff(TEXT("takeoff"));
-	const FLinearColor Concrete(0.42f, 0.40f, 0.37f), Brick(0.38f, 0.22f, 0.16f), Steel(0.20f, 0.21f, 0.23f), Scorch(0.025f, 0.022f, 0.02f);
-	FVector AnyPerp(const FVector& N) { return FVector::CrossProduct(N, FMath::Abs(N.Z) < 0.9 ? FVector::UpVector : FVector::ForwardVector).GetSafeNormal(); }
+	const FLinearColor BdConcrete(0.42f, 0.40f, 0.37f), BdBrick(0.38f, 0.22f, 0.16f), BdSteel(0.20f, 0.21f, 0.23f), BdScorch(0.025f, 0.022f, 0.02f);
+	FVector BdAnyPerp(const FVector& N) { return FVector::CrossProduct(N, FMath::Abs(N.Z) < 0.9 ? FVector::UpVector : FVector::ForwardVector).GetSafeNormal(); }
 }
 
 AWHBreachDirector::AWHBreachDirector()
@@ -96,14 +96,14 @@ void AWHBreachDirector::Breach(const FVector& PosM, const FVector& DirM, float S
 	const FVector D = DirM.GetSafeNormal();
 	// debris: entry blows inward (with the hero), exit blows outward; both spray forward along the flight line
 	const double Sp = 1800.0 + 2600.0 * Sev;
-	SpawnChunks(P, D, ChunksPerBreach, Sp, bEntry ? Concrete : Brick, 35.0 + 30.0 * Sev);
+	SpawnChunks(P, D, ChunksPerBreach, Sp, bEntry ? BdConcrete : BdBrick, 35.0 + 30.0 * Sev);
 	SpawnShards(P, D, ShardsPerBreach, Sp * 1.2);
 	Fx.Dust(PosM, 2.5 + 2.5 * Sev);
 	Fx.Dust(PosM + D * 3.0, 2.0 + 2.0 * Sev);
 	{ FLinearColor Spark(3.0f, 2.2f, 1.4f); Fx.Hit(PosM, D, 1.0, &Spark); }
 	// the hole: a scorched plate flush with the facade, square-on to the flight line (the facade normal is ~ -D at an entry)
-	const FQuat Q = FRotationMatrix::MakeFromZX(-D, AnyPerp(D)).ToQuat();
-	PlaceScar(P - D * (bEntry ? 5.0 : -5.0), Q, FVector(3.2 + 1.6 * Sev, 2.6 + 1.2 * Sev, 0.08), Scorch);
+	const FQuat Q = FRotationMatrix::MakeFromZX(-D, BdAnyPerp(D)).ToQuat();
+	PlaceScar(P - D * (bEntry ? 5.0 : -5.0), Q, FVector(3.2 + 1.6 * Sev, 2.6 + 1.2 * Sev, 0.08), BdScorch);
 	if (GcAsset) SpawnGc(P, D);
 	PlaySynth(1, P, 0.8f + 0.2f * Sev);
 	if (bEntry)
@@ -142,8 +142,8 @@ void AWHBreachDirector::Crater(const FVector& PosM, float Sev)
 		Dc->SetWorldLocationAndRotation(P, FRotator(-90.0, 0.0, 0.0));
 		Dc->SetVisibility(true);
 	}
-	else PlaceScar(P + FVector(0, 0, 2.0), FQuat::Identity, FVector(4.2 + 4.0 * Sev, 4.2 + 4.0 * Sev, 0.03), Scorch);
-	SpawnChunks(P + FVector(0, 0, 20.0), FVector::UpVector, ChunksPerCrater, 700.0 + 900.0 * Sev, Concrete, 25.0 + 25.0 * Sev);
+	else PlaceScar(P + FVector(0, 0, 2.0), FQuat::Identity, FVector(4.2 + 4.0 * Sev, 4.2 + 4.0 * Sev, 0.03), BdScorch);
+	SpawnChunks(P + FVector(0, 0, 20.0), FVector::UpVector, ChunksPerCrater, 700.0 + 900.0 * Sev, BdConcrete, 25.0 + 25.0 * Sev);
 	Fx.Dust(PosM, 3.0 + 4.0 * Sev);
 	{
 		FRing* Rg = nullptr;
@@ -170,7 +170,7 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 		const FVector D = DirM.GetSafeNormal();
 		Rg->bLive = true; Rg->T = 0; Rg->Life = 0.7; Rg->R1 = 28.0;
 		Rg->Pos = PosM * 100.0 - D * 150.0;
-		Rg->Q = FRotationMatrix::MakeFromZX(D, AnyPerp(D)).ToQuat();
+		Rg->Q = FRotationMatrix::MakeFromZX(D, BdAnyPerp(D)).ToQuat();
 		Rg->Comp->SetVisibility(true);
 	}
 	PlaySynth(0, PosM * 100.0, 1.f);
@@ -179,14 +179,14 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 void AWHBreachDirector::Bump(const FVector& PosM, const FVector& NormalM, float Sev)
 {
 	Fx.Dust(PosM, 0.8 + 1.2 * Sev);
-	SpawnChunks(PosM * 100.0, NormalM.GetSafeNormal(), 4 + int32(6 * Sev), 500.0 + 700.0 * Sev, Concrete, 18.0);
+	SpawnChunks(PosM * 100.0, NormalM.GetSafeNormal(), 4 + int32(6 * Sev), 500.0 + 700.0 * Sev, BdConcrete, 18.0);
 	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this)) FW->AddCollateral(5000.f + 20000.f * Sev, TEXT("facade scrape"));
 }
 
 void AWHBreachDirector::SpawnChunks(const FVector& PosCm, const FVector& DirN, int32 N, double SpeedCms, const FLinearColor& Tint, double SizeCm)
 {
 	if (!Cube) return;
-	const FVector Side = AnyPerp(DirN), Up = FVector::CrossProduct(DirN, Side);
+	const FVector Side = BdAnyPerp(DirN), Up = FVector::CrossProduct(DirN, Side);
 	for (int32 K = 0; K < N; ++K)
 	{
 		FChunk* Ch = nullptr;
@@ -229,7 +229,7 @@ void AWHBreachDirector::SpawnChunks(const FVector& PosCm, const FVector& DirN, i
 void AWHBreachDirector::SpawnShards(const FVector& PosCm, const FVector& DirN, int32 N, double SpeedCms)
 {
 	if (!Cube) return;
-	const FVector Side = AnyPerp(DirN), Up = FVector::CrossProduct(DirN, Side);
+	const FVector Side = BdAnyPerp(DirN), Up = FVector::CrossProduct(DirN, Side);
 	for (int32 K = 0; K < N; ++K)
 	{
 		FShard* Sh = nullptr;

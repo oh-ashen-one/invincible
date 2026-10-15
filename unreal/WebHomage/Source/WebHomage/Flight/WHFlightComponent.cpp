@@ -18,23 +18,23 @@ namespace
 	WF_NAME(idle) WF_NAME(landLight)
 	WF_NAME(sonicBoom) WF_NAME(breachIn) WF_NAME(breachOut) WF_NAME(heroLand) WF_NAME(flyStop) WF_NAME(flyDash) WF_NAME(flyBump) WF_NAME(land)
 #undef WF_NAME
-	const FVector ZUP(0, 0, 1);
-	double Damp(double A, double B, double Rate, double Dt) { return A + (B - A) * (1.0 - FMath::Exp(-Rate * Dt)); }
-	FVector DampV(const FVector& A, const FVector& B, double Rate, double Dt) { return A + (B - A) * (1.0 - FMath::Exp(-Rate * Dt)); }
-	double Smooth(double X, double A, double B) { const double T = FMath::Clamp((X - A) / FMath::Max(B - A, 1e-6), 0.0, 1.0); return T * T * (3.0 - 2.0 * T); }
-	double AngWrap(double A) { return FMath::Atan2(FMath::Sin(A), FMath::Cos(A)); }
-	FVector YawDir(double A) { return FVector(FMath::Cos(A), FMath::Sin(A), 0.0); }
-	double HLen(const FVector& V) { return FMath::Sqrt(V.X * V.X + V.Y * V.Y); }
+	const FVector FlUp(0, 0, 1);
+	double FlDamp(double A, double B, double Rate, double Dt) { return A + (B - A) * (1.0 - FMath::Exp(-Rate * Dt)); }
+	FVector FlDampV(const FVector& A, const FVector& B, double Rate, double Dt) { return A + (B - A) * (1.0 - FMath::Exp(-Rate * Dt)); }
+	double FlSmooth(double X, double A, double B) { const double T = FMath::Clamp((X - A) / FMath::Max(B - A, 1e-6), 0.0, 1.0); return T * T * (3.0 - 2.0 * T); }
+	double FlAngWrap(double A) { return FMath::Atan2(FMath::Sin(A), FMath::Cos(A)); }
+	FVector FlYawDir(double A) { return FVector(FMath::Cos(A), FMath::Sin(A), 0.0); }
+	double FlHLen(const FVector& V) { return FMath::Sqrt(V.X * V.X + V.Y * V.Y); }
 	/** Rotate unit vector V toward unit vector W by at most MaxAng rad (great circle). */
-	FVector TurnToward(const FVector& V, const FVector& W, double MaxAng)
+	FVector FlTurnToward(const FVector& V, const FVector& W, double MaxAng)
 	{
 		const double Ang = FMath::Acos(FMath::Clamp(FVector::DotProduct(V, W), -1.0, 1.0));
 		if (Ang <= MaxAng || Ang < 1e-5) return W;
 		FVector Ax = FVector::CrossProduct(V, W);
-		if (Ax.SizeSquared() < 1e-10) Ax = FVector::CrossProduct(V, FMath::Abs(V.Z) < 0.9 ? ZUP : FVector(1, 0, 0)); // opposite: any perpendicular
+		if (Ax.SizeSquared() < 1e-10) Ax = FVector::CrossProduct(V, FMath::Abs(V.Z) < 0.9 ? FlUp : FVector(1, 0, 0)); // opposite: any perpendicular
 		return FQuat(Ax.GetSafeNormal(), MaxAng).RotateVector(V).GetSafeNormal();
 	}
-	bool IsFlightSub(FName N) { return N == NF_takeoff || N == NF_hover || N == NF_fly || N == NF_boost || N == NF_brake || N == NF_dash || N == NF_slam || N == NF_breach; }
+	bool FlIsFlightSub(FName N) { return N == NF_takeoff || N == NF_hover || N == NF_fly || N == NF_boost || N == NF_brake || N == NF_dash || N == NF_slam || N == NF_breach; }
 }
 
 UWHFlightComponent::UWHFlightComponent()
@@ -83,7 +83,7 @@ void UWHFlightComponent::Takeoff(UWebTraversalComponent& T)
 	S.Vel = FVector(S.Vel.X * 0.5, S.Vel.Y * 0.5, TakeoffVz);
 	S.Pos.Z += 0.05;
 	bSlam = false;
-	Event(T, TEXT("takeoff"), 0.3f, Feet, ZUP);
+	Event(T, TEXT("takeoff"), 0.3f, Feet, FlUp);
 	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(GetOwner()))
 		FW->PushStimulus(EWHCrowdStimulus::Landing, Feet * 100.0, 900.f, 0.35f, 2.5f);
 }
@@ -104,12 +104,12 @@ void UWHFlightComponent::HeroLand(UWebTraversalComponent& T, double Floor, doubl
 	if (bHero)
 	{
 		++HeroLandCount;
-		Event(T, NF_heroLand, float(S.LandSeverity), Feet, -ZUP, float(ImpactSpeed));
+		Event(T, NF_heroLand, float(S.LandSeverity), Feet, -FlUp, float(ImpactSpeed));
 		if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(GetOwner()))
 			FW->PushStimulus(EWHCrowdStimulus::Landing, Feet * 100.0, float(1500.0 + 3500.0 * S.LandSeverity), 0.6f + 0.4f * float(S.LandSeverity), 5.f);
 		UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT heroLand at (%.1f, %.1f, %.1f) impact %.1f m/s sev %.2f"), Feet.X, Feet.Y, Feet.Z, ImpactSpeed, S.LandSeverity);
 	}
-	else Event(T, NF_land, float(S.LandSeverity), Feet, -ZUP);
+	else Event(T, NF_land, float(S.LandSeverity), Feet, -FlUp);
 }
 
 bool UWHFlightComponent::StartBreach(UWebTraversalComponent& T, const FVector& HitPos, const FVector& HitN, const FVector& Dir)
@@ -225,14 +225,14 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	auto& S = T.S;
 	FVector& V = S.Vel;
 	const FWebTravCamera* Cam = T.Cam;
-	const FVector Aim = Cam ? Cam->Forward().GetSafeNormal() : YawDir(S.Facing);
-	const FVector FwdF = Cam ? Cam->ForwardFlat() : YawDir(S.Facing);
+	const FVector Aim = Cam ? Cam->Forward().GetSafeNormal() : FlYawDir(S.Facing);
+	const FVector FwdF = Cam ? Cam->ForwardFlat() : FlYawDir(S.Facing);
 	const FVector RightF = Cam ? Cam->RightFlat() : FVector(-FMath::Sin(S.Facing), FMath::Cos(S.Facing), 0.0);
 	const bool bFly = I.bSwing;
 	const bool bBoost = bFly && I.bSprint;
 	Climb = (I.bJump ? 1.0 : 0.0) - (I.bDrop ? 1.0 : 0.0);
 	StickBody = I.Move;
-	if (!IsFlightSub(S.Sub)) SetFlySub(T, NF_hover); // walked off a ledge / any legacy air sub: hover
+	if (!FlIsFlightSub(S.Sub)) SetFlySub(T, NF_hover); // walked off a ledge / any legacy air sub: hover
 	if (Sub != S.Sub) Sub = S.Sub;
 
 	// ---- presses (cleared by the caller after the first substep)
@@ -261,7 +261,7 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 		const double K = FMath::Clamp(SubT / FMath::Max(0.05, double(TakeoffDur)), 0.0, 1.0);
 		V.Z = FMath::Max(V.Z, double(TakeoffVz) * FMath::Pow(1.0 - K, 1.5) + Climb * VertSpeed * K);
 		const FVector Want = (FwdF * I.Move.Y + RightF * I.Move.X) * double(HoverSpeed);
-		V.X = Damp(V.X, Want.X, HoverRate, H); V.Y = Damp(V.Y, Want.Y, HoverRate, H);
+		V.X = FlDamp(V.X, Want.X, HoverRate, H); V.Y = FlDamp(V.Y, Want.Y, HoverRate, H);
 		if (K >= 1.0) SetFlySub(T, bFly ? NF_fly : NF_hover);
 		else if (bFly && SubT > 0.15) SetFlySub(T, NF_fly);
 	}
@@ -273,7 +273,7 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	else if (Sub == NF_slam)
 	{
 		const FVector Want(V.X * 0.15, V.Y * 0.15, -double(SlamSpeed));
-		V = DampV(V, Want, 7.0, H);
+		V = FlDampV(V, Want, 7.0, H);
 	}
 	else if (Sub == NF_dash && SubT < DashDur)
 	{
@@ -283,18 +283,18 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	else if (bFly)
 	{
 		FVector D = Aim;
-		if (FMath::Abs(I.Move.X) > 0.05) D = FQuat(ZUP, FMath::DegreesToRadians(StickYawDeg) * I.Move.X).RotateVector(D);
+		if (FMath::Abs(I.Move.X) > 0.05) D = FQuat(FlUp, FMath::DegreesToRadians(StickYawDeg) * I.Move.X).RotateVector(D);
 		if (FMath::Abs(Climb) > 0.01)
 		{
-			const FVector Rt = FVector::CrossProduct(ZUP, D).GetSafeNormal();
+			const FVector Rt = FVector::CrossProduct(FlUp, D).GetSafeNormal();
 			if (!Rt.IsNearlyZero()) D = FQuat(Rt, -FMath::DegreesToRadians(ClimbPitchDeg) * Climb).RotateVector(D); // +Climb pitches up
 		}
 		D = D.GetSafeNormal();
 		double Vt = bBoost ? BoostSpeed : CruiseSpeed;
 		if (I.Move.Y < -0.3) Vt *= FMath::Lerp(1.0, 0.35, FMath::Clamp((-I.Move.Y - 0.3) / 0.7, 0.0, 1.0)); // stick back = slow flight
 		FVector Dir = Sp > 1.0 ? V / Sp : D;
-		const double TurnDeg = FMath::Lerp(double(TurnRateSlow), double(TurnRateFast), Smooth(Sp, CruiseSpeed * 0.5, BoostSpeed));
-		Dir = TurnToward(Dir, D, FMath::DegreesToRadians(TurnDeg) * H);
+		const double TurnDeg = FMath::Lerp(double(TurnRateSlow), double(TurnRateFast), FlSmooth(Sp, CruiseSpeed * 0.5, BoostSpeed));
+		Dir = FlTurnToward(Dir, D, FMath::DegreesToRadians(TurnDeg) * H);
 		double V1 = Sp;
 		if (V1 < Vt)
 		{
@@ -307,9 +307,9 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	}
 	else
 	{ // hover: stick strafes on the camera's ground plane, Space / C climb; a fast arrival glides down instead of stopping dead
-		const FVector Want = (FwdF * I.Move.Y + RightF * I.Move.X) * double(HoverSpeed) + ZUP * (Climb * double(VertSpeed));
+		const FVector Want = (FwdF * I.Move.Y + RightF * I.Move.X) * double(HoverSpeed) + FlUp * (Climb * double(VertSpeed));
 		const double Rate = Sp > HoverSpeed * 1.5 ? HoverGlideRate : HoverRate;
-		V = DampV(V, Want, Rate, H);
+		V = FlDampV(V, Want, Rate, H);
 		SetFlySub(T, NF_hover);
 	}
 	// ---- sonic boom (hysteresis)
@@ -329,37 +329,37 @@ FQuat UWHFlightComponent::FlightOrient(UWebTraversalComponent& T, double Dt, con
 {
 	auto& S = T.S;
 	const FVector V = S.Vel;
-	const double Sp = V.Size(), HS = HLen(V);
+	const double Sp = V.Size(), HS = FlHLen(V);
 	const bool bLine = (Sub == NF_fly || Sub == NF_boost || Sub == NF_dash || Sub == NF_breach) && Sp > 6.0;
-	FlyK = Damp(FlyK, bLine ? Smooth(Sp, 6.0, 25.0) : 0.0, 6.0, Dt);
+	FlyK = FlDamp(FlyK, bLine ? FlSmooth(Sp, 6.0, 25.0) : 0.0, 6.0, Dt);
 	// bank: centripetal lean from the yaw rate of travel (+ = right turn)
 	const double VelYaw = FMath::Atan2(V.Y, V.X);
 	double YR = 0.0;
-	if (bHaveVelYaw && HS > 4.0) YR = AngWrap(VelYaw - LastVelYaw) / FMath::Max(Dt, 1e-3);
+	if (bHaveVelYaw && HS > 4.0) YR = FlAngWrap(VelYaw - LastVelYaw) / FMath::Max(Dt, 1e-3);
 	LastVelYaw = VelYaw; bHaveVelYaw = HS > 4.0;
 	const double BankWant = FMath::Clamp(YR * HS / 30.0, -1.0, 1.0) * FMath::DegreesToRadians(double(BankMaxDeg)) * FlyK;
-	Bank = Damp(Bank, BankWant, 5.0, Dt);
+	Bank = FlDamp(Bank, BankWant, 5.0, Dt);
 	// hover frame: faces the camera's look, leans with the stick
 	const double CamYaw = T.Cam ? T.Cam->Yaw : S.Facing;
 	if (!bHoverYawInit) { HoverYaw = S.Facing; bHoverYawInit = true; }
 	if (FlyK > 0.5 && HS > 4.0) HoverYaw = VelYaw; // coming out of a fly line the hover keeps the travel heading
-	else HoverYaw = HoverYaw + AngWrap(CamYaw - HoverYaw) * (1.0 - FMath::Exp(-6.0 * Dt));
+	else HoverYaw = HoverYaw + FlAngWrap(CamYaw - HoverYaw) * (1.0 - FMath::Exp(-6.0 * Dt));
 	const double Lean = FMath::DegreesToRadians(double(HoverLeanDeg));
 	double LeanP = I.Move.Y * Lean, LeanR = I.Move.X * Lean;
 	if (Sub == NF_brake) LeanP = -0.6;                       // legs swing forward under the stop
 	if (Sub == NF_slam) { LeanP = 0.18; LeanR = 0.0; }        // feet first, slight forward pitch
 	if (Sub == NF_takeoff) { LeanP *= 0.4; LeanR *= 0.4; }
-	Pitch = Damp(Pitch, LeanP, 8.0, Dt);
-	RollS = Damp(RollS, LeanR, 8.0, Dt);
+	Pitch = FlDamp(Pitch, LeanP, 8.0, Dt);
+	RollS = FlDamp(RollS, LeanR, 8.0, Dt);
 	const double RollH = RollS;
-	FQuat QU = FQuat(ZUP, HoverYaw) * FQuat(FVector(0, 1, 0), Pitch) * FQuat(FVector(1, 0, 0), -RollH);
+	FQuat QU = FQuat(FlUp, HoverYaw) * FQuat(FVector(0, 1, 0), Pitch) * FQuat(FVector(1, 0, 0), -RollH);
 	// fly line: head leads along the velocity, chest toward the ground, rolled into the turn
 	FQuat QL = QU;
 	if (Sp > 1.0)
 	{
 		const FVector Vd = V / Sp;
-		FVector X0 = -ZUP - Vd * FVector::DotProduct(-ZUP, Vd);
-		if (X0.SizeSquared() < 0.04) { const FVector F = YawDir(HoverYaw); X0 = F - Vd * FVector::DotProduct(F, Vd); }
+		FVector X0 = -FlUp - Vd * FVector::DotProduct(-FlUp, Vd);
+		if (X0.SizeSquared() < 0.04) { const FVector F = FlYawDir(HoverYaw); X0 = F - Vd * FVector::DotProduct(F, Vd); }
 		QL = FRotationMatrix::MakeFromZX(Vd, X0.GetSafeNormal()).ToQuat() * FQuat(FVector(0, 0, 1), -Bank);
 	}
 	const FQuat Want = FQuat::Slerp(QU, QL, FlyK).GetNormalized();
@@ -415,7 +415,7 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 		// safety net: never resolved inside a solid outside a breach -- carry on through it along the travel (or straight up)
 		if (!bBreach && S.Mode == EWebTravMode::Air && T.TravWorld.Inside(S.Pos + FVector(0, 0, 0.3)))
 		{
-			const FVector D = S.Vel.SizeSquared() > 4.0 ? S.Vel.GetSafeNormal() : ZUP;
+			const FVector D = S.Vel.SizeSquared() > 4.0 ? S.Vel.GetSafeNormal() : FlUp;
 			if (!StartBreach(T, S.Pos, -D, D)) { FTravContact C; T.Collide(UWebTraversalComponent::STEP, UWebTraversalComponent::R + 0.05, C); }
 		}
 		if (K == 0)

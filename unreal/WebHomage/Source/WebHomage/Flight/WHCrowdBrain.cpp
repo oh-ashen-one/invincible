@@ -3,20 +3,20 @@
 
 namespace
 {
-	inline uint32 Hash(uint32 X) { X ^= X >> 16; X *= 0x7feb352dU; X ^= X >> 15; X *= 0x846ca68bU; X ^= X >> 16; return X; }
-	inline float U01(uint32 Seed, uint32 Salt) { return (Hash(Seed * 2654435761U + Salt) & 0xFFFFFF) / 16777216.f; }
-	TSharedPtr<IWHCrowdBrain>& Custom() { static TSharedPtr<IWHCrowdBrain> B; return B; }
-	const FWHRulesCrowdBrain& Rules() { static FWHRulesCrowdBrain B; return B; }
+	inline uint32 CbHash(uint32 X) { X ^= X >> 16; X *= 0x7feb352dU; X ^= X >> 15; X *= 0x846ca68bU; X ^= X >> 16; return X; }
+	inline float CbU01(uint32 Seed, uint32 Salt) { return (CbHash(Seed * 2654435761U + Salt) & 0xFFFFFF) / 16777216.f; }
+	TSharedPtr<IWHCrowdBrain>& CbCustom() { static TSharedPtr<IWHCrowdBrain> B; return B; }
+	const FWHRulesCrowdBrain& CbRules() { static FWHRulesCrowdBrain B; return B; }
 }
 
 const IWHCrowdBrain& WHCrowdBrain::Get()
 {
-	return Custom().IsValid() ? *Custom() : static_cast<const IWHCrowdBrain&>(Rules());
+	return CbCustom().IsValid() ? *CbCustom() : static_cast<const IWHCrowdBrain&>(CbRules());
 }
 
 void WHCrowdBrain::Register(TSharedPtr<IWHCrowdBrain> Brain)
 {
-	Custom() = Brain;
+	CbCustom() = Brain;
 }
 
 void FWHRulesCrowdBrain::Decide(const FWHCrowdAgentView& Agent, TArrayView<const FWHCrowdStimulus> Stimuli, const FWHCrowdHeroView& Hero, float Now, FWHCrowdDecision& Out) const
@@ -59,14 +59,14 @@ void FWHRulesCrowdBrain::Decide(const FWHCrowdAgentView& Agent, TArrayView<const
 			&& Agent.Current != EWHCrowdAction::Cower && Agent.Current != EWHCrowdAction::Flee;
 		if (bBrace)
 		{
-			Out.Action = EWHCrowdAction::Cower; Out.Hold = 0.45f + 0.4f * U01(Agent.Seed, Bucket + 11);
+			Out.Action = EWHCrowdAction::Cower; Out.Hold = 0.45f + 0.4f * CbU01(Agent.Seed, Bucket + 11);
 			Out.LookAtCm = Danger->PosCm;
 			return;
 		}
 		Out.Action = EWHCrowdAction::Flee;
 		Out.FleeDir = (Along * 0.85f + AwayN * 0.15f).GetSafeNormal();
-		Out.SpeedMul = FMath::Lerp(RunMulMin, RunMulMax, U01(Agent.Seed, Bucket + 23));
-		Out.Hold = FMath::Lerp(FleeHoldMin, FleeHoldMax, U01(Agent.Seed, Bucket + 37));
+		Out.SpeedMul = FMath::Lerp(RunMulMin, RunMulMax, CbU01(Agent.Seed, Bucket + 23));
+		Out.Hold = FMath::Lerp(FleeHoldMin, FleeHoldMax, CbU01(Agent.Seed, Bucket + 37));
 		Out.LookAtCm = Danger->PosCm;
 		return;
 	}
@@ -74,14 +74,14 @@ void FWHRulesCrowdBrain::Decide(const FWHCrowdAgentView& Agent, TArrayView<const
 	{
 		Out.Action = EWHCrowdAction::LookUp;
 		Out.LookAtCm = Hero.bValid ? Hero.PosCm : Look->PosCm;
-		Out.Hold = FMath::Lerp(LookHoldMin, LookHoldMax, U01(Agent.Seed, Bucket + 51));
+		Out.Hold = FMath::Lerp(LookHoldMin, LookHoldMax, CbU01(Agent.Seed, Bucket + 51));
 		return;
 	}
 	if (Gawk)
 	{
 		Out.Action = EWHCrowdAction::Gawk;
 		Out.LookAtCm = Hero.bValid && !Hero.bFlying ? Hero.PosCm : Gawk->PosCm;
-		Out.Hold = GawkHold * (0.8f + 0.4f * U01(Agent.Seed, Bucket + 67));
+		Out.Hold = GawkHold * (0.8f + 0.4f * CbU01(Agent.Seed, Bucket + 67));
 		return;
 	}
 	Out.Action = EWHCrowdAction::Walk;
