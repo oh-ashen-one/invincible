@@ -86,19 +86,28 @@ def pose(t):
     s2 = math.sin(4 * math.pi * t + 0.7)
     for p in pb: p.matrix_basis = Matrix.Identity(4)
     bpy.context.view_layer.update()
-    # body: hips UNDER the chest (pelvis tilted forward a touch, never thrust forward), slow bob, breathing in the chest
-    pb['pelvis'].location = pb['pelvis'].location + (AW.inverted().to_3x3() @ (UP * (0.012 * H * s1)))
+    # owner round 2 ("too stiff"): helicopter-style bob (2 per loop), legs/arms lag it, torso sways, the BACK breathes (player sees it)
+    TAU = 2 * math.pi
+    bob = math.sin(TAU * 2 * t) + 0.18 * math.sin(TAU * 4 * t + 0.6)          # smooth up/down, 2 s period
+    lag = math.sin(TAU * 2 * t - 0.9)                                       # limbs follow the body ~0.3 s late
+    br = 0.5 - 0.5 * math.cos(TAU * t)                                      # breath 0..1, one per loop (4 s)
+    sway = math.sin(TAU * t + 0.4)
+    pb['pelvis'].location = pb['pelvis'].location + (AW.inverted().to_3x3() @ (UP * (0.035 * H * bob)))
     bpy.context.view_layer.update()
-    turn('pelvis', LEFT, 4 + 1.0 * s1)                 # tip the hips forward (tucks the groin back under the torso)
-    turn('spine1', LEFT, -2.0); turn('spine2', LEFT, -1.5 + 1.2 * c1)   # chest proud, breathing
-    turn('spine3', LEFT, -1.0 + 0.8 * c1)
-    turn('head', LEFT, 3.0 + 0.6 * s2); turn('head', UP, 2.0 * math.sin(2 * math.pi * t + 1.3))   # level gaze, tiny scan
+    turn('pelvis', LEFT, 4 + 1.5 * lag)                                     # hips tucked under the chest, rocking with the bob
+    turn('pelvis', FWD, 2.5 * sway); turn('pelvis', UP, 3.0 * math.sin(TAU * t - 0.3))
+    turn('spine1', FWD, -1.2 * sway); turn('spine2', FWD, -1.0 * sway)      # spine counter-sways: head stays steady
+    turn('spine1', LEFT, -2.0 - 1.0 * br); turn('spine2', LEFT, -1.5 - 2.5 * br)   # chest proud, upper back expands on the breath
+    turn('spine3', LEFT, -1.0 - 2.0 * br)
+    for side in ('left', 'right'):                                          # shoulders/collars lift on the in-breath (reads from behind)
+        c = side + '_collar'; d0 = limb(c); aim(c, (d0 + UP * (0.10 * br + 0.03 * lag)).normalized())
+    turn('head', LEFT, 3.0 - 1.0 * lag); turn('head', UP, 3.0 * math.sin(TAU * t + 1.3)); turn('head', FWD, 1.0 * sway)
     # arms: hang slightly away from the body, elbows soft, fists by the thighs
     for side, sgn in (('left', 1), ('right', -1)):
-        ph = 2 * math.pi * t + (0 if sgn > 0 else 0.9)
-        up_dir = (-UP * 0.93 + LEFT * sgn * (0.30 + 0.02 * math.sin(ph)) - FWD * 0.02).normalized()
+        ph = 2 * math.pi * 2 * t + (0 if sgn > 0 else 0.9) - 0.9   # arms swing with the bob, a little late, sides offset
+        up_dir = (-UP * 0.93 + LEFT * sgn * (0.30 + 0.07 * math.sin(ph)) + FWD * (0.06 * math.sin(ph + 1.1) - 0.02)).normalized()
         aim(side + '_shoulder', up_dir)
-        fore = (-UP * 0.96 + LEFT * sgn * 0.20 + FWD * (0.10 + 0.015 * math.sin(ph))).normalized()
+        fore = (-UP * 0.96 + LEFT * sgn * 0.20 + FWD * (0.10 + 0.08 * math.sin(ph + 0.6))).normalized()
         aim(side + '_elbow', fore)
         aim(side + '_wrist', (-UP * 0.97 + LEFT * sgn * 0.12 + FWD * 0.10).normalized())
         # fist: curl each finger joint ~80 deg around the axis across the palm; thumb wraps over
@@ -113,11 +122,11 @@ def pose(t):
             n = '%s_thumb%d' % (side, j)
             if n in pb: turn(n, FWD, deg * sgn)
     # legs: together and hanging; LEFT leg near-straight, RIGHT knee bent with the foot trailing back; toes pointed down
-    pb['left_hip'] and aim('left_hip', (-UP + FWD * (0.06 + 0.01 * s1) - LEFT * 0.04).normalized())
-    aim('left_knee', (-UP + FWD * 0.02 - LEFT * 0.02).normalized())
+    pb['left_hip'] and aim('left_hip', (-UP + FWD * (0.06 - 0.10 * lag) - LEFT * (0.04 + 0.02 * sway)).normalized())
+    aim('left_knee', (-UP + FWD * (0.02 - 0.08 * lag) - LEFT * 0.02).normalized())
     aim('left_ankle', (-UP * 0.88 + FWD * 0.47).normalized())          # foot pointed: toes mostly down (reference hover)
-    aim('right_hip', (-UP + FWD * (0.10 - 0.01 * s1) + LEFT * 0.05).normalized())
-    aim('right_knee', (-UP * 0.80 - FWD * (0.60 + 0.03 * s2)).normalized())   # shin trails back
+    aim('right_hip', (-UP + FWD * (0.10 - 0.12 * lag) + LEFT * (0.05 - 0.02 * sway)).normalized())
+    aim('right_knee', (-UP * 0.80 - FWD * (0.60 + 0.14 * lag)).normalized())   # shin trails back
     aim('right_ankle', (-UP * 0.80 - FWD * 0.20).normalized())         # trailing foot: pointed down-back along the shin
     for n in ('left_foot', 'right_foot'): turn(n, LEFT, 8)
 
