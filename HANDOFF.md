@@ -2,6 +2,14 @@
 
 **Repository moved 2026-10-15 (owner-authorized): this project now lives at `oh-ashen-one/invincible` — its `main` is the former tip of `spider-man-2`'s `invincible` branch (18105f29) with full history. Do all Invincible work on task branches there; merging to its `main` needs the owner's OK. The `spider-man-2` repo and its `invincible` branch stay untouched as the archive; draft PR oh-ashen-one/spider-man-2#5 is closed with a pointer here. Studio checkout for this work: `/Users/midir/spider-man-2-invincible` (origin = the new repo; `/Users/midir/spider-man-2` remains read-only). Studio state so far: compiles clean (one shadowed-local fix, commit 18105f29), all 9 suits baked + DA_HeroSuits rebuilt with `invincible` as default, smoke run verified (WH_FLIGHT mode ON, breach director ready, WH_RESCUE director ready, 2x1080p shots in ~/sm2-n1/_scratch/invincible-smoke).
 
+### Hero v2 + animation pass — 2026-10-15 evening (owner-driven, then autonomous while the owner is away)
+
+- **Hero v2** (owner-approved model): CustomUse 4-view turnaround -> Hunyuan sculpt + Meshy-7 4K multiview texture -> Cartwheel 52-bone rig: `docs/invincible/character/customuse/v2/rigged_hunyuanTex.glb`. Review tool: local three.js viewer `tools/invincible/viewer/` (serve the repo root: `python3 -m http.server 5291 --bind 127.0.0.1`, open `/tools/invincible/viewer/`).
+- **Clips** (ledger + status: `docs/invincible/character/ANIMATIONS.md`): owner-CONFIRMED hover (`hover_keyed.py`), superman flight (`fly_keyed.py`), Shift boost v3 (`boost_from_take.py` on Meshy take B). Autonomous, awaiting owner review: brake, slam dive + superhero landing, takeoff (`post_take.py` on Meshy takes), boost game clips (`boost_game_clips.py`: 0.42 s burst + hold loop). Owner animation rules live in the ledger (reference search first; horizontal flight; straight head; no arm twist; real fists; body coils with the motion, no hip shaking).
+- **Credits used (existing only, owner: never buy new):** CustomUse 4178 -> 3239; Meshy 1501 -> 1197. Tripo API balance 0 (web credits need browser control).
+- **Unreal:** `tools/invincible/merge_hero_clips.py` -> `Saved/P2Build/invincible/SK_InvincibleV2.glb` (hero + 12 clips) -> `Scripts/import_invincible_v2.py` (headless, SM2_BUILD_OK) -> `/Game/Invincible/HeroV2/SK_InvincibleV2` + `Anims/AS_*` (own skeleton). C++ clip-driven anim instance `UWHHeroV2AnimInstance` + mesh wiring in progress (builder notes: `docs/invincible/loop/heroV2_integration_NOTES.md`).
+- **Also built, not yet played by the owner:** Shift sonic-boom super boost, double-tap Space superhero landing, flight-sim controls (`docs/invincible/loop/owner1_fx_NOTES.md`, commit 8650eb9d).
+
 ### Overnight loop result — 2026-10-15 00:30-06:00 ET (Devin session, Claude Opus 5.5 High; critics: sm2-opus-critic, Opus 5.5 High)
 
 Branch `invincible` on `oh-ashen-one/invincible` (pushed; NOT merged to `main` — needs the owner's OK). Read `docs/invincible/RESULTS.md` first.
