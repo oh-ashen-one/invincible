@@ -99,10 +99,15 @@ def pose(t):
         bpy.context.view_layer.update()
     w1 = math.sin(TAU * 2 * t); w2 = math.sin(TAU * 3 * t + 0.8); w3 = math.sin(TAU * 5 * t + 2.1)   # wind layers (2 s, 1.33 s, 0.8 s)
     hip = math.sin(TAU * t)                                                                       # slow undulation driver (4 s)
-    turn('pelvis', L, -3.0 + 2.0 * hip); turn('pelvis', F, 1.5 * w1)                          # hips drive
-    turn('spine1', L, -2.0 + 1.5 * math.sin(TAU * t - 0.5)); turn('spine2', L, -3.0 + 1.5 * math.sin(TAU * t - 1.0))   # chest lifted, overlap up the spine
-    turn('spine3', L, -2.0 + 1.2 * math.sin(TAU * t - 1.5)); turn('spine2', F, -1.0 * w1)
-    aim('neck', (U * 0.94 - F * 0.34).normalized())                                            # chin up ~20 deg: eyes ahead once the body lies on the fly line
+    turn('pelvis', L, -3.0 + 0.5 * hip)                                                          # owner: less vertical 'worm'
+    side = math.sin(TAU * t); side_l = math.sin(TAU * t - 0.9)                                   # owner: weave left/right (4 s), chest lags the hips
+    turn('pelvis', F, 6.0 * side + 0.8 * w1)                                                     # yaw left/right (F = belly normal = world vertical)
+    turn('pelvis', U, 8.0 * math.sin(TAU * t + 0.5))                                             # bank into each side of the weave
+    turn('spine1', L, -2.0 + 0.4 * math.sin(TAU * t - 0.5)); turn('spine2', L, -3.0 + 0.4 * math.sin(TAU * t - 1.0))   # chest lifted, overlap up the spine
+    turn('spine3', L, -2.0 + 0.3 * math.sin(TAU * t - 1.5))
+    turn('spine1', F, -2.5 * side_l); turn('spine2', F, -2.5 * side_l)                            # S-curve: chest swings back a beat late
+    turn('spine2', U, -3.0 * math.sin(TAU * t + 0.1))                                            # shoulders counter-roll a little
+    aim('neck', (U * 0.94 - F * 0.34).normalized()); turn('head', F, -4.0 * side)   # gaze stays ahead through the weave                                            # chin up ~20 deg: eyes ahead once the body lies on the fly line
     for side, sgn in (('left', 1), ('right', -1)):
         ph = TAU * t - 2.0 + (0.0 if sgn > 0 else 1.7)                                            # arms lag the spine; sides offset
         lead = 0.06 if sgn < 0 else 0.0                                                            # right fist leads a touch (cover pose)
@@ -125,8 +130,8 @@ def pose(t):
     # legs: together, long, toes pointed; the wind flutters them on their own rhythms
     for side, sgn, soft in (('left', 1, 0.10), ('right', -1, 0.18)):
         f = math.sin(TAU * 3 * t + (0.0 if sgn > 0 else 1.9))
-        aim(side + '_hip', (-U + F * (0.03 + 0.025 * f) - L * sgn * 0.035).normalized())
-        aim(side + '_knee', (-U - F * (soft + 0.04 * f)).normalized())
+        aim(side + '_hip', (-U + F * (0.03 + 0.015 * f) - L * (sgn * 0.035 + 0.09 * math.sin(TAU * t - 1.6))).normalized())   # legs trail the weave
+        aim(side + '_knee', (-U - F * (soft + 0.03 * f) - L * 0.06 * math.sin(TAU * t - 2.1)).normalized())
         aim(side + '_ankle', (-U * 0.96 - F * 0.05 + F * (0.27 + 0.03 * w3)).normalized())   # pointed toes
 
 act = bpy.data.actions.new('HERO_launch_up' if VERTICAL else 'HERO_fly_keyed'); arm.animation_data_create(); arm.animation_data.action = act
