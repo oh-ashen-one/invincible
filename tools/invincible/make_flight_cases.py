@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parent / 'flight_cases'
-LEVEL_T, BRAKE_T, STRAFE, DROP_S, DIVE_T, SET_T = 8.0, 14.1, -0.25, 2.4, 17.6, 20.6   # fl17 route timing (rescue probe: climb at 50 deg, level at crane height, brake at the load)
+LEVEL_T, BRAKE_T, STRAFE, DROP_S, DIVE_T, SET_T = 8.0, 14.23, -0.25, 2.4, 17.6, 20.6   # fl17 route timing (rescue probe: climb at 50 deg, level at crane height, brake at the load)
 TS = [-20.0, -230.0, 0.9]   # body centre (0.95 m over the feet) on the Times Square plaza floor (-0.06 m)
 AV = [250.0, 300.0, 0.95]   # 5th Av roadway (open street: no TKTS steps / billboards / crowd between the camera and the hero)
 
@@ -69,7 +69,7 @@ CASES = [
          checks=dict(subs=['slam'], hero_lands=1, grounded_end=True)),
     dict(name='fl12_fast_land', quit=8.0, note='Boost from 160 m, look down 40 deg (0.5-1.5 s): high-speed street impact = superhero landing without the slam key.',
          spawn=dict(pos=[250, 500, 160], yaw=-90, camPitch=0.14, vel=[0, -20, 0]),
-         keys=[K(0, move=[0, 0]), K(0.1, swing=True, sprint=True), K(0.5, look=[0, 40]), K(1.5, look=[0, 0])],
+         keys=[K(0, move=[0, 0]), K(0.1, swing=True), K(0.4, sprint=True), K(0.9, look=[0, 40]), K(1.9, look=[0, 0])],   # (owner fx: Shift now = charge -> boom; fly first)
          checks=dict(subs=['fly'], hero_lands=1, grounded_end=True, min_speed=90.0)),
     dict(name='fl13_soft_land_walk', quit=11.0, note='Hover descent from 25 m to a gentle touchdown on 5th Av, walk forward on the street, take off again.',
          spawn=dict(pos=[250, 300, 25], yaw=-90, camPitch=0.2),
