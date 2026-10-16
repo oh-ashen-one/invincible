@@ -18,16 +18,16 @@
 #   M_InvVapour    translucent, UNLIT, two-sided. White vapour with a fresnel-bright edge (face-on is nearly clear, grazing is opaque), noise
 #                  turbulence that travels with the object (world position - object position + time); opacity = the Opacity parameter.
 #                  Used for the sonic-boom cone / rings and the ground shock ring.
-#                  [Color=(0.92, 0.95, 1.0), Opacity=1, EdgePow=1.6, Gain=1.2, Soft=0.7]
+#                  [Color=(0.92, 0.95, 1.0), Opacity=1, EdgePow=1.6, Gain=1.2, Soft=0.7, NearFade=60, NearFadeLen=220 (r5: opacity fades to 0 near the lens)]
 #   M_InvDust      translucent LIT (surface lighting), two-sided. A dust puff for a sphere: soft round silhouette (opacity falls to 0 at the
 #                  rim), eroded lumpy interior from noise; denser and more opaque than the combat FX puffs.
-#                  [Color=(0.34, 0.31, 0.27), Opacity=0.7, Emissive=0.12, Soft=1, Seed=0.5]
+#                  [Color=(0.34, 0.31, 0.27), Opacity=0.7, Emissive=0.12, Soft=1, Seed=0.5, NearFade=40, NearFadeLen=200]
 #   M_InvChunk     opaque LIT. Concrete speckle, or brick courses with mortar (Brick >= 0.5), from the cube's object-relative position.
 #                  [Color=(0.40, 0.38, 0.35), Rough=0.9, Brick=0, Seed=0.5]
 #   M_InvStreak    (owner feedback 2026-10-15 #1, super-boost speed read) translucent ADDITIVE, UNLIT, two-sided. A speed line for a sphere
 #                  stretched along Dir: bright on the centre line facing the camera, fading to the silhouette and to 0 at both ends along Dir
 #                  (HalfLen cm), a little brighter at the front. Used for the world wind streaks, the charge's inward streaks, the body trail.
-#                  [Dir=(1, 0, 0), HalfLen=500, Opacity=0.5, Color=(0.9, 0.93, 1.0), Gain=1.6, EdgePow=1 (unused)]
+#                  [Dir=(1, 0, 0), HalfLen=500, Opacity=0.5, Color=(0.9, 0.93, 1.0), Gain=1.6, EdgePow=1 (unused), NearFade=80, NearFadeLen=250]
 # The C++ side (Flight/WHBreachDirector.cpp) loads all of them optionally and falls back to the round-2 proxies when one is missing.
 #
 # Plain python3 (no Unreal): `python3 build_invincible_fx.py --dump-hlsl <dir>` writes the HLSL body of every Custom node to <dir>/*.hlsl
@@ -268,6 +268,7 @@ float py = RP.y * 0.02 + RP.z * 0.017;
 @FBM_NZ@
 float turb = lerp(1.0, 0.25 + 1.5 * nz, saturate(Soft));
 float o = Op * turb * (0.10 + 0.90 * fr);
+o = o * saturate((PD - NF) / max(NL, 1.0));
 return saturate(o);
 """
 
@@ -281,6 +282,7 @@ float py = RP.y * 0.012 + RP.z * 0.017;
 @FBM_NZ@
 float lump = smoothstep(0.12, 0.45, nz + (fa - 1.0) * 0.7);
 float o = Op * lerp(fa, lump * fa, saturate(Soft));
+o = o * saturate((PD - NF) / max(NL, 1.0));
 return saturate(o);
 """
 
@@ -322,7 +324,8 @@ float hl = max(HalfLen, 1.0);
 float u = saturate(abs(ax) / hl);
 float along = (1.0 - u * u) * (1.0 - u * u);
 float head = 0.6 + 0.4 * saturate(ax / hl * 0.5 + 0.5);
-return saturate(Op * core * along * head);
+float nfade = saturate((PD - NF) / max(NL, 1.0));
+return saturate(Op * core * along * head * nfade);
 """
 
 
@@ -349,10 +352,13 @@ CUSTOM_NODES = {
     'hole_normal': (hole_normal_code, [('UV', 'float2'), ('Seed', 'float'), ('Open', 'float'), ('Bump', 'float')], 'float3'),
     'crater_color': (crater_color_code, [('UV', 'float2'), ('Seed', 'float'), ('Open', 'float'), ('RimCol', 'float3')], 'float4'),
     'crater_normal': (crater_normal_code, [('UV', 'float2'), ('Seed', 'float'), ('Open', 'float'), ('Bump', 'float')], 'float3'),
-    'vapour': (vapour_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('T', 'float'), ('Op', 'float'), ('EP', 'float'), ('Soft', 'float')], 'float'),
-    'dust': (dust_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('T', 'float'), ('Op', 'float'), ('Soft', 'float'), ('Seed', 'float')], 'float'),
+    'vapour': (vapour_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('T', 'float'), ('Op', 'float'), ('EP', 'float'), ('Soft', 'float'),
+                             ('PD', 'float'), ('NF', 'float'), ('NL', 'float')], 'float'),
+    'dust': (dust_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('T', 'float'), ('Op', 'float'), ('Soft', 'float'), ('Seed', 'float'),
+                         ('PD', 'float'), ('NF', 'float'), ('NL', 'float')], 'float'),
     'chunk': (chunk_code, [('RP', 'float3'), ('C', 'float3'), ('B', 'float'), ('Seed', 'float')], 'float3'),
-    'streak': (streak_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('Dir', 'float3'), ('HalfLen', 'float'), ('Op', 'float')], 'float'),
+    'streak': (streak_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('Dir', 'float3'), ('HalfLen', 'float'), ('Op', 'float'),
+                             ('PD', 'float'), ('NF', 'float'), ('NL', 'float')], 'float'),
 }
 
 
@@ -498,7 +504,13 @@ def build_in_unreal():
     epp = sparam(mat, 'EdgePow', 1.6, -1100, 700)
     gnp = sparam(mat, 'Gain', 1.4, -1100, 800)
     sfp = sparam(mat, 'Soft', 0.7, -1100, 900)
-    vap = custom(mat, 'vapour', {'N': (pn, ''), 'V': (cv, ''), 'RP': (rp, ''), 'T': (tm, ''), 'Op': (opp, ''), 'EP': (epp, ''), 'Soft': (sfp, '')}, -600, 300)
+    # critic r4 (fl04 frames washed to Y 173-185 with the lens inside / against vapour): opacity fades to 0 within NearFade + NearFadeLen cm of
+    # the lens (PixelDepth); the director also fades whole pieces near the lens (CamFade)
+    pdp = node(mat, unreal.MaterialExpressionPixelDepth, -1100, 1000)
+    nfp = sparam(mat, 'NearFade', 60.0, -1100, 1100)
+    nlp = sparam(mat, 'NearFadeLen', 220.0, -1100, 1200)
+    vap = custom(mat, 'vapour', {'N': (pn, ''), 'V': (cv, ''), 'RP': (rp, ''), 'T': (tm, ''), 'Op': (opp, ''), 'EP': (epp, ''), 'Soft': (sfp, ''),
+                                 'PD': (pdp, ''), 'NF': (nfp, ''), 'NL': (nlp, '')}, -600, 300)
     # owner capture (boom ring read as a DARK disc): the city is lit in physical units with auto-exposure, so a plain emissive of ~1 is
     # near-black after exposure; multiplying by EyeAdaptationInverse makes the vapour's brightness exposure-independent (display-relative)
     eai = node(mat, unreal.MaterialExpressionEyeAdaptationInverse, -800, 640)
@@ -525,7 +537,11 @@ def build_in_unreal():
     emp = sparam(mat, 'Emissive', 0.12, -1100, 700)
     sfp = sparam(mat, 'Soft', 1.0, -1100, 800)
     sdp = sparam(mat, 'Seed', 0.5, -1100, 900)
-    dst = custom(mat, 'dust', {'N': (pn, ''), 'V': (cv, ''), 'RP': (rp, ''), 'T': (tm, ''), 'Op': (opp, ''), 'Soft': (sfp, ''), 'Seed': (sdp, '')}, -600, 300)
+    pdp = node(mat, unreal.MaterialExpressionPixelDepth, -1100, 1000)   # critic r4: near-lens fade (see M_InvVapour)
+    nfp = sparam(mat, 'NearFade', 40.0, -1100, 1100)
+    nlp = sparam(mat, 'NearFadeLen', 200.0, -1100, 1200)
+    dst = custom(mat, 'dust', {'N': (pn, ''), 'V': (cv, ''), 'RP': (rp, ''), 'T': (tm, ''), 'Op': (opp, ''), 'Soft': (sfp, ''), 'Seed': (sdp, ''),
+                               'PD': (pdp, ''), 'NF': (nfp, ''), 'NL': (nlp, '')}, -600, 300)
     prop(colp, unreal.MaterialProperty.MP_BASE_COLOR, 'M_InvDust')
     prop(mul(mat, colp, emp, -500, 520), unreal.MaterialProperty.MP_EMISSIVE_COLOR, 'M_InvDust')
     prop(const(mat, 1.0, -500, 640), unreal.MaterialProperty.MP_ROUGHNESS, 'M_InvDust')
@@ -564,7 +580,11 @@ def build_in_unreal():
     colp = vparam(mat, 'Color', (0.9, 0.93, 1.0, 1.0), -1100, 700)
     gnp = sparam(mat, 'Gain', 1.6, -1100, 800)
     sparam(mat, 'EdgePow', 1.0, -1100, 900)   # (unused by the graph; the director sets it on every vapour piece)
-    stk = custom(mat, 'streak', {'N': (pn, ''), 'V': (cv, ''), 'RP': (rp, ''), 'Dir': (drp, ''), 'HalfLen': (hlp, ''), 'Op': (opp, '')}, -600, 300)
+    pdp = node(mat, unreal.MaterialExpressionPixelDepth, -1100, 1000)   # critic r4: near-lens fade (see M_InvVapour)
+    nfp = sparam(mat, 'NearFade', 80.0, -1100, 1100)
+    nlp = sparam(mat, 'NearFadeLen', 250.0, -1100, 1200)
+    stk = custom(mat, 'streak', {'N': (pn, ''), 'V': (cv, ''), 'RP': (rp, ''), 'Dir': (drp, ''), 'HalfLen': (hlp, ''), 'Op': (opp, ''),
+                                 'PD': (pdp, ''), 'NF': (nfp, ''), 'NL': (nlp, '')}, -600, 300)
     cg = mul(mat, colp, gnp, -500, 620)
     eai2 = node(mat, unreal.MaterialExpressionEyeAdaptationInverse, -500, 640)   # exposure-independent (see M_InvVapour)
     prop(mul(mat, mul(mat, cg, stk, -350, 500), eai2, -250, 560), unreal.MaterialProperty.MP_EMISSIVE_COLOR, 'M_InvStreak')

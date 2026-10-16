@@ -74,11 +74,21 @@ public:
 	UPROPERTY(EditAnywhere, Category="Destruction") float CraterUSD = 40000.f;
 	UPROPERTY(EditAnywhere, Category="Destruction") float CraterUSDPerSev = 400000.f;
 	// r3 sonic boom (critic r2: "a vapour cone or ring at least 25 % of frame width stays visible for at least 0.3 s")
-	UPROPERTY(EditAnywhere, Category="Destruction") float BoomLife = 1.0f;         // s: cone life (rings 0.75 x)  (owner feedback 2026-10-15 #1: 0.9 -> 1.0)
-	UPROPERTY(EditAnywhere, Category="Destruction") float BoomFollow = 0.6f;       // s the cone / rings stay glued to the hero before they hang in the air behind him (0.45 -> 0.6)
-	UPROPERTY(EditAnywhere, Category="Destruction") float BoomConeLenM = 9.f;      // cone length at its birth (grows 1.6x) (7 -> 9)
-	UPROPERTY(EditAnywhere, Category="Destruction") float BoomConeRadM = 3.2f;     // cone base radius at its birth (grows 2.4x) (2.4 -> 3.2)
+	// critic r4 fl04 / fl12 ("concentric flat screen-facing discs", camera inside the 9 m cone, white slab trail): the boom is now a SMALL
+	// vapour cone wrapped around the hero's body (apex BoomConeLeadM ahead of his chest, opening back past his hips; the 3/4 chase lens sits
+	// outside it, so it reads in perspective), two segmented shock RINGS around him (rings of short vapour tubes, not pancakes: seen
+	// off-axis they read as ellipses around the body, and a lens passing through one goes through its hole), a segmented launch ring
+	// left where he fired, and a burst of speed lines along the cone. Every vapour / dust piece fades near the lens (CamClearCm).
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomLife = 0.6f;         // s: cone life (r4 1.0)
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomFollow = 0.6f;       // s the cone stays glued to the hero
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomConeLenM = 1.8f;     // cone length at its birth (grows to 1.45x) (r4 9 m, around the camera)
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomConeRadM = 1.3f;     // cone base radius at its birth (grows to 1.7x) (r4 3.2 m)
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomConeLeadM = 1.4f;    // apex ahead of the body centre (m)
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 BoomRingSegs = 16;       // vapour tubes per glued shock ring (the launch ring uses 1.25x)
 	UPROPERTY(EditAnywhere, Category="Destruction") float BoomOpacity = 0.30f;     // peak of the material's Opacity parameter (0.62 whited out the screen once the vapour became exposure-correct)
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomGain = 1.1f;         // emissive gain of the boom vapour (material default 1.4; exposure-independent white)
+	UPROPERTY(EditAnywhere, Category="Destruction") float CamClearCm = 160.f;      // vapour / dust fade out over this distance (cm) as the lens nears them
+	UPROPERTY(EditAnywhere, Category="Destruction") float HeroClearMin = 0.12f;    // critic r4 landings: dust on the lens -> hero line keeps at most this share of its opacity
 
 	// ---- owner feedback 2026-10-15 #1 (Shift = sonic-boom super boost) / #3 (speed feedback): the charge's vapour gather + slow-mo, a bigger
 	// boom (shock ring left at the launch point, shock shell, glass / dust shaken off nearby facades, street dust ring), and continuous
@@ -86,14 +96,16 @@ public:
 	// the street under a low pass. M_InvStreak (additive speed-line material, build_invincible_fx.py) is optional; M_InvVapour stands in.
 	/** Per-frame flight state from the pawn: charge 0..1, super-speed weight 0..1, fast-cruise weight 0..1, hero body (m) and velocity (m/s). */
 	void SetFlightFx(float ChargeK, float SuperK, float FastK, const FVector& PosM, const FVector& VelM);
-	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxVapours = 110;        // pooled vapour / streak pieces (was a fixed 24)
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxVapours = 180;        // pooled vapour / streak pieces (was a fixed 24; r5 110 -> 180 for the segmented rings)
 	UPROPERTY(EditAnywhere, Category="Destruction") float StreakRate = 60.f;       // world wind streaks per second at full super speed
 	UPROPERTY(EditAnywhere, Category="Destruction") float FastStreakRate = 14.f;   // per second at full fast-cruise weight outside the super line
 	UPROPERTY(EditAnywhere, Category="Destruction") float StreakOpacity = 0.30f;
 	UPROPERTY(EditAnywhere, Category="Destruction") float TrailEvery = 0.05f;      // s between body vapour-trail pieces in the super line
 	UPROPERTY(EditAnywhere, Category="Destruction") float TrailOpacity = 0.35f;
+	UPROPERTY(EditAnywhere, Category="Destruction") float TrailLenM = 1.1f;        // critic r4 fl04 (white slab to the frame corner): body trail length (r4 9-15 m, through the lens)
+	UPROPERTY(EditAnywhere, Category="Destruction") float StreakCamClearM = 3.5f;  // world streaks never pass closer than this to the lens path
 	UPROPERTY(EditAnywhere, Category="Destruction") float WakeMaxH = 35.f;         // m: a super pass lower than this raises street dust under him
-	UPROPERTY(EditAnywhere, Category="Destruction") float BoomRingRadM = 24.f;     // launch shock ring radius at its end
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomRingRadM = 14.f;     // launch shock ring radius at its end (r4 24 m pancake)
 	UPROPERTY(EditAnywhere, Category="Destruction") float BoomShakeRadM = 45.f;    // facades within this get glass / dust shaken off at the boom
 	UPROPERTY(EditAnywhere, Category="Destruction") float GatherOpacity = 0.25f;   // the charge's gathering vapour shell / inward streaks
 
@@ -103,13 +115,18 @@ private:
 	struct FScar { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; };
 	struct FRing { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector; FQuat Q = FQuat::Identity; double T = 0, Life = 0.7, R1 = 30; bool bLive = false; };
 	/** r3: one dense dust puff (a sphere with the eroded-edge dust material). Hidden until Delay, then Life s; sizes in cm. */
-	struct FPuff { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector, Vel = FVector::ZeroVector; double T = 0, Delay = 0, Life = 1.6, S0 = 100, S1 = 300, Peak = 0.7, Drag = 2.2, Rise = 60; bool bLive = false, bShown = false; };
+	/** (critic r4 landings: FlatZ squashes the puff vertically -- low ground dust -- and the Tick fades puffs on the lens -> hero line) */
+	struct FPuff { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector, Vel = FVector::ZeroVector; double T = 0, Delay = 0, Life = 1.6, S0 = 100, S1 = 300, Peak = 0.7, Drag = 2.2, Rise = 60, FlatZ = 1.0; bool bLive = false, bShown = false; };
 	/** r3: a vapour cone (sonic boom) or a thin pancake ring (boom rings, ground shock ring). Anchor follows the hero for Follow s.
 	 *  Owner feedback 2026-10-15 #1: Shape 0 cone, 1 ring (pancake), 2 ball (sphere shell), 3 streak (ellipsoid along Dir, M_InvStreak);
 	 *  VelCm drifts a piece that does not follow; SideCm offsets a glued piece sideways; Env 0 fade-out after 40 %, 1 gather (ramps up
 	 *  to the end), 2 streak (quick in, fades over the second half). */
+	/** critic r4 fl04: Shape 4 = one tube of a segmented shock ring: Anchor is the ring CENTRE (glued: hero + Dir x (OffsetCm - DriftCms x T)),
+	 *  Dir the ring axis, RadialU this tube's direction out from the centre; the ring radius goes Rad0 -> Rad1, the tube is SegLenK x radius
+	 *  long (tangent) and ThickK x radius thick (clamped 10-60 cm). */
 	struct FVapour { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Anchor = FVector::ZeroVector, Dir = FVector::ForwardVector; double T = 0, Life = 0.9, Follow = 0.45, OffsetCm = 0, Len0 = 700, Len1 = 1100, Rad0 = 240, Rad1 = 560, Peak = 0.55; bool bCone = true, bLive = false;
-		int32 Shape = 0, Env = 0; FVector VelCm = FVector::ZeroVector, SideCm = FVector::ZeroVector; };
+		int32 Shape = 0, Env = 0; FVector VelCm = FVector::ZeroVector, SideCm = FVector::ZeroVector;
+		FVector RadialU = FVector::RightVector; double SegLenK = 0.5, ThickK = 0.08, DriftCms = 0.0; };
 	/** r3: a deferred decal with an animated "Open" parameter (the opening / crater grows over Grow s). */
 	struct FDecalItem { UDecalComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; double T = 0, Grow = 0.2; bool bGrowing = false; };
 	/** r3: static (non-physics) rubble pieces of the crater rim: they sit on the traced ground, so they cannot hang in the air. */
@@ -144,7 +161,7 @@ private:
 	FDecalItem* AcquireDecal(TArray<FDecalItem>& Pool, int32& Next, int32 MaxN, UMaterialInterface* Mat);
 	void PlaceHole(const FVector& PointCm, const FVector& IntoWall, float Sev);
 	void PlaceCraterDecal(const FVector& PCm, float Sev);
-	void SpawnPuff(const FVector& PosCm, const FVector& VelCms, double S0, double S1, double Life, double Peak, double DelayS, const FLinearColor& Col);
+	void SpawnPuff(const FVector& PosCm, const FVector& VelCms, double S0, double S1, double Life, double Peak, double DelayS, const FLinearColor& Col, double FlatZ = 1.0, double RiseCms = -1.0);
 	void BreachDust(const FVector& PointCm, const FVector& OutN, const FVector& FlightDir, float Sev, bool bEntry);
 	void CraterDust(const FVector& PCm, float Sev);
 	void SpawnVapour(bool bCone, const FVector& AnchorCm, const FVector& Dir, double FollowS, double OffsetCm, double Len0, double Len1, double Rad0, double Rad1, double Peak, double Life, float EdgePow);
@@ -152,6 +169,12 @@ private:
 	// owner feedback 2026-10-15 #1 / #3
 	FVapour* SpawnShape(int32 Shape, const FVector& AnchorCm, const FVector& Dir, double FollowS, double OffsetCm, double Len0, double Len1, double Rad0, double Rad1, double Peak, double Life, float EdgePow, int32 Env);
 	void ChargeFx(const FVector& PosM, const FVector& DirM, float SlowScale, float RealDur);
+	/** critic r4 fl04: one segmented shock ring of NSeg vapour tubes around the axis Dir at CentreCm (glued to the hero for FollowS s) */
+	void SpawnRing(const FVector& CentreCm, const FVector& Dir, int32 NSeg, double FollowS, double OffsetCm, double DriftCms, double R0, double R1, double ThickK, double Peak, double Life);
+	/** the player's view location (cm) this frame; false without a camera manager */
+	bool ViewPos(FVector& OutCm) const;
+	/** 0..1 visibility factor of a vapour / dust piece at distance DistCm from the lens (fades over CamClearCm) */
+	double CamFade(double DistCm) const;
 	void ShakeFacades(const FVector& PCm);
 	void FlightFxTick(double Dt);
 	void EndChargeSlowMo();
@@ -196,6 +219,8 @@ private:
 	float FxChargeK = 0.f, FxSuperK = 0.f, FxFastK = 0.f;
 	FVector FxPosCm = FVector::ZeroVector, FxVelCm = FVector::ZeroVector;
 	bool bFxValid = false;
+	FVector CamCm = FVector::ZeroVector;   // critic r4: the view location this tick (fades, streak placement)
+	bool bCamOk = false;
 	double StreakAcc = 0.0, TrailT = 0.0, WakeT = 0.0, GatherT = 0.0;
 	bool bChargeSlow = false;
 	double ChargeSlowEnd = 0.0;

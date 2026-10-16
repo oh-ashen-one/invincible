@@ -105,7 +105,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperChargeSlowMo = 0.6f; // global time dilation through the charge (1 = none; -WHNoSlowMo disables)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperChargeLean = 0.35f;  // rad: the body leans back (coils) through the charge
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperSpeed = 300.f;       // m/s held super-speed line
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperLaunchK = 0.8f;      // share of SuperSpeed at the boom (the rest within ~0.2 s)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperLaunchK = 0.8f;      // share of SuperSpeed the launch ramp reaches (the rest within ~0.2 s)
+	// critic r4 fl04 (0 -> 243 m/s in one telemetry step): the launch accelerates from SuperLaunchV0 to SuperLaunchK x SuperSpeed over
+	// SuperLaunchRampT s (explosive start, smooth arrival; 0 = the old one-frame launch)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperLaunchRampT = 0.16f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperLaunchV0 = 30.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperAccel = 380.f;       // m/s^2 at rest toward SuperSpeed
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperLatAccel = 110.f;    // m/s^2 lateral in the super line (turn radius 818 m at 300 m/s)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperDecelTime = 1.5f;    // s: Shift released -> back at cruise
@@ -117,9 +121,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperShake = 0.16f;       // continuous camera shake floor at full super speed (0..0.75)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SuperBlur = 1.4f;         // motion-blur floor at full super speed (camera MotionBlur units)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BoomFovDeg = 12.f;        // deg FOV punch at the boom (springs back ~0.35 s)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float LaunchLagT = 0.14f;       // s the camera hangs back at the launch (he rockets away from it)
+	// critic r4 fl04 / fl12 (the hang let the lens fall 3.2 -> 24 m behind, hero ~12 px): 0.14 -> 0 (off); the boom reads through the FOV
+	// punch + kick + shake, and the camera leash (FWebTravCamera::FlightLeashM) bounds any lag
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float LaunchLagT = 0.0f;        // s the camera hangs back at the launch (he rockets away from it)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float LaunchLagK = 0.35f;       // camera speed during that hang, share of the hero's
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float CamFovCap = 90.f;         // deg vertical cap for the flight FOV terms
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float CamLeashM = 5.5f;         // critic r4 fl04: the flight lens never trails the hero by more (m; 0 = off)
+	// critic r4 fl16 (glued 5.5 s to a facade, head in a fire escape): a slow fly line (under breach speed) keeps the body centre
+	// WallStandoffM off a facade (+ WallHeadReachM when heading into it), bleeds the speed into the wall smoothly (WallApproachRate 1/s)
+	// and turns it along the wall toward the free side (tangential travel, else up / left / right), at least SlideMinSpeed with fly held
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float WallStandoffM = 1.1f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float WallHeadReachM = 0.6f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float WallApproachRate = 6.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SlideMinSpeed = 4.f;
 	// ---- owner feedback #2: double-tap Space = superhero-landing dive
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float DoubleTapTime = 0.3f;     // s between the two airborne Space presses
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float DiveAccel = 160.f;        // m/s^2 minimum downward acceleration of the dive
@@ -172,6 +186,11 @@ private:
 	void StepBreach(UWebTraversalComponent& T, double H);
 	/** critic r2 fl14: keep Speed, turned along the facade (normal HitN) toward the free direction (no dead stop against a solid). */
 	void DeflectFree(UWebTraversalComponent& T, const FVector& HitN, double Speed);
+	/** the free direction along a facade (normal HitN) for a deflection: the tangential travel when it is at least TanShare of Speed, else
+	 *  up / along the wall to either side, whichever has the longest clear run (ties: up) */
+	FVector FreeAlong(UWebTraversalComponent& T, const FVector& HitN, double Speed, double TanShare) const;
+	/** critic r4 fl16: the slow-flight facade standoff (see WallStandoffM); true when a facade is within range */
+	bool WallStandoff(UWebTraversalComponent& T, double H, const FWebTravInput& I);
 	void HeroLand(UWebTraversalComponent& T, double Floor, double ImpactSpeed, bool bSlam);
 	void Takeoff(UWebTraversalComponent& T);
 	FQuat FlightOrient(UWebTraversalComponent& T, double Dt, const FWebTravInput& I);
@@ -186,6 +205,13 @@ private:
 	// owner feedback #1: super boost state. SuperT = REAL seconds in the charge (game seconds in Run / Decel); SuperCd = cooldown
 	ESuper SuperState = ESuper::None;
 	double SuperT = 0.0, SuperCd = 0.0, ChargeK = 0.0, SuperK = 0.0, LaunchK = 0.0;
+	// critic r4 fl04: the launch ramp (s into it, < 0 = none), its direction and end speed
+	double LaunchRampS = -1.0, LaunchVEnd = 240.0;
+	FVector LaunchDir = FVector::ForwardVector;
+	// critic r4 fl16: the slide direction picked for a head-on facade contact, held SlideDirT s so it does not flip-flop
+	FVector SlideDir = FVector::ZeroVector;
+	double SlideDirT = 0.0;
+	FVector WallNLast = FVector::ZeroVector;
 	// owner feedback #2: seconds since the last airborne Space press (double-tap window); the dive's downward acceleration
 	double JumpTapT = 99.0, DiveAccelNow = 160.0;
 	bool bDiveDrop = false;

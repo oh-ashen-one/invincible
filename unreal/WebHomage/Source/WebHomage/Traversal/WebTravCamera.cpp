@@ -356,6 +356,21 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		// owner feedback 2026-10-15 #1: the launch hang -- for FlightLaunchHoldT s after the sonic boom the lens moves at FlightLaunchHoldK of the
 		// hero's speed, so he rockets away from it, then the ordinary cap (MaxStepPosM, scaled with the flight speed by the pawn) catches up
 		if (FlightLaunchHoldT > 0.0) Lm = FMath::Min(Lm, FMath::Max(0.02, FMath::Clamp(FlightLaunchHoldK, 0.0, 1.0) * Speed * Dt));
+		// critic r4 fl04 / fl12 (camera 3.2 -> 24 m -> 3.6 m in 0.3 s at the sonic boom, hero 12-30 px, frames washed out): the flight leash --
+		// when the last output sits farther than FlightLeashM from the hero, the step toward the composed spot is at least long enough to
+		// enter the FlightLeashM sphere around him (first ray / sphere entry along the step). 0 (legacy hero) = off.
+		if (FlightLeashM > 0.0 && D.Size() > Lm)
+		{
+			const FVector U = D.GetSafeNormal();
+			const FVector Rel = LastOutPos - P.Pos;
+			const double Bq = FVector::DotProduct(Rel, U), Cq = Rel.SizeSquared() - FlightLeashM * FlightLeashM;
+			const double Disc = Bq * Bq - Cq;
+			if (Cq > 0.0 && Disc >= 0.0)
+			{
+				const double TIn = -Bq - FMath::Sqrt(Disc);
+				if (TIn > Lm) { Lm = FMath::Min(D.Size(), TIn + 0.02); SlewFlags |= 64; }
+			}
+		}
 		// round 20: the position slew never leaves the lens behind a wall (T19 beats "never a cut")
 		const bool bSlewHidden = D.Size() > Lm && World.LineBlocked(P.Pos + FVector(0, 0, 0.3), LastOutPos + D.GetSafeNormal() * Lm);
 		if (bSlewHidden) SlewFlags |= 8;
@@ -367,6 +382,22 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 			CamRot.Pitch += A1.Pitch - A0.Pitch;
 			CamPos = NewPos;
 			SlewFlags |= 1;
+		}
+		// critic r4 fl04 / fl12: the leash's hard bound -- an output (slewed or composed) still farther than FlightLeashM from the hero is
+		// pulled in along its own sightline to him (that segment was just checked clear, or is the composed spot's), re-aimed like the slew
+		if (FlightLeashM > 0.0)
+		{
+			const FVector Rel = CamPos - P.Pos;
+			const double Dl = Rel.Size();
+			if (Dl > FlightLeashM + 0.05)
+			{
+				const FVector NewPos = P.Pos + Rel * (FlightLeashM / Dl);
+				const FRotator A0 = (P.Pos - CamPos).Rotation(), A1 = (P.Pos - NewPos).Rotation();
+				CamRot.Yaw += FRotator::NormalizeAxis(A1.Yaw - A0.Yaw);
+				CamRot.Pitch += A1.Pitch - A0.Pitch;
+				CamPos = NewPos;
+				SlewFlags |= 64;
+			}
 		}
 		const double SlP = CamRot.Pitch - LastOutRot.Pitch, SlY = FRotator::NormalizeAxis(CamRot.Yaw - LastOutRot.Yaw);
 		const double MP = MaxStepPitchDeg * K * Boost + FMath::RadiansToDegrees(FMath::Abs(LookPitchDelta));
@@ -877,7 +908,9 @@ void FWebTravCamera::ComposeChase(double Dt, const FTravCamInput& P, const FWebT
 			const double ElevRel = FlightElevFor(FlightPitchS) + FlightPitchS;
 			const double SideA = FMath::DegreesToRadians(FlightSideDeg) * FMath::Abs(FlightSideS);
 			const double Ext = FlightBodyLen * FMath::Abs(FMath::Sin(ElevRel)) * FMath::Cos(SideA) + FlightBodyThick * FMath::Abs(FMath::Cos(ElevRel));
-			const double TanF = FMath::Tan(FMath::DegreesToRadians(FMath::Clamp(Fov, 20.0, 100.0)) * 0.5);
+			// (critic r4 fl04 / fl12, hero >= 0.12 of the frame through super speed: + the sustained super-speed FOV term FlightFxFovS, which the
+			//  output adds past the swing cap -- the widening shows on the city, the hero holds his size; the 0.35 s boom punch is not compensated)
+			const double TanF = FMath::Tan(FMath::DegreesToRadians(FMath::Clamp(Fov + FMath::Max(0.0, FlightFxFovS), 20.0, FMath::Max(100.0, FlightFovCap))) * 0.5);
 			if (!bFirst && HeroProjH > 0.0 && FlightK > 0.5)
 			{
 				if (HeroProjH < FlightFbLo) FlightFbK -= (FlightFbLo - HeroProjH) / FlightFbLo * 1.5 * Dt;

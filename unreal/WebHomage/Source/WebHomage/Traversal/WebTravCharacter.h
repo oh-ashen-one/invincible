@@ -125,7 +125,8 @@ protected:
 	 */
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroV2HeightCm = 185.f;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroV2MaxBankDeg = 25.f;
-	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroV2MaxPitchDeg = 20.f;
+	// r5 (critic r4 #4 / #8: body pitch must follow a +-30 deg climb / dive within 10 deg; 20 deg cap left ~10-24 deg of error)
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroV2MaxPitchDeg = 45.f;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroV2YawRate = 16.f;   // 1/s yaw smoothing of the upright mesh
 
 private:
@@ -137,6 +138,10 @@ private:
 	bool bHeroV2 = false;
 	double HeroV2Yaw = 0.0, HeroV2Pitch = 0.0, HeroV2Bank = 0.0;
 	bool bHeroV2YawInit = false;
+	// r5 takeoff anticipation (critic r4 #5): floor height of the last grounded frame, s since the takeoff (< 0 = none)
+	double HeroV2FloorZ = 0.0;
+	float HeroV2TakeoffT = -1.f;
+	bool bHeroV2OnGround = false;
 	void PoseFigure(float Dt);
 	float SwayW = 0.f; // round 06: air-sway weight (spring)
 	// round 01 (W4): the body frame blends into the rope frame at the attach with a critically damped spring (visual only)

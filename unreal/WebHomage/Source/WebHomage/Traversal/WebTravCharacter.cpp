@@ -535,6 +535,24 @@ void AWebTravCharacter::HeroV2Frame(const FWebTravAnim& A, float Dt, FQuat& InOu
 	InOutQ = FQuat(FVector(0, 0, 1), HeroV2Yaw) * FQuat(FVector(0, 1, 0), HeroV2Pitch) * FQuat(FVector(1, 0, 0), -HeroV2Bank);
 	if (bAir) InOutRoot = Traversal->PosM() * 100.0 - InOutQ.RotateVector(FVector(0, 0, UWebTraversalComponent::H * 100.0));
 	else InOutRoot = A.RootPos;   // grounded: the traversal's feet point (floor / step offset)
+	// r5 (critic r4 #5 / #8, fl01 "vz 0 -> 16 m/s in one frame, no crouch"): takeoff anticipation. The flight body launches on the press;
+	// the mesh's feet stay on the take-off floor while AS_Takeoff's crouch plays (UWHHeroV2AnimInstance::TakeoffPlantT), then it rejoins
+	// the rising body over TakeoffCatchT (the leap). Visual only: the capsule / camera target are untouched.
+	static const FName NTakeoff(TEXT("takeoff"));
+	if (!bAir) { HeroV2FloorZ = A.RootPos.Z; bHeroV2OnGround = true; HeroV2TakeoffT = -1.f; }
+	else
+	{
+		if (bHeroV2OnGround && A.Sub == NTakeoff) HeroV2TakeoffT = 0.f;
+		else if (HeroV2TakeoffT >= 0.f) HeroV2TakeoffT += Dt;
+		bHeroV2OnGround = false;
+		const UWHHeroV2AnimInstance* AI = Cast<UWHHeroV2AnimInstance>(GetMesh()->GetAnimInstance());
+		if (HeroV2TakeoffT >= 0.f && AI)
+		{
+			const double PK = double(AI->TakeoffPlantK(HeroV2TakeoffT));
+			if (PK > 0.0 && InOutRoot.Z > HeroV2FloorZ) InOutRoot.Z += (HeroV2FloorZ - InOutRoot.Z) * PK;
+			else if (HeroV2TakeoffT > AI->TakeoffPlantT) HeroV2TakeoffT = -1.f;
+		}
+	}
 }
 
 // round 26 (shared machine: 1080p movie frames at 0.25-0.9 /s; `sample` of the game thread: 77 % of it inside the synchronous PNG deflate of
@@ -1193,7 +1211,8 @@ void AWebTravCharacter::FlightFrame(const FWebTravInput& I, double Dt)
 		const FString T = E.Type.ToString();
 		// owner feedback 2026-10-15 #1: the sonic boom is now the super-boost launch -- kick + shake + FOV punch + the launch hang (he rockets
 		// away from the lens for FlightLaunchLagT s); the charge start rumbles; owner feedback #2: the double-tap dive tips the view over
-		if (T == TEXT("sonicBoom")) { Cam.FlightBoom(1.0); }
+		// (critic r4 fl04: the launch hang is off by default -- LaunchLagT 0 -- so the punch is FOV kick + kick + a little more shake)
+		if (T == TEXT("sonicBoom")) { Cam.FlightBoom(1.0); Cam.Shake(0.1); }
 		else if (T == TEXT("superCharge")) { Cam.Shake(0.14); }
 		else if (T == TEXT("heroDive")) { Cam.Kick(0.3); Cam.Shake(0.1); }
 		else if (T == TEXT("breachIn")) { Cam.Impact(0.45 + 0.45 * E.Severity); }
@@ -1245,6 +1264,8 @@ void AWebTravCharacter::FlightFrame(const FWebTravInput& I, double Dt)
 		Cam.FlightBoomFovDeg = double(Flight->BoomFovDeg);
 		Cam.FlightLaunchLagT = double(Flight->LaunchLagT);
 		Cam.FlightLaunchHoldK = double(Flight->LaunchLagK);
+		// critic r4 fl04 / fl12: the lens never trails the hero by more than CamLeashM (the boom no longer pulls it out to 24 m)
+		Cam.FlightLeashM = FMath::Max(0.0, double(Flight->CamLeashM));
 	}
 	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this))
 	{

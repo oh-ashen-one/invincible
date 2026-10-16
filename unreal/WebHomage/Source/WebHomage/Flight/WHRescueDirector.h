@@ -119,11 +119,15 @@ public:
 	/** Critic r2 (round 3 hero): the crane load being carried right now (false if none): its world transform (no scale) and half
 	 *  extents (cm). Settling (set-down) loads are not carried. */
 	bool GetCarriedLoad(FTransform& OutLoadWorld, FVector& OutHalfCm) const;
+	/** r5 (critic r4 #6): set by the hero v2 anim instance (overhead carry). Then a load is caught from above only at CraneTouchAboveCm and
+	 *  the crane's lives count on the set-down instead of the catch. Unset (v1 hero, -WHHeroV2=0): the r4 rules, unchanged. */
+	void SetOverheadCarryHero(bool bOn) { bOverheadCarry = bOn; }
 
 	// ---- tuning
 	float FireRangeCm = 1200.f;
 	float FireBatchHoldS = 2.5f;
 	float CraneTouchCm = 600.f;
+	float CraneTouchAboveCm = 300.f; // r5 (critic r4 #6): catch reach with the hero above the load (no landing on top of it)
 	float CraneJoltS = 1.0f;         // the load jolts this long after the snap before it drops
 	float CraneFallGravity = 520.f;  // cm/s^2: a slow, readable fall (~0.53 g); the snap is timed so the impact lands on the clock's zero
 	float BusRangeCm = 800.f;
@@ -182,6 +186,7 @@ private:
 	TWeakObjectPtr<const USceneComponent> CarryMesh;
 	FTransform CarryInMesh = FTransform::Identity;
 	double CarryAnchorT = -1.0;
+	bool bOverheadCarry = false;   // r5: see SetOverheadCarryHero
 	UWHFlightWorldSubsystem* Sub() const;
 
 	bool bEnabled = true;

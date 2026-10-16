@@ -825,16 +825,30 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 			}
 		}
 		// catch: touch the load any time before it lands
+		// r5 (critic r4 #6, fl17 "he stands on the load"; overhead-carry hero only): caught from below / beside at CraneTouchCm; with the hero
+		// above the load (his feet over its top face) only at CraneTouchAboveCm, i.e. just before he would reach it -- the hero's anim then
+		// swings it round his front onto his raised fists (UWHHeroV2AnimInstance, SetCarryAnchor), so he is never set standing on it.
 		if (E.State == EWHEmergencyState::Active)
 		{
 			const double D = FVector::Dist(Hero, E.LoadCm);
+			const double LoadHalfZ = E.Load ? E.Load->GetComponentScale().Z * 50.0 : 75.0;
+			const bool bAbove = bOverheadCarry && Hero.Z - E.LoadCm.Z > LoadHalfZ + 95.0;   // hero centre over the top face + his feet-to-centre height
 			E.bHeroInRange = D < CraneTouchCm * 2.0;
-			if (D < CraneTouchCm)
+			if (D < (bAbove ? FMath::Min(double(CraneTouchAboveCm), double(CraneTouchCm)) : double(CraneTouchCm)))
 			{
 				E.bCarried = true; E.bFalling = false; E.CarryT = 0;
 				E.LoadVelCm = FVector::ZeroVector;
-				UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load caught %s at %.0f m above the street"), E.Id, E.bSnapped ? TEXT("falling") : TEXT("hanging"), (E.LoadCm.Z - E.StreetZ) / 100.0);
-				SaveLives(E, E.LivesAtStake, TEXT("load caught"));
+				if (bOverheadCarry)
+				{
+					UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load caught %s at %.0f m above the street from %s (%.1f m)"), E.Id, E.bSnapped ? TEXT("falling") : TEXT("hanging"),
+						(E.LoadCm.Z - E.StreetZ) / 100.0, bAbove ? TEXT("above") : TEXT("below / beside"), D / 100.0);
+				}
+				else
+				{
+					UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load caught %s at %.0f m above the street"), E.Id, E.bSnapped ? TEXT("falling") : TEXT("hanging"), (E.LoadCm.Z - E.StreetZ) / 100.0);
+				}
+				// r5 (critic r4 fl17: "lives saved jumps to 5 at 17.61 s mid-air rather than on set-down"): overhead carry counts on the set-down
+				if (!bOverheadCarry) SaveLives(E, E.LivesAtStake, TEXT("load caught"));
 				Resolve(E, EWHEmergencyState::Saved, Now, TEXT("load caught"));
 			}
 		}
@@ -897,6 +911,7 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 			E.bCarried = false; E.bSettling = true;
 			UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load set down at (%.0f, %.0f, %.0f) over %.1f s, hero at (%.0f, %.0f, %.0f)"),
 				E.Id, E.SettleCm.X, E.SettleCm.Y, E.SettleCm.Z, E.SettleDur, Hero.X, Hero.Y, Hero.Z);
+			SaveLives(E, E.LivesAtStake, TEXT("load set down"));   // r5: overhead carry counts here (v1: already 0 at stake since the catch)
 		}
 	}
 	else if (E.bSettling)

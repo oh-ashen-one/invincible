@@ -13,6 +13,7 @@
 #include "GameFramework/Pawn.h"
 #include "StaticMeshResources.h"
 #include "Kismet/GameplayStatics.h"
+#include "Camera/PlayerCameraManager.h"
 #include "Sound/SoundBase.h"
 #include "Sound/SoundWaveProcedural.h"
 #include "GeometryCollection/GeometryCollectionActor.h"
@@ -40,6 +41,24 @@ namespace
 	}
 	double BdSmooth01(double X) { X = FMath::Clamp(X, 0.0, 1.0); return X * X * (3.0 - 2.0 * X); }
 	double BdEaseOut(double K) { K = FMath::Clamp(K, 0.0, 1.0); return 1.0 - (1.0 - K) * (1.0 - K); }
+	/** critic r4: distance from P to the segment A-B (and the segment parameter 0..1 of the closest point) */
+	double BdSegDist(const FVector& P, const FVector& A, const FVector& B, double* OutT = nullptr)
+	{
+		const FVector AB = B - A;
+		const double L2 = AB.SizeSquared();
+		const double T = L2 > 1e-6 ? FMath::Clamp(FVector::DotProduct(P - A, AB) / L2, 0.0, 1.0) : 0.0;
+		if (OutT) *OutT = T;
+		return FVector::Dist(P, A + AB * T);
+	}
+	/** critic r4: approximate distance from a point to an ellipsoid surface (centre C, rotation Q, semi-axes Semi; 0 inside), along the ray
+	 *  from its centre */
+	double BdEllipsoidDist(const FVector& P, const FVector& C, const FQuat& Q, const FVector& Semi)
+	{
+		const FVector L = Q.UnrotateVector(P - C);
+		const FVector Qn(L.X / FMath::Max(1.0, Semi.X), L.Y / FMath::Max(1.0, Semi.Y), L.Z / FMath::Max(1.0, Semi.Z));
+		const double Qs = Qn.Size();
+		return Qs <= 1.0 ? 0.0 : L.Size() * (1.0 - 1.0 / Qs);
+	}
 	/** in-plane axes of a surface with normal N: U horizontal, V up-ish (a wall); any perpendicular pair for floors / roofs */
 	void BdPlaneBasis(const FVector& N, FVector& U, FVector& V)
 	{
@@ -271,9 +290,10 @@ void AWHBreachDirector::Crater(const FVector& PosM, float Sev)
 	}
 	if (MDust && Sphere) CraterDust(P, Sev);
 	else Fx.Dust(P / 100.0, 3.0 + 4.0 * Sev);
-	// shock ring: a thin translucent pancake of vapour (critic r2: the opaque flash discs at fl11 2.35 s / fl12 3.6 s were lit translucent pancakes
-	// up to 21 m wide; with no vapour material there is no ring at all)
-	if (MVapour && Sphere) SpawnVapour(false, P + FVector(0, 0, 25.0), FVector::UpVector, 0.0, 0.0, 0.0, 0.0, 80.0, 480.0 + 380.0 * Sev, 0.5, 0.55, 1.0f);
+	// critic r4 fl11 / fl12 / fl17 (a flat WHITE disc of up to 273k px at the slam landing): the ground shock ring was a thin vapour pancake
+	// 0.25 m over the street -- seen from the chase lens at a grazing angle its whole top face is fresnel-opaque, and since the vapour went
+	// exposure-independent it rendered as a white ellipse. Removed: the shock reads through the low dust ring thrown outward (CraterDust),
+	// the ejecta, the rim and the camera impact.
 	PlaySynth(2, P, 0.6f + 0.4f * Sev);
 	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this))
 	{
@@ -287,21 +307,48 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 	FVector D = DirM.GetSafeNormal();
 	if (D.IsNearlyZero()) D = FVector::ForwardVector;
 	const FVector PCm = PosM * 100.0;
-	// critic r2 (fl04 / fl15: "no shock shape in frames 98-112"): a translucent vapour cone opening behind the hero (apex 1.4 m ahead of him) that
-	// follows him for BoomFollow s while it grows and fades, plus three thin vapour rings hanging behind it. The chase camera sits inside / just
-	// behind the cone, so its fresnel-lit walls fill the periphery of the frame (>= 25 % of the width) for ~0.5 s.
+	// critic r4 fl04 / fl12 ("the boom is a set of concentric flat screen-facing discs"; the r3 9 m cone and the pancake rings sat around / on
+	// the lens axis, so they read face-on, and the lens flew through them): everything is built AROUND the hero, sized so the 3/4 chase lens
+	// (~2.8-4 m back, ~1.6-2 m off the travel axis) stays outside, and glued to him while he ramps up (the launch now accelerates over ~0.16 s):
+	//  - a vapour cone wrapped round his body: apex BoomConeLeadM ahead of his chest, base just past his hips, BoomConeRadM -> 1.7x (the
+	//    lens sees its flank and its open base in perspective: a cone opening along the travel axis);
+	//  - two shock rings of vapour tubes around him (around the chest and the hips, the second drifting back slowly), radius 0.7 -> 2.3 m /
+	//    1.2 -> 3.2 m: seen off-axis they read as ellipses around the body for 0.5-0.7 s;
+	//  - speed lines bursting back along the cone flank (never on the lens side).
 	bool bVapour = false;
+	FVector CamSide = FVector::ZeroVector;   // unit, perpendicular to D, toward the lens
+	{
+		FVector Cv;
+		if (ViewPos(Cv)) { const FVector Rel = Cv - PCm; CamSide = (Rel - D * FVector::DotProduct(Rel, D)).GetSafeNormal(); }
+	}
 	if (MVapour)
 	{
 		if (Cone)
 		{
-			SpawnVapour(true, PCm + D * 140.0, D, BoomFollow, 140.0, BoomConeLenM * 100.0, BoomConeLenM * 160.0, BoomConeRadM * 100.0, BoomConeRadM * 240.0, BoomOpacity, BoomLife, 1.5f);
+			const double Lead = double(BoomConeLeadM) * 100.0;
+			if (FVapour* Vp = SpawnShape(0, PCm + D * Lead, D, BoomFollow, Lead, BoomConeLenM * 100.0, BoomConeLenM * 145.0, BoomConeRadM * 100.0, BoomConeRadM * 170.0, BoomOpacity, BoomLife, 1.5f, 0))
+			{
+				if (Vp->Mid) { Vp->Mid->SetScalarParameterValue(TEXT("Gain"), BoomGain); Vp->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(0.86f, 0.89f, 0.95f, 1.f)); }
+			}
 			bVapour = true;
 		}
 		if (Sphere)
 		{
-			for (int32 R = 0; R < 3; ++R)
-				SpawnVapour(false, PCm - D * (150.0 + 380.0 * R), D, BoomFollow * 0.7, -(150.0 + 380.0 * R), 0.0, 0.0, 120.0 + 40.0 * R, 520.0 + 150.0 * R, BoomOpacity * 1.1, BoomLife * 0.75, 1.2f);
+			const int32 NS = FMath::Clamp(BoomRingSegs, 8, 32);
+			SpawnRing(PCm + D * 20.0, D, NS, 0.55, 20.0, 0.0, 70.0, 230.0, 0.09, BoomOpacity, 0.55);
+			SpawnRing(PCm - D * 60.0, D, NS, 0.70, -60.0, 150.0, 120.0, 320.0, 0.08, BoomOpacity * 0.8, 0.70);
+			// speed lines back along the cone flank, glued for 0.12 s, then left behind (lens side skipped)
+			const double Half = FMath::Atan2(double(BoomConeRadM) * 1.3, double(BoomConeLenM) * 1.2);
+			for (int32 K = 0; K < 12; ++K)
+			{
+				const FVector Rad = BdRingDir(D, 2.0 * PI * (K + 0.3) / 12.0);
+				if (!CamSide.IsNearlyZero() && FVector::DotProduct(Rad, CamSide) > 0.55) continue;
+				const FVector Ax = (-D * FMath::Cos(Half) + Rad * FMath::Sin(Half)).GetSafeNormal();
+				const double Len = Rng.FRandRange(220.f, 380.f);
+				const FVector Off = D * 60.0 + Rad * 70.0 + Ax * (Len * 0.5);
+				if (FVapour* Vp = SpawnShape(3, PCm + Off, Ax, 0.12, 0.0, Len, Len * 1.3, Rng.FRandRange(5.f, 8.f), 4.0, double(StreakOpacity) * 1.3, 0.35, 1.0f, 2))
+					Vp->SideCm = Off;
+			}
 			bVapour = true;
 		}
 	}
@@ -332,22 +379,17 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 				}
 		}
 	}
-	{ // the white flash on the line (additive sparks, small; r3: no opaque / lit flash disc)
+	{ // the flash at the body (additive sparks, small; r3: no opaque / lit flash disc)
+		// (critic r4 fl04 washed frames: one flash at the body, 4.0 -- the r4 second 7.0 flash and the one on the lens line are gone)
 		const FLinearColor Flash(4.f, 4.f, 4.2f);
-		Fx.Hit(PosM - D * 1.5, -D, 1.0, &Flash);
-		// owner feedback 2026-10-15 #1: a second, brighter flash right at the body (the boom now marks the super launch)
-		const FLinearColor Flash2(7.f, 7.f, 7.5f);
-		Fx.Hit(PosM, D, 1.0, &Flash2);
+		Fx.Hit(PosM, D, 1.0, &Flash);
 	}
 	// owner feedback 2026-10-15 #1 ("big expanding vapour ring / cone + flash + shock ring ... dust / glass shake on nearby facades"): the super
-	// launch leaves a big shock ring square-on to the launch line where it fired (BoomRingRadM, it hangs there as he rockets away from the
-	// lagging camera), a faint expanding shock shell, glass / dust shaken off facades within BoomShakeRadM and a dust ring on a street below
+	// launch leaves a shock ring square-on to the launch line where it fired (BoomRingRadM) -- critic r4: a ring of vapour tubes now, not
+	// a 24 m pancake (the lens passes through its hole as it follows him), no engulfing shock shell -- glass / dust shaken off facades within
+	// BoomShakeRadM and a dust ring on a street below
 	if (MVapour && Sphere)
-	{
-		SpawnVapour(false, PCm, D, 0.0, 0.0, 0.0, 0.0, 150.0, double(BoomRingRadM) * 100.0, BoomOpacity * 0.95, 0.75, 1.0f);
-		SpawnVapour(false, PCm - D * 250.0, D, 0.0, 0.0, 0.0, 0.0, 90.0, double(BoomRingRadM) * 60.0, BoomOpacity * 0.8, 0.6, 1.2f);
-		SpawnShape(2, PCm, D, 0.0, 0.0, 0.0, 0.0, 100.0, 1600.0, 0.08, 0.5, 2.2f, 0);   // shock shell: faint (it engulfs the camera)
-	}
+		SpawnRing(PCm, D, FMath::Clamp(BoomRingSegs + BoomRingSegs / 4, 8, 40), 0.0, 0.0, 0.0, 150.0, double(BoomRingRadM) * 100.0, 0.05, BoomOpacity * 0.75, 0.6);
 	ShakeFacades(PCm);
 	PlaySynth(0, PosM * 100.0, 1.f);
 }
@@ -467,8 +509,19 @@ void AWHBreachDirector::FlightFxTick(double Dt)
 		{
 			StreakAcc -= 1.0; ++N;
 			const double Ahead = Sp * Rng.FRandRange(0.15f, 0.35f);
-			const double R = Rng.FRandRange(250.f, 1100.f);
-			const FVector At = FxPosCm + Vd * Ahead + BdRingDir(Vd, Rng.FRandRange(0.f, 2.f * PI)) * R;
+			// critic r4 fl04 / fl15 (white slabs across the frame): a streak the lens would fly past closer than StreakCamClearM is placed
+			// again (3 tries, then skipped) -- the lens path is its position along the travel, the streak is fixed in the world
+			FVector At = FVector::ZeroVector;
+			bool bPlaced = false;
+			for (int32 Try = 0; Try < 3 && !bPlaced; ++Try)
+			{
+				const double R = Rng.FRandRange(250.f, 1100.f);
+				At = FxPosCm + Vd * Ahead + BdRingDir(Vd, Rng.FRandRange(0.f, 2.f * PI)) * R;
+				if (!bCamOk) { bPlaced = true; break; }
+				const FVector Rel = At - CamCm;
+				bPlaced = (Rel - Vd * FVector::DotProduct(Rel, Vd)).Size() >= double(StreakCamClearM) * 100.0;
+			}
+			if (!bPlaced) continue;
 			const double Len = FMath::Clamp(Sp * 0.035, 400.0, 1400.0) * Rng.FRandRange(0.7f, 1.2f);
 			const double Rad = Rng.FRandRange(5.f, 11.f);
 			SpawnShape(3, At, Vd, 0.0, 0.0, Len, Len, Rad, Rad, double(StreakOpacity) * Rng.FRandRange(0.5f, 1.f) * FMath::Max(double(FxSuperK), 0.45), 0.5, 1.0f, 2);
@@ -482,16 +535,20 @@ void AWHBreachDirector::FlightFxTick(double Dt)
 		if (TrailT >= FMath::Max(0.02f, TrailEvery))
 		{
 			TrailT = 0.0;
-			const double Len = 900.0 + 600.0 * FxSuperK;
+			// critic r4 fl04 ("a hard-edged white slab running to the bottom-left corner"): the r4 trail was 9-15 m long and 0.6-1.1 m thick,
+			// glued behind him -- straight through the 3/4 chase lens 2.8-4 m back. It is now TrailLenM long, starting at his feet, thin
+			// (12-20 cm), the contrails 5-9 cm; the near-lens fade covers the rest
+			const double Len = FMath::Max(30.0, double(TrailLenM) * 100.0 * (0.8 + 0.4 * FxSuperK));
 			const double Peak = double(TrailOpacity) * FxSuperK;
 			const double Life = 0.16;
-			// the body trail: centre half a length behind the chest, glued to him
-			SpawnShape(3, FxPosCm - Vd * (Len * 0.5 + 40.0), Vd, Life, -(Len * 0.5 + 40.0), Len, Len * 1.1, 30.0, 55.0, Peak, Life, 1.0f, 2);
+			const double Back = Len * 0.5 + 90.0;
+			// the body trail: from the feet back, glued to him
+			SpawnShape(3, FxPosCm - Vd * Back, Vd, Life, -Back, Len, Len * 1.1, 12.0, 20.0, Peak, Life, 1.0f, 2);
 			FVector Side = FVector::CrossProduct(Vd, FVector::UpVector);
 			if (Side.IsNearlyZero()) Side = BdAnyPerp(Vd);
 			Side = Side.GetSafeNormal();
 			for (const double S : { -1.0, 1.0 })
-				if (FVapour* Vp = SpawnShape(3, FxPosCm - Vd * (Len * 0.6) + Side * (45.0 * S), Vd, Life, -(Len * 0.6), Len * 1.2, Len * 1.3, 8.0, 14.0, Peak * 0.8, Life, 1.0f, 2))
+				if (FVapour* Vp = SpawnShape(3, FxPosCm - Vd * (Back + 10.0) + Side * (45.0 * S), Vd, Life, -(Back + 10.0), Len * 1.1, Len * 1.2, 5.0, 9.0, Peak * 0.8, Life, 1.0f, 2))
 					Vp->SideCm = Side * (45.0 * S);
 		}
 	}
@@ -771,7 +828,7 @@ void AWHBreachDirector::PlaceCraterDecal(const FVector& PCm, float Sev)
 	It->T = 0.0; It->Grow = 0.30; It->bGrowing = true;
 }
 
-void AWHBreachDirector::SpawnPuff(const FVector& PosCm, const FVector& VelCms, double S0, double S1, double Life, double Peak, double DelayS, const FLinearColor& Col)
+void AWHBreachDirector::SpawnPuff(const FVector& PosCm, const FVector& VelCms, double S0, double S1, double Life, double Peak, double DelayS, const FLinearColor& Col, double FlatZ, double RiseCms)
 {
 	if (!Sphere || !MDust) return;
 	FPuff* Pf = nullptr;
@@ -785,7 +842,9 @@ void AWHBreachDirector::SpawnPuff(const FVector& PosCm, const FVector& VelCms, d
 	}
 	else { Pf = &Puffs[NextPuff % Puffs.Num()]; ++NextPuff; }   // recycle the oldest
 	Pf->Pos = PosCm; Pf->Vel = VelCms; Pf->T = 0.0; Pf->Delay = DelayS; Pf->Life = Life; Pf->S0 = S0; Pf->S1 = S1; Pf->Peak = Peak;
-	Pf->Drag = Rng.FRandRange(1.8f, 2.8f); Pf->Rise = Rng.FRandRange(40.f, 110.f);
+	Pf->Drag = Rng.FRandRange(1.8f, 2.8f);
+	Pf->Rise = RiseCms >= 0.0 ? RiseCms : double(Rng.FRandRange(40.f, 110.f));
+	Pf->FlatZ = FMath::Clamp(FlatZ, 0.2, 1.0);   // critic r4 landings: low ground dust
 	Pf->bLive = true; Pf->bShown = false;
 	Pf->Comp->SetVisibility(false);
 	if (Pf->Mid)
@@ -826,15 +885,26 @@ void AWHBreachDirector::BreachDust(const FVector& PointCm, const FVector& OutN, 
 
 void AWHBreachDirector::CraterDust(const FVector& PCm, float Sev)
 {
-	// a ring of dense puffs thrown outward and up from the impact, starting outside the hero's body
-	const int32 N = 14 + int32(8 * Sev);
+	// critic r4 (dust hid the hero for 55 / 26 / 15 frames at the fl11 / fl12 / fl17 landings; r3 puffs started 0.8-2.2 m from him, rose
+	// 0.8-2.2 m/s and grew to 2.2-4.5 m round balls): a LOW ring thrown OUTWARD -- puffs start 1.8-3.0 m out, 10-35 cm over the street, fly
+	// out at 5-13 m/s with little lift (0.2-0.9 m/s, slow rise), squashed to 0.55 of their width; the ones on the lens side of him start
+	// smaller and thinner (and the Tick fades any puff on the lens -> hero line down to HeroClearMin)
+	const int32 N = 16 + int32(8 * Sev);
+	FVector ToCam = FVector::ZeroVector;
+	{
+		FVector Cv;
+		if (ViewPos(Cv)) ToCam = FVector(Cv.X - PCm.X, Cv.Y - PCm.Y, 0.0).GetSafeNormal();
+	}
 	for (int32 K = 0; K < N; ++K)
 	{
 		const double A = 2.0 * PI * (K + Rng.FRand() * 0.8) / N;
 		const FVector Rad(FMath::Cos(A), FMath::Sin(A), 0.0);
-		const double S0 = Rng.FRandRange(90.f, 140.f) * (0.9 + 0.3 * Sev);
-		SpawnPuff(PCm + Rad * Rng.FRandRange(80.f, 220.f) + FVector(0.0, 0.0, Rng.FRandRange(20.f, 60.f)), Rad * Rng.FRandRange(300.f, 800.f) + FVector(0.0, 0.0, Rng.FRandRange(80.f, 220.f)),
-			S0, S0 * Rng.FRandRange(2.4f, 3.2f), Rng.FRandRange(1.3f, 1.8f), Rng.FRandRange(0.6f, 0.74f), Rng.FRandRange(0.f, 0.1f), BdDust * Rng.FRandRange(0.8f, 1.05f));
+		const double Thin = ToCam.IsNearlyZero() ? 0.0 : BdSmooth01((FVector::DotProduct(Rad, ToCam) - 0.35) / 0.5);   // 1 = straight at the lens
+		const double S0 = Rng.FRandRange(60.f, 100.f) * (0.9 + 0.3 * Sev) * (1.0 - 0.45 * Thin);
+		SpawnPuff(PCm + Rad * Rng.FRandRange(180.f, 300.f) + FVector(0.0, 0.0, Rng.FRandRange(10.f, 35.f)),
+			Rad * Rng.FRandRange(500.f, 1300.f) + FVector(0.0, 0.0, Rng.FRandRange(20.f, 90.f)),
+			S0, S0 * Rng.FRandRange(2.6f, 3.4f), Rng.FRandRange(1.1f, 1.6f), Rng.FRandRange(0.5f, 0.66f) * (1.0 - 0.65 * Thin), Rng.FRandRange(0.f, 0.08f),
+			BdDust * Rng.FRandRange(0.8f, 1.05f), 0.55, Rng.FRandRange(15.f, 35.f));
 	}
 }
 
@@ -867,11 +937,13 @@ AWHBreachDirector::FVapour* AWHBreachDirector::SpawnShape(int32 Shape, const FVe
 	Vp->Len0 = Len0; Vp->Len1 = Len1; Vp->Rad0 = Rad0; Vp->Rad1 = Rad1; Vp->Peak = Peak;
 	Vp->Env = Env; Vp->VelCm = FVector::ZeroVector; Vp->SideCm = FVector::ZeroVector;
 	Vp->bLive = true;
+	Vp->RadialU = FVector::RightVector; Vp->SegLenK = 0.5; Vp->ThickK = 0.08; Vp->DriftCms = 0.0;   // (critic r4: shape-4 ring tube fields)
 	if (Vp->Mid)
 	{
 		Vp->Mid->SetVectorParameterValue(TEXT("Color"), Shape == 0 ? FLinearColor(0.92f, 0.95f, 1.0f, 1.f) : FLinearColor(0.9f, 0.93f, 1.0f, 1.f));
 		Vp->Mid->SetScalarParameterValue(TEXT("EdgePow"), EdgePow);
 		Vp->Mid->SetScalarParameterValue(TEXT("Opacity"), 0.f);
+		if (Shape != 3) Vp->Mid->SetScalarParameterValue(TEXT("Gain"), 1.4f);   // (the M_InvVapour default; the boom pieces lower it after the spawn)
 		if (Shape == 3)
 		{ // M_InvStreak: the axis and half length (cm) the speed line fades along (ignored by M_InvVapour)
 			Vp->Mid->SetVectorParameterValue(TEXT("Dir"), FLinearColor(float(Dn.X), float(Dn.Y), float(Dn.Z), 0.f));
@@ -880,6 +952,44 @@ AWHBreachDirector::FVapour* AWHBreachDirector::SpawnShape(int32 Shape, const FVe
 	}
 	Vp->Comp->SetVisibility(true);
 	return Vp;
+}
+
+// critic r4 fl04 / fl12 (flat discs): a shock ring made of NSeg short vapour tubes (stretched spheres along the ring tangent) on a circle
+// square-on to Dir. A tube is fresnel-bright along its silhouette, so off-axis the ring reads as an ellipse of vapour around the body; the
+// middle is empty (a lens passing through the ring plane goes through the hole). Shape 4 in the Tick; pool cap MaxVapours.
+void AWHBreachDirector::SpawnRing(const FVector& CentreCm, const FVector& Dir, int32 NSeg, double FollowS, double OffsetCm, double DriftCms, double R0, double R1, double ThickK, double Peak, double Life)
+{
+	if (!Sphere || !MVapour || NSeg <= 0) return;
+	FVector D = Dir.GetSafeNormal();
+	if (D.IsNearlyZero()) D = FVector::ForwardVector;
+	const double Phase = Rng.FRandRange(0.f, 1.f);
+	for (int32 K = 0; K < NSeg; ++K)
+	{
+		const FVector Rad = BdRingDir(D, 2.0 * PI * (K + Phase) / NSeg);
+		FVapour* Vp = SpawnShape(4, CentreCm, D, FollowS, OffsetCm, 0.0, 0.0, R0, R1, Peak * Rng.FRandRange(0.8f, 1.f), Life * Rng.FRandRange(0.9f, 1.05f), 1.3f, 0);
+		if (!Vp) break;   // pool full
+		Vp->RadialU = Rad;
+		Vp->SegLenK = 2.0 * PI / NSeg * 1.35;   // overlapping tubes: a continuous ring
+		Vp->ThickK = ThickK;
+		Vp->DriftCms = DriftCms;
+		if (Vp->Mid) { Vp->Mid->SetScalarParameterValue(TEXT("Gain"), BoomGain); Vp->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(0.86f, 0.89f, 0.95f, 1.f)); }
+	}
+}
+
+bool AWHBreachDirector::ViewPos(FVector& OutCm) const
+{
+	if (const APlayerCameraManager* PCM = UGameplayStatics::GetPlayerCameraManager(this, 0))
+	{
+		OutCm = PCM->GetCameraLocation();
+		return true;
+	}
+	return false;
+}
+
+double AWHBreachDirector::CamFade(double DistCm) const
+{
+	const double C = FMath::Max(10.0, double(CamClearCm));
+	return BdSmooth01((DistCm - 0.15 * C) / C);
 }
 
 void AWHBreachDirector::SpawnRim(const FVector& PCm, float Sev, UMaterialInterface* GroundMat)
@@ -1053,6 +1163,7 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 	}
 	// owner feedback 2026-10-15 #1: the charge slow-mo's safety end (real time), then the continuous flight FX
 	if (bChargeSlow && FPlatformTime::Seconds() >= ChargeSlowEnd) EndChargeSlowMo();
+	bCamOk = ViewPos(CamCm);   // critic r4: lens position for the near-lens / hero-line fades and the streak placement
 	FlightFxTick(Dt);
 	// chunks: retire after ChunkLife (or if they fell out of the world)
 	const double Now = GetWorld()->GetTimeSeconds();
@@ -1095,6 +1206,11 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 		}
 	}
 	// r3 puffs: dense dust (hidden until its delay, fades in over ~0.16 s, grows with an ease-out, lingers, fades over the last 60 %)
+	// critic r4 (landings: the hero hidden 15-55 frames behind dust; whiteouts with sd ~20): a puff on the lens -> hero line keeps only
+	// HeroClearMin..1 of its opacity (by how far its centre is from that line, in puff radii), and a puff near the lens fades out (CamFade)
+	const UWHFlightWorldSubsystem* FWp = UWHFlightWorldSubsystem::Get(this);
+	const bool bHeroLine = bCamOk && FWp && FWp->bHeroValid;
+	const FVector HeroChest = bHeroLine ? FWp->HeroPosCm + FVector(0.0, 0.0, 30.0) : FVector::ZeroVector;
 	for (FPuff& Pf : Puffs)
 	{
 		if (!Pf.bLive) continue;
@@ -1107,9 +1223,18 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 		Pf.Vel *= FMath::Exp(-Pf.Drag * Dt);
 		Pf.Pos += Pf.Vel * Dt + FVector(0.0, 0.0, Pf.Rise * Dt * (1.0 - K));
 		const double Sz = FMath::Lerp(Pf.S0, Pf.S1, BdEaseOut(K));
-		const double Op = Pf.Peak * BdSmooth01(Age / 0.16) * (1.0 - BdSmooth01((K - 0.40) / 0.60));
-		Pf.Comp->SetWorldLocation(Pf.Pos);
-		Pf.Comp->SetWorldScale3D(FVector(Sz / 100.0));
+		double Op = Pf.Peak * BdSmooth01(Age / 0.16) * (1.0 - BdSmooth01((K - 0.40) / 0.60));
+		// (a squashed ground puff sits on the street: its centre rides up with its height so it is not half buried)
+		const FVector DrawPos = Pf.Pos + FVector(0.0, 0.0, Pf.FlatZ < 0.999 ? 0.3 * Sz * Pf.FlatZ : 0.0);
+		if (bHeroLine)
+		{
+			const double Rp = FMath::Max(10.0, 0.5 * Sz);
+			const double DL = BdSegDist(DrawPos, CamCm, HeroChest);
+			Op *= FMath::Lerp(FMath::Clamp(double(HeroClearMin), 0.0, 1.0), 1.0, BdSmooth01((DL - 0.3 * Rp) / (0.9 * Rp)));
+		}
+		if (bCamOk) Op *= CamFade(FVector::Dist(DrawPos, CamCm) - 0.5 * Sz);
+		Pf.Comp->SetWorldLocation(DrawPos);
+		Pf.Comp->SetWorldScale3D(FVector(Sz / 100.0, Sz / 100.0, Sz * Pf.FlatZ / 100.0));
 		if (Pf.Mid) Pf.Mid->SetScalarParameterValue(TEXT("Opacity"), float(Op));
 	}
 	// r3 vapour: the sonic-boom cone / rings follow the hero for Follow s (HeroPosCm is written by the pawn every frame), grow with an ease-out
@@ -1123,21 +1248,39 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 			if (Vp.T >= Vp.Life) { Vp.bLive = false; Vp.Comp->SetVisibility(false); continue; }
 			const double K = Vp.T / Vp.Life;
 			// (owner feedback 2026-10-15: + SideCm for the glued contrails; a piece that does not follow drifts at VelCm)
-			if (Vp.T < Vp.Follow && FW && FW->bHeroValid) Vp.Anchor = FW->HeroPosCm + Vp.Dir * Vp.OffsetCm + Vp.SideCm;
+			// (critic r4: a shape-4 ring tube's anchor is its ring centre, which may drift back along the axis at DriftCms)
+			if (Vp.T < Vp.Follow && FW && FW->bHeroValid)
+				Vp.Anchor = Vp.Shape == 4 ? FW->HeroPosCm + Vp.Dir * (Vp.OffsetCm - Vp.DriftCms * Vp.T) : FW->HeroPosCm + Vp.Dir * Vp.OffsetCm + Vp.SideCm;
 			else Vp.Anchor += Vp.VelCm * Dt;
 			const double E = BdEaseOut(K);
 			const double Rad = FMath::Lerp(Vp.Rad0, Vp.Rad1, E);
+			// critic r4 (washed frames / slabs through the lens): the distance from the lens to this piece's surface (cm) for CamFade
+			double LensD = 1e6;
 			if (Vp.Shape == 2)
 			{ // owner feedback 2026-10-15 #1: a sphere shell (the boom's shock shell, the charge's gathering vapour)
 				Vp.Comp->SetWorldLocationAndRotation(Vp.Anchor, FRotationMatrix::MakeFromZ(Vp.Dir).ToQuat());
 				Vp.Comp->SetWorldScale3D(FVector(2.0 * Rad / 100.0));
+				if (bCamOk) LensD = FMath::Abs(FVector::Dist(CamCm, Vp.Anchor) - Rad);   // a shell: inside or outside, its wall is what nears the lens
 			}
 			else if (Vp.Shape == 3)
 			{ // owner feedback 2026-10-15 #1 / #3: a speed line -- an ellipsoid Len long along Dir, centred on Anchor
 				const double Len = FMath::Lerp(Vp.Len0, Vp.Len1, E);
-				Vp.Comp->SetWorldLocationAndRotation(Vp.Anchor, FRotationMatrix::MakeFromZ(Vp.Dir).ToQuat());
+				const FQuat Q = FRotationMatrix::MakeFromZ(Vp.Dir).ToQuat();
+				Vp.Comp->SetWorldLocationAndRotation(Vp.Anchor, Q);
 				Vp.Comp->SetWorldScale3D(FVector(2.0 * Rad / 100.0, 2.0 * Rad / 100.0, FMath::Max(1.0, Len) / 100.0));
 				if (Vp.Mid && FMath::Abs(Vp.Len1 - Vp.Len0) > 1.0) Vp.Mid->SetScalarParameterValue(TEXT("HalfLen"), float(FMath::Max(1.0, Len * 0.5)));
+				if (bCamOk) LensD = BdEllipsoidDist(CamCm, Vp.Anchor, Q, FVector(Rad, Rad, FMath::Max(1.0, Len) * 0.5));
+			}
+			else if (Vp.Shape == 4)
+			{ // critic r4 fl04: one tube of a segmented shock ring -- on the circle of radius Rad around the axis, along its tangent
+				const FVector Tg = FVector::CrossProduct(Vp.Dir, Vp.RadialU).GetSafeNormal();
+				const double SegL = FMath::Max(20.0, Vp.SegLenK * Rad);
+				const double Th = FMath::Clamp(Vp.ThickK * Rad, 10.0, 60.0);
+				const FVector C = Vp.Anchor + Vp.RadialU * Rad;
+				const FQuat Q = FRotationMatrix::MakeFromZX(Tg.IsNearlyZero() ? BdAnyPerp(Vp.Dir) : Tg, Vp.RadialU).ToQuat();
+				Vp.Comp->SetWorldLocationAndRotation(C, Q);
+				Vp.Comp->SetWorldScale3D(FVector(2.0 * Th / 100.0, 2.0 * Th / 100.0, SegL / 100.0));
+				if (bCamOk) LensD = BdEllipsoidDist(CamCm, C, Q, FVector(Th, Th, SegL * 0.5));
 			}
 			else if (Vp.bCone)
 			{
@@ -1148,18 +1291,28 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 				const FVector CenterW = Vp.Anchor - Vp.Dir * (Len * 0.5);
 				Vp.Comp->SetWorldLocationAndRotation(CenterW - Q.RotateVector(FVector(0.0, 0.0, ConeMidZCm * Sz)), Q);
 				Vp.Comp->SetWorldScale3D(FVector(Sx, Sx, Sz));
+				if (bCamOk)
+				{ // the lens against the cone's flank: (axial back from the apex, radial) vs the segment apex (0, 0) -> base rim (Len, Rad)
+					const FVector Rel = CamCm - Vp.Anchor;
+					const double Ax = FVector::DotProduct(Rel, -Vp.Dir);
+					const double Rr = (Rel + Vp.Dir * Ax).Size();
+					LensD = BdSegDist(FVector(Ax, Rr, 0.0), FVector::ZeroVector, FVector(Len, Rad, 0.0));
+				}
 			}
 			else
 			{
 				const double Thick = FMath::Max(40.0, Rad * 0.18);
-				Vp.Comp->SetWorldLocationAndRotation(Vp.Anchor, FRotationMatrix::MakeFromZ(Vp.Dir).ToQuat());
+				const FQuat Q = FRotationMatrix::MakeFromZ(Vp.Dir).ToQuat();
+				Vp.Comp->SetWorldLocationAndRotation(Vp.Anchor, Q);
 				Vp.Comp->SetWorldScale3D(FVector(2.0 * Rad / 100.0, 2.0 * Rad / 100.0, Thick / 100.0));
+				if (bCamOk) LensD = BdEllipsoidDist(CamCm, Vp.Anchor, Q, FVector(Rad, Rad, Thick * 0.5));
 			}
 			if (Vp.Mid)
 			{ // envelopes (owner feedback 2026-10-15): 0 the r3 fade-out after 40 %, 1 gather (ramps up to the launch), 2 speed line (quick in, fades over the second half)
 				double Op = Vp.Peak * BdSmooth01(Vp.T / 0.05) * (1.0 - BdSmooth01((K - 0.40) / 0.60));
 				if (Vp.Env == 1) Op = Vp.Peak * BdSmooth01(K / 0.8) * (1.0 - BdSmooth01((K - 0.92) / 0.08));
 				else if (Vp.Env == 2) Op = Vp.Peak * BdSmooth01(Vp.T / 0.04) * (1.0 - BdSmooth01((K - 0.5) / 0.5));
+				if (LensD < 1e5) Op *= CamFade(LensD);   // critic r4: nothing white right on the lens
 				Vp.Mid->SetScalarParameterValue(TEXT("Opacity"), float(Op));
 			}
 		}

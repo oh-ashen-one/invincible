@@ -206,12 +206,19 @@ void UWHFlightComponent::StepBreach(UWebTraversalComponent& T, double H)
 void UWHFlightComponent::DeflectFree(UWebTraversalComponent& T, const FVector& HitN, double Speed)
 {
 	auto& S = T.S;
-	const FWebTravWorld& W = T.TravWorld;
 	if (Speed < 1.0) return;
+	const FVector D = FreeAlong(T, HitN, Speed, 0.5);
+	if (!D.IsNearlyZero()) S.Vel = D * Speed;
+}
+
+FVector UWHFlightComponent::FreeAlong(UWebTraversalComponent& T, const FVector& HitN, double Speed, double TanShare) const
+{
+	const auto& S = T.S;
+	const FWebTravWorld& W = T.TravWorld;
 	const FVector Tan = S.Vel - HitN * FVector::DotProduct(S.Vel, HitN);
-	if (Tan.Size() >= 0.5 * Speed) { S.Vel = Tan.GetSafeNormal() * Speed; return; }
+	if (Tan.Size() >= TanShare * FMath::Max(Speed, 1e-3) && Tan.Size() > 0.5) return Tan.GetSafeNormal();
 	const FVector Nh = FVector(HitN.X, HitN.Y, 0.0).GetSafeNormal();
-	if (Nh.IsNearlyZero()) return;
+	if (Nh.IsNearlyZero()) return FVector::ZeroVector;
 	const FVector Along = FVector::CrossProduct(FlUp, Nh);
 	const FVector From = S.Pos + Nh * 0.6;
 	FVector Cands[3] = { FlUp, Along, -Along };
@@ -224,13 +231,94 @@ void UWHFlightComponent::DeflectFree(UWebTraversalComponent& T, const FVector& H
 		const double Free = W.SweepSolid(From, From + C * 15.0, 0.45, D, N) ? D : 15.0;
 		if (Free > BestFree + 0.5) { BestFree = Free; Best = C; }
 	}
-	S.Vel = Best * Speed;
+	return Best;
+}
+
+// critic r4 fl16 (stick-back slow flight head-on into a facade: position locked within 4 cm for 5.5 s, head and arm inside the fire-escape
+// grate): a slow fly line keeps its body centre WallStandoffM off the facade (+ WallHeadReachM x how square he heads into it, so the leading
+// head / fists stay clear), the speed component into the wall is bled off smoothly (it may close at no more than WallApproachRate x the
+// remaining gap; inside the standoff he eases back out at <= 3 m/s), and the bled speed is turned along the wall toward the free side
+// (FreeAlong: the tangential travel, else up / left / right), never under SlideMinSpeed while fly is held. Rays (visual collision, so
+// fire escapes / balconies count) along the horizontal travel and back toward the last wall normal; the swept contact stays the backstop.
+bool UWHFlightComponent::WallStandoff(UWebTraversalComponent& T, double H, const FWebTravInput& I)
+{
+	auto& S = T.S;
+	const FWebTravWorld& W = T.TravWorld;
+	SlideDirT = FMath::Max(0.0, SlideDirT - H);
+	const double Rs = FMath::Max(0.5, double(WallStandoffM));
+	const double Sp0 = S.Vel.Size();
+	const FVector Vh(S.Vel.X, S.Vel.Y, 0.0);
+	const double Reach = Rs + double(WallHeadReachM) + FMath::Max(0.0, Vh.Size()) / FMath::Max(1.0, double(WallApproachRate)) + 0.5;
+	FTravHit Best; bool bHit = false;
+	auto Probe = [&](const FVector& D)
+	{
+		if (D.IsNearlyZero()) return;
+		FTravHit Hh;
+		if (W.Raycast(S.Pos, D, Reach, Hh) && FMath::Abs(Hh.Normal.Z) < 0.5 && !Hh.bGround && (!bHit || Hh.Distance < Best.Distance)) { Best = Hh; bHit = true; }
+	};
+	if (Vh.Size() > 0.5) Probe(Vh.GetSafeNormal());
+	if (!WallNLast.IsNearlyZero()) Probe(-WallNLast);
+	if (!bHit) { if (SlideDirT <= 0.0) WallNLast = FVector::ZeroVector; return false; }
+	FVector N = FVector(Best.Normal.X, Best.Normal.Y, 0.0).GetSafeNormal();
+	if (N.IsNearlyZero()) return false;
+	if (FVector::DotProduct(S.Pos - Best.Point, N) < 0.0) N = -N;   // out of the wall, toward the body
+	WallNLast = N;
+	const double Into = Sp0 > 0.5 ? FMath::Max(0.0, FVector::DotProduct(S.Vel / Sp0, -N)) : 0.0;
+	const double Want = Rs + double(WallHeadReachM) * Into;
+	const double Dd = FMath::Max(0.0, FVector::DotProduct(S.Pos - Best.Point, N));   // square distance to the facade plane (not the ray length)
+	const double VN = FVector::DotProduct(S.Vel, N);
+	// the slowest the gap may close (negative) / the speed it must open at (positive, capped 3 m/s)
+	const double Allowed = FMath::Min(3.0, double(WallApproachRate) * (Want - Dd));
+	if (VN < Allowed)
+	{
+		const double Bled = FMath::Max(0.0, -VN) - FMath::Max(0.0, -Allowed);
+		S.Vel += N * (Allowed - VN);
+		if (I.bSwing && Bled > 0.0)
+		{ // the bled speed goes along the wall (held direction for a head-on contact)
+			FVector Tan = S.Vel - N * FVector::DotProduct(S.Vel, N);
+			if (SlideDirT <= 0.0 || SlideDir.IsNearlyZero() || FMath::Abs(FVector::DotProduct(SlideDir, N)) > 0.2)
+			{
+				SlideDir = FreeAlong(T, N, Sp0, 0.3);
+				SlideDirT = 0.6;
+			}
+			const FVector Dir = Tan.Size() > 0.3 * Sp0 && Tan.Size() > 0.5 ? Tan.GetSafeNormal() : SlideDir;
+			const double TanNew = FMath::Min(Sp0, Tan.Size() + Bled);
+			S.Vel = N * FVector::DotProduct(S.Vel, N) + Dir * TanNew;
+		}
+	}
+	if (I.bSwing && Dd < Want + 0.3)
+	{ // never a freeze along the wall while fly is held
+		const FVector Tan = S.Vel - N * FVector::DotProduct(S.Vel, N);
+		if (Tan.Size() < double(SlideMinSpeed))
+		{
+			if (SlideDirT <= 0.0 || SlideDir.IsNearlyZero()) { SlideDir = FreeAlong(T, N, FMath::Max(Sp0, 1.0), 0.3); SlideDirT = 0.6; }
+			const FVector Dir = Tan.Size() > 0.5 ? Tan.GetSafeNormal() : SlideDir;
+			S.Vel = N * FVector::DotProduct(S.Vel, N) + Dir * double(SlideMinSpeed);
+		}
+	}
+	// r3 hero request (wall-side tuck): facade side in the body frame and the distance to it (only near the standoff)
+	if (Dd < Want + 0.5)
+	{
+		WallSideV = FMath::Clamp(FVector::DotProduct(-N, S.BodyQ.GetRightVector()), -1.0, 1.0);
+		WallDistV = Dd; WallT = 0.25;
+	}
+	return true;
 }
 
 bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, const FWebTravInput& I)
 {
 	auto& S = T.S;
 	const FWebTravWorld& W = T.TravWorld;
+	// critic r4 fl16: slow fly lines (under breach speed) hold a standoff from facades and slide along them (WallStandoff). Not while fly is
+	// held with the stick forward square into a wall: that keeps the round-1 pin-and-punch-through (PunchPinTime) below.
+	if (WallStandoffM > 0.f && (Sub == NF_fly || Sub == NF_dash) && S.Vel.Size() < double(BreachSpeed) * 0.95)
+	{
+		bool bPunchWanted = false;
+		if (I.bSwing && I.Move.Y > -0.3 && !WallNLast.IsNearlyZero() && S.Vel.Size() > 1.0)
+			bPunchWanted = FVector::DotProduct(S.Vel.GetSafeNormal(), -WallNLast) > 0.6;
+		if (!bPunchWanted) WallStandoff(T, H, I);
+	}
+	else if (SlideDirT <= 0.0) WallNLast = FVector::ZeroVector;
 	const FVector P0 = S.Pos;
 	const FVector P1 = P0 + S.Vel * H;
 	const double Sp = S.Vel.Size();
@@ -443,9 +531,21 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	}
 	else if (SuperState == ESuper::Run)
 	{ // held Shift: the super-speed line (steerable, wide turns)
-		StepLine(double(SuperSpeed), double(SuperLatAccel), double(SuperAccel), double(Decel));
+		if (LaunchRampS >= 0.0)
+		{ // critic r4 fl04 (0 -> 243 m/s in one telemetry step): the launch ramp -- SuperLaunchV0 at the boom frame, then an explosive
+		  // (ease-out / smoothstep mix: ~1300 m/s^2 at the start, none at the end) climb to LaunchVEnd over SuperLaunchRampT s along the travel
+			LaunchRampS += H;
+			const double Rt = FMath::Max(0.02, double(SuperLaunchRampT));
+			const double K = FMath::Clamp(LaunchRampS / Rt, 0.0, 1.0);
+			const double E = 0.5 * K * K * (3.0 - 2.0 * K) + 0.5 * (1.0 - (1.0 - K) * (1.0 - K));
+			const FVector Dir = Sp > 1.0 ? V / Sp : LaunchDir;
+			V = Dir * FMath::Lerp(FMath::Min(double(SuperLaunchV0), LaunchVEnd), LaunchVEnd, E);
+			if (K >= 1.0) LaunchRampS = -1.0;
+		}
+		else StepLine(double(SuperSpeed), double(SuperLatAccel), double(SuperAccel), double(Decel));
 		SetFlySub(T, NF_boost);
-		if (!I.bSprint) { SuperState = ESuper::Decel; SuperT = 0.0; }
+		// (a tap of Shift still gets the whole launch: the release only counts once the ramp is done)
+		if (!I.bSprint && LaunchRampS < 0.0) { SuperState = ESuper::Decel; SuperT = 0.0; }
 	}
 	else if (SuperState == ESuper::Decel)
 	{ // released: back to cruise over SuperDecelTime, then the ordinary fly / hover rules
@@ -532,21 +632,27 @@ void UWHFlightComponent::SuperLaunch(UWebTraversalComponent& T, const FVector& A
 	}
 	if (FlHLen(D) > 1e-3) AimYaw = FMath::Atan2(D.Y, D.X);
 	AimPitch = FMath::Clamp(-FMath::Asin(FMath::Clamp(D.Z, -1.0, 1.0)), -1.35, 1.35);
-	S.Vel = D * double(SuperSpeed) * FMath::Clamp(double(SuperLaunchK), 0.1, 1.0);
+	// critic r4 fl04: the launch accelerates over SuperLaunchRampT (StepAirSub, Run) instead of setting the full speed in one frame
+	LaunchVEnd = double(SuperSpeed) * FMath::Clamp(double(SuperLaunchK), 0.1, 1.0);
+	LaunchDir = D;
+	if (SuperLaunchRampT > 0.001f) { S.Vel = D * FMath::Min(double(SuperLaunchV0), LaunchVEnd); LaunchRampS = 0.0; }
+	else { S.Vel = D * LaunchVEnd; LaunchRampS = -1.0; }
 	SuperState = ESuper::Run; SuperT = 0.0; LaunchK = 1.0;
 	SetFlySub(T, NF_boost);
 	BoomK = 1.0; ++BoomCount;
 	const double Sp = S.Vel.Size();
-	Event(T, NF_sonicBoom, 1.f, S.Pos, D, float(Sp));
+	Event(T, NF_sonicBoom, 1.f, S.Pos, D, float(LaunchVEnd));
 	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(GetOwner()))
-		FW->PushStimulus(EWHCrowdStimulus::SonicBoom, S.Pos * 100.0, 15000.f, 1.f, 3.f, S.Vel * 100.0);
-	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT sonic boom (super launch) at (%.1f, %.1f, %.1f) dir (%.2f, %.2f, %.2f) %.1f m/s"), S.Pos.X, S.Pos.Y, S.Pos.Z, D.X, D.Y, D.Z, Sp);
+		FW->PushStimulus(EWHCrowdStimulus::SonicBoom, S.Pos * 100.0, 15000.f, 1.f, 3.f, D * LaunchVEnd * 100.0);
+	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT sonic boom (super launch) at (%.1f, %.1f, %.1f) dir (%.2f, %.2f, %.2f) %.1f m/s -> %.1f m/s over %.2f s"),
+		S.Pos.X, S.Pos.Y, S.Pos.Z, D.X, D.Y, D.Z, Sp, LaunchVEnd, double(SuperLaunchRampT));
 }
 
 void UWHFlightComponent::EndSuper(bool bCooldown)
 {
 	if (bCooldown && SuperState != ESuper::None) SuperCd = SuperCooldown;
 	SuperState = ESuper::None; SuperT = 0.0; ChargeK = 0.0;
+	LaunchRampS = -1.0;   // critic r4 fl04: a brake / slam / landing ends the launch ramp too
 }
 
 // owner feedback #2: double-tap Space -- straight down into the superhero landing. The downward acceleration is at least DiveAccel and

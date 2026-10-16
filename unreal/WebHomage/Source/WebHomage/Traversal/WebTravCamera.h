@@ -94,6 +94,9 @@ public:
 	double FlightFxDist = 0.0, FlightFxShake = 0.0, FlightFxBlur = 0.0;
 	double FlightBoomFovDeg = 12.0, FlightBoomPunch = 0.0, FlightBoomPunchV = 0.0;
 	double FlightLaunchHoldT = 0.0, FlightLaunchLagT = 0.14, FlightLaunchHoldK = 0.35;
+	/** critic r4 fl04 / fl12 (the launch hang let the lens trail 24 m, hero ~12 px): the output slew never leaves the lens farther than this
+	 *  from the hero (m; set by the flight pawn every frame, 0 = off for the legacy hero). Output SlewFlags bit 64 = the leash pulled. */
+	double FlightLeashM = 0.0;
 	void FlightBoom(double Amt)
 	{
 		Kick(Amt); Shake(0.5 * Amt);
