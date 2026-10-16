@@ -2,6 +2,8 @@
 
 Owner request 2026-10-15 (Hari): replace Spider-Man / web-swinging in the UE 5.8 WebHomage project with a flying hero in the style of Mark Grayson ("Invincible" comic homage, no cape). Unofficial, non-commercial homage; see `DISCLAIMER.md` and `LICENSE` (the original author attribution to Shikhar / xikhar stands).
 
+## Update 2026-10-16: the v2 hero (CustomUse model + rig; hover / flight / boost clips confirmed by the owner, brake / landing / takeoff / boost game clips made autonomously) now drives the game through UWHHeroV2AnimInstance; see docs/invincible/character/ANIMATIONS.md and the r4-r6 rows below.
+
 ## Status after the overnight loop (2026-10-15, 00:30-06:00 ET, Mac Studio M3 Ultra, UE 5.8)
 
 **Independent critic verdict: FAILS TARGET** (round 1 lowest axis 2/10, round 2 lowest axis 2/10). The flight controller, suite and
@@ -26,6 +28,10 @@ footage is **not** real-time FPS evidence; no real-time performance was measured
 | r2 | `ca3caa22` | 17 cases | **15/17** (fl14 hidden 49 frames before its breach, fl17 hidden 40 frames: the carried load occludes him) | FAILS TARGET; silhouette 3, suit 5, camera 3, speed 3, FX 2, glitches 2 (`captures/r2/CRITIC.md`) |
 | r2b | `45580f5c` | fl01, fl02, fl04, fl14, fl15 | 4/5 (fl14 11 hidden frames) | not reviewed (targeted replay of the r2 sheet fixes) |
 | r3 | source of `04832f78` (built before that commit; RUN.json shows head 45580f5c + dirty) | fl01, fl03, fl04, fl13, fl14 | 4/5 (fl14 9 hidden frames); fl13 touchdown contact 10 -> ~5 m/s; hero larger in frame | not reviewed (final targeted replay; the r2 critic's other findings still stand) |
+
+| r4 | `70b9e26f`+ (v2 hero, clip-driven) | 17 cases | 16/17 | FAILS TARGET, lowest 3 (`captures/r4/CRITIC.md`) |
+| r5 | `653afef6` (r5 fixes) | 17 cases | 16/17 | FAILS TARGET, lowest 2 (`captures/r5/CRITIC.md`; clips were slimmed to 540p mid-review) |
+| r6 | `1795f305` (r6 fixes) | 17 cases | 16/17 (fl17 hidden 9 frames, was 128) | FAILS TARGET, lowest 2 (glitches); silhouette 5 (was 3), speed 5 (was 4), suit 6 (`captures/r6/CRITIC.md`) |
 
 ## What the night fixed (each from a sim, a sheet or the critic, each re-captured)
 
