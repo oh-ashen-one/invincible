@@ -1,0 +1,89 @@
+{
+ "fl18_roof_hero_land": {
+  "checks": [
+   {
+    "check": "hero landings",
+    "ok": true,
+    "value": 1,
+    "want": 1
+   },
+   {
+    "check": "never in ground mode",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "camera calm (vertical reversals > 5 cm/frame)",
+    "ok": true,
+    "value": 1,
+    "want": "<= 4"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "hover",
+   "landHero",
+   "slam"
+  ],
+  "max_speed": 165.3,
+  "z_start_end": [
+   141.2,
+   56.4
+  ],
+  "frames": 601,
+  "luma_frames": 603,
+  "known_preexisting_ensures": 1,
+  "log_flight": [
+   "heroLand"
+  ]
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "tag": "rHud",
+ "mode": "render-1080p-fixed60",
+ "source_head": "b2efc490",
+ "source_dirty": false,
+ "map": "/Game/Showcase/Maps/Manhattan_Island",
+ "game_args": [],
+ "cases": [
+  {
+   "case": "fl18_roof_hero_land",
+   "rc": 0,
+   "wall_s": 136.3,
+   "rows": 899,
+   "frames_rendered": 991,
+   "preroll_cut": 92,
+   "frames_kept": 601,
+   "mp4_mb": 5.69
+  }
+ ]
+}
