@@ -81,6 +81,11 @@ CASES = [
          spawn=dict(pos=[250, 500, 160], yaw=-90, camPitch=0.14, vel=[0, -20, 0]),
          keys=[K(0, move=[0, 0]), K(0.1, swing=True), K(0.4, sprint=True), K(0.9, look=[0, 40]), K(1.9, look=[0, 0])],   # (owner fx: Shift now = charge -> boom; fly first)
          checks=dict(subs=['fly'], hero_lands=1, grounded_end=True, min_speed=90.0)),
+    dict(name='fl18_roof_hero_land', quit=10.0, note='Owner bug 2026-10-16: hover 88 m above a 52 m roof, double-tap Space = superhero landing ON the roof, then walk and take off again (game froze, camera shook).',
+         spawn=dict(pos=[531.7, 469.5, 141.2], yaw=-90, camPitch=0.2),
+         keys=[K(0, move=[0, 0]), K(1.0, jump=True), K(1.08, jump=False), K(1.16, jump=True), K(1.24, jump=False),
+               K(5.0, move=[0, 1]), K(6.5, move=[0, 0]), K(7.5, jump=True), K(7.8, jump=False)],
+         checks=dict(hero_lands=1)),
     dict(name='fl13_soft_land_walk', quit=11.0, note='Hover descent from 25 m to a gentle touchdown on 5th Av, walk forward on the street, take off again.',
          spawn=dict(pos=[250, 300, 25], yaw=-90, camPitch=0.2),
          keys=[K(0, move=[0, 0]), K(0.5, drop=True), K(6.5, drop=False), K(7.0, move=[0, 1]), K(9.0, move=[0, 0]), K(9.5, jump=True), K(9.8, jump=False)],

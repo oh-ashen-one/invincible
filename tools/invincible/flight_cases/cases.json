@@ -152,6 +152,14 @@
   },
   "note": "Boost from 160 m, look down 40 deg (0.5-1.5 s): high-speed street impact = superhero landing without the slam key."
  },
+ "fl18_roof_hero_land": {
+  "quit": 10.0,
+  "args": [],
+  "checks": {
+   "hero_lands": 1
+  },
+  "note": "Owner bug 2026-10-16: hover 88 m above a 52 m roof, double-tap Space = superhero landing ON the roof, then walk and take off again (game froze, camera shook)."
+ },
  "fl13_soft_land_walk": {
   "quit": 11.0,
   "args": [],

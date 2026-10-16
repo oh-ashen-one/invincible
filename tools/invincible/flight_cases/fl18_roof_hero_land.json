@@ -1,0 +1,61 @@
+{
+ "name": "fl18_roof_hero_land",
+ "note": "Owner bug 2026-10-16: hover 88 m above a 52 m roof, double-tap Space = superhero landing ON the roof, then walk and take off again (game froze, camera shook).",
+ "seed": 1234,
+ "spawn": {
+  "pos": [
+   531.7,
+   469.5,
+   141.2
+  ],
+  "yaw": -90,
+  "camPitch": 0.2
+ },
+ "keys": [
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 0
+  },
+  {
+   "jump": true,
+   "t": 1.0
+  },
+  {
+   "jump": false,
+   "t": 1.08
+  },
+  {
+   "jump": true,
+   "t": 1.16
+  },
+  {
+   "jump": false,
+   "t": 1.24
+  },
+  {
+   "move": [
+    0,
+    1
+   ],
+   "t": 5.0
+  },
+  {
+   "move": [
+    0,
+    0
+   ],
+   "t": 6.5
+  },
+  {
+   "jump": true,
+   "t": 7.5
+  },
+  {
+   "jump": false,
+   "t": 7.8
+  }
+ ]
+}

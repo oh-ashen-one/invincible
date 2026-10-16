@@ -62,8 +62,7 @@ void AWebHomagePlayerController::BeginPlay()
 			FTimerHandle ResLogTimer;
 			GetWorldTimerManager().SetTimer(ResLogTimer, FTimerDelegate::CreateStatic(&FWHSettings::LogRes), 3.0f, false);
 		}
-		if (UGameInstance* GI = GetGameInstance())
-			if (UWHMusicSubsystem* Music = GI->GetSubsystem<UWHMusicSubsystem>()) Music->EnsureStarted(this);
+		// owner 2026-10-16: "remove the background music completely" -- the music subsystem is no longer started (no track plays)
 		ReleaseMouse();
 		// interactive play starts with the mouse captured (owner: right-mouse swing must work immediately); Escape releases + opens settings
 		if (!bNeverCapture) CaptureMouse();
