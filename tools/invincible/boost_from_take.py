@@ -52,15 +52,21 @@ def fists():
 # 1. sample take B's local poses (rotation only; root travel dropped -- the game moves the actor)
 arm.animation_data_create(); arm.animation_data.action = src_act
 f0, f1 = int(src_act.frame_range[0]), int(src_act.frame_range[1])
-frames = []
+frames = []; coil = []
 for f in range(f0, f1 + 1):
     sc.frame_set(f); frames.append({p.name: p.matrix_basis.copy() for p in pb})
+    th = (limb('left_hip') + limb('right_hip')).normalized(); sp_up = limb('spine1')
+    coil.append(max(0.0, min(1.0, (th.dot(sp_up) + 0.9) / 1.3)))   # 0 legs straight .. 1 knees at the stomach (take's own frame)
 arm.animation_data.action = None
 for tr in list(arm.animation_data.nla_tracks): arm.animation_data.nla_tracks.remove(tr)
 for a in list(bpy.data.actions): bpy.data.actions.remove(a)
 
 # 2. rebuild: flight-line pelvis + take B limbs + steady flight neck + fists
 q_flat = UP.rotation_difference(FWD)
+cmax = max(coil) or 1.0
+PEAK = coil.index(max(coil))                                        # deepest point of the tuck
+def ease(k): k = max(0.0, min(1.0, k)); return k * k * (3 - 2 * k)
+REST = {n: (AW @ arm.data.bones[n].matrix_local).to_quaternion() for n in ('spine1', 'spine2', 'spine3', 'neck', 'head')}
 U, F, L = FWD, -UP, LEFT                                            # body frame on the flight line: head forward, belly down
 out = bpy.data.actions.new('HERO_boost_v3'); arm.animation_data.action = out
 for p in pb: p.rotation_mode = 'QUATERNION'
@@ -68,13 +74,31 @@ for i, basis in enumerate(frames):
     for p in pb: p.matrix_basis = basis[p.name] if p.name != 'pelvis' else Matrix.Identity(4)
     bpy.context.view_layer.update()
     m = world('pelvis'); setw('pelvis', Matrix.LocRotScale(m.to_translation(), q_flat @ m.to_quaternion(), m.to_scale()))
-    # re-apply take B's limbs now that the pelvis changed (children follow automatically -- their local bases are untouched)
-    # coil amount from the take itself: how far the thighs come up toward the chest (0 straight .. 1 knees at the stomach)
-    th = (limb('left_hip') + limb('right_hip')).normalized()
-    c = max(0.0, min(1.0, (th.dot(U) + 0.9) / 1.3))
-    pb['neck'].matrix_basis = Matrix.Identity(4); pb['head'].matrix_basis = Matrix.Identity(4); bpy.context.view_layer.update()
-    sp = limb('spine3')                                             # follow the chest, then lift the chin to look ahead
-    aim('neck', (sp * 0.85 - F * (0.40 * (1 - c) + 0.10 * c) + U * 0.15).normalized())
+    # owner round 2: pencil-straight -- spine locked onto the flight line (no hunch, no twist); only the legs keep the take's tuck
+    c = ease(coil[i] / cmax)
+    for n in ('spine1', 'spine2', 'spine3'):
+        m = world(n); setw(n, Matrix.LocRotScale(m.to_translation(), q_flat @ REST[n], m.to_scale()))
+    # head dead straight: no yaw / roll from the take; chin lifted ~18 deg so he looks along the flight line
+    for n, pitch in (('neck', -10.0), ('head', -8.0)):
+        m = world(n); q = Quaternion(L, math.radians(pitch)) @ q_flat @ REST[n]
+        setw(n, Matrix.LocRotScale(m.to_translation(), q, m.to_scale()))
+    # arms: coil = straight back along the sides (elbows locked, fists by the hips, a touch above the back);
+    #       explode = swing forward to the parallel Superman line, fists leading, a touch above the line
+    for side, sgn in (('left', 1), ('right', -1)):
+        back = (-U * 0.96 + L * sgn * 0.20 - F * 0.18).normalized()
+        fwd = (U * 0.985 + L * sgn * 0.035 - F * 0.08).normalized()   # parallel Superman line (owner: no V)
+        d = (back * c + fwd * (1 - c)).normalized() if (back * c + fwd * (1 - c)).length > 1e-3 else (L * sgn - F * 0.3).normalized()
+        aim(side + '_collar', (L * sgn * 0.85 + U * (0.22 * (1 - c) - 0.15 * c) - F * 0.10).normalized())
+        aim(side + '_shoulder', d); aim(side + '_elbow', d); aim(side + '_wrist', d)
+    # owner: pencil-straight on the release -- after the deepest tuck the legs open straight back into the line (no kick-up)
+    if i >= PEAK:
+        k = ease((1 - c) * 1.15)
+        for side, sgn in (('left', 1), ('right', -1)):
+            th_take, sh_take, an_take = limb(side + '_hip'), limb(side + '_knee'), limb(side + '_ankle')
+            th_s = (-U - L * sgn * 0.03).normalized(); sh_s = (-U - F * 0.04).normalized(); an_s = (-U * 0.96 + F * 0.27).normalized()
+            aim(side + '_hip', (th_take * (1 - k) + th_s * k).normalized())
+            aim(side + '_knee', (sh_take * (1 - k) + sh_s * k).normalized())
+            aim(side + '_ankle', (an_take * (1 - k) + an_s * k).normalized())
     fists()
     for p in pb:
         p.keyframe_insert('rotation_quaternion', frame=i)
