@@ -57,6 +57,13 @@ for a in clips:
         if EAL.does_asset_exist(want): EAL.delete_asset(want)
         EAL.rename_asset(a.get_path_name().split('.')[0], want)
     out.append('AS_' + key)
+# -game runs cannot set usage flags on demand ("missing usage flag SkeletalMesh! Default Material will be used" -> plain white hero)
+MEL = unreal.MaterialEditingLibrary
+for x in EAL.list_assets(DEST, recursive=False, include_folder=False):
+    m = unreal.load_asset(x)
+    if isinstance(m, unreal.Material):
+        ok = m.set_editor_property('used_with_skeletal_mesh', True)
+        MEL.recompile_material(m); print('[invincible-v2] material usage SkeletalMesh set on', m.get_name())
 for x in EAL.list_assets(DEST, recursive=True, include_folder=False):
     EAL.save_asset(x, only_if_is_dirty=False)
 print('CLIPS', sorted(out))

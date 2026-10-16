@@ -1,0 +1,50 @@
+{
+ "tag": "rV2",
+ "mode": "render-1080p-fixed60",
+ "source_head": "57ce3c8c",
+ "source_dirty": true,
+ "map": "/Game/Showcase/Maps/Manhattan_Island",
+ "game_args": [],
+ "cases": [
+  {
+   "case": "fl01_takeoff_hover",
+   "rc": 0,
+   "wall_s": 140.6,
+   "rows": 1019,
+   "frames_rendered": 1111,
+   "preroll_cut": 92,
+   "frames_kept": 721,
+   "mp4_mb": 13.31
+  },
+  {
+   "case": "fl04_boost_sonic",
+   "rc": 0,
+   "wall_s": 147.8,
+   "rows": 1019,
+   "frames_rendered": 1111,
+   "preroll_cut": 92,
+   "frames_kept": 721,
+   "mp4_mb": 13.78
+  },
+  {
+   "case": "fl08_brake",
+   "rc": 0,
+   "wall_s": 126.3,
+   "rows": 779,
+   "frames_rendered": 871,
+   "preroll_cut": 92,
+   "frames_kept": 481,
+   "mp4_mb": 5.56
+  },
+  {
+   "case": "fl11_slam_crater",
+   "rc": 0,
+   "wall_s": 116.6,
+   "rows": 719,
+   "frames_rendered": 811,
+   "preroll_cut": 92,
+   "frames_kept": 421,
+   "mp4_mb": 4.79
+  }
+ ]
+}

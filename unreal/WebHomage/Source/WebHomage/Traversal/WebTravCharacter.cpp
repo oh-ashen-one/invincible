@@ -3,6 +3,7 @@
 #include "Traversal/WebTraversalComponent.h"
 #include "Traversal/WebTravScript.h"
 #include "Traversal/Anim/WebTravAnimInstance.h"
+#include "Traversal/Anim/WHHeroV2AnimInstance.h"   // hero v2 (owner request 2026-10-15)
 #include "Traversal/WebTravFlips.h"
 #include "Flight/WHFlightComponent.h"
 #include "Flight/WHFlightWorld.h"
@@ -335,6 +336,7 @@ void AWebTravCharacter::BuildFigure()
 bool AWebTravCharacter::SetupHeroMesh()
 {
 	// round 04: the real hero; round 10: paths are properties (HeroMeshPath / HeroLensMeshPath / HeroClipRoot / HeroClipPrefix)
+	bool bTryHeroV2 = false;   // hero v2 (owner request 2026-10-15): flight mode, -WHHeroV2 not 0, no explicit -WHHeroMesh=
 	{
 		FString V;
 		// Invincible conversion (2026-10-15): the flying hero wears its own mesh (Scripts/import_invincible_hero.py) when it has been built;
@@ -346,11 +348,15 @@ bool AWebTravCharacter::SetupHeroMesh()
 		{
 			HeroMeshPath = InvincibleMesh; HeroLensMeshPath.Empty();
 		}
-		if (FParse::Value(FCommandLine::Get(), TEXT("-WHHeroMesh="), V)) HeroMeshPath = V;
+		int32 HeroV2Arg = 1;
+		FParse::Value(FCommandLine::Get(), TEXT("-WHHeroV2="), HeroV2Arg);
+		bTryHeroV2 = FlightArg != 0 && HeroV2Arg != 0;
+		if (FParse::Value(FCommandLine::Get(), TEXT("-WHHeroMesh="), V)) { HeroMeshPath = V; bTryHeroV2 = false; }
 		if (FParse::Value(FCommandLine::Get(), TEXT("-WHHeroLens="), V)) HeroLensMeshPath = V.Equals(TEXT("none"), ESearchCase::IgnoreCase) ? FString() : V;
 		if (FParse::Value(FCommandLine::Get(), TEXT("-WHHeroClips="), V)) HeroClipRoot = V;
 		if (FParse::Value(FCommandLine::Get(), TEXT("-WHHeroClipPrefix="), V)) HeroClipPrefix = V;
 	}
+	if (bTryHeroV2 && SetupHeroV2Mesh()) return true;   // hero v2; otherwise the v1 / legacy setup below runs unchanged
 	USkeletalMesh* Body = HeroMeshPath.IsEmpty() ? nullptr : LoadObject<USkeletalMesh>(nullptr, *HeroMeshPath);
 	if (!Body)
 	{
@@ -452,6 +458,83 @@ bool AWebTravCharacter::SetupHeroMesh()
 	for (USceneComponent* P : ArmPivot) { if (P) P->SetVisibility(false, true); }
 	for (USceneComponent* P : LegPivot) { if (P) P->SetVisibility(false, true); }
 	return true;
+}
+
+// Hero v2 (owner-approved model, 2026-10-15): SK_InvincibleV2 on its own 52-bone skeleton with the clip-driven UWHHeroV2AnimInstance (no
+// lens mesh, the glTF's own material). Owner request: ~1.85 m tall, feet on the capsule bottom (= FigureRoot), facing the actor's forward.
+// The glTF unit scale / axes are read from the asset at runtime (reference-pose bones + imported bounds, UWHHeroV2AnimInstance::ComputeRefFrame).
+bool AWebTravCharacter::SetupHeroV2Mesh()
+{
+	static const TCHAR* V2Package = TEXT("/Game/Invincible/HeroV2/SK_InvincibleV2");
+	static const TCHAR* V2Object = TEXT("/Game/Invincible/HeroV2/SK_InvincibleV2.SK_InvincibleV2");
+	if (!FPackageName::DoesPackageExist(V2Package))
+	{
+		UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 mesh %s not built: v1 / legacy hero path"), V2Package);
+		return false;
+	}
+	USkeletalMesh* Body = LoadObject<USkeletalMesh>(nullptr, V2Object);
+	FWHHeroV2RefFrame RF;
+	if (!Body || !UWHHeroV2AnimInstance::ComputeRefFrame(Body, RF))
+	{
+		UE_LOG(LogWebHomage, Warning, TEXT("WH_HEROV2 mesh %s %s: v1 / legacy hero path"), V2Object, Body ? TEXT("lacks head / pelvis / left_|right_foot / left_|right_ankle") : TEXT("failed to load"));
+		return false;
+	}
+	{ float Hc = 0.f; if (FParse::Value(FCommandLine::Get(), TEXT("-WHHeroV2Height="), Hc) && Hc > 10.f) HeroV2HeightCm = Hc; }
+	USkeletalMeshComponent* M = GetMesh();
+	M->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+	M->SetAnimInstanceClass(UWHHeroV2AnimInstance::StaticClass());
+	M->SetSkeletalMesh(Body);
+	M->SetCastShadow(true);
+	M->SetTextureForceResidentFlag(true);   // (same streaming guards as the v1 path: round 06 / 09)
+	M->bPerBoneMotionBlur = false;
+	M->PrestreamTextures(30.f, true);
+	M->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+	M->PrimaryComponentTick.AddPrerequisite(this, PrimaryActorTick);
+	// the horizontal fly / boost clips reach ~1 body length along the asset's forward axis, outside the A-pose bounds: no frustum pop
+	M->SetBoundsScale(2.f);
+	// asset up / forward -> FigureRoot +Z / +X; uniform scale to HeroV2HeightCm; the sole point under the pelvis (the pivot of every flight
+	// clip) at the FigureRoot origin (the feet / capsule bottom)
+	const double Scale = FMath::Clamp(double(HeroV2HeightCm) / RF.HeightUnits, 1e-5, 1e3);
+	const FQuat Corr = FRotationMatrix::MakeFromXZ(RF.Fwd, RF.Up).ToQuat().Inverse();
+	const FVector Pivot = RF.Pelvis + RF.Up * (RF.BottomUp - FVector::DotProduct(RF.Pelvis, RF.Up));
+	M->SetRelativeScale3D(FVector(Scale));
+	M->SetRelativeRotation(Corr);
+	M->SetRelativeLocation(-Corr.RotateVector(Pivot * Scale));
+	UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 mesh %s: %d bones, height %.2f units -> %.0f cm (scale %.5f), up(asset)=%s fwd(asset)=%s bottom %.2f footJoint %.2f units"),
+		V2Object, Body->GetRefSkeleton().GetNum(), RF.HeightUnits, HeroV2HeightCm, Scale, *RF.Up.ToString(), *RF.Fwd.ToString(), RF.BottomUp, RF.RefFootUp);
+	for (UStaticMeshComponent* C : FigureParts) { if (C) C->SetVisibility(false); }
+	for (USceneComponent* P : ArmPivot) { if (P) P->SetVisibility(false, true); }
+	for (USceneComponent* P : LegPivot) { if (P) P->SetVisibility(false, true); }
+	bHeroV2 = true;
+	return true;
+}
+
+// Hero v2 (owner request 2026-10-15: horizontal flight is IN the clips -- the body must not be pitched again): the upright mesh takes the
+// heading (Facing: travel in a fly line, camera in a hover), at most HeroV2MaxBankDeg of the flight's bank roll, and at most
+// HeroV2MaxPitchDeg of the flight-path angle (climb = nose up, dive = nose down) scaled by the anim's PitchFreedom (path-aligned clips only).
+void AWebTravCharacter::HeroV2Frame(const FWebTravAnim& A, float Dt, FQuat& InOutQ, FVector& InOutRoot)
+{
+	const double YawWant = Traversal->Facing();
+	if (!bHeroV2YawInit) { HeroV2Yaw = YawWant; bHeroV2YawInit = true; }
+	const double DY = FMath::Atan2(FMath::Sin(YawWant - HeroV2Yaw), FMath::Cos(YawWant - HeroV2Yaw));
+	HeroV2Yaw += DY * (1.0 - FMath::Exp(-double(HeroV2YawRate) * Dt));
+	const bool bAir = A.Mode == EWebTravMode::Air;
+	const double BankMax = FMath::DegreesToRadians(double(HeroV2MaxBankDeg)), PitchMax = FMath::DegreesToRadians(double(HeroV2MaxPitchDeg));
+	const double BankWant = bAir ? FMath::Clamp(double(A.Flight.Bank), -BankMax, BankMax) : 0.0;
+	double PitchWant = 0.0;
+	if (bAir)
+	{
+		const double Vh = FVector2D(A.Velocity.X, A.Velocity.Y).Size(), Vz = A.Velocity.Z;
+		const UWHHeroV2AnimInstance* AI = Cast<UWHHeroV2AnimInstance>(GetMesh()->GetAnimInstance());
+		if (AI && Vh * Vh + Vz * Vz > 300.0 * 300.0)   // > 3 m/s
+			PitchWant = FMath::Clamp(-FMath::Atan2(Vz, Vh), -PitchMax, PitchMax) * double(AI->PitchFreedom());   // + = nose down (about +Y)
+	}
+	const double K = 1.0 - FMath::Exp(-8.0 * double(Dt));
+	HeroV2Bank += (BankWant - HeroV2Bank) * K;
+	HeroV2Pitch += (PitchWant - HeroV2Pitch) * K;
+	InOutQ = FQuat(FVector(0, 0, 1), HeroV2Yaw) * FQuat(FVector(0, 1, 0), HeroV2Pitch) * FQuat(FVector(1, 0, 0), -HeroV2Bank);
+	if (bAir) InOutRoot = Traversal->PosM() * 100.0 - InOutQ.RotateVector(FVector(0, 0, UWebTraversalComponent::H * 100.0));
+	else InOutRoot = A.RootPos;   // grounded: the traversal's feet point (floor / step offset)
 }
 
 // round 26 (shared machine: 1080p movie frames at 0.25-0.9 /s; `sample` of the game thread: 77 % of it inside the synchronous PNG deflate of
@@ -746,6 +829,7 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 		if (bHadPreroll)
 		{
 			if (UWebTravAnimInstance* AI = Cast<UWebTravAnimInstance>(GetMesh()->GetAnimInstance())) AI->ResetForSequenceStart();
+			else if (UWHHeroV2AnimInstance* V2 = Cast<UWHHeroV2AnimInstance>(GetMesh()->GetAnimInstance())) V2->ResetForSequenceStart();   // hero v2 (2026-10-15)
 			UE_LOG(LogWebHomage, Display, TEXT("WH_TRAV preroll done: %d frames"), PrerollFrames);
 		}
 	}
@@ -1466,6 +1550,8 @@ void AWebTravCharacter::PoseFigure(float Dt)
 			Root = Traversal->PosM() * 100.0 - Q.RotateVector(FVector(0, 0, 95));
 		}
 	}
+	// hero v2 (owner request 2026-10-15): the clips carry the body pitch -- upright mesh (yaw + small bank + small path pitch) instead of BodyQ
+	if (bHeroV2) HeroV2Frame(A, Dt, Q, Root);
 	FigureRoot->SetWorldLocationAndRotation(Root, Q);
 
 	// limb directions in figure space (X forward, Y right, Z up); pivots hang along -Z by default

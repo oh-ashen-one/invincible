@@ -117,10 +117,26 @@ protected:
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroFillDist = 1.8f;
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroFillUp = 0.4f;
 
+	/**
+	 * Hero v2 (owner-approved model, 2026-10-15): /Game/Invincible/HeroV2/SK_InvincibleV2 + UWHHeroV2AnimInstance in flight mode unless
+	 * -WHHeroV2=0 or an explicit -WHHeroMesh= is given. Its fly / boost / brake / land clips carry the body pitch, so the mesh is kept
+	 * upright: yaw = travel / camera heading, roll = the flight bank clamped to HeroV2MaxBankDeg, pitch = the flight-path angle clamped to
+	 * HeroV2MaxPitchDeg x the anim's PitchFreedom (path-aligned clips only). Command line: -WHHeroV2Height=<cm>.
+	 */
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroV2HeightCm = 185.f;
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroV2MaxBankDeg = 25.f;
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroV2MaxPitchDeg = 20.f;
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite, Category="Hero") float HeroV2YawRate = 16.f;   // 1/s yaw smoothing of the upright mesh
+
 private:
 	void BuildTravInput();
 	void BuildFigure();
 	bool SetupHeroMesh();
+	bool SetupHeroV2Mesh();   // hero v2 (owner request 2026-10-15); false = the v1 / legacy path runs unchanged
+	void HeroV2Frame(const FWebTravAnim& A, float Dt, FQuat& InOutQ, FVector& InOutRoot);
+	bool bHeroV2 = false;
+	double HeroV2Yaw = 0.0, HeroV2Pitch = 0.0, HeroV2Bank = 0.0;
+	bool bHeroV2YawInit = false;
 	void PoseFigure(float Dt);
 	float SwayW = 0.f; // round 06: air-sway weight (spring)
 	// round 01 (W4): the body frame blends into the rope frame at the attach with a critically damped spring (visual only)
