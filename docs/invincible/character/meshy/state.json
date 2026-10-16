@@ -79,6 +79,18 @@
    "anim_credits": 3,
    "error": null,
    "file": "motion_boost_d.glb"
+  },
+  {
+   "name": "brake_a",
+   "prompt": "A superhero flying fast horizontally suddenly brakes in mid-air: his body swings upright, legs swing forward and down under him, arms flare out to the sides for balance, he overshoots slightly backward, then settles into a calm upright hover with legs hanging together.",
+   "motion_task": "01a14241-3e30-71c8-a14d-2611aa7ee8fb",
+   "motion_status": "SUCCEEDED",
+   "motion_credits": 10,
+   "anim_task": "01a14242-0e64-73f9-993e-15c3bee9d07d",
+   "anim_status": "SUCCEEDED",
+   "anim_credits": 3,
+   "error": null,
+   "file": "motion_brake_a.glb"
   }
  ]
 }
