@@ -1,0 +1,1648 @@
+{
+ "fl01_takeoff_hover": {
+  "checks": [
+   {
+    "check": "sub takeoff seen",
+    "ok": true,
+    "value": [
+     "None",
+     "hover",
+     "takeoff"
+    ],
+    "want": "takeoff"
+   },
+   {
+    "check": "sub hover seen",
+    "ok": true,
+    "value": [
+     "None",
+     "hover",
+     "takeoff"
+    ],
+    "want": "hover"
+   },
+   {
+    "check": "no crater landing",
+    "ok": true,
+    "value": 0,
+    "want": "<= 0"
+   },
+   {
+    "check": "grounded at end",
+    "ok": true,
+    "value": "ground",
+    "want": "ground"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "6 frames (6 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "None",
+   "hover",
+   "takeoff"
+  ],
+  "max_speed": 16.0,
+  "z_start_end": [
+   0.9,
+   0.9
+  ],
+  "frames": 721,
+  "luma_frames": 723,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl02_takeoff_to_fly": {
+  "checks": [
+   {
+    "check": "sub takeoff seen",
+    "ok": true,
+    "value": [
+     "fly",
+     "hover",
+     "takeoff"
+    ],
+    "want": "takeoff"
+   },
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "fly",
+     "hover",
+     "takeoff"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "max speed",
+    "ok": true,
+    "value": 55.0,
+    "want": ">= 45.0"
+   },
+   {
+    "check": "altitude gained",
+    "ok": true,
+    "value": 55.8,
+    "want": ">= 10.0"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "6 frames (6 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "fly",
+   "hover",
+   "takeoff"
+  ],
+  "max_speed": 55.0,
+  "z_start_end": [
+   0.9,
+   56.7
+  ],
+  "frames": 601,
+  "luma_frames": 603,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl03_cruise_hands_off": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "fly",
+     "hover"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "max speed",
+    "ok": true,
+    "value": 55.0,
+    "want": ">= 50.0"
+   },
+   {
+    "check": "no crater landing",
+    "ok": true,
+    "value": 0,
+    "want": "<= 0"
+   },
+   {
+    "check": "hands-off altitude drift",
+    "ok": true,
+    "value": 0.0,
+    "want": "<= 12.0 m"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "fly",
+   "hover"
+  ],
+  "max_speed": 55.0,
+  "z_start_end": [
+   60.0,
+   60.0
+  ],
+  "frames": 601,
+  "luma_frames": 603,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl04_boost_sonic": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "boost",
+     "brake",
+     "fly",
+     "hover"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "sub boost seen",
+    "ok": true,
+    "value": [
+     "boost",
+     "brake",
+     "fly",
+     "hover"
+    ],
+    "want": "boost"
+   },
+   {
+    "check": "max speed",
+    "ok": true,
+    "value": 300.0,
+    "want": ">= 140.0"
+   },
+   {
+    "check": "sonic booms",
+    "ok": true,
+    "value": 1,
+    "want": 1
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "boost",
+   "brake",
+   "fly",
+   "hover"
+  ],
+  "max_speed": 300.0,
+  "z_start_end": [
+   120.0,
+   120.0
+  ],
+  "frames": 721,
+  "luma_frames": 723,
+  "known_preexisting_ensures": 1,
+  "log_flight": [
+   "sonic boom"
+  ]
+ },
+ "fl05_bank_turns": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "fly",
+     "hover"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "no crater landing",
+    "ok": true,
+    "value": 0,
+    "want": "<= 0"
+   },
+   {
+    "check": "peak bank",
+    "ok": true,
+    "value": 70.0,
+    "want": ">= 20.0 deg"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "fly",
+   "hover"
+  ],
+  "max_speed": 55.0,
+  "z_start_end": [
+   260.0,
+   260.0
+  ],
+  "frames": 721,
+  "luma_frames": 723,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl06_look_steer": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "fly",
+     "hover"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "no crater landing",
+    "ok": true,
+    "value": 0,
+    "want": "<= 0"
+   },
+   {
+    "check": "travel heading change",
+    "ok": true,
+    "value": 90.0,
+    "want": ">= 60.0 deg"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "fly",
+   "hover"
+  ],
+  "max_speed": 55.7,
+  "z_start_end": [
+   80.0,
+   93.8
+  ],
+  "frames": 601,
+  "luma_frames": 603,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl07_climb_dive_keys": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "fly",
+     "hover"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "no crater landing",
+    "ok": true,
+    "value": 0,
+    "want": "<= 0"
+   },
+   {
+    "check": "altitude gained",
+    "ok": true,
+    "value": 53.8,
+    "want": ">= 15.0"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "fly",
+   "hover"
+  ],
+  "max_speed": 58.5,
+  "z_start_end": [
+   70.0,
+   80.0
+  ],
+  "frames": 601,
+  "luma_frames": 603,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl08_brake": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "brake",
+     "fly",
+     "hover"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "sub brake seen",
+    "ok": true,
+    "value": [
+     "brake",
+     "fly",
+     "hover"
+    ],
+    "want": "brake"
+   },
+   {
+    "check": "sub hover seen",
+    "ok": true,
+    "value": [
+     "brake",
+     "fly",
+     "hover"
+    ],
+    "want": "hover"
+   },
+   {
+    "check": "brake entries",
+    "ok": true,
+    "value": 1,
+    "want": 1
+   },
+   {
+    "check": "end speed",
+    "ok": true,
+    "value": 0.0,
+    "want": "<= 3.0"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "brake",
+   "fly",
+   "hover"
+  ],
+  "max_speed": 55.0,
+  "z_start_end": [
+   60.0,
+   60.0
+  ],
+  "frames": 481,
+  "luma_frames": 483,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl09_dash": {
+  "checks": [
+   {
+    "check": "sub hover seen",
+    "ok": true,
+    "value": [
+     "dash",
+     "hover"
+    ],
+    "want": "hover"
+   },
+   {
+    "check": "sub dash seen",
+    "ok": true,
+    "value": [
+     "dash",
+     "hover"
+    ],
+    "want": "dash"
+   },
+   {
+    "check": "no crater landing",
+    "ok": true,
+    "value": 0,
+    "want": "<= 0"
+   },
+   {
+    "check": "dash entries",
+    "ok": true,
+    "value": 3,
+    "want": 3
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "dash",
+   "hover"
+  ],
+  "max_speed": 46.5,
+  "z_start_end": [
+   30.0,
+   30.0
+  ],
+  "frames": 481,
+  "luma_frames": 483,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl10_slow_flight": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "fly",
+     "hover"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "max speed",
+    "ok": true,
+    "value": 28.5,
+    "want": ">= 12.0"
+   },
+   {
+    "check": "speed cap after 2 s",
+    "ok": true,
+    "value": 23.8,
+    "want": "<= 24.0"
+   },
+   {
+    "check": "no crater landing",
+    "ok": true,
+    "value": 0,
+    "want": "<= 0"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "fly",
+   "hover"
+  ],
+  "max_speed": 28.5,
+  "z_start_end": [
+   50.0,
+   50.9
+  ],
+  "frames": 481,
+  "luma_frames": 483,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl11_slam_crater": {
+  "checks": [
+   {
+    "check": "sub slam seen",
+    "ok": true,
+    "value": [
+     "None",
+     "hover",
+     "slam"
+    ],
+    "want": "slam"
+   },
+   {
+    "check": "hero landings",
+    "ok": true,
+    "value": 1,
+    "want": 1
+   },
+   {
+    "check": "grounded at end",
+    "ok": true,
+    "value": "ground",
+    "want": "ground"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "None",
+   "hover",
+   "slam"
+  ],
+  "max_speed": 94.5,
+  "z_start_end": [
+   60.0,
+   0.9
+  ],
+  "frames": 421,
+  "luma_frames": 423,
+  "known_preexisting_ensures": 1,
+  "log_flight": [
+   "heroLand"
+  ]
+ },
+ "fl12_fast_land": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "None",
+     "boost",
+     "brake",
+     "fly",
+     "hover"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "max speed",
+    "ok": true,
+    "value": 302.4,
+    "want": ">= 90.0"
+   },
+   {
+    "check": "hero landings",
+    "ok": true,
+    "value": 1,
+    "want": 1
+   },
+   {
+    "check": "grounded at end",
+    "ok": true,
+    "value": "ground",
+    "want": "ground"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "1 frames (1 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "None",
+   "boost",
+   "brake",
+   "fly",
+   "hover"
+  ],
+  "max_speed": 302.4,
+  "z_start_end": [
+   160.0,
+   0.9
+  ],
+  "frames": 481,
+  "luma_frames": 483,
+  "known_preexisting_ensures": 1,
+  "log_flight": [
+   "sonic boom",
+   "heroLand"
+  ]
+ },
+ "fl13_soft_land_walk": {
+  "checks": [
+   {
+    "check": "sub hover seen",
+    "ok": true,
+    "value": [
+     "None",
+     "hover",
+     "takeoff"
+    ],
+    "want": "hover"
+   },
+   {
+    "check": "sub takeoff seen",
+    "ok": true,
+    "value": [
+     "None",
+     "hover",
+     "takeoff"
+    ],
+    "want": "takeoff"
+   },
+   {
+    "check": "no crater landing",
+    "ok": true,
+    "value": 0,
+    "want": "<= 0"
+   },
+   {
+    "check": "walked on the ground",
+    "ok": true,
+    "value": 137,
+    "want": "> 30 frames"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "4 frames (4 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "None",
+   "hover",
+   "takeoff"
+  ],
+  "max_speed": 16.0,
+  "z_start_end": [
+   25.0,
+   12.2
+  ],
+  "frames": 661,
+  "luma_frames": 663,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl14_breach_cruise": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "breach",
+     "fly",
+     "hover"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "sub breach seen",
+    "ok": true,
+    "value": [
+     "breach",
+     "fly",
+     "hover"
+    ],
+    "want": "breach"
+   },
+   {
+    "check": "breaches",
+    "ok": true,
+    "value": 4,
+    "want": 1
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "21 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "breach",
+   "fly",
+   "hover"
+  ],
+  "max_speed": 99.0,
+  "z_start_end": [
+   35.0,
+   35.5
+  ],
+  "frames": 488,
+  "luma_frames": 490,
+  "known_preexisting_ensures": 1,
+  "log_flight": [
+   "breach in",
+   "breach in",
+   "breach out",
+   "breach in",
+   "breach in",
+   "breach out",
+   "breach in",
+   "breach in",
+   "breach out",
+   "breach in",
+   "breach in",
+   "breach out"
+  ]
+ },
+ "fl15_breach_boost": {
+  "checks": [
+   {
+    "check": "sub boost seen",
+    "ok": true,
+    "value": [
+     "boost",
+     "brake",
+     "breach",
+     "fly",
+     "hover"
+    ],
+    "want": "boost"
+   },
+   {
+    "check": "sub breach seen",
+    "ok": true,
+    "value": [
+     "boost",
+     "brake",
+     "breach",
+     "fly",
+     "hover"
+    ],
+    "want": "breach"
+   },
+   {
+    "check": "max speed",
+    "ok": true,
+    "value": 300.0,
+    "want": ">= 110.0"
+   },
+   {
+    "check": "breaches",
+    "ok": true,
+    "value": 4,
+    "want": 1
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "19 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "boost",
+   "brake",
+   "breach",
+   "fly",
+   "hover"
+  ],
+  "max_speed": 300.0,
+  "z_start_end": [
+   40.0,
+   40.0
+  ],
+  "frames": 608,
+  "luma_frames": 610,
+  "known_preexisting_ensures": 1,
+  "log_flight": [
+   "sonic boom",
+   "breach in",
+   "breach in",
+   "breach out",
+   "breach in",
+   "breach in",
+   "breach out",
+   "breach in",
+   "breach in",
+   "breach out",
+   "breach in",
+   "breach in"
+  ]
+ },
+ "fl16_slow_facade_slide": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "fly",
+     "hover"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "breaches",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "no crater landing",
+    "ok": true,
+    "value": 0,
+    "want": "<= 0"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "fly",
+   "hover"
+  ],
+  "max_speed": 29.1,
+  "z_start_end": [
+   30.0,
+   31.4
+  ],
+  "frames": 481,
+  "luma_frames": 483,
+  "known_preexisting_ensures": 1,
+  "log_flight": []
+ },
+ "fl17_rescue_crane": {
+  "checks": [
+   {
+    "check": "breaches",
+    "ok": true,
+    "value": 1,
+    "want": 1
+   },
+   {
+    "check": "rescue lives saved",
+    "ok": true,
+    "value": [
+     "crane"
+    ],
+    "want": ">= 1 saved"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": false,
+    "value": "128 frames (157 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "22 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": false,
+  "seen_subs": [
+   "None",
+   "brake",
+   "breach",
+   "fly",
+   "hover",
+   "takeoff"
+  ],
+  "max_speed": 112.3,
+  "z_start_end": [
+   1.1,
+   15.3
+  ],
+  "frames": 1384,
+  "luma_frames": 1386,
+  "known_preexisting_ensures": 1,
+  "log_flight": [
+   "breach in",
+   "breach in",
+   "breach out",
+   "heroLand"
+  ]
+ }
+}
