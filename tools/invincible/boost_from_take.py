@@ -74,22 +74,33 @@ for i, basis in enumerate(frames):
     for p in pb: p.matrix_basis = basis[p.name] if p.name != 'pelvis' else Matrix.Identity(4)
     bpy.context.view_layer.update()
     m = world('pelvis'); setw('pelvis', Matrix.LocRotScale(m.to_translation(), q_flat @ m.to_quaternion(), m.to_scale()))
-    # owner round 2: pencil-straight -- spine locked onto the flight line (no hunch, no twist); only the legs keep the take's tuck
-    c = ease(coil[i] / cmax)
-    for n in ('spine1', 'spine2', 'spine3'):
+    # owner round 3: not rigid -- the approved flight idle's sway runs underneath (hips weave/bank, spine follows a beat late, head
+    # drifts), the chest compresses a little into the coil and extends on the burst; still pencil-straight overall
+    c = ease(coil[i] / cmax); t = i / 30.0; TAU = 2 * math.pi
+    side_s = math.sin(TAU * t / 2.0); side_l = math.sin(TAU * t / 2.0 - 0.9)
+    turn('pelvis', F, 3.5 * side_s); turn('pelvis', U, 5.0 * math.sin(TAU * t / 2.0 + 0.5))     # weave + bank (hips / butt move)
+    turn('pelvis', L, 1.2 * math.sin(TAU * t / 1.3))                                           # small breathing rock
+    FLEX = U.cross(F)                                                                          # rotating U toward F = curling toward the belly
+    for n, k in (('spine1', 0.25), ('spine2', 0.40), ('spine3', 0.35)):
         m = world(n); setw(n, Matrix.LocRotScale(m.to_translation(), q_flat @ REST[n], m.to_scale()))
-    # head dead straight: no yaw / roll from the take; chin lifted ~18 deg so he looks along the flight line
-    for n, pitch in (('neck', -10.0), ('head', -8.0)):
-        m = world(n); q = Quaternion(L, math.radians(pitch)) @ q_flat @ REST[n]
+        bpy.context.view_layer.update()
+        turn(n, FLEX, 14.0 * k * c - 4.0 * k * (1 - c))                                       # compress into the coil, extend on the burst
+        turn(n, F, -2.0 * side_l * k / 0.35); turn(n, U, -2.5 * k / 0.35 * math.sin(TAU * t / 2.0 + 0.1))   # S-curve lag + counter-roll
+    for n, pitch in (('neck', -10.0), ('head', -8.0)):                                         # head straight ahead, chin up, small drift
+        m = world(n); q = Quaternion(L, math.radians(pitch + 1.5 * math.sin(TAU * t / 1.7))) @ q_flat @ REST[n]
         setw(n, Matrix.LocRotScale(m.to_translation(), q, m.to_scale()))
-    # arms: coil = straight back along the sides (elbows locked, fists by the hips, a touch above the back);
-    #       explode = swing forward to the parallel Superman line, fists leading, a touch above the line
+    turn('head', F, -2.5 * side_s); turn('head', U, 1.2 * math.sin(TAU * t / 2.3))
+    # arms: coil = elbows bent and drawn back toward the hips, fists chambered at the ribs, knuckles forward (half punch);
+    #       burst = swing forward into the parallel Superman line. Collars stay near natural (no big shoulder roll).
     for side, sgn in (('left', 1), ('right', -1)):
-        back = (-U * 0.96 + L * sgn * 0.20 - F * 0.18).normalized()
-        fwd = (U * 0.985 + L * sgn * 0.035 - F * 0.08).normalized()   # parallel Superman line (owner: no V)
-        d = (back * c + fwd * (1 - c)).normalized() if (back * c + fwd * (1 - c)).length > 1e-3 else (L * sgn - F * 0.3).normalized()
-        aim(side + '_collar', (L * sgn * 0.85 + U * (0.22 * (1 - c) - 0.15 * c) - F * 0.10).normalized())
-        aim(side + '_shoulder', d); aim(side + '_elbow', d); aim(side + '_wrist', d)
+        up_c = (-U * 0.80 + F * 0.42 + L * sgn * 0.30).normalized()      # upper arm back toward the hip, a little out and belly-side
+        fo_c = (U * 0.88 + F * 0.38 - L * sgn * 0.12).normalized()       # forearm forward: fist by the ribs, knuckles leading
+        fwd = (U * 0.985 + L * sgn * 0.035 - F * 0.08).normalized()      # parallel Superman line
+        dr = 0.02 * math.sin(TAU * t / 1.5 + (0 if sgn > 0 else 1.3))
+        aim(side + '_collar', (L * sgn * 0.95 + U * (0.12 * (1 - c)) + F * 0.05 * c).normalized())
+        aim(side + '_shoulder', (up_c * c + fwd * (1 - c) + L * sgn * dr).normalized())
+        aim(side + '_elbow', (fo_c * c + fwd * (1 - c)).normalized())
+        aim(side + '_wrist', (fo_c * c + fwd * (1 - c) - F * 0.05 * c).normalized())
     # owner: pencil-straight on the release -- after the deepest tuck the legs open straight back into the line (no kick-up)
     if i >= PEAK:
         k = ease((1 - c) * 1.15)
