@@ -34,6 +34,11 @@ mat = p.get_editor_property('material_pipeline')
 mat.set_editor_property('import_materials', True)
 mat.get_editor_property('texture_pipeline').set_editor_property('import_textures', True)
 EAL.make_directory(DEST)
+# re-import: Interchange skips animations whose targets were renamed to AS_* by a previous run (only the mesh came back) -- clear this
+# script's own clip folder first so every run imports every clip fresh
+# (deleting only the clips was not enough: with the mesh present Interchange re-imports the mesh alone) -- the whole folder is this
+# script's own output, so clear it and import fresh, exactly like the first run
+for x in EAL.list_assets(DEST, recursive=True, include_folder=False): EAL.delete_asset(x)
 t = unreal.AssetImportTask(); t.filename = glb; t.destination_path = DEST; t.destination_name = 'SK_InvincibleV2'
 t.automated = True; t.replace_existing = True; t.save = False
 stack = unreal.InterchangePipelineStackOverride(); stack.add_pipeline(p); t.options = stack

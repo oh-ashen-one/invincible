@@ -13,11 +13,12 @@ ap = argparse.ArgumentParser()
 ap.add_argument('src'); ap.add_argument('take'); ap.add_argument('out'); ap.add_argument('name')
 ap.add_argument('--trim', default=''); ap.add_argument('--flat-in', type=int, default=0); ap.add_argument('--head', default='forward')
 ap.add_argument('--hold', type=int, default=0)
+ap.add_argument('--fps', type=int, default=24)   # import frame rate: the glTF importer counts keys at the scene fps (24 = how the brake/land/takeoff clips were built; 30 keeps a 30 fps source's exact timing)
 ap.add_argument('--end-blend', default='')     # <glb>:<action>:<frames> -- blend the last N frames into that clip's first frame (local poses, same rig)
 ap.add_argument('--head-after', type=int, default=-1)
 ap.add_argument('--free-arm-back', action='store_true')   # landing: an arm pointing up gets swept back + out (classic three-point landing)   # with --head keep: from this frame on, blend the head to the forward horizon
 A = ap.parse_args(sys.argv[sys.argv.index('--') + 1:])
-bpy.ops.wm.read_factory_settings(use_empty=True); bpy.ops.import_scene.gltf(filepath=A.src)
+bpy.ops.wm.read_factory_settings(use_empty=True); bpy.context.scene.render.fps = A.fps; bpy.ops.import_scene.gltf(filepath=A.src)
 sc = bpy.context.scene; sc.render.fps = 30
 for o in list(sc.objects):
     if o.type == 'MESH' and o.name.lower().startswith('icosphere'): bpy.data.objects.remove(o)
