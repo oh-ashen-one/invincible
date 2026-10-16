@@ -9,6 +9,7 @@ Rig: CustomUse/Cartwheel 52-bone biped on the v2 hero (`customuse/v2/rigged_huny
 | Hover idle (`HERO_hover_keyed`) | hand-keyed, `tools/invincible/hover_keyed.py` | **CONFIRMED by owner 2026-10-15** (commit a6e7d27d) | `meshy/hero_hover_keyed.glb` | 4 s seamless loop: helicopter bob (2 s), lagging limbs, torso sway, breathing back; show-reference posture |
 | Superman flight (`HERO_fly_keyed`) | hand-keyed, `tools/invincible/fly_keyed.py` | **CONFIRMED by owner 2026-10-15** (commit e9768df1) | `meshy/hero_fly_keyed.glb` | owner: flying straight ahead = horizontal in the clip (body on the fly line, belly down, fists leading). Unreal integration must NOT pitch the body again |
 | Launch straight up (`HERO_launch_up`) | `fly_keyed.py --vertical` | base for the takeoff (owner: the upright version is the launch) | `meshy/hero_launch_up.glb` | needs the crouch + jump-off from the ground before it |
+| Shift boost (`HERO_boost_full` review; `_coil` 0.42 s, `_launch` 0.2 s, `_hold` 2 s loop) | hand-keyed, `tools/invincible/boost_keyed.py` | in review | `meshy/hero_boost.glb` | owner: elbows to the knees, knees to the stomach, charge, then straight-in sonic boom at double speed; refs: anticipation = spring coil + tremble, overshoot release |
 | Meshy starter library (20 clips) | Meshy presets, retargeted | reviewed "looks good", not locked | `meshy/hero_meshy_clips.glb` | landings, slams, punches, kicks, idles |
 | Meshy hover takes A/B/C | Meshy text-to-motion | rejected (hips forward) | `meshy/hero_hover.glb` | kept for reference |
 
