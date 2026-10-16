@@ -123,12 +123,18 @@ private:
 	 *  to the end), 2 streak (quick in, fades over the second half). */
 	/** critic r4 fl04: Shape 4 = one tube of a segmented shock ring: Anchor is the ring CENTRE (glued: hero + Dir x (OffsetCm - DriftCms x T)),
 	 *  Dir the ring axis, RadialU this tube's direction out from the centre; the ring radius goes Rad0 -> Rad1, the tube is SegLenK x radius
-	 *  long (tangent) and ThickK x radius thick (clamped 10-60 cm). */
+	 *  long (tangent) and ThickK x radius thick (clamped 10-60 cm).
+	 *  critic r5 #8 (the ring read as a chain of ~20 bubbles): Shape 5 = the whole ring as ONE flattened sphere wearing M_InvShockRing, whose
+	 *  opacity is an annulus in the mesh's own radius (Band = ring radius / mesh radius, BandW = tube half thickness / mesh radius): a continuous
+	 *  band, clear in the middle. Same anchor / drift / radius / ThickK (clamped 12-70 cm) fields as shape 4. */
 	struct FVapour { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Anchor = FVector::ZeroVector, Dir = FVector::ForwardVector; double T = 0, Life = 0.9, Follow = 0.45, OffsetCm = 0, Len0 = 700, Len1 = 1100, Rad0 = 240, Rad1 = 560, Peak = 0.55; bool bCone = true, bLive = false;
 		int32 Shape = 0, Env = 0; FVector VelCm = FVector::ZeroVector, SideCm = FVector::ZeroVector;
 		FVector RadialU = FVector::RightVector; double SegLenK = 0.5, ThickK = 0.08, DriftCms = 0.0; };
 	/** r3: a deferred decal with an animated "Open" parameter (the opening / crater grows over Grow s). */
-	struct FDecalItem { UDecalComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; double T = 0, Grow = 0.2; bool bGrowing = false; };
+	/** (critic r5 #3: fl15 3.85 s / fl11 2.28 s / fl17 20.68 s -- the whole box of a FIRST-USE decal rendered as a flat dark panel for exactly one
+	 *  frame, two frames after it was placed. The pools are now created at BeginPlay with their shaders finished, and a placed decal is shown from
+	 *  the next engine frame on, with its parameters already set: bPendingShow / PlacedFrame.) */
+	struct FDecalItem { UDecalComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; double T = 0, Grow = 0.2; bool bGrowing = false, bPendingShow = false; uint64 PlacedFrame = 0; };
 	/** r3: static (non-physics) rubble pieces of the crater rim: they sit on the traced ground, so they cannot hang in the air. */
 	struct FRubble { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector, Scale = FVector::OneVector; FQuat Q = FQuat::Identity; double T = 0, Delay = 0, Life = 25; bool bLive = false; };
 	/** r3: what the line trace at a breach / crater found (cm). */
@@ -159,6 +165,12 @@ private:
 	void ProbeCone();
 	void ExcludeHeroFromDecals();
 	FDecalItem* AcquireDecal(TArray<FDecalItem>& Pool, int32& Next, int32 MaxN, UMaterialInterface* Mat);
+	/** critic r5 #3 / #8: decal pools, part of the debris pool and the FX shaders are made ready at BeginPlay (no first-use frame) */
+	void PrewarmPools();
+	/** critic r5 #8 (fl14 5.35-5.40 s: the opening decal ran past the wall edge over the background): the decal half size (cm) that stays on the
+	 *  facade plane around PointCm (probed with line traces along its in-plane axes; OutShift = in-plane centre shift away from a near edge) */
+	double FitHoleHalf(const FVector& PointCm, const FVector& OutN, double Half, FVector& OutShift) const;
+	FChunk* NewChunk();
 	void PlaceHole(const FVector& PointCm, const FVector& IntoWall, float Sev);
 	void PlaceCraterDecal(const FVector& PCm, float Sev);
 	void SpawnPuff(const FVector& PosCm, const FVector& VelCms, double S0, double S1, double Life, double Peak, double DelayS, const FLinearColor& Col, double FlatZ = 1.0, double RiseCms = -1.0);
@@ -193,6 +205,7 @@ private:
 	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MDust;      // M_InvDust
 	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MChunk;     // M_InvChunk
 	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MStreak;    // M_InvStreak (owner feedback 2026-10-15: additive speed lines; optional)
+	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MRing;      // M_InvShockRing (critic r5 #8: one continuous vapour annulus; optional, tubes fall back)
 	UPROPERTY(Transient) TObjectPtr<UObject> GcAsset;
 	UPROPERTY(Transient) TArray<TObjectPtr<UObject>> KeepAlive;   // components / MIDs created at runtime (never trimmed)
 	UPROPERTY(Transient) TArray<TObjectPtr<UObject>> AudioKeep;   // procedural sound waves (trimmed)

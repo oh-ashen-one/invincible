@@ -171,7 +171,8 @@ bool UWHFlightComponent::StartBreach(UWebTraversalComponent& T, const FVector& H
 	BreachExitV = ExitV;
 	// the body is out of sight inside the solid: the pass is time-bounded (fl14: 124 m at 44 m/s hid the hero for 2.8 s), the exit keeps
 	// the kept speed
-	BreachV = FMath::Max(BreachExitV, BreachLen / FMath::Max(0.1, double(BreachMaxTime)));
+	// (critic r5 #3: the time bound's floor 0.1 -> 0.02 s so BreachMaxTime 0.06 applies)
+	BreachV = FMath::Max(BreachExitV, BreachLen / FMath::Max(0.02, double(BreachMaxTime)));
 	BreachExitN = Dir;
 	++BreachCount;
 	SetFlySub(T, NF_breach);
@@ -300,7 +301,7 @@ bool UWHFlightComponent::WallStandoff(UWebTraversalComponent& T, double H, const
 	if (Dd < Want + 0.5)
 	{
 		WallSideV = FMath::Clamp(FVector::DotProduct(-N, S.BodyQ.GetRightVector()), -1.0, 1.0);
-		WallDistV = Dd; WallT = 0.25;
+		WallDistV = Dd; WallT = 0.25; CamWallN = N;
 	}
 	return true;
 }
@@ -365,6 +366,7 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 			{ // r3 hero request: the wall-side arm / leg tuck needs the facade side in the body frame and the distance to it
 				WallSideV = FMath::Clamp(FVector::DotProduct(-HitN, S.BodyQ.GetRightVector()), -1.0, 1.0);
 				WallDistV = 0.47; WallT = 0.25;
+				CamWallN = FVector(HitN.X, HitN.Y, 0.0).GetSafeNormal();
 			}
 			const double VN = FVector::DotProduct(S.Vel, HitN);
 			if (VN < 0)
@@ -778,6 +780,22 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 		const double HSp = FlHLen(S.Vel);
 		const double Kv = SuperState == ESuper::Charge ? 0.0 : FlSmooth(HSp, 4.0, 15.0);
 		CamYawGoal = AimYaw - Kv * (1.0 - FMath::Clamp(double(CamLeadK), 0.0, 1.0)) * FlAngWrap(AimYaw - FMath::Atan2(S.Vel.Y, S.Vel.X));
+		// critic r5 #7 (fl10 t=1.2 s: the nose stayed pointed into the facade he was sliding along, so the chasing camera faced a brick wall that
+		// filled the frame): while a facade slide contact is live (WallT, the standoff / swept slide of the last 0.25 s) and the heading the camera
+		// would chase points into that wall, the camera chases the along-wall direction nearest to it instead (the travel when it runs along the wall)
+		if (WallT > 0.0 && !CamWallN.IsNearlyZero() && S.Mode == EWebTravMode::Air)
+		{
+			const FVector N = CamWallN;
+			const FVector G = FlYawDir(CamYawGoal);
+			if (FVector::DotProduct(G, -N) > 0.17)   // > ~10 deg into the facade
+			{
+				FVector Tan = G - N * FVector::DotProduct(G, N);
+				const FVector Vh(S.Vel.X, S.Vel.Y, 0.0);
+				const FVector VTan = Vh - N * FVector::DotProduct(Vh, N);
+				if (VTan.Size() > 2.0) Tan = VTan;
+				if (Tan.Size() > 1e-3) CamYawGoal = FMath::Atan2(Tan.Y, Tan.X);
+			}
+		}
 	}
 	// legacy web state never survives into flight
 	if (S.Mode == EWebTravMode::Swing || S.Mode == EWebTravMode::Zip || S.Mode == EWebTravMode::Perch || S.Mode == EWebTravMode::Wall)

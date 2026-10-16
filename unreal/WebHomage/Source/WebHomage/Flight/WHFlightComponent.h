@@ -83,7 +83,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachSpeed = 45.f;    // facade hit at or above this = through-building
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachKeep = 0.8f;     // speed kept through a building
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxDepth = 80.f; // m: deeper solids are not breached (slide instead)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxTime = 0.3f; // s: longest pass through a solid (the hero is hidden in it)
+	// critic r5 #3 (hidden 12-24 frames per breach): 0.3 -> 0.06 s, ~4 frames at 60 fps (the pass is a punch-through; the camera holds on the hole)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxTime = 0.06f; // s: longest pass through a solid (the hero is hidden in it)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachCooldown = 0.25f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float PunchPinTime = 0.3f;  // s of fly held head-on against a facade before punching through
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float HeroLandMinSpeed = 30.f; // impact speed for a crater landing
@@ -212,6 +213,7 @@ private:
 	FVector SlideDir = FVector::ZeroVector;
 	double SlideDirT = 0.0;
 	FVector WallNLast = FVector::ZeroVector;
+	FVector CamWallN = FVector::ZeroVector;   // critic r5 #7: the facade of the live slide contact (standoff or swept), for the camera yaw goal
 	// owner feedback #2: seconds since the last airborne Space press (double-tap window); the dive's downward acceleration
 	double JumpTapT = 99.0, DiveAccelNow = 160.0;
 	bool bDiveDrop = false;

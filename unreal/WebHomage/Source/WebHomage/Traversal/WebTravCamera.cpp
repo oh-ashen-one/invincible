@@ -142,6 +142,11 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 {
 	Dt = FMath::Min(Dt, 0.1);
 	StartupFrameTail = FMath::Max(0.0, StartupFrameTail - Dt);
+	// critic r5 #2 (fl01 idle, frames 40-51: the world "alternated" under a still hero -- the lens dithered 0.136 m in / out along its view axis
+	// every 1-3 frames, SlewFlags 16 / 48 = edge steering + the body-containment backtrack of the 1 s reset tail, and a car at the street-level
+	// hide distance toggled with it): the swing game's roof-start containment tail is off for the flight hero (FlightLeashM > 0; the flight
+	// start / breach-cut resets never need it). The legacy hero (FlightLeashM 0) keeps it.
+	if (FlightLeashM > 0.0) StartupFrameTail = 0.0;
 	FlipFrameTail = P.bFlip ? 0.5 : FMath::Max(0.0, FlipFrameTail - Dt);
 	if (P.bFlip && bHaveFlipVelocity && Dt > 1e-5)
 		ForecastGravity = FMath::Clamp((LastFlipVz - P.Vel.Z) / Dt, 0.0, 24.0);
@@ -423,6 +428,43 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 			CamRot.Pitch += FMath::Clamp(StDP, -CapP, CapP);
 			if (CamRot.Pitch > CapUpDeg + 0.5) CamRot.Pitch = CapUpDeg + 0.5;
 			SlewFlags |= 16;
+		}
+		// critic r5 #7 (fl16 t=0.33-0.50: the view whipped 96 deg in 0.25 s, 12.1 deg in one frame -- the blocked-spot orbit search swung the lens
+		// round the hero and the boosted slew caps + the edge steering above followed it): flight hero only (FlightLeashM > 0). The lens orbits the
+		// hero at <= FlightYawRateMax deg/s (a capped spot that is not clear keeps the composed one: collision beats the cap) and the output yaw
+		// turns at <= the same rate; deliberate look input adds its own turn. A Reset (bOutInit false) is a cut and is not capped.
+		if (FlightLeashM > 0.0 && FlightYawRateMax > 0.0)
+		{
+			const double Allow = FlightYawRateMax * Dt + FMath::RadiansToDegrees(FMath::Abs(AppliedLookYaw));
+			const FVector RelLast = LastOutPos - PrevComposeHero, RelNow = CamPos - P.Pos;
+			const double RL = FVector2D(RelLast.X, RelLast.Y).Size(), RN = FVector2D(RelNow.X, RelNow.Y).Size();
+			if (RL > 0.5 && RN > 0.5)
+			{
+				const double AzL = FMath::Atan2(RelLast.Y, RelLast.X), AzN = FMath::Atan2(RelNow.Y, RelNow.X);
+				const double DAz = FMath::RadiansToDegrees(WrapA(AzN - AzL));
+				if (FMath::Abs(DAz) > Allow)
+				{
+					const double AzC = AzL + FMath::DegreesToRadians(FMath::Sign(DAz) * Allow);
+					const FVector Cand(P.Pos.X + RN * FMath::Cos(AzC), P.Pos.Y + RN * FMath::Sin(AzC), CamPos.Z);
+					double HitD = 0.0;
+					if (!World.SphereOverlaps(Cand, 0.25) && !World.LineBlocked(Cand, P.Pos + FVector(0, 0, 0.4)) && !World.SphereSweep(LastOutPos, Cand, 0.2, HitD))
+					{
+						const FRotator A0 = (P.Pos - CamPos).Rotation(), A1 = (P.Pos - Cand).Rotation();
+						CamRot.Yaw += FRotator::NormalizeAxis(A1.Yaw - A0.Yaw);
+						CamRot.Pitch += A1.Pitch - A0.Pitch;
+						CamPos = Cand;
+						SlewFlags |= 128;
+					}
+				}
+			}
+			const double SlY2 = FRotator::NormalizeAxis(CamRot.Yaw - LastOutRot.Yaw);
+			if (FMath::Abs(SlY2) > Allow) { CamRot.Yaw = LastOutRot.Yaw + FMath::Sign(SlY2) * Allow; SlewFlags |= 128; }
+			{ // r6 sim (fl10 / fl16 / fl14: the capped yaw let the hero leave the frame for 40-67 frames): keeping him in view beats the rate cap
+				const double ToHero = (P.Pos - CamPos).Rotation().Yaw, Off = FRotator::NormalizeAxis(CamRot.Yaw - ToHero);
+				if (FMath::Abs(Off) > 22.0) { CamRot.Yaw = ToHero + FMath::Sign(Off) * 22.0; SlewFlags |= 128; }
+			}
+			if (CamRot.Pitch > CapUpDeg + 0.5) CamRot.Pitch = CapUpDeg + 0.5;
+			if (SlewFlags & 128) { HeroDist = FVector::Dist(CamPos, P.Pos); bCamInGeometry = World.SphereOverlaps(CamPos, 0.15); }
 		}
 		// During the trick/catch view and reset startup, placement must be feasible for the FINAL capped angle. A collision re-seat on c3
 		// moved the lens 3 m around the hero in one frame while yaw was still catching up: the body crossed the right edge
@@ -1356,8 +1398,13 @@ double FWebTravCamera::FlightElevFor(double SpinePitch) const
 
 FVector FWebTravCamera::FlightSpotFor(const FVector& Hero, double SpinePitch, double Radius) const
 {
+	return FlightSpotForYaw(Hero, SpinePitch, Radius, Yaw);
+}
+
+FVector FWebTravCamera::FlightSpotForYaw(const FVector& Hero, double SpinePitch, double Radius, double InYaw) const
+{
 	const double E = FlightElevFor(SpinePitch);
-	const double Az = Yaw + PI - FlightSideS * FMath::DegreesToRadians(FlightSideDeg);   // + side = right of the travel
+	const double Az = InYaw + PI - FlightSideS * FMath::DegreesToRadians(FlightSideDeg);   // + side = right of the travel
 	return Hero + FVector(FMath::Cos(E) * FMath::Cos(Az), FMath::Cos(E) * FMath::Sin(Az), FMath::Sin(E)) * Radius;
 }
 
@@ -1365,16 +1412,42 @@ FVector FWebTravCamera::FlightSpotFor(const FVector& Hero, double SpinePitch, do
 // first composed frame after Reset will use is out of every solid and has a clear line to the hero's chest
 bool FWebTravCamera::CutSpotClear(const FVector& Pos, const FVector& Vel, const FWebTravWorld& World) const
 {
+	return CutSpotClearYaw(Pos, Vel, World, Yaw);
+}
+
+bool FWebTravCamera::CutSpotClearYaw(const FVector& Pos, const FVector& Vel, const FWebTravWorld& World, double InYaw) const
+{
 	const FVector Chest = Pos + FVector(0, 0, 0.4);
 	FVector Spot;
 	if (bFlightLine || FlightK > 0.5)
 	{
 		const double Sp = Vel.Size();
 		const double SpinePitch = Sp > 2.0 ? FMath::Atan2(Vel.Z, FVector2D(Vel.X, Vel.Y).Size()) : 0.0;
-		Spot = FlightSpotFor(Pos, SpinePitch, FMath::Clamp(FlightDistS, FlightDistMin, FlightDistMax));
+		Spot = FlightSpotForYaw(Pos, SpinePitch, FMath::Clamp(FlightDistS, FlightDistMin, FlightDistMax), InYaw);
 	}
-	else Spot = Pos - ForwardFlat() * ChaseDist + RightFlat() * 0.3 + FVector(0, 0, ChaseHeight);
+	else
+	{
+		const FVector Fw(FMath::Cos(InYaw), FMath::Sin(InYaw), 0.0), Rt(-FMath::Sin(InYaw), FMath::Cos(InYaw), 0.0);
+		Spot = Pos - Fw * ChaseDist + Rt * 0.3 + FVector(0, 0, ChaseHeight);
+	}
 	return !World.Inside(Spot, 0.05) && !World.SphereOverlaps(Spot, 0.4) && !World.LineBlocked(Spot, Chest);
+}
+
+// critic r5 #3 (fl14 / fl15 / fl17: the breach hold waited for the spot behind him -- inside the building he had just left -- hero hidden
+// 12-24 frames, then the cut jumped 11-80 m): the exit cut takes the nearest clear yaw at once. Order: the current yaw, then +-25, +-50,
+// +-75, +-100, +-125, +-150 deg (a three-quarter / side view of him bursting out of the facade; the flight attitude spring and the 180 deg/s
+// output cap bring the view back behind him afterwards).
+bool FWebTravCamera::ChooseCutYaw(const FVector& Pos, const FVector& Vel, const FWebTravWorld& World, double& OutYaw) const
+{
+	OutYaw = Yaw;
+	if (CutSpotClearYaw(Pos, Vel, World, Yaw)) return true;
+	for (const double Deg : { 25.0, 50.0, 75.0, 100.0, 125.0, 150.0 })
+		for (const double Sg : { 1.0, -1.0 })
+		{
+			const double Y = WrapA(Yaw + Sg * FMath::DegreesToRadians(Deg));
+			if (CutSpotClearYaw(Pos, Vel, World, Y)) { OutYaw = Y; return true; }
+		}
+	return false;
 }
 
 // round 16 (TRICK_CAMERA_SPEC TC1 / TC2): choose the trick camera's view ONCE, at the release frame; it is never re-searched.

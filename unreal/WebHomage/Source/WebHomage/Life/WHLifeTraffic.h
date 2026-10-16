@@ -86,6 +86,14 @@ public:
 	/** Drivers wait this long (s, uniform between the two) after their light turns green before they pull away. */
 	/** A street-level camera (eye below 4.5 m) is not driven through: a moving car whose body comes within this many metres of the camera is not drawn (it keeps simulating). 0 = off. */
 	UPROPERTY(EditAnywhere, Category="Life") float CameraClearM = 1.8f;
+	/** critic r5 #2 (Invincible flight only, UWHFlightWorldSubsystem::bFlightMode): the CameraClearM hide popped whole cars out of view in one frame
+	 *  (fl11 3.55 s, fl13 5.98 s) and toggled a car on alternate frames under a dithering lens (fl01). In flight mode a car is hidden only while the
+	 *  lens is inside its body (footprint + FlightLensInsideM, under its roof): its outside faces are back-facing there anyway. */
+	UPROPERTY(EditAnywhere, Category="Life") float FlightLensInsideM = 0.15f;
+	/** critic r5 #2 (flight mode): moving cars brake for the hero on the street and for a street-level lens in their lane (a stopped "leader" this many
+	 *  metres ahead at most; lateral reach = half the car width + FlightYieldHalfM). 0 = off. */
+	UPROPERTY(EditAnywhere, Category="Life") float FlightYieldAheadM = 45.f;
+	UPROPERTY(EditAnywhere, Category="Life") float FlightYieldHalfM = 1.3f;
 	/** Fixed street-level shots only (command line -WHLifeClearAhead=<m>, default 0 = off): moving cars whose body lies in a corridor this many metres ahead of the camera (and ClearAheadHalfWidthM to each side)
 	 *  are not drawn, so a stills camera standing in a lane is not filled by a delivery truck that happens to arrive on its frame. Gameplay leaves it off. */
 	UPROPERTY(EditAnywhere, Category="Life") float ClearAheadM = 0.f;
@@ -179,6 +187,11 @@ private:
 	TArray<FLens> Lenses;
 	int32 LastSig[2] = { -1, -1 };
 	FVector2D ClearM = FVector2D::ZeroVector, ClearFwd = FVector2D(1, 0); bool bClearCam = false;   // street-level camera ground position (browser m) and its heading
+	// critic r5 #2 (flight mode): lens height (m) for the inside-the-body test, and the street-level points cars yield to (browser m)
+	double ClearZ = 0.0; bool bFlightLife = false, bFlightCamOk = false;
+	FVector2D FlightCamM = FVector2D::ZeroVector;   // the lens (browser m) in flight mode: a stuck car near it is not despawned in view
+	TArray<FVector2D, TInlineAllocator<2>> YieldPts;
+	void UpdateFlightLife();
 	TArray<TArray<int32>> FreeInst;
 	TArray<TArray<FTransform>> Xf;
 	TArray<int32> HighWater;

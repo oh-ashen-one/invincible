@@ -161,7 +161,7 @@ public:
 	UPROPERTY(EditAnywhere, Category="HeroV2") float ArmFixHi = 0.45f;         // ... and is full
 	// r5 (critic r4 #6): rescue carry
 	UPROPERTY(EditAnywhere, Category="HeroV2") float CarryInT = 0.25f;         // s: AS_LaunchUp arms overhead blend in at the catch ...
-	UPROPERTY(EditAnywhere, Category="HeroV2") float CarryOutT = 0.3f;         // ... and out after the set-down
+	UPROPERTY(EditAnywhere, Category="HeroV2") float CarryOutT = 0.8f;         // ... and out after the set-down (r6, critic r5 #1: lowered with the eased set-down, was 0.3)
 	UPROPERTY(EditAnywhere, Category="HeroV2") float CarrySwingT = 0.45f;      // s: the caught load swings round the front onto the fists
 	UPROPERTY(EditAnywhere, Category="HeroV2") float CarryFistCm = 6.f;        // load bottom this far past the middle-finger knuckles (fist top)
 	UPROPERTY(EditAnywhere, Category="HeroV2") float CarryClearCm = 25.f;      // swing clearance between the load and the body capsule

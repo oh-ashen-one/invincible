@@ -470,6 +470,10 @@ EWHHeroV2State UWHHeroV2AnimInstance::PickState(const FWebTravAnim& A, float Vz,
 		else if ((Cur == S::Hover || Cur == S::LaunchUp || Cur == S::Takeoff || Cur == S::GroundIdle || Cur == S::None) && PrevSpeed < BrakeMinSpeed) Want = S::Hover;
 		else Want = S::Brake;
 	}
+	// r6 (critic r5 #1, fl17 "he lies prone on top of the load like a surfboard in the carry-dive"): while a load is held overhead the body
+	// stays upright -- the path-aligned / dive clips (fly, boost, dash, breach, boost launch, slam dive) give way to the hover (feet down, no
+	// path pitch: PitchFreedom 0); the arms keep AS_LaunchUp's fists overhead (UpdateCarry runs before this pick)
+	if (bCarry && (HV2IsFlyType(Want) || Want == S::BoostLaunch || Want == S::LandHero)) Want = S::Hover;
 	if (Want == S::Hover)
 	{ // hover climbing (Space held) = the launch-straight-up clip, with hysteresis
 		const float On = HoverClimbVz, Off = HoverClimbVz * 0.5f;
@@ -518,6 +522,10 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	if (A.Mode == EWebTravMode::Air && Dt > 1e-4f)
 		FallAccel += (FMath::Clamp((PrevVz - Vz) / Dt, 0.f, 400.f) - FallAccel) * (1.f - FMath::Exp(-8.f * Dt));
 	else FallAccel = 0.f;
+
+	// ---- r5 rescue carry (critic r4 #6): AS_LaunchUp's arms overhead while the director reports a carried load
+	// (r6, critic r5 #1: updated before the state pick, which keeps a carrying body upright)
+	UpdateCarry(A, Dt);
 
 	float UpTarget = 0.f;
 	const S Cur = CurrentState();
@@ -644,9 +652,6 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		Frame.DipTime = DipPoseT;
 		if (!Frame.DipSeq) Frame.DipW = 0.f;
 	}
-
-	// ---- r5 rescue carry (critic r4 #6): AS_LaunchUp's arms overhead while the director reports a carried load
-	UpdateCarry(A, Dt);
 
 	// ---- layers for the proxy (each track: its clip, plus the AS_LaunchUp blend of fly-type tracks)
 	Frame.Layers.Reset();

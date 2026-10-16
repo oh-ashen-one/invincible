@@ -67,6 +67,8 @@ struct FWHEmergency
 	FQuat LoadQ = FQuat::Identity, SettleQ = FQuat::Identity, SettleFromQ = FQuat::Identity;
 	FVector SettleFromCm = FVector::ZeroVector;
 	double SettleT = 0, SettleDur = 1;
+	double SettleXyT = 0.6;                   // r6 (critic r5 #1): s of the set-down's sideways ease (r2-r5: 0.6 s fixed)
+	bool bDressed = false;                    // r6 (critic r5 #1 / #8): the load wears its shipping-container trims (DressLoad)
 	// bus
 	double PullT = 0;                         // seconds of the pull-back animation once saved
 	double FallT = 0;                         // seconds of the fall once lost
@@ -140,6 +142,11 @@ public:
 	float LingerS = 8.f;             // resolved emergencies stay visible this long
 	float SetDownClearCm = 70.f;     // critic r2 (fl17): the set-down load's near face rests this far ahead of the hero's centre (he lands beside it)
 	float SetDownSpeedCm = 600.f;    // critic r2: vertical speed scale of the eased set-down (duration = drop / this, 0.6-4 s)
+	// r6 (critic r5 #1, overhead-carry hero only): the set-down lands beside / beyond the hero as seen from the camera (PickSetDown)
+	float SetDownMinS = 1.2f;        // shortest eased set-down (he lowers it from overhead; r5: 0.6 s)
+	float SetDownSideGapCm = 100.f;  // gap between the hero's centre line (camera -> hero) and the load's inner face, beside him
+	float SetDownAheadCm = 150.f;    // load centre this far beyond the hero (plus half its depth) on the camera line
+	float CarryMaxOverheadS = 40.f;  // auto set-down after this long (r5: 10 s for every hero; a carried street descent from ~135 m takes ~15 s)
 
 private:
 	// ---- waves / sites
@@ -175,6 +182,11 @@ private:
 	void BuildFire(FWHEmergency& E);
 	void BuildCrane(FWHEmergency& E, const FVector& MastBase, double MastH, const FVector& TipCm);
 	void BuildBus(FWHEmergency& E, const FVector& EdgeCm);
+	/** r6 (critic r5 #1 / #8, fl17 "the load is an untextured flat grey box"): shipping-container dress of the crane load (overhead-carry hero). */
+	void DressLoad(FWHEmergency& E);
+	/** r6 (critic r5 #1): set-down spot beside / beyond the hero relative to the camera line, on level street-height ground with a clear line
+	 *  from the hero and room around it. False: no candidate passed (the caller keeps the r2 placement). OutFS = (beyond, side) in m. */
+	bool PickSetDown(const FVector& Hero, const FVector& HalfCm, FVector& OutCenterCm, FQuat& OutQ, FVector2D& OutFS) const;
 	void Burst(const FVector& PosCm, double SizeM);   // dust / debris puff at an impact (short-lived, own list)
 
 	struct FPuff { UStaticMeshComponent* C = nullptr; double T = 0, Life = 1.2, Size = 1; FVector Vel = FVector::ZeroVector; };

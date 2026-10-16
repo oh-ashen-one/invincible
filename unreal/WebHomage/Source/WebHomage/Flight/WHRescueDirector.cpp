@@ -2,6 +2,7 @@
 #include "Flight/WHRescueDirector.h"
 #include "Flight/WHFlightWorld.h"
 #include "WebHomage.h"
+#include "Camera/PlayerCameraManager.h"
 #include "CollisionQueryParams.h"
 #include "Components/PointLightComponent.h"
 #include "Components/SceneComponent.h"
@@ -570,6 +571,120 @@ void AWHRescueDirector::BuildCrane(FWHEmergency& E, const FVector& MastBase, dou
 	AddMesh(E, Sphere, MGlow, FLinearColor(4.0f, 0.2f, 0.1f), TipCm + FVector(0, 0, 90.0), FRotator::ZeroRotator, FVector(0.5), 0.f, 0.9f);
 }
 
+// r6 (critic r5 #1 / #8, fl17 "he lies on an untextured grey slab"; "no visible mesh uses an untextured default material"): the crane load is
+// dressed as a shipping container -- dark container-red steel body, corrugation ribs on the long faces, a near-black corner-post / rail
+// frame, roof bows, bottom cross-members (seen from below while it is held overhead) and pale door locking bars on one end. Thin cubes
+// attached to the load body (scale-compensated: the body is a scaled basic cube), no collision; only the body casts a shadow.
+// Overhead-carry hero only (TickCrane calls it once SetOverheadCarryHero is set; the v1 hero keeps the r5 look).
+void AWHRescueDirector::DressLoad(FWHEmergency& E)
+{
+	if (E.bDressed || !E.Load || !Cube) return;
+	E.bDressed = true;
+	const FVector S = E.Load->GetComponentScale();   // body size in m (basic cube: 100 cm per unit)
+	if (S.X < 0.2 || S.Y < 0.2 || S.Z < 0.2) return;
+	const FVector H = S * 50.0;                       // half extents, cm
+	const FLinearColor Body(0.16f, 0.032f, 0.018f), Rib(0.085f, 0.018f, 0.011f), Frame(0.028f, 0.028f, 0.032f), Bar(0.42f, 0.42f, 0.4f);
+	if (UMaterialInstanceDynamic* M = Cast<UMaterialInstanceDynamic>(E.Load->GetMaterial(0)))
+	{
+		M->SetVectorParameterValue(TEXT("Color"), Body);
+		M->SetScalarParameterValue(TEXT("Metal"), 0.45f);
+		M->SetScalarParameterValue(TEXT("Rough"), 0.5f);
+	}
+	// PosCm / SizeM in the body's unscaled local frame; the child's relative transform is divided by the body scale
+	auto Trim = [this, &E, &S](const FVector& PosCm, const FVector& SizeM, const FLinearColor& C)
+	{
+		if (UStaticMeshComponent* T = AddMesh(E, Cube, MSolid, C, PosCm / S, FRotator::ZeroRotator, SizeM / S, 0.f, 1.f, E.Load))
+			T->SetCastShadow(false);
+	};
+	const double TallM = (2.0 * H.Z - 24.0) / 100.0;
+	// corrugation ribs on both long faces (+-Y: the faces the chase camera sees behind / beside the hero)
+	const int32 NRib = 10;
+	for (int32 i = 0; i < NRib; ++i)
+	{
+		const double X = -H.X + 28.0 + i * (2.0 * H.X - 56.0) / double(NRib - 1);
+		Trim(FVector(X, H.Y + 2.0, 0.0), FVector(0.07, 0.05, TallM), Rib);
+		Trim(FVector(X, -H.Y - 2.0, 0.0), FVector(0.07, 0.05, TallM), Rib);
+	}
+	// end faces: ribs on -X, door locking bars on +X
+	for (int32 i = 0; i < 4; ++i)
+	{
+		const double Y = (-0.6 + 0.4 * i) * H.Y;
+		Trim(FVector(-H.X - 2.0, Y, 0.0), FVector(0.05, 0.07, TallM), Rib);
+		Trim(FVector(H.X + 2.5, Y, 0.0), FVector(0.05, 0.04, TallM + 0.06), Bar);
+	}
+	// frame: corner posts, long + end rails (top and bottom)
+	const double PostM = 0.14, RailM = 0.12;
+	for (int32 sx = -1; sx <= 1; sx += 2)
+		for (int32 sy = -1; sy <= 1; sy += 2)
+			Trim(FVector(sx * (H.X - 6.0), sy * (H.Y - 6.0), 0.0), FVector(PostM, PostM, 2.0 * H.Z / 100.0 + 0.02), Frame);
+	for (int32 sz = -1; sz <= 1; sz += 2)
+	{
+		for (int32 sy = -1; sy <= 1; sy += 2) Trim(FVector(0.0, sy * (H.Y - 6.0), sz * (H.Z - 5.0)), FVector(2.0 * H.X / 100.0 + 0.02, PostM, RailM), Frame);
+		for (int32 sx = -1; sx <= 1; sx += 2) Trim(FVector(sx * (H.X - 6.0), 0.0, sz * (H.Z - 5.0)), FVector(PostM, 2.0 * H.Y / 100.0 + 0.02, RailM), Frame);
+	}
+	// roof bows and bottom cross-members
+	for (int32 i = 0; i < 4; ++i) Trim(FVector((-0.6 + 0.4 * i) * H.X, 0.0, H.Z + 1.5), FVector(0.06, 2.0 * H.Y / 100.0 - 0.2, 0.03), Rib);
+	for (int32 i = 0; i < 5; ++i) Trim(FVector((-0.8 + 0.4 * i) * H.X, 0.0, -H.Z - 2.5), FVector(0.1, 2.0 * H.Y / 100.0 - 0.1, 0.05), Frame);
+	UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load dressed as a container (%.1f x %.1f x %.1f m, %d trims)"), E.Id, S.X, S.Y, S.Z, 2 * NRib + 8 + 4 + 8 + 4 + 5);
+}
+
+// r6 (critic r5 #1, fl17 "after the set-down the camera sits inside the load, 70 % of the frame flat grey"): r2-r5 slid the load along the
+// body's forward -- in a head-first dive the chest faces down and back, so the load landed between the chase camera and the hero. Here the
+// spot is chosen in the CAMERA's frame: beside him and a little beyond (front-left / front-right, the side with more open room first),
+// then straight beyond him, then the same further out. A candidate needs ground under its centre + 4 corners within 0.5 m of each other
+// and within 0.6 m of the hero's own floor (the street he stands over, not a car roof, step or roof edge), a clear line from the hero to
+// it and room past its outer face. The load's long axis lies across the camera line (no turn from the carry: he faces the camera heading).
+bool AWHRescueDirector::PickSetDown(const FVector& Hero, const FVector& HalfCm, FVector& OutCenterCm, FQuat& OutQ, FVector2D& OutFS) const
+{
+	FVector Fwd = FVector::ZeroVector;
+	if (const APlayerCameraManager* PCM = UGameplayStatics::GetPlayerCameraManager(this, 0))
+	{
+		Fwd = Flat(Hero - PCM->GetCameraLocation());
+		if (Fwd.Size() < 50.0) Fwd = Flat(PCM->GetCameraRotation().Vector());   // camera (nearly) overhead: its heading
+	}
+	if (Fwd.Size() < 1e-3) return false;
+	Fwd = Fwd.GetSafeNormal();
+	const FVector Side = FVector::CrossProduct(FVector::UpVector, Fwd).GetSafeNormal();
+	FVector HG;
+	const double HeroFloor = GroundAt(Hero, Hero.Z + 50.0, Hero.Z - 100000.0, HG) ? HG.Z : Hero.Z - 95.0;
+	const FVector Waist(Hero.X, Hero.Y, HeroFloor + 100.0);
+	auto Room = [this, &Waist, &Side](double Sg) -> double
+	{
+		FHitResult H;
+		return TraceLine(Waist, Waist + Side * (Sg * 900.0), H) ? H.Distance : 900.0;
+	};
+	const double S1 = Room(1.0) >= Room(-1.0) ? 1.0 : -1.0;
+	const double Ahead = double(SetDownAheadCm) + HalfCm.Y, Beside = double(SetDownSideGapCm) + HalfCm.X;
+	const FVector2D Cand[5] = { FVector2D(Ahead, S1 * Beside), FVector2D(Ahead, -S1 * Beside), FVector2D(Ahead + 120.0, 0.0),
+		FVector2D(Ahead + 200.0, S1 * (Beside + 40.0)), FVector2D(Ahead + 200.0, -S1 * (Beside + 40.0)) };
+	const double TopZ = FMath::Max(Hero.Z, HeroFloor + 2.0 * HalfCm.Z) + 150.0;
+	const double Px[5] = { 0.0, 0.9, 0.9, -0.9, -0.9 }, Py[5] = { 0.0, 0.9, -0.9, 0.9, -0.9 };
+	for (const FVector2D& FS : Cand)
+	{
+		const FVector C = Flat(Hero) + Fwd * FS.X + Side * FS.Y;
+		double Hi = -TNumericLimits<double>::Max(), Lo = TNumericLimits<double>::Max();
+		bool bOk = true;
+		for (int32 k = 0; k < 5 && bOk; ++k)
+		{
+			FVector G;
+			const FVector P = C + Side * (Px[k] * HalfCm.X) + Fwd * (Py[k] * HalfCm.Y);
+			if (GroundAt(P, TopZ, TopZ - 100000.0, G)) { Hi = FMath::Max(Hi, G.Z); Lo = FMath::Min(Lo, G.Z); }
+			else bOk = false;
+		}
+		if (!bOk || Hi - Lo > 50.0 || FMath::Abs(Hi - HeroFloor) > 60.0) continue;
+		FHitResult H;
+		const FVector Cz(C.X, C.Y, Hi + 100.0);
+		if (TraceLine(Waist, Cz, H)) continue;                                                   // a wall / vehicle between him and the spot
+		const FVector Out = FS.Y != 0.0 ? Side * (FMath::Sign(FS.Y) * (HalfCm.X + 100.0)) : Fwd * (HalfCm.Y + 100.0);
+		if (TraceLine(Cz, Cz + Out, H) || TraceLine(Cz, Cz + Fwd * (HalfCm.Y + 60.0), H)) continue;   // no room past its outer faces
+		OutCenterCm = FVector(C.X, C.Y, Hi + HalfCm.Z);
+		OutQ = FRotationMatrix::MakeFromYZ(Fwd, FVector::UpVector).ToQuat();
+		OutFS = FS / 100.0;
+		return true;
+	}
+	return false;
+}
+
 void AWHRescueDirector::BuildBus(FWHEmergency& E, const FVector& EdgeCm)
 {
 	// pivot at the edge; the bus (12 x 2.6 x 3 m) lies along +X of the pivot, its centre 0.8 m past the edge: teetering
@@ -785,6 +900,7 @@ void AWHRescueDirector::TickFire(FWHEmergency& E, double Now, double Dt, const F
 void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const FVector& Hero)
 {
 	UWHFlightWorldSubsystem* S = Sub();
+	if (bOverheadCarry && !E.bDressed) DressLoad(E);   // r6 (critic r5 #1 / #8): container look (once; v2 hero only)
 	if (E.State == EWHEmergencyState::Active)
 	{
 		if (!E.bSnapped)
@@ -880,7 +996,28 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 			const FVector Want = Hero - FVector(0, 0, 170.0);   // critic r1 (fl17: never visibly held): top of the load at his hands, not 2.5 m below
 			E.LoadCm = FMath::Lerp(E.LoadCm, Want, float(1.0 - FMath::Exp(-10.0 * Dt)));
 		}
-		const bool bDrop = (S && S->bInteractPressed && E.CarryT > 0.4) || E.CarryT > 10.0;
+		// r6 (critic r5 #1): the overhead carry may last a whole street descent (~15 s from the fl17 catch at ~135 m); r5: 10 s for every hero
+		bool bDrop = (S && S->bInteractPressed && E.CarryT > 0.4) || E.CarryT > (bOverheadCarry ? double(CarryMaxOverheadS) : 10.0);
+		if (bDrop && bOverheadCarry)
+		{
+			// r6 (critic r5 #1: "the load ends on the street, never between the chase camera and the hero"): beside / beyond him in the camera's
+			// frame (PickSetDown), lowered from overhead over >= SetDownMinS with the sideways ease spread over most of it (the arms come down
+			// with it, UWHHeroV2AnimInstance::CarryOutT). No candidate: the r2 placement below.
+			const FVector HalfCm = E.Load ? E.Load->GetComponentScale() * 50.0 : FVector(200.0, 90.0, 75.0);
+			FVector C; FQuat Q; FVector2D FS;
+			if (PickSetDown(Hero, HalfCm, C, Q, FS))
+			{
+				E.SettleCm = C; E.SettleQ = Q;
+				E.SettleFromCm = E.LoadCm; E.SettleFromQ = E.LoadQ; E.SettleT = 0.0;
+				E.SettleDur = FMath::Clamp(FMath::Abs(E.SettleFromCm.Z - E.SettleCm.Z) / FMath::Max(100.0, double(SetDownSpeedCm)), double(SetDownMinS), 4.0);
+				E.SettleXyT = FMath::Max(0.6, 0.8 * E.SettleDur);
+				E.bCarried = false; E.bSettling = true;
+				UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load set down at (%.0f, %.0f, %.0f) over %.1f s, hero at (%.0f, %.0f, %.0f), %.1f m beyond / %.1f m beside on the camera line"),
+					E.Id, E.SettleCm.X, E.SettleCm.Y, E.SettleCm.Z, E.SettleDur, Hero.X, Hero.Y, Hero.Z, FS.X, FS.Y);
+				SaveLives(E, E.LivesAtStake, TEXT("load set down"));
+				bDrop = false;   // (handled)
+			}
+		}
 		if (bDrop)
 		{
 			// critic r2 (fl17; test: "the set-down leaves the load resting on the surface below with the hero landing beside it, not on top"):
@@ -918,12 +1055,13 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 	{
 		// critic r2 (fl17): an eased set-down -- clear of the hero and levelled within 0.6 s, lowered onto the rest surface over SettleDur
 		// (ease in-out: it touches down slowly). r2: a linear 9 m/s slide to the point under the load.
+		// r6 (critic r5 #1): the sideways ease lasts SettleXyT (overhead carry: 80 % of the lowering, he puts it down; v1 / fallback 0.6 s)
 		E.SettleT += Dt;
-		const double Kxy = Ease(E.SettleT / 0.6);
+		const double Kxy = Ease(E.SettleT / FMath::Max(0.1, E.SettleXyT));
 		const double Kz = Ease(E.SettleT / FMath::Max(0.3, E.SettleDur));
 		E.LoadCm = FVector(FMath::Lerp(E.SettleFromCm.X, E.SettleCm.X, Kxy), FMath::Lerp(E.SettleFromCm.Y, E.SettleCm.Y, Kxy), FMath::Lerp(E.SettleFromCm.Z, E.SettleCm.Z, Kz));
 		E.LoadQ = FQuat::Slerp(E.SettleFromQ, E.SettleQ, Kxy).GetNormalized();
-		if (E.SettleT >= FMath::Max(0.6, E.SettleDur))
+		if (E.SettleT >= FMath::Max(E.SettleXyT, E.SettleDur))
 		{
 			E.LoadCm = E.SettleCm; E.LoadQ = E.SettleQ; E.bSettling = false; E.ResolvedT = Now;
 			UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load rests at (%.0f, %.0f, %.0f)"), E.Id, E.LoadCm.X, E.LoadCm.Y, E.LoadCm.Z);
@@ -941,7 +1079,8 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 			const FVector Top = E.TipCm, Bot = E.LoadCm + FVector(0, 0, 75.0);
 			const FVector D = Top - Bot;
 			E.Cable->SetWorldLocationAndRotation((Top + Bot) * 0.5, FQuat::FindBetweenNormals(FVector::UpVector, D.GetSafeNormal()));
-			E.Cable->SetWorldScale3D(FVector(0.06, 0.06, D.Size() / 100.0));
+			const double CableM = bOverheadCarry ? 0.12 : 0.06;   // r6 (critic r5 fl17 "no cable visible"): 12 cm for the v2 hero's dressed load
+			E.Cable->SetWorldScale3D(FVector(CableM, CableM, D.Size() / 100.0));
 		}
 	}
 }

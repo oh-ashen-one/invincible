@@ -1134,22 +1134,23 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 	// (suite r2 sims: the cut waits until a chase spot behind him is out of the building -- cutting at the exit put the lens inside the
 	//  facade he had just left -- at most 0.4 s; the player's heading (camera yaw) is kept across the cut, the slow-mo starts with it)
 	bool bBreachHold = bFlightMode && Flight && Flight->IsBreaching();
+	double BreachCutYaw = Cam.Yaw;
 	if (bFlightMode && Flight)
 	{
+		// critic r5 #3 (fl14 / fl15 / fl17: hidden 12-24 frames per breach, then an 11-80 m jump): the pass through the solid is <= ~4 frames
+		// (UWHFlightComponent::BreachMaxTime), and at the exit the cut is taken at once on the nearest clear yaw (FWebTravCamera::ChooseCutYaw:
+		// a three-quarter / side view of him bursting out when the spot behind him is still inside the building). Only when no yaw is clear does
+		// the hold wait, at most BreachCutWaitMax s (was 0.4 s for the spot behind him).
+		static constexpr double BreachCutWaitMax = 0.05;
 		if (bBreachHold) BreachClearT = 0.0;
-		else if (bWasBreachHold && BreachClearT < 0.4)
+		else if (bWasBreachHold && BreachClearT < BreachCutWaitMax)
 		{
-			const FVector P = Traversal->PosM(), Back = Traversal->VelM().GetSafeNormal2D();
-			const FVector Spot = P - Back * 4.5 + FVector(0, 0, 0.5);
-			// critic r2 fl14 (74 m camera jump at the cut, then 33 near-black frames): the cut also waits until the spot the camera will
-			// actually compose after Reset (the flight framing spot above / beside him while he is in a fly line) is clear and sees him
-			if (Traversal->TravWorld.Inside(Spot, 0.05) || Traversal->TravWorld.SphereOverlaps(Spot, 0.4)
-				|| !Cam.CutSpotClear(P, Traversal->VelM(), Traversal->TravWorld)) { BreachClearT += Dt; bBreachHold = true; }
+			if (!Cam.ChooseCutYaw(Traversal->PosM(), Traversal->VelM(), Traversal->TravWorld, BreachCutYaw)) { BreachClearT += Dt; bBreachHold = true; }
 		}
 	}
 	if (!bBreachHold)
 	{
-		if (bWasBreachHold) { Cam.Reset(Traversal->PosM(), Cam.Yaw); if (BreachDirector) BreachDirector->CutSlowMo(); }
+		if (bWasBreachHold) { Cam.Reset(Traversal->PosM(), BreachCutYaw); if (BreachDirector) BreachDirector->CutSlowMo(); }
 		Cam.HeroProjH = ProjectHeroH();
 		Cam.Update(Dt, CI, Traversal->TravWorld);
 		Traversal->TravWorld.PushOutOfCrowns(Cam.CamPos, 0.5);   // round 01 (Gap 3): the lens never sits inside a tree crown

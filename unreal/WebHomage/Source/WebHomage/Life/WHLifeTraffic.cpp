@@ -1,6 +1,7 @@
 // Homage fan game. Not an official Marvel, Sony or Insomniac game; no affiliation. See DISCLAIMER.md.
 #include "Life/WHLifeTraffic.h"
 #include "Look/WHCityLights.h"
+#include "Flight/WHFlightWorld.h"
 #include "EngineUtils.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/SceneComponent.h"
@@ -27,6 +28,8 @@ namespace
 		{TEXT("suv"), 4.9f, 1.95f, false}, {TEXT("suv2"), 5.35f, 2.03f, false}, {TEXT("pickup"), 5.9f, 2.03f, false}, {TEXT("van"), 5.98f, 2.06f, false},
 		{TEXT("truck"), 7.3f, 2.3f, true}, {TEXT("bus"), 12.2f, 2.55f, true}, {TEXT("tour"), 11.f, 2.55f, true} };
 	enum ET : int32 { T_taxi, T_taxi_hy, T_taxi_mv, T_taxi_gr, T_sedan, T_hatch, T_sedan2, T_cross, T_suv, T_suv2, T_pickup, T_van, T_truck, T_bus, T_tour };
+	// critic r5 #2: approximate roof heights (m) of the same types, for the flight-mode "lens inside the body" hide
+	const float GTypeH[NumTypes] = { 1.6f, 1.55f, 1.95f, 1.6f, 1.5f, 1.5f, 1.5f, 1.65f, 1.8f, 1.85f, 1.95f, 2.6f, 3.4f, 3.3f, 4.3f };
 
 	// npc/traffic.js CAR_COLORS (sRGB hex; the browser converts with pow 2.2)
 	const uint32 GCarColors[] = { 0x0e0e0f, 0x151517, 0x1b1c1f, 0x101418, 0xe2e2df, 0xd8d8d4, 0xcfcfca, 0xe6e3da, 0xa9adb1, 0x9c9fa3, 0xb7b9bb, 0x8e9296, 0x6d7074, 0x55585c, 0x44474b,
@@ -386,19 +389,52 @@ void AWHLifeTraffic::Tick(float Dt)
 	Super::Tick(Dt);
 	if (!bReady || !bSimulate) return;
 	const double T0 = FPlatformTime::Seconds();
-	Accum += FMath::Min(Dt, 0.1f);
-	const float Step = 1.f / 30.f;
-	int32 Guard = 0;
+	UpdateFlightLife();
 	if (ActiveRadiusM > 0.f) { ActivityT += Dt; if (ActivityT >= 0.5f) { ActivityT = 0.f; UpdateActivity(false); } }
-	while (Accum >= Step && Guard++ < 4) { StepSim(Step); Accum -= Step; }
+	if (bFlightLife)
+	{ // critic r5 #2 (flight mode): the sim steps every rendered frame (<= 1/30 s substeps) -- the 30 Hz accumulator moved the cars on alternate
+	  // 60 fps frames only, a per-frame judder of every moving car under a still lens
+		const float D = FMath::Min(Dt, 0.1f);
+		const int32 N = FMath::Max(1, FMath::CeilToInt(D * 30.f - 1e-4f));
+		if (D > 0.f) for (int32 K = 0; K < N; ++K) StepSim(D / N);
+		Accum = 0.f;
+	}
+	else
+	{
+		Accum += FMath::Min(Dt, 0.1f);
+		const float Step = 1.f / 30.f;
+		int32 Guard = 0;
+		while (Accum >= Step && Guard++ < 4) { StepSim(Step); Accum -= Step; }
+	}
 	const double T1 = FPlatformTime::Seconds();
 	UpdateSignals();
 	bClearCam = false;
-	if (CameraClearM > 0.f && GetWorld()) if (APlayerCameraManager* CM = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0)) { const FVector L = CM->GetCameraLocation(); if (L.Z < 450.f && !L.IsNearlyZero(50.f)) { bClearCam = true; ClearM = FVector2D(L.X, L.Y) * 0.01f; const FVector F = CM->GetCameraRotation().Vector(); const FVector2D F2(F.X, F.Y); ClearFwd = F2.SizeSquared() > 1e-4f ? F2.GetSafeNormal() : FVector2D(1, 0); } }
+	if (CameraClearM > 0.f && GetWorld()) if (APlayerCameraManager* CM = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0)) { const FVector L = CM->GetCameraLocation(); if (L.Z < 450.f && !L.IsNearlyZero(50.f)) { bClearCam = true; ClearM = FVector2D(L.X, L.Y) * 0.01f; ClearZ = L.Z * 0.01; const FVector F = CM->GetCameraRotation().Vector(); const FVector2D F2(F.X, F.Y); ClearFwd = F2.SizeSquared() > 1e-4f ? F2.GetSafeNormal() : FVector2D(1, 0); } }
 	PushInstances();
 	const double T2 = FPlatformTime::Seconds();
 	LastSimMs = (T1 - T0) * 1000.f; LastPushMs = (T2 - T1) * 1000.f;
 	if (StatsInterval > 0.f) { StatsT += Dt; if (StatsT >= StatsInterval) { StatsT = 0.f; UE_LOG(LogWHLife, Log, TEXT("%s"), *StatsString()); } }
+}
+
+// critic r5 #2: flight mode (the Invincible pawn writes UWHFlightWorldSubsystem every frame; the legacy hero never sets bFlightMode, so the
+// legacy traffic is unchanged) and the street-level points cars brake for: the hero standing / walking / landing in a lane, a low lens
+void AWHLifeTraffic::UpdateFlightLife()
+{
+	const UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this);
+	bFlightLife = FW && FW->bFlightMode;
+	YieldPts.Reset();
+	bFlightCamOk = false;
+	if (!bFlightLife) return;
+	FVector L = FVector::ZeroVector;
+	if (const APlayerCameraManager* CM = GetWorld() ? UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0) : nullptr)
+	{
+		L = CM->GetCameraLocation();
+		bFlightCamOk = !L.IsNearlyZero(50.0);
+		FlightCamM = FVector2D(L.X, L.Y) * 0.01;
+	}
+	if (FlightYieldAheadM <= 0.f) return;
+	if (FW->bHeroValid && FW->HeroPosCm.Z < 400.0) YieldPts.Add(FVector2D(FW->HeroPosCm.X, FW->HeroPosCm.Y) * 0.01);
+	if (bFlightCamOk && L.Z < 450.0) YieldPts.Add(FlightCamM);
 }
 
 void AWHLifeTraffic::DumpCars(const FString& Path) const
@@ -672,6 +708,25 @@ void AWHLifeTraffic::StepSim(float Dt)
 	{
 		FCar& C = Cars[I]; if (!C.bActive) continue;
 		float Gap, VL; FindLeader(I, Gap, VL);
+		if (YieldPts.Num() > 0)
+		{ // critic r5 #2 (flight mode): a stopped leader at the hero / the street-level lens when it stands in this car's path ahead
+			const FVector2D PF = PathPoint(C, 0.f);
+			FVector2D Dh = PF - PathPoint(C, 1.5f);
+			if (Dh.SizeSquared() > 1e-6f)
+			{
+				Dh.Normalize();
+				for (const FVector2D& Q : YieldPts)
+				{
+					const FVector2D Rel = Q - PF;
+					const float Ahead = FVector2D::DotProduct(Rel, Dh), Lat = FMath::Abs(FVector2D::CrossProduct(Dh, Rel));
+					if (Ahead > -0.5f && Ahead < FlightYieldAheadM && Lat < C.Wid * 0.5f + FlightYieldHalfM)
+					{
+						const float G = FMath::Max(0.05f, Ahead - 1.5f);
+						if (G < Gap) { Gap = G; VL = 0.f; }
+					}
+				}
+			}
+		}
 		float V0 = C.V0, Acc;
 		float StopGap = 1e9f; bool bRed = false;
 		if (C.Where == 0)
@@ -748,7 +803,8 @@ void AWHLifeTraffic::StepSim(float Dt)
 			if (ActiveRadiusM > 0.f && LinkActive.IsValidIndex(C.L0) && !LinkActive[C.L0]) { DespawnCar(I); continue; }   // rolled out of the active radius
 			C.K = ChooseNext(C, Links[C.L0]);
 		}
-		if (C.StuckT > 120.f) { DespawnCar(I); }
+		// (critic r5 #2, flight mode: a car stuck for 120 s is not removed within 250 m of the lens -- that was a despawn in view)
+		if (C.StuckT > 120.f && !(bFlightLife && bFlightCamOk && FVector2D::DistSquared(PathPoint(C, C.Len * 0.5f), FlightCamM) < 250.0 * 250.0)) { DespawnCar(I); }
 	}
 
 	// 3b. junction-box watch: a car standing (< 0.3 m/s) with any part of its body inside a junction box
@@ -927,7 +983,9 @@ void AWHLifeTraffic::PushInstances()
 		if (bClearCam)
 		{ // distance from the camera to the car's body rectangle (centre, heading, length x width)
 			const FVector2D Dc = ClearM - Ctr; const float Al = FMath::Abs(FVector2D::DotProduct(Dc, Dir)), La = FMath::Abs(FVector2D::DotProduct(Dc, FVector2D(-Dir.Y, Dir.X)));
-			bHide = FMath::Sqrt(FMath::Square(FMath::Max(Al - C.Len * 0.5f, 0.f)) + FMath::Square(FMath::Max(La - C.Wid * 0.5f, 0.f))) < CameraClearM;
+			const float BodyD = FMath::Sqrt(FMath::Square(FMath::Max(Al - C.Len * 0.5f, 0.f)) + FMath::Square(FMath::Max(La - C.Wid * 0.5f, 0.f)));
+			// critic r5 #2 (flight mode): no pop of a car approaching the lens -- hidden only with the lens inside its body
+			bHide = bFlightLife ? (BodyD < FlightLensInsideM && ClearZ < GTypeH[FMath::Clamp(C.Type, 0, NumTypes - 1)] + FlightLensInsideM) : BodyD < CameraClearM;
 			if (!bHide && ClearAheadM > 0.f)
 			{ // corridor ahead of the camera (fixed shots): the car's centre, from the camera, along / across the view heading
 				const FVector2D Dv = Ctr - ClearM; const float Ah = FVector2D::DotProduct(Dv, ClearFwd), Cr = FMath::Abs(FVector2D::DotProduct(Dv, FVector2D(-ClearFwd.Y, ClearFwd.X)));

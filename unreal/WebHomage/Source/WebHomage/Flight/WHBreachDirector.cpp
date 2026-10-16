@@ -22,6 +22,9 @@
 #include "HAL/PlatformTime.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
+#include "MaterialShared.h"
+#include "RHIShaderPlatform.h"
+#include "CoreGlobals.h"
 
 namespace
 {
@@ -104,6 +107,8 @@ void AWHBreachDirector::BeginPlay()
 	MChunk = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Invincible/FX/M_InvChunk.M_InvChunk"));
 	// owner feedback 2026-10-15 #1: additive speed-line material (optional; the streaks fall back to M_InvVapour)
 	MStreak = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Invincible/FX/M_InvStreak.M_InvStreak"));
+	// critic r5 #8: one continuous shock-ring annulus (optional; the segmented tubes stay the fallback)
+	MRing = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Invincible/FX/M_InvShockRing.M_InvShockRing"));
 	Cone = LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Cone.Cone"));
 	ProbeCone();
 	GcAsset = LoadObject<UGeometryCollection>(nullptr, TEXT("/Game/Invincible/Destruction/GC_FacadeChunk.GC_FacadeChunk"));
@@ -112,6 +117,7 @@ void AWHBreachDirector::BeginPlay()
 	{ float Fc = FacadeChunkFraction; if (FParse::Value(FCommandLine::Get(), TEXT("-WHFacadeChunks="), Fc)) FacadeChunkFraction = FMath::Clamp(Fc, 0.f, 1.f); }
 	Fx.Init(this);
 	ExcludeHeroFromDecals();   // r3: the opening / crater decals must not paint the hero when he flies through them
+	PrewarmPools();            // critic r5 #3 / #8
 	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT breach director ready: materials %s, authored fracture %s, crater decal %s, slow-mo %s"),
 		MSolid && MTrans ? TEXT("ok") : TEXT("FALLBACK"), GcAsset ? TEXT("yes") : TEXT("no (proxy chunks only)"), MDecal ? TEXT("yes") : TEXT("no (disc)"),
 		bNoSlowMo ? TEXT("off") : TEXT("on"));
@@ -120,6 +126,51 @@ void AWHBreachDirector::BeginPlay()
 		MDust ? TEXT("yes") : TEXT("no (combat puffs)"), MChunk ? TEXT("yes") : TEXT("no (flat tints)"), FacadeChunkFraction);
 	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT flight fx (owner feedback 2026-10-15): streak material %s, vapour pool cap %d"),
 		MStreak ? TEXT("M_InvStreak") : (MVapour ? TEXT("M_InvVapour (fallback)") : TEXT("none (no streaks)")), MaxVapours);
+	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT breach fx r6: shock ring %s, prewarmed %d hole / %d crater decals, %d debris pieces"),
+		MRing ? TEXT("M_InvShockRing (one annulus)") : TEXT("segmented tubes (fallback)"), HoleDecals.Num(), CraterDecals.Num(), Chunks.Num());
+}
+
+// critic r5 #3 (a first-use decal rendered its whole box as a flat dark panel for one frame: fl15 3.85 s, fl11 2.28 s, fl17 20.68 s) / #8:
+// the FX materials' shader maps are finished now, the decal pools exist from the start (registered, hidden, parameters at rest) and so does
+// part of the debris pool, so no FX component is created (or first drawn with a new material) on the impact frame
+void AWHBreachDirector::PrewarmPools()
+{
+	for (UMaterialInterface* M : { MHole.Get(), MDecal.Get(), MChunk.Get(), MDust.Get(), MVapour.Get(), MStreak.Get(), MRing.Get(), MSolid.Get(), MTrans.Get() })
+		if (M) if (FMaterialResource* R = M->GetMaterialResource(GMaxRHIShaderPlatform)) R->FinishCompilation();
+	if (MHole) while (HoleDecals.Num() < MaxHoleDecals) { if (!AcquireDecal(HoleDecals, NextHole, MaxHoleDecals, MHole)) break; }
+	if (MDecal) while (CraterDecals.Num() < MaxCraterDecals) { if (!AcquireDecal(CraterDecals, NextCrater, MaxCraterDecals, MDecal)) break; }
+	NextHole = 0; NextCrater = 0;
+	if (Cube) { const int32 N = FMath::Min(MaxChunks, ChunksPerBreach * 2); while (Chunks.Num() < N) { if (!NewChunk()) break; } }
+	// the boom's pieces: 2 cones, 6 rings, 16 streaks (more are still made on demand up to MaxVapours)
+	if (MVapour && Sphere)
+	{
+		const int32 Want[6] = { Cone ? 2 : 0, 0, 0, 16, MRing ? 0 : 24, MRing ? 6 : 0 };
+		for (int32 Sh = 0; Sh < 6; ++Sh)
+			for (int32 K = 0; K < Want[Sh] && Vapours.Num() < FMath::Max(24, MaxVapours); ++K)
+			{
+				FVapour N; N.bCone = Sh == 0; N.Shape = Sh;
+				UMaterialInterface* Base = (Sh == 3 && MStreak) ? MStreak.Get() : (Sh == 5 && MRing) ? MRing.Get() : MVapour.Get();
+				N.Comp = MakeComp(Sh == 0 ? Cone.Get() : Sphere.Get(), Base, N.Mid, false);
+				if (N.Mid) N.Mid->SetScalarParameterValue(TEXT("Opacity"), 0.f);
+				KeepAlive.Add(N.Comp);
+				Vapours.Add(N);
+			}
+	}
+}
+
+AWHBreachDirector::FChunk* AWHBreachDirector::NewChunk()
+{
+	if (!Cube || Chunks.Num() >= MaxChunks) return nullptr;
+	FChunk New;
+	New.Comp = MakeComp(Cube, MChunk ? MChunk.Get() : MSolid.Get(), New.Mid, true);
+	New.Comp->SetCollisionProfileName(TEXT("PhysicsActor"));
+	New.Comp->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+	New.Comp->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	New.Comp->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
+	New.Comp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	KeepAlive.Add(New.Comp);
+	Chunks.Add(New);
+	return &Chunks.Last();
 }
 
 /** r3: bounds of /Engine/BasicShapes/Cone and which end is the apex (the vapour cone is built from it; its pivot / orientation are not assumed) */
@@ -285,8 +336,10 @@ void AWHBreachDirector::Crater(const FVector& PosM, float Sev)
 	if (Cube)
 	{
 		// ejecta: pieces flung up and out (physics), mixed sizes; the rim below is static and sits on the ground
-		SpawnDebris(P + FVector(0, 0, 18.0), FVector::UpVector, 90.0, 520.0 + 700.0 * Sev, 0.7, ChunksPerCrater, GroundMat, BdConcrete, 0.1f);
-		SpawnRim(P, Sev, GroundMat);
+		// (critic r5 #8: "untextured grey cubes" in fl11 / fl12 -- the street's own material does not map onto a cube; every crater piece wears
+		//  the M_InvChunk concrete / asphalt look now)
+		SpawnDebris(P + FVector(0, 0, 18.0), FVector::UpVector, 90.0, 520.0 + 700.0 * Sev, 0.7, ChunksPerCrater, nullptr, BdConcrete, 0.1f);
+		SpawnRim(P, Sev, nullptr);
 	}
 	if (MDust && Sphere) CraterDust(P, Sev);
 	else Fx.Dust(P / 100.0, 3.0 + 4.0 * Sev);
@@ -628,20 +681,9 @@ void AWHBreachDirector::SpawnDebris(const FVector& OriginCm, const FVector& Axis
 	for (int32 K = 0; K < N; ++K)
 	{
 		FChunk* Ch = nullptr;
-		if (Chunks.Num() < MaxChunks)
-		{
-			FChunk New;
-			New.Comp = MakeComp(Cube, MChunk ? MChunk.Get() : MSolid.Get(), New.Mid, true);
-			New.Comp->SetCollisionProfileName(TEXT("PhysicsActor"));
-			New.Comp->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
-			New.Comp->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
-			New.Comp->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
-			New.Comp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-			KeepAlive.Add(New.Comp);
-			Chunks.Add(New);
-			Ch = &Chunks.Last();
-		}
-		else { Ch = &Chunks[NextChunk % Chunks.Num()]; ++NextChunk; } // recycle the oldest
+		for (FChunk& X : Chunks) if (!X.bLive) { Ch = &X; break; }   // critic r5: an idle (prewarmed / retired) piece first
+		if (!Ch) Ch = NewChunk();
+		if (!Ch) { if (Chunks.Num() == 0) return; Ch = &Chunks[NextChunk % Chunks.Num()]; ++NextChunk; } // recycle the oldest
 		UStaticMeshComponent* C = Ch->Comp;
 		C->SetSimulatePhysics(false);
 		// critic r2 (breach: "no single piece or flat shape covers > 5 % of the frame at ~4 m"; r2 pieces were one size band of 9-47 cm cubes):
@@ -672,6 +714,8 @@ void AWHBreachDirector::SpawnDebris(const FVector& OriginCm, const FVector& Axis
 			Ch->Mid->SetScalarParameterValue(TEXT("Rough"), 0.9f);
 			Ch->Mid->SetScalarParameterValue(TEXT("Brick"), bBrick ? 1.f : 0.f);
 			Ch->Mid->SetScalarParameterValue(TEXT("Seed"), Rng.FRandRange(0.f, 20.f));
+			// critic r5 #8 ("untextured grey cubes"): M_InvChunk r6 textures the piece in its own frame; Size = the piece's dimensions (cm)
+			Ch->Mid->SetVectorParameterValue(TEXT("Size"), FLinearColor(float(Dim.X), float(Dim.Y), float(Dim.Z), 0.f));
 		}
 		C->SetVisibility(true);
 		C->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
@@ -778,6 +822,8 @@ AWHBreachDirector::FDecalItem* AWHBreachDirector::AcquireDecal(TArray<FDecalItem
 		N.Comp->SetDecalMaterial(Mat);
 		N.Comp->RegisterComponent();
 		N.Mid = N.Comp->CreateDynamicMaterialInstance();
+		if (N.Mid) N.Mid->SetScalarParameterValue(TEXT("Open"), 0.f);
+		N.Comp->SetVisibility(false);   // critic r5 #3: pooled from BeginPlay, shown only by a placement (one frame after it)
 		KeepAlive.Add(N.Comp);
 		if (N.Mid) KeepAlive.Add(N.Mid);
 		Pool.Add(N);
@@ -788,18 +834,66 @@ AWHBreachDirector::FDecalItem* AWHBreachDirector::AcquireDecal(TArray<FDecalItem
 	return It;   // recycle the oldest
 }
 
+// critic r5 #8: how far the facade plane through PointCm (outward normal OutN) runs on each in-plane side, by line traces into it every 40 cm
+// (a hit counts when its normal is within ~37 deg of OutN and it lies within 35 cm of the plane: a window recess counts, the street behind a
+// corner or a perpendicular wall does not). The box is centred up to 30 % of Half away from the nearer edge and then sized so 0.92 of it
+// (the decal's visible circle) stays on the facade; never under 110 cm.
+double AWHBreachDirector::FitHoleHalf(const FVector& PointCm, const FVector& OutN, double Half, FVector& OutShift) const
+{
+	OutShift = FVector::ZeroVector;
+	UWorld* W = GetWorld();
+	if (!W || Half <= 0.0) return Half;
+	FVector N = OutN.GetSafeNormal();
+	if (N.IsNearlyZero()) return Half;
+	FVector U, V; BdPlaneBasis(N, U, V);
+	FCollisionQueryParams Q(SCENE_QUERY_STAT(WHBreachHoleFit), /*bTraceComplex*/ true);
+	if (APawn* Hero = UGameplayStatics::GetPlayerPawn(this, 0)) Q.AddIgnoredActor(Hero);
+	FCollisionObjectQueryParams Obj;
+	Obj.AddObjectTypesToQuery(ECC_WorldStatic);
+	Obj.AddObjectTypesToQuery(ECC_WorldDynamic);
+	auto OnPlane = [&](const FVector& At) -> bool
+	{
+		FHitResult H;
+		if (!W->LineTraceSingleByObjectType(H, At + N * 80.0, At - N * 80.0, Obj, Q) || H.bStartPenetrating) return false;
+		return FVector::DotProduct(H.ImpactNormal.GetSafeNormal(), N) > 0.8 && FMath::Abs(FVector::DotProduct(H.ImpactPoint - PointCm, N)) < 35.0;
+	};
+	const double Reach = Half * 1.3, Step = 40.0;
+	auto Extent = [&](const FVector& D) -> double
+	{
+		double Ok = 0.0;
+		for (double S = Step; S <= Reach + 1.0; S += Step) { if (!OnPlane(PointCm + D * S)) break; Ok = S; }
+		return Ok;
+	};
+	const double EUp = Extent(U), EUm = Extent(-U), EVp = Extent(V), EVm = Extent(-V);
+	const double Need = 0.92 * Half;
+	auto Centre = [&](double Ep, double Em) -> double
+	{
+		if (FMath::Min(Ep, Em) >= Need) return 0.0;
+		return FMath::Clamp(0.5 * (Ep - Em), -0.3 * Half, 0.3 * Half);   // + = toward the +axis side
+	};
+	const double Su = Centre(EUp, EUm), Sv = Centre(EVp, EVm);
+	OutShift = U * Su + V * Sv;
+	const double Room = FMath::Min(FMath::Min(EUp - Su, EUm + Su), FMath::Min(EVp - Sv, EVm + Sv));
+	return FMath::Clamp(Room / 0.92, 110.0, Half);
+}
+
 void AWHBreachDirector::PlaceHole(const FVector& PointCm, const FVector& IntoWall, float Sev)
 {
 	FDecalItem* It = AcquireDecal(HoleDecals, NextHole, MaxHoleDecals, MHole);
 	if (!It || !It->Comp) return;
 	FVector Into = IntoWall.GetSafeNormal();
 	if (Into.IsNearlyZero()) Into = FVector::ForwardVector;
-	const double Half = HoleHalfCm * (1.0 + 0.18 * Sev);
-	It->Comp->DecalSize = FVector(90.0, Half, Half);   // projects 0.9 m either side of the surface along its X axis (into the wall)
+	// critic r5 #8 (fl14 5.35-5.40 s: the opening ran past the wall edge, over the background): the box is fitted to the facade plane around the
+	// hit (shifted a little off a near edge, then shrunk to what is left), and it projects 0.5 m either side of the surface (was 0.9 m, which also
+	// reached round a corner onto the perpendicular face)
+	FVector Shift = FVector::ZeroVector;
+	const double Half = FitHoleHalf(PointCm, -Into, HoleHalfCm * (1.0 + 0.18 * Sev), Shift);
+	It->Comp->DecalSize = FVector(50.0, Half, Half);
 	const FRotator Rot = FMath::Abs(Into.Z) > 0.9 ? FRotationMatrix::MakeFromX(Into).Rotator() : FRotationMatrix::MakeFromXZ(Into, FVector::UpVector).Rotator();
-	It->Comp->SetWorldLocationAndRotation(PointCm, Rot);
+	It->Comp->SetVisibility(false);
+	It->Comp->SetWorldLocationAndRotation(PointCm + Shift, Rot);
 	It->Comp->SetSortOrder(2);
-	It->Comp->SetVisibility(true);
+	It->bPendingShow = true; It->PlacedFrame = GFrameCounter;   // critic r5 #3: shown from the next engine frame (Tick)
 	if (It->Mid)
 	{
 		const float T = Rng.FRandRange(0.8f, 1.15f);
@@ -817,9 +911,10 @@ void AWHBreachDirector::PlaceCraterDecal(const FVector& PCm, float Sev)
 	const double R = 220.0 + 260.0 * Sev;
 	// a shallow slab: the ground is flat, and the only other things in the volume are boots, wheels and rubble (the hero's meshes have decals off)
 	It->Comp->DecalSize = FVector(28.0, R, R);
+	It->Comp->SetVisibility(false);
 	It->Comp->SetWorldLocationAndRotation(PCm + FVector(0.0, 0.0, 6.0), FRotator(-90.0, Rng.FRandRange(0.f, 360.f), 0.f));
 	It->Comp->SetSortOrder(1);
-	It->Comp->SetVisibility(true);
+	It->bPendingShow = true; It->PlacedFrame = GFrameCounter;   // critic r5 #3: shown from the next engine frame (Tick)
 	if (It->Mid)
 	{
 		It->Mid->SetScalarParameterValue(TEXT("Seed"), Rng.FRandRange(0.f, 9.f));
@@ -918,7 +1013,7 @@ void AWHBreachDirector::SpawnVapour(bool bCone, const FVector& AnchorCm, const F
 AWHBreachDirector::FVapour* AWHBreachDirector::SpawnShape(int32 Shape, const FVector& AnchorCm, const FVector& Dir, double FollowS, double OffsetCm, double Len0, double Len1, double Rad0, double Rad1, double Peak, double Life, float EdgePow, int32 Env)
 {
 	UStaticMesh* Mesh = Shape == 0 ? Cone.Get() : Sphere.Get();
-	UMaterialInterface* Base = (Shape == 3 && MStreak) ? MStreak.Get() : MVapour.Get();
+	UMaterialInterface* Base = (Shape == 3 && MStreak) ? MStreak.Get() : (Shape == 5 && MRing) ? MRing.Get() : MVapour.Get();   // (critic r5 #8: shape 5 = M_InvShockRing)
 	if (!Mesh || !Base) return nullptr;
 	FVapour* Vp = nullptr;
 	for (FVapour& X : Vapours) if (!X.bLive && X.Shape == Shape) { Vp = &X; break; }
@@ -962,15 +1057,28 @@ void AWHBreachDirector::SpawnRing(const FVector& CentreCm, const FVector& Dir, i
 	if (!Sphere || !MVapour || NSeg <= 0) return;
 	FVector D = Dir.GetSafeNormal();
 	if (D.IsNearlyZero()) D = FVector::ForwardVector;
-	const double Phase = Rng.FRandRange(0.f, 1.f);
-	for (int32 K = 0; K < NSeg; ++K)
+	// critic r5 #8 (fl04 t=1.48 / fl12 t=1.0: "a chain of ~20 separate translucent bead blobs, a bubble necklace"): the ring is ONE annulus
+	// (shape 5, M_InvShockRing) -- a continuous band with no gaps. The tube ring below is the fallback when the asset has not been built.
+	if (MRing)
 	{
-		const FVector Rad = BdRingDir(D, 2.0 * PI * (K + Phase) / NSeg);
-		FVapour* Vp = SpawnShape(4, CentreCm, D, FollowS, OffsetCm, 0.0, 0.0, R0, R1, Peak * Rng.FRandRange(0.8f, 1.f), Life * Rng.FRandRange(0.9f, 1.05f), 1.3f, 0);
+		if (FVapour* Vp = SpawnShape(5, CentreCm, D, FollowS, OffsetCm, 0.0, 0.0, R0, R1, Peak, Life, 1.3f, 0))
+		{
+			Vp->ThickK = ThickK * 1.5; Vp->DriftCms = DriftCms;   // (a wider tube than the r5 beads: the band reads at chase distance)
+			if (Vp->Mid) { Vp->Mid->SetScalarParameterValue(TEXT("Gain"), BoomGain); Vp->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(0.86f, 0.89f, 0.95f, 1.f)); }
+			return;
+		}
+	}
+	// fallback (critic r5 #8): denser, wider-overlapping tubes with one shared opacity / life, so the beads merge into a band
+	const int32 NS = FMath::Clamp(NSeg * 3 / 2, 12, 48);
+	const double Phase = Rng.FRandRange(0.f, 1.f);
+	for (int32 K = 0; K < NS; ++K)
+	{
+		const FVector Rad = BdRingDir(D, 2.0 * PI * (K + Phase) / NS);
+		FVapour* Vp = SpawnShape(4, CentreCm, D, FollowS, OffsetCm, 0.0, 0.0, R0, R1, Peak * 0.7, Life, 1.3f, 0);
 		if (!Vp) break;   // pool full
 		Vp->RadialU = Rad;
-		Vp->SegLenK = 2.0 * PI / NSeg * 1.35;   // overlapping tubes: a continuous ring
-		Vp->ThickK = ThickK;
+		Vp->SegLenK = 2.0 * PI / NS * 2.2;   // each tube spans ~2.2 neighbours' spacing (was 1.35): no pinch between them
+		Vp->ThickK = ThickK * 1.35;
 		Vp->DriftCms = DriftCms;
 		if (Vp->Mid) { Vp->Mid->SetScalarParameterValue(TEXT("Gain"), BoomGain); Vp->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(0.86f, 0.89f, 0.95f, 1.f)); }
 	}
@@ -1040,6 +1148,7 @@ void AWHBreachDirector::SpawnRim(const FVector& PCm, float Sev, UMaterialInterfa
 			Rb->Mid->SetScalarParameterValue(TEXT("Rough"), 0.92f);
 			Rb->Mid->SetScalarParameterValue(TEXT("Brick"), bBrick ? 1.f : 0.f);
 			Rb->Mid->SetScalarParameterValue(TEXT("Seed"), Rng.FRandRange(0.f, 20.f));
+			Rb->Mid->SetVectorParameterValue(TEXT("Size"), FLinearColor(float(Dim.X), float(Dim.Y), float(Dim.Z), 0.f));   // critic r5 #8
 		}
 	}
 }
@@ -1250,7 +1359,7 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 			// (owner feedback 2026-10-15: + SideCm for the glued contrails; a piece that does not follow drifts at VelCm)
 			// (critic r4: a shape-4 ring tube's anchor is its ring centre, which may drift back along the axis at DriftCms)
 			if (Vp.T < Vp.Follow && FW && FW->bHeroValid)
-				Vp.Anchor = Vp.Shape == 4 ? FW->HeroPosCm + Vp.Dir * (Vp.OffsetCm - Vp.DriftCms * Vp.T) : FW->HeroPosCm + Vp.Dir * Vp.OffsetCm + Vp.SideCm;
+				Vp.Anchor = (Vp.Shape == 4 || Vp.Shape == 5) ? FW->HeroPosCm + Vp.Dir * (Vp.OffsetCm - Vp.DriftCms * Vp.T) : FW->HeroPosCm + Vp.Dir * Vp.OffsetCm + Vp.SideCm;
 			else Vp.Anchor += Vp.VelCm * Dt;
 			const double E = BdEaseOut(K);
 			const double Rad = FMath::Lerp(Vp.Rad0, Vp.Rad1, E);
@@ -1281,6 +1390,24 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 				Vp.Comp->SetWorldLocationAndRotation(C, Q);
 				Vp.Comp->SetWorldScale3D(FVector(2.0 * Th / 100.0, 2.0 * Th / 100.0, SegL / 100.0));
 				if (bCamOk) LensD = BdEllipsoidDist(CamCm, C, Q, FVector(Th, Th, SegL * 0.5));
+			}
+			else if (Vp.Shape == 5)
+			{ // critic r5 #8: the whole shock ring as one flattened sphere; M_InvShockRing draws only the annulus Band +- BandW of its radius
+				const double Th = FMath::Clamp(Vp.ThickK * Rad, 12.0, 70.0);
+				const double Ro = Rad + Th;   // the mesh's outer radius
+				const FQuat Q = FRotationMatrix::MakeFromZ(Vp.Dir).ToQuat();
+				Vp.Comp->SetWorldLocationAndRotation(Vp.Anchor, Q);
+				Vp.Comp->SetWorldScale3D(FVector(2.0 * Ro / 100.0, 2.0 * Ro / 100.0, 2.0 * Th / 100.0));
+				if (Vp.Mid)
+				{
+					Vp.Mid->SetScalarParameterValue(TEXT("Band"), float(Rad / Ro));
+					Vp.Mid->SetScalarParameterValue(TEXT("BandW"), float(Th / Ro));
+				}
+				if (bCamOk)
+				{ // the lens against the tube: torus distance (ring radius Rad, tube radius Th)
+					const FVector L = Q.UnrotateVector(CamCm - Vp.Anchor);
+					LensD = FMath::Max(0.0, FMath::Sqrt(FMath::Square(FVector2D(L.X, L.Y).Size() - Rad) + L.Z * L.Z) - Th);
+				}
 			}
 			else if (Vp.bCone)
 			{
@@ -1321,6 +1448,8 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 	for (TArray<FDecalItem>* Pool : { &HoleDecals, &CraterDecals })
 		for (FDecalItem& Dc : *Pool)
 		{
+			// critic r5 #3: a placed decal appears one engine frame after its placement, with its parameters (Open 0) already in place
+			if (Dc.bPendingShow && GFrameCounter > Dc.PlacedFrame && Dc.Comp) { Dc.Comp->SetVisibility(true); Dc.bPendingShow = false; }
 			if (!Dc.bGrowing) continue;
 			Dc.T += Dt;
 			const double K = FMath::Clamp(Dc.T / FMath::Max(1e-3, Dc.Grow), 0.0, 1.0);

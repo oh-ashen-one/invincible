@@ -1,6 +1,6 @@
 {
  "name": "fl17_rescue_crane",
- "note": "Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly over to the crane load (straight through the tower block east of 5th Av, which tops 185 m on this line), brake, drop onto it (catch), dive down with it, set it down on the street (E), touch down.",
+ "note": "Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly over to the crane load (straight through the tower block east of 5th Av, which tops 185 m on this line), brake, drop beside it (catch), hover straight down to the street holding it overhead (upright, camera turned down the street), touch down softly, set it down beside him (E).",
  "seed": 1234,
  "spawn": {
   "pos": [
@@ -81,11 +81,11 @@
   {
    "zip": true,
    "swing": false,
-   "t": 14.23
+   "t": 14.0
   },
   {
    "zip": false,
-   "t": 14.33
+   "t": 14.1
   },
   {
    "drop": true,
@@ -93,7 +93,7 @@
     0,
     -0.25
    ],
-   "t": 14.58
+   "t": 14.35
   },
   {
    "drop": false,
@@ -101,49 +101,37 @@
     0,
     0
    ],
-   "t": 16.98
+   "t": 16.75
   },
   {
-   "look": [
-    -360,
-    0
-   ],
-   "t": 16.900000000000002
-  },
-  {
-   "look": [
-    0,
-    0
-   ],
-   "t": 17.400000000000002
-  },
-  {
-   "swing": true,
-   "look": [
-    0,
-    110
-   ],
+   "drop": true,
    "t": 17.6
   },
   {
    "look": [
+    -162,
+    0
+   ],
+   "t": 18.4
+  },
+  {
+   "look": [
     0,
     0
    ],
-   "t": 18.1
+   "t": 19.4
+  },
+  {
+   "drop": false,
+   "t": 32.8
   },
   {
    "zip": true,
-   "swing": false,
-   "t": 20.6
+   "t": 33.0
   },
   {
    "zip": false,
-   "t": 20.700000000000003
-  },
-  {
-   "drop": true,
-   "t": 21.0
+   "t": 33.1
   }
  ]
 }

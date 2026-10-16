@@ -22,8 +22,12 @@
 #   M_InvDust      translucent LIT (surface lighting), two-sided. A dust puff for a sphere: soft round silhouette (opacity falls to 0 at the
 #                  rim), eroded lumpy interior from noise; denser and more opaque than the combat FX puffs.
 #                  [Color=(0.34, 0.31, 0.27), Opacity=0.7, Emissive=0.12, Soft=1, Seed=0.5, NearFade=40, NearFadeLen=200]
-#   M_InvChunk     opaque LIT. Concrete speckle, or brick courses with mortar (Brick >= 0.5), from the cube's object-relative position.
-#                  [Color=(0.40, 0.38, 0.35), Rough=0.9, Brick=0, Seed=0.5]
+#   M_InvChunk     opaque LIT. Broken concrete (per-face tint, crevices, aggregate specks, chipped edges, AO) or brick courses with mortar
+#                  (Brick >= 0.5), in the piece's own frame (LocalPosition x Size; r6, critic r5 #8 "untextured grey cubes").
+#                  [Color=(0.40, 0.38, 0.35), Rough=0.9, Brick=0, Seed=0.5, Size=(100, 100, 100) cm]
+#   M_InvShockRing (critic r5 #8: the boom ring read as a bead chain) translucent, UNLIT, two-sided. One flattened sphere = one ring: opacity
+#                  is an annulus of the mesh radius (Band +- BandW), turbulence travelling round it, fresnel-brighter at grazing angles.
+#                  [Color, Opacity=1, EdgePow=1.3, Gain=1.4, Soft=0.6, Band=0.86, BandW=0.12, NearFade=60, NearFadeLen=220]
 #   M_InvStreak    (owner feedback 2026-10-15 #1, super-boost speed read) translucent ADDITIVE, UNLIT, two-sided. A speed line for a sphere
 #                  stretched along Dir: bright on the centre line facing the camera, fading to the silhouette and to 0 at both ends along Dir
 #                  (HalfLen cm), a little brighter at the front. Used for the world wind streaks, the charge's inward streaks, the body trail.
@@ -286,14 +290,40 @@ o = o * saturate((PD - NF) / max(NL, 1.0));
 return saturate(o);
 """
 
+# critic r5 #8 ("debris is untextured grey cubes"): the r3 speckle was a +-30 % brightness wobble in WORLD offsets (it swam over a tumbling
+# piece and read as flat grey at chase distance). r6: the piece's OWN frame (LocalPosition, the engine cube is +-50 units, scaled by Size =
+# the piece's dimensions in cm), so the pattern rides with it, and a much stronger broken-concrete read: a per-face tint (each of the six faces
+# its own shade, one in three a lighter fresh break), dark crevices from ridged noise, aggregate specks, chipped light edges and dirt in the
+# crevices / on the edges (returned as ambient occlusion in .w). Brick (B >= 0.5) keeps the courses, now in the piece frame too.
 CHUNK_T = """
-float rx = RP.x;
-float ry = RP.y;
-float rz = RP.z;
+float sx = max(PSz.x, 1.0) * 0.01;
+float sy = max(PSz.y, 1.0) * 0.01;
+float sz = max(PSz.z, 1.0) * 0.01;
+float rx = LP.x * sx;
+float ry = LP.y * sy;
+float rz = LP.z * sz;
+float ax = abs(LP.x) / 50.0;
+float ay = abs(LP.y) / 50.0;
+float az = abs(LP.z) / 50.0;
+float fid = (ax >= ay && ax >= az) ? (LP.x > 0.0 ? 1.0 : 2.0) : ((ay >= az) ? (LP.y > 0.0 ? 3.0 : 4.0) : (LP.z > 0.0 ? 5.0 : 6.0));
+float fh = frac(sin(fid * 12.9898 + Seed * 78.233) * 43758.5453);
+float emax = max(ax, max(ay, az));
+float emid = ax + ay + az - emax - min(ax, min(ay, az));
 @FBM_N1@
 @FBM_N2@
+@FBM_N3@
 float3 cc0 = float3(C.x, C.y, C.z);
-float3 conc = cc0 * (0.55 + 0.9 * n1) * (0.85 + 0.3 * n2);
+float fresh = step(0.67, fh);
+float ftint = lerp(0.72 + 0.36 * fh, 1.28, fresh);
+float3 conc = cc0 * ftint * (0.45 + 1.1 * n1) * (0.8 + 0.4 * n2);
+float rdg = 1.0 - abs(2.0 * n3 - 1.0);
+float crev = smoothstep(0.84, 0.96, rdg);
+float ck = frac(sin(floor(rx * 0.9) * 12.9898 + floor(ry * 0.9) * 78.233 + floor(rz * 0.9) * 37.719 + Seed) * 43758.5453);
+float speck = step(0.9, ck) - step(ck, 0.07);
+conc = conc * (1.0 + 0.35 * speck);
+float chip = smoothstep(0.84, 0.97, emid) * step(0.45, n2);
+conc = lerp(conc, cc0 * 1.45 + float3(0.05, 0.05, 0.05), chip * 0.6);
+conc = conc * (1.0 - 0.6 * crev);
 float bu = (rx + ry) * 0.0454;
 float bv = rz * 0.1429;
 float brow = floor(bv);
@@ -303,10 +333,36 @@ float fv = frac(bv);
 float me = min(min(fu, 1.0 - fu) * 3.14, min(fv, 1.0 - fv));
 float mortar = 1.0 - smoothstep(0.05, 0.14, me);
 float hb = frac(sin(floor(bu) * 12.9898 + brow * 78.233 + Seed) * 43758.5453);
-float3 brk = cc0 * (0.75 + 0.5 * hb) * (0.8 + 0.4 * n1);
+float3 brk = cc0 * (0.7 + 0.6 * hb) * (0.75 + 0.5 * n1) * (1.0 - 0.5 * crev);
 brk = lerp(brk, float3(0.32, 0.31, 0.29), mortar);
-float3 outc = lerp(conc, brk, step(0.5, B));
-return float3(outc.x, outc.y, outc.z);
+float bsel = step(0.5, B);
+float3 outc = lerp(conc, brk, bsel);
+float ao = saturate(1.0 - 0.55 * crev - 0.25 * smoothstep(0.9, 1.0, emid) * (1.0 - chip) - 0.35 * mortar * bsel);
+return float4(outc.x, outc.y, outc.z, ao);
+"""
+
+# critic r5 #8 (the boom ring "reads as a chain of ~20 separate bubbles"): ONE flattened sphere per ring whose opacity is an annulus in the
+# mesh's own radius (LocalPosition: the engine sphere is radius 50) -- Band = ring radius / mesh radius, BandW = tube half-thickness / mesh
+# radius (the director sets both each frame); a soft-edged continuous band with travelling turbulence along the ring, clear inside, fresnel
+# brighter at grazing angles, faded to 0 near the lens (PixelDepth) like M_InvVapour.
+RING_T = """
+float nl = sqrt(N.x * N.x + N.y * N.y + N.z * N.z) + 0.00001;
+float vl = sqrt(V.x * V.x + V.y * V.y + V.z * V.z) + 0.00001;
+float ndv = abs(N.x * V.x + N.y * V.y + N.z * V.z) / (nl * vl);
+float fr = pow(1.0 - saturate(ndv), max(EP, 0.2));
+float rr = sqrt(LP.x * LP.x + LP.y * LP.y) / 50.0;
+float bw = max(BandW, 0.01);
+float dr = abs(rr - Band) / bw;
+float band = 1.0 - smoothstep(0.30, 1.0, dr);
+float ci = LP.x / max(rr * 50.0, 0.001);
+float si = LP.y / max(rr * 50.0, 0.001);
+float px = ci * 2.6 + T * 0.7;
+float py = si * 2.6 + dr * 1.2 + LP.z * 0.02;
+@FBM_NZ@
+float turb = lerp(1.0, 0.45 + 1.1 * nz, saturate(Soft));
+float o = Op * band * turb * (0.45 + 0.55 * fr);
+o = o * saturate((PD - NF) / max(NL, 1.0));
+return saturate(o);
 """
 
 
@@ -343,7 +399,12 @@ def dust_code():
 
 def chunk_code():
     return tpl(CHUNK_T, FBM_N1=fbm('n1', 'rx * 0.085 + Seed * 7.0', 'ry * 0.085 + rz * 0.06', 3, 1.0, '0.0'),
-               FBM_N2=fbm('n2', 'rx * 0.35', 'rz * 0.35 + ry * 0.2', 2, 1.0, '1.7'))
+               FBM_N2=fbm('n2', 'rx * 0.35 + ry * 0.11', 'rz * 0.35 + ry * 0.2', 2, 1.0, '1.7'),
+               FBM_N3=fbm('n3', 'rx * 0.16 + rz * 0.07 + Seed * 3.0', 'ry * 0.16 - rz * 0.05', 3, 1.0, '4.1'))
+
+
+def ring_code():
+    return tpl(RING_T, FBM_NZ=fbm('nz', 'px', 'py', 3, 1.0, '0.0'))
 
 
 # name -> (hlsl, [(input, type)], output type) ; the Custom nodes of the five materials
@@ -356,7 +417,9 @@ CUSTOM_NODES = {
                              ('PD', 'float'), ('NF', 'float'), ('NL', 'float')], 'float'),
     'dust': (dust_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('T', 'float'), ('Op', 'float'), ('Soft', 'float'), ('Seed', 'float'),
                          ('PD', 'float'), ('NF', 'float'), ('NL', 'float')], 'float'),
-    'chunk': (chunk_code, [('RP', 'float3'), ('C', 'float3'), ('B', 'float'), ('Seed', 'float')], 'float3'),
+    'chunk': (chunk_code, [('LP', 'float3'), ('PSz', 'float3'), ('C', 'float3'), ('B', 'float'), ('Seed', 'float')], 'float4'),
+    'ring': (ring_code, [('N', 'float3'), ('V', 'float3'), ('LP', 'float3'), ('T', 'float'), ('Op', 'float'), ('EP', 'float'), ('Soft', 'float'),
+                         ('Band', 'float'), ('BandW', 'float'), ('PD', 'float'), ('NF', 'float'), ('NL', 'float')], 'float'),
     'streak': (streak_code, [('N', 'float3'), ('V', 'float3'), ('RP', 'float3'), ('Dir', 'float3'), ('HalfLen', 'float'), ('Op', 'float'),
                              ('PD', 'float'), ('NF', 'float'), ('NL', 'float')], 'float'),
 }
@@ -552,17 +615,41 @@ def build_in_unreal():
     # ---- debris: opaque lit concrete speckle / brick courses; Color / Rough match M_CmbSolid so the director's MIDs work on either
     mat, path = material('M_InvChunk', material_domain=unreal.MaterialDomain.MD_SURFACE, blend_mode=unreal.BlendMode.BLEND_OPAQUE,
                          shading_model=unreal.MaterialShadingModel.MSM_DEFAULT_LIT, two_sided=False)
-    wp = node(mat, unreal.MaterialExpressionWorldPosition, -1100, 0)
-    ob = node(mat, unreal.MaterialExpressionObjectPositionWS, -1100, 100)
-    rp = node(mat, unreal.MaterialExpressionSubtract, -900, 50)
-    MEL.connect_material_expressions(wp, '', rp, 'A'); MEL.connect_material_expressions(ob, '', rp, 'B')
+    # (critic r5 #8: the piece's own frame -- LocalPosition (mesh units) x Size (cm, set per piece by the director); .w = ambient occlusion)
+    lp = node(mat, unreal.MaterialExpressionLocalPosition, -1100, 0)
+    szp = vparam(mat, 'Size', (100.0, 100.0, 100.0, 0.0), -1100, 100)
     colp = vparam(mat, 'Color', (0.40, 0.38, 0.35, 1.0), -1100, 200)
     rgp = sparam(mat, 'Rough', 0.9, -1100, 300)
     brp = sparam(mat, 'Brick', 0.0, -1100, 400)
     sdp = sparam(mat, 'Seed', 0.5, -1100, 500)
-    chk = custom(mat, 'chunk', {'RP': (rp, ''), 'C': (colp, ''), 'B': (brp, ''), 'Seed': (sdp, '')}, -600, 100)
-    prop(chk, unreal.MaterialProperty.MP_BASE_COLOR, 'M_InvChunk')
+    chk = custom(mat, 'chunk', {'LP': (lp, ''), 'PSz': (szp, ''), 'C': (colp, ''), 'B': (brp, ''), 'Seed': (sdp, '')}, -600, 100)
+    prop(mask(mat, chk, True, True, True, False, -350, 60), unreal.MaterialProperty.MP_BASE_COLOR, 'M_InvChunk')
+    prop(mask(mat, chk, False, False, False, True, -350, 160), unreal.MaterialProperty.MP_AMBIENT_OCCLUSION, 'M_InvChunk')
     prop(rgp, unreal.MaterialProperty.MP_ROUGHNESS, 'M_InvChunk')
+    finish(mat, path)
+
+    # ---- critic r5 #8: the continuous shock ring -- translucent unlit two-sided (as M_InvVapour), opacity = an annulus of the mesh radius
+    mat, path = material('M_InvShockRing', material_domain=unreal.MaterialDomain.MD_SURFACE, blend_mode=unreal.BlendMode.BLEND_TRANSLUCENT,
+                         shading_model=unreal.MaterialShadingModel.MSM_UNLIT, two_sided=True)
+    pn = node(mat, unreal.MaterialExpressionPixelNormalWS, -1100, 0)
+    cv = node(mat, unreal.MaterialExpressionCameraVectorWS, -1100, 100)
+    lp = node(mat, unreal.MaterialExpressionLocalPosition, -1100, 200)
+    tm = node(mat, unreal.MaterialExpressionTime, -1100, 300)
+    colp = vparam(mat, 'Color', (0.92, 0.95, 1.0, 1.0), -1100, 400)
+    opp = sparam(mat, 'Opacity', 1.0, -1100, 500)
+    epp = sparam(mat, 'EdgePow', 1.3, -1100, 600)
+    gnp = sparam(mat, 'Gain', 1.4, -1100, 700)
+    sfp = sparam(mat, 'Soft', 0.6, -1100, 800)
+    bdp = sparam(mat, 'Band', 0.86, -1100, 900)
+    bwp = sparam(mat, 'BandW', 0.12, -1100, 1000)
+    pdp = node(mat, unreal.MaterialExpressionPixelDepth, -1100, 1100)
+    nfp = sparam(mat, 'NearFade', 60.0, -1100, 1200)
+    nlp = sparam(mat, 'NearFadeLen', 220.0, -1100, 1300)
+    rng = custom(mat, 'ring', {'N': (pn, ''), 'V': (cv, ''), 'LP': (lp, ''), 'T': (tm, ''), 'Op': (opp, ''), 'EP': (epp, ''), 'Soft': (sfp, ''),
+                               'Band': (bdp, ''), 'BandW': (bwp, ''), 'PD': (pdp, ''), 'NF': (nfp, ''), 'NL': (nlp, '')}, -600, 300)
+    eai3 = node(mat, unreal.MaterialExpressionEyeAdaptationInverse, -800, 640)   # exposure-independent (see M_InvVapour)
+    prop(mul(mat, mul(mat, colp, gnp, -650, 520), eai3, -500, 560), unreal.MaterialProperty.MP_EMISSIVE_COLOR, 'M_InvShockRing')
+    prop(rng, unreal.MaterialProperty.MP_OPACITY, 'M_InvShockRing')
     finish(mat, path)
 
     # ---- owner feedback 2026-10-15 #1: speed lines -- translucent ADDITIVE unlit two-sided; emissive = Color x Gain x streak(N, V, RP, Dir, HalfLen, Opacity)
@@ -593,7 +680,7 @@ def build_in_unreal():
     # ---- verify: every asset reloads as the right kind with the right domain
     want = {'M_BreachHole': unreal.MaterialDomain.MD_DEFERRED_DECAL, 'M_CraterDecal': unreal.MaterialDomain.MD_DEFERRED_DECAL,
             'M_InvVapour': unreal.MaterialDomain.MD_SURFACE, 'M_InvDust': unreal.MaterialDomain.MD_SURFACE, 'M_InvChunk': unreal.MaterialDomain.MD_SURFACE,
-            'M_InvStreak': unreal.MaterialDomain.MD_SURFACE}
+            'M_InvStreak': unreal.MaterialDomain.MD_SURFACE, 'M_InvShockRing': unreal.MaterialDomain.MD_SURFACE}
     for n, dom in want.items():
         m = unreal.load_asset('%s/%s' % (DEST, n))
         if not isinstance(m, unreal.Material) or m.get_editor_property('material_domain') != dom:

@@ -9,7 +9,17 @@ import json
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parent / 'flight_cases'
-LEVEL_T, BRAKE_T, STRAFE, DROP_S, DIVE_T, SET_T = 8.0, 14.23, -0.25, 2.4, 17.6, 20.6   # fl17 route timing (rescue probe: climb at 50 deg, level at crane height, brake at the load)
+LEVEL_T, BRAKE_T, STRAFE, DROP_S = 8.0, 14.0, -0.25, 2.4   # fl17 route timing (rescue probe: climb at 50 deg, level at crane height, brake at the load)
+# r6 (critic r5 #1, fl17 "prone on a grey slab in the carry-dive, slam onto a 14 m roof, camera inside the load"): no fly dive after the catch.
+# r5 numbers: drop released 16.98 s, hover settles at (350.9, -323.0, ~136.9) m, catch ~17.5 s at 135 m above the street (log), TravWorld floor
+# ~0 m under that column (height_above_floor 136.0); the street (an E-W cross street, the r5 dive went down it to 5th Av) lies under the
+# load / crane tip at (355.7, -324.3); the crane's 120 m roof is NW of the tip (facade ~6 m north of the column).
+# DESC_T: hover descent (drop held, ~10 m/s, auto flare ~2 m/s at touchdown, as fl01 / fl13) straight down that column with the load
+# overhead and the chase camera at its shallow hover pitch (~-9 deg, 5 m); TURN_T: camera yaw -18 -> 180 (-162 deg over 1 s, the lens
+# swinging through the open south side, never the north facade side) to look west down the street; touchdown predicted ~31.7 s
+# (z 136.9 - 10 (t - 17.6) + 2.1 lag, + 0.28 s flare); SET_T: set-down (E) on the street ~1.3 s after it (the director puts it beside /
+# beyond him on the camera line, lowered over 1.2 s); then he stands beside it until the quit.
+DESC_T, TURN_T, SET_T = 17.6, 18.4, 33.0
 TS = [-20.0, -230.0, 0.9]   # body centre (0.95 m over the feet) on the Times Square plaza floor (-0.06 m)
 AV = [250.0, 300.0, 0.95]   # 5th Av roadway (open street: no TKTS steps / billboards / crowd between the camera and the hero)
 
@@ -87,17 +97,17 @@ CASES = [
          spawn=dict(pos=[240, 500, 30], yaw=0, camPitch=0.0),
          keys=[K(0, move=[0, -1]), K(0.1, swing=True)],
          checks=dict(subs=['fly'], breaches=0, max_hero_lands=0)),
-    dict(name='fl17_rescue_crane', quit=23.0, args=['-WHRescue=1', '-WHRescueSeed=1977'],
-         note='Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly over to the crane load (straight through the tower block east of 5th Av, which tops 185 m on this line), brake, drop onto it (catch), dive down with it, set it down on the street (E), touch down.',
+    dict(name='fl17_rescue_crane', quit=SET_T + 3.3, args=['-WHRescue=1', '-WHRescueSeed=1977'],
+         note='Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly over to the crane load (straight through the tower block east of 5th Av, which tops 185 m on this line), brake, drop beside it (catch), hover straight down to the street holding it overhead (upright, camera turned down the street), touch down softly, set it down beside him (E).',
          spawn=dict(pos=TS, yaw=90, camPitch=0.14),   # crane load logged by the seed-1977 probe: (355.7, -324.3, 135.3) m, heading -14.1 deg
          keys=[K(0, move=[0, 0]), K(3.3, jump=True), K(3.55, jump=False), K(3.7, jump=True), K(4.0, look=[-104.09, 0]), K(5.0, look=[0, 0]),
                K(5.2, jump=False), K(5.4, swing=True, look=[0, -130]), K(5.9, look=[0, 0]), K(LEVEL_T, look=[0, 130]), K(LEVEL_T + 0.5, look=[0, 0]),
                K(BRAKE_T, zip=True, swing=False), K(BRAKE_T + 0.1, zip=False), K(BRAKE_T + 0.35, drop=True, move=[0, STRAFE]),
                K(BRAKE_T + 0.35 + DROP_S, drop=False, move=[0, 0]),
-               # carry the caught load down: dive steeply, brake low over the street (the interact press sets it down), touch down beside it
-               K(DIVE_T - 0.7, look=[-360, 0]), K(DIVE_T - 0.2, look=[0, 0]), K(DIVE_T, swing=True, look=[0, 110]), K(DIVE_T + 0.5, look=[0, 0]), K(SET_T, zip=True, swing=False), K(SET_T + 0.1, zip=False),
-               K(SET_T + 0.4, drop=True)],
-         checks=dict(rescue_saved_min=1, breaches=1)),
+               # r6 (critic r5 #1): carry the caught load down upright in a hover descent, look down the street, touch down, set it down beside him
+               K(DESC_T, drop=True), K(TURN_T, look=[-162, 0]), K(TURN_T + 1.0, look=[0, 0]),
+               K(SET_T - 0.2, drop=False), K(SET_T, zip=True), K(SET_T + 0.1, zip=False)],
+         checks=dict(rescue_saved_min=1, breaches=1, max_hero_lands=0, grounded_end=True)),
 ]
 
 

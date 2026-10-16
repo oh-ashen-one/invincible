@@ -79,6 +79,13 @@ public:
 	/** critic r2 fl14: the spot the first composed frame after Reset(Pos, Yaw) will use (the flight spot while flight framing is on, else
 	 *  the chase spot) is out of every solid and sees the hero's chest. The breach hold waits for it before its one cut. */
 	bool CutSpotClear(const FVector& Pos, const FVector& Vel, const FWebTravWorld& World) const;
+	/** critic r5 #3 (breach: the hold waited up to 0.4 s for a clear spot behind him, hero hidden 12-24 frames, then a 11-80 m cut): the camera
+	 *  yaw for the breach-exit cut -- the current Yaw if its spot is clear, else the nearest of +-25..+-150 deg whose first composed spot is out
+	 *  of every solid and sees his chest. Returns false (OutYaw = Yaw) when none is clear. */
+	bool ChooseCutYaw(const FVector& Pos, const FVector& Vel, const FWebTravWorld& World, double& OutYaw) const;
+	/** critic r5 #7 (fl16: 96 deg in 0.25 s, up to 12.1 deg per frame): flight hero only (FlightLeashM > 0) -- the output lens orbits the hero and
+	 *  the output yaw turns at no more than this (deg/s; + deliberate look input). Output SlewFlags bit 128 = the cap held it. 0 = off. */
+	double FlightYawRateMax = 180.0;
 	// ---- owner feedback 2026-10-15 (Invincible flight playtest): flight-sim chase camera and super-boost feel. Every field below is set every
 	// frame by AWebTravCharacter::FlightFrame from UWHFlightComponent tunables (-WHFlightTune=...); the legacy hero never sets them, so all
 	// stay 0 / false and nothing changes there.
@@ -289,6 +296,8 @@ private:
 	// critic r2 (flight framing): world elevation (rad) of the flight spot for a spine (fly line) pitch, and the spot itself
 	double FlightElevFor(double SpinePitch) const;
 	FVector FlightSpotFor(const FVector& Hero, double SpinePitch, double Radius) const;
+	FVector FlightSpotForYaw(const FVector& Hero, double SpinePitch, double Radius, double InYaw) const;   // critic r5 #3: any camera yaw
+	bool CutSpotClearYaw(const FVector& Pos, const FVector& Vel, const FWebTravWorld& World, double InYaw) const;
 	// Smooth attack/decay for readable impact and speed shake, independent of the chase spring.
 	double ShakeEnvelope = 0.0, ShakeEnvelopeV = 0.0;
 	bool bWasSwinging = false;
