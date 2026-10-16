@@ -21,6 +21,8 @@ LEFT = rest_head('left_hip') - rest_head('right_hip'); LEFT.z = 0; LEFT.normaliz
 def world(n): return AW @ pb[n].matrix
 def limb(n):
     b = arm.data.bones[n]
+    if n.endswith('_wrist'):   # the wrist's first child is the THUMB: the hand's real direction is wrist -> middle knuckle
+        return ((AW @ pb[n.replace('_wrist', '_middle1')].head) - (AW @ pb[n].head)).normalized()
     if b.children: return ((AW @ pb[b.children[0].name].head) - (AW @ pb[n].head)).normalized()
     return ((AW @ pb[n].head) - (AW @ pb[b.parent.name].head)).normalized()
 def setw(n, m): pb[n].matrix = AW.inverted() @ m; bpy.context.view_layer.update()
@@ -31,23 +33,42 @@ def turn(n, ax, deg):
     m = world(n); q = Quaternion(ax.normalized(), math.radians(deg))
     setw(n, Matrix.LocRotScale(m.to_translation(), q @ m.to_quaternion(), m.to_scale()))
 FINGERS = ['index', 'middle', 'ring', 'pinky']
+REST_W = {}
 def fists():
-    for side in ('left', 'right'):
-        hp = lambda n: AW @ pb['%s_%s' % (side, n)].head
-        hd = (hp('middle1') - hp('wrist')).normalized(); kl = (hp('pinky1') - hp('index1')).normalized()
-        nrm = hd.cross(kl).normalized()
-        if nrm.dot(hp('thumb1') - hp('wrist')) < 0: nrm = -nrm
-        for fn in FINGERS:
-            for j, deg in ((1, 82), (2, 98), (3, 78)):
-                b = '%s_%s%d' % (side, fn, j)
+    """fist that is verified, not guessed: try the six rest-frame directions (carried through the wrist's current swing) as the palm
+    normal, curl the fingers into each, keep the one whose fingertips end closest to the palm (the tightest fist)"""
+    for side, sgn in (('left', 1), ('right', -1)):
+        w = side + '_wrist'
+        if w not in REST_W: REST_W[w] = (AW @ arm.data.bones[w].matrix_local).to_quaternion()
+        names = ['%s_%s%d' % (side, fn, j) for fn in FINGERS for j in (1, 2, 3)] + ['%s_thumb%d' % (side, j) for j in (1, 2, 3)]
+        names = [n for n in names if n in pb]
+        base = {n: pb[n].matrix_basis.copy() for n in names}
+        swing = world(w).to_quaternion() @ REST_W[w].inverted()
+        def tips():
+            tot = 0.0; palm = (AW @ pb[side + '_middle1'].head)
+            for fn in FINGERS:
+                n3 = '%s_%s3' % (side, fn)
+                if n3 in pb: tot += ((AW @ pb[n3].tail) - palm).length
+            return tot
+        def curl(nrm):
+            for n in names: pb[n].matrix_basis = base[n]
+            bpy.context.view_layer.update()
+            for fn in FINGERS:
+                for j, deg in ((1, 80), (2, 95), (3, 75)):
+                    b = '%s_%s%d' % (side, fn, j)
+                    if b in pb:
+                        ax = limb(b).cross(nrm)
+                        if ax.length > 1e-4: turn(b, ax, deg)
+            for j, deg in ((1, 15), (2, 30), (3, 25)):
+                b = '%s_thumb%d' % (side, j)
                 if b in pb:
                     ax = limb(b).cross(nrm)
                     if ax.length > 1e-4: turn(b, ax, deg)
-        for j, deg in ((1, 20), (2, 35), (3, 30)):
-            b = '%s_thumb%d' % (side, j)
-            if b in pb:
-                ax = limb(b).cross(nrm)
-                if ax.length > 1e-4: turn(b, ax, deg)
+        best = None
+        for cand in (-LEFT * sgn, LEFT * sgn, FWD, -FWD, UP, -UP):
+            nrm = (swing @ cand).normalized(); curl(nrm); d = tips()
+            if best is None or d < best[0]: best = (d, nrm)
+        curl(best[1])
 
 # 1. sample take B's local poses (rotation only; root travel dropped -- the game moves the actor)
 arm.animation_data_create(); arm.animation_data.action = src_act
@@ -93,6 +114,12 @@ for i, basis in enumerate(frames):
         m = world(n); setw(n, Matrix.LocRotScale(m.to_translation(), q_body.slerp(q_look, w), m.to_scale()))
     # arms: coil = elbows bent and drawn back toward the hips, fists chambered at the ribs, knuckles forward (half punch);
     #       burst = swing forward into the parallel Superman line. Collars stay near natural (no big shoulder roll).
+    # owner round 5: no rotator-cuff / elbow / wrist roll on the extension -- the take's arm twist is discarded: the whole arm chain
+    # restarts from the rig's rest orientation each frame, so the aims below add pure swings (no roll about the limb)
+    for p in pb:
+        if any(p.name.startswith(sd + '_') and not p.name.endswith(('_hip', '_knee', '_ankle', '_foot')) for sd in ('left', 'right')):
+            p.matrix_basis = Matrix.Identity(4)
+    bpy.context.view_layer.update()
     for side, sgn in (('left', 1), ('right', -1)):
         up_c = (-U * 0.80 + F * 0.42 + L * sgn * 0.30).normalized()      # upper arm back toward the hip, a little out and belly-side
         fo_c = (U * 0.88 + F * 0.38 - L * sgn * 0.12).normalized()       # forearm forward: fist by the ribs, knuckles leading
