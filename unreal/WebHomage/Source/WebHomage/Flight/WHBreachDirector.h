@@ -78,7 +78,7 @@ public:
 	UPROPERTY(EditAnywhere, Category="Destruction") float BoomFollow = 0.6f;       // s the cone / rings stay glued to the hero before they hang in the air behind him (0.45 -> 0.6)
 	UPROPERTY(EditAnywhere, Category="Destruction") float BoomConeLenM = 9.f;      // cone length at its birth (grows 1.6x) (7 -> 9)
 	UPROPERTY(EditAnywhere, Category="Destruction") float BoomConeRadM = 3.2f;     // cone base radius at its birth (grows 2.4x) (2.4 -> 3.2)
-	UPROPERTY(EditAnywhere, Category="Destruction") float BoomOpacity = 0.62f;     // peak of the material's Opacity parameter
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomOpacity = 0.30f;     // peak of the material's Opacity parameter (0.62 whited out the screen once the vapour became exposure-correct)
 
 	// ---- owner feedback 2026-10-15 #1 (Shift = sonic-boom super boost) / #3 (speed feedback): the charge's vapour gather + slow-mo, a bigger
 	// boom (shock ring left at the launch point, shock shell, glass / dust shaken off nearby facades, street dust ring), and continuous
@@ -89,13 +89,13 @@ public:
 	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxVapours = 110;        // pooled vapour / streak pieces (was a fixed 24)
 	UPROPERTY(EditAnywhere, Category="Destruction") float StreakRate = 60.f;       // world wind streaks per second at full super speed
 	UPROPERTY(EditAnywhere, Category="Destruction") float FastStreakRate = 14.f;   // per second at full fast-cruise weight outside the super line
-	UPROPERTY(EditAnywhere, Category="Destruction") float StreakOpacity = 0.45f;
+	UPROPERTY(EditAnywhere, Category="Destruction") float StreakOpacity = 0.30f;
 	UPROPERTY(EditAnywhere, Category="Destruction") float TrailEvery = 0.05f;      // s between body vapour-trail pieces in the super line
 	UPROPERTY(EditAnywhere, Category="Destruction") float TrailOpacity = 0.35f;
 	UPROPERTY(EditAnywhere, Category="Destruction") float WakeMaxH = 35.f;         // m: a super pass lower than this raises street dust under him
 	UPROPERTY(EditAnywhere, Category="Destruction") float BoomRingRadM = 24.f;     // launch shock ring radius at its end
 	UPROPERTY(EditAnywhere, Category="Destruction") float BoomShakeRadM = 45.f;    // facades within this get glass / dust shaken off at the boom
-	UPROPERTY(EditAnywhere, Category="Destruction") float GatherOpacity = 0.4f;    // the charge's gathering vapour shell / inward streaks
+	UPROPERTY(EditAnywhere, Category="Destruction") float GatherOpacity = 0.25f;   // the charge's gathering vapour shell / inward streaks
 
 private:
 	struct FChunk { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Scale = FVector::OneVector; double Born = -1e9, NextCheck = 0; bool bLive = false, bFrozen = false; };

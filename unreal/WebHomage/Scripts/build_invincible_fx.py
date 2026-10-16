@@ -496,10 +496,13 @@ def build_in_unreal():
     colp = vparam(mat, 'Color', (0.92, 0.95, 1.0, 1.0), -1100, 500)
     opp = sparam(mat, 'Opacity', 1.0, -1100, 600)
     epp = sparam(mat, 'EdgePow', 1.6, -1100, 700)
-    gnp = sparam(mat, 'Gain', 1.2, -1100, 800)
+    gnp = sparam(mat, 'Gain', 1.4, -1100, 800)
     sfp = sparam(mat, 'Soft', 0.7, -1100, 900)
     vap = custom(mat, 'vapour', {'N': (pn, ''), 'V': (cv, ''), 'RP': (rp, ''), 'T': (tm, ''), 'Op': (opp, ''), 'EP': (epp, ''), 'Soft': (sfp, '')}, -600, 300)
-    prop(mul(mat, colp, gnp, -500, 520), unreal.MaterialProperty.MP_EMISSIVE_COLOR, 'M_InvVapour')
+    # owner capture (boom ring read as a DARK disc): the city is lit in physical units with auto-exposure, so a plain emissive of ~1 is
+    # near-black after exposure; multiplying by EyeAdaptationInverse makes the vapour's brightness exposure-independent (display-relative)
+    eai = node(mat, unreal.MaterialExpressionEyeAdaptationInverse, -800, 640)
+    prop(mul(mat, mul(mat, colp, gnp, -650, 520), eai, -500, 560), unreal.MaterialProperty.MP_EMISSIVE_COLOR, 'M_InvVapour')
     prop(vap, unreal.MaterialProperty.MP_OPACITY, 'M_InvVapour')
     finish(mat, path)
 
@@ -563,7 +566,8 @@ def build_in_unreal():
     sparam(mat, 'EdgePow', 1.0, -1100, 900)   # (unused by the graph; the director sets it on every vapour piece)
     stk = custom(mat, 'streak', {'N': (pn, ''), 'V': (cv, ''), 'RP': (rp, ''), 'Dir': (drp, ''), 'HalfLen': (hlp, ''), 'Op': (opp, '')}, -600, 300)
     cg = mul(mat, colp, gnp, -500, 620)
-    prop(mul(mat, cg, stk, -350, 500), unreal.MaterialProperty.MP_EMISSIVE_COLOR, 'M_InvStreak')
+    eai2 = node(mat, unreal.MaterialExpressionEyeAdaptationInverse, -500, 640)   # exposure-independent (see M_InvVapour)
+    prop(mul(mat, mul(mat, cg, stk, -350, 500), eai2, -250, 560), unreal.MaterialProperty.MP_EMISSIVE_COLOR, 'M_InvStreak')
     finish(mat, path)
 
     # ---- verify: every asset reloads as the right kind with the right domain

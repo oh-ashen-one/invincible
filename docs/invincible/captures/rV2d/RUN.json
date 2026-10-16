@@ -1,0 +1,20 @@
+{
+ "tag": "rV2d",
+ "mode": "render-1080p-fixed60",
+ "source_head": "70b9e26f",
+ "source_dirty": false,
+ "map": "/Game/Showcase/Maps/Manhattan_Island",
+ "game_args": [],
+ "cases": [
+  {
+   "case": "fl04_boost_sonic",
+   "rc": 0,
+   "wall_s": 146.4,
+   "rows": 1019,
+   "frames_rendered": 1111,
+   "preroll_cut": 92,
+   "frames_kept": 721,
+   "mp4_mb": 13.53
+  }
+ ]
+}

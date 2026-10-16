@@ -346,7 +346,7 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 	{
 		SpawnVapour(false, PCm, D, 0.0, 0.0, 0.0, 0.0, 150.0, double(BoomRingRadM) * 100.0, BoomOpacity * 0.95, 0.75, 1.0f);
 		SpawnVapour(false, PCm - D * 250.0, D, 0.0, 0.0, 0.0, 0.0, 90.0, double(BoomRingRadM) * 60.0, BoomOpacity * 0.8, 0.6, 1.2f);
-		SpawnShape(2, PCm, D, 0.0, 0.0, 0.0, 0.0, 100.0, 1600.0, 0.3, 0.5, 2.2f, 0);
+		SpawnShape(2, PCm, D, 0.0, 0.0, 0.0, 0.0, 100.0, 1600.0, 0.08, 0.5, 2.2f, 0);   // shock shell: faint (it engulfs the camera)
 	}
 	ShakeFacades(PCm);
 	PlaySynth(0, PosM * 100.0, 1.f);
