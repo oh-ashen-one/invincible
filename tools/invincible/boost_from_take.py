@@ -78,26 +78,27 @@ for i, basis in enumerate(frames):
     # drifts), the chest compresses a little into the coil and extends on the burst; still pencil-straight overall
     c = ease(coil[i] / cmax); t = i / 30.0; TAU = 2 * math.pi
     side_s = math.sin(TAU * t / 2.0); side_l = math.sin(TAU * t / 2.0 - 0.9)
-    turn('pelvis', F, 3.5 * side_s); turn('pelvis', U, 5.0 * math.sin(TAU * t / 2.0 + 0.5))     # weave + bank (hips / butt move)
-    turn('pelvis', L, 1.2 * math.sin(TAU * t / 1.3))                                           # small breathing rock
+    # owner round 4: no hip weave/bank (read as hip shaking) -- the body's motion comes from the coil itself
     FLEX = U.cross(F)                                                                          # rotating U toward F = curling toward the belly
     for n, k in (('spine1', 0.25), ('spine2', 0.40), ('spine3', 0.35)):
         m = world(n); setw(n, Matrix.LocRotScale(m.to_translation(), q_flat @ REST[n], m.to_scale()))
         bpy.context.view_layer.update()
-        turn(n, FLEX, 14.0 * k * c - 4.0 * k * (1 - c))                                       # compress into the coil, extend on the burst
-        turn(n, F, -2.0 * side_l * k / 0.35); turn(n, U, -2.5 * k / 0.35 * math.sin(TAU * t / 2.0 + 0.1))   # S-curve lag + counter-roll
-    for n, pitch in (('neck', -10.0), ('head', -8.0)):                                         # head straight ahead, chin up, small drift
-        m = world(n); q = Quaternion(L, math.radians(pitch + 1.5 * math.sin(TAU * t / 1.7))) @ q_flat @ REST[n]
-        setw(n, Matrix.LocRotScale(m.to_translation(), q, m.to_scale()))
-    turn('head', F, -2.5 * side_s); turn('head', U, 1.2 * math.sin(TAU * t / 2.3))
+        turn(n, FLEX, 38.0 * k * c - 7.0 * k * (1 - c))                                       # back curls INTO the coil, arches open on the burst
+    # head/neck SOLVED (owner: face straight up the flight line): face -> U (flight direction), top of head -> world up (-F);
+    # the neck takes ~45 % of the bend from the straight body, the head the rest
+    B_rest = Matrix((FWD, LEFT, UP)).transposed(); B_tgt = Matrix((U, L, (-F))).transposed()
+    R = (B_tgt @ B_rest.inverted()).to_quaternion()
+    for n, w in (('neck', 0.45), ('head', 1.0)):
+        q_body = q_flat @ REST[n]; q_look = R @ REST[n]
+        m = world(n); setw(n, Matrix.LocRotScale(m.to_translation(), q_body.slerp(q_look, w), m.to_scale()))
     # arms: coil = elbows bent and drawn back toward the hips, fists chambered at the ribs, knuckles forward (half punch);
     #       burst = swing forward into the parallel Superman line. Collars stay near natural (no big shoulder roll).
     for side, sgn in (('left', 1), ('right', -1)):
         up_c = (-U * 0.80 + F * 0.42 + L * sgn * 0.30).normalized()      # upper arm back toward the hip, a little out and belly-side
         fo_c = (U * 0.88 + F * 0.38 - L * sgn * 0.12).normalized()       # forearm forward: fist by the ribs, knuckles leading
         fwd = (U * 0.985 + L * sgn * 0.035 - F * 0.08).normalized()      # parallel Superman line
-        dr = 0.02 * math.sin(TAU * t / 1.5 + (0 if sgn > 0 else 1.3))
-        aim(side + '_collar', (L * sgn * 0.95 + U * (0.12 * (1 - c)) + F * 0.05 * c).normalized())
+        dr = 0.0
+        aim(side + '_collar', (L * sgn * 0.80 + U * (0.15 * (1 - c) - 0.10 * c) + F * 0.45 * c).normalized())   # shoulders hunch forward/down into the coil, reach on the burst
         aim(side + '_shoulder', (up_c * c + fwd * (1 - c) + L * sgn * dr).normalized())
         aim(side + '_elbow', (fo_c * c + fwd * (1 - c)).normalized())
         aim(side + '_wrist', (fo_c * c + fwd * (1 - c) - F * 0.05 * c).normalized())
