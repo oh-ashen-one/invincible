@@ -128,7 +128,7 @@ for n in names:
     jumps = 0
     for p, q in zip(rows, rows[1:]):
         dd = math.dist((f(p, 'x_m'), f(p, 'y_m'), f(p, 'z_m')), (f(q, 'x_m'), f(q, 'y_m'), f(q, 'z_m')))
-        if dd > max(4.0, 1.6 * f(q, 'speed_mps') / 60 + 0.5): jumps += 1
+        if dd > max(4.0, 1.6 * max(f(p, 'speed_mps'), f(q, 'speed_mps')) / 60 + 0.5): jumps += 1   # (r4: speed resets to 0 on the impact frame of a 300 m/s dive)
     chk('position teleports', jumps == 0, jumps, 0)
     # known pre-existing engine ensure in every RENDERED run, frame 0, also in the pre-change smoke log (2026-10-15): reported, not gated
     KNOWN = 'Ensure condition failed: OriginX <= OriginMax'
