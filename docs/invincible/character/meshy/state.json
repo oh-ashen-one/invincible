@@ -67,6 +67,18 @@
    "anim_credits": 3,
    "error": null,
    "file": "motion_hover_c.glb"
+  },
+  {
+   "name": "boost_d",
+   "prompt": "Anime hero power-up then dash: hovering, he tucks his knees up and pulls his elbows down to his knees, gathering energy, then shoots forward at incredible speed, body straight and horizontal, fists leading, head tucked between the arms.",
+   "motion_task": "01a1420f-c185-76dc-99cf-89d0d41dead4",
+   "motion_status": "SUCCEEDED",
+   "motion_credits": 10,
+   "anim_task": "01a14210-4640-73fe-af24-918245dba536",
+   "anim_status": "SUCCEEDED",
+   "anim_credits": 3,
+   "error": null,
+   "file": "motion_boost_d.glb"
   }
  ]
 }
