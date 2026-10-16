@@ -1,7 +1,9 @@
 // Homage fan game. Not an official Marvel, Sony, Image Comics or Skybound game; no affiliation.
 // Invincible flight conversion (owner request 2026-10-15): the rescue overlay. A small Canvas HUD (no Slate / UMG, so it never
 // competes with the Slate settings menu, which is added to the viewport above the canvas and pauses the game while open):
-//   - top-left: lives saved, lives lost, collateral damage ($), then one row per active emergency (type, distance, rescue clock);
+//   - top-right (owner request 2026-10-16: moved from the top-left): lives saved, lives lost, collateral damage ($), then one row per
+//     active emergency (type, distance, rescue clock);
+//   - top-left (owner request 2026-10-16): a small always-on keyboard controls panel (H hides / shows it);
 //   - an on-screen diamond marker over each active emergency, or a chevron at the screen edge when it is off screen / behind;
 //   - a short bottom-centre prompt with a hold bar while the hero is in range of an emergency.
 // Installed by the hero with PC->ClientSetHUD(AWHFlightHUD::StaticClass()). -WHNoHUD draws nothing (clean captures).
@@ -29,7 +31,11 @@ public:
 	/** -WHNoHUD: draw nothing. */
 	bool bNoOverlay = false;
 
+	/** Owner request 2026-10-16: the top-left controls panel; toggled with H (edge-detected in DrawHUD). */
+	bool bShowControls = true;
+
 private:
+	void DrawControls();
 	void DrawPanel(const AWHRescueDirector* Dir, const FVector& Hero);
 	void DrawMarkers(const AWHRescueDirector* Dir, const FVector& Hero);
 	void DrawPrompt(const AWHRescueDirector* Dir);
@@ -43,4 +49,5 @@ private:
 
 	TWeakObjectPtr<AWHRescueDirector> Director;
 	float UiScale = 1.f;   // 1 at 1080p
+	bool bPrevHKey = false;   // H key state last drawn frame (toggle edge)
 };

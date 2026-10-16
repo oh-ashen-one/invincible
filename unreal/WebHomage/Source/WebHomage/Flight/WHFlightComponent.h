@@ -155,8 +155,35 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float CamRollMaxDeg = 12.f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FlyFovAdd = 9.f;          // deg of FOV widening over 40 m/s .. BoostSpeed (was a fixed 7)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SpeedShake = 0.07f;       // camera shake floor at BoostSpeed in ordinary flight
+	// ---- owner request 2026-10-16 ("even if you're near the floor you should still always be floating"; roof hero-landing freeze): in
+	// flight mode the hero never enters the traversal's GROUND mode. A hero landing is an airborne hold (sub landHero, velocity zero,
+	// feet on the surface the flight found) of LandHoldTime s, then he rises into the float; every other floor contact is a touch into the
+	// float. The float = the hover sub held FloatHeightM over the surface under him (traversal index ray from the body centre + a downward
+	// sphere sweep against the same collision the flight sweep lands on). WASD = hover glide, Space climbs, C / Ctrl settles to the float
+	// height instead of touching down. -WHFloat=0 restores the r6 ground mode (A/B only).
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") bool bAlwaysFloat = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FloatHeightM = 0.45f;     // feet over the surface while floating near it
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FloatCatchM = 1.6f;       // hands-off: the float pulls him down within this height (above: the hover holds its altitude)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FloatUpK = 5.f;           // 1/s: rise toward the float height (from a landing hold / a step up)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FloatDownK = 3.f;         // 1/s: settle down onto it
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FloatRiseMax = 4.f;       // m/s cap of that rise
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FloatVzRate = 16.f;       // 1/s approach of the float's vertical speed (with the gains above: no bob, zeta 0.9 / 1.15)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FloatFloorFall = 8.f;     // 1/s: the surface estimate follows a lower surface (a higher one at once)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FloatProbeM = 8.f;        // m of the downward sweep from the body centre (per substep)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float LandHoldTime = 1.3f;      // s: the hero landing holds still (AS_LandHero) before the rise
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float LandHoldCancelT = 0.9f;   // s: Space / fly press may end the hold after this
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float TouchKeepH = 0.6f;        // share of the horizontal speed a non-hero floor touch keeps
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float DiveMinHeightM = 2.5f;    // the double-tap dive needs this much room below (lower: the second tap climbs)
 
 	bool IsFlightOn() const { return bFlightOn; }
+	// owner request 2026-10-16 (always floating): state read by the v2 anim instance / telemetry
+	bool IsFloatOn() const { return bFlightOn && bAlwaysFloat; }
+	bool IsLandHold() const { return bLandHold; }
+	double LandHoldS() const { return LandHoldT; }               // s into the current hero-landing hold
+	double SurfaceBelowZ() const { return SurfBelowZ; }          // m: the surface under the hero this frame (-1000 = none within 400 m)
+	double FloatGapM() const { return FloatGap; }                // m: feet over the float surface this frame (99 = none)
+	int32 FloatTouchCount() const { return TouchCount; }         // increments on each non-hero floor touch (anim knee dip)
+	double FloatTouchSpeed() const { return TouchVz; }           // m/s downward speed of the last touch
 	/** One frame of the hero body under flight (called by UWebTraversalComponent::UpdateTraversal while flight is on). */
 	void StepFlight(UWebTraversalComponent& T, double Dt, FWebTravInput I);
 	/** -WHFlightTune=Name=Value,... (float properties). */
@@ -193,6 +220,17 @@ private:
 	/** critic r4 fl16: the slow-flight facade standoff (see WallStandoffM); true when a facade is within range */
 	bool WallStandoff(UWebTraversalComponent& T, double H, const FWebTravInput& I);
 	void HeroLand(UWebTraversalComponent& T, double Floor, double ImpactSpeed, bool bSlam);
+	// owner request 2026-10-16 (always floating)
+	/** the surface under the body centre within Reach m: max of the traversal index ray (from the centre, so a surface the feet touch is
+	 *  never started under) and a downward sphere sweep (the collision the flight lands on); -1000 = none */
+	double SurfaceUnder(const UWebTraversalComponent& T, double Reach) const;
+	/** SurfaceUnder(FloatProbeM), filtered: a higher surface at once, a lower one at FloatFloorFall (a drop over FloatCatchM at once) */
+	double FloatSurface(const UWebTraversalComponent& T, double H);
+	void StepLandHold(UWebTraversalComponent& T, double H, bool bCancelPress);
+	/** float mode: a fly-type line (fly / boost / dash / breach) meeting the floor under HeroLandMinSpeed of descent skims it (no touch) */
+	bool FloorSkim(double Impact) const;
+	void SkimFloor(UWebTraversalComponent& T, double Impact, const FVector& At);
+	void EnterFloat(UWebTraversalComponent& T, const TCHAR* Why);
 	void Takeoff(UWebTraversalComponent& T);
 	FQuat FlightOrient(UWebTraversalComponent& T, double Dt, const FWebTravInput& I);
 	void SetFlySub(UWebTraversalComponent& T, FName NewSub);
@@ -236,4 +274,8 @@ private:
 	double AimPitch = 0.0;
 	double WallSideV = 0.0, WallDistV = 99.0, WallT = 0.0;   // last facade slide contact (anim wall-side tuck), held 0.25 s
 	bool bFlyHeldPrev = false;
+	// owner request 2026-10-16 (always floating): hero-landing hold, float surface estimate, touch counter
+	bool bLandHold = false, bFloatFloorValid = false, bFloatInit = false;
+	double LandHoldT = 0.0, HoldFloorZ = 0.0, FloatFloorZ = 0.0, SurfBelowZ = -1000.0, FloatGap = 99.0, TouchVz = 0.0;
+	int32 TouchCount = 0;
 };

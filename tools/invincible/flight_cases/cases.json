@@ -4,11 +4,11 @@
   "args": [],
   "checks": {
    "subs": [
-    "takeoff",
     "hover"
    ],
-   "grounded_end": true,
-   "max_hero_lands": 0
+   "floating_end": true,
+   "max_hero_lands": 0,
+   "never_ground": true
   },
   "note": "Ground takeoff (jump) into a hover over 5th Av, climb, strafe both ways, descend to a gentle touchdown."
  },
@@ -17,7 +17,6 @@
   "args": [],
   "checks": {
    "subs": [
-    "takeoff",
     "fly"
    ],
    "min_speed": 45.0,
@@ -135,7 +134,7 @@
     "slam"
    ],
    "hero_lands": 1,
-   "grounded_end": true
+   "floating_end": true
   },
   "note": "Hover 60 m over 5th Av, slam (F) at 1.5 s: straight dive into a superhero landing with a crater."
  },
@@ -147,7 +146,7 @@
     "fly"
    ],
    "hero_lands": 1,
-   "grounded_end": true,
+   "floating_end": true,
    "min_speed": 90.0
   },
   "note": "Boost from 160 m, look down 40 deg (0.5-1.5 s): high-speed street impact = superhero landing without the slam key."
@@ -156,7 +155,9 @@
   "quit": 10.0,
   "args": [],
   "checks": {
-   "hero_lands": 1
+   "hero_lands": 1,
+   "never_ground": true,
+   "camera_calm": true
   },
   "note": "Owner bug 2026-10-16: hover 88 m above a 52 m roof, double-tap Space = superhero landing ON the roof, then walk and take off again (game froze, camera shook)."
  },
@@ -165,11 +166,11 @@
   "args": [],
   "checks": {
    "subs": [
-    "hover",
-    "takeoff"
+    "hover"
    ],
    "max_hero_lands": 0,
-   "walked": true
+   "glided": true,
+   "never_ground": true
   },
   "note": "Hover descent from 25 m to a gentle touchdown on 5th Av, walk forward on the street, take off again."
  },
@@ -220,7 +221,7 @@
    "rescue_saved_min": 1,
    "breaches": 1,
    "max_hero_lands": 0,
-   "grounded_end": true
+   "floating_end": true
   },
   "note": "Rescue wave 1 (seed 1977, hero at Times Square): wait for the wave, fly over to the crane load (straight through the tower block east of 5th Av, which tops 185 m on this line), brake, drop beside it (catch), hover straight down to the street holding it overhead (upright, camera turned down the street), touch down softly, set it down beside him (E)."
  }

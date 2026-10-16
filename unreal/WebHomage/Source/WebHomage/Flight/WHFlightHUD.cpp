@@ -9,6 +9,7 @@
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
+#include "InputCoreTypes.h"
 #include "Math/RotationMatrix.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
@@ -20,6 +21,27 @@ namespace
 	const FLinearColor Urgent(1.0f, 0.28f, 0.2f, 1.f);
 	const FLinearColor Good(0.45f, 1.0f, 0.55f, 1.f);
 	const FLinearColor Panel(0.f, 0.f, 0.f, 0.38f);
+	const FLinearColor KeyYellow(1.0f, 0.86f, 0.28f, 1.f);   // owner request 2026-10-16: key names in the controls panel
+
+	// Owner request 2026-10-16: the controls panel rows (keyboard + mouse). One line per action; a row may carry a second key / action pair.
+	// Bindings verified against WebTravCharacter.cpp (IMC + PollLiveInput) and WHFlightComponent.cpp (StepAirSub / StepFlight):
+	// Space = takeoff on the ground / climb in the air (second airborne press within DoubleTapTime 0.3 s = the dive), RMB = fly line,
+	// Shift = sonic-boom charge + launch (held = super speed), C / LeftCtrl = descend, E = brake (also the rescue hold / set-down),
+	// Q = dash, F = slam (air only), Esc / P = settings menu (WebHomagePlayerController).
+	struct FCtlRow { const TCHAR* Key; const TCHAR* Act; const TCHAR* Key2; const TCHAR* Act2; };
+	const FCtlRow CtlRows[] = {
+		{ TEXT("WASD"),     TEXT("move / strafe / turn"),                 nullptr,      nullptr },
+		{ TEXT("Mouse"),    TEXT("look / steer flight"),                  nullptr,      nullptr },
+		{ TEXT("Space"),    TEXT("take off / climb"),                     nullptr,      nullptr },
+		{ TEXT("Space x2"), TEXT("superhero landing (in air)"),           nullptr,      nullptr },
+		{ TEXT("Hold RMB"), TEXT("fly"),                                  nullptr,      nullptr },
+		{ TEXT("Shift"),    TEXT("sonic boom boost (hold = super speed)"), nullptr,     nullptr },
+		{ TEXT("C / Ctrl"), TEXT("descend"),                              nullptr,      nullptr },
+		{ TEXT("E"),        TEXT("brake / rescue (hold) / set down"),     nullptr,      nullptr },
+		{ TEXT("Q"),        TEXT("dash"),                                 TEXT("F"),    TEXT("slam (in air)") },
+		{ TEXT("Esc / P"),  TEXT("menu / release mouse"),                 nullptr,      nullptr },
+		{ TEXT("H"),        TEXT("hide / show controls"),                 nullptr,      nullptr },
+	};
 }
 
 AWHFlightHUD::AWHFlightHUD()
@@ -103,6 +125,15 @@ void AWHFlightHUD::DrawHUD()
 	FVector Hero = Sub->bHeroValid ? Sub->HeroPosCm : FVector::ZeroVector;
 	if (!Sub->bHeroValid && PlayerOwner && PlayerOwner->GetPawn()) Hero = PlayerOwner->GetPawn()->GetActorLocation();
 
+	// owner request 2026-10-16: H hides / shows the controls panel (edge on the held state; H is bound to nothing else in the project)
+	if (PlayerOwner)
+	{
+		const bool bH = PlayerOwner->IsInputKeyDown(EKeys::H);
+		if (bH && !bPrevHKey) bShowControls = !bShowControls;
+		bPrevHKey = bH;
+	}
+
+	DrawControls();
 	DrawPanel(Dir, Hero);
 	if (Dir && Dir->IsEnabled())
 	{
@@ -118,7 +149,9 @@ void AWHFlightHUD::DrawPanel(const AWHRescueDirector* Dir, const FVector& Hero)
 	UFont* Medium = GEngine->GetMediumFont();
 	UFont* Large = GEngine->GetLargeFont();
 	const float K = UiScale;
-	const float X = 28.f * K, Y = 28.f * K, Wd = 330.f * K, Pad = 12.f * K, Row = 26.f * K;
+	// owner request 2026-10-16: the controls panel takes the top-left corner, so the rescue panel sits at the top-right
+	const float Wd = 330.f * K, Pad = 12.f * K, Row = 26.f * K;
+	const float X = FMath::Max(28.f * K, float(Canvas->ClipX) - Wd - 28.f * K), Y = 28.f * K;
 
 	TArray<const FWHEmergency*> Active;
 	if (Dir && Dir->IsEnabled())
@@ -165,6 +198,65 @@ void AWHFlightHUD::DrawPanel(const AWHRescueDirector* Dir, const FVector& Hero)
 		Text(TEXT("NEXT CALL"), X + Pad, Cy + 4.f * K, Dim, Small, 1.2f * K);
 		const FString Tm = Clock(NextWave);
 		Text(Tm, X + Wd - Pad - TextW(Tm, Medium, 0.8f * K), Cy, White, Medium, 0.8f * K);
+	}
+}
+
+// Owner request 2026-10-16: "put the controls on screen on the top left, small but in a way that I can see it". A compact translucent
+// panel (thin border, white labels, yellow key names), one line per action. The text size is derived from a measured reference line
+// (~16.5 px line = ~14 px glyphs at 1080p, scaled by ClipY / 1080) so it does not depend on the engine font's native point size.
+void AWHFlightHUD::DrawControls()
+{
+	UFont* Font = GEngine->GetSmallFont();
+	if (!Font) return;
+	const float Rel = float(Canvas->ClipY) / 1080.f;
+	constexpr float RefScale = 8.f;   // (the canvas reports integer sizes: measure large, divide down)
+	float RefW = 0.f, RefH = 0.f;
+	GetTextSize(TEXT("Ag|"), RefW, RefH, Font, RefScale);
+	const bool bMeasured = RefH > RefScale;
+	const float Sc = bMeasured ? FMath::Clamp(16.5f * Rel * RefScale / RefH, 0.4f, 8.f) : 0.9f * UiScale;
+	const float LineH = bMeasured ? RefH * Sc / RefScale : 16.5f * Rel;
+	const float Pitch = LineH * 1.06f;
+	const float Pad = 8.f * Rel, Gap = 12.f * Rel, PairGap = 22.f * Rel;
+	if (!bShowControls)
+	{ // hidden with H: one dim hint line, so the panel can always be brought back
+		Text(TEXT("H  show controls"), 16.f * Rel, 16.f * Rel, Dim, Font, Sc);
+		return;
+	}
+
+	float KeyW = 0.f, LabW = 0.f;
+	for (const FCtlRow& R : CtlRows)
+	{
+		KeyW = FMath::Max(KeyW, TextW(R.Key, Font, Sc));
+		float W1 = TextW(R.Act, Font, Sc);
+		if (R.Key2) W1 += PairGap + TextW(R.Key2, Font, Sc) + Gap + TextW(R.Act2, Font, Sc);
+		LabW = FMath::Max(LabW, W1);
+	}
+	const int32 NRows = static_cast<int32>(UE_ARRAY_COUNT(CtlRows));
+	const float W = Pad * 2.f + KeyW + Gap + LabW;
+	const float H = Pad * 2.f + Pitch * float(NRows - 1) + LineH;
+	const float X0 = 16.f * Rel, Y0 = 16.f * Rel;
+
+	DrawRect(FLinearColor(0.f, 0.f, 0.f, 0.46f), X0, Y0, W, H);
+	const float Bt = FMath::Max(1.f, FMath::RoundToFloat(Rel));
+	const FLinearColor Edge(1.f, 1.f, 1.f, 0.30f);
+	DrawRect(Edge, X0, Y0, W, Bt);
+	DrawRect(Edge, X0, Y0 + H - Bt, W, Bt);
+	DrawRect(Edge, X0, Y0, Bt, H);
+	DrawRect(Edge, X0 + W - Bt, Y0, Bt, H);
+
+	const float LabX = X0 + Pad + KeyW + Gap;
+	for (int32 i = 0; i < NRows; ++i)
+	{
+		const FCtlRow& R = CtlRows[i];
+		const float Ty = Y0 + Pad + Pitch * float(i);
+		Text(R.Key, X0 + Pad, Ty, KeyYellow, Font, Sc);
+		Text(R.Act, LabX, Ty, White, Font, Sc);
+		if (R.Key2)
+		{
+			const float K2x = LabX + TextW(R.Act, Font, Sc) + PairGap;
+			Text(R.Key2, K2x, Ty, KeyYellow, Font, Sc);
+			Text(R.Act2, K2x + TextW(R.Key2, Font, Sc) + Gap, Ty, White, Font, Sc);
+		}
 	}
 }
 

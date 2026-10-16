@@ -127,6 +127,8 @@ public:
 	UPROPERTY(EditAnywhere, Category="HeroV2") float BlendToLandDive = 0.15f;
 	UPROPERTY(EditAnywhere, Category="HeroV2") float BlendLandImpact = 0.08f;     // dive cut short by an early impact: jump to the impact frame
 	UPROPERTY(EditAnywhere, Category="HeroV2") float BlendLandToIdle = 0.3f;
+	// owner request 2026-10-16 ("always floating"): the airborne hero-landing hold (Air + sub landHero) rises into the hover float
+	UPROPERTY(EditAnywhere, Category="HeroV2") float BlendLandToHover = 0.5f;
 	UPROPERTY(EditAnywhere, Category="HeroV2") float BlendDash = 0.15f;           // dash <-> fly-type
 	UPROPERTY(EditAnywhere, Category="HeroV2") float BlendDashUpright = 0.35f;    // r5 (critic r4 fl09: 90 deg in 0.15 s): dash <-> hover / launchUp
 	// clip timing
@@ -223,6 +225,11 @@ private:
 	float StateT = 0.f;             // s in the current state
 	// r5 touchdown dip
 	float DipT = 99.f, DipPeakNow = 0.f;
+	// owner request 2026-10-16 (always floating): flight float mode on (never AS_GroundIdle), the flight's surface under the hero (m),
+	// the last seen float-touch counter (knee dip on a touch)
+	bool bFloat = false;
+	double FlightSurfZ = -1000.0;
+	int32 LastTouchCount = 0;
 	// r5 rescue carry (critic r4 #6)
 	TWeakObjectPtr<AWHRescueDirector> RescueDir;
 	float RescueFindT = 0.f;

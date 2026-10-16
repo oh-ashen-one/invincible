@@ -82,6 +82,21 @@ for n in names:
             if prev is not None: tot += ((y - prev + 180) % 360) - 180
             prev = y
         chk('travel heading change', abs(tot) >= c['min_yaw_change_deg'], round(tot, 1), '>= %s deg' % c['min_yaw_change_deg'])
+    # owner 2026-10-16 ("always floating, even near the floor"): flight mode never enters the traversal ground mode
+    if c.get('floating_end'): chk('floating near a surface at the end', last.get('mode') == 'air' and f(last, 'height_above_floor_m', 99) < 2.0, (last.get('mode'), round(f(last, 'height_above_floor_m', 99), 2)), 'air, < 2 m')
+    if c.get('never_ground'):
+        gnd = sum(1 for r in rows if r.get('mode') in ('ground', 'land'))
+        chk('never in ground mode', gnd == 0, gnd, 0)
+    if c.get('glided'):
+        g = [r for r in rows if r.get('mode') == 'air' and f(r, 'height_above_floor_m', 99) < 2.0 and f(r, 'hspeed_mps') > 1.0]
+        chk('glided near the floor', len(g) > 30, len(g), '> 30 frames')
+    if c.get('camera_calm'):   # owner fl18 bug: camera 'having a seizure up and down' while landed on a roof
+        flips, prev_d = 0, None
+        for p, q in zip(rows, rows[1:]):
+            dz = f(q, 'cam_z') - f(p, 'cam_z')
+            if prev_d is not None and abs(dz) > 0.05 and abs(prev_d) > 0.05 and dz * prev_d < 0: flips += 1
+            prev_d = dz
+        chk('camera calm (vertical reversals > 5 cm/frame)', flips <= 4, flips, '<= 4')
     if c.get('walked'):
         g = [r for r in rows if r.get('mode') == 'ground' and f(r, 'hspeed_mps') > 1.0]
         chk('walked on the ground', len(g) > 30, len(g), '> 30 frames')

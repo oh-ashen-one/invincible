@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parent / 'flight_cases'
-LEVEL_T, BRAKE_T, STRAFE, DROP_S = 8.0, 14.0, -0.25, 2.4   # fl17 route timing (rescue probe: climb at 50 deg, level at crane height, brake at the load)
+LEVEL_T, BRAKE_T, STRAFE, DROP_S = 8.0, 13.62, -0.25, 2.4   # fl17 route timing (rescue probe: climb at 50 deg, level at crane height, brake at the load)
 # r6 (critic r5 #1, fl17 "prone on a grey slab in the carry-dive, slam onto a 14 m roof, camera inside the load"): no fly dive after the catch.
 # r5 numbers: drop released 16.98 s, hover settles at (350.9, -323.0, ~136.9) m, catch ~17.5 s at 135 m above the street (log), TravWorld floor
 # ~0 m under that column (height_above_floor 136.0); the street (an E-W cross street, the r5 dive went down it to 5th Av) lies under the
@@ -34,11 +34,11 @@ CASES = [
          spawn=dict(pos=AV, yaw=-90, camPitch=0.14),
          keys=[K(0, move=[0, 0]), K(1.0, jump=True), K(1.25, jump=False), K(2.5, jump=True), K(4.0, jump=False),
                K(4.5, move=[1, 0]), K(6.0, move=[-1, 0]), K(7.5, move=[0, 0]), K(8.0, drop=True)],
-         checks=dict(subs=['takeoff', 'hover'], grounded_end=True, max_hero_lands=0)),
+         checks=dict(subs=['hover'], floating_end=True, max_hero_lands=0, never_ground=True)),
     dict(name='fl02_takeoff_to_fly', quit=10.0, note='Fly + climb pressed on the ground: takeoff blends straight into a climbing fly line; climb released at 2.5 s levels out.',
          spawn=dict(pos=AV, yaw=-90, camPitch=0.14),
          keys=[K(0, move=[0, 0]), K(1.0, swing=True, jump=True), K(3.2, jump=False)],
-         checks=dict(subs=['takeoff', 'fly'], min_speed=45.0, min_rise_m=10.0)),
+         checks=dict(subs=['fly'], min_speed=45.0, min_rise_m=10.0)),
     dict(name='fl03_cruise_hands_off', quit=10.0, note='Airborne over 5th Av at 60 m heading north, fly held, no look input: the fly line should hold its altitude (a player does not have to fight the camera).',
          spawn=dict(pos=[250, 600, 60], yaw=-90, camPitch=0.0, vel=[0, -20, 0]),
          keys=[K(0, move=[0, 0]), K(0.1, swing=True)],
@@ -76,20 +76,20 @@ CASES = [
     dict(name='fl11_slam_crater', quit=7.0, note='Hover 60 m over 5th Av, slam (F) at 1.5 s: straight dive into a superhero landing with a crater.',
          spawn=dict(pos=[250, 300, 60], yaw=-90, camPitch=0.3),
          keys=[K(0, move=[0, 0]), K(1.5, trick=True), K(1.6, trick=False)],
-         checks=dict(subs=['slam'], hero_lands=1, grounded_end=True)),
+         checks=dict(subs=['slam'], hero_lands=1, floating_end=True)),
     dict(name='fl12_fast_land', quit=8.0, note='Boost from 160 m, look down 40 deg (0.5-1.5 s): high-speed street impact = superhero landing without the slam key.',
          spawn=dict(pos=[250, 500, 160], yaw=-90, camPitch=0.14, vel=[0, -20, 0]),
          keys=[K(0, move=[0, 0]), K(0.1, swing=True), K(0.4, sprint=True), K(0.9, look=[0, 40]), K(1.9, look=[0, 0])],   # (owner fx: Shift now = charge -> boom; fly first)
-         checks=dict(subs=['fly'], hero_lands=1, grounded_end=True, min_speed=90.0)),
+         checks=dict(subs=['fly'], hero_lands=1, floating_end=True, min_speed=90.0)),
     dict(name='fl18_roof_hero_land', quit=10.0, note='Owner bug 2026-10-16: hover 88 m above a 52 m roof, double-tap Space = superhero landing ON the roof, then walk and take off again (game froze, camera shook).',
          spawn=dict(pos=[531.7, 469.5, 141.2], yaw=-90, camPitch=0.2),
          keys=[K(0, move=[0, 0]), K(1.0, jump=True), K(1.08, jump=False), K(1.16, jump=True), K(1.24, jump=False),
                K(5.0, move=[0, 1]), K(6.5, move=[0, 0]), K(7.5, jump=True), K(7.8, jump=False)],
-         checks=dict(hero_lands=1)),
+         checks=dict(hero_lands=1, never_ground=True, camera_calm=True)),
     dict(name='fl13_soft_land_walk', quit=11.0, note='Hover descent from 25 m to a gentle touchdown on 5th Av, walk forward on the street, take off again.',
          spawn=dict(pos=[250, 300, 25], yaw=-90, camPitch=0.2),
          keys=[K(0, move=[0, 0]), K(0.5, drop=True), K(6.5, drop=False), K(7.0, move=[0, 1]), K(9.0, move=[0, 0]), K(9.5, jump=True), K(9.8, jump=False)],
-         checks=dict(subs=['hover', 'takeoff'], max_hero_lands=0, walked=True)),
+         checks=dict(subs=['hover'], max_hero_lands=0, glided=True, never_ground=True)),
     dict(name='fl14_breach_cruise', quit=8.0, note='Cruise north up 5th Av at 35 m, turn the camera right into the east facade at > 45 m/s: through-building breach.',
          spawn=dict(pos=[250, 500, 35], yaw=-90, camPitch=0.0, vel=[0, -55, 0]),
          keys=[K(0, move=[0, 0]), K(0.1, swing=True), K(1.5, look=[90, 0]), K(2.5, look=[0, 0])],
@@ -107,12 +107,12 @@ CASES = [
          spawn=dict(pos=TS, yaw=90, camPitch=0.14),   # crane load logged by the seed-1977 probe: (355.7, -324.3, 135.3) m, heading -14.1 deg
          keys=[K(0, move=[0, 0]), K(3.3, jump=True), K(3.55, jump=False), K(3.7, jump=True), K(4.0, look=[-104.09, 0]), K(5.0, look=[0, 0]),
                K(5.2, jump=False), K(5.4, swing=True, look=[0, -130]), K(5.9, look=[0, 0]), K(LEVEL_T, look=[0, 130]), K(LEVEL_T + 0.5, look=[0, 0]),
-               K(BRAKE_T, zip=True, swing=False), K(BRAKE_T + 0.1, zip=False), K(BRAKE_T + 0.35, drop=True, move=[0, STRAFE]),
+               K(BRAKE_T, zip=True, swing=False), K(BRAKE_T + 0.1, zip=False), K(BRAKE_T + 0.35, drop=True, move=[-0.42, STRAFE]),   # (floating start: brake point ~9 m north of the load -> strafe left = -y while dropping)
                K(BRAKE_T + 0.35 + DROP_S, drop=False, move=[0, 0]),
                # r6 (critic r5 #1): carry the caught load down upright in a hover descent, look down the street, touch down, set it down beside him
                K(DESC_T, drop=True), K(TURN_T, look=[-162, 0]), K(TURN_T + 1.0, look=[0, 0]),
                K(SET_T - 0.2, drop=False), K(SET_T, zip=True), K(SET_T + 0.1, zip=False)],
-         checks=dict(rescue_saved_min=1, breaches=1, max_hero_lands=0, grounded_end=True)),
+         checks=dict(rescue_saved_min=1, breaches=1, max_hero_lands=0, floating_end=True)),
 ]
 
 

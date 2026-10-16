@@ -5,6 +5,7 @@
 #include "Traversal/WebTravCharacter.h"
 #include "Traversal/WebTraversalComponent.h"
 #include "Flight/WHRescueDirector.h"
+#include "Flight/WHFlightComponent.h"
 #include "WebHomage.h"
 #include "Animation/Skeleton.h"
 #include "Math/RotationMatrix.h"
@@ -342,6 +343,7 @@ float UWHHeroV2AnimInstance::BlendTime(EWHHeroV2State From, EWHHeroV2State To) c
 	if (From == S::Brake && (To == S::Hover || To == S::LaunchUp)) return BlendBrakeToHover;
 	if (To == S::LandHero) return BlendToLandDive;
 	if (From == S::LandHero && To == S::GroundIdle) return BlendLandToIdle;
+	if (From == S::LandHero && (To == S::Hover || To == S::LaunchUp)) return BlendLandToHover;   // owner request 2026-10-16: hold -> float
 	// r5 (critic r4 fl09: dash -> hover swung the body ~90 deg in 0.15 s): the dash <-> an upright clip blends over BlendDashUpright
 	if (To == S::Dash || From == S::Dash)
 		return WHHeroV2Detail::HV2IsFlyType(To == S::Dash ? From : To) ? BlendDash : BlendDashUpright;
@@ -418,7 +420,9 @@ float UWHHeroV2AnimInstance::TimeToImpact(const FWebTravAnim& A) const
 	if (!Tr) return 9.f;
 	const FVector P = Tr->PosM();
 	const double FeetZ = P.Z - UWebTraversalComponent::H;
-	const double G = Tr->TravWorld.GroundHeight(P.X, P.Y, FeetZ + 0.05);
+	double G = Tr->TravWorld.GroundHeight(P.X, P.Y, FeetZ + 0.05);
+	// owner request 2026-10-16 (roof the ground index did not know): with the flight float, also the surface the flight sweep lands on
+	if (bFloat && FlightSurfZ > -999.0 && FlightSurfZ <= FeetZ + 0.05) G = FMath::Max(G, FlightSurfZ);
 	const double Vz = -double(A.Velocity.Z) / 100.0;
 	if (G <= -999.0 || Vz < 3.0) return 9.f;
 	const double D = FMath::Max(0.0, FeetZ - G);
@@ -446,6 +450,11 @@ EWHHeroV2State UWHHeroV2AnimInstance::PickState(const FWebTravAnim& A, float Vz,
 			OutUpTarget = HV2Smooth(GammaDeg, LaunchUpPitchDeg - LaunchUpBandDeg, LaunchUpPitchDeg + LaunchUpBandDeg);
 		}
 	}
+	if (A.Mode != EWebTravMode::Air && bFloat)
+	{ // owner request 2026-10-16 ("always floating"): never AS_GroundIdle in flight float mode (the flight turns any ground state into the
+	  // float before the anim reads it; this only covers a stray frame)
+		return (Cur == S::LandHero && !bCurDone) ? S::LandHero : S::Hover;
+	}
 	if (A.Mode != EWebTravMode::Air)
 	{
 		// the hero landing plays out (stand-up) while he stays put; walking or the clip's end hands over to the idle, once per landing
@@ -456,6 +465,9 @@ EWHHeroV2State UWHHeroV2AnimInstance::PickState(const FWebTravAnim& A, float Vz,
 		return S::GroundIdle;
 	}
 	bLandSpent = false;
+	// owner request 2026-10-16: the hero landing is an airborne hold (Air + sub landHero, velocity zero) -> AS_LandHero's impact part until
+	// the flight releases the hold into the hover float
+	if (A.Sub == HV2NLandHero) return S::LandHero;
 	S Want = S::Hover;
 	if (A.Sub == HV2NTakeoff) Want = S::Takeoff;
 	else if (A.Sub == HV2NSlam) Want = S::LandHero;
@@ -517,6 +529,10 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	const UWebTraversalComponent* Trav = Ch ? Ch->GetTraversal() : nullptr;
 	const FWebTravAnim A = Trav ? Trav->Anim : FWebTravAnim();
 	const float Vz = float(A.Velocity.Z / 100.0);
+	// owner request 2026-10-16 ("always floating"): the flight's float mode / surface under him / touch counter
+	const UWHFlightComponent* FlC = Trav ? Trav->Flight.Get() : nullptr;
+	bFloat = FlC && FlC->IsFloatOn() && A.Flight.bActive;
+	FlightSurfZ = bFloat ? FlC->SurfaceBelowZ() : -1000.0;
 
 	// r5: eased downward acceleration of the fall (time to impact of an accelerating dive)
 	if (A.Mode == EWebTravMode::Air && Dt > 1e-4f)
@@ -543,7 +559,8 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		else if (Want == S::Brake) StartT = BrakeEnterT;   // r5 (critic r4 #2): upright brake entry, never the clip's side-roll part
 		else if (Want == S::LandHero)
 		{
-			bDive = A.Mode == EWebTravMode::Air;   // slam / double-tap dive: the clip starts with the dive
+			// slam / double-tap dive: the clip starts with the dive (owner request 2026-10-16: the airborne landing hold is the impact)
+			bDive = A.Mode == EWebTravMode::Air && A.Sub != HV2NLandHero;
 			bLandImpact = !bDive;
 			// a hard landing without the dive: just before the contact frame, legs already under him (r5)
 			if (!bDive) StartT = FMath::Max(LandFeetT, LandImpactT - 0.04f);
@@ -573,7 +590,7 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		bool bImpactJump = false;
 		if (Tr.State == S::LandHero && Tr.bDive)
 		{
-			if (A.Mode != EWebTravMode::Air)
+			if (A.Mode != EWebTravMode::Air || A.Sub == HV2NLandHero)   // (owner request 2026-10-16: or the airborne landing hold)
 			{ // the landing event: the contact frame must be on it -- an impact before the feet-first turn jumps to it with a short blend
 				Tr.bDive = false; bLandImpact = true;
 				bImpactJump = Tr.T < LandFeetT - 0.05f;
@@ -628,6 +645,11 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		else if (Now == S::Takeoff) Target = TakeoffPlantK(StateT);
 		// r5 (critic r4 #3): through the feet-first turn the feet are brought onto the capsule bottom, so the contact frame meets the floor
 		else if (Now == S::LandHero && Top && Top->bDive) Target = FMath::Square(DiveFlipK(Top->T));
+		else if (bFloat && (Now == S::Hover || Now == S::LaunchUp))
+		{ // owner request 2026-10-16: the rise out of the airborne landing hold lets the planted feet go with the AS_LandHero track's fade
+			for (const FTrack& Tr : Tracks) { if (Tr.State == S::LandHero && !Tr.bDive) Target += Tr.W; }
+			Target = FMath::Min(Target, 1.f);
+		}
 		Frame.GroundW = bRefOk ? Frame.GroundW + (Target - Frame.GroundW) * (1.f - FMath::Exp(-Dt / FMath::Max(0.005f, GroundLockTau))) : 0.f;
 		float PF = 0.f;
 		for (const FTrack& Tr : Tracks)
@@ -642,7 +664,16 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	}
 
 	// ---- r5 touchdown dip (critic r4 #5): AS_Takeoff's crouch on the non-arm bones, in over DipInT, out over DipOutT
+	// owner request 2026-10-16 ("always floating"): a floor touch into the float (WH_FLIGHT float touch) dips the knees the same way; the dip
+	// plays in the hover float and fades out fast (never cut) if a fly-type state takes over
+	if (bFloat && FlC && FlC->FloatTouchCount() != LastTouchCount)
+	{
+		LastTouchCount = FlC->FloatTouchCount();
+		DipT = 0.f;
+		DipPeakNow = FMath::Clamp(DipPeak + DipPeakPerMps * float(FlC->FloatTouchSpeed()), 0.f, DipMax);
+	}
 	if (CurrentState() == S::GroundIdle) DipT = FMath::Min(DipT + Dt, 99.f);
+	else if (bFloat && DipT < 50.f) DipT = FMath::Min(DipT + Dt * ((CurrentState() == S::Hover || CurrentState() == S::LaunchUp) ? 1.f : 4.f), 99.f);
 	else DipT = 99.f;
 	{
 		const float Up = HV2Smooth(DipT, 0.f, FMath::Max(0.01f, DipInT));

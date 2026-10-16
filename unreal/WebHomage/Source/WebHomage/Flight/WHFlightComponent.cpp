@@ -99,6 +99,43 @@ void UWHFlightComponent::HeroLand(UWebTraversalComponent& T, double Floor, doubl
 	const bool bHero = bWasSlam || ImpactSpeed >= HeroLandMinSpeed;
 	const double Sev = FMath::Clamp((ImpactSpeed - SoftLandSpeed) / FMath::Max(1.0, 90.0 - SoftLandSpeed), 0.0, 1.0);
 	const FVector Feet(S.Pos.X, S.Pos.Y, Floor);
+	if (bAlwaysFloat)
+	{ // owner request 2026-10-16 (roof hero landing froze the game: ground mode on a roof the ground index did not know; "always floating"):
+	  // no traversal ground mode. A hero landing holds airborne on the surface the flight found (StepLandHold), anything lighter is a
+	  // touch that keeps some glide and hands over to the float (StepAirSub hover)
+		S.bGrounded = false; S.Carry = FVector::ZeroVector; S.FloorZ = Floor;
+		S.LandSeverity = bHero ? FMath::Max(Sev, 0.35) : Sev;
+		bSlam = false; bBreach = false; bDiveDrop = false; JumpTapT = 99.0;
+		if (SuperState != ESuper::None) EndSuper(true);
+		FloatFloorZ = Floor; bFloatFloorValid = true;
+		if (bHero)
+		{
+			S.Vel = FVector::ZeroVector; S.Speed = 0;
+			bLandHold = true; LandHoldT = 0.0; HoldFloorZ = Floor;
+			S.LandLock = LandHoldTime;
+			T.SetMode(EWebTravMode::Air, NF_landHero);
+			Sub = NF_landHero; SubT = 0.0;
+			++HeroLandCount;
+			Event(T, NF_heroLand, float(S.LandSeverity), Feet, -FlUp, float(ImpactSpeed));
+			if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(GetOwner()))
+				FW->PushStimulus(EWHCrowdStimulus::Landing, Feet * 100.0, float(1500.0 + 3500.0 * S.LandSeverity), 0.6f + 0.4f * float(S.LandSeverity), 5.f);
+			UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT heroLand at (%.1f, %.1f, %.1f) impact %.1f m/s sev %.2f (airborne hold %.2f s, then float %.2f m)"),
+				Feet.X, Feet.Y, Feet.Z, ImpactSpeed, S.LandSeverity, double(LandHoldTime), double(FloatHeightM));
+		}
+		else
+		{
+			const double Kh = FMath::Clamp(double(TouchKeepH), 0.0, 1.0);
+			S.Vel = FVector(S.Vel.X * Kh, S.Vel.Y * Kh, 0.0);
+			S.Speed = S.Vel.Size(); S.LandLock = 0.0;
+			S.Pos.Z = FMath::Max(S.Pos.Z, Floor + UWebTraversalComponent::H);
+			T.SetMode(EWebTravMode::Air, NF_hover);
+			Sub = NF_hover; SubT = 0.0;
+			++TouchCount; TouchVz = ImpactSpeed;
+			Event(T, NF_land, float(S.LandSeverity), Feet, -FlUp);
+			UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT float touch at (%.1f, %.1f, %.1f) impact %.1f m/s"), Feet.X, Feet.Y, Feet.Z, ImpactSpeed);
+		}
+		return;
+	}
 	T.EnterGround(bHero ? NF_landHero : (ImpactSpeed > 6.0 ? NF_landLight : NF_idle));
 	S.Vel = FVector::ZeroVector; S.Speed = 0; S.Carry = FVector::ZeroVector;
 	S.LandSeverity = bHero ? FMath::Max(Sev, 0.35) : Sev;
@@ -116,6 +153,80 @@ void UWHFlightComponent::HeroLand(UWebTraversalComponent& T, double Floor, doubl
 		UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT heroLand at (%.1f, %.1f, %.1f) impact %.1f m/s sev %.2f"), Feet.X, Feet.Y, Feet.Z, ImpactSpeed, S.LandSeverity);
 	}
 	else Event(T, NF_land, float(S.LandSeverity), Feet, -FlUp);
+}
+
+// owner request 2026-10-16 (roof hero landing: the ground index answered the street 51.85 m under a roof the flight sweep had landed on):
+// the surface under the hero = the higher of the traversal index ray started at the body CENTRE (never under a surface the feet rest on)
+// and a downward sphere sweep through the same filtered collision the flight's swept contact uses (FWebTravWorld::SweepSolid)
+double UWHFlightComponent::SurfaceUnder(const UWebTraversalComponent& T, double Reach) const
+{
+	const FVector C = T.S.Pos;
+	const FWebTravWorld& W = T.TravWorld;
+	double Best = W.GroundHeight(C.X, C.Y, C.Z);
+	constexpr double Rr = 0.3;
+	double D = 0.0; FVector N = FVector::ZeroVector;
+	if (Reach > 0.0 && W.SweepSolid(C, C - FlUp * Reach, Rr, D, N) && N.Z >= 0.6)
+		Best = FMath::Max(Best, C.Z - D - Rr);
+	return Best;
+}
+
+double UWHFlightComponent::FloatSurface(const UWebTraversalComponent& T, double H)
+{
+	const double Raw = SurfaceUnder(T, FMath::Max(1.0, double(FloatProbeM)));
+	if (Raw <= -999.0) { bFloatFloorValid = false; return Raw; }
+	// a higher surface (curb, roof, car) is taken at once; a lower one eases in so a one-substep probe miss cannot drop the target; a drop
+	// deeper than the float band (a roof edge) is taken at once too (the hover then holds its altitude)
+	if (!bFloatFloorValid || Raw >= FloatFloorZ || FloatFloorZ - Raw > double(FloatCatchM)) FloatFloorZ = Raw;
+	else FloatFloorZ = FlDamp(FloatFloorZ, Raw, FMath::Max(0.5, double(FloatFloorFall)), H);
+	bFloatFloorValid = true;
+	return FloatFloorZ;
+}
+
+// owner request 2026-10-16: the hero landing as an AIRBORNE hold -- velocity zero, feet on the surface the landing found, AS_LandHero plays
+// (the v2 anim maps Air + sub landHero to its impact part); after LandHoldTime (or a Space / fly press after LandHoldCancelT) the hover
+// float lifts him to FloatHeightM over that surface
+void UWHFlightComponent::StepLandHold(UWebTraversalComponent& T, double H, bool bCancelPress)
+{
+	auto& S = T.S;
+	LandHoldT += H;
+	S.Vel = FVector::ZeroVector; S.Speed = 0; S.Carry = FVector::ZeroVector;
+	S.Pos.Z = HoldFloorZ + UWebTraversalComponent::H;
+	S.LandLock = FMath::Max(0.0, double(LandHoldTime) - LandHoldT);
+	S.bGrounded = false;
+	const bool bCancel = bCancelPress && LandHoldT >= double(LandHoldCancelT);
+	if (LandHoldT >= double(LandHoldTime) || bCancel)
+	{
+		bLandHold = false; S.LandLock = 0.0; JumpTapT = 99.0;
+		FloatFloorZ = HoldFloorZ; bFloatFloorValid = true;
+		SetFlySub(T, NF_hover);
+		UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT land hold end after %.2f s%s -> float %.2f m over z %.1f"),
+			LandHoldT, bCancel ? TEXT(" (cancelled)") : TEXT(""), double(FloatHeightM), HoldFloorZ);
+	}
+}
+
+// owner request 2026-10-16 ("always floating"): a fly line flown into the street / a roof below the hero-landing speed skims along it --
+// the aim is levelled (no repeated touches while the nose still points down), a hard graze bumps the camera like a facade contact
+bool UWHFlightComponent::FloorSkim(double Impact) const
+{
+	return bAlwaysFloat && Sub != NF_slam && Impact < double(HeroLandMinSpeed) && (Sub == NF_fly || Sub == NF_boost || Sub == NF_dash || Sub == NF_breach);
+}
+
+void UWHFlightComponent::SkimFloor(UWebTraversalComponent& T, double Impact, const FVector& At)
+{
+	AimPitch = FMath::Min(AimPitch, 0.0);   // (+ = down) the line levels out over the floor
+	if (Impact > 15.0) Event(T, NF_flyBump, FMath::Clamp(float(Impact / 60.0), 0.f, 1.f), At, FlUp);
+}
+
+// owner request 2026-10-16: any traversal ground state met in flight (spawn / teleport onto the floor, a legacy path) becomes the float
+void UWHFlightComponent::EnterFloat(UWebTraversalComponent& T, const TCHAR* Why)
+{
+	auto& S = T.S;
+	T.SetMode(EWebTravMode::Air, NF_hover);
+	Sub = NF_hover; SubT = 0.0;
+	S.bGrounded = false; S.bCharging = false; S.JumpCharge = 0; S.AirT = 0; S.LandLock = 0.0; S.ApexZ = S.Pos.Z - UWebTraversalComponent::H;
+	S.Vel.Z = FMath::Max(0.0, S.Vel.Z);
+	bLandHold = false; bFloatFloorValid = false; bSlam = false; bDiveDrop = false;
+	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT float from %s at (%.1f, %.1f, %.1f)"), Why, S.Pos.X, S.Pos.Y, S.Pos.Z);
 }
 
 bool UWHFlightComponent::StartBreach(UWebTraversalComponent& T, const FVector& HitPos, const FVector& HitN, const FVector& Dir)
@@ -354,9 +465,14 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 			//  into the street and the hero then dropped through it into a hover; the floor is the sphere's contact height)
 			const double FloorZ = S.Pos.Z - 0.47;
 			const double Impact = FMath::Max(0.0, -S.Vel.Z);
-			if (Sub == NF_slam || Impact > SoftLandSpeed || (I.bDrop && Sub == NF_hover)) { HeroLand(T, FloorZ, FMath::Max(Impact, Sub == NF_slam ? Sp : 0.0), Sub == NF_slam); return true; }
+			// owner request 2026-10-16: with the float, a held descent never touches down (StepAirSub stops it at FloatHeightM)
+			const bool bDropLand = I.bDrop && Sub == NF_hover && !bAlwaysFloat;
+			const bool bSkim = FloorSkim(Impact);
+			if (!bSkim && (Sub == NF_slam || Impact > SoftLandSpeed || bDropLand)) { HeroLand(T, FloorZ, FMath::Max(Impact, Sub == NF_slam ? Sp : 0.0), Sub == NF_slam); return true; }
 			S.Pos.Z = FMath::Max(S.Pos.Z, FloorZ + UWebTraversalComponent::H);
 			if (S.Vel.Z < 0) S.Vel.Z = 0;
+			if (bSkim) SkimFloor(T, Impact, HitPos);
+			if (bAlwaysFloat) { FloatFloorZ = FMath::Max(bFloatFloorValid ? FloatFloorZ : -1000.0, FloorZ); bFloatFloorValid = true; }
 		}
 		else
 		{ // slide along the facade (slow, or a deep solid that cannot be breached)
@@ -406,13 +522,17 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 	if (Floor > -999.0 && Feet < Floor)
 	{
 		const double Impact = FMath::Max(0.0, -S.Vel.Z);
-		if (Sub == NF_slam || Impact > SoftLandSpeed || (I.bDrop && Sub == NF_hover)) { HeroLand(T, Floor, FMath::Max(Impact, Sub == NF_slam ? Sp : 0.0), Sub == NF_slam); return true; }
+		const bool bDropLand = I.bDrop && Sub == NF_hover && !bAlwaysFloat;   // owner request 2026-10-16: no touchdown with the float
+		const bool bSkim = FloorSkim(Impact);
+		if (!bSkim && (Sub == NF_slam || Impact > SoftLandSpeed || bDropLand)) { HeroLand(T, Floor, FMath::Max(Impact, Sub == NF_slam ? Sp : 0.0), Sub == NF_slam); return true; }
 		S.Pos.Z = Floor + UWebTraversalComponent::H;
 		if (S.Vel.Z < 0) S.Vel.Z = 0;
+		if (bSkim) SkimFloor(T, Impact, FVector(S.Pos.X, S.Pos.Y, Floor));
 	}
 	// critic r2 (fl13 touchdown): the snap-down band 0.35 -> 0.05 m (at the capped descent a 0.35 m snap started from ~3.2 m/s and moved the
 	// body 0.35 m in one step; the feet-under-floor branch above now makes the contact at ~TouchdownV)
-	else if (Floor > -999.0 && Sub == NF_hover && I.bDrop && Feet - Floor < 0.05 && S.Vel.Z <= 0.5)
+	// (owner request 2026-10-16: not with the float -- the descent holds FloatHeightM)
+	else if (!bAlwaysFloat && Floor > -999.0 && Sub == NF_hover && I.bDrop && Feet - Floor < 0.05 && S.Vel.Z <= 0.5)
 	{ // hover + descend held right over the floor: a gentle touchdown
 		HeroLand(T, Floor, FMath::Max(0.0, -S.Vel.Z), false);
 		return true;
@@ -462,7 +582,10 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	if (Sub != S.Sub) Sub = S.Sub;
 
 	// ---- presses (cleared by the caller after the first substep)
-	if (I.bZipPressed && Sub != NF_slam)
+	// (owner request 2026-10-16: floating still near a surface, E / Triangle is only the interact key -- no brake sub / camera bump, as on the
+	//  old ground; e.g. the fl17 rescue set-down)
+	const bool bInteractOnly = bAlwaysFloat && V.Size() < 1.0 && FloatGap < double(FloatCatchM) && SuperState == ESuper::None;
+	if (I.bZipPressed && Sub != NF_slam && !bInteractOnly)
 	{ // instant stop (also ends a super boost)
 		if (SuperState != ESuper::None) EndSuper(true);
 		SetFlySub(T, NF_brake); ++BrakeCount;
@@ -486,7 +609,10 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	// its single-press meaning (climb). The takeoff press is handled on the ground and never opens the window.
 	if (I.bJumpPressed)
 	{
-		if (JumpTapT <= double(DoubleTapTime) && Sub != NF_slam) { StartDive(T); JumpTapT = 99.0; }
+		// owner request 2026-10-16 (always floating): Space near the floor is a climb; a double tap there (under DiveMinHeightM of room)
+		// keeps climbing instead of slamming straight back into the surface he floats over
+		const bool bRoom = !bAlwaysFloat || FloatGap >= double(DiveMinHeightM);
+		if (JumpTapT <= double(DoubleTapTime) && Sub != NF_slam && bRoom) { StartDive(T); JumpTapT = 99.0; }
 		else JumpTapT = 0.0;
 	}
 	// owner feedback #1: Shift / L3 from fly or hover (any airborne flight sub but the slam) = the sonic-boom super boost: charge first
@@ -599,7 +725,32 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	{ // hover: stick strafes on the camera's ground plane, Space / C climb; a fast arrival glides down instead of stopping dead
 		double ClimbV = Climb * double(VertSpeed);
 		double DescCap = -1.0;   // m/s: fastest descent allowed at this height (-1 = no floor found)
-		if (Climb < 0.0)
+		bool bFloatZ = false;    // owner request 2026-10-16: the float sets the vertical speed (FloatVz) instead of ClimbV
+		double FloatVz = 0.0;
+		if (bAlwaysFloat)
+		{ // owner request 2026-10-16 ("always floating"): near a surface he floats FloatHeightM over it. Below that height (after a landing
+		  // hold, a step up, a touch) he rises to it; descend held settles onto it (constant deceleration far off, exponential close in: no
+		  // touchdown); hands-off within FloatCatchM he settles onto it as well (faded in over the top 0.4 m of the band so it never jerks).
+		  // Space always climbs. Higher up / past a roof edge the hover holds its altitude as before.
+			const double FeetZ = S.Pos.Z - UWebTraversalComponent::H;
+			const double Fl = FloatSurface(T, H);
+			if (Fl > -999.0)
+			{
+				const double Hf = FMath::Max(0.05, double(FloatHeightM));
+				const double Gap = FeetZ - Fl, E = Gap - Hf;   // E > 0: above the float height
+				const double A = FMath::Max(0.1, double(TouchdownDecel));
+				auto Settle = [&](double Ee) { return FMath::Min3(double(VertSpeed), FMath::Sqrt(2.0 * A * Ee), FMath::Max(0.1, double(FloatDownK)) * Ee); };
+				if (E < 0.0 && Climb <= 0.0) { bFloatZ = true; FloatVz = FMath::Min(double(FloatRiseMax), FMath::Max(0.1, double(FloatUpK)) * -E); }
+				else if (E >= 0.0 && Climb < 0.0) { bFloatZ = true; FloatVz = -Settle(E); }
+				else if (E >= 0.0 && Climb == 0.0)
+				{
+					const double Cm = FMath::Max(Hf + 0.5, double(FloatCatchM));
+					const double Wc = 1.0 - FlSmooth(Gap, Cm - 0.4, Cm);
+					if (Wc > 0.0) { bFloatZ = true; FloatVz = -Wc * Settle(E); }
+				}
+			}
+		}
+		else if (Climb < 0.0)
 		{ // critic r2 (fl01 / fl13: "gentle" touchdowns stopped from 10 m/s in one frame): the descent eases out over the last 4 m
 			// critic r2 / r3 replay (fl13: the linear ease still met the floor at ~5 m/s -- the 4/s velocity damp lagged its target): the
 			// descent follows a constant-deceleration profile to TouchdownV at the floor, and the damped velocity is capped by it below
@@ -614,8 +765,10 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 		}
 		const FVector Want = (FwdF * I.Move.Y + RightF * I.Move.X) * double(HoverSpeed) + FlUp * ClimbV;
 		const double Rate = Sp > HoverSpeed * 1.5 ? HoverGlideRate : HoverRate;
+		const double Vz0 = V.Z;
 		V = FlDampV(V, Want, Rate, H);
 		if (DescCap >= 0.0 && V.Z < -DescCap) V.Z = -DescCap;
+		if (bFloatZ) V.Z = FlDamp(Vz0, FloatVz, FMath::Max(1.0, double(FloatVzRate)), H);
 		SetFlySub(T, NF_hover);
 	}
 	// (owner feedback #1: the speed-crossing sonic boom is gone -- the boom fires only at a super launch, SuperLaunch)
@@ -664,7 +817,8 @@ void UWHFlightComponent::StartDive(UWebTraversalComponent& T)
 	auto& S = T.S;
 	if (SuperState != ESuper::None) EndSuper(true);
 	const double FeetZ = S.Pos.Z - UWebTraversalComponent::H;
-	const double Fl = T.TravWorld.GroundHeight(S.Pos.X, S.Pos.Y, FeetZ + 0.6);
+	// (owner request 2026-10-16: with the float, the height is taken to the surface the flight sweep will land on, e.g. an unindexed roof)
+	const double Fl = bAlwaysFloat ? SurfaceUnder(T, 1000.0) : T.TravWorld.GroundHeight(S.Pos.X, S.Pos.Y, FeetZ + 0.6);
 	const double Hh = Fl > -999.0 ? FMath::Max(0.0, FeetZ - Fl) : 0.0;
 	const double Td = FMath::Max(0.5, double(DiveTime));
 	DiveAccelNow = FMath::Max(double(DiveAccel), 2.0 * Hh / (Td * Td));
@@ -694,7 +848,8 @@ FQuat UWHFlightComponent::FlightOrient(UWebTraversalComponent& T, double Dt, con
 	const double CamYaw = T.Cam ? T.Cam->Yaw : S.Facing;
 	const bool bCharge = SuperState == ESuper::Charge;
 	if (!bHoverYawInit) { HoverYaw = S.Facing; bHoverYawInit = true; }
-	if (bCharge) HoverYaw = HoverYaw + FlAngWrap(AimYaw - HoverYaw) * (1.0 - FMath::Exp(-10.0 * Dt)); // owner feedback #1: he turns to the launch line
+	if (bLandHold) {}   // owner request 2026-10-16: the airborne hero-landing hold keeps the heading he landed with
+	else if (bCharge) HoverYaw = HoverYaw + FlAngWrap(AimYaw - HoverYaw) * (1.0 - FMath::Exp(-10.0 * Dt)); // owner feedback #1: he turns to the launch line
 	else if (FlyK > 0.5 && HS > 4.0) HoverYaw = VelYaw; // coming out of a fly line the hover keeps the travel heading
 	else HoverYaw = HoverYaw + FlAngWrap(CamYaw - HoverYaw) * (1.0 - FMath::Exp(-6.0 * Dt));
 	const double Lean = FMath::DegreesToRadians(double(HoverLeanDeg));
@@ -734,6 +889,23 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 {
 	auto& S = T.S;
 	T.LastInput = I;
+	if (!bFloatInit)
+	{ // owner request 2026-10-16: -WHFloat=0 = the r6 ground mode (A/B)
+		bFloatInit = true;
+		int32 V = 1;
+		if (FParse::Value(FCommandLine::Get(), TEXT("-WHFloat="), V)) bAlwaysFloat = V != 0;
+		UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT float mode %s (height %.2f m, land hold %.2f s)"), bAlwaysFloat ? TEXT("on") : TEXT("off"), double(FloatHeightM), double(LandHoldTime));
+	}
+	// owner request 2026-10-16: through the hero-landing hold the stick / buttons do nothing (the camera still looks around); a Space / fly
+	// press is kept for the hold's cancel
+	bool bHoldCancelPress = false;
+	if (bLandHold)
+	{
+		bHoldCancelPress = I.bJumpPressed || I.bSwingPressed;
+		const FVector2D LookKeep = I.Look;
+		I = FWebTravInput();
+		I.Look = LookKeep;
+	}
 	S.SubT += Dt; S.ModeT += Dt; S.Clock += Dt;
 	SubT += Dt; FlightT += Dt;
 	DashCd -= Dt; BreachCd -= Dt;
@@ -807,11 +979,18 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 		S.Kin.Type = UWebTraversalComponent::EKin::None;
 		Sub = NF_hover; SubT = 0.0;
 	}
+	// owner request 2026-10-16: a teleport / reset (anything that changed the mode or sub) ends a landing hold
+	if (bLandHold && (S.Mode != EWebTravMode::Air || S.Sub != NF_landHero)) { bLandHold = false; S.LandLock = 0.0; }
+	// owner request 2026-10-16 ("always floating"): flight never runs the traversal ground mode -- a spawn / teleport onto the floor (or any
+	// other path into it) becomes the float, which rises to FloatHeightM over the surface
+	if (bAlwaysFloat && !bLandHold && (S.Mode == EWebTravMode::Ground || S.Mode == EWebTravMode::Land) && S.Kin.Type == UWebTraversalComponent::EKin::None)
+		EnterFloat(T, S.Mode == EWebTravMode::Land ? TEXT("land mode") : TEXT("ground mode"));
 	const int32 NSteps = FMath::Max(1, FMath::CeilToInt(Dt / (1.0 / 120.0) - 1e-6));
 	const double Hs = Dt / NSteps;
 	for (int32 K = 0; K < NSteps; ++K)
 	{
 		if (bBreach) StepBreach(T, Hs);
+		else if (bLandHold) StepLandHold(T, Hs, bHoldCancelPress && K == 0);   // owner request 2026-10-16: airborne hero-landing hold
 		else if (S.Mode == EWebTravMode::Ground)
 		{
 			const bool bLocked = S.Sub == NF_landHero ? S.LandLock > 0.0 || S.SubT < 0.45 : S.LandLock > 0.0;
@@ -846,6 +1025,9 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 	}
 	SpeedM = S.Vel.Size();
 	S.bGrounded = S.Mode == EWebTravMode::Ground;
+	// owner request 2026-10-16: the surface under him this frame (anim time-to-impact, double-tap room, telemetry) and the float gap
+	SurfBelowZ = SurfaceUnder(T, 400.0);
+	FloatGap = SurfBelowZ > -999.0 ? FMath::Max(0.0, S.Pos.Z - UWebTraversalComponent::H - SurfBelowZ) : 99.0;
 	S.bDive = false; S.bGliding = false; S.bSky = false; S.bFlowFlip = false; S.ArmedFlip = NAME_None; S.Trick = NAME_None;
 	S.Q.bActive = false;
 	// flyover: people below look up (only within FlyoverMaxH of the street, and only when moving)
