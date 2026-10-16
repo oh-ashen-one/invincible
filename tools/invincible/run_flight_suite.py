@@ -26,6 +26,7 @@ PRE = 1.5
 
 ap = argparse.ArgumentParser()
 ap.add_argument('tag'); ap.add_argument('--sim', action='store_true'); ap.add_argument('--cases')
+ap.add_argument('--realtime', type=int, default=0, help='owner 2026-10-16 (landing camera seizure only in live play): real variable frame time capped at N fps instead of the fixed 1/60 s step')
 ap.add_argument('--scratch', default=str(Path.home() / 'sm2-invincible-cache'))
 ap.add_argument('--game-arg', action='append', default=[]); ap.add_argument('--keep-frames', action='store_true')
 ap.add_argument('--timeout', type=int, default=1500)
@@ -60,12 +61,12 @@ def run_case(name):
     quit_t = m['quit'] + (0 if a.sim else PRE) + 5.0   # the quit clock counts map-load time and breach slow-mo the script clock does not
     args = [str(UE), str(UE_DIR / 'WebHomage.uproject'), MAP, '-game', '-NoCrashReports', '-NoSound', '-NoVSync', '-notraceserver',
             '-WHNoMouseCapture', '-WHShotDir=%s' % d, '-WHShotName=%s' % name, '-abslog=%s' % (d / (name + '.log')),
-            '-WHTravScript=%s' % script, '-WHTravCsv=%s' % csv_path, '-benchmark', '-fps=60', '-WHSuit=invincible',
+            '-WHTravScript=%s' % script, '-WHTravCsv=%s' % csv_path, *([] if a.realtime else ['-benchmark', '-fps=60']), '-WHSuit=invincible',
             '-WHQuitAt=%.2f' % quit_t]
     if '-WHRescue=1' not in m['args']:
         args.append('-WHRescue=0')
     if a.sim:
-        args += ['-nullrhi', '-ResX=640', '-ResY=360', '-ExecCmds=t.MaxFPS 240']
+        args += ['-nullrhi', '-ResX=640', '-ResY=360', '-ExecCmds=t.MaxFPS %d' % (a.realtime or 240)]
     else:
         for f in SHOTS.glob('MovieFrame*.png'): f.unlink()
         args += ['-ResX=1920', '-ResY=1080', '-ForceRes', '-RenderOffScreen', '-UserDir=%s/' % USER, '-WHProfile=playable', '-WHResScale=100',

@@ -274,11 +274,24 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	SD(HeightOff, HeightOffV, WantH, 0.5, Dt);
 	SD(SideOff, SideOffV, WantSide, 0.6, Dt);
 	// FOV punch / dip springs
-	PunchV += (-Punch * 140.0 - PunchV * 16.0) * Dt; Punch += PunchV * Dt;
-	DipV += (-Dip * 90.0 - DipV * 13.0) * Dt; Dip += DipV * Dt;
+	{ // owner 2026-10-16 ("when you land there's still that crazy camera glitch with the seizures", live play only): these springs were
+	  // stepped once per frame -- stable at a steady 60 fps, but a hitch frame (the crater / dust spawn of a hero landing) pushed
+	  // damping * dt past 2 and they blew up into an up-down oscillation. Fixed substeps of <= 1/240 s keep them stable at any frame time.
+		const int32 NSub = FMath::Clamp(FMath::CeilToInt(Dt * 240.0), 1, 240);
+		const double h = Dt / NSub;
+		for (int32 k = 0; k < NSub; ++k)
+		{
+			PunchV += (-Punch * 140.0 - PunchV * 16.0) * h; Punch += PunchV * h;
+			DipV += (-Dip * 90.0 - DipV * 13.0) * h; Dip += DipV * h;
+		}
+	}
 	SD(Fov, FovV, WantFov, 0.4, Dt);   // round 11: 0.7 -> 0.4 s (see above)
 	// launch kick spring
-	KickV += (-KickK * 55.0 - KickV * 11.0) * Dt; KickK += KickV * Dt;
+	{ // (same hitch-frame instability as the punch / dip springs above: substepped)
+		const int32 NSub = FMath::Clamp(FMath::CeilToInt(Dt * 240.0), 1, 240);
+		const double h = Dt / NSub;
+		for (int32 k = 0; k < NSub; ++k) { KickV += (-KickK * 55.0 - KickV * 11.0) * h; KickK += KickV * h; }
+	}
 	// owner feedback 2026-10-15 #1 / #3 (flight only, 0 for the legacy hero): the speed / super FOV term eases in over ~0.3 s, the sonic-boom FOV
 	// punch springs back over ~0.35 s, the launch hang counts down
 	SD(FlightFxFovS, FlightFxFovV, FMath::Max(0.0, FlightFxFov), FlightFxFov > FlightFxFovS ? 0.3 : 0.5, Dt);

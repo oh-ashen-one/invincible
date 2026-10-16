@@ -50,8 +50,8 @@ public:
 	void OnFlightEvents(const TArray<FWebTravEvent>& Events);
 
 	// critic r2 (breaches: "at least 20 debris chunks", mixed sizes): more, smaller pieces; the pool grew with them
-	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxChunks = 240;
-	UPROPERTY(EditAnywhere, Category="Destruction") int32 ChunksPerBreach = 44;
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxChunks = 96;    // owner 2026-10-16 (breach lag): 240 live Chaos-simulated chunks hitched the frame
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 ChunksPerBreach = 24;   // (owner 2026-10-16 breach lag; was 44)
 	UPROPERTY(EditAnywhere, Category="Destruction") int32 ChunksPerCrater = 16;
 	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxShards = 120;
 	UPROPERTY(EditAnywhere, Category="Destruction") int32 ShardsPerBreach = 26;
@@ -65,7 +65,7 @@ public:
 	UPROPERTY(EditAnywhere, Category="Destruction") float FacadeChunkFraction = 0.5f;   // r3: share of debris pieces that wear the traced facade material (-WHFacadeChunks=)
 	UPROPERTY(EditAnywhere, Category="Destruction") float HoleHalfCm = 400.f;      // r3: half size of the opening decal box (the opening is ~39 % of it: ~3.1 m across at severity 0, ~3.7 m at 1)
 	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxGcActors = 4;
-	UPROPERTY(EditAnywhere, Category="Destruction") float SlowMoScale = 0.3f;      // global time dilation at the breach exit cut
+	UPROPERTY(EditAnywhere, Category="Destruction") float SlowMoScale = 1.0f;      // global time dilation at the breach exit cut (owner 2026-10-16: the 0.3x beat read as LAG when flying through buildings -> off; 0.3 was the r1 look)
 	/** The pawn's camera cut to the breach exit: start the slow-mo beat. */
 	void CutSlowMo();
 	UPROPERTY(EditAnywhere, Category="Destruction") float SlowMoReal = 0.32f;      // real seconds at that scale (then eased back over 0.2 s)
