@@ -180,7 +180,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float LandHoldTime = 1.3f;      // s: the hero landing holds still (AS_LandHero) before the rise
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float LandHoldCancelT = 0.9f;   // s: Space / fly press may end the hold after this
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float TouchKeepH = 0.6f;        // share of the horizontal speed a non-hero floor touch keeps
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float DiveMinHeightM = 2.5f;    // the double-tap dive needs this much room below (lower: the second tap climbs)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float DiveMinHeightM = 2.5f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float SkimLiftM = 0.9f;        // r8 render fl12: a fly line skimming the street holds this much extra height (the prone body slid on the asphalt)    // the double-tap dive needs this much room below (lower: the second tap climbs)
 
 	bool IsFlightOn() const { return bFlightOn; }
 	// owner request 2026-10-16 (always floating): state read by the v2 anim instance / telemetry

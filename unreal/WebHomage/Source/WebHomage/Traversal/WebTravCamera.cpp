@@ -296,7 +296,11 @@ void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTrav
 		if (LensLiftTopZ > Lens.Z + 0.005)
 		{
 			const FVector Lift(Lens.X, Lens.Y, LensLiftTopZ);
-			if (!Blocked(Lift)) { Lens = Lift; LensGuardFlags |= 32; }
+			// (r8 render fl12: lifted over a box truck the lens looked down at the truck roof with the hero hidden beside / below it for 35
+			//  frames -- lift only when the lifted spot can SEE his chest; otherwise the r7 pull-in below brings the lens in front of the car)
+			bool bSees = true;
+			for (const FBox& B : Boxes) { double Tt = 0.0; if (SegBoxEntry(B.ExpandBy(0.05), Lift, Chest, Tt) && Tt > 0.02 && Tt < 0.98) { bSees = false; break; } }
+			if (bSees && !Blocked(Lift)) { Lens = Lift; LensGuardFlags |= 32; }
 			else LensLiftTopZ = -1e9;   // (a solid over the car: the r7 pull-in below handles it)
 		}
 		else if (GoalTop < -1e8 && LensLiftTopZ < Lens.Z - 2.0) LensLiftTopZ = -1e9;   // released past the lens: idle

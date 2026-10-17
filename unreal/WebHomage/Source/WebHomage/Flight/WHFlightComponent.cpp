@@ -488,7 +488,7 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 			if (!bSkim && (Sub == NF_slam || Impact > SoftLandSpeed || bDropLand)) { HeroLand(T, FloorZ, FMath::Max(Impact, Sub == NF_slam ? Sp : 0.0), Sub == NF_slam); return true; }
 			S.Pos.Z = FMath::Max(S.Pos.Z, FloorZ + UWebTraversalComponent::H);
 			if (S.Vel.Z < 0) S.Vel.Z = 0;
-			if (bSkim) SkimFloor(T, Impact, HitPos);
+			if (bSkim) { SkimFloor(T, Impact, HitPos); S.Pos.Z = FMath::Max(S.Pos.Z, FloorZ + UWebTraversalComponent::H + double(SkimLiftM)); }   // r8 render fl12: the prone fly line slid ON the asphalt
 			if (bAlwaysFloat) { FloatFloorZ = FMath::Max(bFloatFloorValid ? FloatFloorZ : -1000.0, FloorZ); bFloatFloorValid = true; }
 		}
 		else
@@ -544,7 +544,7 @@ bool UWHFlightComponent::MoveAndCollide(UWebTraversalComponent& T, double H, con
 		if (!bSkim && (Sub == NF_slam || Impact > SoftLandSpeed || bDropLand)) { HeroLand(T, Floor, FMath::Max(Impact, Sub == NF_slam ? Sp : 0.0), Sub == NF_slam); return true; }
 		S.Pos.Z = Floor + UWebTraversalComponent::H;
 		if (S.Vel.Z < 0) S.Vel.Z = 0;
-		if (bSkim) SkimFloor(T, Impact, FVector(S.Pos.X, S.Pos.Y, Floor));
+		if (bSkim) { SkimFloor(T, Impact, FVector(S.Pos.X, S.Pos.Y, Floor)); S.Pos.Z = FMath::Max(S.Pos.Z, Floor + UWebTraversalComponent::H + double(SkimLiftM)); }
 	}
 	// critic r2 (fl13 touchdown): the snap-down band 0.35 -> 0.05 m (at the capped descent a 0.35 m snap started from ~3.2 m/s and moved the
 	// body 0.35 m in one step; the feet-under-floor branch above now makes the contact at ~TouchdownV)

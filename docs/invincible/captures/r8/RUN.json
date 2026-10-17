@@ -1,0 +1,190 @@
+{
+ "tag": "r8",
+ "mode": "render-1080p-fixed60",
+ "source_head": "267924e2",
+ "source_dirty": false,
+ "map": "/Game/Showcase/Maps/Manhattan_Island",
+ "game_args": [],
+ "cases": [
+  {
+   "case": "fl01_takeoff_hover",
+   "rc": 0,
+   "wall_s": 137.7,
+   "rows": 1019,
+   "frames_rendered": 1111,
+   "preroll_cut": 92,
+   "frames_kept": 721,
+   "mp4_mb": 13.06
+  },
+  {
+   "case": "fl02_takeoff_to_fly",
+   "rc": 0,
+   "wall_s": 133.6,
+   "rows": 899,
+   "frames_rendered": 991,
+   "preroll_cut": 92,
+   "frames_kept": 601,
+   "mp4_mb": 11.76
+  },
+  {
+   "case": "fl03_cruise_hands_off",
+   "rc": 0,
+   "wall_s": 136.6,
+   "rows": 899,
+   "frames_rendered": 991,
+   "preroll_cut": 92,
+   "frames_kept": 601,
+   "mp4_mb": 11.12
+  },
+  {
+   "case": "fl04_boost_sonic",
+   "rc": 0,
+   "wall_s": 141.6,
+   "rows": 1019,
+   "frames_rendered": 1111,
+   "preroll_cut": 92,
+   "frames_kept": 721,
+   "mp4_mb": 14.42
+  },
+  {
+   "case": "fl05_bank_turns",
+   "rc": 0,
+   "wall_s": 140.4,
+   "rows": 1019,
+   "frames_rendered": 1111,
+   "preroll_cut": 92,
+   "frames_kept": 721,
+   "mp4_mb": 8.46
+  },
+  {
+   "case": "fl06_look_steer",
+   "rc": 0,
+   "wall_s": 131.0,
+   "rows": 899,
+   "frames_rendered": 991,
+   "preroll_cut": 92,
+   "frames_kept": 601,
+   "mp4_mb": 10.53
+  },
+  {
+   "case": "fl07_climb_dive_keys",
+   "rc": 0,
+   "wall_s": 158.2,
+   "rows": 899,
+   "frames_rendered": 991,
+   "preroll_cut": 92,
+   "frames_kept": 601,
+   "mp4_mb": 10.69
+  },
+  {
+   "case": "fl08_brake",
+   "rc": 0,
+   "wall_s": 129.0,
+   "rows": 779,
+   "frames_rendered": 871,
+   "preroll_cut": 92,
+   "frames_kept": 481,
+   "mp4_mb": 5.79
+  },
+  {
+   "case": "fl09_dash",
+   "rc": 0,
+   "wall_s": 123.7,
+   "rows": 779,
+   "frames_rendered": 871,
+   "preroll_cut": 92,
+   "frames_kept": 481,
+   "mp4_mb": 6.99
+  },
+  {
+   "case": "fl10_slow_flight",
+   "rc": 0,
+   "wall_s": 120.7,
+   "rows": 779,
+   "frames_rendered": 871,
+   "preroll_cut": 92,
+   "frames_kept": 481,
+   "mp4_mb": 8.88
+  },
+  {
+   "case": "fl11_slam_crater",
+   "rc": 0,
+   "wall_s": 111.3,
+   "rows": 719,
+   "frames_rendered": 811,
+   "preroll_cut": 92,
+   "frames_kept": 421,
+   "mp4_mb": 4.82
+  },
+  {
+   "case": "fl12_fast_land",
+   "rc": 0,
+   "wall_s": 118.0,
+   "rows": 779,
+   "frames_rendered": 871,
+   "preroll_cut": 92,
+   "frames_kept": 481,
+   "mp4_mb": 11.13
+  },
+  {
+   "case": "fl18_roof_hero_land",
+   "rc": 0,
+   "wall_s": 134.9,
+   "rows": 899,
+   "frames_rendered": 991,
+   "preroll_cut": 92,
+   "frames_kept": 601,
+   "mp4_mb": 5.57
+  },
+  {
+   "case": "fl13_soft_land_walk",
+   "rc": 0,
+   "wall_s": 141.2,
+   "rows": 959,
+   "frames_rendered": 1051,
+   "preroll_cut": 92,
+   "frames_kept": 661,
+   "mp4_mb": 10.39
+  },
+  {
+   "case": "fl14_breach_cruise",
+   "rc": 0,
+   "wall_s": 125.8,
+   "rows": 779,
+   "frames_rendered": 871,
+   "preroll_cut": 92,
+   "frames_kept": 481,
+   "mp4_mb": 9.89
+  },
+  {
+   "case": "fl15_breach_boost",
+   "rc": 0,
+   "wall_s": 133.7,
+   "rows": 899,
+   "frames_rendered": 991,
+   "preroll_cut": 92,
+   "frames_kept": 601,
+   "mp4_mb": 15.54
+  },
+  {
+   "case": "fl16_slow_facade_slide",
+   "rc": 0,
+   "wall_s": 126.6,
+   "rows": 779,
+   "frames_rendered": 871,
+   "preroll_cut": 92,
+   "frames_kept": 481,
+   "mp4_mb": 14.08
+  },
+  {
+   "case": "fl17_rescue_crane",
+   "rc": 0,
+   "wall_s": 301.6,
+   "rows": 2477,
+   "frames_rendered": 2569,
+   "preroll_cut": 92,
+   "frames_kept": 2179,
+   "mp4_mb": 30.66
+  }
+ ]
+}
