@@ -10,6 +10,8 @@
 #include "UObject/UnrealType.h"
 #include "Engine/World.h"
 #include "GameFramework/WorldSettings.h"
+#include "EngineUtils.h"
+#include "Life/WHLifeTraffic.h"   // critic r6 #5: vehicle boxes for the camera lens guard
 
 namespace
 {
@@ -284,6 +286,14 @@ bool UWHFlightComponent::StartBreach(UWebTraversalComponent& T, const FVector& H
 	// the kept speed
 	// (critic r5 #3: the time bound's floor 0.1 -> 0.02 s so BreachMaxTime 0.06 applies)
 	BreachV = FMath::Max(BreachExitV, BreachLen / FMath::Max(0.02, double(BreachMaxTime)));
+	// critic r6 #1 (fl14 / fl15: 17-26 m in 3-4 frames, the camera could only freeze and cut): the follow-through camera moves <= 3 m per
+	// frame, so the body never passes faster than BreachPassStepM per rendered frame (BreachPassMaxV at most, BreachSpeed at least)
+	if (BreachPassStepM > 0.f)
+	{
+		const double StepV = double(BreachPassStepM) / FMath::Max(1.0 / 240.0, LastFrameDt);
+		BreachV = FMath::Min(BreachV, FMath::Max(double(BreachSpeed), FMath::Min(double(BreachPassMaxV), StepV)));
+	}
+	ExitCapT = 0.0;
 	BreachExitN = Dir;
 	++BreachCount;
 	SetFlySub(T, NF_breach);
@@ -305,6 +315,13 @@ void UWHFlightComponent::StepBreach(UWebTraversalComponent& T, double H)
 	{
 		bBreach = false; BreachCd = BreachCooldown;
 		S.Vel = BreachDir * BreachExitV;
+		// critic r6 #1: the exit leaves at no more than the pass speed and holds that cap BreachExitHoldT s (the follow-through camera's
+		// <= 3 m per frame hand-back); the super / fly acceleration takes him back up afterwards
+		if (BreachPassStepM > 0.f && BreachExitV > BreachV)
+		{
+			S.Vel = BreachDir * BreachV;
+			ExitCapT = FMath::Max(0.0, double(BreachExitHoldT)); ExitCapV = BreachV;
+		}
 		Event(T, NF_breachOut, FMath::Clamp(float(BreachV / BoostSpeed), 0.f, 1.f), BreachB, BreachDir, float(BreachV));
 		if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(GetOwner()))
 			FW->PushStimulus(EWHCrowdStimulus::Impact, BreachB * 100.0, 4000.f, 1.f, 6.f, S.Vel * 100.0);
@@ -909,6 +926,7 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 	S.SubT += Dt; S.ModeT += Dt; S.Clock += Dt;
 	SubT += Dt; FlightT += Dt;
 	DashCd -= Dt; BreachCd -= Dt;
+	if (Dt > 1e-5) LastFrameDt = Dt;   // critic r6 #1: the breach pass speed cap is per rendered frame
 	BoomK = FMath::Max(0.0, BoomK - Dt / 0.6);
 	// owner feedback #1 / #2 clocks: super cooldown, the double-tap window, the launch impulse (anim LaunchK, 0.5 s)
 	SuperCd -= Dt; JumpTapT += Dt;
@@ -1008,6 +1026,13 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 		else
 		{
 			StepAirSub(T, Hs, I);
+			// critic r6 #1: post-exit speed hold (see BreachExitHoldT), applied before the move
+			if (ExitCapT > 0.0 && !bBreach)
+			{
+				ExitCapT -= Hs;
+				const double Sp = S.Vel.Size();
+				if (Sp > ExitCapV && Sp > 1e-3) S.Vel *= ExitCapV / Sp;
+			}
 			if (!bBreach) MoveAndCollide(T, Hs, I);
 		}
 		// safety net: never resolved inside a solid outside a breach -- carry on through it along the travel (or straight up)
@@ -1070,4 +1095,79 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 		if (St.ReleaseT < 0.f) St.ReleaseT = 0.f;
 		St.ReleaseT += float(Dt); if (St.ReleaseT > 0.42f) St.bActive = false;
 	}
+}
+
+// ---- critic r6 #5 (r7): queries for the camera's final lens guard (FWebTravCamera::GuardLens), flight mode only
+namespace
+{
+	// copy of WHLifeTraffic.cpp GTypes (length, width m) and GTypeH (roof m), same type order (taxi .. tour)
+	const float GLensCarLen[WHLife::NumTypes] = { 5.39f, 4.54f, 5.08f, 4.86f, 4.85f, 4.26f, 4.9f, 4.6f, 4.9f, 5.35f, 5.9f, 5.98f, 7.3f, 12.2f, 11.f };
+	const float GLensCarWid[WHLife::NumTypes] = { 1.99f, 1.76f, 1.99f, 1.84f, 1.84f, 1.79f, 1.85f, 1.86f, 1.95f, 2.03f, 2.03f, 2.06f, 2.3f, 2.55f, 2.55f };
+	const float GLensCarH[WHLife::NumTypes] = { 1.6f, 1.55f, 1.95f, 1.6f, 1.5f, 1.5f, 1.5f, 1.65f, 1.8f, 1.85f, 1.95f, 2.6f, 3.4f, 3.3f, 4.3f };
+}
+
+void UWHFlightComponent::GatherVehicleBoxes(const FVector& NearM, double RadiusM, TArray<FBox>& Out) const
+{
+	Out.Reset();
+	UWorld* W = GetWorld();
+	if (!W) return;
+	AWHLifeTraffic* Tr = TrafficRef.Get();
+	if (!Tr && W->GetTimeSeconds() - TrafficLookT > 2.0)
+	{
+		TrafficLookT = W->GetTimeSeconds();
+		{ TActorIterator<AWHLifeTraffic> It(W); if (It) Tr = *It; }   // first traffic actor (a for+break trips -Wunreachable-code-loop-increment)
+		TrafficRef = Tr;
+	}
+	if (!Tr) return;
+	TArray<FVector> Mv, Pk, MvPos; TArray<int32> MvT, PkT, Lane; TArray<float> Spd;
+	Tr->GetPoints(Mv, MvT, Pk, PkT);
+	Tr->GetMovingInfo(MvPos, Spd, Lane);   // same car order as GetPoints (both walk the active cars)
+	const double R2 = FMath::Square(RadiusM + 7.0);
+	auto Add = [&Out](const FVector& C, double HalfX, double HalfY, double Roof)
+	{
+		// the centres sit 0.8 m over the street (AWHLifeTraffic::GetPoints)
+		const double Z0 = C.Z - 0.9, Z1 = C.Z - 0.8 + Roof + 0.1;
+		Out.Add(FBox(FVector(C.X - HalfX, C.Y - HalfY, Z0), FVector(C.X + HalfX, C.Y + HalfY, Z1)));
+	};
+	for (int32 I = 0; I < Mv.Num(); ++I)
+	{
+		const FVector C = Mv[I] / 100.0;
+		if (FVector2D(C.X - NearM.X, C.Y - NearM.Y).SizeSquared() > R2) continue;
+		const int32 Ty = FMath::Clamp(MvT[I], 0, WHLife::NumTypes - 1);
+		const double HL = 0.5 * GLensCarLen[Ty] + 0.35, HW = 0.5 * GLensCarWid[Ty] + 0.2;   // + the frame of motion / lane offset
+		const int32 Dir = Lane.IsValidIndex(I) ? Lane[I] % 10 : 0;   // 1 N / 2 S (along Y), 3 E / 4 W (along X)
+		if (Dir == 3 || Dir == 4) Add(C, HL, HW, GLensCarH[Ty]);
+		else if (Dir == 1 || Dir == 2) Add(C, HW, HL, GLensCarH[Ty]);
+		else { Add(C, HL, HW, GLensCarH[Ty]); Add(C, HW, HL, GLensCarH[Ty]); }
+	}
+	for (int32 I = 0; I < Pk.Num(); ++I)
+	{
+		const FVector C = Pk[I] / 100.0;
+		if (FVector2D(C.X - NearM.X, C.Y - NearM.Y).SizeSquared() > R2) continue;
+		const int32 Ty = FMath::Clamp(PkT.IsValidIndex(I) ? PkT[I] : 0, 0, WHLife::NumTypes - 1);
+		const double HL = 0.5 * GLensCarLen[Ty] + 0.1, HW = 0.5 * GLensCarWid[Ty] + 0.1;
+		// parked yaw is not exposed: both axes (the union holds the real body)
+		Add(C, HL, HW, GLensCarH[Ty]); Add(C, HW, HL, GLensCarH[Ty]);
+	}
+}
+
+bool UWHFlightComponent::LensOverlapExt(const FVector& PM, double RM, const AActor* Ignore) const
+{
+	UWorld* W = GetWorld();
+	if (!W) return false;
+	FCollisionQueryParams Q(SCENE_QUERY_STAT(WHLensGuard), false, GetOwner());
+	if (Ignore) Q.AddIgnoredActor(Ignore);
+	return W->OverlapAnyTestByChannel(PM * 100.0, FQuat::Identity, ECC_Visibility, FCollisionShape::MakeSphere(float(RM * 100.0)), Q);
+}
+
+bool UWHFlightComponent::LensSweepExt(const FVector& AM, const FVector& BM, double RM, const AActor* Ignore, double& OutDistM) const
+{
+	UWorld* W = GetWorld();
+	if (!W) return false;
+	FCollisionQueryParams Q(SCENE_QUERY_STAT(WHLensGuard), false, GetOwner());
+	if (Ignore) Q.AddIgnoredActor(Ignore);
+	FHitResult H;
+	if (!W->SweepSingleByChannel(H, AM * 100.0, BM * 100.0, FQuat::Identity, ECC_Visibility, FCollisionShape::MakeSphere(float(RM * 100.0)), Q)) return false;
+	OutDistM = H.bStartPenetrating ? 0.0 : H.Distance / 100.0;
+	return true;
 }

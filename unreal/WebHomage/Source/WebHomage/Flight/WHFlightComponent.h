@@ -33,6 +33,7 @@
 #include "WHFlightComponent.generated.h"
 
 class UWebTraversalComponent;
+class AWHLifeTraffic;   // critic r6 #5 (camera lens guard: vehicle boxes)
 
 /** Owner feedback 2026-10-15 #1: phases of the sonic-boom super boost (plain C++ enum, not reflected). */
 enum class EWHSuperPhase : uint8 { None, Charge, Run, Decel };
@@ -84,7 +85,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachKeep = 0.8f;     // speed kept through a building
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxDepth = 80.f; // m: deeper solids are not breached (slide instead)
 	// critic r5 #3 (hidden 12-24 frames per breach): 0.3 -> 0.06 s, ~4 frames at 60 fps (the pass is a punch-through; the camera holds on the hole)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxTime = 0.06f; // s: longest pass through a solid (the hero is hidden in it)
+	// critic r6 #1 (r7, breach jump cut): the camera now follows him THROUGH the solid at <= 3 m per frame, so the pass speed is bounded by
+	// BreachPassStepM per rendered frame (156 m/s at 60 fps) and the time bound is 0.14 s (a 20 m block ~8 frames, never slow-mo: world time is 1)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachMaxTime = 0.14f; // s: pass time target (speed raised up to the cap below)
+	// critic r6 #1: the pass (and the first BreachExitHoldT s after the exit) never moves the body more than this per rendered frame (m; 0 = r6)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachPassStepM = 2.6f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachPassMaxV = 240.f; // m/s ceiling of that cap at high frame rates
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachExitHoldT = 0.2f; // s after the exit the speed stays at the pass cap
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float BreachCooldown = 0.25f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float PunchPinTime = 0.3f;  // s of fly held head-on against a facade before punching through
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float HeroLandMinSpeed = 30.f; // impact speed for a crater landing
@@ -195,6 +202,13 @@ public:
 	int32 BoomCount = 0, BreachCount = 0, HeroLandCount = 0, DashCount = 0, BrakeCount = 0;
 	int32 SuperCount = 0, DiveCount = 0;   // owner feedback #1 / #2
 	bool IsBreaching() const { return bBreach; }
+	FVector BreachDirection() const { return BreachDir; }   // critic r6 #1: the pass direction (unit) for the follow-through camera
+	// critic r6 #5 (camera lens guard, flight mode): the traffic vehicles (moving + parked, AWHLifeTraffic) whose centre lies within RadiusM
+	// (horizontal) of NearM, as world boxes in metres (axis-aligned: moving cars along their lane axis, parked cars as the union of both axes)
+	void GatherVehicleBoxes(const FVector& NearM, double RadiusM, TArray<FBox>& Out) const;
+	// critic r6 #5: render-collision lens queries on the visibility channel (metres), ignoring the hero (owner) and Ignore
+	bool LensOverlapExt(const FVector& PM, double RM, const AActor* Ignore) const;
+	bool LensSweepExt(const FVector& AM, const FVector& BM, double RM, const AActor* Ignore, double& OutDistM) const;
 	// owner feedback #1 / #3: state the pawn pushes to the camera / breach director each frame
 	bool IsAttitude() const { return bAttitude; }              // look input steers the nose; the camera chases the hero's heading
 	double CameraYawGoal() const { return CamYawGoal; }        // rad: heading the camera chases (travel + CamLeadK x nose lead)
@@ -263,6 +277,11 @@ private:
 	FVector BreachA = FVector::ZeroVector, BreachB = FVector::ZeroVector, BreachDir = FVector::ForwardVector;
 	double BreachLen = 0.0, BreachS = 0.0, BreachV = 0.0, BreachExitV = 0.0, PinT = 0.0;
 	FVector BreachExitN = FVector::ForwardVector;
+	// critic r6 #1: last rendered frame time (pass speed cap), and the post-exit speed hold (s left, m/s)
+	double LastFrameDt = 1.0 / 60.0, ExitCapT = 0.0, ExitCapV = 0.0;
+	// critic r6 #5: the traffic actor for GatherVehicleBoxes (looked up again at most every 2 s while missing)
+	mutable TWeakObjectPtr<AWHLifeTraffic> TrafficRef;
+	mutable double TrafficLookT = -100.0;
 	// orientation springs
 	double Bank = 0.0, Pitch = 0.0, RollS = 0.0, LastVelYaw = 0.0, FlyK = 0.0, HoverYaw = 0.0;
 	bool bHaveVelYaw = false, bHoverYawInit = false;

@@ -25,6 +25,14 @@ class UMaterialInterface;
 class UMaterialInstanceDynamic;
 class UWHFlightWorldSubsystem;
 
+/** r7 (critic r6 #2, fl17 "the hero merges into the taxi door"): a street vehicle (AWHLifeTraffic ISM instance; they have no collision, so
+ *  traces miss them) as a vertical oriented box: centre / unit X, Y axes in the ground plane (cm), half extents, z span (cm). */
+struct FWHVehicleBox
+{
+	FVector2D C = FVector2D::ZeroVector, AX = FVector2D(1.0, 0.0), AY = FVector2D(0.0, 1.0);
+	double HX = 0.0, HY = 0.0, ZMin = 0.0, ZMax = 0.0;
+};
+
 enum class EWHEmergencyType : uint8 { Fire, Crane, Bus };
 enum class EWHEmergencyState : uint8 { Active, Saved, Lost };
 
@@ -124,6 +132,19 @@ public:
 	/** r5 (critic r4 #6): set by the hero v2 anim instance (overhead carry). Then a load is caught from above only at CraneTouchAboveCm and
 	 *  the crane's lives count on the set-down instead of the catch. Unset (v1 hero, -WHHeroV2=0): the r4 rules, unchanged. */
 	void SetOverheadCarryHero(bool bOn) { bOverheadCarry = bOn; }
+	/** r7 (critic r6 #2): the v2 anim's visual offset of the hero mesh from the flight body (cm, world; the stand-clear step away from a
+	 *  vehicle). The set-down picks its spot around the hero as seen. */
+	void SetHeroVisualOffset(const FVector& OffsetCm) { HeroVisualOffsetCm = OffsetCm; }
+
+	/** r7 (critic r6 #2): street vehicles whose bounds reach within RadiusCm of CenterCm (all AWHLifeTraffic vehicle ISM instances; hidden
+	 *  pool instances skipped). Returns the count appended to Out. Static: the hero anim uses it without a rescue director. */
+	static int32 GatherVehicles(const UWorld* World, const FVector& CenterCm, double RadiusCm, TArray<FWHVehicleBox>& Out);
+	/** r7: the horizontal push (cm) that leaves ClearCm between a vertical body (radius RadiusCm, feet FeetCm .. + HeightCm) and every box
+	 *  overlapping its height; false if none is that close (OutPushCm zero). */
+	static bool VehicleClearPush(const TArray<FWHVehicleBox>& Boxes, const FVector& FeetCm, double HeightCm, double RadiusCm, double ClearCm, FVector& OutPushCm);
+	/** r7: true if the ground-plane rectangle (centre, unit axes, half extents; z span) comes within ClearCm of a box */
+	static bool VehicleNearRect(const TArray<FWHVehicleBox>& Boxes, const FVector2D& C, const FVector2D& AX, const FVector2D& AY, double HX, double HY,
+		double ZMin, double ZMax, double ClearCm);
 
 	// ---- tuning
 	float FireRangeCm = 1200.f;
@@ -147,6 +168,13 @@ public:
 	float SetDownSideGapCm = 100.f;  // gap between the hero's centre line (camera -> hero) and the load's inner face, beside him
 	float SetDownAheadCm = 150.f;    // load centre this far beyond the hero (plus half its depth) on the camera line
 	float CarryMaxOverheadS = 40.f;  // auto set-down after this long (r5: 10 s for every hero; a carried street descent from ~135 m takes ~15 s)
+	// r7 (critic r6 #2, fl17 catch "legs inside the container"; overhead-carry hero only): with the load's bottom face over his head top
+	// (+ CatchUnderClearCm) the reach is CraneTouchUnderCm; level with it (neither under nor over) only CraneTouchLevelCm
+	float HeroHeadTopCm = 90.f;      // hero head top over the flight body centre (1.85 m hero, centre 0.95 m over the feet)
+	float CatchUnderClearCm = 20.f;
+	float CraneTouchUnderCm = 650.f; // (sim simF3 route: under the load from ~15.85 s at 5.6 m, 6.5 m by ~15.99 s)
+	float CraneTouchLevelCm = 350.f;
+	float SetDownVehicleClearCm = 50.f;   // r7: the set-down footprint keeps this far from street vehicles
 
 private:
 	// ---- waves / sites
@@ -199,6 +227,7 @@ private:
 	FTransform CarryInMesh = FTransform::Identity;
 	double CarryAnchorT = -1.0;
 	bool bOverheadCarry = false;   // r5: see SetOverheadCarryHero
+	FVector HeroVisualOffsetCm = FVector::ZeroVector;   // r7: see SetHeroVisualOffset
 	UWHFlightWorldSubsystem* Sub() const;
 
 	bool bEnabled = true;

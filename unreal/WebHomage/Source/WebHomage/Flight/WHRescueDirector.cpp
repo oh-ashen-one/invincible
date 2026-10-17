@@ -1,7 +1,9 @@
 // Homage fan game. Not an official Marvel, Sony, Image Comics or Skybound game; no affiliation.
 #include "Flight/WHRescueDirector.h"
 #include "Flight/WHFlightWorld.h"
+#include "Life/WHLifeTraffic.h"
 #include "WebHomage.h"
+#include "Components/InstancedStaticMeshComponent.h"
 #include "Camera/PlayerCameraManager.h"
 #include "CollisionQueryParams.h"
 #include "Components/PointLightComponent.h"
@@ -152,6 +154,110 @@ bool AWHRescueDirector::TraceLine(const FVector& A, const FVector& B, FHitResult
 		AActor* HA = Hit.GetActor();
 		if (HA && HA->IsA<APawn>()) { Q.AddIgnoredActor(HA); continue; }   // the hero / pedestrians are not sites
 		return true;
+	}
+	return false;
+}
+
+// r7 (critic r6 #2): street vehicles near a point. AWHLifeTraffic draws moving / parked cars as collision-free ISM instances (one component
+// per vehicle type and pass); the pool's hidden instances sit at z -50 m with scale 0.001 and are skipped. Each instance -> its mesh bounds
+// box in world space (yaw + small pitch: the box is kept vertical).
+int32 AWHRescueDirector::GatherVehicles(const UWorld* World, const FVector& CenterCm, double RadiusCm, TArray<FWHVehicleBox>& Out)
+{
+	if (!World) return 0;
+	const int32 N0 = Out.Num();
+	for (TActorIterator<AWHLifeTraffic> It(const_cast<UWorld*>(World)); It; ++It)
+	{
+		const AWHLifeTraffic* Tr = *It;
+		if (!IsValid(Tr)) continue;
+		TInlineComponentArray<UInstancedStaticMeshComponent*> Comps(Tr);
+		for (const UInstancedStaticMeshComponent* C : Comps)
+		{
+			const UStaticMesh* M = C ? C->GetStaticMesh() : nullptr;
+			bool bVehicle = false;
+			for (const TObjectPtr<UStaticMesh>& VM : Tr->VehicleMeshes) { if (M && VM.Get() == M) { bVehicle = true; break; } }
+			if (!bVehicle) continue;   // (not the signal lens overlay)
+			const FBoxSphereBounds MB = M->GetBounds();
+			const TArray<int32> Ids = C->GetInstancesOverlappingSphere(CenterCm, float(RadiusCm), true);
+			for (const int32 I : Ids)
+			{
+				FTransform X;
+				if (!C->GetInstanceTransform(I, X, true)) continue;
+				const FVector S = X.GetScale3D().GetAbs();
+				if (S.GetMin() < 0.1) continue;   // hidden pool instance
+				FWHVehicleBox B;
+				const FVector Ctr = X.TransformPosition(MB.Origin);
+				const FVector Ax = X.GetRotation().GetAxisX(), Ay = X.GetRotation().GetAxisY();
+				B.C = FVector2D(Ctr.X, Ctr.Y);
+				B.AX = FVector2D(Ax.X, Ax.Y).GetSafeNormal();
+				B.AY = FVector2D(Ay.X, Ay.Y).GetSafeNormal();
+				if (B.AX.IsNearlyZero() || B.AY.IsNearlyZero()) continue;
+				B.HX = MB.BoxExtent.X * S.X; B.HY = MB.BoxExtent.Y * S.Y;
+				B.ZMin = Ctr.Z - MB.BoxExtent.Z * S.Z; B.ZMax = Ctr.Z + MB.BoxExtent.Z * S.Z;
+				Out.Add(B);
+			}
+		}
+	}
+	return Out.Num() - N0;
+}
+
+// r7: smallest horizontal push that keeps a vertical body (circle of RadiusCm over FeetCm .. FeetCm + HeightCm) ClearCm off every box
+// overlapping its height; three passes for neighbouring boxes (a car each side: the pushes add up / cancel and are re-checked)
+bool AWHRescueDirector::VehicleClearPush(const TArray<FWHVehicleBox>& Boxes, const FVector& FeetCm, double HeightCm, double RadiusCm, double ClearCm, FVector& OutPushCm)
+{
+	OutPushCm = FVector::ZeroVector;
+	const double Need = RadiusCm + ClearCm;
+	FVector2D P(FeetCm.X, FeetCm.Y);
+	const FVector2D P0 = P;
+	bool bAny = false;
+	for (int32 Pass = 0; Pass < 3; ++Pass)
+	{
+		FVector2D Push = FVector2D::ZeroVector;
+		for (const FWHVehicleBox& B : Boxes)
+		{
+			if (B.ZMax < FeetCm.Z + 5.0 || B.ZMin > FeetCm.Z + HeightCm) continue;
+			const FVector2D D = P - B.C;
+			const double U = FVector2D::DotProduct(D, B.AX), V = FVector2D::DotProduct(D, B.AY);
+			const double Cu = FMath::Clamp(U, -B.HX, B.HX), Cv = FMath::Clamp(V, -B.HY, B.HY);
+			const double Du = U - Cu, Dv = V - Cv;
+			const double Dist = FMath::Sqrt(Du * Du + Dv * Dv);
+			if (Dist >= Need) continue;
+			if (Dist > 1e-3)
+			{ // outside the box: straight away from its nearest point
+				Push += (B.AX * Du + B.AY * Dv) / Dist * (Need - Dist);
+			}
+			else
+			{ // inside: out through the nearest side
+				const double Ou = B.HX - FMath::Abs(U), Ov = B.HY - FMath::Abs(V);
+				if (Ou < Ov) Push += B.AX * ((U >= 0.0 ? 1.0 : -1.0) * (Ou + Need));
+				else Push += B.AY * ((V >= 0.0 ? 1.0 : -1.0) * (Ov + Need));
+			}
+		}
+		if (Push.IsNearlyZero(0.5)) break;
+		P += Push;
+		bAny = true;
+	}
+	if (!bAny) return false;
+	OutPushCm = FVector(P.X - P0.X, P.Y - P0.Y, 0.0);
+	return !OutPushCm.IsNearlyZero(1.0);
+}
+
+// r7: oriented-rectangle test (separating axes, the rectangle grown by ClearCm on each axis) against every box overlapping the z span
+bool AWHRescueDirector::VehicleNearRect(const TArray<FWHVehicleBox>& Boxes, const FVector2D& C, const FVector2D& AX, const FVector2D& AY, double HX, double HY,
+	double ZMin, double ZMax, double ClearCm)
+{
+	for (const FWHVehicleBox& B : Boxes)
+	{
+		if (B.ZMax < ZMin || B.ZMin > ZMax) continue;
+		const FVector2D D = B.C - C;
+		const FVector2D Axes[4] = { AX, AY, B.AX, B.AY };
+		bool bSeparated = false;
+		for (const FVector2D& A : Axes)
+		{
+			const double Ra = HX * FMath::Abs(FVector2D::DotProduct(AX, A)) + HY * FMath::Abs(FVector2D::DotProduct(AY, A));
+			const double Rb = B.HX * FMath::Abs(FVector2D::DotProduct(B.AX, A)) + B.HY * FMath::Abs(FVector2D::DotProduct(B.AY, A));
+			if (FMath::Abs(FVector2D::DotProduct(D, A)) > Ra + Rb + ClearCm) { bSeparated = true; break; }
+		}
+		if (!bSeparated) return true;
 	}
 	return false;
 }
@@ -655,13 +761,26 @@ bool AWHRescueDirector::PickSetDown(const FVector& Hero, const FVector& HalfCm, 
 	};
 	const double S1 = Room(1.0) >= Room(-1.0) ? 1.0 : -1.0;
 	const double Ahead = double(SetDownAheadCm) + HalfCm.Y, Beside = double(SetDownSideGapCm) + HalfCm.X;
-	const FVector2D Cand[5] = { FVector2D(Ahead, S1 * Beside), FVector2D(Ahead, -S1 * Beside), FVector2D(Ahead + 120.0, 0.0),
-		FVector2D(Ahead + 200.0, S1 * (Beside + 40.0)), FVector2D(Ahead + 200.0, -S1 * (Beside + 40.0)) };
+	// (r7: + two further straight-beyond spots, for streets whose parking lanes block both sides)
+	const FVector2D Cand[7] = { FVector2D(Ahead, S1 * Beside), FVector2D(Ahead, -S1 * Beside), FVector2D(Ahead + 120.0, 0.0),
+		FVector2D(Ahead + 200.0, S1 * (Beside + 40.0)), FVector2D(Ahead + 200.0, -S1 * (Beside + 40.0)), FVector2D(Ahead + 320.0, 0.0), FVector2D(Ahead + 520.0, 0.0) };
 	const double TopZ = FMath::Max(Hero.Z, HeroFloor + 2.0 * HalfCm.Z) + 150.0;
 	const double Px[5] = { 0.0, 0.9, 0.9, -0.9, -0.9 }, Py[5] = { 0.0, 0.9, -0.9, 0.9, -0.9 };
+	// r7 (critic r6 #2, fl17 end: the container set down across parked taxis): street vehicles have no collision, so the ground traces
+	// read the street under a car -- the footprint must also keep SetDownVehicleClearCm from every vehicle box
+	TArray<FWHVehicleBox> Cars;
+	GatherVehicles(GetWorld(), FVector(Hero.X, Hero.Y, HeroFloor), Ahead + 520.0 + HalfCm.Size() + 600.0, Cars);
+	const FVector2D SideXY(Side.X, Side.Y), FwdXY(Fwd.X, Fwd.Y);
 	for (const FVector2D& FS : Cand)
 	{
-		const FVector C = Flat(Hero) + Fwd * FS.X + Side * FS.Y;
+		const FVector Cv = Flat(Hero) + Fwd * FS.X + Side * FS.Y;
+		if (Cars.Num() && VehicleNearRect(Cars, FVector2D(Cv.X, Cv.Y), SideXY, FwdXY, HalfCm.X, HalfCm.Y, HeroFloor - 20.0, HeroFloor + 2.0 * HalfCm.Z, double(SetDownVehicleClearCm)))
+		{
+			UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE set-down spot %.1f m beyond / %.1f m beside skipped: within %.1f m of a street vehicle (%d near)"),
+				FS.X / 100.0, FS.Y / 100.0, SetDownVehicleClearCm / 100.0, Cars.Num());
+			continue;
+		}
+		const FVector C = Cv;
 		double Hi = -TNumericLimits<double>::Max(), Lo = TNumericLimits<double>::Max();
 		bool bOk = true;
 		for (int32 k = 0; k < 5 && bOk; ++k)
@@ -949,15 +1068,22 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 			const double D = FVector::Dist(Hero, E.LoadCm);
 			const double LoadHalfZ = E.Load ? E.Load->GetComponentScale().Z * 50.0 : 75.0;
 			const bool bAbove = bOverheadCarry && Hero.Z - E.LoadCm.Z > LoadHalfZ + 95.0;   // hero centre over the top face + his feet-to-centre height
-			E.bHeroInRange = D < CraneTouchCm * 2.0;
-			if (D < (bAbove ? FMath::Min(double(CraneTouchAboveCm), double(CraneTouchCm)) : double(CraneTouchCm)))
+			// r7 (critic r6 #2, fl17 17.35 - 17.65 "legs inside the container, arms in a T"): r6 caught it level with his legs at 5.8 m and
+			// swung it up past them. Overhead carry: the full reach only once the load's bottom face is over his head top (+ clear), so it is
+			// above him from the first catch frame; level with him (neither under nor over it) only at CraneTouchLevelCm.
+			const bool bUnder = bOverheadCarry && E.LoadCm.Z - LoadHalfZ >= Hero.Z + double(HeroHeadTopCm) + double(CatchUnderClearCm);
+			double Reach = CraneTouchCm;
+			if (bOverheadCarry) Reach = bUnder ? double(CraneTouchUnderCm) : FMath::Min(bAbove ? double(CraneTouchAboveCm) : double(CraneTouchLevelCm), double(CraneTouchCm));
+			E.bHeroInRange = D < FMath::Max(Reach, double(CraneTouchCm)) * 2.0;
+			if (D < Reach)
 			{
 				E.bCarried = true; E.bFalling = false; E.CarryT = 0;
 				E.LoadVelCm = FVector::ZeroVector;
 				if (bOverheadCarry)
 				{
-					UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load caught %s at %.0f m above the street from %s (%.1f m)"), E.Id, E.bSnapped ? TEXT("falling") : TEXT("hanging"),
-						(E.LoadCm.Z - E.StreetZ) / 100.0, bAbove ? TEXT("above") : TEXT("below / beside"), D / 100.0);
+					UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load caught %s at %.0f m above the street from %s (%.1f m; load bottom %.2f m over his head top)"), E.Id,
+						E.bSnapped ? TEXT("falling") : TEXT("hanging"), (E.LoadCm.Z - E.StreetZ) / 100.0, bAbove ? TEXT("above") : TEXT("below / beside"), D / 100.0,
+						(E.LoadCm.Z - LoadHalfZ - Hero.Z - double(HeroHeadTopCm)) / 100.0);
 				}
 				else
 				{
@@ -1005,7 +1131,7 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 			// with it, UWHHeroV2AnimInstance::CarryOutT). No candidate: the r2 placement below.
 			const FVector HalfCm = E.Load ? E.Load->GetComponentScale() * 50.0 : FVector(200.0, 90.0, 75.0);
 			FVector C; FQuat Q; FVector2D FS;
-			if (PickSetDown(Hero, HalfCm, C, Q, FS))
+			if (PickSetDown(Hero + HeroVisualOffsetCm, HalfCm, C, Q, FS))   // (r7: around the hero as seen, after any stand-clear step)
 			{
 				E.SettleCm = C; E.SettleQ = Q;
 				E.SettleFromCm = E.LoadCm; E.SettleFromQ = E.LoadQ; E.SettleT = 0.0;

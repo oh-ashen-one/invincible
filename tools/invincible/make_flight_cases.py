@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parent / 'flight_cases'
-LEVEL_T, BRAKE_T, STRAFE, DROP_S = 8.0, 13.62, -0.25, 2.4   # fl17 route timing (rescue probe: climb at 50 deg, level at crane height, brake at the load)
+LEVEL_T, BRAKE_T, STRAFE, DROP_S = 8.0, 14.04, -0.25, 2.4   # fl17 route timing (rescue probe: climb at 50 deg, level at crane height, brake at the load)
 # r6 (critic r5 #1, fl17 "prone on a grey slab in the carry-dive, slam onto a 14 m roof, camera inside the load"): no fly dive after the catch.
 # r5 numbers: drop released 16.98 s, hover settles at (350.9, -323.0, ~136.9) m, catch ~17.5 s at 135 m above the street (log), TravWorld floor
 # ~0 m under that column (height_above_floor 136.0); the street (an E-W cross street, the r5 dive went down it to 5th Av) lies under the
@@ -19,7 +19,12 @@ LEVEL_T, BRAKE_T, STRAFE, DROP_S = 8.0, 13.62, -0.25, 2.4   # fl17 route timing 
 # swinging through the open south side, never the north facade side) to look west down the street; touchdown predicted ~31.7 s
 # (z 136.9 - 10 (t - 17.6) + 2.1 lag, + 0.28 s flare); SET_T: set-down (E) on the street ~1.3 s after it (the director puts it beside /
 # beyond him on the camera line, lowered over 1.2 s); then he stands beside it until the quit.
+# r7 (critic r6 #2, fl17 31.95 s -> end "hero_occl 0.33-0.38, his side merges into the taxi door"): with the float route the camera yaw
+# before the turn is -93 deg (sim simF3), not -18, so -162 deg ended at +105 deg -- looking south across the parking lane with the lens
+# behind the parked taxi at (351.4, -324.0). TURN_DEG -87 ends at -180 (west down the one-way lane y -320.6, the hero at y -320.25,
+# 2.8 m from both parked rows); the director's vehicle-aware set-down then puts the load 3.6 m beyond him in the lane.
 DESC_T, TURN_T, SET_T = 17.6, 18.4, 33.0
+TURN_DEG = -87.0
 TS = [-20.0, -230.0, 0.9]   # body centre (0.95 m over the feet) on the Times Square plaza floor (-0.06 m)
 AV = [250.0, 300.0, 0.95]   # 5th Av roadway (open street: no TKTS steps / billboards / crowd between the camera and the hero)
 
@@ -107,10 +112,10 @@ CASES = [
          spawn=dict(pos=TS, yaw=90, camPitch=0.14),   # crane load logged by the seed-1977 probe: (355.7, -324.3, 135.3) m, heading -14.1 deg
          keys=[K(0, move=[0, 0]), K(3.3, jump=True), K(3.55, jump=False), K(3.7, jump=True), K(4.0, look=[-104.09, 0]), K(5.0, look=[0, 0]),
                K(5.2, jump=False), K(5.4, swing=True, look=[0, -130]), K(5.9, look=[0, 0]), K(LEVEL_T, look=[0, 130]), K(LEVEL_T + 0.5, look=[0, 0]),
-               K(BRAKE_T, zip=True, swing=False), K(BRAKE_T + 0.1, zip=False), K(BRAKE_T + 0.35, drop=True, move=[-0.42, STRAFE]),   # (floating start: brake point ~9 m north of the load -> strafe left = -y while dropping)
+               K(BRAKE_T, zip=True, swing=False), K(BRAKE_T + 0.1, zip=False), K(BRAKE_T + 0.35, drop=True, move=[-0.65, STRAFE]),   # (floating start: brake point ~9 m north of the load -> strafe left = -y while dropping)
                K(BRAKE_T + 0.35 + DROP_S, drop=False, move=[0, 0]),
                # r6 (critic r5 #1): carry the caught load down upright in a hover descent, look down the street, touch down, set it down beside him
-               K(DESC_T, drop=True), K(TURN_T, look=[-162, 0]), K(TURN_T + 1.0, look=[0, 0]),
+               K(DESC_T, drop=True), K(TURN_T, look=[TURN_DEG, 0]), K(TURN_T + 1.0, look=[0, 0]),
                K(SET_T - 0.2, drop=False), K(SET_T, zip=True), K(SET_T + 0.1, zip=False)],
          checks=dict(rescue_saved_min=1, breaches=1, max_hero_lands=0, floating_end=True)),
 ]

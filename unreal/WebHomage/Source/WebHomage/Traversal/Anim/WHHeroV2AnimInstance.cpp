@@ -44,6 +44,25 @@ namespace WHHeroV2Detail
 		return Half.X * FMath::Abs(FVector::DotProduct(Q.GetAxisX(), D)) + Half.Y * FMath::Abs(FVector::DotProduct(Q.GetAxisY(), D))
 			+ Half.Z * FMath::Abs(FVector::DotProduct(Q.GetAxisZ(), D));
 	}
+	/** r7: component-space transform of a skeleton bone in a clip at time T (a bone without a track keeps its reference transform) */
+	FTransform HV2ClipCS(const UAnimSequence* S, const FReferenceSkeleton& RS, int32 I, double T)
+	{
+		FTransform X = FTransform::Identity;
+		const FAnimExtractContext Ctx(T, false, {}, false);
+		while (I != INDEX_NONE)
+		{
+			FTransform L = RS.GetRefBonePose()[I];
+			S->GetBoneTransform(L, FSkeletonPoseBoneIndex(I), Ctx, false);
+			X = X * L;
+			I = RS.GetParentIndex(I);
+		}
+		return X;
+	}
+	/** r7: feet midpoint -> head joint of a clip pose (component space) */
+	FVector HV2ClipBodyAxis(const UAnimSequence* S, const FReferenceSkeleton& RS, int32 Ih, int32 Il, int32 Ir, double T)
+	{
+		return HV2ClipCS(S, RS, Ih, T).GetLocation() - (HV2ClipCS(S, RS, Il, T).GetLocation() + HV2ClipCS(S, RS, Ir, T).GetLocation()) * 0.5;
+	}
 }
 
 // r5 (critic r4 #5 / #6): the arm chains of the CustomUse rig (left_ / right_ collar, shoulder, elbow, wrist, fingers)
@@ -206,13 +225,14 @@ void UWHHeroV2AnimInstance::NativeInitializeAnimation()
 	Frame.RefFootUp = float(Ref.RefFootUp);
 	Frame.MaxShift = float(Ref.HeightUnits * 0.45);
 	InitArmFix(bRefOk ? Mesh : nullptr);
-	if (bRefOk) AnalyzeLandClip();
+	if (bRefOk) { AnalyzeLandClip(); AnalyzeBoostClip(); AnalyzeHoverClip(); }   // r7: + boost burst span, hover phase / breathing
 	{ // -WHHeroV2Tune=Name=Value,... (float UPROPERTYs above; after the clip analysis, so a tune overrides the measured land frames)
 		FString Tune;
 		if (FParse::Value(FCommandLine::Get(), TEXT("-WHHeroV2Tune="), Tune, false) && !Tune.IsEmpty()) ApplyTune(Tune);
 	}
 	Tracks.Reset();
 	DipT = 99.f; CarryW = 0.f; bCarry = false;
+	BurstS = -1.f; BobW = 0.f; StandWant = StandNudge = FVector::ZeroVector;
 	UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 anim init: %d/%d clips from %s (missing: %s; skeleton mismatch: %s), ref %s up %s fwd %s footUp %.2f height %.2f units"),
 		NLoaded, int32(EWHHeroV2Clip::Num), ClipRoot, Missing.IsEmpty() ? TEXT("none") : *Missing, Mismatch.IsEmpty() ? TEXT("none") : *Mismatch,
 		bRefOk ? TEXT("ok") : TEXT("MISSING BONES (no ground lock)"), *Ref.Up.ToString(), *Ref.Fwd.ToString(), Ref.RefFootUp, Ref.HeightUnits);
@@ -287,6 +307,198 @@ void UWHHeroV2AnimInstance::AnalyzeLandClip()
 	if (bOk) { LandFeetT = float(FeetT); LandImpactT = float(ImpT); }
 	UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 land clip: kneel plateau %.1f units, feet-first t=%.3f impact t=%.3f -> %s (LandFeetT %.3f LandImpactT %.3f)"),
 		Plateau, FeetT, ImpT, bOk ? TEXT("used") : TEXT("out of range, tunables kept"), LandFeetT, LandImpactT);
+
+	// r7 (critic r6 #6): (a) the kneel's end -- the last frame before the stand-up (pelvis over the lower foot > 1.1 x the plateau); the
+	// airborne landing hold keeps the clip there. Offline FK of hero_land.glb: kneel + fist down 0.53 - 2.13 s, stand-up from 2.2 s.
+	if (bOk)
+	{
+		const double Full = double(S->GetPlayLength());
+		double EndT = -1.0;
+		for (double T = 0.9; T <= Full + 1e-6; T += 1.0 / 30.0)
+		{
+			const FVector P = CS(Ip, T), L = CS(Il, T), R = CS(Ir, T);
+			const double Hk = FVector::DotProduct(P - (FVector::DotProduct(L, Ref.Up) < FVector::DotProduct(R, Ref.Up) ? L : R), Ref.Up);
+			if (Hk > 1.1 * Plateau) { EndT = T - 1.0 / 30.0; break; }
+		}
+		if (EndT > double(LandImpactT) + 0.4) LandKneelEndT = float(EndT);
+		else if (EndT < 0.0) LandKneelEndT = FMath::Max(LandKneelEndT, float(Full) - 0.05f);   // (no stand-up in the clip)
+	}
+	// (b) the dive's head line: elevation of feet -> head over the mesh's forward (deg; head-down -90, head-forward 0, head-up +90) from the
+	// held dive frame to feet-first. Offline: -79 deg at 0.20 s, -35 at 0.367, -13 at 0.40, +8 at 0.433 -- the flip turns the head forward
+	// through the horizon, so a fly line diving gamma deg is matched by the first frame at -gamma (FastLinePredict / LineDiveStartT).
+	LineDiveT.Reset(); LineDiveElev.Reset();
+	const int32 Ih = RS.FindBoneIndex(FName(TEXT("head")));
+	if (Ih != INDEX_NONE)
+	{
+		for (double T = double(LandDiveHoldT); T <= double(LandFeetT) + 1e-6; T += 1.0 / 60.0)
+		{
+			const FVector Ax = WHHeroV2Detail::HV2ClipBodyAxis(S, RS, Ih, Il, Ir, T);
+			const float E = FMath::RadiansToDegrees(float(FMath::Atan2(FVector::DotProduct(Ax, Ref.Up), FVector::DotProduct(Ax, Ref.Fwd))));
+			if (LineDiveElev.Num() && E < LineDiveElev.Last()) break;   // (monotonic part only)
+			LineDiveT.Add(float(T)); LineDiveElev.Add(E);
+		}
+	}
+	UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 land clip r7: kneel held to t=%.2f, dive head line %.0f deg (t=%.2f) .. %.0f deg (t=%.2f), %d samples"),
+		LandKneelEndT, LineDiveElev.Num() ? LineDiveElev[0] : 0.f, LineDiveT.Num() ? LineDiveT[0] : 0.f,
+		LineDiveElev.Num() ? LineDiveElev.Last() : 0.f, LineDiveT.Num() ? LineDiveT.Last() : 0.f, LineDiveT.Num());
+}
+
+// r7 (critic r6 #4, fl04 one-frame pop at the boom): AS_BoostLaunch's burst span from its own bones -- body extension (feet -> head) is the
+// coil's minimum before BoostBurstT and the stretched maximum after it. BoostCoilEndT = last frame <= BoostBurstT + 0.02 within 10 % of the
+// coil, BoostBurstEndT = first frame after it at 95 % of the stretch; BurstCurve = cumulative joint travel over that span (120 Hz).
+void UWHHeroV2AnimInstance::AnalyzeBoostClip()
+{
+	BurstCurveT.Reset(); BurstCurveF.Reset();
+	const UAnimSequence* S = ClipSeq(int32(EWHHeroV2Clip::BoostLaunch));
+	if (!S || ResolveClip(EWHHeroV2Clip::BoostLaunch) != int32(EWHHeroV2Clip::BoostLaunch)) return;
+	const USkeleton* Sk = S->GetSkeleton();
+	if (!Sk) return;
+	const FReferenceSkeleton& RS = Sk->GetReferenceSkeleton();
+	const int32 Ih = RS.FindBoneIndex(FName(TEXT("head"))), Il = RS.FindBoneIndex(FName(TEXT("left_foot"))), Ir = RS.FindBoneIndex(FName(TEXT("right_foot")));
+	if (Ih == INDEX_NONE || Il == INDEX_NONE || Ir == INDEX_NONE) return;
+	auto Ext = [S, &RS, Ih, Il, Ir](double T) { return WHHeroV2Detail::HV2ClipBodyAxis(S, RS, Ih, Il, Ir, T).Size(); };
+	const double Len = double(S->GetPlayLength()), B = double(BoostBurstT), End = FMath::Min(Len, B + 0.4);
+	double Coil = TNumericLimits<double>::Max(), Str = 0.0;
+	for (double T = 0.1; T <= End + 1e-6; T += 1.0 / 120.0)
+	{
+		const double E = Ext(T);
+		if (T <= B) Coil = FMath::Min(Coil, E); else Str = FMath::Max(Str, E);
+	}
+	double CoilEnd = -1.0, BurstEnd = -1.0;
+	const bool bRange = Coil < TNumericLimits<double>::Max() && Str - Coil > 0.15 * Ref.HeightUnits;
+	if (bRange)
+	{
+		for (double T = 0.1; T <= B + 0.02 + 1e-6; T += 1.0 / 120.0) if (Ext(T) <= Coil + 0.1 * (Str - Coil)) CoilEnd = T;
+		for (double T = FMath::Max(CoilEnd, 0.1); CoilEnd > 0.0 && T <= End + 1e-6; T += 1.0 / 120.0) if (Ext(T) >= Coil + 0.95 * (Str - Coil)) { BurstEnd = T; break; }
+	}
+	const bool bOk = bRange && CoilEnd > 0.1 && BurstEnd > CoilEnd + 0.01 && BurstEnd <= B + 0.25;
+	if (bOk)
+	{ // the spread is uniform in joint travel (arc length of head, pelvis, feet, knees, elbows, knuckles): offline, 6 steps change a chase
+	  // view's bbox aspect by <= 18 % per frame (r6: one 30 fps key, upper arms ~105 deg in one frame); uniform body extension left 51 % in
+	  // the last step (the arms swing forward last)
+		BoostCoilEndT = float(CoilEnd); BoostBurstEndT = float(BurstEnd);
+		static const TCHAR* JN[] = { TEXT("head"), TEXT("pelvis"), TEXT("left_foot"), TEXT("right_foot"), TEXT("left_knee"), TEXT("right_knee"),
+			TEXT("left_elbow"), TEXT("right_elbow"), TEXT("left_middle1"), TEXT("right_middle1") };
+		TArray<int32> Ji;
+		for (const TCHAR* N : JN) { const int32 I = RS.FindBoneIndex(FName(N)); if (I != INDEX_NONE) Ji.Add(I); }
+		auto Joints = [S, &RS, &Ji](double T, TArray<FVector>& Out) { Out.Reset(); for (const int32 I : Ji) Out.Add(WHHeroV2Detail::HV2ClipCS(S, RS, I, T).GetLocation()); };
+		TArray<FVector> Prev, Cur;
+		double Acc = 0.0;
+		TArray<double> Cum;
+		for (double T = CoilEnd; ; T = FMath::Min(T + 1.0 / 120.0, BurstEnd))
+		{
+			Joints(T, Cur);
+			if (Prev.Num() == Cur.Num()) for (int32 J = 0; J < Cur.Num(); ++J) Acc += (Cur[J] - Prev[J]).Size();
+			BurstCurveT.Add(float(T)); Cum.Add(Acc);
+			Prev = Cur;
+			if (T >= BurstEnd - 1e-9) break;
+		}
+		if (Acc > 1e-6) { for (const double C : Cum) BurstCurveF.Add(float(C / Acc)); }
+		else { BurstCurveT.Reset(); }   // (no joint motion: plain time lerp)
+	}
+	UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 boost clip: extension coil %.1f stretched %.1f units, coil end t=%.3f burst end t=%.3f -> %s (BoostCoilEndT %.3f BoostBurstEndT %.3f, spread over %.2f s)"),
+		bRange ? Coil : 0.0, Str, CoilEnd, BurstEnd, bOk ? TEXT("used") : TEXT("out of range, tunables kept"), BoostCoilEndT, BoostBurstEndT, BoostBurstBlendS);
+}
+
+// r7 (critic r6 #3): AS_Hover's own motion for the procedural layer -- the phase of the head's rise at HoverBobCycles per loop (DFT bin), so
+// the added root bob peaks with the clip's lagging limbs; the clip-mean local rotation of spine2 / spine3 / the collars (the breathing is
+// the clip's deviation from it, extrapolated by HoverBreathGain in the proxy).
+void UWHHeroV2AnimInstance::AnalyzeHoverClip()
+{
+	static const TCHAR* Names[FWHHeroV2Frame::NumBreath] = { TEXT("spine2"), TEXT("spine3"), TEXT("left_collar"), TEXT("right_collar") };
+	for (int32 K = 0; K < FWHHeroV2Frame::NumBreath; ++K) { Frame.BreathBone[K] = NAME_None; Frame.BreathAvg[K] = FQuat::Identity; }
+	HoverBobPhase = 0.f;
+	const UAnimSequence* S = ClipSeq(int32(EWHHeroV2Clip::Hover));
+	const USkeleton* Sk = S ? S->GetSkeleton() : nullptr;
+	if (!Sk) return;
+	const FReferenceSkeleton& RS = Sk->GetReferenceSkeleton();
+	const double Len = FMath::Max(double(S->GetPlayLength()), 0.1);
+	const int32 N = FMath::Clamp(int32(Len * 30.0), 8, 600);
+	const int32 Ih = RS.FindBoneIndex(FName(TEXT("head")));
+	if (Ih != INDEX_NONE)
+	{
+		double Re = 0.0, Im = 0.0;
+		const double W = 2.0 * UE_DOUBLE_PI * double(HoverBobCycles) / Len;
+		for (int32 I = 0; I < N; ++I)
+		{
+			const double T = Len * I / N;
+			const double H = FVector::DotProduct(WHHeroV2Detail::HV2ClipCS(S, RS, Ih, T).GetLocation(), Ref.Up);
+			Re += H * FMath::Cos(W * T); Im += H * FMath::Sin(W * T);
+		}
+		HoverBobPhase = float(FMath::Atan2(Im, Re));   // head height ~ cos(W t - phase)
+	}
+	int32 NB = 0;
+	for (int32 K = 0; K < FWHHeroV2Frame::NumBreath; ++K)
+	{
+		const int32 Ib = RS.FindBoneIndex(FName(Names[K]));
+		if (Ib == INDEX_NONE) continue;
+		FVector4 Sum(0.0, 0.0, 0.0, 0.0);
+		FQuat First = FQuat::Identity;
+		for (int32 I = 0; I < N; ++I)
+		{
+			FTransform L = RS.GetRefBonePose()[Ib];
+			S->GetBoneTransform(L, FSkeletonPoseBoneIndex(Ib), FAnimExtractContext(Len * I / N, false, {}, true), false);
+			FQuat Q = L.GetRotation().GetNormalized();
+			if (I == 0) First = Q;
+			if ((Q | First) < 0.f) Q = -Q;   // one hemisphere
+			Sum += FVector4(Q.X, Q.Y, Q.Z, Q.W);
+		}
+		FQuat Avg(Sum.X, Sum.Y, Sum.Z, Sum.W);
+		if (Avg.SizeSquared() < 1e-8) continue;
+		Frame.BreathBone[K] = FName(Names[K]);
+		Frame.BreathAvg[K] = Avg.GetNormalized();
+		++NB;
+	}
+	UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 hover clip: bob phase %.2f rad at %.1f cycles / %.2f s, %d breathing bones (bob %.1f cm, breathing x%.2f)"),
+		HoverBobPhase, HoverBobCycles, Len, NB, HoverBobCm, HoverBreathGain);
+}
+
+// r7: AS_BoostLaunch time at burst progress U -- uniform steps of joint travel (BurstCurve) between the coil end and the stretch
+float UWHHeroV2AnimInstance::BurstClipT(float U) const
+{
+	U = FMath::Clamp(U, 0.f, 1.f);
+	const bool bCurve = BurstCurveT.Num() > 1 && FMath::IsNearlyEqual(BurstCurveT[0], BoostCoilEndT, 1e-3f) && FMath::IsNearlyEqual(BurstCurveT.Last(), BoostBurstEndT, 1e-3f);
+	if (!bCurve) return FMath::Lerp(BoostCoilEndT, BoostBurstEndT, U);   // (no curve, or the span was tuned)
+	for (int32 I = 1; I < BurstCurveF.Num(); ++I)
+	{
+		if (BurstCurveF[I] < U) continue;
+		const float D = BurstCurveF[I] - BurstCurveF[I - 1];
+		const float K = D > 1e-5f ? (U - BurstCurveF[I - 1]) / D : 1.f;
+		return FMath::Lerp(BurstCurveT[I - 1], BurstCurveT[I], FMath::Clamp(K, 0.f, 1.f));
+	}
+	return BoostBurstEndT;
+}
+
+// r7: first AS_LandHero frame (held dive .. feet-first) whose head line is at or above GammaDeg below the horizon
+float UWHHeroV2AnimInstance::LineDiveStartT(float GammaDeg) const
+{
+	const float Lo = LandDiveHoldT, Hi = FMath::Max(LandDiveHoldT, LandFeetT - 0.03f);
+	if (LineDiveT.Num() < 2) return Lo;
+	const float Want = -FMath::Clamp(GammaDeg, 0.f, 90.f);
+	if (LineDiveElev[0] >= Want) return Lo;
+	for (int32 I = 1; I < LineDiveT.Num(); ++I)
+	{
+		if (LineDiveElev[I] < Want) continue;
+		const float D = LineDiveElev[I] - LineDiveElev[I - 1];
+		const float K = D > 1e-4f ? (Want - LineDiveElev[I - 1]) / D : 1.f;
+		return FMath::Clamp(FMath::Lerp(LineDiveT[I - 1], LineDiveT[I], FMath::Clamp(K, 0.f, 1.f)), Lo, Hi);
+	}
+	return Hi;
+}
+
+// r7 (critic r6 #6): a fly / boost / dash line that will meet the floor at the hero-landing descent speed -- the flight lands it as a hero
+// landing when the descent at contact >= HeroLandMinSpeed (WHFlightComponent MoveAndCollide / FloorSkim). Entered FastLandLeadT before the
+// predicted contact, kept (hysteresis) while still descending at 0.85 x and within FastLandLeadT + 0.25 s.
+bool UWHHeroV2AnimInstance::FastLinePredict(const FWebTravAnim& A, float Vz, bool bStay, float& OutGammaDeg) const
+{
+	if (A.Mode != EWebTravMode::Air || !A.Flight.bActive || FastLandLeadT <= 0.f) return false;
+	const float Need = HeroLandMinV * (bStay ? 0.85f : FMath::Max(1.f, FastLandVzK));
+	if (-Vz < Need) return false;
+	const float Tti = TimeToImpact(A);
+	if (Tti > (bStay ? FastLandLeadT + 0.25f : FastLandLeadT)) return false;
+	const float Vh = float(FVector2D(A.Velocity.X, A.Velocity.Y).Size() / 100.0);
+	OutGammaDeg = FMath::RadiansToDegrees(FMath::Atan2(-Vz, FMath::Max(Vh, 1e-3f)));
+	return true;
 }
 
 float UWHHeroV2AnimInstance::TakeoffPlantK(float T) const
@@ -296,9 +508,11 @@ float UWHHeroV2AnimInstance::TakeoffPlantK(float T) const
 	return 1.f - WHHeroV2Detail::HV2Smooth(T, TakeoffPlantT, TakeoffPlantT + FMath::Max(0.01f, TakeoffCatchT));
 }
 
-float UWHHeroV2AnimInstance::DiveFlipK(float T) const
+float UWHHeroV2AnimInstance::DiveFlipK(float T, float T0) const
 {
-	return WHHeroV2Detail::HV2Smooth(T, LandDiveHoldT, FMath::Max(LandDiveHoldT + 0.01f, LandFeetT));
+	// r7: a dive entered past the held frame (fast fly line, critic r6 #6) ramps from its own entry frame
+	const float A = FMath::Min(FMath::Max(LandDiveHoldT, T0), LandFeetT - 0.01f);
+	return WHHeroV2Detail::HV2Smooth(T, A, FMath::Max(A + 0.01f, LandFeetT));
 }
 
 UAnimSequence* UWHHeroV2AnimInstance::ClipSeq(int32 C) const
@@ -367,7 +581,7 @@ void UWHHeroV2AnimInstance::StartTrack(EWHHeroV2State S, float StartT, float Ble
 	case EWHHeroV2State::Fly: Want = C::Fly; break;
 	// r5 (critic r4 #1, fl09 1.55 s spread-eagled dash): the dash is AS_BoostHold (the boost's parallel fists on the x1.6 flight loop)
 	case EWHHeroV2State::Dash: Want = C::BoostHold; Tr.Rate = DashRate; break;
-	case EWHHeroV2State::BoostLaunch: Want = C::BoostLaunch; break;
+	case EWHHeroV2State::BoostLaunch: Want = C::BoostLaunch; BurstS = -1.f; break;   // r7: a fresh burst
 	case EWHHeroV2State::BoostHold: Want = C::BoostHold; break;
 	case EWHHeroV2State::Brake: Want = C::Brake; Tr.Rate = BrakeClipRate; break;
 	case EWHHeroV2State::LandHero: Want = C::LandHero; break;
@@ -442,6 +656,7 @@ EWHHeroV2State UWHHeroV2AnimInstance::PickState(const FWebTravAnim& A, float Vz,
 	const bool bCurDone = !CurTr || CurTr->bDone;
 	const FWebTravAnimFlight& F = A.Flight;
 	OutUpTarget = 0.f;
+	bLineWant = false;   // r7 (set below for a predicted fly-line hero landing)
 	{ // fly-type line pitched up past LaunchUpPitchDeg blends toward AS_LaunchUp (owner brief: "e.g. > 60 deg")
 		const float Vh = float(FVector2D(A.Velocity.X, A.Velocity.Y).Size() / 100.0);
 		if (FMath::Sqrt(Vh * Vh + Vz * Vz) > 3.f)
@@ -486,6 +701,15 @@ EWHHeroV2State UWHHeroV2AnimInstance::PickState(const FWebTravAnim& A, float Vz,
 	// stays upright -- the path-aligned / dive clips (fly, boost, dash, breach, boost launch, slam dive) give way to the hover (feet down, no
 	// path pitch: PitchFreedom 0); the arms keep AS_LaunchUp's fists overhead (UpdateCarry runs before this pick)
 	if (bCarry && (HV2IsFlyType(Want) || Want == S::BoostLaunch || Want == S::LandHero)) Want = S::Hover;
+	// r7 (critic r6 #6, fl12 2.75-2.80 "spread-eagle splat"): a fly / boost / dash line about to meet the floor at the hero-landing descent
+	// speed turns into AS_LandHero's dive before the contact (the flight lands it as a hero landing; r6 crossfaded the 36 deg-pitched boost
+	// line into the kneel over 0.15 s at the contact frame)
+	if (!bCarry && (Want == S::Fly || Want == S::BoostHold || Want == S::Dash))
+	{
+		const bool bStay = Cur == S::LandHero && CurTr && CurTr->bDive && CurTr->bLine;
+		float Gamma = 0.f;
+		if (FastLinePredict(A, Vz, bStay, Gamma)) { Want = S::LandHero; bLineWant = true; LineGammaDeg = Gamma; }
+	}
 	if (Want == S::Hover)
 	{ // hover climbing (Space held) = the launch-straight-up clip, with hysteresis
 		const float On = HoverClimbVz, Off = HoverClimbVz * 0.5f;
@@ -496,7 +720,8 @@ EWHHeroV2State UWHHeroV2AnimInstance::PickState(const FWebTravAnim& A, float Vz,
 	if ((Want == S::Hover || Want == S::LaunchUp) && Cur == S::Takeoff && bCurDone)
 		return Vz > HoverClimbVz ? S::LaunchUp : S::Hover;
 	// the boost launch plays through the burst into the super line
-	if (Want == S::Fly && Cur == S::BoostLaunch && !bCurDone && F.ChargeK <= 0.f && CurTr && CurTr->T >= BoostBurstT) return S::BoostLaunch;
+	// (r7: from the coil end -- the burst is spread from there, critic r6 #4)
+	if (Want == S::Fly && Cur == S::BoostLaunch && !bCurDone && F.ChargeK <= 0.f && CurTr && CurTr->T >= BoostCoilEndT - 0.03f) return S::BoostLaunch;
 	return Want;
 }
 
@@ -533,6 +758,7 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	const UWHFlightComponent* FlC = Trav ? Trav->Flight.Get() : nullptr;
 	bFloat = FlC && FlC->IsFloatOn() && A.Flight.bActive;
 	FlightSurfZ = bFloat ? FlC->SurfaceBelowZ() : -1000.0;
+	HeroLandMinV = FlC ? FMath::Max(1.f, FlC->HeroLandMinSpeed) : 30.f;   // r7: the flight's hero-landing descent speed
 
 	// r5: eased downward acceleration of the fall (time to impact of an accelerating dive)
 	if (A.Mode == EWebTravMode::Air && Dt > 1e-4f)
@@ -549,12 +775,13 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	StateT += Dt;
 
 	// ---- transitions
-	if (Want == S::BoostLaunch && Cur == S::BoostLaunch && A.Flight.ChargeK > 0.f && Tracks.Last().T > BoostBurstT + 0.05f)
+	if (Want == S::BoostLaunch && Cur == S::BoostLaunch && A.Flight.ChargeK > 0.f && Tracks.Last().T > BoostBurstEndT)
 		StartTrack(S::BoostLaunch, 0.f, BlendToBoostLaunch);   // a fresh charge while the last launch is still showing
 	else if (Want != Cur)
 	{
 		float StartT = 0.f;
-		bool bDive = false;
+		bool bDive = false, bLine = false;
+		float Blend = BlendTime(Cur, Want);
 		if (Want == S::Takeoff) StartT = TakeoffClipStart;
 		else if (Want == S::Brake) StartT = BrakeEnterT;   // r5 (critic r4 #2): upright brake entry, never the clip's side-roll part
 		else if (Want == S::LandHero)
@@ -564,16 +791,27 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			bLandImpact = !bDive;
 			// a hard landing without the dive: just before the contact frame, legs already under him (r5)
 			if (!bDive) StartT = FMath::Max(LandFeetT, LandImpactT - 0.04f);
+			// r7 (critic r6 #6): a fast fly line -- the dive frame whose head line matches the path (36 deg down: t ~0.37, head forward-down)
+			else if (bLineWant)
+			{
+				bLine = true;
+				StartT = LineDiveStartT(LineGammaDeg);
+				Blend = BlendToLineDive;
+				UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 fast line landing: path %.0f deg down at %.0f m/s descent %.0f m/s, %.2f s to the floor -> AS_LandHero dive from t=%.2f"),
+					LineGammaDeg, A.Speed, -Vz, TimeToImpact(A), StartT);
+			}
 		}
-		else if (Want == S::BoostLaunch && A.Flight.ChargeK <= 0.f) StartT = BoostBurstT;   // a boom without a seen charge
+		else if (Want == S::BoostLaunch && A.Flight.ChargeK <= 0.f) StartT = BoostCoilEndT;   // a boom without a seen charge (r7: the burst is spread from the coil end)
 		// r5 (critic r4 #5 / #8, touchdown "stops in one frame, no knee compression"): a soft landing dips into a knee bend
 		if (Want == S::GroundIdle && Cur != S::GroundIdle && Cur != S::LandHero && Cur != S::None)
 		{
 			DipT = 0.f;
 			DipPeakNow = FMath::Clamp(DipPeak + DipPeakPerMps * FMath::Max(0.f, -PrevVz), 0.f, DipMax);
 		}
-		StartTrack(Want, StartT, BlendTime(Cur, Want));
+		StartTrack(Want, StartT, Blend);
 		Tracks.Last().bDive = bDive;
+		Tracks.Last().bLine = bLine;
+		Tracks.Last().DiveT0 = bDive ? StartT : 0.f;
 		if (!HV2IsFlyType(Want)) UpWNow = 0.f;
 	}
 
@@ -584,9 +822,27 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		if (Tr.State == S::BoostLaunch && A.Flight.ChargeK > 0.f && Tr.Clip == int32(EWHHeroV2Clip::BoostLaunch))
 		{ // owner brief: the 0.42 s burst coincides with the boom -- the clip time follows the flight's own charge progress (real-time,
 		  // slow-mo proof): ChargeK = smoothstep(SuperT / SuperChargeTime) -> T = BoostBurstT x invsmooth(ChargeK); AdvanceTracks adds Dt
-			Tr.T = FMath::Max(Tr.T, BoostBurstT * HV2InvSmooth(A.Flight.ChargeK) - Dt * Tr.Rate);
-			Tr.T = FMath::Min(Tr.T, BoostBurstT - Dt * Tr.Rate);
+		  // r7 (critic r6 #4): the charge ends on the last coil frame (BoostCoilEndT), not mid-burst (0.42 was 60 % into the 0.400 -> 0.433 jump)
+			BurstS = -1.f; Tr.Rate = 1.f;
+			Tr.T = FMath::Max(Tr.T, BoostCoilEndT * HV2InvSmooth(A.Flight.ChargeK) - Dt * Tr.Rate);
+			Tr.T = FMath::Min(Tr.T, BoostCoilEndT - Dt * Tr.Rate);
 		}
+		else if (Tr.State == S::BoostLaunch && Tr.Clip == int32(EWHHeroV2Clip::BoostLaunch) && BurstS < 100.f)
+		{ // r7 (critic r6 #4, fl04 "upright charge pose at 1.450, full horizontal flight at 1.467"): on the boom the coil -> stretch span is
+		  // spread over BoostBurstBlendS in uniform steps of joint travel (>= 4 in-between frames), then the clip runs on at 1x
+			if (BurstS < 0.f && Tr.T >= BoostCoilEndT - 0.03f && Tr.T < BoostBurstEndT) BurstS = 0.f;
+			if (BurstS >= 0.f)
+			{
+				BurstS += Dt;
+				const float U = FMath::Clamp(BurstS / FMath::Max(0.02f, BoostBurstBlendS), 0.f, 1.f);
+				Tr.T = FMath::Max(Tr.T, BurstClipT(U));
+				Tr.Rate = U < 1.f ? 0.f : 1.f;
+				if (U >= 1.f) BurstS = 1000.f;   // (done: the clip plays on)
+			}
+		}
+		// r7 (critic r6 #6): the airborne hero-landing hold keeps AS_LandHero's knee + fist contact pose (no stand-up before the release)
+		if (Tr.State == S::LandHero && !Tr.bDive && bLandImpact && A.Mode == EWebTravMode::Air && A.Sub == HV2NLandHero && Tr.T < LandKneelEndT)
+			Tr.T = FMath::Min(Tr.T, LandKneelEndT - Dt * Tr.Rate);
 		bool bImpactJump = false;
 		if (Tr.State == S::LandHero && Tr.bDive)
 		{
@@ -601,7 +857,14 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			  // LandFeetLeadT s (>= 8 frames) before the contact; feet-first he creeps on toward the contact frame, reached on the impact
 				const float Tti = TimeToImpact(A);
 				float T = Tr.T;
-				if (T < LandDiveHoldT) T = FMath::Min(T + Dt, LandDiveHoldT);
+				if (Tr.bLine && Tti > LandFlipLeadT && T < LandFeetT)
+				{ // r7 (critic r6 #6): a fast fly line's dive frame follows the path angle while far (never backwards)
+					const float Vh = float(FVector2D(A.Velocity.X, A.Velocity.Y).Size() / 100.0);
+					T = FMath::Max(T, LineDiveStartT(FMath::RadiansToDegrees(FMath::Atan2(-Vz, FMath::Max(Vh, 1e-3f)))));
+				}
+				// (r7, critic r6 #6: a dive already inside LandFlipLeadT before reaching the held frame goes straight into the timed flip, so a
+				// slam / double-tap close to the floor is still feet-first on the contact instead of jumping there)
+				else if (T < LandDiveHoldT && Tti > LandFlipLeadT) T = FMath::Min(T + Dt, LandDiveHoldT);
 				else if (T < LandFeetT)
 				{
 					if (Tti <= LandFlipLeadT)
@@ -644,7 +907,7 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		// r5 (critic r4 #5): planted while the crouch plays, released with the character's catch-up (AWebTravCharacter::HeroV2Frame)
 		else if (Now == S::Takeoff) Target = TakeoffPlantK(StateT);
 		// r5 (critic r4 #3): through the feet-first turn the feet are brought onto the capsule bottom, so the contact frame meets the floor
-		else if (Now == S::LandHero && Top && Top->bDive) Target = FMath::Square(DiveFlipK(Top->T));
+		else if (Now == S::LandHero && Top && Top->bDive) Target = FMath::Square(DiveFlipK(Top->T, Top->DiveT0));   // (r7: from the entry frame)
 		else if (bFloat && (Now == S::Hover || Now == S::LaunchUp))
 		{ // owner request 2026-10-16: the rise out of the airborne landing hold lets the planted feet go with the AS_LandHero track's fade
 			for (const FTrack& Tr : Tracks) { if (Tr.State == S::LandHero && !Tr.bDive) Target += Tr.W; }
@@ -657,7 +920,8 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			float K = 0.f;
 			if (HV2IsFlyType(Tr.State)) K = 1.f - Tr.UpW;
 			else if (Tr.State == S::BoostLaunch) K = 1.f;
-			else if (Tr.State == S::LandHero && Tr.bDive) K = 1.f - DiveFlipK(Tr.T);   // r5: upright once feet-first (critic r4 #3)
+			// r5: upright once feet-first (critic r4 #3); r7 (critic r6 #6): a fast fly line's dive frame already lies on the path -- no mesh pitch
+			else if (Tr.State == S::LandHero && Tr.bDive) K = Tr.bLine ? 0.f : 1.f - DiveFlipK(Tr.T, Tr.DiveT0);
 			PF += Tr.W * K;
 		}
 		PitchFreedomV = FMath::Clamp(PF, 0.f, 1.f);
@@ -684,6 +948,31 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		if (!Frame.DipSeq) Frame.DipW = 0.f;
 	}
 
+	// ---- r7 (critic r6 #3, fl08 "torso centroid moves 2.0 px over 2.6 s, no bob, no breathing"): procedural hover layer on top of the
+	// approved AS_Hover -- a vertical root bob (HoverBobCm at HoverBobCycles per clip loop, phase-locked to the clip's own head rise) and
+	// the clip's spine2 / spine3 / collar breathing x HoverBreathGain; weight = the AS_Hover tracks' share, faded out with speed (1 -> 5 m/s),
+	// the ground lock (landing hold) and eased (HoverBobTau), so transitions never pop. Visual only: the capsule / camera target stay calm.
+	{
+		const USkeletalMeshComponent* SMC = GetSkelMeshComponent();
+		const double Sc = SMC ? FMath::Max(1e-4, double(SMC->GetComponentScale().X)) : 1.0;   // mesh units -> cm
+		float HoverW = 0.f; const FTrack* HT = nullptr;
+		for (const FTrack& Tr : Tracks) { if (Tr.State == S::Hover && Tr.Clip == int32(EWHHeroV2Clip::Hover)) { HoverW += Tr.W; HT = &Tr; } }
+		const float Target = (A.Mode == EWebTravMode::Air && A.Flight.bActive) ? FMath::Clamp(HoverW, 0.f, 1.f) * (1.f - HV2Smooth(A.Speed, HoverBobSpeedLo, FMath::Max(HoverBobSpeedLo + 0.1f, HoverBobSpeedHi)))
+			* (1.f - FMath::Clamp(Frame.GroundW, 0.f, 1.f)) : 0.f;
+		BobW += (Target - BobW) * (1.f - FMath::Exp(-Dt / FMath::Max(0.02f, HoverBobTau)));
+		Frame.BobShift = 0.f; Frame.BreathK = 0.f; Frame.BreathArmK = 0.f;
+		if (BobW > 0.002f && HT && bRefOk)
+		{
+			const float Ph = 2.f * UE_PI * HoverBobCycles * HT->T / ClipLen(int32(EWHHeroV2Clip::Hover)) - HoverBobPhase;
+			Frame.BobShift = float(double(BobW * HoverBobCm * FMath::Cos(Ph)) / Sc);
+			Frame.BreathK = BobW * FMath::Max(0.f, HoverBreathGain - 1.f);
+			Frame.BreathArmK = Frame.BreathK * (1.f - CarryW);
+		}
+	}
+
+	// ---- r7 (critic r6 #2, fl17 32.9 s -> "his side merges into the taxi door"): floating still by a street vehicle, the mesh steps clear
+	UpdateStandClear(A, FlC, Dt);
+
 	// ---- layers for the proxy (each track: its clip, plus the AS_LaunchUp blend of fly-type tracks)
 	Frame.Layers.Reset();
 	UAnimSequence* IdleSeq = ClipSeq(int32(EWHHeroV2Clip::GroundIdle));
@@ -695,7 +984,7 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		const float Wu = Tr.UpClip >= 0 ? FMath::Clamp(Tr.UpW, 0.f, 1.f) : 0.f;
 		// arm overrides: r5 (critic r4 #1 / #5) AS_Takeoff's crouch has the arms straight out sideways -- the idle arms until TakeoffArmsT0,
 		// its own arms (swinging up into the leap) from TakeoffArmsT1; r5 (critic r4 #6) the carry's arms overhead on every layer
-		UAnimSequence* ArmSeq = nullptr; float ArmT = 0.f, ArmW = 0.f; bool bArmLoop = true;
+		UAnimSequence* ArmSeq = nullptr; float ArmT = 0.f, ArmW = 0.f; bool bArmLoop = true, bArmSwing = false;
 		if (Tr.State == S::Takeoff && Tr.Clip == int32(EWHHeroV2Clip::Takeoff) && IdleSeq)
 		{
 			ArmSeq = IdleSeq; ArmT = 0.5f; ArmW = 1.f - HV2Smooth(Tr.T, TakeoffArmsT0, TakeoffArmsT1);
@@ -703,10 +992,12 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		if (CarryW > 0.001f && UpSeq)
 		{
 			ArmW = FMath::Max(ArmW, CarryW); ArmSeq = UpSeq; ArmT = FMath::Fmod(CarryArmT, ClipLen(int32(EWHHeroV2Clip::LaunchUp)));
+			bArmSwing = true;   // r7 (critic r6 #2): arms up in front, not through a T
 		}
 		if (ArmW <= 0.001f) ArmSeq = nullptr;
-		if (1.f - Wu > 0.001f) Frame.Layers.Add({ Seq, Tr.T, Tr.W * (1.f - Wu), Tr.bLoop, ArmSeq, ArmT, ArmW, bArmLoop });
-		if (Wu > 0.001f) Frame.Layers.Add({ ClipSeq(Tr.UpClip), Tr.UpT, Tr.W * Wu, true, ArmSeq, ArmT, ArmW, bArmLoop });
+		const bool bBreathL = Tr.State == S::Hover && Tr.Clip == int32(EWHHeroV2Clip::Hover);   // r7: AS_Hover drives the extra breathing
+		if (1.f - Wu > 0.001f) Frame.Layers.Add({ Seq, Tr.T, Tr.W * (1.f - Wu), Tr.bLoop, ArmSeq, ArmT, ArmW, bArmLoop, bBreathL, bArmSwing });
+		if (Wu > 0.001f) Frame.Layers.Add({ ClipSeq(Tr.UpClip), Tr.UpT, Tr.W * Wu, true, ArmSeq, ArmT, ArmW, bArmLoop, false, bArmSwing });
 	}
 	Frame.ArmFixStrength = ArmFixStrength; Frame.ArmFixLo = ArmFixLo; Frame.ArmFixHi = ArmFixHi;
 	// straight into the proxy (UAnimInstance::PreUpdateAnimation copies before NativeUpdateAnimation runs: this avoids a one-frame lag)
@@ -733,6 +1024,49 @@ void UWHHeroV2AnimInstance::UpdateCarry(const FWebTravAnim& A, float Dt)
 	if (bCarry) { CarryT += Dt; CarryHalfCm = HalfCm; }
 	CarryArmT += Dt;
 	CarryW = bCarry ? FMath::Min(1.f, CarryW + Dt / FMath::Max(0.01f, CarryInT)) : FMath::Max(0.f, CarryW - Dt / FMath::Max(0.01f, CarryOutT));
+}
+
+// r7 (critic r6 #2, fl17 32.9 - 36.2 s "the hero's side merges into the taxi door"): street vehicles are collision-free ISM instances, so
+// the float settles wherever the player stops -- here inside a parked taxi's side. Floating (nearly) still within 1.5 m of the floor (hover /
+// launch-up / the landing hold), the director's vehicle boxes (AWHRescueDirector::GatherVehicles, 10 Hz) give the smallest sideways push
+// that puts StandClearCm between the body (StandRadiusCm) and every box; the mesh root eases there (<= StandClearMaxCm, tau 0.2 s) and
+// back when he moves on. Visual only (capsule, camera target and flight body untouched); the director's set-down reads the same offset.
+void UWHHeroV2AnimInstance::UpdateStandClear(const FWebTravAnim& A, const UWHFlightComponent* FlC, float Dt)
+{
+	using S = EWHHeroV2State;
+	const S Now = CurrentState();
+	const AWebTravCharacter* Ch = Cast<AWebTravCharacter>(GetOwningActor());
+	const UWebTraversalComponent* Trav = Ch ? Ch->GetTraversal() : nullptr;
+	const bool bOn = StandClearCm > 0.f && bFloat && FlC && Trav && A.Mode == EWebTravMode::Air && A.Speed < StandClearMaxSpeed
+		&& FlC->FloatGapM() < 1.5 && (Now == S::Hover || Now == S::LaunchUp || (Now == S::LandHero && bLandImpact));
+	if (bOn)
+	{
+		StandQueryT -= Dt;
+		if (StandQueryT <= 0.f)
+		{
+			StandQueryT = 0.1f;
+			const FVector Feet = Trav->PosM() * 100.0 - FVector(0, 0, UWebTraversalComponent::H * 100.0);
+			TArray<FWHVehicleBox> Boxes;
+			FVector Push = FVector::ZeroVector;
+			if (AWHRescueDirector::GatherVehicles(GetWorld(), Feet, 900.0, Boxes) > 0
+				&& AWHRescueDirector::VehicleClearPush(Boxes, Feet, 185.0, double(StandRadiusCm), double(StandClearCm), Push))
+			{
+				Push = Push.GetClampedToMaxSize(double(StandClearMaxCm));
+				if (!bStandLogged)
+				{
+					UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 stand clear: %d vehicle box(es) within %.0f cm of the body at (%.0f, %.0f, %.0f) -> mesh steps %.0f cm (%.0f, %.0f)"),
+						Boxes.Num(), StandClearCm, Feet.X, Feet.Y, Feet.Z, Push.Size(), Push.X, Push.Y);
+					bStandLogged = true;
+				}
+			}
+			StandWant = Push;
+		}
+	}
+	else { StandWant = FVector::ZeroVector; StandQueryT = 0.f; if (StandNudge.SizeSquared() < 1.0) bStandLogged = false; }
+	StandNudge += (StandWant - StandNudge) * (1.f - FMath::Exp(-Dt / 0.2f));
+	const USkeletalMeshComponent* SMC = GetSkelMeshComponent();
+	Frame.NudgeCS = (SMC && StandNudge.SizeSquared() > 0.01) ? SMC->GetComponentTransform().InverseTransformVector(StandNudge) : FVector::ZeroVector;
+	if (AWHRescueDirector* Dir = RescueDir.Get()) Dir->SetHeroVisualOffset(StandNudge);
 }
 
 // r5 (critic r4 #6): the load's place, from THIS frame's evaluated pose (game thread, after the evaluation, before the director's
@@ -785,23 +1119,38 @@ void UWHHeroV2AnimInstance::NativePostEvaluateAnimation()
 	const float K = CarrySwingT > 0.01f ? FMath::Clamp(CarryT / CarrySwingT, 0.f, 1.f) : 1.f;
 	if (K < 1.f)
 	{
+		// r7 (critic r6 #2, fl17 17.35 - 17.65 "legs inside the container"): r5/r6 swung the load from the catch through the chest's front,
+		// i.e. down past his legs / waist. Now the path is split along the body axis: the height eases in first (Ev, done by 70 %), the
+		// sideways offset last (Eh, from 25 %), and a keep-out guard holds the box horizontally clear of the body (box support + 30 cm body
+		// radius + CarryClearCm) whenever its vertical extent overlaps the band feet - clear .. max(head top + clear, raised fists) -- soft over
+		// CarryMarginCm, off at the hold. With the director's under-the-load catch (bottom face over his head) it never comes below his head.
 		const double E = WHHeroV2Detail::HV2Smooth(K, 0.f, 1.f);
-		// body capsule: feet midpoint -> head joint (+ ~12 cm skull), radius ~30 cm
+		const double Ev = WHHeroV2Detail::HV2Smooth(K, 0.f, 0.7f), Eh = WHHeroV2Detail::HV2Smooth(K, 0.25f, 1.f);
 		const FVector A0 = (FL.GetLocation() + FR.GetLocation()) * 0.5, B0 = Head.GetLocation();
-		const FVector Cc = (A0 + B0) * 0.5;
-		const FVector BAx = (B0 - A0).GetSafeNormal();
-		const double HalfLen = (B0 - A0).Size() * 0.5 + 12.0 / Sc, Rad = 30.0 / Sc, Clear = double(CarryClearCm) / Sc;
-		const FVector P0 = CarryCatchCS.GetLocation() - Cc, P1 = HoldP - Cc;
-		const double R0 = P0.Size(), R1 = P1.Size();
-		const FVector D0 = R0 > 1e-3 ? P0 / R0 : Y, D1 = R1 > 1e-3 ? P1 / R1 : Z;
-		// direction: a quadratic arc on the sphere through the chest's front (never through the body)
-		FVector D = D0 * ((1.0 - E) * (1.0 - E)) + Y * (2.0 * E * (1.0 - E)) + D1 * (E * E);
-		D = D.IsNearlyZero() ? D1 : D.GetSafeNormal();
+		const FVector BAx = (B0 - A0).IsNearlyZero() ? Ref.Up : (B0 - A0).GetSafeNormal();
+		const double HeadTop = FVector::DotProduct(B0 - A0, BAx) + 12.0 / Sc, Rad = 30.0 / Sc, Clear = double(CarryClearCm) / Sc, Margin = double(CarryMarginCm) / Sc;
+		const double HandTop = FMath::Max(FVector::DotProduct(HL.GetLocation() - A0, BAx), FVector::DotProduct(HR.GetLocation() - A0, BAx));
+		auto Split = [&A0, &BAx](const FVector& P, double& H, FVector& R) { const FVector D = P - A0; H = FVector::DotProduct(D, BAx); R = D - BAx * H; };
+		double H0 = 0.0, H1 = 0.0; FVector R0, R1;
+		Split(CarryCatchCS.GetLocation(), H0, R0);
+		Split(HoldP, H1, R1);
 		const FQuat Q = FQuat::Slerp(CarryCatchCS.GetRotation(), HoldQ, float(E)).GetNormalized();
-		const double Need = WHHeroV2Detail::HV2BoxSupport(Q, Half, D) + HalfLen * FMath::Abs(FVector::DotProduct(BAx, D)) + Rad + Clear;
-		double R = FMath::Lerp(R0, R1, E);
-		R += FMath::Max(0.0, Need - R) * (1.0 - WHHeroV2Detail::HV2Smooth(float(E), 0.85f, 1.f));
-		LoadCS = FTransform(Q, Cc + D * R);
+		const double H = FMath::Lerp(H0, H1, Ev);
+		FVector R = FMath::Lerp(R0, R1, Eh);
+		const double SupV = WHHeroV2Detail::HV2BoxSupport(Q, Half, BAx);
+		const double Hi = FMath::Max(HeadTop + Clear, HandTop + double(CarryFistCm) / Sc - Margin - 1.0 / Sc), Lo = -Clear;
+		const double Pen = FMath::Min((H + SupV) - Lo, Hi - (H - SupV));   // > 0: the box's vertical extent overlaps the body band
+		const double G = double(WHHeroV2Detail::HV2Smooth(float(Pen), float(-Margin), 0.f)) * (1.0 - double(WHHeroV2Detail::HV2Smooth(float(E), 0.92f, 1.f)));
+		if (G > 1e-4)
+		{
+			FVector Rd = R;
+			if (Rd.SizeSquared() < 1e-6) Rd = R0;
+			if (Rd.SizeSquared() < 1e-6) Rd = Y - BAx * FVector::DotProduct(Y, BAx);
+			Rd = Rd.GetSafeNormal();
+			const double Sep = WHHeroV2Detail::HV2BoxSupport(Q, Half, Rd) + Rad + Clear;
+			if (R.Size() < Sep * G) R = Rd * (Sep * G);
+		}
+		LoadCS = FTransform(Q, A0 + BAx * H + R);
 	}
 	Dir->SetCarryAnchor(SMC, LoadCS);
 }
@@ -827,28 +1176,74 @@ bool FWHHeroV2AnimProxy::Evaluate(FPoseContext& Output)
 		for (FCompactPoseBoneIndex B : Pose.ForEachBoneIndex())
 			IsArm[B.GetInt()] = IsArmBone(RS.GetBoneName(BC.MakeMeshPoseIndex(B).GetInt())) ? 1 : 0;
 	}
-	auto ApplyArms = [this, &IsArm](FCompactPose& P, const FWHHeroV2Layer& L)
+	// r5 arm fix (critic r4 #1): each layer's collar / shoulder local rotations, per side
+	static const FName CollarN[2] = { FName(TEXT("left_collar")), FName(TEXT("right_collar")) };
+	static const FName ShoulderN[2] = { FName(TEXT("left_shoulder")), FName(TEXT("right_shoulder")) };
+	FCompactPoseBoneIndex Ic[2] = { FCompactPoseBoneIndex(INDEX_NONE), FCompactPoseBoneIndex(INDEX_NONE) }, Is[2] = { FCompactPoseBoneIndex(INDEX_NONE), FCompactPoseBoneIndex(INDEX_NONE) };
+	bool bArmIdx = Frame.bArmFix;   // r7: the indices also serve the per-layer arm override's swing (ApplyArms)
+	if (bArmIdx) for (int32 S = 0; S < 2; ++S) { Ic[S] = Idx(CollarN[S]); Is[S] = Idx(ShoulderN[S]); bArmIdx &= Ic[S].IsValid() && Is[S].IsValid(); }
+	const bool bFix = bArmIdx && Frame.Layers.Num() > 1;
+	struct FArmSample { float W; FQuat C[2]; FQuat S[2]; };
+	TArray<FArmSample, TInlineAllocator<8>> ArmSamples;
+	auto Sample = [&Ic, &Is](const FCompactPose& P, float W) -> FArmSample
+	{
+		FArmSample R; R.W = W;
+		for (int32 S = 0; S < 2; ++S) { R.C[S] = P[Ic[S]].GetRotation(); R.S[S] = P[Is[S]].GetRotation(); }
+		return R;
+	};
+	auto Record = [&](const FCompactPose& P, float W) { if (bFix) ArmSamples.Add(Sample(P, W)); };
+	// r5 (critic r4 #1): where the inputs' upper-arm directions (chest frame) cancel -- arms down vs overhead -- the plain per-bone blend
+	// passes the arm out sideways (the T-pose flash at every hover <-> fly); the blended upper arm is turned toward the mean direction plus
+	// the chest's forward, i.e. the arm swings up in front of the body. No change where the inputs agree (one clip, similar arms).
+	auto SwingFront = [this, &Ic, &Is](FCompactPose& P, const FArmSample* Smp, int32 N)
+	{
+		for (int32 S = 0; S < 2; ++S)
+		{
+			FVector Sum = FVector::ZeroVector; float WSum = 0.f;
+			for (int32 J = 0; J < N; ++J) { Sum += (Smp[J].C[S] * Smp[J].S[S]).RotateVector(Frame.ArmAxis[S]) * Smp[J].W; WSum += Smp[J].W; }
+			if (WSum <= 1e-4f) continue;
+			Sum /= WSum;
+			const float Cn = 1.f - float(Sum.Size());
+			const float G = WHHeroV2Detail::HV2Smooth(Cn, Frame.ArmFixLo, Frame.ArmFixHi);
+			if (G <= 0.001f) continue;
+			const float Bias = Frame.ArmFixStrength * WHHeroV2Detail::HV2Smooth(Cn, Frame.ArmFixLo + 0.05f, Frame.ArmFixHi + 0.3f);
+			const FVector Want = (Sum + Frame.ChestFwd[S] * Bias).GetSafeNormal();
+			const FQuat Rc = P[Ic[S]].GetRotation(), Rs = P[Is[S]].GetRotation();
+			const FVector Now = (Rc * Rs).RotateVector(Frame.ArmAxis[S]);
+			if (Want.IsNearlyZero() || Now.IsNearlyZero()) continue;
+			const FQuat Corr = FQuat::Slerp(FQuat::Identity, FQuat::FindBetweenNormals(Now, Want), G);
+			P[Is[S]].SetRotation((Rc.Inverse() * Corr * Rc * Rs).GetNormalized());
+		}
+	};
+	// r7 (critic r6 #2, fl17 catch "arms in a T"): the per-layer arm override (the carry's AS_LaunchUp fists overhead blending in over a hover
+	// layer's arms-down) is the same cancelling pair -- the override blend now gets the same swing in front of the chest
+	auto ApplyArms = [this, &IsArm, bArmIdx, &Sample, &SwingFront](FCompactPose& P, const FWHHeroV2Layer& L)
 	{
 		if (!L.ArmSeq || L.ArmW <= 0.001f || IsArm.Num() != P.GetNumBones()) return;
 		FPoseContext ArmCtx(this);
 		FAnimationPoseData ArmData(ArmCtx);
 		L.ArmSeq->GetAnimationPose(ArmData, FAnimExtractContext(double(L.ArmTime), false, {}, L.bArmLoop));
+		const bool bSwing = bArmIdx && L.bArmSwing && L.ArmW < 0.999f;
+		FArmSample Pair[2];
+		if (bSwing) { Pair[0] = Sample(P, 1.f - L.ArmW); Pair[1] = Sample(ArmCtx.Pose, L.ArmW); }
 		for (FCompactPoseBoneIndex B : P.ForEachBoneIndex()) if (IsArm[B.GetInt()]) P[B].BlendWith(ArmCtx.Pose[B], L.ArmW);
+		if (bSwing) SwingFront(P, Pair, 2);
 	};
-	// r5 arm fix (critic r4 #1): each layer's collar / shoulder local rotations, per side
-	static const FName CollarN[2] = { FName(TEXT("left_collar")), FName(TEXT("right_collar")) };
-	static const FName ShoulderN[2] = { FName(TEXT("left_shoulder")), FName(TEXT("right_shoulder")) };
-	FCompactPoseBoneIndex Ic[2] = { FCompactPoseBoneIndex(INDEX_NONE), FCompactPoseBoneIndex(INDEX_NONE) }, Is[2] = { FCompactPoseBoneIndex(INDEX_NONE), FCompactPoseBoneIndex(INDEX_NONE) };
-	bool bFix = Frame.bArmFix && Frame.Layers.Num() > 1;
-	if (bFix) for (int32 S = 0; S < 2; ++S) { Ic[S] = Idx(CollarN[S]); Is[S] = Idx(ShoulderN[S]); bFix &= Ic[S].IsValid() && Is[S].IsValid(); }
-	struct FArmSample { float W; FQuat C[2]; FQuat S[2]; };
-	TArray<FArmSample, TInlineAllocator<8>> ArmSamples;
-	auto Record = [&](const FCompactPose& P, float W)
+	// r7 (critic r6 #3): the AS_Hover layer's local rotations of the breathing bones (the heaviest such layer)
+	FCompactPoseBoneIndex Ib[FWHHeroV2Frame::NumBreath];
+	FQuat BreathQ[FWHHeroV2Frame::NumBreath];
+	float BreathLayerW = 0.f;
+	const bool bBreath = Frame.BreathK > 0.001f;
+	for (int32 K = 0; K < FWHHeroV2Frame::NumBreath; ++K)
 	{
-		if (!bFix) return;
-		FArmSample R; R.W = W;
-		for (int32 S = 0; S < 2; ++S) { R.C[S] = P[Ic[S]].GetRotation(); R.S[S] = P[Is[S]].GetRotation(); }
-		ArmSamples.Add(R);
+		Ib[K] = (bBreath && Frame.BreathBone[K] != NAME_None) ? Idx(Frame.BreathBone[K]) : FCompactPoseBoneIndex(INDEX_NONE);
+		BreathQ[K] = FQuat::Identity;
+	}
+	auto RecordBreath = [&](const FCompactPose& P, const FWHHeroV2Layer& L)
+	{
+		if (!bBreath || !L.bBreath || L.Weight <= BreathLayerW) return;
+		BreathLayerW = L.Weight;
+		for (int32 K = 0; K < FWHHeroV2Frame::NumBreath; ++K) if (Ib[K].IsValid()) BreathQ[K] = P[Ib[K]].GetRotation();
 	};
 
 	bool bFirst = true;
@@ -860,6 +1255,7 @@ bool FWHHeroV2AnimProxy::Evaluate(FPoseContext& Output)
 		if (bFirst)
 		{
 			L.Seq->GetAnimationPose(OutData, FAnimExtractContext(double(L.Time), false, {}, L.bLoop));
+			RecordBreath(Output.Pose, L);
 			ApplyArms(Output.Pose, L);
 			Record(Output.Pose, L.Weight);
 			Acc = L.Weight; bFirst = false;
@@ -868,34 +1264,14 @@ bool FWHHeroV2AnimProxy::Evaluate(FPoseContext& Output)
 		FPoseContext Tmp(this);
 		FAnimationPoseData TmpData(Tmp);
 		L.Seq->GetAnimationPose(TmpData, FAnimExtractContext(double(L.Time), false, {}, L.bLoop));
+		RecordBreath(Tmp.Pose, L);
 		ApplyArms(Tmp.Pose, L);
 		Record(Tmp.Pose, L.Weight);
 		FAnimationRuntime::BlendTwoPosesTogetherInPlace(OutData, TmpData, Acc / (Acc + L.Weight));
 		Acc += L.Weight;
 	}
 	if (bFirst) { Output.ResetToRefPose(); return true; }
-	if (bFix && ArmSamples.Num() > 1)
-	{ // r5 (critic r4 #1): where the layers' upper-arm directions (chest frame) cancel -- arms down vs overhead -- the plain per-bone blend
-	  // passes the arm out sideways (the T-pose flash at every hover <-> fly); the blended upper arm is turned toward the mean direction plus
-	  // the chest's forward, i.e. the arm swings up in front of the body. No change where the layers agree (one clip, similar arms).
-		for (int32 S = 0; S < 2; ++S)
-		{
-			FVector Sum = FVector::ZeroVector; float WSum = 0.f;
-			for (const FArmSample& R : ArmSamples) { Sum += (R.C[S] * R.S[S]).RotateVector(Frame.ArmAxis[S]) * R.W; WSum += R.W; }
-			if (WSum <= 1e-4f) continue;
-			Sum /= WSum;
-			const float Cn = 1.f - float(Sum.Size());
-			const float G = WHHeroV2Detail::HV2Smooth(Cn, Frame.ArmFixLo, Frame.ArmFixHi);
-			if (G <= 0.001f) continue;
-			const float Bias = Frame.ArmFixStrength * WHHeroV2Detail::HV2Smooth(Cn, Frame.ArmFixLo + 0.05f, Frame.ArmFixHi + 0.3f);
-			const FVector Want = (Sum + Frame.ChestFwd[S] * Bias).GetSafeNormal();
-			const FQuat Rc = Pose[Ic[S]].GetRotation(), Rs = Pose[Is[S]].GetRotation();
-			const FVector Now = (Rc * Rs).RotateVector(Frame.ArmAxis[S]);
-			if (Want.IsNearlyZero() || Now.IsNearlyZero()) continue;
-			const FQuat Corr = FQuat::Slerp(FQuat::Identity, FQuat::FindBetweenNormals(Now, Want), G);
-			Pose[Is[S]].SetRotation((Rc.Inverse() * Corr * Rc * Rs).GetNormalized());
-		}
-	}
+	if (bFix && ArmSamples.Num() > 1) SwingFront(Pose, ArmSamples.GetData(), ArmSamples.Num());
 	if (Frame.DipSeq && Frame.DipW > 0.001f && IsArm.Num() == Pose.GetNumBones())
 	{ // r5 (critic r4 #5): touchdown knee bend -- the non-arm bones toward AS_Takeoff's crouch (the ground lock below keeps the feet down)
 		FPoseContext DipCtx(this);
@@ -921,6 +1297,28 @@ bool FWHHeroV2AnimProxy::Evaluate(FPoseContext& Output)
 			const FCompactPoseBoneIndex Root(0);   // compact index 0 = the root bone: its local space is component space
 			Pose[Root].AddToTranslation(Frame.UpCS * D);
 		}
+	}
+	// r7 (critic r6 #3): hover breathing -- the AS_Hover layer's deviation from its clip mean (Delta = Q x Avg^-1, local) is applied once more
+	// by BreathK (spine2 / spine3) / BreathArmK (collars): Q' = Delta^k x Q, i.e. (1 + k) x the clip's own breathing on these bones
+	if (bBreath && BreathLayerW > 0.f)
+	{
+		for (int32 K = 0; K < FWHHeroV2Frame::NumBreath; ++K)
+		{
+			if (!Ib[K].IsValid()) continue;
+			const float Kk = K < 2 ? Frame.BreathK : Frame.BreathArmK;
+			if (Kk <= 0.001f) continue;
+			FQuat Delta = (BreathQ[K] * Frame.BreathAvg[K].Inverse()).GetNormalized();
+			if (Delta.W < 0.f) Delta = -Delta;                               // shortest arc
+			if (Delta.GetAngle() > FMath::DegreesToRadians(12.f)) continue;   // (not breathing: a transition pose)
+			const FQuat Add = FQuat::Slerp(FQuat::Identity, Delta, Kk).GetNormalized();
+			Pose[Ib[K]].SetRotation((Add * Pose[Ib[K]].GetRotation()).GetNormalized());
+		}
+	}
+	// r7 (critic r6 #3 / #2): the hover bob along the mesh up and the stand-clear nudge, both on the root (component space)
+	if (FMath::Abs(Frame.BobShift) > 1e-6f || !Frame.NudgeCS.IsNearlyZero(1e-6))
+	{
+		const FCompactPoseBoneIndex Root(0);
+		Pose[Root].AddToTranslation(Frame.UpCS * double(Frame.BobShift) + Frame.NudgeCS);
 	}
 	return true;
 }

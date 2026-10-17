@@ -8,6 +8,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Containers/ArrayView.h"
+#include "Templates/Function.h"
 #include "Traversal/WebTravTypes.h"
 
 class FWebTravWorld;
@@ -86,6 +88,33 @@ public:
 	/** critic r5 #7 (fl16: 96 deg in 0.25 s, up to 12.1 deg per frame): flight hero only (FlightLeashM > 0) -- the output lens orbits the hero and
 	 *  the output yaw turns at no more than this (deg/s; + deliberate look input). Output SlewFlags bit 128 = the cap held it. 0 = off. */
 	double FlightYawRateMax = 180.0;
+	// ---- critic r6 #1 (r7, "every breach is a jump cut": the view froze while he passed 17-26 m through the block, then a 24-78 m / up to 94 deg
+	// cut): BREACH FOLLOW-THROUGH, flight hero only. The pawn calls SetBreachPass every frame (true while the body is in the solid). The output
+	// then follows him THROUGH the hole: BreachFollowDist m behind him on his pass line, BreachFollowUp m above, looking BreachLookAhead m past
+	// him (the lens may be inside the solid only during the pass and the frames until it leaves it; InsideDarkK darkens those). After the exit
+	// the output blends back to the composed flight view over BreachTailHoldT..BreachTailT s. From entry to the end of the tail the output moves
+	// <= BreachStepM per frame and turns <= BreachTurnDeg per frame (absolute, any frame rate); the step cap ramps to the normal one through
+	// the tail. No Reset, no cut. BreachStepM 0 = off.
+	void SetBreachPass(bool bPass, const FVector& Dir);
+	/** critic r6 #1: re-seed the chase composition behind him (heading InYaw) without moving the OUTPUT (the slew / follow-through keep the
+	 *  last output). Shake / FOV punch / kick in flight are kept. */
+	void ReseedChase(const FVector& Pos, double InYaw);
+	double BreachFollowDist = 3.0, BreachFollowUp = 0.7, BreachLookAhead = 3.0;
+	double BreachStepM = 2.9, BreachTurnDeg = 5.5, BreachTailHoldT = 0.12, BreachTailT = 0.4;
+	int32 BreachCamPhase = 0;      // telemetry: 0 off, 1 pass, 2 tail
+	double BreachCamW = 0.0;       // telemetry: follow-through weight (1 on the pass line .. 0 composed view)
+	double InsideDarkK = 0.0;      // 0..1: the lens is inside a solid during the follow-through (the pawn darkens the view by it)
+	bool bInsideDarkWritten = false;   // the pawn wrote the darkening post-process overrides (restores them once)
+	// ---- critic r6 #5 (fl12 2.70-2.73 lens through a box truck, fl15 4.43-4.48 through a round tower, fl15 4.00 inside the hero): FINAL LENS
+	// GUARD, flight hero only, run by the pawn after Update on the final lens. (1) the lens is never nearer than LensBodyMinM to the hero's
+	// padded bone box (pushed straight out, re-aimed); (2) outside the follow-through pass, a lens sphere of LensSolidR m that overlaps a
+	// traversal solid, a render-collision solid (ExtOverlap / ExtSweep, the visibility channel) or a vehicle box is pulled in toward the
+	// hero's chest to the first clear spot of that line (or raised over him when that is nearer than LensBodyMinM), re-aimed; the pull is
+	// released at LensPullRelease m/s (no pop back out). LensGuardFlags (telemetry): 1 solid, 2 body, 4 vehicle, 8 raised, 16 pull release.
+	void GuardLens(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FBox> Boxes,
+		TFunctionRef<bool(const FVector&, double)> ExtOverlap, TFunctionRef<bool(const FVector&, const FVector&, double, double&)> ExtSweep);
+	double LensBodyMinM = 1.4, LensSolidR = 0.22, LensPullRelease = 6.0;
+	int32 LensGuardFlags = 0;
 	// ---- owner feedback 2026-10-15 (Invincible flight playtest): flight-sim chase camera and super-boost feel. Every field below is set every
 	// frame by AWebTravCharacter::FlightFrame from UWHFlightComponent tunables (-WHFlightTune=...); the legacy hero never sets them, so all
 	// stay 0 / false and nothing changes there.
@@ -298,6 +327,13 @@ private:
 	FVector FlightSpotFor(const FVector& Hero, double SpinePitch, double Radius) const;
 	FVector FlightSpotForYaw(const FVector& Hero, double SpinePitch, double Radius, double InYaw) const;   // critic r5 #3: any camera yaw
 	bool CutSpotClearYaw(const FVector& Pos, const FVector& Vel, const FWebTravWorld& World, double InYaw) const;
+	// critic r6 #1: follow-through state (see SetBreachPass) and its per-frame output pass (end of Update's slew block)
+	void ApplyBreachFollow(double Dt, const FTravCamInput& P, const FWebTravWorld& World);
+	bool bBreachPassIn = false;
+	FVector BreachCamDir = FVector::ForwardVector;
+	double BreachTailClock = 0.0;
+	// critic r6 #5: the lens guard's held pull-in (m nearer the hero than the composed lens) and its last output position
+	double LensPull = 0.0;
 	// Smooth attack/decay for readable impact and speed shake, independent of the chase spring.
 	double ShakeEnvelope = 0.0, ShakeEnvelopeV = 0.0;
 	bool bWasSwinging = false;

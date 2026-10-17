@@ -1133,29 +1133,57 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 	// the impact (debris, hole, slow-mo), then cuts to a fresh chase view behind him at the exit
 	// (suite r2 sims: the cut waits until a chase spot behind him is out of the building -- cutting at the exit put the lens inside the
 	//  facade he had just left -- at most 0.4 s; the player's heading (camera yaw) is kept across the cut, the slow-mo starts with it)
-	bool bBreachHold = bFlightMode && Flight && Flight->IsBreaching();
-	double BreachCutYaw = Cam.Yaw;
+	// critic r6 #1 (r7: "every breach is a jump cut" -- the r5/r6 hold froze the view while he passed 17-26 m in 3-4 frames, then Reset cut
+	// 24-78 m / up to 94 deg): no hold, no Reset. The camera keeps updating and FOLLOWS HIM THROUGH the hole (FWebTravCamera::SetBreachPass:
+	// on his pass line, <= 3 m and <= 6 deg per frame, darkened while the lens is inside the block), then blends back to the flight view.
+	// The pass speed is bounded to what that camera can follow (UWHFlightComponent::BreachPassStepM). The exit re-seeds the chase composition
+	// behind him without moving the output.
+	const bool bBreachPass = bFlightMode && Flight && Flight->IsBreaching();
 	if (bFlightMode && Flight)
 	{
-		// critic r5 #3 (fl14 / fl15 / fl17: hidden 12-24 frames per breach, then an 11-80 m jump): the pass through the solid is <= ~4 frames
-		// (UWHFlightComponent::BreachMaxTime), and at the exit the cut is taken at once on the nearest clear yaw (FWebTravCamera::ChooseCutYaw:
-		// a three-quarter / side view of him bursting out when the spot behind him is still inside the building). Only when no yaw is clear does
-		// the hold wait, at most BreachCutWaitMax s (was 0.4 s for the spot behind him).
-		static constexpr double BreachCutWaitMax = 0.05;
-		if (bBreachHold) BreachClearT = 0.0;
-		else if (bWasBreachHold && BreachClearT < BreachCutWaitMax)
+		static const FName NBreachOut(TEXT("breachOut"));
+		FVector PassDir = Flight->BreachDirection();
+		bool bOutNow = false;
+		for (const FWebTravEvent& E : Traversal->Events)
 		{
-			if (!Cam.ChooseCutYaw(Traversal->PosM(), Traversal->VelM(), Traversal->TravWorld, BreachCutYaw)) { BreachClearT += Dt; bBreachHold = true; }
+			if (E.Type == NBreachOut) { bOutNow = true; if (!E.Dir.IsNearlyZero()) PassDir = E.Dir; }
+		}
+		// a pass that began and ended inside one frame still gets the follow-through (entered, then turned into the tail at once)
+		if (bOutNow && !bBreachPass && !bWasBreachHold) Cam.SetBreachPass(true, PassDir);
+		Cam.SetBreachPass(bBreachPass, PassDir);
+		if (!bBreachPass && (bWasBreachHold || bOutNow))
+		{
+			Cam.ReseedChase(Traversal->PosM(), FMath::Atan2(PassDir.Y, PassDir.X));
+			if (BreachDirector) BreachDirector->CutSlowMo();
 		}
 	}
-	if (!bBreachHold)
+	Cam.HeroProjH = ProjectHeroH();
+	Cam.Update(Dt, CI, Traversal->TravWorld);
+	Traversal->TravWorld.PushOutOfCrowns(Cam.CamPos, 0.5);   // round 01 (Gap 3): the lens never sits inside a tree crown
+	if (bFlightMode && Flight)
 	{
-		if (bWasBreachHold) { Cam.Reset(Traversal->PosM(), BreachCutYaw); if (BreachDirector) BreachDirector->CutSlowMo(); }
-		Cam.HeroProjH = ProjectHeroH();
-		Cam.Update(Dt, CI, Traversal->TravWorld);
-		Traversal->TravWorld.PushOutOfCrowns(Cam.CamPos, 0.5);   // round 01 (Gap 3): the lens never sits inside a tree crown
+		// critic r6 #5 (fl12 lens through a box truck, fl15 through a round tower, fl15 4.00 inside the hero): final lens guard -- out of the
+		// hero's body (>= LensBodyMinM), traversal solids, render collision on the visibility channel and traffic vehicle boxes (street-level lens)
+		TArray<FBox> VehicleBoxes;
+		if (Cam.CamPos.Z < 8.0) Flight->GatherVehicleBoxes(Cam.CamPos, 12.0, VehicleBoxes);
+		const AActor* IgnoreFx = BreachDirector.Get();
+		UWHFlightComponent* Fl = Flight.Get();
+		Cam.GuardLens(Dt, CI, Traversal->TravWorld, VehicleBoxes,
+			[Fl, IgnoreFx](const FVector& P, double R) { return Fl->LensOverlapExt(P, R, IgnoreFx); },
+			[Fl, IgnoreFx](const FVector& A, const FVector& B, double R, double& D) { return Fl->LensSweepExt(A, B, R, IgnoreFx, D); });
+		// critic r6 #1: darken the view while the follow-through lens is inside the block (vignette + tint; overrides released at 0)
+		if (FollowCamera && (Cam.InsideDarkK > 0.0 || Cam.bInsideDarkWritten))
+		{
+			const float K = float(FMath::Clamp(Cam.InsideDarkK, 0.0, 1.0));
+			FPostProcessSettings& PP = FollowCamera->PostProcessSettings;
+			PP.bOverride_VignetteIntensity = K > 0.f;
+			PP.VignetteIntensity = 0.4f + 0.55f * K;
+			PP.bOverride_SceneColorTint = K > 0.f;
+			PP.SceneColorTint = FLinearColor(1.f - 0.35f * K, 1.f - 0.35f * K, 1.f - 0.3f * K, 1.f);
+			Cam.bInsideDarkWritten = K > 0.f;
+		}
 	}
-	bWasBreachHold = bBreachHold;
+	bWasBreachHold = bBreachPass;
 
 	// ---- move the actor (capsule) with the simulated body
 	const FVector BodyCm = Traversal->PosM() * 100.0;

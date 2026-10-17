@@ -80,6 +80,65 @@ namespace
 		if (BM != BLEND_Opaque && BM != BLEND_Masked) return false;
 		return !B->GetPathName().StartsWith(TEXT("/Engine/"));
 	}
+	// critic r6 #8: glass-tower dust is a cool pale grey
+	const FLinearColor BdGlassDust(0.30f, 0.33f, 0.36f);
+	/** critic r6 #8: the breach opening's outline radius (box units: the decal edge = 1) at angle Th around its centre, Grow 0..1 -- the SAME ragged-star
+	 *  formula as hole_field in Scripts/build_invincible_fx.py (without that shader's +-0.035 noise warp), so the rim chunks sit on the drawn edge */
+	double BdHoleRadius(double Th, double Seed, double Grow)
+	{
+		auto Tri = [](double X) { return FMath::Abs(FMath::Frac(X) - 0.5) * 2.0; };
+		const double Pf = 0.58 + 0.17 * Tri(Th * 1.11408 + Seed * 0.713) + 0.10 * Tri(Th * 1.75070 + Seed * 0.377 + 0.31) + 0.07 * Tri(Th * 3.02394 + Seed * 0.911 + 0.57)
+			+ 0.09 * FMath::Sin(Th * 2.0 + Seed * 9.1) + 0.06 * FMath::Sin(Th * 3.0 + Seed * 4.3);
+		return Pf * 0.58 * (0.12 + 0.88 * Grow);
+	}
+	/** critic r6 #8: the facade "style" of the triangle a complex trace hit in a merged city facade mesh. build_city's Facade.ush reads
+	 *  style = UV channel 4 .y + 0.01 (1 masonry, 2 curtain-wall glass, 3 ribbon windows, 4 deco, 5 party wall, 6 stainless crown). FaceIndex counts the
+	 *  triangles of the sections that have collision, in order (the way UStaticMeshComponent::GetMaterialFromCollisionFaceIndex walks them).
+	 *  -1 when the mesh keeps no CPU copy (cooked builds without bAllowCPUAccess) or has fewer than 5 UV channels. */
+	int32 BdFacadeStyle(const UStaticMeshComponent* SMC, int32 FaceIndex)
+	{
+		if (!SMC || FaceIndex < 0) return -1;
+		const UStaticMesh* Mesh = SMC->GetStaticMesh();
+		const FStaticMeshRenderData* RD = Mesh ? Mesh->GetRenderData() : nullptr;
+		if (!RD) return -1;
+		const int32 LodI = Mesh->LODForCollision;
+		if (!RD->LODResources.IsValidIndex(LodI)) return -1;
+		const FStaticMeshLODResources& L = RD->LODResources[LodI];
+		const FStaticMeshVertexBuffer& VB = L.VertexBuffers.StaticMeshVertexBuffer;
+		if (VB.GetNumTexCoords() <= 4 || !VB.GetAllowCPUAccess() || !L.IndexBuffer.GetAllowCPUAccess()) return -1;
+		int32 Total = 0, Tri = -1;
+		for (const FStaticMeshSection& Sec : L.Sections)
+		{
+			if (!Sec.bEnableCollision) continue;
+			if (FaceIndex < Total + int32(Sec.NumTriangles)) { Tri = int32(Sec.FirstIndex / 3) + (FaceIndex - Total); break; }
+			Total += int32(Sec.NumTriangles);
+		}
+		if (Tri < 0 || Tri * 3 + 2 >= L.IndexBuffer.GetNumIndices()) return -1;
+		int32 Votes[8] = {};
+		for (int32 K = 0; K < 3; ++K)
+		{
+			const uint32 Vi = L.IndexBuffer.GetIndex(uint32(Tri * 3 + K));
+			if (Vi >= VB.GetNumVertices()) return -1;
+			const int32 St = FMath::FloorToInt(VB.GetVertexUV(Vi, 4).Y + 0.01f);
+			if (St >= 0 && St < 8) ++Votes[St];
+		}
+		int32 Best = 0;
+		for (int32 I = 1; I < 8; ++I) if (Votes[I] > Votes[Best]) Best = I;
+		return Votes[Best] > 0 ? Best : -1;
+	}
+	/** critic r6 #8: is this a city facade material (M_CityFacade, or an instance of it) */
+	bool BdIsFacadeMat(const UMaterialInterface* M)
+	{
+		if (!M) return false;
+		if (M->GetName().Contains(TEXT("CityFacade"))) return true;
+		const UMaterial* B = M->GetMaterial();
+		return B && B->GetName().Contains(TEXT("CityFacade"));
+	}
+	bool BdTagHasAny(const FString& Tag, const TCHAR* const* Keys, int32 N)
+	{
+		for (int32 I = 0; I < N; ++I) if (Tag.Contains(Keys[I])) return true;
+		return false;
+	}
 }
 
 AWHBreachDirector::AWHBreachDirector()
@@ -109,6 +168,8 @@ void AWHBreachDirector::BeginPlay()
 	MStreak = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Invincible/FX/M_InvStreak.M_InvStreak"));
 	// critic r5 #8: one continuous shock-ring annulus (optional; the segmented tubes stay the fallback)
 	MRing = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Invincible/FX/M_InvShockRing.M_InvShockRing"));
+	// critic r6 #8: glass-tower pane shards (optional; M_CmbTrans stands in)
+	MGlassShard = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Invincible/FX/M_InvGlassShard.M_InvGlassShard"));
 	Cone = LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Cone.Cone"));
 	ProbeCone();
 	GcAsset = LoadObject<UGeometryCollection>(nullptr, TEXT("/Game/Invincible/Destruction/GC_FacadeChunk.GC_FacadeChunk"));
@@ -128,6 +189,8 @@ void AWHBreachDirector::BeginPlay()
 		MStreak ? TEXT("M_InvStreak") : (MVapour ? TEXT("M_InvVapour (fallback)") : TEXT("none (no streaks)")), MaxVapours);
 	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT breach fx r6: shock ring %s, prewarmed %d hole / %d crater decals, %d debris pieces"),
 		MRing ? TEXT("M_InvShockRing (one annulus)") : TEXT("segmented tubes (fallback)"), HoleDecals.Num(), CraterDecals.Num(), Chunks.Num());
+	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT breach fx r7: glass shard material %s, %d hole-rim / %d pane pieces prewarmed, hole rim %d per breach"),
+		MGlassShard ? TEXT("M_InvGlassShard") : TEXT("M_CmbTrans (fallback)"), HoleRim.Num(), Panes.Num(), RimPerHole);
 }
 
 // critic r5 #3 (a first-use decal rendered its whole box as a flat dark panel for one frame: fl15 3.85 s, fl11 2.28 s, fl17 20.68 s) / #8:
@@ -135,12 +198,31 @@ void AWHBreachDirector::BeginPlay()
 // part of the debris pool, so no FX component is created (or first drawn with a new material) on the impact frame
 void AWHBreachDirector::PrewarmPools()
 {
-	for (UMaterialInterface* M : { MHole.Get(), MDecal.Get(), MChunk.Get(), MDust.Get(), MVapour.Get(), MStreak.Get(), MRing.Get(), MSolid.Get(), MTrans.Get() })
+	for (UMaterialInterface* M : { MHole.Get(), MDecal.Get(), MChunk.Get(), MDust.Get(), MVapour.Get(), MStreak.Get(), MRing.Get(), MSolid.Get(), MTrans.Get(), MGlassShard.Get() })
 		if (M) if (FMaterialResource* R = M->GetMaterialResource(GMaxRHIShaderPlatform)) R->FinishCompilation();
 	if (MHole) while (HoleDecals.Num() < MaxHoleDecals) { if (!AcquireDecal(HoleDecals, NextHole, MaxHoleDecals, MHole)) break; }
 	if (MDecal) while (CraterDecals.Num() < MaxCraterDecals) { if (!AcquireDecal(CraterDecals, NextCrater, MaxCraterDecals, MDecal)) break; }
 	NextHole = 0; NextCrater = 0;
 	if (Cube) { const int32 N = FMath::Min(MaxChunks, ChunksPerBreach * 2); while (Chunks.Num() < N) { if (!NewChunk()) break; } }
+	// critic r6 #8: a first set of hole-rim pieces (static, hidden) and glass panes, so neither is first created on an impact frame
+	if (Cube)
+	{
+		const int32 NR = FMath::Min(MaxHoleRim, RimPerHole * 2);
+		while (HoleRim.Num() < NR)
+		{
+			FRubble NRb; NRb.Comp = MakeComp(Cube, MChunk ? MChunk.Get() : MSolid.Get(), NRb.Mid, true); KeepAlive.Add(NRb.Comp);
+			if (MGlassShard) { NRb.GlassMid = UMaterialInstanceDynamic::Create(MGlassShard, this); KeepAlive.Add(NRb.GlassMid); }
+			HoleRim.Add(NRb);
+		}
+		const int32 NP = FMath::Min(MaxPanes, ShardsPerBreach);
+		UMaterialInterface* PaneBase = MGlassShard ? MGlassShard.Get() : (MTrans ? MTrans.Get() : MSolid.Get());
+		while (Panes.Num() < NP)
+		{
+			FShard NSh; NSh.Comp = MakeComp(Cube, PaneBase, NSh.Mid, false); NSh.bPane = true; KeepAlive.Add(NSh.Comp);
+			if (NSh.Mid) NSh.Mid->SetScalarParameterValue(TEXT("Opacity"), 0.f);
+			Panes.Add(NSh);
+		}
+	}
 	// the boom's pieces: 2 cones, 6 rings, 16 streaks (more are still made on demand up to MaxVapours)
 	if (MVapour && Sphere)
 	{
@@ -262,36 +344,70 @@ void AWHBreachDirector::Breach(const FVector& PosM, const FVector& DirM, float S
 	// the flight line); the exit point is 0.6 m outside the far wall (trace back into it from 3 m outside). The hit gives the true surface point
 	// and normal for the opening decal, and the facade component's material for the debris pieces.
 	FFacadeHit Hit;
-	TraceFacade(bEntry ? P - D * 200.0 : P + D * 300.0, bEntry ? P + D * 200.0 : P - D * 200.0, Hit);
+	TraceFacade(bEntry ? P - D * 200.0 : P + D * 300.0, bEntry ? P + D * 200.0 : P - D * 200.0, Hit, /*bDescribe*/ true);
 	FVector Pt = P, OutN = bEntry ? -D : D;   // outward facade normal (fallbacks: the flight line is ~ square-on)
-	if (Hit.bHit && FVector::Dist(Hit.Point, P) < 260.0 && FMath::Abs(Hit.Normal.Z) < 0.8)
+	const bool bOnWall = Hit.bHit && FVector::Dist(Hit.Point, P) < 260.0 && FMath::Abs(Hit.Normal.Z) < 0.8;
+	if (bOnWall)
 	{
 		Pt = Hit.Point; OutN = Hit.Normal;
 		if (FVector::DotProduct(OutN, D) * (bEntry ? 1.0 : -1.0) > 0.0) OutN = -OutN;   // entry: faces against the flight; exit: along it
 	}
 	if (Hit.Mat) LastFacadeMat = Hit.Mat;
-	UMaterialInterface* Look = Hit.Mat ? Hit.Mat : LastFacadeMat.Get();
+	// critic r6 #8: what was hit decides everything below. The facade plane around the hit is measured once (FitHoleHalf: the decal box that stays on
+	// the wall, and the narrower in-plane span that tells a girder or a fire escape from a building wall).
+	const double Half0 = HoleHalfCm * (1.0 + 0.18 * Sev);
+	FVector Shift = FVector::ZeroVector;
+	double Half = Half0, Span = -1.0;
+	if (bOnWall && (MHole || !Hit.bFacadeSeen)) Half = FitHoleHalf(Pt, OutN, Half0, Shift, &Span);
+	const EBdSurf Kind = ClassifyHit(Hit, bOnWall, Pt, Span);
+	if (Kind == EBdSurf::Thin)
+	{
+		// critic r6 #8 (fl15 10.15 s: the clip ended on "a small hole in a bridge girder"): a thin / non-building solid -- no hole, no big debris
+		ThinStrike(Pt, bOnWall ? OutN : (bEntry ? -D : D), D, Sev, bEntry);
+		UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT breach %s fx at %s: thin / non-building solid (sparks + dust only; tag '%s', facade material %s, span %.0f cm)"),
+			bEntry ? TEXT("in") : TEXT("out"), *PosM.ToString(), *Hit.Tag.Left(120), Hit.bFacadeSeen ? TEXT("yes") : TEXT("no"), Span);
+		return;
+	}
+	UMaterialInterface* Look = (Kind == EBdSurf::Masonry) ? (Hit.Mat ? Hit.Mat : LastFacadeMat.Get()) : nullptr;   // (a glass / steel facade never wears the masonry look)
 	// debris: >= 20 pieces (ChunksPerBreach = 44) of mixed size, many small 8-25 cm and a few to 50 cm, scattered over the opening on the outside
 	// of the wall. Entry: they spray sideways / up / out of the hole (the wall is solid, the camera is outside); exit: they are blown out ahead.
+	// critic r6 #8 (fl17 12.9 s: "a glass tower threw bricks"): by facade type -- curtain-wall glass: thin translucent glassy panes + a few steel bits;
+	// a steel crown tier: steel plates / bars; masonry: concrete / brick chunks as before, with only a few window glints.
 	const double Sp = 700.0 + 1300.0 * Sev;   // (r2: 18-44 m/s, the pieces left the frame within 0.2 s)
 	if (Cube)
 	{
-		SpawnDebris(Pt + OutN * 18.0, OutN, HoleHalfCm * 0.40, Sp, bEntry ? 0.35 : 0.8, ChunksPerBreach, Look, bEntry ? BdConcrete : BdBrick, bEntry ? 0.25f : 0.6f);
-		SpawnShards(Pt + OutN * 18.0, bEntry ? OutN : D, ShardsPerBreach, Sp * 1.2);
+		const FVector Org = Pt + OutN * 18.0;
+		if (Kind == EBdSurf::Glass)
+		{
+			SpawnPanes(Org, bEntry ? OutN : D, ShardsPerBreach, Sp * 1.15);
+			SpawnDebris(Org, OutN, HoleHalfCm * 0.40, Sp, bEntry ? 0.35 : 0.8, FMath::Max(4, ChunksPerBreach / 3), nullptr, BdSteel, 0.f, 1);
+			SpawnShards(Org, bEntry ? OutN : D, 8, Sp * 1.2);
+		}
+		else if (Kind == EBdSurf::Steel)
+		{
+			SpawnDebris(Org, OutN, HoleHalfCm * 0.40, Sp, bEntry ? 0.35 : 0.8, FMath::Max(6, ChunksPerBreach * 2 / 3), nullptr, BdSteel, 0.f, 1);
+			SpawnShards(Org, bEntry ? OutN : D, 6, Sp * 1.2);
+		}
+		else
+		{
+			SpawnDebris(Org, OutN, HoleHalfCm * 0.40, Sp, bEntry ? 0.35 : 0.8, ChunksPerBreach, Look, bEntry ? BdConcrete : BdBrick, bEntry ? 0.25f : 0.6f);
+			SpawnShards(Org, bEntry ? OutN : D, 10, Sp * 1.2);
+		}
 	}
 	// dust: dense, larger, longer-lived puffs around the opening (critic r2: "see-through bubble smoke")
-	if (MDust && Sphere) BreachDust(Pt, OutN, D, Sev, bEntry);
+	if (MDust && Sphere) BreachDust(Pt, OutN, D, Sev, bEntry, Kind);
 	else
 	{
 		Fx.Dust(PosM, 2.5 + 2.5 * Sev);
 		Fx.Dust(PosM + D * 3.0, 2.0 + 2.0 * Sev);
 	}
 	{ FLinearColor Spark(3.0f, 2.2f, 1.4f); Fx.Hit(Pt / 100.0, bEntry ? OutN : D, 1.0, &Spark); }
-	// the hole: a deferred decal on the facade at the entry and the exit (M_BreachHole: jagged near-black opening, broken concrete rim, cracks);
-	// facing the facade normal (~ -D at the entry), it grows open over 0.18 s.
+	// the hole: a deferred decal on the facade at the entry and the exit (M_BreachHole r7: jagged opening with a recessed interior, a lit reveal,
+	// a broken rim, cracks); facing the facade normal (~ -D at the entry), it grows open over 0.18 s. The decal's frame goes to the material and
+	// RimPerHole lit rim chunks are seated on its edge (PlaceHole).
 	// (critic r1 + r2 capture fl14: the scorched plate -- a flat 3-5 m cylinder disc flush with the facade -- read as a black ellipse
 	//  stamped on an intact wall and filled the frame when the camera was close; no plate when the decal asset is missing)
-	if (MHole) PlaceHole(Pt, -OutN, Sev);
+	if (MHole) PlaceHole(Pt, -OutN, Sev, Half, Shift, Kind, bOnWall);
 	if (GcAsset) SpawnGc(P, D);
 	PlaySynth(1, P, 0.8f + 0.2f * Sev);
 	// suite r2 sims: no slow-mo on the entry any more (the hero is hidden inside the solid then, so the held impact view stared at a hole
@@ -305,9 +421,78 @@ void AWHBreachDirector::Breach(const FVector& PosM, const FVector& DirM, float S
 			FW->AddCollateral(BreachUSD + BreachUSDPerSev * Sev, TEXT("building breach"));
 		}
 	}
-	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT breach %s fx at %s sev %.2f (chunks live %d; facade trace %s%s, facade material %s, hole decal %s, dust %s)"), bEntry ? TEXT("in") : TEXT("out"), *PosM.ToString(), Sev,
+	UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT breach %s fx at %s sev %.2f (chunks live %d; facade trace %s%s, facade material %s, surface %s, style %d, hole decal %s, dust %s)"), bEntry ? TEXT("in") : TEXT("out"), *PosM.ToString(), Sev,
 		Chunks.FilterByPredicate([](const FChunk& C) { return C.bLive; }).Num(), Hit.bHit ? TEXT("hit") : TEXT("miss"), Hit.bHit ? *FString::Printf(TEXT(" n (%.2f, %.2f, %.2f)"), OutN.X, OutN.Y, OutN.Z) : TEXT(""),
-		Look ? *Look->GetName() : TEXT("none"), MHole ? TEXT("yes") : TEXT("no"), MDust ? TEXT("dense") : TEXT("combat puffs"));
+		Look ? *Look->GetName() : TEXT("none"), Kind == EBdSurf::Glass ? TEXT("glass tower") : Kind == EBdSurf::Steel ? TEXT("steel") : TEXT("masonry"), Hit.Style,
+		MHole ? TEXT("yes") : TEXT("no"), MDust ? TEXT("dense") : TEXT("combat puffs"));
+}
+
+// critic r6 #8: what the trace's first surface is called (lower-case component / owner / mesh / material names in Tag)
+void AWHBreachDirector::DescribeSurface(UPrimitiveComponent* C, UMaterialInterface* M, int32 FaceIndex, FFacadeHit& Out) const
+{
+	(void)FaceIndex;
+	if (!C) return;
+	FString Tag = C->GetName();
+	if (const AActor* Ow = C->GetOwner()) Tag += TEXT(" ") + Ow->GetName();
+	if (const UStaticMeshComponent* SMC = Cast<UStaticMeshComponent>(C))
+		if (const UStaticMesh* Mesh = SMC->GetStaticMesh()) Tag += TEXT(" ") + Mesh->GetName();
+	if (M) Tag += TEXT(" ") + M->GetName();
+	Out.Tag = Tag.ToLower();
+}
+
+// critic r6 #8: the type of what the breach went through.
+//  1. a city facade material anywhere along the trace = a building wall; its merged-mesh style picks glass (2 curtain wall, 3 ribbon) / steel (6 crown) /
+//     masonry (everything else). Without CPU vertex data (cooked build) the style is unknown: a name containing glass / curtain says glass, else
+//     a hit above TowerHeightCm is taken for a curtain-wall tower and anything lower for masonry.
+//  2. no facade material: thin / non-building solids by name (bridge, girder, truss, cable, deck, fire escape, kit pieces, asphalt, sidewalk ...) or by
+//     the narrow in-plane span of the surface (< 2.2 m: a beam, a rail) are Thin; a horizontal surface other than a roof is Thin; the rest (roofs, a
+//     landmark / podium wall) is masonry, glass when its name says so.
+AWHBreachDirector::EBdSurf AWHBreachDirector::ClassifyHit(const FFacadeHit& H, bool bOnWall, const FVector& PointCm, double SpanCm) const
+{
+	(void)bOnWall;
+	static const TCHAR* const GlassKeys[] = { TEXT("glass"), TEXT("curtain"), TEXT("mirror") };
+	static const TCHAR* const ThinKeys[] = { TEXT("bridge"), TEXT("girder"), TEXT("truss"), TEXT("cable"), TEXT("railing"), TEXT("pylon"), TEXT("beam"), TEXT("deck"),
+		TEXT("fireescape"), TEXT("scaffold"), TEXT("crane"), TEXT("antenna"), TEXT("streetkit"), TEXT("awning"), TEXT("citykit"), TEXT("citydetail"), TEXT("cityframe"),
+		TEXT("citysignage"), TEXT("citycar"), TEXT("cityprop"), TEXT("asphalt"), TEXT("sidewalk"), TEXT("cityland"), TEXT("coast"), TEXT("water"), TEXT("terrain") };
+	if (H.bFacadeSeen)
+	{
+		if (BdTagHasAny(H.Tag, GlassKeys, UE_ARRAY_COUNT(GlassKeys))) return EBdSurf::Glass;
+		if (H.Style == 2 || H.Style == 3) return EBdSurf::Glass;
+		if (H.Style == 6) return EBdSurf::Steel;
+		if (H.Style >= 0) return EBdSurf::Masonry;
+		return PointCm.Z > double(TowerHeightCm) ? EBdSurf::Glass : EBdSurf::Masonry;   // style unreadable: height fallback
+	}
+	if (!H.bHit) return EBdSurf::Masonry;   // nothing traced: the old behaviour (a building hole at the flight line)
+	if (BdTagHasAny(H.Tag, ThinKeys, UE_ARRAY_COUNT(ThinKeys))) return EBdSurf::Thin;
+	if (FMath::Abs(H.Normal.Z) >= 0.8) return H.Tag.Contains(TEXT("roof")) ? EBdSurf::Masonry : EBdSurf::Thin;
+	if (SpanCm >= 0.0 && SpanCm < 220.0) return EBdSurf::Thin;
+	if (BdTagHasAny(H.Tag, GlassKeys, UE_ARRAY_COUNT(GlassKeys))) return EBdSurf::Glass;
+	return EBdSurf::Masonry;
+}
+
+// critic r6 #8 (fl15: "a small hole in a bridge girder"): a thin / non-building solid gets a spark flash, three to five small dust puffs, a few small
+// steel bits and a quiet impact -- no hole decal, no rim, no pane or brick debris, no building-breach tally (a small collateral cost only)
+void AWHBreachDirector::ThinStrike(const FVector& PtCm, const FVector& N, const FVector& D, float Sev, bool bEntry)
+{
+	FVector Nn = N.GetSafeNormal();
+	if (Nn.IsNearlyZero()) Nn = -D;
+	{ FLinearColor Spark(3.0f, 2.4f, 1.6f); Fx.Hit(PtCm / 100.0, Nn, 0.8, &Spark); }
+	if (MDust && Sphere)
+	{
+		FVector U, V; BdPlaneBasis(Nn, U, V);
+		const int32 NP = 3 + int32(2 * Sev);
+		for (int32 K = 0; K < NP; ++K)
+		{
+			const FVector Rad = U * Rng.FRandRange(-1.f, 1.f) + V * Rng.FRandRange(-1.f, 1.f);
+			const double S0 = Rng.FRandRange(40.f, 70.f);
+			SpawnPuff(PtCm + Nn * Rng.FRandRange(15.f, 40.f) + Rad * 30.0, Nn * Rng.FRandRange(60.f, 160.f) + Rad * Rng.FRandRange(60.f, 180.f) + (bEntry ? FVector::ZeroVector : D * 120.0),
+				S0, S0 * Rng.FRandRange(2.2f, 3.0f), Rng.FRandRange(0.7f, 1.0f), Rng.FRandRange(0.32f, 0.45f), Rng.FRandRange(0.f, 0.06f), BdDust * Rng.FRandRange(0.7f, 0.95f));
+		}
+	}
+	else Fx.Dust(PtCm / 100.0, 0.6 + 0.6 * Sev);
+	if (Cube) SpawnDebris(PtCm + Nn * 10.0, Nn, 25.0, 420.0 + 380.0 * Sev, 0.6, 3 + int32(3 * Sev), nullptr, BdSteel, 0.f, 1, 0.5f);
+	PlaySynth(1, PtCm, 0.30f + 0.15f * Sev);
+	if (UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this)) FW->AddCollateral(3000.f + 9000.f * Sev, TEXT("structure hit"));
 }
 
 void AWHBreachDirector::CutSlowMo()
@@ -379,7 +564,9 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 		if (Cone)
 		{
 			const double Lead = double(BoomConeLeadM) * 100.0;
-			if (FVapour* Vp = SpawnShape(0, PCm + D * Lead, D, BoomFollow, Lead, BoomConeLenM * 100.0, BoomConeLenM * 145.0, BoomConeRadM * 100.0, BoomConeRadM * 170.0, BoomOpacity, BoomLife, 1.5f, 0))
+			// critic r6 #4 (fl04 1.517: the frame centre was a lifted haze): the cone keeps BoomConeOpacityK of its old opacity and a shorter life,
+			// so the ring's leading edge is the read, not a veil around the hero
+			if (FVapour* Vp = SpawnShape(0, PCm + D * Lead, D, BoomFollow, Lead, BoomConeLenM * 100.0, BoomConeLenM * 145.0, BoomConeRadM * 100.0, BoomConeRadM * 170.0, double(BoomOpacity) * double(BoomConeOpacityK), double(BoomLife) * 0.7, 1.5f, 0))
 			{
 				if (Vp->Mid) { Vp->Mid->SetScalarParameterValue(TEXT("Gain"), BoomGain); Vp->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(0.86f, 0.89f, 0.95f, 1.f)); }
 			}
@@ -388,8 +575,11 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 		if (Sphere)
 		{
 			const int32 NS = FMath::Clamp(BoomRingSegs, 8, 32);
-			SpawnRing(PCm + D * 20.0, D, NS, 0.55, 20.0, 0.0, 70.0, 230.0, 0.09, BoomOpacity, 0.55);
-			SpawnRing(PCm - D * 60.0, D, NS, 0.70, -60.0, 150.0, 120.0, 320.0, 0.08, BoomOpacity * 0.8, 0.70);
+			// critic r6 #4: the MAIN ring leads the hero (0.6 m ahead of his chest, glued for 0.3 s) and expands fast (ease-out) from 0.5 m to
+			// BoomRingMaxM around the flight line: from the 3/4 chase lens it reads as an ellipse in perspective around him; its HARD hot leading edge
+			// is the read (M_InvShockRing r7). A weaker echo ring follows just behind his chest. Both snap in, hold, and are gone within ~0.4 s.
+			SpawnRing(PCm + D * 60.0, D, NS, 0.30, 60.0, 0.0, 50.0, double(BoomRingMaxM) * 100.0, 0.045, BoomRingOpacity, BoomRingLife, 3, 1.0);
+			SpawnRing(PCm - D * 40.0, D, NS, 0.24, -40.0, 120.0, 40.0, double(BoomRingMaxM) * 100.0 * 0.65, 0.05, double(BoomRingOpacity) * 0.6, double(BoomRingLife) * 0.85, 3, 0.7);
 			// speed lines back along the cone flank, glued for 0.12 s, then left behind (lens side skipped)
 			const double Half = FMath::Atan2(double(BoomConeRadM) * 1.3, double(BoomConeLenM) * 1.2);
 			for (int32 K = 0; K < 12; ++K)
@@ -442,7 +632,7 @@ void AWHBreachDirector::Boom(const FVector& PosM, const FVector& DirM)
 	// a 24 m pancake (the lens passes through its hole as it follows him), no engulfing shock shell -- glass / dust shaken off facades within
 	// BoomShakeRadM and a dust ring on a street below
 	if (MVapour && Sphere)
-		SpawnRing(PCm, D, FMath::Clamp(BoomRingSegs + BoomRingSegs / 4, 8, 40), 0.0, 0.0, 0.0, 150.0, double(BoomRingRadM) * 100.0, 0.05, BoomOpacity * 0.75, 0.6);
+		SpawnRing(PCm, D, FMath::Clamp(BoomRingSegs + BoomRingSegs / 4, 8, 40), 0.0, 0.0, 0.0, 100.0, double(BoomRingRadM) * 100.0, 0.035, double(BoomRingOpacity) * 0.55, BoomRingLife, 3, 0.8);
 	ShakeFacades(PCm);
 	PlaySynth(0, PosM * 100.0, 1.f);
 }
@@ -671,9 +861,10 @@ void AWHBreachDirector::SpawnChunks(const FVector& PosCm, const FVector& DirN, i
 	SpawnDebris(PosCm, DirN, 100.0, SpeedCms, 0.7, N, nullptr, Tint, 0.2f);
 }
 
-void AWHBreachDirector::SpawnDebris(const FVector& OriginCm, const FVector& Axis, double SpawnRadiusCm, double SpeedCms, double AxisBias, int32 N, UMaterialInterface* Look, const FLinearColor& Tint, float Brick)
+void AWHBreachDirector::SpawnDebris(const FVector& OriginCm, const FVector& Axis, double SpawnRadiusCm, double SpeedCms, double AxisBias, int32 N, UMaterialInterface* Look, const FLinearColor& Tint, float Brick, int32 Set, float SizeScale)
 {
 	if (!Cube) return;
+	const bool bSteel = Set == 1;   // critic r6 #8: steel bits (glass towers, steel crowns, thin solids): thin bars and plates in steel tints, never the facade look
 	FVector Ax = Axis.GetSafeNormal();
 	if (Ax.IsNearlyZero()) Ax = FVector::UpVector;
 	FVector U, V; BdPlaneBasis(Ax, U, V);
@@ -689,11 +880,13 @@ void AWHBreachDirector::SpawnDebris(const FVector& OriginCm, const FVector& Axis
 		// critic r2 (breach: "no single piece or flat shape covers > 5 % of the frame at ~4 m"; r2 pieces were one size band of 9-47 cm cubes):
 		// 66 % small 8-25 cm, 26 % medium 20-34 cm, 8 % large 34-50 cm (longest side); blocks, slabs and bars so the pile does not read as dice
 		const float Pick = Rng.FRand();
-		const double L = Pick < 0.66f ? Rng.FRandRange(8.f, 25.f) : Pick < 0.92f ? Rng.FRandRange(20.f, 34.f) : Rng.FRandRange(34.f, 50.f);
+		const double L = (Pick < 0.66f ? Rng.FRandRange(8.f, 25.f) : Pick < 0.92f ? Rng.FRandRange(20.f, 34.f) : Rng.FRandRange(34.f, 50.f)) * double(SizeScale);
 		const float Shape = Rng.FRand();
-		const FVector Dim = Shape < 0.45f ? FVector(L, L * Rng.FRandRange(0.55f, 1.f), L * Rng.FRandRange(0.45f, 0.9f))          // block
+		FVector Dim = Shape < 0.45f ? FVector(L, L * Rng.FRandRange(0.55f, 1.f), L * Rng.FRandRange(0.45f, 0.9f))          // block
 			: Shape < 0.8f ? FVector(L, L * Rng.FRandRange(0.5f, 0.95f), L * Rng.FRandRange(0.14f, 0.3f))                            // slab
 			: FVector(L, L * Rng.FRandRange(0.2f, 0.4f), L * Rng.FRandRange(0.2f, 0.4f));                                           // bar
+		if (bSteel) Dim = Shape < 0.55f ? FVector(L * 1.5, L * 0.14, L * 0.14) : FVector(L, L * Rng.FRandRange(0.4f, 0.8f), L * 0.07);   // a bar or a thin plate
+		Dim = FVector(FMath::Max(Dim.X, 3.0), FMath::Max(Dim.Y, 3.0), FMath::Max(Dim.Z, 3.0));   // (critic r6 #8: never thinner than 3 cm: the solver would tunnel through the street)
 		const double Ang = Rng.FRand() * 2.0 * PI;
 		const FVector Rad = U * FMath::Cos(Ang) + V * FMath::Sin(Ang);
 		const FVector Pos = OriginCm + Rad * SpawnRadiusCm * FMath::Sqrt(double(Rng.FRand())) + Ax * Rng.FRandRange(0.f, 20.f);
@@ -702,13 +895,13 @@ void AWHBreachDirector::SpawnDebris(const FVector& OriginCm, const FVector& Axis
 		C->SetWorldScale3D(Ch->Scale);
 		// look: part of the pieces wear the material of the facade (or ground) the line trace hit; the rest the M_InvChunk concrete / brick speckle
 		// (or, without that asset, the r2 flat tints: darker mixed rubble, suite r1 sheet review)
-		if (Look && Rng.FRand() < FacadeChunkFraction) C->SetMaterial(0, Look);
+		if (!bSteel && Look && Rng.FRand() < FacadeChunkFraction) C->SetMaterial(0, Look);
 		else if (Ch->Mid)
 		{
 			C->SetMaterial(0, Ch->Mid);
-			const bool bBrick = Rng.FRand() < Brick;
+			const bool bBrick = !bSteel && Rng.FRand() < Brick;
 			const float Pick2 = Rng.FRand();
-			const FLinearColor Base = bBrick ? BdBrick : Pick2 < 0.6f ? Tint : Pick2 < 0.8f ? BdConcrete : Pick2 < 0.92f ? BdSteel : BdScorch * 4.f;
+			const FLinearColor Base = bSteel ? (Pick2 < 0.8f ? Tint : BdScorch * 4.f) : bBrick ? BdBrick : Pick2 < 0.6f ? Tint : Pick2 < 0.8f ? BdConcrete : Pick2 < 0.92f ? BdSteel : BdScorch * 4.f;
 			const float Vv = Rng.FRandRange(0.35f, 0.75f);
 			Ch->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(Base.R * Vv, Base.G * Vv, Base.B * Vv, 1.f));
 			Ch->Mid->SetScalarParameterValue(TEXT("Rough"), 0.9f);
@@ -761,8 +954,51 @@ void AWHBreachDirector::SpawnShards(const FVector& PosCm, const FVector& DirN, i
 	}
 }
 
+// critic r6 #8 (fl17 12.9 s: "a glass tower spawns bricks"): a curtain-wall breach throws PANES -- 18-55 cm flat boxes 1.6 cm thick wearing the glassy
+// translucent M_InvGlassShard (mostly clear face-on, bright at grazing angles, a glint flashing as each one tumbles), flung out of the opening, tumbling,
+// falling and fading over their last 45 %. Kinematic like the small glints (no physics cost), Panes pool of MaxPanes (oldest recycled).
+void AWHBreachDirector::SpawnPanes(const FVector& PosCm, const FVector& DirN, int32 N, double SpeedCms)
+{
+	if (!Cube) return;
+	UMaterialInterface* PaneBase = MGlassShard ? MGlassShard.Get() : (MTrans ? MTrans.Get() : MSolid.Get());
+	const FVector Side = BdAnyPerp(DirN), Up = FVector::CrossProduct(DirN, Side);
+	for (int32 K = 0; K < N; ++K)
+	{
+		FShard* Sh = nullptr;
+		for (FShard& X : Panes) if (!X.bLive) { Sh = &X; break; }   // an idle (prewarmed / retired) pane first
+		if (!Sh && Panes.Num() < MaxPanes)
+		{
+			FShard New;
+			New.Comp = MakeComp(Cube, PaneBase, New.Mid, false);
+			New.bPane = true;
+			KeepAlive.Add(New.Comp);
+			Panes.Add(New);
+			Sh = &Panes.Last();
+		}
+		if (!Sh && Panes.Num() > 0) { Sh = &Panes[NextPane % Panes.Num()]; ++NextPane; }
+		if (!Sh || !Sh->Comp) return;
+		Sh->bLive = true; Sh->bPane = true; Sh->T = 0; Sh->Life = Rng.FRandRange(1.2f, 2.3f); Sh->Peak = Rng.FRandRange(0.65f, 0.9f);
+		Sh->Pos = PosCm + Side * Rng.FRandRange(-170.f, 170.f) + Up * Rng.FRandRange(-140.f, 170.f);
+		Sh->Vel = (DirN + Side * Rng.FRandRange(-0.9f, 0.9f) + Up * Rng.FRandRange(-0.3f, 0.9f)).GetSafeNormal() * SpeedCms * Rng.FRandRange(0.25f, 0.9f);
+		Sh->Q = FRotator(Rng.FRandRange(0.f, 360.f), Rng.FRandRange(0.f, 360.f), Rng.FRandRange(0.f, 360.f)).Quaternion();
+		Sh->Spin = FVector(Rng.FRandRange(-9.f, 9.f), Rng.FRandRange(-9.f, 9.f), Rng.FRandRange(-9.f, 9.f));
+		const double W = Rng.FRandRange(18.f, 55.f);
+		Sh->Comp->SetWorldScale3D(FVector(W / 100.0, W * Rng.FRandRange(0.45f, 1.0f) / 100.0, 0.016));
+		if (Sh->Mid)
+		{
+			const float Tn = Rng.FRandRange(0.85f, 1.1f);
+			Sh->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(0.62f * Tn, 0.78f * Tn, 0.86f * Tn, 1.f));
+			Sh->Mid->SetScalarParameterValue(TEXT("Opacity"), 0.f);
+			Sh->Mid->SetScalarParameterValue(TEXT("Gain"), 1.0f);
+			Sh->Mid->SetScalarParameterValue(TEXT("Emissive"), 0.9f);   // (the M_CmbTrans fallback's own parameter)
+		}
+		Sh->Comp->SetWorldLocationAndRotation(Sh->Pos, Sh->Q);
+		Sh->Comp->SetVisibility(true);
+	}
+}
+
 // ---------------------------------------------------------------------------------------------------------------- round 3 helpers
-bool AWHBreachDirector::TraceFacade(const FVector& StartCm, const FVector& EndCm, FFacadeHit& Out) const
+bool AWHBreachDirector::TraceFacade(const FVector& StartCm, const FVector& EndCm, FFacadeHit& Out, bool bDescribe) const
 {
 	UWorld* W = GetWorld();
 	if (!W) return false;
@@ -779,20 +1015,32 @@ bool AWHBreachDirector::TraceFacade(const FVector& StartCm, const FVector& EndCm
 		FHitResult H;
 		if (!W->LineTraceSingleByObjectType(H, StartCm, EndCm, Obj, Q)) break;
 		UPrimitiveComponent* C = H.GetComponent();
-		if (!Out.bHit && !H.bStartPenetrating) { Out.bHit = true; Out.Point = H.ImpactPoint; Out.Normal = H.ImpactNormal.GetSafeNormal(); }
+		const bool bFirst = !Out.bHit && !H.bStartPenetrating;
+		if (bFirst) { Out.bHit = true; Out.Point = H.ImpactPoint; Out.Normal = H.ImpactNormal.GetSafeNormal(); }
 		if (C)
 		{
-			if (!Out.Mat && C->IsVisible() && !C->bHiddenInGame)
+			UMaterialInterface* M = nullptr;
+			if (C->IsVisible() && !C->bHiddenInGame)
 			{
 				int32 Sec = 0;
-				UMaterialInterface* M = H.FaceIndex >= 0 ? C->GetMaterialFromCollisionFaceIndex(H.FaceIndex, Sec) : nullptr;
+				M = H.FaceIndex >= 0 ? C->GetMaterialFromCollisionFaceIndex(H.FaceIndex, Sec) : nullptr;
 				if (!M) M = C->GetMaterial(int32(H.ElementIndex));
 				if (!M) M = C->GetMaterial(0);
-				if (BdDebrisMaterialOk(M)) Out.Mat = M;
 			}
+			if (bDescribe)
+			{
+				// critic r6 #8: name the first surface; the first city-facade material along the line marks a building wall and gives its style
+				if (bFirst) DescribeSurface(C, M, H.FaceIndex, Out);
+				if (!Out.bFacadeSeen && BdIsFacadeMat(M))
+				{
+					Out.bFacadeSeen = true;
+					if (const UStaticMeshComponent* SMC = Cast<UStaticMeshComponent>(C)) Out.Style = BdFacadeStyle(SMC, H.FaceIndex);
+				}
+			}
+			if (!Out.Mat && M && BdDebrisMaterialOk(M)) Out.Mat = M;
 			Q.AddIgnoredComponent(C);
 		}
-		if (Out.bHit && Out.Mat) break;
+		if (Out.bHit && Out.Mat && (!bDescribe || Out.bFacadeSeen)) break;
 	}
 	return Out.bHit;
 }
@@ -838,9 +1086,10 @@ AWHBreachDirector::FDecalItem* AWHBreachDirector::AcquireDecal(TArray<FDecalItem
 // (a hit counts when its normal is within ~37 deg of OutN and it lies within 35 cm of the plane: a window recess counts, the street behind a
 // corner or a perpendicular wall does not). The box is centred up to 30 % of Half away from the nearer edge and then sized so 0.92 of it
 // (the decal's visible circle) stays on the facade; never under 110 cm.
-double AWHBreachDirector::FitHoleHalf(const FVector& PointCm, const FVector& OutN, double Half, FVector& OutShift) const
+double AWHBreachDirector::FitHoleHalf(const FVector& PointCm, const FVector& OutN, double Half, FVector& OutShift, double* OutSpanCm) const
 {
 	OutShift = FVector::ZeroVector;
+	if (OutSpanCm) *OutSpanCm = -1.0;
 	UWorld* W = GetWorld();
 	if (!W || Half <= 0.0) return Half;
 	FVector N = OutN.GetSafeNormal();
@@ -865,6 +1114,7 @@ double AWHBreachDirector::FitHoleHalf(const FVector& PointCm, const FVector& Out
 		return Ok;
 	};
 	const double EUp = Extent(U), EUm = Extent(-U), EVp = Extent(V), EVm = Extent(-V);
+	if (OutSpanCm) *OutSpanCm = FMath::Min(EUp + EUm, EVp + EVm);   // critic r6 #8: the narrower in-plane run of the surface (a girder / rail is < 2.2 m)
 	const double Need = 0.92 * Half;
 	auto Centre = [&](double Ep, double Em) -> double
 	{
@@ -874,34 +1124,116 @@ double AWHBreachDirector::FitHoleHalf(const FVector& PointCm, const FVector& Out
 	const double Su = Centre(EUp, EUm), Sv = Centre(EVp, EVm);
 	OutShift = U * Su + V * Sv;
 	const double Room = FMath::Min(FMath::Min(EUp - Su, EUm + Su), FMath::Min(EVp - Sv, EVm + Sv));
-	return FMath::Clamp(Room / 0.92, 110.0, Half);
+	return FMath::Clamp(Room / 0.92, FMath::Min(170.0, Half), Half);   // critic r6 #8: never a hole narrower than ~1.5 m on a building wall (was 110 cm half -> ~1 m)
 }
 
-void AWHBreachDirector::PlaceHole(const FVector& PointCm, const FVector& IntoWall, float Sev)
+void AWHBreachDirector::PlaceHole(const FVector& PointCm, const FVector& IntoWall, float Sev, double Half, const FVector& Shift, EBdSurf Kind, bool bOnWall)
 {
 	FDecalItem* It = AcquireDecal(HoleDecals, NextHole, MaxHoleDecals, MHole);
 	if (!It || !It->Comp) return;
 	FVector Into = IntoWall.GetSafeNormal();
 	if (Into.IsNearlyZero()) Into = FVector::ForwardVector;
 	// critic r5 #8 (fl14 5.35-5.40 s: the opening ran past the wall edge, over the background): the box is fitted to the facade plane around the
-	// hit (shifted a little off a near edge, then shrunk to what is left), and it projects 0.5 m either side of the surface (was 0.9 m, which also
-	// reached round a corner onto the perpendicular face)
-	FVector Shift = FVector::ZeroVector;
-	const double Half = FitHoleHalf(PointCm, -Into, HoleHalfCm * (1.0 + 0.18 * Sev), Shift);
+	// hit (Breach measured it with FitHoleHalf: shifted a little off a near edge, then shrunk to what is left), and it projects 0.5 m either side of
+	// the surface (was 0.9 m, which also reached round a corner onto the perpendicular face)
+	(void)Sev;
 	It->Comp->DecalSize = FVector(50.0, Half, Half);
 	const FRotator Rot = FMath::Abs(Into.Z) > 0.9 ? FRotationMatrix::MakeFromX(Into).Rotator() : FRotationMatrix::MakeFromXZ(Into, FVector::UpVector).Rotator();
 	It->Comp->SetVisibility(false);
-	It->Comp->SetWorldLocationAndRotation(PointCm + Shift, Rot);
+	const FVector Centre = PointCm + Shift;
+	It->Comp->SetWorldLocationAndRotation(Centre, Rot);
 	It->Comp->SetSortOrder(2);
 	It->bPendingShow = true; It->PlacedFrame = GFrameCounter;   // critic r5 #3: shown from the next engine frame (Tick)
+	// critic r6 #8: the decal's frame (the box axes: local Y / Z span the facade, local X is the projection = into the wall) goes to the material, so its
+	// outline and its recessed interior share one coordinate system with the rim chunks below
+	const FQuat Q = Rot.Quaternion();
+	const FVector AxU = Q.GetAxisY(), AxV = Q.GetAxisZ(), AxN = -Q.GetAxisX();
+	const float Seed = Rng.FRandRange(0.f, 9.f);
+	const float GlassK = Kind == EBdSurf::Glass ? 1.f : Kind == EBdSurf::Steel ? 0.6f : 0.f;
 	if (It->Mid)
 	{
 		const float T = Rng.FRandRange(0.8f, 1.15f);
-		It->Mid->SetScalarParameterValue(TEXT("Seed"), Rng.FRandRange(0.f, 9.f));
+		It->Mid->SetScalarParameterValue(TEXT("Seed"), Seed);
 		It->Mid->SetScalarParameterValue(TEXT("Open"), 0.f);
-		It->Mid->SetVectorParameterValue(TEXT("RimCol"), FLinearColor(0.30f * T, 0.28f * T, 0.25f * T, 1.f));
+		// concrete rim for masonry, a dark blue-grey steel / glass frame for a curtain wall
+		It->Mid->SetVectorParameterValue(TEXT("RimCol"), GlassK > 0.5f ? FLinearColor(0.16f * T, 0.18f * T, 0.21f * T, 1.f) : FLinearColor(0.30f * T, 0.28f * T, 0.25f * T, 1.f));
+		It->Mid->SetVectorParameterValue(TEXT("Centre"), FLinearColor(float(Centre.X), float(Centre.Y), float(Centre.Z), 0.f));
+		It->Mid->SetVectorParameterValue(TEXT("AxU"), FLinearColor(float(AxU.X), float(AxU.Y), float(AxU.Z), 0.f));
+		It->Mid->SetVectorParameterValue(TEXT("AxV"), FLinearColor(float(AxV.X), float(AxV.Y), float(AxV.Z), 0.f));
+		It->Mid->SetVectorParameterValue(TEXT("AxN"), FLinearColor(float(AxN.X), float(AxN.Y), float(AxN.Z), 0.f));
+		It->Mid->SetScalarParameterValue(TEXT("HalfCm"), float(Half));
+		It->Mid->SetScalarParameterValue(TEXT("Glass"), GlassK);
 	}
 	It->T = 0.0; It->Grow = 0.18; It->bGrowing = true;
+	if (bOnWall && Cube && RimPerHole > 0) SpawnHoleRim(Centre, AxU, AxV, AxN, Half, Seed, Kind);
+}
+
+// critic r6 #8 (breach holes "with no interior", no rim): RimPerHole static broken-edge pieces seated on the opening's analytic outline (BdHoleRadius is the
+// shader's formula at full growth, so they sit on the drawn edge within ~14 cm), standing off the facade plane and lit by the scene. Concrete / brick
+// slabs for masonry; for a curtain wall glass teeth (thin tilted panes) and dark steel plates. They pop in with the opening (Delay) like the crater rim
+// and stay for Life s. Everything stays inside the fitted box, so it cannot hang past the wall edge FitHoleHalf found.
+void AWHBreachDirector::SpawnHoleRim(const FVector& CentreCm, const FVector& U, const FVector& V, const FVector& N, double HalfCm, double Seed, EBdSurf Kind)
+{
+	if (!Cube) return;
+	const bool bGlassWall = Kind != EBdSurf::Masonry;
+	const int32 Count = FMath::Clamp(RimPerHole, 0, 24);
+	const double Phase = Rng.FRandRange(0.f, 1.f);
+	for (int32 K = 0; K < Count; ++K)
+	{
+		const double A = 2.0 * PI * (K + Phase * 0.6 + Rng.FRand() * 0.35) / Count - PI;
+		const double R = BdHoleRadius(A, Seed, 1.0) * HalfCm * Rng.FRandRange(0.97f, 1.10f);
+		if (R + 40.0 > 0.92 * HalfCm) continue;   // stays on the facade box
+		const FVector Rad = U * FMath::Cos(A) + V * FMath::Sin(A);
+		FVector Tg = FVector::CrossProduct(N, Rad);
+		if (!Tg.Normalize()) continue;
+		const bool bPane = bGlassWall && Rng.FRand() < 0.6f;
+		FVector Dim;   // (X = along the wall normal, Y = along the edge, Z = radial), cm
+		double Tilt = 0.0;
+		if (bPane) { Dim = FVector(1.8, double(Rng.FRandRange(22.f, 55.f)), double(Rng.FRandRange(14.f, 34.f))); Tilt = Rng.FRandRange(-0.9f, 0.9f); }
+		else if (bGlassWall) { Dim = FVector(double(Rng.FRandRange(4.f, 7.f)), double(Rng.FRandRange(30.f, 70.f)), double(Rng.FRandRange(8.f, 16.f))); Tilt = Rng.FRandRange(-0.3f, 0.3f); }
+		else { Dim = FVector(double(Rng.FRandRange(10.f, 24.f)), double(Rng.FRandRange(24.f, 58.f)), double(Rng.FRandRange(14.f, 34.f))); Tilt = Rng.FRandRange(-0.35f, 0.35f); }
+		FRubble* Rb = nullptr;
+		if (HoleRim.Num() < MaxHoleRim)
+		{
+			FRubble NR;
+			NR.Comp = MakeComp(Cube, MChunk ? MChunk.Get() : MSolid.Get(), NR.Mid, true);
+			KeepAlive.Add(NR.Comp);
+			if (MGlassShard) { NR.GlassMid = UMaterialInstanceDynamic::Create(MGlassShard, this); KeepAlive.Add(NR.GlassMid); }
+			HoleRim.Add(NR);
+			Rb = &HoleRim.Last();
+		}
+		else if (HoleRim.Num() > 0) { Rb = &HoleRim[NextHoleRim % HoleRim.Num()]; ++NextHoleRim; }
+		if (!Rb || !Rb->Comp) continue;
+		FQuat Q = FRotationMatrix::MakeFromXY(N, Tg).ToQuat();
+		Q = FQuat(Tg, Tilt) * Q;                                        // lean the piece out of the wall plane
+		Q = FQuat(N, Rng.FRandRange(-0.45f, 0.45f)) * Q;                // and turn it a little around the wall normal
+		Rb->Pos = CentreCm + Rad * R + N * (0.35 * Dim.X + (bPane ? 6.0 : 1.0));
+		Rb->Q = Q;
+		Rb->Scale = Dim / 100.0;
+		Rb->T = 0.0; Rb->Delay = Rng.FRandRange(0.04f, 0.20f); Rb->Life = 25.0; Rb->bLive = true;
+		Rb->Comp->SetVisibility(false);
+		Rb->Comp->SetWorldLocationAndRotation(Rb->Pos, Rb->Q);
+		Rb->Comp->SetWorldScale3D(FVector(0.01));
+		if (bPane && Rb->GlassMid)
+		{
+			Rb->Comp->SetMaterial(0, Rb->GlassMid);
+			Rb->GlassMid->SetScalarParameterValue(TEXT("Opacity"), Rng.FRandRange(0.55f, 0.8f));
+			Rb->GlassMid->SetScalarParameterValue(TEXT("Gain"), 1.0f);
+		}
+		else if (Rb->Mid)
+		{
+			Rb->Comp->SetMaterial(0, Rb->Mid);
+			const float Pk = Rng.FRand();
+			const bool bBrick = !bGlassWall && Pk > 0.78f;
+			const FLinearColor Base = bGlassWall ? BdSteel * 1.4f : bBrick ? BdBrick : Pk < 0.6f ? BdConcrete : BdConcrete * 1.2f;
+			const float Vv = Rng.FRandRange(0.55f, 1.0f);
+			Rb->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(Base.R * Vv, Base.G * Vv, Base.B * Vv, 1.f));
+			Rb->Mid->SetScalarParameterValue(TEXT("Rough"), bGlassWall ? 0.55f : 0.92f);
+			Rb->Mid->SetScalarParameterValue(TEXT("Brick"), bBrick ? 1.f : 0.f);
+			Rb->Mid->SetScalarParameterValue(TEXT("Seed"), Rng.FRandRange(0.f, 20.f));
+			Rb->Mid->SetVectorParameterValue(TEXT("Size"), FLinearColor(float(Dim.X), float(Dim.Y), float(Dim.Z), 0.f));
+		}
+	}
 }
 
 void AWHBreachDirector::PlaceCraterDecal(const FVector& PCm, float Sev)
@@ -950,14 +1282,16 @@ void AWHBreachDirector::SpawnPuff(const FVector& PosCm, const FVector& VelCms, d
 	}
 }
 
-void AWHBreachDirector::BreachDust(const FVector& PointCm, const FVector& OutN, const FVector& FlightDir, float Sev, bool bEntry)
+void AWHBreachDirector::BreachDust(const FVector& PointCm, const FVector& OutN, const FVector& FlightDir, float Sev, bool bEntry, EBdSurf Kind)
 {
 	// critic r2 ("see-through bubble smoke"): fewer, larger, more opaque puffs that linger ~1.5 s. They start on a ring AROUND the opening (so the
 	// dark hole stays readable 0.3 s after the impact) and billow outward along the wall; at the exit a share is blown out ahead of the hero.
 	FVector U, V; BdPlaneBasis(OutN, U, V);
-	const int32 N = PuffsPerBreach + int32(6 * Sev);
+	// critic r6 #8: a glass tower raises a thinner, cooler grey dust (fewer puffs); steel a dark one; masonry the concrete / brick dust
+	const bool bGlassy = Kind == EBdSurf::Glass || Kind == EBdSurf::Steel;
+	const int32 N = FMath::Max(6, int32(double(PuffsPerBreach + int32(6 * Sev)) * (bGlassy ? 0.65 : 1.0)));
 	const double HoleR = HoleHalfCm * 0.42;
-	const FLinearColor Base = bEntry ? BdDust : BdBrickDust;
+	const FLinearColor Base = Kind == EBdSurf::Glass ? BdGlassDust : Kind == EBdSurf::Steel ? BdDust * 0.7f : (bEntry ? BdDust : BdBrickDust);
 	for (int32 K = 0; K < N; ++K)
 	{
 		const double A = 2.0 * PI * (K + Rng.FRand() * 0.8) / N;
@@ -1052,33 +1386,43 @@ AWHBreachDirector::FVapour* AWHBreachDirector::SpawnShape(int32 Shape, const FVe
 // critic r4 fl04 / fl12 (flat discs): a shock ring made of NSeg short vapour tubes (stretched spheres along the ring tangent) on a circle
 // square-on to Dir. A tube is fresnel-bright along its silhouette, so off-axis the ring reads as an ellipse of vapour around the body; the
 // middle is empty (a lens passing through the ring plane goes through the hole). Shape 4 in the Tick; pool cap MaxVapours.
-void AWHBreachDirector::SpawnRing(const FVector& CentreCm, const FVector& Dir, int32 NSeg, double FollowS, double OffsetCm, double DriftCms, double R0, double R1, double ThickK, double Peak, double Life)
+void AWHBreachDirector::SpawnRing(const FVector& CentreCm, const FVector& Dir, int32 NSeg, double FollowS, double OffsetCm, double DriftCms, double R0, double R1, double ThickK, double Peak, double Life, int32 Env, double RimScale)
 {
 	if (!Sphere || !MVapour || NSeg <= 0) return;
 	FVector D = Dir.GetSafeNormal();
 	if (D.IsNearlyZero()) D = FVector::ForwardVector;
 	// critic r5 #8 (fl04 t=1.48 / fl12 t=1.0: "a chain of ~20 separate translucent bead blobs, a bubble necklace"): the ring is ONE annulus
 	// (shape 5, M_InvShockRing) -- a continuous band with no gaps. The tube ring below is the fallback when the asset has not been built.
+	// critic r6 #4 (fl04 1.517: "a soft filled disc ... luma lifted evenly 131-173, no edge peak"): M_InvShockRing r7 has a HARD, hot leading edge
+	// (RimGain on top of Gain, exposure-independent), a short wake behind it and a clear interior; the envelope (Env 3) snaps in and fades fast.
 	if (MRing)
 	{
-		if (FVapour* Vp = SpawnShape(5, CentreCm, D, FollowS, OffsetCm, 0.0, 0.0, R0, R1, Peak, Life, 1.3f, 0))
+		if (FVapour* Vp = SpawnShape(5, CentreCm, D, FollowS, OffsetCm, 0.0, 0.0, R0, R1, Peak, Life, 1.3f, Env))
 		{
-			Vp->ThickK = ThickK * 1.5; Vp->DriftCms = DriftCms;   // (a wider tube than the r5 beads: the band reads at chase distance)
-			if (Vp->Mid) { Vp->Mid->SetScalarParameterValue(TEXT("Gain"), BoomGain); Vp->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(0.86f, 0.89f, 0.95f, 1.f)); }
+			Vp->ThickK = ThickK; Vp->DriftCms = DriftCms;
+			if (Vp->Mid)
+			{
+				Vp->Mid->SetScalarParameterValue(TEXT("Gain"), BoomGain);
+				Vp->Mid->SetScalarParameterValue(TEXT("RimGain"), float(double(BoomRimGain) * RimScale));
+				Vp->Mid->SetScalarParameterValue(TEXT("Soft"), 0.3f);
+				Vp->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(0.88f, 0.91f, 0.97f, 1.f));
+			}
 			return;
 		}
 	}
 	// fallback (critic r5 #8): denser, wider-overlapping tubes with one shared opacity / life, so the beads merge into a band
+	// (critic r6 #4: the tubes are a soft haze by nature -- their peak stays at the old boom opacity, not the ring's leading-edge peak)
+	const double TubePeak = FMath::Min(Peak, double(BoomOpacity)) * 0.7;
 	const int32 NS = FMath::Clamp(NSeg * 3 / 2, 12, 48);
 	const double Phase = Rng.FRandRange(0.f, 1.f);
 	for (int32 K = 0; K < NS; ++K)
 	{
 		const FVector Rad = BdRingDir(D, 2.0 * PI * (K + Phase) / NS);
-		FVapour* Vp = SpawnShape(4, CentreCm, D, FollowS, OffsetCm, 0.0, 0.0, R0, R1, Peak * 0.7, Life, 1.3f, 0);
+		FVapour* Vp = SpawnShape(4, CentreCm, D, FollowS, OffsetCm, 0.0, 0.0, R0, R1, TubePeak, Life, 1.3f, 0);
 		if (!Vp) break;   // pool full
 		Vp->RadialU = Rad;
 		Vp->SegLenK = 2.0 * PI / NS * 2.2;   // each tube spans ~2.2 neighbours' spacing (was 1.35): no pinch between them
-		Vp->ThickK = ThickK * 1.35;
+		Vp->ThickK = ThickK * 1.35 * 1.5;
 		Vp->DriftCms = DriftCms;
 		if (Vp->Mid) { Vp->Mid->SetScalarParameterValue(TEXT("Gain"), BoomGain); Vp->Mid->SetVectorParameterValue(TEXT("Color"), FLinearColor(0.86f, 0.89f, 0.95f, 1.f)); }
 	}
@@ -1439,6 +1783,7 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 				double Op = Vp.Peak * BdSmooth01(Vp.T / 0.05) * (1.0 - BdSmooth01((K - 0.40) / 0.60));
 				if (Vp.Env == 1) Op = Vp.Peak * BdSmooth01(K / 0.8) * (1.0 - BdSmooth01((K - 0.92) / 0.08));
 				else if (Vp.Env == 2) Op = Vp.Peak * BdSmooth01(Vp.T / 0.04) * (1.0 - BdSmooth01((K - 0.5) / 0.5));
+				else if (Vp.Env == 3) Op = Vp.Peak * BdSmooth01(Vp.T / 0.015) * (1.0 - BdSmooth01((K - 0.30) / 0.70));   // critic r6 #4: the shock ring snaps in, holds, then fades
 				if (LensD < 1e5) Op *= CamFade(LensD);   // critic r4: nothing white right on the lens
 				Vp.Mid->SetScalarParameterValue(TEXT("Opacity"), float(Op));
 			}
@@ -1457,33 +1802,41 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 			if (K >= 1.0) Dc.bGrowing = false;
 		}
 	// r3 crater rim rubble: pops in with a small overshoot after its delay, stays, shrinks out over its last 0.6 s
-	for (FRubble& Rb : Rubble)
-	{
-		if (!Rb.bLive) continue;
-		Rb.T += Dt;
-		if (Rb.T < Rb.Delay) continue;
-		const double Age = Rb.T - Rb.Delay;
-		if (Age >= Rb.Life) { Rb.bLive = false; Rb.Comp->SetVisibility(false); continue; }
-		if (!Rb.Comp->IsVisible()) Rb.Comp->SetVisibility(true);
-		double S = 1.0;
-		if (Age < 0.22) { const double K = Age / 0.22; S = 0.15 + 0.85 * K + 0.14 * FMath::Sin(K * PI); }
-		else if (Age > Rb.Life - 0.6) S = BdSmooth01((Rb.Life - Age) / 0.6);
-		const FVector Target = Rb.Scale * S;
-		if (!Rb.Comp->GetComponentScale().Equals(Target, 1e-3)) Rb.Comp->SetWorldScale3D(Target);
-	}
-	// glass: ballistic, spinning, fading
-	for (FShard& S : Shards)
-	{
-		if (!S.bLive) continue;
-		S.T += Dt;
-		if (S.T >= S.Life) { S.bLive = false; S.Comp->SetVisibility(false); continue; }
-		S.Vel += FVector(0, 0, -980.0) * Dt;
-		S.Vel *= FMath::Exp(-0.8 * Dt);
-		S.Pos += S.Vel * Dt;
-		if (S.Spin.SizeSquared() > 0) S.Q = (FQuat(S.Spin.GetSafeNormal(), S.Spin.Size() * Dt) * S.Q).GetNormalized();
-		S.Comp->SetWorldLocationAndRotation(S.Pos, S.Q);
-		if (S.Mid) S.Mid->SetScalarParameterValue(TEXT("Opacity"), float(0.7 * (1.0 - S.T / S.Life)));
-	}
+	// (critic r6 #8: the breach openings' rim pieces ride the same pop-in / stay / shrink-out)
+	for (TArray<FRubble>* RbPool : { &Rubble, &HoleRim })
+		for (FRubble& Rb : *RbPool)
+		{
+			if (!Rb.bLive) continue;
+			Rb.T += Dt;
+			if (Rb.T < Rb.Delay) continue;
+			const double Age = Rb.T - Rb.Delay;
+			if (Age >= Rb.Life) { Rb.bLive = false; Rb.Comp->SetVisibility(false); continue; }
+			if (!Rb.Comp->IsVisible()) Rb.Comp->SetVisibility(true);
+			double S = 1.0;
+			if (Age < 0.22) { const double K = Age / 0.22; S = 0.15 + 0.85 * K + 0.14 * FMath::Sin(K * PI); }
+			else if (Age > Rb.Life - 0.6) S = BdSmooth01((Rb.Life - Age) / 0.6);
+			const FVector Target = Rb.Scale * S;
+			if (!Rb.Comp->GetComponentScale().Equals(Target, 1e-3)) Rb.Comp->SetWorldScale3D(Target);
+		}
+	// glass: ballistic, spinning, fading (critic r6 #8: the glass-tower panes too -- they fade in over 50 ms and out over their last 45 %)
+	for (TArray<FShard>* ShPool : { &Shards, &Panes })
+		for (FShard& S : *ShPool)
+		{
+			if (!S.bLive) continue;
+			S.T += Dt;
+			if (S.T >= S.Life) { S.bLive = false; S.Comp->SetVisibility(false); continue; }
+			S.Vel += FVector(0, 0, -980.0) * Dt;
+			S.Vel *= FMath::Exp(-0.8 * Dt);
+			S.Pos += S.Vel * Dt;
+			if (S.Spin.SizeSquared() > 0) S.Q = (FQuat(S.Spin.GetSafeNormal(), S.Spin.Size() * Dt) * S.Q).GetNormalized();
+			S.Comp->SetWorldLocationAndRotation(S.Pos, S.Q);
+			if (S.Mid)
+			{
+				const double Kp = S.T / S.Life;
+				const double Op = S.bPane ? S.Peak * BdSmooth01(S.T / 0.05) * (1.0 - BdSmooth01((Kp - 0.55) / 0.45)) : 0.7 * (1.0 - Kp);
+				S.Mid->SetScalarParameterValue(TEXT("Opacity"), float(Op));
+			}
+		}
 	// shock rings (r2 fallback only): flattened sphere expanding square-on to the flight line
 	for (FRing& Rg : Rings)
 	{

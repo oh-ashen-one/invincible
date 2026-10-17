@@ -21,6 +21,14 @@
 //   - M_InvDust      translucent lit eroded-edge dust puff (dense, larger, longer-lived smoke than the combat FX puffs),
 //   - M_InvChunk     opaque lit concrete / brick speckle for debris pieces that did not get the hit facade's own material.
 // Debris pieces take the material of the facade component the breach line-traces (opaque / masked surface materials only).
+//
+// Round 7 (critic r6 #4 / #8):
+//   - boom ring: the shock rings wear M_InvShockRing r7 (a HARD, hot leading edge, a short wake, a clear interior); the cone is faint,
+//   - breach hole: M_BreachHole r7 draws a recessed interior (reveal + virtual room); lit broken rim chunks are seated on the decal's own
+//     analytic outline (BdHoleRadius), clamped to the facade by FitHoleHalf; the decal frame is passed to the material,
+//   - debris by what was hit: the facade's merged-mesh "style" (UV channel 4 .y, Facade.ush) picks glass pane shards + steel bits for curtain-wall
+//     towers, concrete / brick for masonry, steel for crown tiers (name / height fallbacks when the mesh keeps no CPU copy),
+//   - thin / non-building solids (girders, bridges, asphalt, fire escapes, kit pieces) get sparks, a few puffs and steel bits only: no hole decal.
 #pragma once
 
 #include "CoreMinimal.h"
@@ -29,6 +37,7 @@
 #include "Combat/WHCombatFx.h"
 #include "WHBreachDirector.generated.h"
 
+class UPrimitiveComponent;
 class UStaticMeshComponent;
 class UStaticMesh;
 class UMaterialInterface;
@@ -89,6 +98,17 @@ public:
 	UPROPERTY(EditAnywhere, Category="Destruction") float BoomGain = 1.1f;         // emissive gain of the boom vapour (material default 1.4; exposure-independent white)
 	UPROPERTY(EditAnywhere, Category="Destruction") float CamClearCm = 160.f;      // vapour / dust fade out over this distance (cm) as the lens nears them
 	UPROPERTY(EditAnywhere, Category="Destruction") float HeroClearMin = 0.12f;    // critic r4 landings: dust on the lens -> hero line keeps at most this share of its opacity
+	// critic r6 #4 (fl04 1.517: "a soft filled disc, no edge peak"): bright thin leading edge, clear interior, fast and short-lived
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomRingLife = 0.40f;    // s: the glued rings (the launch ring too)
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomRingMaxM = 4.6f;     // m: radius of the main ring at its end (it starts at 0.5 m)
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomRingOpacity = 0.95f; // peak opacity of the main ring's leading edge
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomRimGain = 3.2f;      // extra emissive on the leading edge (exposure-independent: ~250/255 over sky)
+	UPROPERTY(EditAnywhere, Category="Destruction") float BoomConeOpacityK = 0.40f;// share of BoomOpacity the cone keeps (the ring is the read, not a haze)
+	// critic r6 #8: hole rim chunks (static, seated on the opening's edge) and glass panes (kinematic, thin, glassy)
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 RimPerHole = 10;
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxHoleRim = 40;         // static rim pieces kept in the world (oldest recycled)
+	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxPanes = 40;           // kinematic glass-tower pane shards alive at once
+	UPROPERTY(EditAnywhere, Category="Destruction") float TowerHeightCm = 11000.f; // fallback when the facade style is unreadable: hits above this are taken for curtain-wall towers
 
 	// ---- owner feedback 2026-10-15 #1 (Shift = sonic-boom super boost) / #3 (speed feedback): the charge's vapour gather + slow-mo, a bigger
 	// boom (shock ring left at the launch point, shock shell, glass / dust shaken off nearby facades, street dust ring), and continuous
@@ -111,7 +131,8 @@ public:
 
 private:
 	struct FChunk { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Scale = FVector::OneVector; double Born = -1e9, NextCheck = 0; bool bLive = false, bFrozen = false; };
-	struct FShard { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector, Vel = FVector::ZeroVector; FQuat Q = FQuat::Identity; FVector Spin = FVector::ZeroVector; double T = 0, Life = 1.5; bool bLive = false; };
+	/** (critic r6 #8: bPane = a glass-tower pane shard, Peak its opacity, faded over the last 45 % of its life) */
+	struct FShard { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector, Vel = FVector::ZeroVector; FQuat Q = FQuat::Identity; FVector Spin = FVector::ZeroVector; double T = 0, Life = 1.5, Peak = 0.7; bool bLive = false, bPane = false; };
 	struct FScar { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; };
 	struct FRing { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector; FQuat Q = FQuat::Identity; double T = 0, Life = 0.7, R1 = 30; bool bLive = false; };
 	/** r3: one dense dust puff (a sphere with the eroded-edge dust material). Hidden until Delay, then Life s; sizes in cm. */
@@ -136,9 +157,14 @@ private:
 	 *  the next engine frame on, with its parameters already set: bPendingShow / PlacedFrame.) */
 	struct FDecalItem { UDecalComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; double T = 0, Grow = 0.2; bool bGrowing = false, bPendingShow = false; uint64 PlacedFrame = 0; };
 	/** r3: static (non-physics) rubble pieces of the crater rim: they sit on the traced ground, so they cannot hang in the air. */
-	struct FRubble { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr; FVector Pos = FVector::ZeroVector, Scale = FVector::OneVector; FQuat Q = FQuat::Identity; double T = 0, Delay = 0, Life = 25; bool bLive = false; };
-	/** r3: what the line trace at a breach / crater found (cm). */
-	struct FFacadeHit { bool bHit = false; FVector Point = FVector::ZeroVector, Normal = FVector::UpVector; UMaterialInterface* Mat = nullptr; };
+	/** (critic r6 #8: GlassMid = the pane material of a hole-rim piece that is a glass tooth; the piece switches between Mid / GlassMid when recycled) */
+	struct FRubble { UStaticMeshComponent* Comp = nullptr; UMaterialInstanceDynamic* Mid = nullptr, *GlassMid = nullptr; FVector Pos = FVector::ZeroVector, Scale = FVector::OneVector; FQuat Q = FQuat::Identity; double T = 0, Delay = 0, Life = 25; bool bLive = false; };
+	/** r3: what the line trace at a breach / crater found (cm).
+	 *  critic r6 #8: with bDescribe the first surface is named (Tag = lower-case component / actor / mesh / material names), a city facade material anywhere
+	 *  along the trace sets bFacadeSeen and its merged-mesh style (Facade.ush: 1 masonry, 2 curtain glass, 3 ribbon, 4 deco, 5 party wall, 6 steel crown; -1 unknown). */
+	struct FFacadeHit { bool bHit = false; FVector Point = FVector::ZeroVector, Normal = FVector::UpVector; UMaterialInterface* Mat = nullptr; FString Tag; bool bFacadeSeen = false; int32 Style = -1; };
+	/** critic r6 #8: what a breach went through (picks the debris set, the hole's rim and the dust; Thin = no hole at all) */
+	enum class EBdSurf : uint8 { Masonry, Glass, Steel, Thin };
 
 	void Breach(const FVector& PosM, const FVector& DirM, float Sev, bool bEntry);
 	void Crater(const FVector& PosM, float Sev);
@@ -147,9 +173,12 @@ private:
 	/** the old signature: debris along DirN (kept for the fallback paths) */
 	void SpawnChunks(const FVector& PosCm, const FVector& DirN, int32 N, double SpeedCms, const FLinearColor& Tint, double SizeCm);
 	/** r3 debris: N pieces of mixed size (many 8-25 cm, a few to 50 cm) scattered on a disc of SpawnRadiusCm around OriginCm, flung along Axis (share AxisBias) and radially;
-	 *  a share of them (FacadeChunkFraction) wears Look (the traced facade material), the rest M_InvChunk / flat tints (Brick = share of those that are brick). */
-	void SpawnDebris(const FVector& OriginCm, const FVector& Axis, double SpawnRadiusCm, double SpeedCms, double AxisBias, int32 N, UMaterialInterface* Look, const FLinearColor& Tint, float Brick);
+	 *  a share of them (FacadeChunkFraction) wears Look (the traced facade material), the rest M_InvChunk / flat tints (Brick = share of those that are brick).
+	 *  critic r6 #8: Set 1 = steel bits (thin bars / plates, steel tints, never the facade look), SizeScale scales every piece. */
+	void SpawnDebris(const FVector& OriginCm, const FVector& Axis, double SpawnRadiusCm, double SpeedCms, double AxisBias, int32 N, UMaterialInterface* Look, const FLinearColor& Tint, float Brick, int32 Set = 0, float SizeScale = 1.f);
 	void SpawnShards(const FVector& PosCm, const FVector& DirN, int32 N, double SpeedCms);
+	/** critic r6 #8: glass-tower pane shards -- 18-55 cm flat 1.6 cm boxes with M_InvGlassShard (translucent, glints), kinematic like the glints */
+	void SpawnPanes(const FVector& PosCm, const FVector& DirN, int32 N, double SpeedCms);
 	void PlaceScar(const FVector& PosCm, const FQuat& Q, const FVector& ScaleM, const FLinearColor& Color);
 	void SpawnGc(const FVector& PosCm, const FVector& DirN);
 	void StartSlowMo();
@@ -159,7 +188,13 @@ private:
 
 	// ---- round 3
 	/** line trace A -> B (cm) against the world's solids; fills point / normal of the first hit and the first visible opaque surface material along the line */
-	bool TraceFacade(const FVector& StartCm, const FVector& EndCm, FFacadeHit& Out) const;
+	bool TraceFacade(const FVector& StartCm, const FVector& EndCm, FFacadeHit& Out, bool bDescribe = false) const;
+	/** critic r6 #8: names the first surface the trace hit and (for a city facade material) reads its style from the triangle's vertices */
+	void DescribeSurface(UPrimitiveComponent* C, UMaterialInterface* M, int32 FaceIndex, FFacadeHit& Out) const;
+	/** critic r6 #8: what the breach went through. SpanCm = the narrower in-plane extent of the facade plane around the hit (-1 unknown) */
+	EBdSurf ClassifyHit(const FFacadeHit& H, bool bOnWall, const FVector& PointCm, double SpanCm) const;
+	/** critic r6 #8 (fl15: "a small hole in a bridge girder"): a thin / non-building solid -- sparks, a few puffs and steel bits, no hole */
+	void ThinStrike(const FVector& PtCm, const FVector& N, const FVector& D, float Sev, bool bEntry);
 	/** nearest ground below P (cm): z of the surface (or P.Z when nothing is found) and its material */
 	double TraceGroundZ(const FVector& PCm, UMaterialInterface** OutMat = nullptr) const;
 	void ProbeCone();
@@ -169,20 +204,25 @@ private:
 	void PrewarmPools();
 	/** critic r5 #8 (fl14 5.35-5.40 s: the opening decal ran past the wall edge over the background): the decal half size (cm) that stays on the
 	 *  facade plane around PointCm (probed with line traces along its in-plane axes; OutShift = in-plane centre shift away from a near edge) */
-	double FitHoleHalf(const FVector& PointCm, const FVector& OutN, double Half, FVector& OutShift) const;
+	double FitHoleHalf(const FVector& PointCm, const FVector& OutN, double Half, FVector& OutShift, double* OutSpanCm = nullptr) const;
 	FChunk* NewChunk();
-	void PlaceHole(const FVector& PointCm, const FVector& IntoWall, float Sev);
+	/** (critic r6 #8: Half / Shift = the fitted decal box from FitHoleHalf; Kind picks the rim look; the decal's frame goes to the material, bOnWall seats rim chunks on its edge) */
+	void PlaceHole(const FVector& PointCm, const FVector& IntoWall, float Sev, double Half, const FVector& Shift, EBdSurf Kind, bool bOnWall);
+	/** critic r6 #8: lit broken rim -- RimPerHole static pieces on the opening's analytic outline (BdHoleRadius = the shader's), standing off the facade plane */
+	void SpawnHoleRim(const FVector& CentreCm, const FVector& U, const FVector& V, const FVector& N, double HalfCm, double Seed, EBdSurf Kind);
 	void PlaceCraterDecal(const FVector& PCm, float Sev);
 	void SpawnPuff(const FVector& PosCm, const FVector& VelCms, double S0, double S1, double Life, double Peak, double DelayS, const FLinearColor& Col, double FlatZ = 1.0, double RiseCms = -1.0);
-	void BreachDust(const FVector& PointCm, const FVector& OutN, const FVector& FlightDir, float Sev, bool bEntry);
+	void BreachDust(const FVector& PointCm, const FVector& OutN, const FVector& FlightDir, float Sev, bool bEntry, EBdSurf Kind = EBdSurf::Masonry);
 	void CraterDust(const FVector& PCm, float Sev);
 	void SpawnVapour(bool bCone, const FVector& AnchorCm, const FVector& Dir, double FollowS, double OffsetCm, double Len0, double Len1, double Rad0, double Rad1, double Peak, double Life, float EdgePow);
 	void SpawnRim(const FVector& PCm, float Sev, UMaterialInterface* GroundMat);
 	// owner feedback 2026-10-15 #1 / #3
 	FVapour* SpawnShape(int32 Shape, const FVector& AnchorCm, const FVector& Dir, double FollowS, double OffsetCm, double Len0, double Len1, double Rad0, double Rad1, double Peak, double Life, float EdgePow, int32 Env);
 	void ChargeFx(const FVector& PosM, const FVector& DirM, float SlowScale, float RealDur);
-	/** critic r4 fl04: one segmented shock ring of NSeg vapour tubes around the axis Dir at CentreCm (glued to the hero for FollowS s) */
-	void SpawnRing(const FVector& CentreCm, const FVector& Dir, int32 NSeg, double FollowS, double OffsetCm, double DriftCms, double R0, double R1, double ThickK, double Peak, double Life);
+	/** critic r4 fl04: one segmented shock ring of NSeg vapour tubes around the axis Dir at CentreCm (glued to the hero for FollowS s)
+	 *  critic r6 #4: Env 3 = the ring envelope (snaps in over 15 ms, holds, fades from 30 % of its life), RimScale scales the leading edge's extra gain;
+	 *  ThickK is the tube half thickness / radius as given (clamped 12-70 cm), no longer x 1.5 */
+	void SpawnRing(const FVector& CentreCm, const FVector& Dir, int32 NSeg, double FollowS, double OffsetCm, double DriftCms, double R0, double R1, double ThickK, double Peak, double Life, int32 Env = 0, double RimScale = 1.0);
 	/** the player's view location (cm) this frame; false without a camera manager */
 	bool ViewPos(FVector& OutCm) const;
 	/** 0..1 visibility factor of a vapour / dust piece at distance DistCm from the lens (fades over CamClearCm) */
@@ -206,6 +246,7 @@ private:
 	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MChunk;     // M_InvChunk
 	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MStreak;    // M_InvStreak (owner feedback 2026-10-15: additive speed lines; optional)
 	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MRing;      // M_InvShockRing (critic r5 #8: one continuous vapour annulus; optional, tubes fall back)
+	UPROPERTY(Transient) TObjectPtr<UMaterialInterface> MGlassShard; // M_InvGlassShard (critic r6 #8: glass-tower pane shards; optional, M_CmbTrans falls back)
 	UPROPERTY(Transient) TObjectPtr<UObject> GcAsset;
 	UPROPERTY(Transient) TArray<TObjectPtr<UObject>> KeepAlive;   // components / MIDs created at runtime (never trimmed)
 	UPROPERTY(Transient) TArray<TObjectPtr<UObject>> AudioKeep;   // procedural sound waves (trimmed)
@@ -213,13 +254,15 @@ private:
 	TWeakObjectPtr<UMaterialInterface> LastFacadeMat;             // the last traced facade material (bumps reuse it)
 	TArray<FChunk> Chunks;
 	TArray<FShard> Shards;
+	TArray<FShard> Panes;       // critic r6 #8
 	TArray<FScar> Scars;
 	TArray<FRing> Rings;
 	TArray<FPuff> Puffs;
 	TArray<FVapour> Vapours;
 	TArray<FDecalItem> HoleDecals, CraterDecals;
 	TArray<FRubble> Rubble;
-	int32 NextChunk = 0, NextShard = 0, NextScar = 0, NextGc = 0, NextPuff = 0, NextVapour = 0, NextHole = 0, NextCrater = 0, NextRubble = 0;
+	TArray<FRubble> HoleRim;    // critic r6 #8: static rim pieces of the breach openings
+	int32 NextChunk = 0, NextShard = 0, NextScar = 0, NextGc = 0, NextPuff = 0, NextVapour = 0, NextHole = 0, NextCrater = 0, NextRubble = 0, NextPane = 0, NextHoleRim = 0;
 	FRandomStream Rng = FRandomStream(20261015);
 	double SlowMoUntil = -1.0, SlowMoEaseEnd = -1.0;
 	bool bSlowMo = false, bNoSlowMo = false, bNoAudio = false;
