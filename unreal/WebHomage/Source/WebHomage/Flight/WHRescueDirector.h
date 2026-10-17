@@ -175,6 +175,13 @@ public:
 	float CraneTouchUnderCm = 650.f; // (sim simF3 route: under the load from ~15.85 s at 5.6 m, 6.5 m by ~15.99 s)
 	float CraneTouchLevelCm = 350.f;
 	float SetDownVehicleClearCm = 50.f;   // r7: the set-down footprint keeps this far from street vehicles
+	// r8 (sim simR7d fl17: "caught hanging at 135 m ... from above (2.9 m; load bottom -3.54 m over his head top)"): overhead carry catches only
+	// from below / beside -- the load's bottom face at least CatchUnderClearCm over his head top. A HANGING load additionally needs that gap
+	// <= CatchUnderGapMaxCm and the hero not sinking faster than CatchUnderMinVzCm (he holds or rises into it; a descent passing under it does
+	// not snatch it). A falling load comes down onto his fists at any gap. No level / from-above catch. false = the r7 reach rules.
+	bool bCatchUnderOnly = true;
+	float CatchUnderGapMaxCm = 90.f;
+	float CatchUnderMinVzCm = -50.f;
 
 private:
 	// ---- waves / sites

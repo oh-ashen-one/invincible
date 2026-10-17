@@ -121,6 +121,25 @@ void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
 	Trauma = ShakeEnvelope = ShakeEnvelopeV = 0.0; bWasSwinging = false;
 	Punch = PunchV = Dip = DipV = KickK = KickV = 0.0;
 	FlightBoomPunch = FlightBoomPunchV = 0.0; FlightLaunchHoldT = 0.0; FlightYawV = 0.0;   // owner feedback 2026-10-15
+	LensLiftTopZ = -1e9;   // r8
+}
+
+// r8 (fl12 / fl14 / fl17 hidden frames): flight hero only -- his centre stays within 0.5 +- FlightFrameBand of the frame height
+void FWebTravCamera::ClampFlightHeroBand(const FVector& Hero)
+{
+	if (FlightLeashM <= 0.0 || FlightFrameBand <= 0.0) return;
+	const FVector ToHero = Hero - CamPos;
+	if (ToHero.SizeSquared() < 0.25) return;
+	const double HalfV = FMath::DegreesToRadians(FMath::Clamp(OutVFov, 20.0, 120.0)) * 0.5;
+	// screen height s = 0.5 + 0.5 tan(off) / tan(HalfV) -> |s - 0.5| <= band  <=>  |tan(off)| <= 2 band tan(HalfV)
+	const double Lim = FMath::RadiansToDegrees(FMath::Atan(2.0 * FMath::Clamp(FlightFrameBand, 0.05, 0.45) * FMath::Tan(HalfV)));
+	const double HeroPitch = ToHero.Rotation().Pitch;
+	const double Off = FRotator::NormalizeAxis(CamRot.Pitch - HeroPitch);   // + = the view is above him (he sits low in the frame)
+	if (FMath::Abs(Off) > Lim)
+	{
+		CamRot.Pitch = FMath::Clamp(HeroPitch + FMath::Sign(Off) * Lim, -80.0, 80.0);
+		SlewFlags |= 512;
+	}
 }
 
 // critic r6 #1: chase composition re-seeded behind him, OUTPUT kept (no cut): the next Update slews / follows from the last output
@@ -169,6 +188,11 @@ void FWebTravCamera::ApplyBreachFollow(double Dt, const FTravCamInput& P, const 
 	}
 	FVector Goal = FMath::Lerp(CamPos, Through, W);
 	FQuat GoalQ = FQuat::Slerp(CamRot.Quaternion(), ThroughR.Quaternion(), W);
+	// r8 (fl14 5.75-5.92 s: in the tail the lens rose 2.4 m toward the composed spot while the slerped pitch lagged -- hero cy 0.83 -> 1.0):
+	// the pitch is blended as the HERO-RELATIVE offsets of the composed and the pass-line views and aimed from the final spot
+	const FVector ToComposed = P.Pos - CamPos, ToThrough = P.Pos - Through;
+	const double OffComposed = ToComposed.SizeSquared() > 0.04 ? FRotator::NormalizeAxis(CamRot.Pitch - ToComposed.Rotation().Pitch) : 0.0;
+	const double OffThrough = FRotator::NormalizeAxis(ThroughR.Pitch - ToThrough.Rotation().Pitch);
 	if (!bOutInit) { CamPos = Goal; CamRot = GoalQ.Rotator(); return; }
 	// position: <= BreachStepM per frame, ramping to the normal flight cap through the tail
 	const double Normal = FMath::Max(BreachStepM, MaxStepPosM * Dt * 60.0);
@@ -178,12 +202,15 @@ void FWebTravCamera::ApplyBreachFollow(double Dt, const FTravCamInput& P, const 
 	if (Step.Size() > PosCap) Out = LastOutPos + Step.GetSafeNormal() * PosCap;
 	// the view keeps the goal's aim at the hero from the capped spot (same re-aim as the output slew)
 	FRotator GoalR = GoalQ.Rotator();
+	const FVector ToOut = P.Pos - Out;
+	const bool bRelPitch = FlightRelPitch > 0.0 && ToOut.SizeSquared() > 0.04;
 	if (!Out.Equals(Goal, 1e-4))
 	{
-		const FRotator A0 = (P.Pos - Goal).Rotation(), A1 = (P.Pos - Out).Rotation();
+		const FRotator A0 = (P.Pos - Goal).Rotation(), A1 = ToOut.Rotation();
 		GoalR.Yaw += FRotator::NormalizeAxis(A1.Yaw - A0.Yaw);
-		GoalR.Pitch += A1.Pitch - A0.Pitch;
+		if (!bRelPitch) GoalR.Pitch = FMath::Clamp(FRotator::NormalizeAxis(GoalR.Pitch + FRotator::NormalizeAxis(A1.Pitch - A0.Pitch)), -80.0, 80.0);   // r8: normalised
 	}
+	if (bRelPitch) GoalR.Pitch = FMath::Clamp(ToOut.Rotation().Pitch + FMath::Lerp(OffComposed, OffThrough, W), -80.0, 80.0);
 	// turn: <= BreachTurnDeg per frame (whole rotation, roll included)
 	const FQuat LastQ = LastOutRot.Quaternion();
 	FQuat Q = GoalR.Quaternion();
@@ -247,13 +274,32 @@ void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTrav
 	if (!Lens.Equals(CamPos, 1e-4)) LensGuardFlags |= 2;
 	{ // r7 sim (fl01 / fl17 floating at the street: a car box behind him pulled the lens in, then the too-close fallback put it overhead at
 	  // -80 deg = hero hidden): first try lifting the lens over the overlapping car roofs
-		double Top = -1e9;
-		for (const FBox& B : Boxes) if (B.ExpandBy(R).IsInsideOrOn(Lens)) Top = FMath::Max(Top, B.Max.Z);
-		if (Top > -1e8)
+	  // r8 (fl12 6.03 s: a 1.8 m lift in one frame, dropped again in one frame at 6.19 s): the lift height is HELD (world z, released at
+	  // LensPullRelease m/s) and ANTICIPATED -- a box the lens will enter within LensLiftLeadT s of his horizontal travel starts the rise
+	  // early at <= LensLiftRiseV m/s; a box the lens is already in is always cleared at once.
+		double NeedTop = -1e9, LeadTop = -1e9;
+		const FVector Ahead = Lens + FVector(P.Vel.X, P.Vel.Y, 0.0) * FMath::Max(0.0, LensLiftLeadT);
+		for (const FBox& B : Boxes)
 		{
-			const FVector Lift(Lens.X, Lens.Y, Top + R + 0.25);
-			if (!Blocked(Lift)) { Lens = Lift; LensGuardFlags |= 32; }
+			const FBox EB = B.ExpandBy(R);
+			const double TopZ = B.Max.Z + R + 0.25;
+			double EntryT = 0.0;
+			if (EB.IsInsideOrOn(Lens)) NeedTop = FMath::Max(NeedTop, TopZ);
+			else if (LensLiftLeadT > 0.0 && SegBoxEntry(EB, Lens, Ahead, EntryT)) LeadTop = FMath::Max(LeadTop, TopZ);
 		}
+		const double GoalTop = FMath::Max(NeedTop, LeadTop);
+		if (GoalTop > Lens.Z && LensLiftTopZ < Lens.Z) LensLiftTopZ = Lens.Z;   // a new rise starts where the lens is
+		if (GoalTop > LensLiftTopZ)
+			LensLiftTopZ = FMath::Max(NeedTop, FMath::Min(GoalTop, LensLiftTopZ + FMath::Max(0.1, LensLiftRiseV) * Dt));
+		else
+			LensLiftTopZ = FMath::Max(GoalTop, LensLiftTopZ - FMath::Max(0.1, LensPullRelease) * Dt);
+		if (LensLiftTopZ > Lens.Z + 0.005)
+		{
+			const FVector Lift(Lens.X, Lens.Y, LensLiftTopZ);
+			if (!Blocked(Lift)) { Lens = Lift; LensGuardFlags |= 32; }
+			else LensLiftTopZ = -1e9;   // (a solid over the car: the r7 pull-in below handles it)
+		}
+		else if (GoalTop < -1e8 && LensLiftTopZ < Lens.Z - 2.0) LensLiftTopZ = -1e9;   // released past the lens: idle
 	}
 	// (2) solids (not during the follow-through pass and its first tail frames: the lens may be in the block he is passing)
 	const bool bPassAllowed = BreachCamPhase == 1 || (BreachCamPhase == 2 && BreachTailClock < BreachTailHoldT);
@@ -304,6 +350,7 @@ void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTrav
 	CamRot.Pitch = FMath::Clamp(FRotator::NormalizeAxis(CamRot.Pitch + FRotator::NormalizeAxis(A1.Pitch - A0.Pitch)), -80.0, 80.0);
 	CamRot.Yaw = FRotator::NormalizeAxis(CamRot.Yaw);
 	CamPos = Lens;
+	if (BreachCamPhase != 1) ClampFlightHeroBand(Hero);   // r8: the guarded lens keeps him inside the vertical band too
 	HeroDist = FVector::Dist(CamPos, Hero);
 	bCamInGeometry = World.SphereOverlaps(CamPos, 0.15);
 	// the next frame's output slew starts from the guarded lens
@@ -608,7 +655,17 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		const double MP = MaxStepPitchDeg * K * Boost + FMath::RadiansToDegrees(FMath::Abs(LookPitchDelta));
 		const double MY = (FlipK > 1e-3 && VisBoostK <= 0.01 && EdgeK <= 0.01 ? FlipMaxStepYawDeg : MaxStepYawDeg * Boost) * K
 			+ FMath::RadiansToDegrees(FMath::Abs(AppliedLookYaw));
-		if (FMath::Abs(SlP) > MP) { CamRot.Pitch = LastOutRot.Pitch + FMath::Sign(SlP) * MP; SlewFlags |= 2; }
+		// r8 (fl12 6.03-6.19 s pitch ratchet to -80, fl17 end -23.7 vs composed -4.7; see FlightRelPitch): flight hero -- the cap applies to the
+		// change of the hero-relative offset; the aim change from lens motion (a guard lift, a breach tail rise) passes through
+		const FVector ToHeroNow = P.Pos - CamPos, ToHeroLast = PrevComposeHero - LastOutPos;
+		if (FlightLeashM > 0.0 && FlightRelPitch > 0.0 && ToHeroNow.SizeSquared() > 0.04 && ToHeroLast.SizeSquared() > 0.04)
+		{
+			const double HeroPitchNow = ToHeroNow.Rotation().Pitch;
+			const double OffLast = FRotator::NormalizeAxis(LastOutRot.Pitch - ToHeroLast.Rotation().Pitch);
+			const double DOff = FRotator::NormalizeAxis(CamRot.Pitch - HeroPitchNow) - OffLast;
+			if (FMath::Abs(DOff) > MP) { CamRot.Pitch = FMath::Clamp(HeroPitchNow + OffLast + FMath::Sign(DOff) * MP, -80.0, 80.0); SlewFlags |= 2; }
+		}
+		else if (FMath::Abs(SlP) > MP) { CamRot.Pitch = LastOutRot.Pitch + FMath::Sign(SlP) * MP; SlewFlags |= 2; }
 		if (FMath::Abs(SlY) > MY) { CamRot.Yaw = LastOutRot.Yaw + FMath::Sign(SlY) * MY; SlewFlags |= 4; }
 		if (SlewFlags) { HeroDist = FVector::Dist(CamPos, P.Pos); bCamInGeometry = World.SphereOverlaps(CamPos, 0.15); }
 		// round 14: the position re-aim above may add pitch -- keep the look-up cap (wall-run camera excepted)
@@ -697,6 +754,8 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	// critic r6 #1: breach follow-through (flight hero only; replaces the r6 hold + cut). Runs on the final slew-limited output.
 	if (FlightLeashM > 0.0 && BreachStepM > 0.0 && BreachCamPhase != 0) ApplyBreachFollow(Dt, P, World);
 	else { BreachCamPhase = 0; BreachCamW = 0.0; }
+	// r8 (fl12 / fl14 / fl17 hidden frames): flight hero -- final vertical band (not on the pass line: he is inside the block there)
+	if (BreachCamPhase != 1) ClampFlightHeroBand(P.Pos);
 	{ // critic r6 #1: darkening while the follow-through lens is inside the solid (fast in, quick out)
 		const bool bIn = BreachCamPhase != 0 && World.Inside(CamPos, 0.0);
 		InsideDarkK = Damp(InsideDarkK, bIn ? 1.0 : 0.0, bIn ? 40.0 : 14.0, Dt);
@@ -1796,7 +1855,9 @@ bool FWebTravCamera::SetTune(const FString& Name, double V)
 		// critic r6 #1 / #5 (breach follow-through, final lens guard)
 		{TEXT("BreachFollowDist"), &BreachFollowDist}, {TEXT("BreachFollowUp"), &BreachFollowUp}, {TEXT("BreachLookAhead"), &BreachLookAhead},
 		{TEXT("BreachStepM"), &BreachStepM}, {TEXT("BreachTurnDeg"), &BreachTurnDeg}, {TEXT("BreachTailHoldT"), &BreachTailHoldT}, {TEXT("BreachTailT"), &BreachTailT},
-		{TEXT("LensBodyMinM"), &LensBodyMinM}, {TEXT("LensSolidR"), &LensSolidR}, {TEXT("LensPullRelease"), &LensPullRelease} };
+		{TEXT("LensBodyMinM"), &LensBodyMinM}, {TEXT("LensSolidR"), &LensSolidR}, {TEXT("LensPullRelease"), &LensPullRelease},
+		// r8 (hero-relative flight pitch slew, vertical band, held / anticipated vehicle lift)
+		{TEXT("FlightRelPitch"), &FlightRelPitch}, {TEXT("FlightFrameBand"), &FlightFrameBand}, {TEXT("LensLiftLeadT"), &LensLiftLeadT}, {TEXT("LensLiftRiseV"), &LensLiftRiseV} };
 	for (const FT& T : Tab) if (Name == T.N) { *T.P = V; return true; }
 	return false;
 }

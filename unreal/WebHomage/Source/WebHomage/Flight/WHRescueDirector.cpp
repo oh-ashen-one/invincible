@@ -1071,9 +1071,15 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 			// r7 (critic r6 #2, fl17 17.35 - 17.65 "legs inside the container, arms in a T"): r6 caught it level with his legs at 5.8 m and
 			// swung it up past them. Overhead carry: the full reach only once the load's bottom face is over his head top (+ clear), so it is
 			// above him from the first catch frame; level with him (neither under nor over it) only at CraneTouchLevelCm.
-			const bool bUnder = bOverheadCarry && E.LoadCm.Z - LoadHalfZ >= Hero.Z + double(HeroHeadTopCm) + double(CatchUnderClearCm);
+			const double GapCm = E.LoadCm.Z - LoadHalfZ - (Hero.Z + double(HeroHeadTopCm));   // load bottom over his head top
+			const bool bUnder = bOverheadCarry && GapCm >= double(CatchUnderClearCm);
+			// r8 (fl17 simR7d: caught from above, load bottom 3.54 m under his head top): under-only catch, hanging load held / risen into
+			const double HeroVzCm = S ? S->HeroVelCm.Z : 0.0;
+			const bool bUnderOnly = bOverheadCarry && bCatchUnderOnly;
+			const bool bUnderOk = bUnder && (E.bFalling || (GapCm <= double(CatchUnderGapMaxCm) && HeroVzCm >= double(CatchUnderMinVzCm)));
 			double Reach = CraneTouchCm;
-			if (bOverheadCarry) Reach = bUnder ? double(CraneTouchUnderCm) : FMath::Min(bAbove ? double(CraneTouchAboveCm) : double(CraneTouchLevelCm), double(CraneTouchCm));
+			if (bUnderOnly) Reach = bUnderOk ? double(CraneTouchUnderCm) : -1.0;
+			else if (bOverheadCarry) Reach = bUnder ? double(CraneTouchUnderCm) : FMath::Min(bAbove ? double(CraneTouchAboveCm) : double(CraneTouchLevelCm), double(CraneTouchCm));
 			E.bHeroInRange = D < FMath::Max(Reach, double(CraneTouchCm)) * 2.0;
 			if (D < Reach)
 			{
@@ -1081,9 +1087,10 @@ void AWHRescueDirector::TickCrane(FWHEmergency& E, double Now, double Dt, const 
 				E.LoadVelCm = FVector::ZeroVector;
 				if (bOverheadCarry)
 				{
-					UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load caught %s at %.0f m above the street from %s (%.1f m; load bottom %.2f m over his head top)"), E.Id,
-						E.bSnapped ? TEXT("falling") : TEXT("hanging"), (E.LoadCm.Z - E.StreetZ) / 100.0, bAbove ? TEXT("above") : TEXT("below / beside"), D / 100.0,
-						(E.LoadCm.Z - LoadHalfZ - Hero.Z - double(HeroHeadTopCm)) / 100.0);
+					// (r8: "level" is named as such; + his vertical speed at the catch)
+					UE_LOG(LogWebHomage, Display, TEXT("WH_RESCUE crane id %d load caught %s at %.0f m above the street from %s (%.1f m; load bottom %.2f m over his head top; hero vz %+.1f m/s)"), E.Id,
+						E.bSnapped ? TEXT("falling") : TEXT("hanging"), (E.LoadCm.Z - E.StreetZ) / 100.0,
+						bUnder ? TEXT("below / beside") : (bAbove ? TEXT("above") : TEXT("level")), D / 100.0, GapCm / 100.0, HeroVzCm / 100.0);
 				}
 				else
 				{

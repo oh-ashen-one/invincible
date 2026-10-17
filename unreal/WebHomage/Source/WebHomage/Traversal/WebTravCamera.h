@@ -115,6 +115,17 @@ public:
 		TFunctionRef<bool(const FVector&, double)> ExtOverlap, TFunctionRef<bool(const FVector&, const FVector&, double, double&)> ExtSweep);
 	double LensBodyMinM = 1.4, LensSolidR = 0.22, LensPullRelease = 6.0;
 	int32 LensGuardFlags = 0;
+	// ---- r8 (sim simR7d fl12 6.03-6.19 / 6.93 s: cam pitch -76..-80, hero above the frame; fl17 30.7 s -> end: pitch -23.7 vs the composed
+	// -4.7, hero cy 0.19-0.25; fl14 5.75-5.92 s: hero sinking to the bottom edge in the breach tail). Cause: the absolute output pitch slew
+	// (MaxStepPitchDeg per frame) compared a view composed from the UNLIFTED chase spot with the last output, which GuardLens had aimed from
+	// a lens lifted over a vehicle box; the guard then added the lift's re-aim on top every frame (a ratchet down to the -80 clamp).
+	//   FlightRelPitch 1: flight hero (FlightLeashM > 0) -- the pitch slew limits the change of the HERO-RELATIVE offset (view pitch minus the
+	//                  pitch toward his centre), so lens moves keep him where he was on screen; 0 = r7 absolute slew.
+	//   FlightFrameBand: flight hero, final hard band -- his centre stays within 0.5 +- this of the frame height (SlewFlags 512 when held).
+	//   LensLiftLeadT / LensLiftRiseV: the guard's lift over a vehicle box is held (released at LensPullRelease m/s, no 1-frame drop) and
+	//                  anticipated LensLiftLeadT s along his travel, rising at <= LensLiftRiseV m/s (the box underneath is always cleared).
+	double FlightRelPitch = 1.0, FlightFrameBand = 0.22;
+	double LensLiftLeadT = 0.2, LensLiftRiseV = 12.0;
 	// ---- owner feedback 2026-10-15 (Invincible flight playtest): flight-sim chase camera and super-boost feel. Every field below is set every
 	// frame by AWebTravCharacter::FlightFrame from UWHFlightComponent tunables (-WHFlightTune=...); the legacy hero never sets them, so all
 	// stay 0 / false and nothing changes there.
@@ -334,6 +345,9 @@ private:
 	double BreachTailClock = 0.0;
 	// critic r6 #5: the lens guard's held pull-in (m nearer the hero than the composed lens) and its last output position
 	double LensPull = 0.0;
+	// r8: held / anticipated vehicle-lift height (world m; -1e9 = none) and the flight hero's vertical frame band (see FlightFrameBand)
+	double LensLiftTopZ = -1e9;
+	void ClampFlightHeroBand(const FVector& Hero);
 	// Smooth attack/decay for readable impact and speed shake, independent of the chase spring.
 	double ShakeEnvelope = 0.0, ShakeEnvelopeV = 0.0;
 	bool bWasSwinging = false;
