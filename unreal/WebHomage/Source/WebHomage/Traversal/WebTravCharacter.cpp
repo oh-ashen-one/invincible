@@ -532,6 +532,12 @@ void AWebTravCharacter::HeroV2Frame(const FWebTravAnim& A, float Dt, FQuat& InOu
 	const double K = 1.0 - FMath::Exp(-8.0 * double(Dt));
 	HeroV2Bank += (BankWant - HeroV2Bank) * K;
 	HeroV2Pitch += (PitchWant - HeroV2Pitch) * K;
+	// r9 (critic r8 fl12): from the hero-landing contact through the hold the kneel is upright, yaw only -- no path pitch / bank eased
+	// out of the dive over the first frames (a fly line that hit without the predicted dive arrived pitched up to HeroV2MaxPitchDeg)
+	if (const UWHHeroV2AnimInstance* LAI = Cast<UWHHeroV2AnimInstance>(GetMesh()->GetAnimInstance()))
+	{
+		if (LAI->InLandContact()) { HeroV2Pitch = 0.0; HeroV2Bank = 0.0; }
+	}
 	InOutQ = FQuat(FVector(0, 0, 1), HeroV2Yaw) * FQuat(FVector(0, 1, 0), HeroV2Pitch) * FQuat(FVector(1, 0, 0), -HeroV2Bank);
 	if (bAir) InOutRoot = Traversal->PosM() * 100.0 - InOutQ.RotateVector(FVector(0, 0, UWebTraversalComponent::H * 100.0));
 	else InOutRoot = A.RootPos;   // grounded: the traversal's feet point (floor / step offset)

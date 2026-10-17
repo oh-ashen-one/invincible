@@ -323,6 +323,56 @@ void UWHHeroV2AnimInstance::AnalyzeLandClip()
 		if (EndT > double(LandImpactT) + 0.4) LandKneelEndT = float(EndT);
 		else if (EndT < 0.0) LandKneelEndT = FMath::Max(LandKneelEndT, float(Full) - 0.05f);   // (no stand-up in the clip)
 	}
+	// r9 (critic r8 fl12 "on all fours / splayed"): (a) the settled contact frame the landing hold freezes on -- the first frame after
+	// LandImpactT where every limb joint (pelvis, head, knees, feet, wrists) moves < LandSettleK body heights / s (offline FK: 1.6 m/s at
+	// 0.60 s, 0.5 m/s at 0.65 s); (b) the kneeling leg (the lower knee there) and the fist arm (the lower middle knuckle) for the kneel contact
+	Frame.bKneelOk = false;
+	if (bOk)
+	{
+		const TCHAR* Sd[2] = { TEXT("left_"), TEXT("right_") };
+		const TCHAR* LegB[4] = { TEXT("hip"), TEXT("knee"), TEXT("ankle"), TEXT("foot") };
+		const TCHAR* ArmB[4] = { TEXT("shoulder"), TEXT("elbow"), TEXT("wrist"), TEXT("middle1") };
+		int32 Leg[2][4], Arm[2][4];
+		bool bBones = true;
+		for (int32 Si = 0; Si < 2; ++Si)
+		{
+			for (int32 Bi = 0; Bi < 4; ++Bi)
+			{
+				Leg[Si][Bi] = RS.FindBoneIndex(FName(*FString::Printf(TEXT("%s%s"), Sd[Si], LegB[Bi])));
+				Arm[Si][Bi] = RS.FindBoneIndex(FName(*FString::Printf(TEXT("%s%s"), Sd[Si], ArmB[Bi])));
+				bBones &= Leg[Si][Bi] != INDEX_NONE && Arm[Si][Bi] != INDEX_NONE;
+			}
+		}
+		const int32 Ihd = RS.FindBoneIndex(FName(TEXT("head")));
+		if (bBones && Ihd != INDEX_NONE)
+		{
+			const int32 Watch[9] = { Ip, Ihd, Leg[0][1], Leg[1][1], Il, Ir, Arm[0][2], Arm[1][2], Arm[0][3] };
+			const double Thr = FMath::Max(0.05, double(LandSettleK)) * Ref.HeightUnits / 60.0;   // units per 1/60 s frame
+			const double T1 = FMath::Max(double(LandImpactT) + 0.05, double(LandKneelEndT) - 0.05);
+			double SettleT = -1.0;
+			FVector Prev[9];
+			for (int32 Wi = 0; Wi < 9; ++Wi) Prev[Wi] = CS(Watch[Wi], double(LandImpactT));
+			for (double T = double(LandImpactT) + 1.0 / 60.0; T <= T1 + 1e-6; T += 1.0 / 60.0)
+			{
+				double MaxStep = 0.0;
+				for (int32 Wi = 0; Wi < 9; ++Wi) { const FVector Q = CS(Watch[Wi], T); MaxStep = FMath::Max(MaxStep, FVector::Dist(Q, Prev[Wi])); Prev[Wi] = Q; }
+				if (MaxStep < Thr) { SettleT = T; break; }
+			}
+			if (SettleT > double(LandImpactT)) LandHoldPoseT = float(SettleT);
+			LandHoldPoseT = FMath::Clamp(LandHoldPoseT, LandImpactT + 0.02f, FMath::Max(LandImpactT + 0.02f, LandKneelEndT - 0.05f));
+			const double Th = double(LandHoldPoseT);
+			auto UpOf = [this](const FVector& V) { return FVector::DotProduct(V, Ref.Up) - Ref.BottomUp; };
+			const double KneeL = UpOf(CS(Leg[0][1], Th)), KneeR = UpOf(CS(Leg[1][1], Th));
+			const double FistL = UpOf(CS(Arm[0][3], Th)), FistR = UpOf(CS(Arm[1][3], Th));
+			const int32 LegS = KneeL <= KneeR ? 0 : 1, ArmS = FistL <= FistR ? 0 : 1;
+			for (int32 Bi = 0; Bi < 4; ++Bi) { Frame.KneelLeg[Bi] = RS.GetBoneName(Leg[LegS][Bi]); Frame.FistArm[Bi] = RS.GetBoneName(Arm[ArmS][Bi]); }
+			Frame.bKneelOk = true;
+			const double Hu = FMath::Max(1e-3, Ref.HeightUnits) / 100.0;   // units per 1 % of the body height
+			UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 land clip r9: contact pose settles at t=%.3f%s (-> LandHoldPoseT %.3f), kneeling leg %s (knee %.1f %% of the height over the sole), fist %s (knuckle %.1f %%), sole->foot joint %.1f %%"),
+				SettleT, SettleT > 0.0 ? TEXT("") : TEXT(" (not found, tunable kept)"), LandHoldPoseT, Sd[LegS], (LegS ? KneeR : KneeL) / Hu, Sd[ArmS], (ArmS ? FistR : FistL) / Hu,
+				(Ref.RefFootUp - Ref.BottomUp) / Hu);
+		}
+	}
 	// (b) the dive's head line: elevation of feet -> head over the mesh's forward (deg; head-down -90, head-forward 0, head-up +90) from the
 	// held dive frame to feet-first. Offline: -79 deg at 0.20 s, -35 at 0.367, -13 at 0.40, +8 at 0.433 -- the flip turns the head forward
 	// through the horizon, so a fly line diving gamma deg is matched by the first frame at -gamma (FastLinePredict / LineDiveStartT).
@@ -779,6 +829,10 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		StartTrack(S::BoostLaunch, 0.f, BlendToBoostLaunch);   // a fresh charge while the last launch is still showing
 	else if (Want != Cur)
 	{
+		// r9 (critic r8 fl12): the contact pose's clip time when the landing hold lets go (the float / fly takes over from here)
+		if (Cur == S::LandHero && bLandImpact && Tracks.Num() && !Tracks.Last().bDive)
+			UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 land hold released r9: AS_LandHero t=%.3f (hold pose %.3f, kneel end %.3f) after %.2f s -> %s, mode %d sub %s"),
+				Tracks.Last().T, LandHoldPoseT, LandKneelEndT, StateT, StateName(Want), int32(A.Mode), *A.Sub.ToString());
 		float StartT = 0.f;
 		bool bDive = false, bLine = false;
 		float Blend = BlendTime(Cur, Want);
@@ -789,8 +843,10 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			// slam / double-tap dive: the clip starts with the dive (owner request 2026-10-16: the airborne landing hold is the impact)
 			bDive = A.Mode == EWebTravMode::Air && A.Sub != HV2NLandHero;
 			bLandImpact = !bDive;
+			bContactLogged = false;   // r9: a new landing
 			// a hard landing without the dive: just before the contact frame, legs already under him (r5)
-			if (!bDive) StartT = FMath::Max(LandFeetT, LandImpactT - 0.04f);
+			// (r9, critic r8 fl12: and out of the fly / boost / hover pose within BlendLandImpact -- no half-blended fly pose in the hold)
+			if (!bDive) { StartT = FMath::Max(LandFeetT, LandImpactT - 0.04f); Blend = FMath::Min(Blend, BlendLandImpact); }
 			// r7 (critic r6 #6): a fast fly line -- the dive frame whose head line matches the path (36 deg down: t ~0.37, head forward-down)
 			else if (bLineWant)
 			{
@@ -841,8 +897,14 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			}
 		}
 		// r7 (critic r6 #6): the airborne hero-landing hold keeps AS_LandHero's knee + fist contact pose (no stand-up before the release)
+		// r9 (critic r8 fl12 frames 3-6): frozen on the settled contact frame LandHoldPoseT for the rest of the hold (LandHoldFreeze; the
+		// clip reaches it ~0.14 s after the impact frame), never past LandKneelEndT; the stand-up only plays after the release
 		if (Tr.State == S::LandHero && !Tr.bDive && bLandImpact && A.Mode == EWebTravMode::Air && A.Sub == HV2NLandHero && Tr.T < LandKneelEndT)
-			Tr.T = FMath::Min(Tr.T, LandKneelEndT - Dt * Tr.Rate);
+		{
+			const float HoldT = LandHoldFreeze > 0.5f ? FMath::Min(LandHoldPoseT, LandKneelEndT) : LandKneelEndT;
+			if (Tr.T >= HoldT) Tr.T -= Dt * Tr.Rate;   // (AdvanceTracks adds it back: it stays where it is)
+			else Tr.T = FMath::Min(Tr.T, HoldT - Dt * Tr.Rate);
+		}
 		bool bImpactJump = false;
 		if (Tr.State == S::LandHero && Tr.bDive)
 		{
@@ -850,6 +912,8 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			{ // the landing event: the contact frame must be on it -- an impact before the feet-first turn jumps to it with a short blend
 				Tr.bDive = false; bLandImpact = true;
 				bImpactJump = Tr.T < LandFeetT - 0.05f;
+				// r9 (critic r8 fl12): a fly / boost share still fading out at the contact leaves within BlendLandImpact
+				if (Tr.W < 1.f) BlendDur = FMath::Min(BlendDur, FMath::Max(1e-3f, BlendLandImpact / FMath::Max(1e-3f, 1.f - Tr.W)));
 			}
 			else
 			{ // r5 (critic r4 #3, fl11 head-first until ~3 m then a 180 deg snap in ~2 frames): play into the held dive pose (LandDiveHoldT)
@@ -896,6 +960,15 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	AdvanceTracks(Dt);
 	PrevSpeed = A.Speed;
 	PrevVz = Vz;
+	// r9 (critic r8 fl12): one line per landing at the contact -- the clip time reached and the share of other clips still blended in
+	if (!bContactLogged && InLandContact())
+	{
+		float Other = 0.f;
+		for (int32 I = 0; I + 1 < Tracks.Num(); ++I) Other += Tracks[I].W;
+		UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 land contact r9: AS_LandHero t=%.3f at the contact (impact frame %.3f, hold pose %.3f), other clips %.2f (gone in %.2f s), mode %d sub %s"),
+			Tracks.Last().T, LandImpactT, LandHoldPoseT, Other, Other > 0.f ? BlendDur * Other : 0.f, int32(A.Mode), *A.Sub.ToString());
+		bContactLogged = true;
+	}
 
 	// ---- ground lock (grounded clips: feet on the floor) and the pitch freedom for the character
 	{
@@ -914,6 +987,25 @@ void UWHHeroV2AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			Target = FMath::Min(Target, 1.f);
 		}
 		Frame.GroundW = bRefOk ? Frame.GroundW + (Target - Frame.GroundW) * (1.f - FMath::Exp(-Dt / FMath::Max(0.005f, GroundLockTau))) : 0.f;
+		// r9 (critic r8 fl12 "on all fours / splayed"): kneel contact weight -- AS_LandHero's grounded tracks, ramped in as the clip settles
+		// (LandImpactT -> LandHoldPoseT), out before the stand-up (LandKneelEndT +- 0.1 s) and with the ground lock (the heights are relative
+		// to the locked sole line)
+		{
+			float Kw = 0.f;
+			for (const FTrack& Tr : Tracks)
+			{
+				if (Tr.State != S::LandHero || Tr.bDive || Tr.Clip != int32(EWHHeroV2Clip::LandHero)) continue;
+				Kw += Tr.W * HV2Smooth(Tr.T, LandImpactT, FMath::Max(LandImpactT + 0.01f, LandHoldPoseT))
+					* (1.f - HV2Smooth(Tr.T, LandKneelEndT - 0.1f, LandKneelEndT + 0.1f));
+			}
+			const USkeletalMeshComponent* KSMC = GetSkelMeshComponent();
+			const double KSc = KSMC ? FMath::Max(1e-4, double(KSMC->GetComponentScale().X)) : 1.0;   // cm per mesh unit
+			Frame.KneelW = (Frame.bKneelOk && bRefOk && LandKneelContact > 0.f)
+				? FMath::Clamp(Kw, 0.f, 1.f) * FMath::Clamp(Frame.GroundW, 0.f, 1.f) * FMath::Clamp(LandKneelContact, 0.f, 1.f) : 0.f;
+			Frame.SoleUp = float(Ref.BottomUp);
+			Frame.KneeUp = float(double(LandKneeCm) / KSc);
+			Frame.FistUp = float(double(LandFistCm) / KSc);
+		}
 		float PF = 0.f;
 		for (const FTrack& Tr : Tracks)
 		{
@@ -1039,9 +1131,14 @@ void UWHHeroV2AnimInstance::UpdateStandClear(const FWebTravAnim& A, const UWHFli
 	const UWebTraversalComponent* Trav = Ch ? Ch->GetTraversal() : nullptr;
 	const bool bOn = StandClearCm > 0.f && bFloat && FlC && Trav && A.Mode == EWebTravMode::Air && A.Speed < StandClearMaxSpeed
 		&& FlC->FloatGapM() < 1.5 && (Now == S::Hover || Now == S::LaunchUp || (Now == S::LandHero && bLandImpact));
-	if (bOn)
+	// r9 (critic r8 fl12: the kneeling hero slid ~0.57 m across the crater beside the truck, tau 0.2 s): in the landing hold the step is
+	// taken once, at the contact, and kept until the release
+	const bool bHoldPose = Now == S::LandHero && bLandImpact;
+	if (bOn && bHoldPose && bStandHoldSet) {}   // (kept)
+	else if (bOn)
 	{
 		StandQueryT -= Dt;
+		if (bHoldPose) StandQueryT = 0.f;
 		if (StandQueryT <= 0.f)
 		{
 			StandQueryT = 0.1f;
@@ -1061,8 +1158,10 @@ void UWHHeroV2AnimInstance::UpdateStandClear(const FWebTravAnim& A, const UWHFli
 			}
 			StandWant = Push;
 		}
+		if (bHoldPose) { StandNudge = StandWant; bStandHoldSet = true; }   // r9: stepped on the contact frame (the impact hides it)
 	}
 	else { StandWant = FVector::ZeroVector; StandQueryT = 0.f; if (StandNudge.SizeSquared() < 1.0) bStandLogged = false; }
+	if (!bHoldPose) bStandHoldSet = false;
 	StandNudge += (StandWant - StandNudge) * (1.f - FMath::Exp(-Dt / 0.2f));
 	const USkeletalMeshComponent* SMC = GetSkelMeshComponent();
 	Frame.NudgeCS = (SMC && StandNudge.SizeSquared() > 0.01) ? SMC->GetComponentTransform().InverseTransformVector(StandNudge) : FVector::ZeroVector;
@@ -1296,6 +1395,96 @@ bool FWHHeroV2AnimProxy::Evaluate(FPoseContext& Output)
 			const double D = FMath::Clamp((double(Frame.RefFootUp) - MinUp) * double(Frame.GroundW), -double(Frame.MaxShift), double(Frame.MaxShift));
 			const FCompactPoseBoneIndex Root(0);   // compact index 0 = the root bone: its local space is component space
 			Pose[Root].AddToTranslation(Frame.UpCS * D);
+		}
+	}
+	// r9 (critic r8 fl12 frames 3-6 "on all fours / splayed": AS_LandHero's kneeling knee sits ~25 cm up with that leg splayed ~45 cm out,
+	// the fist's knuckle ~10 cm up): kneel contact on the locked pose (component space, mesh units along UpCS, weight KneelW)
+	if (Frame.bKneelOk && Frame.bRefOk && Frame.KneelW > 0.001f)
+	{
+		auto CSX = [&Pose, &BC](FCompactPoseBoneIndex B) -> FTransform
+		{
+			FTransform T = Pose[B];
+			FCompactPoseBoneIndex P = BC.GetParentBoneIndex(B);
+			while (P.IsValid()) { T = T * Pose[P]; P = BC.GetParentBoneIndex(P); }
+			return T;
+		};
+		// a component-space rotation Q about the bone's own joint: local' = parentCS^-1 * Q * boneCS (rotations; children follow)
+		auto TurnCS = [&Pose, &BC, &CSX](FCompactPoseBoneIndex B, const FQuat& Q)
+		{
+			const FCompactPoseBoneIndex Pa = BC.GetParentBoneIndex(B);
+			const FQuat PR = Pa.IsValid() ? CSX(Pa).GetRotation() : FQuat::Identity;
+			Pose[B].SetRotation((PR.Inverse() * Q * CSX(B).GetRotation()).GetNormalized());
+		};
+		const FVector Up = Frame.UpCS.GetSafeNormal();
+		const double W = FMath::Clamp(double(Frame.KneelW), 0.0, 1.0);
+		const FCompactPoseBoneIndex Hh = Idx(Frame.KneelLeg[0]), Kk = Idx(Frame.KneelLeg[1]), Aa = Idx(Frame.KneelLeg[2]), Ff = Idx(Frame.KneelLeg[3]);
+		if (!Up.IsNearlyZero() && Hh.IsValid() && Kk.IsValid() && Aa.IsValid() && Ff.IsValid())
+		{ // (1) the kneeling thigh turns down under its hip (same horizontal heading, shorter reach) until the knee is KneeUp over the sole
+			const FVector H = CSX(Hh).GetLocation(), K = CSX(Kk).GetLocation();
+			const double ToeZ0 = FVector::DotProduct(CSX(Ff).GetLocation(), Up);
+			const double KneeZ = FVector::DotProduct(K, Up);
+			const double KneeWant = KneeZ + (double(Frame.SoleUp + Frame.KneeUp) - KneeZ) * W;
+			const FVector HK = K - H;
+			const FVector Hor = HK - Up * FVector::DotProduct(HK, Up);
+			const double Lt = HK.Size();
+			if (KneeZ - KneeWant > 0.1 && Lt > 1e-3 && Hor.Size() > 1e-3)
+			{
+				const double Dz = FMath::Clamp(KneeWant - FVector::DotProduct(H, Up), -Lt, Lt);
+				const FVector K2 = H + Hor.GetSafeNormal() * FMath::Sqrt(FMath::Max(0.0, Lt * Lt - Dz * Dz)) + Up * Dz;
+				FQuat Q = FQuat::FindBetweenVectors(HK, K2 - H);
+				const double MaxA = FMath::DegreesToRadians(70.0);   // (safety: no turn past 70 deg)
+				if (Q.GetAngle() > MaxA) Q = FQuat::Slerp(FQuat::Identity, Q, MaxA / Q.GetAngle());
+				TurnCS(Hh, Q);
+				// (2) the shin turns about the knee (axis: up x its horizontal heading) so the foot joint rests at the planted foot's height:
+				// toe height h(phi) = knee + a cos(phi) + b sin(phi) for v = foot - knee, a = v.up, b = (axis x v).up
+				const FVector K3 = CSX(Kk).GetLocation(), A3 = CSX(Aa).GetLocation(), F3 = CSX(Ff).GetLocation();
+				const FVector KA = A3 - K3;
+				const FVector SHor = KA - Up * FVector::DotProduct(KA, Up);
+				if (SHor.Size() > 1e-3)
+				{
+					const FVector Ax = FVector::CrossProduct(Up, SHor.GetSafeNormal()).GetSafeNormal();
+					const FVector V = F3 - K3;
+					const double Ca = FVector::DotProduct(V, Up), Cb = FVector::DotProduct(FVector::CrossProduct(Ax, V), Up);
+					const double Rr = FMath::Sqrt(Ca * Ca + Cb * Cb);
+					const double ToeWant = ToeZ0 + (double(Frame.RefFootUp) - ToeZ0) * W;
+					if (Rr > 1e-3 && !Ax.IsNearlyZero())
+					{
+						const double Cc = FMath::Clamp(ToeWant - FVector::DotProduct(K3, Up), -Rr, Rr);
+						const double P0 = FMath::Atan2(Cb, Ca), Ac = FMath::Acos(Cc / Rr);
+						const double Ph1 = FMath::UnwindRadians(P0 + Ac), Ph2 = FMath::UnwindRadians(P0 - Ac);
+						const double Phi = FMath::Clamp(FMath::Abs(Ph1) <= FMath::Abs(Ph2) ? Ph1 : Ph2, -UE_DOUBLE_PI / 3.0, UE_DOUBLE_PI / 3.0);
+						if (FMath::Abs(Phi) > 1e-4) TurnCS(Kk, FQuat(Ax, Phi));
+					}
+				}
+			}
+		}
+		const FCompactPoseBoneIndex Ss = Idx(Frame.FistArm[0]), Ee = Idx(Frame.FistArm[1]), Ww = Idx(Frame.FistArm[2]), Mm = Idx(Frame.FistArm[3]);
+		if (!Up.IsNearlyZero() && Ss.IsValid() && Ee.IsValid() && Ww.IsValid() && Mm.IsValid())
+		{ // (3) the fist arm reaches down (two bones, elbow kept in its bend plane) until the knuckle is FistUp over the sole; the hand rides
+		  // on the forearm, so the wrist target moves 0.6 x the knuckle error per pass (offline FK: converges in 3 passes, < 0.3 cm)
+			const double M0 = FVector::DotProduct(CSX(Mm).GetLocation(), Up);
+			const double FistWant = M0 + (double(Frame.SoleUp + Frame.FistUp) - M0) * W;
+			for (int32 Pass = 0; Pass < 3; ++Pass)
+			{
+				const FVector S = CSX(Ss).GetLocation(), E = CSX(Ee).GetLocation(), Wr = CSX(Ww).GetLocation();
+				const double Res = FVector::DotProduct(CSX(Mm).GetLocation(), Up) - FistWant;
+				if (FMath::Abs(Res) < 0.003 * double(Frame.MaxShift)) break;   // (MaxShift = 0.45 body heights: ~0.3 cm)
+				const FVector Tg = Wr - Up * (Res * 0.6);
+				const double La = FVector::Dist(E, S), Lb = FVector::Dist(Wr, E);
+				const FVector Dv = Tg - S;
+				const double Dn = Dv.Size();
+				if (La < 1e-3 || Lb < 1e-3 || Dn < 1e-3) break;
+				const double Dd = FMath::Clamp(Dn, FMath::Abs(La - Lb) + 1e-3, La + Lb - 1e-3);
+				const FVector Dir = Dv / Dn;
+				FVector Pole = (E - S) - Dir * FVector::DotProduct(E - S, Dir);
+				if (Pole.Size() < 1e-3) break;
+				Pole = Pole.GetSafeNormal();
+				const double Cs = FMath::Clamp((La * La + Dd * Dd - Lb * Lb) / (2.0 * La * Dd), -1.0, 1.0);
+				const FVector E2 = S + Dir * (La * Cs) + Pole * (La * FMath::Sqrt(FMath::Max(0.0, 1.0 - Cs * Cs)));
+				TurnCS(Ss, FQuat::FindBetweenVectors(E - S, E2 - S));
+				const FVector E3 = CSX(Ee).GetLocation(), W3 = CSX(Ww).GetLocation();
+				TurnCS(Ee, FQuat::FindBetweenVectors(W3 - E3, (S + Dir * Dd) - E3));
+			}
 		}
 	}
 	// r7 (critic r6 #3): hover breathing -- the AS_Hover layer's deviation from its clip mean (Delta = Q x Avg^-1, local) is applied once more

@@ -126,6 +126,17 @@ public:
 	//                  anticipated LensLiftLeadT s along his travel, rising at <= LensLiftRiseV m/s (the box underneath is always cleared).
 	double FlightRelPitch = 1.0, FlightFrameBand = 0.22;
 	double LensLiftLeadT = 0.2, LensLiftRiseV = 12.0;
+	// ---- r9 (r8b render fl12 5.04-5.39 s, 22 hidden frames; sim simR8c fl12 6.03-6.18 s, 10 hidden frames: the chase spot sat behind /
+	// over a box truck beside him, the guard pulled the lens to ~1.8 m over his head, then the orbit cap carried it round him).
+	// VEHICLE SIDE SWING, flight hero only (FlightLeashM > 0): GuardLens tests the composed chase spot (and the same spot VehLeadT s along
+	// his travel) against the street vehicle boxes. When a box holds the lens or cuts its sightline to his chest / to more than
+	// 1 - VehVisMin of five body points, the nearest azimuth round him (VehStepDeg steps up to VehMaxDeg, the side away from the boxes first)
+	// whose lens is out of every box and solid and sees him becomes VehYawGoal. Update orbits the composed lens round him by VehYawOff and
+	// turns the view by the same angle (his screen position is kept): spring VehSwingT, at most VehRateDeg deg/s; back to 0 after
+	// VehReleaseT s with a clear composed spot. SlewFlags 1024 = offset applied. VehMaxDeg 0 = off (r8).
+	double VehMaxDeg = 0.0 /* r9 render fl12: the swing put the lens INTO the box truck (its mesh exceeds the traffic box): 22 -> 51 hidden frames -> off */, VehStepDeg = 10.0, VehRateDeg = 180.0, VehSwingT = 0.12, VehReleaseT = 0.4, VehLeadT = 0.2, VehVisMin = 0.6, VehSwitchDeg = 15.0;
+	double VehYawOff = 0.0, VehYawGoal = 0.0;   // deg, + = counter-clockwise seen from above (telemetry)
+	int32 VehSwingFlags = 0;                    // 1 composed spot blocked by a vehicle, 2 clear azimuth held, 4 none clear (goal kept)
 	// ---- owner feedback 2026-10-15 (Invincible flight playtest): flight-sim chase camera and super-boost feel. Every field below is set every
 	// frame by AWebTravCharacter::FlightFrame from UWHFlightComponent tunables (-WHFlightTune=...); the legacy hero never sets them, so all
 	// stay 0 / false and nothing changes there.
@@ -348,6 +359,12 @@ private:
 	// r8: held / anticipated vehicle-lift height (world m; -1e9 = none) and the flight hero's vertical frame band (see FlightFrameBand)
 	double LensLiftTopZ = -1e9;
 	void ClampFlightHeroBand(const FVector& Hero);
+	// r9 vehicle side swing: the composed lens before the offset (GuardLens tests it), spring velocity, clear time for the release, log state
+	FVector VehBaseLens = FVector::ZeroVector;
+	bool bVehBase = false;
+	double VehYawOffV = 0.0, VehClearT = 0.0, VehLoggedGoal = 0.0, VehLogT = -9.0;
+	void UpdateVehSwing(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FBox> Boxes,
+		TFunctionRef<bool(const FVector&, double)> ExtOverlap);
 	// Smooth attack/decay for readable impact and speed shake, independent of the chase spring.
 	double ShakeEnvelope = 0.0, ShakeEnvelopeV = 0.0;
 	bool bWasSwinging = false;

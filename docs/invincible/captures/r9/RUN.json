@@ -1,0 +1,30 @@
+{
+ "tag": "r9",
+ "mode": "render-1080p-fixed60",
+ "source_head": "9d2ef410",
+ "source_dirty": true,
+ "map": "/Game/Showcase/Maps/Manhattan_Island",
+ "game_args": [],
+ "cases": [
+  {
+   "case": "fl11_slam_crater",
+   "rc": 0,
+   "wall_s": 107.8,
+   "rows": 719,
+   "frames_rendered": 811,
+   "preroll_cut": 92,
+   "frames_kept": 421,
+   "mp4_mb": 4.81
+  },
+  {
+   "case": "fl12_fast_land",
+   "rc": 0,
+   "wall_s": 113.4,
+   "rows": 779,
+   "frames_rendered": 871,
+   "preroll_cut": 92,
+   "frames_kept": 481,
+   "mp4_mb": 12.06
+  }
+ ]
+}

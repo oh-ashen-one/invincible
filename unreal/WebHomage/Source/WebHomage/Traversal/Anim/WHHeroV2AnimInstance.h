@@ -88,6 +88,14 @@ struct FWHHeroV2Frame
 	/** r7 (critic r6 #2, fl17 "his side merges into the taxi door"): component-space root nudge (mesh units) that steps the floating hero
 	 *  clear of a street vehicle (vehicles have no collision; see UWHHeroV2AnimInstance::UpdateStandClear) */
 	FVector NudgeCS = FVector::ZeroVector;
+	/** r9 (critic r8 fl12 "on all fours / splayed"): kneel contact on top of AS_LandHero's held three-point pose, after the ground lock.
+	 *  The kneeling leg's thigh turns down under its hip until the knee joint sits KneeUp over the sole line (SoleUp), its shin turns so
+	 *  its foot joint rests at the planted foot's height (RefFootUp); the fist arm reaches (two bones) until its knuckle sits FistUp over the
+	 *  sole line. Mesh units along UpCS, weight KneelW (0 = off). Bones: hip, knee, ankle, foot / shoulder, elbow, wrist, middle1. */
+	bool bKneelOk = false;
+	float KneelW = 0.f, SoleUp = 0.f, KneeUp = 0.f, FistUp = 0.f;
+	FName KneelLeg[4];
+	FName FistArm[4];
 };
 
 struct FWHHeroV2AnimProxy : public FAnimInstanceProxy
@@ -122,6 +130,8 @@ public:
 	 *  its feet-first flip). The character pitches the upright mesh by the flight-path angle (<= HeroV2MaxPitchDeg) only by this share. */
 	float PitchFreedom() const { return PitchFreedomV; }
 	float GroundLockW() const { return Frame.GroundW; }
+	/** r9 (critic r8 fl12): AS_LandHero past its contact (the landing hold / kneel) -- the character keeps the mesh upright, yaw only */
+	bool InLandContact() const { return CurrentState() == EWHHeroV2State::LandHero && bLandImpact && Tracks.Num() && !Tracks.Last().bDive; }
 
 	/** r5 (critic r4 #5): takeoff anticipation. 1 while the feet stay planted on the take-off floor (the crouch plays there while the
 	 *  flight body already rises), then 0 over TakeoffCatchT (the mesh catches up with the body: the leap). T = s since the takeoff. */
@@ -129,7 +139,7 @@ public:
 
 	/** Capture pre-roll end: back to the freshly initialised state (no blend from the pre-roll pose). */
 	void ResetForSequenceStart() { Tracks.Reset(); bLandImpact = false; bLandSpent = false; PrevSpeed = 0.f; PrevVz = 0.f; UpWNow = 0.f; DipT = 99.f; LogPending = EWHHeroV2State::None;
-		BurstS = -1.f; BobW = 0.f; StandWant = FVector::ZeroVector; StandNudge = FVector::ZeroVector; }
+		BurstS = -1.f; BobW = 0.f; StandWant = FVector::ZeroVector; StandNudge = FVector::ZeroVector; bStandHoldSet = false; bContactLogged = false; }
 
 	// ---- tunables (-WHHeroV2Tune=Name=Value,...; s unless noted)
 	UPROPERTY(EditAnywhere, Category="HeroV2") float BlendDefault = 0.2f;
@@ -174,6 +184,17 @@ public:
 	// r7 (critic r6 #6): the airborne landing hold keeps the kneel (knee + fist down, AS_LandHero 0.53 - 2.13 s) -- the clip is held at
 	// LandKneelEndT while the flight's sub stays landHero (measured at init: the last frame before the stand-up)
 	UPROPERTY(EditAnywhere, Category="HeroV2") float LandKneelEndT = 2.1f;
+	// r9 (critic r8 fl12 frames 3-6 "on all fours / splayed"): the hold freezes AS_LandHero on its settled contact frame LandHoldPoseT (the
+	// first frame after LandImpactT where every limb joint moves < LandSettleK body heights / s; measured at init, offline FK ~0.62 s) instead
+	// of playing on through the kneel (LandHoldFreeze 0 = r7: the kneel plays to LandKneelEndT). The kneel contact layer (FWHHeroV2Frame
+	// KneelW) then puts the kneeling knee LandKneeCm and the fist's knuckle LandFistCm over the sole line (offline FK of the clip: knee
+	// 24-27 cm, knuckle 9-12 cm, the kneeling leg splayed ~45 cm sideways). LandKneelContact 0 = off.
+	UPROPERTY(EditAnywhere, Category="HeroV2") float LandHoldPoseT = 0.62f;
+	UPROPERTY(EditAnywhere, Category="HeroV2") float LandSettleK = 0.5f;
+	UPROPERTY(EditAnywhere, Category="HeroV2") float LandHoldFreeze = 1.f;
+	UPROPERTY(EditAnywhere, Category="HeroV2") float LandKneelContact = 1.f;
+	UPROPERTY(EditAnywhere, Category="HeroV2") float LandKneeCm = 6.5f;
+	UPROPERTY(EditAnywhere, Category="HeroV2") float LandFistCm = 2.5f;
 	UPROPERTY(EditAnywhere, Category="HeroV2") float TakeoffClipStart = 0.35f; // r5: AS_Takeoff starts in its crouch (static 0 - 0.45 s, push-off 0.5 - 0.75 s)
 	UPROPERTY(EditAnywhere, Category="HeroV2") float TakeoffRate = 1.5f;       // r5: crouch end at the plant end, push-off during the catch-up
 	UPROPERTY(EditAnywhere, Category="HeroV2") float TakeoffPlantT = 0.0f;     // r5: no floor plant -- any plant + catch-up dropped the mesh out of the bottom of the rising camera frame (sim: 14 frames at 0.12 s, 10 at 0.05 s); the crouch plays while he rises
@@ -311,6 +332,8 @@ private:
 	FVector StandWant = FVector::ZeroVector, StandNudge = FVector::ZeroVector;   // world cm
 	float StandQueryT = 0.f;
 	bool bStandLogged = false;
+	bool bStandHoldSet = false;   // r9: the landing hold took its stand-clear step at the contact (no slide while kneeling)
+	bool bContactLogged = false;  // r9: this landing's contact line was logged
 	// rate-limited state log
 	EWHHeroV2State LastLogged = EWHHeroV2State::None, LogPending = EWHHeroV2State::None;
 	double LastLogReal = -1.0;

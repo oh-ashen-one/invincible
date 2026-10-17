@@ -122,6 +122,7 @@ void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
 	Punch = PunchV = Dip = DipV = KickK = KickV = 0.0;
 	FlightBoomPunch = FlightBoomPunchV = 0.0; FlightLaunchHoldT = 0.0; FlightYawV = 0.0;   // owner feedback 2026-10-15
 	LensLiftTopZ = -1e9;   // r8
+	VehYawOff = VehYawOffV = VehYawGoal = VehClearT = 0.0; bVehBase = false;   // r9 vehicle side swing
 }
 
 // r8 (fl12 / fl14 / fl17 hidden frames): flight hero only -- his centre stays within 0.5 +- FlightFrameBand of the frame height
@@ -249,10 +250,111 @@ namespace
 	}
 }
 
+// r9 (r8b fl12 5.04-5.39 s / simR8c 6.03-6.18 s, the lens behind / over a box truck beside him): vehicle side swing goal (see VehMaxDeg).
+// Tests this frame's composed lens (before the offset, VehBaseLens) against the vehicle boxes; the next Update orbits toward the goal.
+void FWebTravCamera::UpdateVehSwing(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FBox> Boxes,
+	TFunctionRef<bool(const FVector&, double)> ExtOverlap)
+{
+	VehSwingFlags = 0;
+	const FVector Hero = P.Pos, Chest = P.Pos + FVector(0, 0, 0.3);
+	const FVector VBase = VehBaseLens - Hero;   // composed lens relative to him, before the offset
+	if (FlightLeashM <= 0.0 || VehMaxDeg <= 0.0 || !bVehBase || BreachCamPhase != 0 || FVector2D(VBase.X, VBase.Y).Size() < 0.5)
+	{
+		VehYawGoal = 0.0; VehClearT = 0.0;
+		return;
+	}
+	const double VR = FMath::Max(0.05, LensSolidR);
+	// five body points (feet .. head) on the body box's centre line
+	const FBox VBody = BodyEnvelope(P);
+	FVector VPts[5];
+	{
+		const FVector C = VBody.GetCenter();
+		for (int32 I = 0; I < 5; ++I) VPts[I] = FVector(C.X, C.Y, FMath::Lerp(VBody.Min.Z + 0.1, VBody.Max.Z - 0.1, double(I) / 4.0));
+	}
+	const int32 NeedSeen = FMath::Clamp(FMath::CeilToInt(5.0 * FMath::Clamp(VehVisMin, 0.0, 1.0)), 0, 5);
+	const FVector VLead(P.Vel.X * FMath::Max(0.0, VehLeadT), P.Vel.Y * FMath::Max(0.0, VehLeadT), 0.0);
+	// a vehicle box holds the lens, or cuts its sightline to the chest / to too many body points (Shift: the same geometry Shift ahead)
+	auto VehBlocked = [&Boxes, &VPts, &Chest, VR, NeedSeen](const FVector& Lens, const FVector& Shift) -> bool
+	{
+		const FVector L = Lens + Shift;
+		for (const FBox& B : Boxes) { if (B.ExpandBy(VR + 0.1).IsInsideOrOn(L)) return true; }
+		auto Cut = [&Boxes, &L](const FVector& To) -> bool
+		{
+			for (const FBox& B : Boxes)
+			{
+				if (B.IsInsideOrOn(To)) continue;   // (he stands in / against that box: it cannot hide him from this lens alone)
+				double Tt = 0.0;
+				if (SegBoxEntry(B.ExpandBy(0.05), L, To, Tt) && Tt < 0.97) return true;
+			}
+			return false;
+		};
+		if (Cut(Chest + Shift)) return true;
+		int32 Seen = 0;
+		for (const FVector& Pt : VPts) { if (!Cut(Pt + Shift)) ++Seen; }
+		return Seen < NeedSeen;
+	};
+	auto SpotFor = [&Hero, &VBase](double OffDeg) { return Hero + VBase.RotateAngleAxis(OffDeg, FVector::UpVector); };
+	auto Clear = [&](double OffDeg) -> bool
+	{
+		const FVector S = SpotFor(OffDeg);
+		if (VehBlocked(S, FVector::ZeroVector) || (!VLead.IsNearlyZero() && VehBlocked(S, VLead))) return false;
+		return !World.SphereOverlaps(S, VR) && !World.Inside(S, 0.0) && !World.LineBlocked(S, Chest) && !ExtOverlap(S, VR);
+	};
+	const FVector S0 = SpotFor(0.0);
+	const bool bBaseVeh = Boxes.Num() > 0 && (VehBlocked(S0, FVector::ZeroVector) || (!VLead.IsNearlyZero() && VehBlocked(S0, VLead)));
+	if (!bBaseVeh)
+	{ // composed spot clear of vehicles: the offset is released after VehReleaseT s (no pumping past a row of cars)
+		VehClearT += Dt;
+		if (VehClearT >= VehReleaseT) VehYawGoal = 0.0;
+		return;
+	}
+	VehSwingFlags |= 1;
+	VehClearT = 0.0;
+	// the open side first: the side the goal is already on, else away from the box mass (inverse-square weighted centres)
+	double Side = 1.0;
+	if (FMath::Abs(VehYawGoal) > 0.5) Side = FMath::Sign(VehYawGoal);
+	else
+	{
+		FVector Mass = FVector::ZeroVector;
+		for (const FBox& B : Boxes)
+		{
+			const FVector D = B.GetCenter() - Hero;
+			Mass += FVector(D.X, D.Y, 0.0) / FMath::Max(1.0, D.X * D.X + D.Y * D.Y);
+		}
+		// boxes counter-clockwise of the lens (cross z > 0): swing clockwise (-), and the reverse
+		Side = (VBase.X * Mass.Y - VBase.Y * Mass.X) > 0.0 ? -1.0 : 1.0;
+	}
+	const double StepD = FMath::Clamp(VehStepDeg, 2.0, 45.0);
+	const int32 NSteps = FMath::Clamp(FMath::FloorToInt(FMath::Min(VehMaxDeg, 180.0) / StepD), 1, 90);
+	const bool bGoalClear = FMath::Abs(VehYawGoal) > 0.5 && Clear(VehYawGoal);
+	// a clear goal is kept unless a spot nearer to the composed one by >= VehSwitchDeg is clear too
+	const double Limit = bGoalClear ? FMath::Abs(VehYawGoal) - FMath::Max(0.0, VehSwitchDeg) : 1e9;
+	double Best = 0.0;
+	bool bFound = false;
+	for (int32 K = 1; K <= NSteps && !bFound && double(K) * StepD <= Limit; ++K)
+	{
+		for (int32 J = 0; J < 2 && !bFound; ++J)
+		{
+			const double Off = (J == 0 ? Side : -Side) * double(K) * StepD;
+			if (Clear(Off)) { Best = Off; bFound = true; }
+		}
+	}
+	if (bFound) { VehYawGoal = Best; VehSwingFlags |= 2; }
+	else if (bGoalClear) VehSwingFlags |= 2;
+	else VehSwingFlags |= 4;   // nothing clear: the goal stays, the guard below handles the lens
+	if ((VehSwingFlags & 2) && FMath::Abs(VehYawGoal - VehLoggedGoal) > 5.0 && Time - VehLogT > 0.25)
+	{
+		UE_LOG(LogWebHomage, Display, TEXT("WH_CAM r9 vehicle side swing: composed chase spot blocked by a vehicle box (%d near) -> azimuth offset %+.0f deg (was %+.0f), hero at (%.1f, %.1f, %.1f)"),
+			Boxes.Num(), VehYawGoal, VehLoggedGoal, Hero.X, Hero.Y, Hero.Z);
+		VehLoggedGoal = VehYawGoal; VehLogT = Time;
+	}
+}
+
 void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FBox> Boxes,
 	TFunctionRef<bool(const FVector&, double)> ExtOverlap, TFunctionRef<bool(const FVector&, const FVector&, double, double&)> ExtSweep)
 {
 	LensGuardFlags = 0;
+	UpdateVehSwing(Dt, P, World, Boxes, ExtOverlap);   // r9: goal for the next frame's composed spot (this frame's lens is guarded below)
 	const FVector Hero = P.Pos, Chest = P.Pos + FVector(0, 0, 0.3);
 	const FVector Orig = CamPos;
 	const double R = FMath::Max(0.05, LensSolidR);
@@ -335,7 +437,11 @@ void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTrav
 			// nearer than LensBodyMinM to him: rise over him instead (behind the view, above his head)
 			if (BodyDist(Cand) < LensBodyMinM)
 			{
-				const FVector Fl(CamRot.Vector().X, CamRot.Vector().Y, 0.0);
+				FVector Fl(CamRot.Vector().X, CamRot.Vector().Y, 0.0);
+				// r9 (r8b fl12 5.04 s: the view had turned past his side, so "behind the view" put the raised lens ahead of him, 0.6 m in
+				// front at 1.9 m): moving faster than 5 m/s with the view looking back against his travel, the raise goes behind his travel
+				const FVector VelH(P.Vel.X, P.Vel.Y, 0.0);
+				if (VelH.Size() > 5.0 && FVector::DotProduct(Fl.GetSafeNormal(), VelH.GetSafeNormal()) < 0.0) Fl = VelH;
 				// (r7: a raised chase spot ~35 deg down, not straight over his head -- the overhead view hid him)
 				const FVector Up = Hero + FVector(0, 0, Body.Max.Z - Hero.Z + 0.6) - Fl.GetSafeNormal() * (LensBodyMinM + 1.6);
 				if (!Blocked(Up)) { Cand = Up; LensGuardFlags |= 8; }
@@ -575,6 +681,27 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 	const FVector Fwd = Forward();
 	const FVector PrevComposeHero = bHaveComposeHero ? LastComposeHero : P.Pos;
 	ComposeChase(Dt, P, World, Fwd);
+	// r9 (fl12 truck, see VehMaxDeg): vehicle side swing -- the composed lens orbits him by VehYawOff (goal from last frame's GuardLens)
+	// and the view turns by the same angle, so his screen position is kept; the output slew / orbit cap below see the swung spot
+	bool bVehApplied = false;
+	VehBaseLens = CamPos; bVehBase = true;
+	if (FlightLeashM > 0.0 && VehMaxDeg > 0.0)
+	{
+		const double VPrev = VehYawOff, VCap = FMath::Max(1.0, VehRateDeg);
+		SD(VehYawOff, VehYawOffV, FMath::Clamp(VehYawGoal, -VehMaxDeg, VehMaxDeg), FMath::Max(0.02, VehSwingT), Dt);
+		const double VStep = VehYawOff - VPrev;
+		if (FMath::Abs(VStep) > VCap * Dt) VehYawOff = VPrev + FMath::Sign(VStep) * VCap * Dt;   // <= VehRateDeg deg/s
+		VehYawOffV = FMath::Clamp(VehYawOffV, -VCap, VCap);
+		if (FMath::Abs(VehYawOff) < 0.01 && FMath::Abs(VehYawGoal) < 0.01) { VehYawOff = 0.0; VehYawOffV = 0.0; }
+		if (FMath::Abs(VehYawOff) > 1e-6)
+		{
+			CamPos = P.Pos + (CamPos - P.Pos).RotateAngleAxis(VehYawOff, FVector::UpVector);
+			CamRot.Yaw = FRotator::NormalizeAxis(CamRot.Yaw + VehYawOff);
+			HeroDist = FVector::Dist(CamPos, P.Pos);
+			bVehApplied = FMath::Abs(VehYawOff) > 1.0;
+		}
+	}
+	else { VehYawOff = VehYawOffV = VehYawGoal = 0.0; }
 	const FVector LookAt = CamPos + CamRot.Vector() * 10.0;
 	// Small events used to be squared and disappear in one or two frames. A smooth envelope gives catches/boosts
 	// a short readable beat; gentle speed feedback keeps enabled shake perceptible during the swing itself.
@@ -595,7 +722,7 @@ void FWebTravCamera::Update(double Dt, const FTravCamInput& P, const FWebTravWor
 		OutVFov = FMath::Min(OutVFov + FlightFxFovS + FlightBoomPunch, FMath::Max(75.0, FlightFovCap));
 	(void)LookAt;
 	// ---- round 13: output slew limit (see the header): never a cut
-	SlewFlags = 0;
+	SlewFlags = bVehApplied ? 1024 : 0;   // r9: 1024 = vehicle side swing offset applied
 	if (bOutInit && Dt > 0.0)
 	{
 		const double K = Dt * 60.0;
@@ -1861,7 +1988,10 @@ bool FWebTravCamera::SetTune(const FString& Name, double V)
 		{TEXT("BreachStepM"), &BreachStepM}, {TEXT("BreachTurnDeg"), &BreachTurnDeg}, {TEXT("BreachTailHoldT"), &BreachTailHoldT}, {TEXT("BreachTailT"), &BreachTailT},
 		{TEXT("LensBodyMinM"), &LensBodyMinM}, {TEXT("LensSolidR"), &LensSolidR}, {TEXT("LensPullRelease"), &LensPullRelease},
 		// r8 (hero-relative flight pitch slew, vertical band, held / anticipated vehicle lift)
-		{TEXT("FlightRelPitch"), &FlightRelPitch}, {TEXT("FlightFrameBand"), &FlightFrameBand}, {TEXT("LensLiftLeadT"), &LensLiftLeadT}, {TEXT("LensLiftRiseV"), &LensLiftRiseV} };
+		{TEXT("FlightRelPitch"), &FlightRelPitch}, {TEXT("FlightFrameBand"), &FlightFrameBand}, {TEXT("LensLiftLeadT"), &LensLiftLeadT}, {TEXT("LensLiftRiseV"), &LensLiftRiseV},
+		// r9 (vehicle side swing)
+		{TEXT("VehMaxDeg"), &VehMaxDeg}, {TEXT("VehStepDeg"), &VehStepDeg}, {TEXT("VehRateDeg"), &VehRateDeg}, {TEXT("VehSwingT"), &VehSwingT},
+		{TEXT("VehReleaseT"), &VehReleaseT}, {TEXT("VehLeadT"), &VehLeadT}, {TEXT("VehVisMin"), &VehVisMin}, {TEXT("VehSwitchDeg"), &VehSwitchDeg} };
 	for (const FT& T : Tab) if (Name == T.N) { *T.P = V; return true; }
 	return false;
 }
