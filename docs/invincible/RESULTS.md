@@ -33,7 +33,7 @@ footage is **not** real-time FPS evidence; no real-time performance was measured
 | r5 | `653afef6` (r5 fixes) | 17 cases | 16/17 | FAILS TARGET, lowest 2 (`captures/r5/CRITIC.md`; clips were slimmed to 540p mid-review) |
 | r6 | `1795f305` (r6 fixes) | 17 cases | 16/17 (fl17 hidden 9 frames, was 128) | FAILS TARGET, lowest 2 (glitches); silhouette 5 (was 3), speed 5 (was 4), suit 6 (`captures/r6/CRITIC.md`) |
 
-| r7-r10 | `cfdbc63b` .. `0f69b118` | targeted renders | sim 18/18 (r10); renders: breach follow-through smooth (r8 fl14), three-point landing (r9 fl11), fl12 truck: 0 dark frames (r10) | not reviewed (r11 full render + critic in progress) |
+| r7-r10 | `cfdbc63b` .. `0f69b118` | targeted renders | sim 18/18 (r10); renders: breach follow-through smooth (r8 fl14), three-point landing (r9 fl11), fl12 truck: 0 dark frames (r10) | r11 full render 17/18; blind critic FAILS TARGET, lowest camera 2 (silhouette 4, animation 4, suit 6, speed 5, FX 4, glitches 3) |
 
 ## What the night fixed (each from a sim, a sheet or the critic, each re-captured)
 
