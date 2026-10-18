@@ -2,6 +2,19 @@
 
 **Repository moved 2026-10-15 (owner-authorized): this project now lives at `oh-ashen-one/invincible` — its `main` is the former tip of `spider-man-2`'s `invincible` branch (18105f29) with full history. Do all Invincible work on task branches there; merging to its `main` needs the owner's OK. The `spider-man-2` repo and its `invincible` branch stay untouched as the archive; draft PR oh-ashen-one/spider-man-2#5 is closed with a pointer here. Studio checkout for this work: `/Users/midir/spider-man-2-invincible` (origin = the new repo; `/Users/midir/spider-man-2` remains read-only). Studio state so far: compiles clean (one shadowed-local fix, commit 18105f29), all 9 suits baked + DA_HeroSuits rebuilt with `invincible` as default, smoke run verified (WH_FLIGHT mode ON, breach director ready, WH_RESCUE director ready, 2x1080p shots in ~/sm2-n1/_scratch/invincible-smoke).
 
+### Owner playtest rounds — 2026-10-16 .. 2026-10-18 (latest `0f69b118`, branch `invincible`, public repo)
+
+- Owner played twice. Done from his notes: background music removed (music subsystem not started); top-left controls panel (H toggles);
+  always floating (flight never enters ground mode; landings hold 1.3 s then float 0.45 m; -WHFloat=0 = old ground mode); roof
+  superhero-landing freeze fixed (fl18 case); landing camera "seizure" = un-normalised camera pitch re-aim adds winding up without bound
+  (all sites normalised + clamped, r7) plus substepped camera springs; breach lag = exit slow-mo (now off) + 240 Chaos chunks (now 96).
+- r7-r10 (builders on disjoint files, root compiles/sims/renders): breach camera follows through the hole (no freeze/teleport), boost
+  coil -> flight blend, hero landings hold the clean three-point pose (IK), in-game hover bob layer, rescue catch only from below + set-down
+  clear of cars, bright-edged boom ring, hole interiors, glass vs masonry debris, chase pitch follows the hero after car-roof lifts, lens
+  guard tests cars' real mesh bounds.
+- Suite: 18 cases (fl18 = owner roof bug); checks floating_end / never_ground / glided / camera_calm; `--realtime N` runs a real frame time.
+- Still open: owner review of the autonomous clips (brake, slam landing, takeoff) in the viewer; fl12 ~13 partly-hidden frames by the truck.
+
 ### Hero v2 + animation pass — 2026-10-15 evening (owner-driven, then autonomous while the owner is away)
 
 - **Hero v2** (owner-approved model): CustomUse 4-view turnaround -> Hunyuan sculpt + Meshy-7 4K multiview texture -> Cartwheel 52-bone rig: `docs/invincible/character/customuse/v2/rigged_hunyuanTex.glb`. Review tool: local three.js viewer `tools/invincible/viewer/` (serve the repo root: `python3 -m http.server 5291 --bind 127.0.0.1`, open `/tools/invincible/viewer/`).
