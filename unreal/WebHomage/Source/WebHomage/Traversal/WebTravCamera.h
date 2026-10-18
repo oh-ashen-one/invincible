@@ -14,6 +14,44 @@
 
 class FWebTravWorld;
 
+/** r10 (r9b fl12: lens inside the box truck's real mesh): a street vehicle for GuardLens as an oriented box in metres -- its mesh bounds
+ *  under the render transform (UWHFlightComponent::GatherVehicleBoxes). C centre, AX / AY / AZ unit axes, H half extents. Pad grows the
+ *  box by Pad on every axis (conservative stand-in for a sphere of radius Pad). */
+struct FWHLensObb
+{
+	FVector C = FVector::ZeroVector;
+	FVector AX = FVector::ForwardVector, AY = FVector::RightVector, AZ = FVector::UpVector;
+	FVector H = FVector::ZeroVector;
+	FVector Local(const FVector& P) const { const FVector D = P - C; return FVector(FVector::DotProduct(D, AX), FVector::DotProduct(D, AY), FVector::DotProduct(D, AZ)); }
+	bool Contains(const FVector& P, double Pad) const
+	{
+		const FVector L = Local(P);
+		return FMath::Abs(L.X) <= H.X + Pad && FMath::Abs(L.Y) <= H.Y + Pad && FMath::Abs(L.Z) <= H.Z + Pad;
+	}
+	/** First entry (0..1 along A->B) of the segment into the padded box; A inside = 0. */
+	bool SegEntry(const FVector& A, const FVector& B, double Pad, double& OutT) const
+	{
+		const FVector LA = Local(A), D = Local(B) - LA, E = H + FVector(Pad);
+		double T0 = 0.0, T1 = 1.0;
+		for (int32 I = 0; I < 3; ++I)
+		{
+			if (FMath::Abs(D[I]) < 1e-9)
+			{
+				if (FMath::Abs(LA[I]) > E[I]) return false;
+				continue;
+			}
+			double Ta = (-E[I] - LA[I]) / D[I], Tb = (E[I] - LA[I]) / D[I];
+			if (Ta > Tb) Swap(Ta, Tb);
+			T0 = FMath::Max(T0, Ta); T1 = FMath::Min(T1, Tb);
+			if (T0 > T1) return false;
+		}
+		OutT = T0;
+		return true;
+	}
+	/** Highest world z of the box. */
+	double TopZ() const { return C.Z + FMath::Abs(AX.Z) * H.X + FMath::Abs(AY.Z) * H.Y + FMath::Abs(AZ.Z) * H.Z; }
+};
+
 struct FTravCamInput
 {
 	FVector Pos = FVector::ZeroVector;   // body centre (m)
@@ -111,10 +149,18 @@ public:
 	// traversal solid, a render-collision solid (ExtOverlap / ExtSweep, the visibility channel) or a vehicle box is pulled in toward the
 	// hero's chest to the first clear spot of that line (or raised over him when that is nearer than LensBodyMinM), re-aimed; the pull is
 	// released at LensPullRelease m/s (no pop back out). LensGuardFlags (telemetry): 1 solid, 2 body, 4 vehicle, 8 raised, 16 pull release.
-	void GuardLens(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FBox> Boxes,
+	void GuardLens(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FWHLensObb> Boxes,
 		TFunctionRef<bool(const FVector&, double)> ExtOverlap, TFunctionRef<bool(const FVector&, const FVector&, double, double&)> ExtSweep);
 	double LensBodyMinM = 1.4, LensSolidR = 0.22, LensPullRelease = 6.0;
-	int32 LensGuardFlags = 0;
+	int32 LensGuardFlags = 0;   // r10: + 64 vehicle escape spot used, 128 escape release step
+	// ---- r10 (r9b fl12 frames 187-241: lens 1.47 m from him inside the box truck's mesh; the pull-in, the raise and the body push all
+	// ended in the truck). VEHICLE ESCAPE, last guard stage (not in the breach pass): a lens inside a vehicle box (+ LensSolidR) or whose
+	// line to his chest a vehicle box cuts is moved AT ONCE to a spot that is clear of every vehicle / solid, sees his chest and keeps
+	// LensBodyMinM: last frame's escape spot (relative to him) while it stays valid, else a ring round him (radius of the composed lens,
+	// clamped LensBodyMinM + 0.4 .. EscMaxR), nearest azimuth first in EscStepDeg steps, low first; higher rings (+1.2 m, over the near
+	// roofs) only when the low ring has no spot. Once the guarded lens is clear again the held spot walks back to it along an arc round him
+	// (<= EscReleaseDeg deg/s, <= EscReleaseV m/s); a blocked step ends the release (clear lens taken). EscStepDeg 0 = off.
+	double EscStepDeg = 15.0, EscMaxR = 5.0, EscReleaseDeg = 150.0, EscReleaseV = 6.0;
 	// ---- r8 (sim simR7d fl12 6.03-6.19 / 6.93 s: cam pitch -76..-80, hero above the frame; fl17 30.7 s -> end: pitch -23.7 vs the composed
 	// -4.7, hero cy 0.19-0.25; fl14 5.75-5.92 s: hero sinking to the bottom edge in the breach tail). Cause: the absolute output pitch slew
 	// (MaxStepPitchDeg per frame) compared a view composed from the UNLIFTED chase spot with the last output, which GuardLens had aimed from
@@ -363,8 +409,16 @@ private:
 	FVector VehBaseLens = FVector::ZeroVector;
 	bool bVehBase = false;
 	double VehYawOffV = 0.0, VehClearT = 0.0, VehLoggedGoal = 0.0, VehLogT = -9.0;
-	void UpdateVehSwing(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FBox> Boxes,
+	void UpdateVehSwing(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FWHLensObb> Boxes,
 		TFunctionRef<bool(const FVector&, double)> ExtOverlap);
+	// r10 vehicle escape (GuardLens stage 3, see EscStepDeg): Composed = the lens before the guard, Lens = the guarded lens (in / out)
+	void GuardVehEscape(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FWHLensObb> Boxes,
+		TFunctionRef<bool(const FVector&, double)> ExtOverlap, TFunctionRef<bool(const FVector&, const FVector&, double, double&)> ExtSweep,
+		const FBox& Body, const FVector& Composed, FVector& Lens);
+	// held spot relative to the hero (m), active flag, log throttle
+	FVector EscRel = FVector::ZeroVector;
+	bool bEscOn = false;
+	double EscLogT = -9.0;
 	// Smooth attack/decay for readable impact and speed shake, independent of the chase spring.
 	double ShakeEnvelope = 0.0, ShakeEnvelopeV = 0.0;
 	bool bWasSwinging = false;

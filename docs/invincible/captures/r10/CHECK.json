@@ -1,0 +1,107 @@
+{
+ "fl12_fast_land": {
+  "checks": [
+   {
+    "check": "sub fly seen",
+    "ok": true,
+    "value": [
+     "boost",
+     "brake",
+     "fly",
+     "hover",
+     "landHero"
+    ],
+    "want": "fly"
+   },
+   {
+    "check": "max speed",
+    "ok": true,
+    "value": 302.4,
+    "want": ">= 90.0"
+   },
+   {
+    "check": "hero landings",
+    "ok": true,
+    "value": 1,
+    "want": 1
+   },
+   {
+    "check": "floating near a surface at the end",
+    "ok": true,
+    "value": [
+     "air",
+     0.9
+    ],
+    "want": "air, < 2 m"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": false,
+    "value": "13 frames (41 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": false,
+  "seen_subs": [
+   "boost",
+   "brake",
+   "fly",
+   "hover",
+   "landHero"
+  ],
+  "max_speed": 302.4,
+  "z_start_end": [
+   160.0,
+   1.9
+  ],
+  "frames": 482,
+  "luma_frames": 484,
+  "known_preexisting_ensures": 1,
+  "log_flight": [
+   "sonic boom",
+   "heroLand"
+  ]
+ }
+}

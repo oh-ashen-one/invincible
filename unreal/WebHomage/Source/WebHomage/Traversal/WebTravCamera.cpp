@@ -123,6 +123,7 @@ void FWebTravCamera::Reset(const FVector& Pos, double InYaw)
 	FlightBoomPunch = FlightBoomPunchV = 0.0; FlightLaunchHoldT = 0.0; FlightYawV = 0.0;   // owner feedback 2026-10-15
 	LensLiftTopZ = -1e9;   // r8
 	VehYawOff = VehYawOffV = VehYawGoal = VehClearT = 0.0; bVehBase = false;   // r9 vehicle side swing
+	bEscOn = false; EscRel = FVector::ZeroVector;   // r10 vehicle escape
 }
 
 // r8 (fl12 / fl14 / fl17 hidden frames): flight hero only -- his centre stays within 0.5 +- FlightFrameBand of the frame height
@@ -226,33 +227,11 @@ void FWebTravCamera::ApplyBreachFollow(double Dt, const FTravCamInput& P, const 
 }
 
 // critic r6 #5: final lens guard (see the header). Flight hero only (called by the pawn in flight mode).
-namespace
-{
-	// first entry (0..1 along A->B) of the segment into the box; A inside = 0
-	bool SegBoxEntry(const FBox& Bx, const FVector& A, const FVector& B, double& OutT)
-	{
-		double T0 = 0.0, T1 = 1.0;
-		const FVector D = B - A;
-		for (int32 I = 0; I < 3; ++I)
-		{
-			if (FMath::Abs(D[I]) < 1e-9)
-			{
-				if (A[I] < Bx.Min[I] || A[I] > Bx.Max[I]) return false;
-				continue;
-			}
-			double Ta = (Bx.Min[I] - A[I]) / D[I], Tb = (Bx.Max[I] - A[I]) / D[I];
-			if (Ta > Tb) Swap(Ta, Tb);
-			T0 = FMath::Max(T0, Ta); T1 = FMath::Min(T1, Tb);
-			if (T0 > T1) return false;
-		}
-		OutT = T0;
-		return true;
-	}
-}
+// r10: the vehicle boxes are oriented mesh-bounds boxes (FWHLensObb::Contains / SegEntry replace the r7 axis-aligned tests).
 
 // r9 (r8b fl12 5.04-5.39 s / simR8c 6.03-6.18 s, the lens behind / over a box truck beside him): vehicle side swing goal (see VehMaxDeg).
 // Tests this frame's composed lens (before the offset, VehBaseLens) against the vehicle boxes; the next Update orbits toward the goal.
-void FWebTravCamera::UpdateVehSwing(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FBox> Boxes,
+void FWebTravCamera::UpdateVehSwing(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FWHLensObb> Boxes,
 	TFunctionRef<bool(const FVector&, double)> ExtOverlap)
 {
 	VehSwingFlags = 0;
@@ -277,14 +256,14 @@ void FWebTravCamera::UpdateVehSwing(double Dt, const FTravCamInput& P, const FWe
 	auto VehBlocked = [&Boxes, &VPts, &Chest, VR, NeedSeen](const FVector& Lens, const FVector& Shift) -> bool
 	{
 		const FVector L = Lens + Shift;
-		for (const FBox& B : Boxes) { if (B.ExpandBy(VR + 0.1).IsInsideOrOn(L)) return true; }
+		for (const FWHLensObb& B : Boxes) { if (B.Contains(L, VR + 0.1)) return true; }
 		auto Cut = [&Boxes, &L](const FVector& To) -> bool
 		{
-			for (const FBox& B : Boxes)
+			for (const FWHLensObb& B : Boxes)
 			{
-				if (B.IsInsideOrOn(To)) continue;   // (he stands in / against that box: it cannot hide him from this lens alone)
+				if (B.Contains(To, 0.0)) continue;   // (he stands in / against that box: it cannot hide him from this lens alone)
 				double Tt = 0.0;
-				if (SegBoxEntry(B.ExpandBy(0.05), L, To, Tt) && Tt < 0.97) return true;
+				if (B.SegEntry(L, To, 0.05, Tt) && Tt < 0.97) return true;
 			}
 			return false;
 		};
@@ -316,9 +295,9 @@ void FWebTravCamera::UpdateVehSwing(double Dt, const FTravCamInput& P, const FWe
 	else
 	{
 		FVector Mass = FVector::ZeroVector;
-		for (const FBox& B : Boxes)
+		for (const FWHLensObb& B : Boxes)
 		{
-			const FVector D = B.GetCenter() - Hero;
+			const FVector D = B.C - Hero;
 			Mass += FVector(D.X, D.Y, 0.0) / FMath::Max(1.0, D.X * D.X + D.Y * D.Y);
 		}
 		// boxes counter-clockwise of the lens (cross z > 0): swing clockwise (-), and the reverse
@@ -350,7 +329,7 @@ void FWebTravCamera::UpdateVehSwing(double Dt, const FTravCamInput& P, const FWe
 	}
 }
 
-void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FBox> Boxes,
+void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FWHLensObb> Boxes,
 	TFunctionRef<bool(const FVector&, double)> ExtOverlap, TFunctionRef<bool(const FVector&, const FVector&, double, double&)> ExtSweep)
 {
 	LensGuardFlags = 0;
@@ -358,7 +337,7 @@ void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTrav
 	const FVector Hero = P.Pos, Chest = P.Pos + FVector(0, 0, 0.3);
 	const FVector Orig = CamPos;
 	const double R = FMath::Max(0.05, LensSolidR);
-	auto BoxHit = [&Boxes, R](const FVector& At) { for (const FBox& B : Boxes) { if (B.ExpandBy(R).IsInsideOrOn(At)) return true; } return false; };
+	auto BoxHit = [&Boxes, R](const FVector& At) { for (const FWHLensObb& B : Boxes) { if (B.Contains(At, R)) return true; } return false; };
 	auto Blocked = [&](const FVector& At) { return World.SphereOverlaps(At, R) || World.Inside(At, 0.0) || BoxHit(At) || ExtOverlap(At, R); };
 	// (1) never inside / against the hero: LensBodyMinM from his padded bone box
 	const FBox Body = BodyEnvelope(P);
@@ -381,13 +360,12 @@ void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTrav
 	  // early at <= LensLiftRiseV m/s; a box the lens is already in is always cleared at once.
 		double NeedTop = -1e9, LeadTop = -1e9;
 		const FVector Ahead = Lens + FVector(P.Vel.X, P.Vel.Y, 0.0) * FMath::Max(0.0, LensLiftLeadT);
-		for (const FBox& B : Boxes)
+		for (const FWHLensObb& B : Boxes)
 		{
-			const FBox EB = B.ExpandBy(R);
-			const double TopZ = B.Max.Z + R + 0.25;
+			const double TopZ = B.TopZ() + R + 0.25;
 			double EntryT = 0.0;
-			if (EB.IsInsideOrOn(Lens)) NeedTop = FMath::Max(NeedTop, TopZ);
-			else if (LensLiftLeadT > 0.0 && SegBoxEntry(EB, Lens, Ahead, EntryT)) LeadTop = FMath::Max(LeadTop, TopZ);
+			if (B.Contains(Lens, R)) NeedTop = FMath::Max(NeedTop, TopZ);
+			else if (LensLiftLeadT > 0.0 && B.SegEntry(Lens, Ahead, R, EntryT)) LeadTop = FMath::Max(LeadTop, TopZ);
 		}
 		const double GoalTop = FMath::Max(NeedTop, LeadTop);
 		if (GoalTop > Lens.Z && LensLiftTopZ < Lens.Z) LensLiftTopZ = Lens.Z;   // a new rise starts where the lens is
@@ -401,7 +379,7 @@ void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTrav
 			// (r8 render fl12: lifted over a box truck the lens looked down at the truck roof with the hero hidden beside / below it for 35
 			//  frames -- lift only when the lifted spot can SEE his chest; otherwise the r7 pull-in below brings the lens in front of the car)
 			bool bSees = true;
-			for (const FBox& B : Boxes) { double Tt = 0.0; if (SegBoxEntry(B.ExpandBy(0.05), Lift, Chest, Tt) && Tt > 0.02 && Tt < 0.98) { bSees = false; break; } }
+			for (const FWHLensObb& B : Boxes) { double Tt = 0.0; if (B.SegEntry(Lift, Chest, 0.05, Tt) && Tt > 0.02 && Tt < 0.98) { bSees = false; break; } }
 			if (bSees && !Blocked(Lift)) { Lens = Lift; LensGuardFlags |= 32; }
 			else LensLiftTopZ = -1e9;   // (a solid over the car: the r7 pull-in below handles it)
 		}
@@ -420,10 +398,10 @@ void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTrav
 			double Clear = L, Dh = 0.0;
 			if (World.SphereSweep(Chest, Lens, R, Dh)) Clear = FMath::Min(Clear, Dh);
 			if (ExtSweep(Chest, Lens, R, Dh)) Clear = FMath::Min(Clear, Dh);
-			for (const FBox& B : Boxes)
+			for (const FWHLensObb& B : Boxes)
 			{
 				double T = 0.0;
-				if (SegBoxEntry(B.ExpandBy(R), Chest, Lens, T)) { Clear = FMath::Min(Clear, T * L); LensGuardFlags |= 4; }
+				if (B.SegEntry(Chest, Lens, R, T)) { Clear = FMath::Min(Clear, T * L); LensGuardFlags |= 4; }
 			}
 			Need = FMath::Max(0.0, L - FMath::Max(0.0, Clear - 0.05));
 		}
@@ -449,8 +427,9 @@ void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTrav
 			}
 			Lens = Cand;
 		}
+		GuardVehEscape(Dt, P, World, Boxes, ExtOverlap, ExtSweep, Body, Orig, Lens);   // r10 (3)
 	}
-	else LensPull = 0.0;
+	else { LensPull = 0.0; bEscOn = false; }
 	if (Lens.Equals(Orig, 1e-4)) return;
 	// keep the hero where he was on screen (same re-aim as the output slew)
 	const FRotator A0 = (Hero - Orig).Rotation(), A1 = (Hero - Lens).Rotation();
@@ -465,6 +444,105 @@ void FWebTravCamera::GuardLens(double Dt, const FTravCamInput& P, const FWebTrav
 	bCamInGeometry = World.SphereOverlaps(CamPos, 0.15);
 	// the next frame's output slew starts from the guarded lens
 	LastOutPos = CamPos; LastOutRot = CamRot;
+}
+
+// r10 (r9b fl12 frames 187-241, 55 hidden / 6 dark: the guarded lens sat 1.47 m from him, 1.25 m up, inside the box truck's mesh -- the
+// pull-in, the raise and the body push had no clear spot on their lines): GuardLens stage 3, see EscStepDeg in the header.
+void FWebTravCamera::GuardVehEscape(double Dt, const FTravCamInput& P, const FWebTravWorld& World, TArrayView<const FWHLensObb> Boxes,
+	TFunctionRef<bool(const FVector&, double)> ExtOverlap, TFunctionRef<bool(const FVector&, const FVector&, double, double&)> ExtSweep,
+	const FBox& Body, const FVector& Composed, FVector& Lens)
+{
+	if (EscStepDeg <= 0.0 || Boxes.Num() == 0) { bEscOn = false; return; }
+	const FVector Hero = P.Pos, Chest = P.Pos + FVector(0, 0, 0.3);
+	const double R = FMath::Max(0.05, LensSolidR);
+	auto VehIn = [&Boxes, R](const FVector& At) { for (const FWHLensObb& B : Boxes) { if (B.Contains(At, R)) return true; } return false; };
+	// a box between the spot and his chest (a box he stands in / against cannot hide him alone)
+	auto VehCut = [&Boxes, &Chest](const FVector& At)
+	{
+		for (const FWHLensObb& B : Boxes)
+		{
+			if (B.Contains(Chest, 0.0)) continue;
+			double Tt = 0.0;
+			if (B.SegEntry(At, Chest, 0.05, Tt) && Tt < 0.97) return true;
+		}
+		return false;
+	};
+	const double FloorZ = Body.Min.Z - FMath::Max(0.0, P.HAbove);
+	// cheap tests first; the physics overlap / sweep last
+	auto EscValid = [&](const FVector& At) -> bool
+	{
+		if (At.Z < FloorZ + 0.4) return false;
+		if (FVector::Dist(At, Body.GetClosestPointTo(At)) < LensBodyMinM - 0.01) return false;
+		if (VehIn(At) || VehCut(At)) return false;
+		if (World.SphereOverlaps(At, R) || World.Inside(At, 0.0) || World.LineBlocked(At, Chest)) return false;
+		if (ExtOverlap(At, R)) return false;
+		double Dh = 0.0;
+		if (ExtSweep(Chest, At, 0.05, Dh) && Dh < FVector::Dist(Chest, At) - 0.15) return false;
+		return true;
+	};
+	const bool bInVeh = VehIn(Lens), bBad = bInVeh || VehCut(Lens);
+	if (!bBad)
+	{
+		if (!bEscOn) return;
+		// release: the held spot walks back to the clear guarded lens along an arc round him (no cut through his body)
+		const FVector Want = Lens - Hero;
+		const double AzC = FMath::Atan2(EscRel.Y, EscRel.X), AzW = FMath::Atan2(Want.Y, Want.X);
+		const double DAz = FMath::FindDeltaAngleRadians(AzC, AzW);
+		const double RC = FVector2D(EscRel.X, EscRel.Y).Size(), RW = FVector2D(Want.X, Want.Y).Size();
+		const double SAz = FMath::DegreesToRadians(FMath::Max(1.0, EscReleaseDeg)) * Dt, SL = FMath::Max(0.1, EscReleaseV) * Dt;
+		if (FMath::Abs(DAz) <= SAz && FMath::Abs(RW - RC) <= SL && FMath::Abs(Want.Z - EscRel.Z) <= SL) { bEscOn = false; return; }
+		const double Az = AzC + FMath::Clamp(DAz, -SAz, SAz), Rr = RC + FMath::Clamp(RW - RC, -SL, SL);
+		const FVector Step(FMath::Cos(Az) * Rr, FMath::Sin(Az) * Rr, EscRel.Z + FMath::Clamp(Want.Z - EscRel.Z, -SL, SL));
+		if (EscValid(Hero + Step)) { Lens = Hero + Step; EscRel = Step; LensGuardFlags |= 128; }
+		else bEscOn = false;   // the step is blocked, the guarded lens is clear: take it
+		return;
+	}
+	// blocked: hold last frame's spot (relative to him) while it stays valid -- no hunting between equal spots
+	if (bEscOn && EscValid(Hero + EscRel)) { Lens = Hero + EscRel; LensGuardFlags |= 64; return; }
+	// search a ring round him: nearest azimuth to the reference first, raised rings cost 25 deg per metre
+	const FVector Ref = bEscOn ? EscRel : Composed - Hero;
+	const double RefAz = FMath::Atan2(Ref.Y, Ref.X);
+	const double Rh = FMath::Clamp(FVector2D(Ref.X, Ref.Y).Size(), LensBodyMinM + 0.4, FMath::Max(LensBodyMinM + 0.5, EscMaxR));
+	double TopNear = -1e9;   // highest roof within 6 m of him
+	for (const FWHLensObb& B : Boxes) { if (FVector2D(B.C.X - Hero.X, B.C.Y - Hero.Y).Size() < 6.0 + B.H.X) TopNear = FMath::Max(TopNear, B.TopZ()); }
+	double Levels[3] = { FMath::Clamp(Ref.Z, 0.3, 2.5), 0.0, -1e9 };
+	Levels[1] = Levels[0] + 1.2;
+	if (TopNear > -1e8) Levels[2] = TopNear + R + 0.3 - Hero.Z;
+	struct FEscCand { FVector Rel; double Cost; };
+	TArray<FEscCand, TInlineAllocator<80>> Cands;
+	const double StepD = FMath::Clamp(EscStepDeg, 5.0, 45.0);
+	const int32 NAz = FMath::FloorToInt32(180.0 / StepD);
+	for (int32 Li = 0; Li < 3; ++Li)
+	{
+		if (Levels[Li] < -1e8 || (Li == 2 && Levels[2] <= Levels[1] + 0.2)) continue;
+		const double Climb = FMath::Max(0.0, Levels[Li] - Levels[0]);
+		for (int32 K = -NAz; K <= NAz; ++K)
+		{
+			if (K == -NAz && double(NAz) * StepD >= 179.9) continue;   // +180 and -180 are one spot
+			const double Off = double(K) * StepD, Az = RefAz + FMath::DegreesToRadians(Off);
+			Cands.Add({ FVector(FMath::Cos(Az) * Rh, FMath::Sin(Az) * Rh, Levels[Li]), FMath::Abs(Off) + 25.0 * Climb + (K < 0 ? 0.1 : 0.0) });
+		}
+	}
+	Cands.StableSort([](const FEscCand& A, const FEscCand& B) { return A.Cost < B.Cost; });
+	for (const FEscCand& Cd : Cands)
+	{
+		if (!EscValid(Hero + Cd.Rel)) continue;
+		Lens = Hero + Cd.Rel; EscRel = Cd.Rel; bEscOn = true; LensGuardFlags |= 64;
+		if (Time - EscLogT > 0.25)
+		{
+			UE_LOG(LogWebHomage, Display, TEXT("WH_CAM r10 vehicle escape: guarded lens %s a vehicle box (%d near) -> spot %+.0f deg from the reference, %.2f m out, %+.2f m over his centre, hero at (%.1f, %.1f, %.1f)"),
+				bInVeh ? TEXT("inside") : TEXT("behind"), Boxes.Num(), FMath::RadiansToDegrees(FMath::FindDeltaAngleRadians(RefAz, FMath::Atan2(Cd.Rel.Y, Cd.Rel.X))),
+				Rh, Cd.Rel.Z, Hero.X, Hero.Y, Hero.Z);
+			EscLogT = Time;
+		}
+		return;
+	}
+	bEscOn = false;
+	if (Time - EscLogT > 0.25)
+	{
+		UE_LOG(LogWebHomage, Display, TEXT("WH_CAM r10 vehicle escape: no clear spot round him (%d boxes near, %d tried), hero at (%.1f, %.1f, %.1f)"), Boxes.Num(), Cands.Num(), Hero.X, Hero.Y, Hero.Z);
+		EscLogT = Time;
+	}
 }
 
 void FWebTravCamera::ApplyLook(const FVector2D& Look)
@@ -1991,7 +2069,9 @@ bool FWebTravCamera::SetTune(const FString& Name, double V)
 		{TEXT("FlightRelPitch"), &FlightRelPitch}, {TEXT("FlightFrameBand"), &FlightFrameBand}, {TEXT("LensLiftLeadT"), &LensLiftLeadT}, {TEXT("LensLiftRiseV"), &LensLiftRiseV},
 		// r9 (vehicle side swing)
 		{TEXT("VehMaxDeg"), &VehMaxDeg}, {TEXT("VehStepDeg"), &VehStepDeg}, {TEXT("VehRateDeg"), &VehRateDeg}, {TEXT("VehSwingT"), &VehSwingT},
-		{TEXT("VehReleaseT"), &VehReleaseT}, {TEXT("VehLeadT"), &VehLeadT}, {TEXT("VehVisMin"), &VehVisMin}, {TEXT("VehSwitchDeg"), &VehSwitchDeg} };
+		{TEXT("VehReleaseT"), &VehReleaseT}, {TEXT("VehLeadT"), &VehLeadT}, {TEXT("VehVisMin"), &VehVisMin}, {TEXT("VehSwitchDeg"), &VehSwitchDeg},
+		// r10 (vehicle escape)
+		{TEXT("EscStepDeg"), &EscStepDeg}, {TEXT("EscMaxR"), &EscMaxR}, {TEXT("EscReleaseDeg"), &EscReleaseDeg}, {TEXT("EscReleaseV"), &EscReleaseV} };
 	for (const FT& T : Tab) if (Name == T.N) { *T.P = V; return true; }
 	return false;
 }

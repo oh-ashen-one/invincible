@@ -34,6 +34,7 @@
 
 class UWebTraversalComponent;
 class AWHLifeTraffic;   // critic r6 #5 (camera lens guard: vehicle boxes)
+struct FWHLensObb;      // r10 (Traversal/WebTravCamera.h)
 
 /** Owner feedback 2026-10-15 #1: phases of the sonic-boom super boost (plain C++ enum, not reflected). */
 enum class EWHSuperPhase : uint8 { None, Charge, Run, Decel };
@@ -204,9 +205,9 @@ public:
 	int32 SuperCount = 0, DiveCount = 0;   // owner feedback #1 / #2
 	bool IsBreaching() const { return bBreach; }
 	FVector BreachDirection() const { return BreachDir; }   // critic r6 #1: the pass direction (unit) for the follow-through camera
-	// critic r6 #5 (camera lens guard, flight mode): the traffic vehicles (moving + parked, AWHLifeTraffic) whose centre lies within RadiusM
-	// (horizontal) of NearM, as world boxes in metres (axis-aligned: moving cars along their lane axis, parked cars as the union of both axes)
-	void GatherVehicleBoxes(const FVector& NearM, double RadiusM, TArray<FBox>& Out) const;
+	// critic r6 #5 (camera lens guard, flight mode): the traffic vehicles (moving + parked, AWHLifeTraffic) within RadiusM (horizontal) of
+	// NearM, in metres. r10: oriented boxes from each vehicle's real mesh bounds and render transform (AWHLifeTraffic::GetCarBoxes)
+	void GatherVehicleBoxes(const FVector& NearM, double RadiusM, TArray<FWHLensObb>& Out) const;
 	// critic r6 #5: render-collision lens queries on the visibility channel (metres), ignoring the hero (owner) and Ignore
 	bool LensOverlapExt(const FVector& PM, double RM, const AActor* Ignore) const;
 	bool LensSweepExt(const FVector& AM, const FVector& BM, double RM, const AActor* Ignore, double& OutDistM) const;

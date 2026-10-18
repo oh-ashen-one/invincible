@@ -1098,15 +1098,9 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 }
 
 // ---- critic r6 #5 (r7): queries for the camera's final lens guard (FWebTravCamera::GuardLens), flight mode only
-namespace
-{
-	// copy of WHLifeTraffic.cpp GTypes (length, width m) and GTypeH (roof m), same type order (taxi .. tour)
-	const float GLensCarLen[WHLife::NumTypes] = { 5.39f, 4.54f, 5.08f, 4.86f, 4.85f, 4.26f, 4.9f, 4.6f, 4.9f, 5.35f, 5.9f, 5.98f, 7.3f, 12.2f, 11.f };
-	const float GLensCarWid[WHLife::NumTypes] = { 1.99f, 1.76f, 1.99f, 1.84f, 1.84f, 1.79f, 1.85f, 1.86f, 1.95f, 2.03f, 2.03f, 2.06f, 2.3f, 2.55f, 2.55f };
-	const float GLensCarH[WHLife::NumTypes] = { 1.6f, 1.55f, 1.95f, 1.6f, 1.5f, 1.5f, 1.5f, 1.65f, 1.8f, 1.85f, 1.95f, 2.6f, 3.4f, 3.3f, 4.3f };
-}
-
-void UWHFlightComponent::GatherVehicleBoxes(const FVector& NearM, double RadiusM, TArray<FBox>& Out) const
+// r10 (r9b fl12: the lens sat inside the box truck's mesh while clear of its type-table box): the boxes are the real mesh bounds under each
+// car's render transform (oriented), from AWHLifeTraffic::GetCarBoxes; no per-type size table any more.
+void UWHFlightComponent::GatherVehicleBoxes(const FVector& NearM, double RadiusM, TArray<FWHLensObb>& Out) const
 {
 	Out.Reset();
 	UWorld* W = GetWorld();
@@ -1119,35 +1113,15 @@ void UWHFlightComponent::GatherVehicleBoxes(const FVector& NearM, double RadiusM
 		TrafficRef = Tr;
 	}
 	if (!Tr) return;
-	TArray<FVector> Mv, Pk, MvPos; TArray<int32> MvT, PkT, Lane; TArray<float> Spd;
-	Tr->GetPoints(Mv, MvT, Pk, PkT);
-	Tr->GetMovingInfo(MvPos, Spd, Lane);   // same car order as GetPoints (both walk the active cars)
-	const double R2 = FMath::Square(RadiusM + 7.0);
-	auto Add = [&Out](const FVector& C, double HalfX, double HalfY, double Roof)
+	TArray<FWHLifeCarBox> CarBoxes;
+	Tr->GetCarBoxes(NearM * 100.0, RadiusM * 100.0, CarBoxes);
+	Out.Reserve(CarBoxes.Num());
+	for (const FWHLifeCarBox& B : CarBoxes)
 	{
-		// the centres sit 0.8 m over the street (AWHLifeTraffic::GetPoints)
-		const double Z0 = C.Z - 0.9, Z1 = C.Z - 0.8 + Roof + 0.1;
-		Out.Add(FBox(FVector(C.X - HalfX, C.Y - HalfY, Z0), FVector(C.X + HalfX, C.Y + HalfY, Z1)));
-	};
-	for (int32 I = 0; I < Mv.Num(); ++I)
-	{
-		const FVector C = Mv[I] / 100.0;
-		if (FVector2D(C.X - NearM.X, C.Y - NearM.Y).SizeSquared() > R2) continue;
-		const int32 Ty = FMath::Clamp(MvT[I], 0, WHLife::NumTypes - 1);
-		const double HL = 0.5 * GLensCarLen[Ty] + 0.35, HW = 0.5 * GLensCarWid[Ty] + 0.2;   // + the frame of motion / lane offset
-		const int32 Dir = Lane.IsValidIndex(I) ? Lane[I] % 10 : 0;   // 1 N / 2 S (along Y), 3 E / 4 W (along X)
-		if (Dir == 3 || Dir == 4) Add(C, HL, HW, GLensCarH[Ty]);
-		else if (Dir == 1 || Dir == 2) Add(C, HW, HL, GLensCarH[Ty]);
-		else { Add(C, HL, HW, GLensCarH[Ty]); Add(C, HW, HL, GLensCarH[Ty]); }
-	}
-	for (int32 I = 0; I < Pk.Num(); ++I)
-	{
-		const FVector C = Pk[I] / 100.0;
-		if (FVector2D(C.X - NearM.X, C.Y - NearM.Y).SizeSquared() > R2) continue;
-		const int32 Ty = FMath::Clamp(PkT.IsValidIndex(I) ? PkT[I] : 0, 0, WHLife::NumTypes - 1);
-		const double HL = 0.5 * GLensCarLen[Ty] + 0.1, HW = 0.5 * GLensCarWid[Ty] + 0.1;
-		// parked yaw is not exposed: both axes (the union holds the real body)
-		Add(C, HL, HW, GLensCarH[Ty]); Add(C, HW, HL, GLensCarH[Ty]);
+		FWHLensObb O;
+		O.C = B.C / 100.0; O.AX = B.AX; O.AY = B.AY; O.AZ = B.AZ;
+		O.H = B.H / 100.0 + FVector(0.03);   // (mirrors / antennas at the bounds edge)
+		Out.Add(O);
 	}
 }
 

@@ -281,7 +281,7 @@ void AWHLifeTraffic::PlaceParked()
 {
 	FVector4 ClearR(0, 0, 0, 0); bool bClear = false;
 	{ FString S; if (FParse::Value(FCommandLine::Get(), TEXT("WHLifeClearParked="), S)) { TArray<FString> P; S.ParseIntoArray(P, TEXT(":"), true); if (P.Num() >= 4) { bClear = true; ClearR = FVector4(FCString::Atof(*P[0]), FCString::Atof(*P[1]), FCString::Atof(*P[2]), FCString::Atof(*P[3])); } } }
-	NumParked = 0; NumParkedTaxis = 0; ParkedPts.Reset(); ParkedTypes.Reset();
+	NumParked = 0; NumParkedTaxis = 0; ParkedPts.Reset(); ParkedTypes.Reset(); ParkedXfs.Reset();
 	TArray<FString> Lines; ParkedData.ParseIntoArrayLines(Lines);
 	TArray<TArray<FTransform>> Tx; Tx.SetNum(NumTypes);
 	TArray<TArray<float>> Cd; Cd.SetNum(NumTypes);
@@ -304,7 +304,7 @@ void AWHLifeTraffic::PlaceParked()
 			}
 		}
 		Tx[T].Add(FTransform(FRotator(0.f, Yaw, 0.f), FVector(X, Y, 1.f)));
-		ParkedPts.Add(FVector(X, Y, 80.f)); ParkedTypes.Add(T);
+		ParkedPts.Add(FVector(X, Y, 80.f)); ParkedTypes.Add(T); ParkedXfs.Add(Tx[T].Last());
 		Cd[T].Append({ FCString::Atof(*P[4]), FCString::Atof(*P[5]), FCString::Atof(*P[6]), P.Num() > 7 ? FCString::Atof(*P[7]) : 0.f });
 		++NumParked; if (T <= T_taxi_gr) ++NumParkedTaxis;
 	}
@@ -382,6 +382,81 @@ void AWHLifeTraffic::BeginPlay()
 	for (TActorIterator<AWHCityLights> It(GetWorld()); It; ++It) RegisterNightLights(*It);   // night: headlights / taillights (AWHCityLights registers with us too when it starts later)
 	PushInstances();
 	UE_LOG(LogWHLife, Log, TEXT("[life] BeginPlay: %d moving, %d parked (%d taxis) instances, pre-roll %.0f s"), NumMoving, NumParked, NumParkedTaxis, PreRollSeconds);
+	{ // r10: the lens guard's vehicle boxes come from these mesh bounds (length x width x height m, min x / max x m from the pivot; table L x W x H)
+		FString S;
+		for (int32 T = 0; T < NumTypes; ++T)
+		{
+			const FBox B = TypeBox(T);
+			S += FString::Printf(TEXT(" %s %.2fx%.2fx%.2f [%.2f..%.2f] (table %.2fx%.2fx%.2f);"), GTypes[T].Name, B.GetSize().X * 0.01, B.GetSize().Y * 0.01,
+				B.GetSize().Z * 0.01, B.Min.X * 0.01, B.Max.X * 0.01, GTypes[T].Len, GTypes[T].Wid, GTypeH[T]);
+		}
+		UE_LOG(LogWHLife, Display, TEXT("[life] r10 vehicle mesh bounds:%s"), *S);
+	}
+}
+
+FBox AWHLifeTraffic::TypeBox(int32 Type) const
+{
+	const int32 T = FMath::Clamp(Type, 0, NumTypes - 1);
+	const UStaticMesh* M = VehicleMeshes.IsValidIndex(T) ? VehicleMeshes[T].Get() : nullptr;
+	if (M)
+	{
+		const FBox B = M->GetBoundingBox();
+		if (B.IsValid && B.GetSize().X > 50.0) return B;
+	}
+	const double HL = 50.0 * GTypes[T].Len, HW = 50.0 * GTypes[T].Wid;
+	return FBox(FVector(-HL, -HW, 0.0), FVector(HL, HW, 100.0 * GTypeH[T]));
+}
+
+void AWHLifeTraffic::CarPose(const FCar& Car, FVector2D& OutCtr, FVector2D& OutDir, float& OutYaw, float& OutPitch) const
+{
+	const FVector2D PF = PathPoint(Car, 0.9f), PR = PathPoint(Car, Car.Len - 0.9f);
+	OutCtr = (PF + PR) * 0.5f; OutDir = PF - PR;
+	if (OutDir.SizeSquared() < 1e-6f) OutDir = FVector2D(1, 0);
+	OutDir.Normalize();
+	if (Car.Where == 0) { OutCtr += FVector2D(-OutDir.Y, OutDir.X) * Car.Lat; }
+	OutYaw = FMath::RadiansToDegrees(FMath::Atan2(OutDir.Y, OutDir.X));
+	OutPitch = Car.Brake && Car.V > 1.f ? 0.6f : 0.f;
+}
+
+void AWHLifeTraffic::GetCarBoxes(const FVector& CenterCm, double RadiusCm, TArray<FWHLifeCarBox>& Out) const
+{
+	Out.Reset();
+	if (!bReady) return;
+	FBox TB[NumTypes];
+	double Reach[NumTypes];   // farthest horizontal corner from the pivot (cm): the cheap distance reject
+	for (int32 T = 0; T < NumTypes; ++T)
+	{
+		TB[T] = TypeBox(T);
+		Reach[T] = FMath::Sqrt(FMath::Square(FMath::Max(FMath::Abs(TB[T].Min.X), FMath::Abs(TB[T].Max.X))) + FMath::Square(FMath::Max(FMath::Abs(TB[T].Min.Y), FMath::Abs(TB[T].Max.Y))));
+	}
+	auto Add = [&Out, &TB](const FTransform& X, int32 T, double StretchCm)
+	{
+		const FBox& B = TB[T];
+		FWHLifeCarBox O;
+		const FQuat Q = X.GetRotation();
+		O.C = X.TransformPosition(B.GetCenter());
+		O.AX = Q.GetAxisX(); O.AY = Q.GetAxisY(); O.AZ = Q.GetAxisZ();
+		O.H = B.GetExtent() * X.GetScale3D().GetAbs() + FVector(StretchCm, 0.0, 0.0);
+		Out.Add(O);
+	};
+	const FVector2D C2(CenterCm.X, CenterCm.Y);
+	for (const FCar& Car : Cars)
+	{
+		if (!Car.bActive) continue;
+		const int32 T = FMath::Clamp(Car.Type, 0, NumTypes - 1);
+		FVector2D Ctr, Dir; float Yaw = 0.f, Pitch = 0.f;
+		CarPose(Car, Ctr, Dir, Yaw, Pitch);
+		const double Stretch = FMath::Max(0.f, Car.V) * 100.0 / 30.0;   // the sim may step once more before this frame renders
+		if (FVector2D::DistSquared(Ctr * 100.f, C2) > FMath::Square(RadiusCm + Reach[T] + Stretch)) continue;
+		Add(FTransform(FRotator(Pitch, Yaw, 0.f), FVector(Ctr.X * 100.f, Ctr.Y * 100.f, 1.f)), T, Stretch);
+	}
+	for (int32 I = 0; I < ParkedXfs.Num(); ++I)
+	{
+		const int32 T = FMath::Clamp(ParkedTypes.IsValidIndex(I) ? ParkedTypes[I] : 0, 0, NumTypes - 1);
+		const FVector L = ParkedXfs[I].GetLocation();
+		if (FVector2D::DistSquared(FVector2D(L.X, L.Y), C2) > FMath::Square(RadiusCm + Reach[T])) continue;
+		Add(ParkedXfs[I], T, 0.0);
+	}
 }
 
 void AWHLifeTraffic::Tick(float Dt)
@@ -969,23 +1044,28 @@ void AWHLifeTraffic::GetLinkQueue(int32 LinkFileId, int32& NumCars, int32& Stopp
 // ------------------------------------------------------------------------------------------------ render push
 void AWHLifeTraffic::PushInstances()
 {
+	FBox MeshB[NumTypes];   // r10: local mesh bounds (cm) for the flight-mode inside test
+	if (bFlightLife && bClearCam) { for (int32 T = 0; T < NumTypes; ++T) MeshB[T] = TypeBox(T); }
 	for (int32 I = 0; I < Cars.Num(); ++I)
 	{
 		FCar& C = Cars[I]; if (!C.bActive || C.Inst < 0) continue;
-		const FVector2D PF = PathPoint(C, 0.9f), PR = PathPoint(C, C.Len - 0.9f);
-		FVector2D Ctr = (PF + PR) * 0.5f, Dir = PF - PR;
-		if (Dir.SizeSquared() < 1e-6f) Dir = FVector2D(1, 0);
-		Dir.Normalize();
-		if (C.Where == 0) { Ctr += FVector2D(-Dir.Y, Dir.X) * C.Lat; }
-		const float Yaw = FMath::RadiansToDegrees(FMath::Atan2(Dir.Y, Dir.X));
-		const float Pitch = C.Brake && C.V > 1.f ? 0.6f : 0.f;
+		FVector2D Ctr, Dir; float Yaw = 0.f, Pitch = 0.f;
+		CarPose(C, Ctr, Dir, Yaw, Pitch);
 		bool bHide = false;
 		if (bClearCam)
 		{ // distance from the camera to the car's body rectangle (centre, heading, length x width)
 			const FVector2D Dc = ClearM - Ctr; const float Al = FMath::Abs(FVector2D::DotProduct(Dc, Dir)), La = FMath::Abs(FVector2D::DotProduct(Dc, FVector2D(-Dir.Y, Dir.X)));
 			const float BodyD = FMath::Sqrt(FMath::Square(FMath::Max(Al - C.Len * 0.5f, 0.f)) + FMath::Square(FMath::Max(La - C.Wid * 0.5f, 0.f)));
 			// critic r5 #2 (flight mode): no pop of a car approaching the lens -- hidden only with the lens inside its body
-			bHide = bFlightLife ? (BodyD < FlightLensInsideM && ClearZ < GTypeH[FMath::Clamp(C.Type, 0, NumTypes - 1)] + FlightLensInsideM) : BodyD < CameraClearM;
+			// r10 (r9b fl12: lens inside the box truck's mesh but outside its table body = black frames): the body is the drawn mesh's bounds
+			if (bFlightLife)
+			{
+				const FBox& MB = MeshB[FMath::Clamp(C.Type, 0, NumTypes - 1)];
+				const double Lx = 100.0 * FVector2D::DotProduct(Dc, Dir), Ly = 100.0 * FVector2D::DotProduct(Dc, FVector2D(-Dir.Y, Dir.X));
+				const double Ox = FMath::Max3(MB.Min.X - Lx, Lx - MB.Max.X, 0.0), Oy = FMath::Max3(MB.Min.Y - Ly, Ly - MB.Max.Y, 0.0);
+				bHide = FMath::Sqrt(Ox * Ox + Oy * Oy) < 100.0 * FlightLensInsideM && 100.0 * ClearZ < MB.Max.Z + 1.0 + 100.0 * FlightLensInsideM;
+			}
+			else bHide = BodyD < CameraClearM;
 			if (!bHide && ClearAheadM > 0.f)
 			{ // corridor ahead of the camera (fixed shots): the car's centre, from the camera, along / across the view heading
 				const FVector2D Dv = Ctr - ClearM; const float Ah = FVector2D::DotProduct(Dv, ClearFwd), Cr = FMath::Abs(FVector2D::DotProduct(Dv, FVector2D(-ClearFwd.Y, ClearFwd.X)));

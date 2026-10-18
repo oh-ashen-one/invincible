@@ -1170,8 +1170,9 @@ void AWebTravCharacter::Tick(float DeltaSeconds)
 	{
 		// critic r6 #5 (fl12 lens through a box truck, fl15 through a round tower, fl15 4.00 inside the hero): final lens guard -- out of the
 		// hero's body (>= LensBodyMinM), traversal solids, render collision on the visibility channel and traffic vehicle boxes (street-level lens)
-		TArray<FBox> VehicleBoxes;
-		if (Cam.CamPos.Z < 8.0) Flight->GatherVehicleBoxes(Cam.CamPos, 12.0, VehicleBoxes);
+		// r10: real mesh-bounds boxes of the cars within 25 m of HIM (the escape searches a ring round him) while he or the lens is low
+		TArray<FWHLensObb> VehicleBoxes;
+		if (FMath::Min(Cam.CamPos.Z, CI.Pos.Z) < 8.0) Flight->GatherVehicleBoxes(CI.Pos, 25.0, VehicleBoxes);
 		const AActor* IgnoreFx = BreachDirector.Get();
 		UWHFlightComponent* Fl = Flight.Get();
 		Cam.GuardLens(Dt, CI, Traversal->TravWorld, VehicleBoxes,

@@ -1,0 +1,20 @@
+{
+ "tag": "r10",
+ "mode": "render-1080p-fixed60",
+ "source_head": "ec2c0302",
+ "source_dirty": true,
+ "map": "/Game/Showcase/Maps/Manhattan_Island",
+ "game_args": [],
+ "cases": [
+  {
+   "case": "fl12_fast_land",
+   "rc": 0,
+   "wall_s": 174.7,
+   "rows": 779,
+   "frames_rendered": 871,
+   "preroll_cut": 92,
+   "frames_kept": 482,
+   "mp4_mb": 14.63
+  }
+ ]
+}

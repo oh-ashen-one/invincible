@@ -60,6 +60,15 @@ namespace WHLife
 	};
 }
 
+/** r10 (camera lens guard): a drawn vehicle as a world-space oriented box (cm) -- its static mesh bounds under the instance's render
+ *  transform. C centre, AX / AY / AZ unit axes (AX along the car), H half extents along them. */
+struct FWHLifeCarBox
+{
+	FVector C = FVector::ZeroVector;
+	FVector AX = FVector::ForwardVector, AY = FVector::RightVector, AZ = FVector::UpVector;
+	FVector H = FVector::ZeroVector;
+};
+
 UCLASS()
 class WEBHOMAGE_API AWHLifeTraffic : public AActor
 {
@@ -159,6 +168,9 @@ public:
 	void GetPoints(TArray<FVector>& Moving, TArray<int32>& MovingType, TArray<FVector>& Parked, TArray<int32>& ParkedType) const;
 	/** Moving cars with their world centre (cm), speed (m/s) and a lane key (kind*100 + lane*10 + travel direction 1 N / 2 S / 3 E / 4 W). */
 	void GetMovingInfo(TArray<FVector>& Pos, TArray<float>& Speed, TArray<int32>& LaneKey) const;
+	/** r10: moving (also while hidden by the lens rule) and parked vehicles whose box comes within RadiusCm (horizontal) of CenterCm, as
+	 *  oriented boxes from the real mesh bounds and render transforms. Moving boxes are stretched by 1/30 s of travel at each end. */
+	void GetCarBoxes(const FVector& CenterCm, double RadiusCm, TArray<FWHLifeCarBox>& Out) const;
 	/** Queue on a lane link (file id): cars whose front is on it, how many are stopped, the front car's distance to the stop line (m, -1 none). */
 	void GetLinkQueue(int32 LinkFileId, int32& Cars, int32& Stopped, float& FrontToLine) const;
 	/** Signal state of an axis (0 avenue, 1 street) now: 2 green, 1 amber, 0 red. */
@@ -198,6 +210,11 @@ private:
 	TArray<bool> Dirty;
 	TArray<FVector> ParkedPts;
 	TArray<int32> ParkedTypes;
+	TArray<FTransform> ParkedXfs;   // r10: parked render transforms (world cm), same order as ParkedPts
+	/** r10: local mesh bounds (cm) of a vehicle type; the type table (length, width, roof) if the mesh is missing. */
+	FBox TypeBox(int32 Type) const;
+	/** r10: a moving car's drawn pose (PushInstances): centre / unit heading (browser m), yaw / pitch (deg). */
+	void CarPose(const WHLife::FCar& Car, FVector2D& OutCtr, FVector2D& OutDir, float& OutYaw, float& OutPitch) const;
 	double SimClock = 0.0;
 	float Accum = 0.f, StatsT = 0.f;
 	uint32 GlobalRng = 1;
