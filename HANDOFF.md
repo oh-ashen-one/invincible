@@ -1,3 +1,20 @@
+## Enemy-race chase mini-game — owner request 2026-10-25 (branch `enemy-race`, built)
+
+Owner asked mid-playtest: duplicate the playable hero as an AI villain with a different skin, who flies around the map
+freely and taunts; the player chases and catches him. Implemented on `enemy-race` (off `invincible` af6d30ea), commit `53f233fc`, pushed.
+
+- `Flight/WHChaseVillain.*` (new): `AWHChaseVillain` actor = `SK_InvincibleV2` body, evil skin via `M_CmbSolid` MID
+  (near-black, slight emissive/metal — the v2 body is single-slot baked texture, so a flat param'd material is the
+  no-new-assets skin). Single-node clips AS_Hover / AS_Fly / AS_BoostHold by speed. Kinematic brain: roam waypoints in
+  a 300-900 m ring around the hero (12-260 m alt), flee inside 90 m (50 m/s + 130 m/s bursts / 5.5 s), fwd+down line-trace
+  steering (never breaches), low-pass Flyover crowd stimuli. Taunts via `UWHFlightWorldSubsystem` ("Catch me if you can!").
+- Catch: touch <= 3.5 m or E/Triangle held <= 9 m -> he slows to a hover, `bVillainCaught`, HUD "GOT HIM -- Ns" banner.
+- Spawned in `AWebTravCharacter` beside the other directors when flight mode is on; `-WHChase=0` disables.
+- `AWHFlightHUD::DrawChase`: red VILLAIN diamond (edge chevron off screen) + distance, taunt line, caught banner.
+- Compiled clean; `libUnrealEditor-WebHomage.dylib` relinked. NOT yet played by the owner -- the session that was live
+  kept the old build. TODO / ideas: tunable speeds via -WHFlightTune-style flag, villain breach-through-buildings while
+  fleeing, restart-the-chase input, evil face/lens tint if the v2 mesh gets more material slots.
+
 # Invincible flight conversion — rolling handoff (owner request 2026-10-15)
 
 **Repository moved 2026-10-15 (owner-authorized): this project now lives at `oh-ashen-one/invincible` — its `main` is the former tip of `spider-man-2`'s `invincible` branch (18105f29) with full history. Do all Invincible work on task branches there; merging to its `main` needs the owner's OK. The `spider-man-2` repo and its `invincible` branch stay untouched as the archive; draft PR oh-ashen-one/spider-man-2#5 is closed with a pointer here. Studio checkout for this work: `/Users/midir/spider-man-2-invincible` (origin = the new repo; `/Users/midir/spider-man-2` remains read-only). Studio state so far: compiles clean (one shadowed-local fix, commit 18105f29), all 9 suits baked + DA_HeroSuits rebuilt with `invincible` as default, smoke run verified (WH_FLIGHT mode ON, breach director ready, WH_RESCUE director ready, 2x1080p shots in ~/sm2-n1/_scratch/invincible-smoke).
