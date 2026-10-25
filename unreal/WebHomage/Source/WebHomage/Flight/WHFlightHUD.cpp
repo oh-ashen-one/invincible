@@ -140,6 +140,77 @@ void AWHFlightHUD::DrawHUD()
 		DrawMarkers(Dir, Hero);
 		DrawPrompt(Dir);
 	}
+	DrawChase(Sub, Hero);
+}
+
+// Enemy-race mini-game (owner request 2026-10-25): a red diamond over the villain (chevron at the edge when he is
+// off screen), his taunt line, and the caught banner. The villain publishes into the flight world subsystem.
+void AWHFlightHUD::DrawChase(const UWHFlightWorldSubsystem* Sub, const FVector& Hero)
+{
+	if (!Sub || Sub->VillainState == 0 || !PlayerOwner) return;
+	const FLinearColor VRed(1.0f, 0.22f, 0.18f, 1.f);
+	UFont* Small = GEngine->GetSmallFont();
+	UFont* Med = GEngine->GetMediumFont();
+	const float K = UiScale;
+	const float CX = float(Canvas->ClipX) * 0.5f, CY = float(Canvas->ClipY) * 0.5f;
+
+	if (Sub->bVillainCaught)
+	{
+		const double T = Sub->ChaseCaughtT - Sub->ChaseStartT;
+		Text(FString::Printf(TEXT("GOT HIM -- %.0f s"), T), CX, CY - 40.f * K, VRed, Med, 1.0f, true);
+		Text(TEXT("villain caught"), CX, CY - 12.f * K, White, Small, 1.2f * K, true);
+	}
+	else
+	{
+		FVector CamLoc; FRotator CamRot;
+		PlayerOwner->GetPlayerViewPoint(CamLoc, CamRot);
+		const FRotationMatrix CM(CamRot);
+		const FVector Fwd = CM.GetScaledAxis(EAxis::X), Right = CM.GetScaledAxis(EAxis::Y), Up = CM.GetScaledAxis(EAxis::Z);
+		const FVector D = Sub->VillainPosCm - CamLoc;
+		const double DistM = FVector::Dist(Hero, Sub->VillainPosCm) / 100.0;
+		const FString Label = FString::Printf(TEXT("VILLAIN  %.0f m"), DistM);
+		const float Margin = 56.f * K;
+		const bool bFront = FVector::DotProduct(D, Fwd) > 1.0;
+		FVector2D Sp(CX, CY);
+		bool bOnScreen = false;
+		if (bFront)
+		{
+			const FVector P = Canvas->Project(Sub->VillainPosCm);
+			Sp = FVector2D(P.X, P.Y);
+			bOnScreen = Sp.X > Margin && Sp.X < Canvas->ClipX - Margin && Sp.Y > Margin && Sp.Y < Canvas->ClipY - Margin;
+		}
+		if (bOnScreen)
+		{
+			const float R = 14.f * K, T = FMath::Max(1.5f, 2.5f * K);
+			DrawLine(Sp.X, Sp.Y - R, Sp.X + R, Sp.Y, VRed, T);
+			DrawLine(Sp.X + R, Sp.Y, Sp.X, Sp.Y + R, VRed, T);
+			DrawLine(Sp.X, Sp.Y + R, Sp.X - R, Sp.Y, VRed, T);
+			DrawLine(Sp.X - R, Sp.Y, Sp.X, Sp.Y - R, VRed, T);
+			DrawRect(VRed, Sp.X - 2.f * K, Sp.Y - 2.f * K, 4.f * K, 4.f * K);
+			Text(Label, Sp.X, Sp.Y + R + 4.f * K, VRed, Small, 1.1f * K, true);
+		}
+		else
+		{
+			FVector2D Dv = bFront ? (Sp - FVector2D(CX, CY)) : FVector2D(FVector::DotProduct(D, Right), -FVector::DotProduct(D, Up));
+			if (Dv.SizeSquared() < 1e-6) Dv = FVector2D(0.0, 1.0);
+			Dv.Normalize();
+			const float Hx = CX - Margin, Hy = CY - Margin;
+			const float Tx = FMath::Abs(Dv.X) > 1e-4 ? Hx / FMath::Abs(float(Dv.X)) : 1e9f;
+			const float Ty = FMath::Abs(Dv.Y) > 1e-4 ? Hy / FMath::Abs(float(Dv.Y)) : 1e9f;
+			const FVector2D Ep = FVector2D(CX, CY) + Dv * FMath::Min(Tx, Ty);
+			const FVector2D Pp(-Dv.Y, Dv.X);
+			const float L = 16.f * K, T = FMath::Max(2.f, 3.f * K);
+			const FVector2D Tip = Ep + Dv * (L * 0.6f);
+			const FVector2D A = Ep - Dv * (L * 0.4f) + Pp * L * 0.7f;
+			const FVector2D B = Ep - Dv * (L * 0.4f) - Pp * L * 0.7f;
+			DrawLine(A.X, A.Y, Tip.X, Tip.Y, VRed, T);
+			DrawLine(B.X, B.Y, Tip.X, Tip.Y, VRed, T);
+			const FVector2D Lp = Ep - Dv * (L * 1.6f + 14.f * K);
+			Text(Label, Lp.X, Lp.Y - 8.f * K, VRed, Small, 1.0f * K, true);
+		}
+	}
+	if (!Sub->VillainTaunt.IsEmpty())
+		Text(Sub->VillainTaunt, CX, float(Canvas->ClipY) - 150.f * K, VRed, Small, 1.5f * K, true);
 }
 
 void AWHFlightHUD::DrawPanel(const AWHRescueDirector* Dir, const FVector& Hero)

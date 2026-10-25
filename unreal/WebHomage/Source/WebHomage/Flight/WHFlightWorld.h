@@ -62,6 +62,18 @@ public:
 	/** Stimuli still alive at world time Now (pruned on read). */
 	const TArray<FWHCrowdStimulus>& ActiveStimuli(float Now);
 
+	// ---- chase villain (enemy-race mini-game, owner request 2026-10-25): written by AWHChaseVillain every
+	// tick, read by AWHFlightHUD. Positions are centimetres, same as the hero state above.
+	FVector VillainPosCm = FVector::ZeroVector;
+	FVector VillainVelCm = FVector::ZeroVector;
+	int32 VillainState = 0;          // 0 absent, 1 roam, 2 flee, 3 caught
+	FString VillainTaunt;            // current taunt line (empty = none showing)
+	float VillainTauntUntil = 0.f;   // world seconds until the taunt clears
+	bool bVillainActive = false;
+	bool bVillainCaught = false;
+	float ChaseStartT = -1.f;        // world time the chase began (villain spawn)
+	double ChaseCaughtT = 0.0;       // world time of the catch
+
 	// ---- score
 	UPROPERTY(BlueprintReadOnly, Category="Flight") float CollateralUSD = 0.f;
 	UPROPERTY(BlueprintReadOnly, Category="Flight") int32 Breaches = 0;

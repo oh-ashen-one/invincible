@@ -39,6 +39,8 @@ private:
 	void DrawPanel(const AWHRescueDirector* Dir, const FVector& Hero);
 	void DrawMarkers(const AWHRescueDirector* Dir, const FVector& Hero);
 	void DrawPrompt(const AWHRescueDirector* Dir);
+	/** Enemy-race mini-game (owner request 2026-10-25): villain marker + distance, taunt line, caught banner. */
+	void DrawChase(const class UWHFlightWorldSubsystem* Sub, const FVector& Hero);
 	void Text(const FString& Str, float X, float Y, const FLinearColor& Col, UFont* InFont, float Scale, bool bCentreX = false);
 	float TextW(const FString& Str, UFont* InFont, float Scale) const;
 

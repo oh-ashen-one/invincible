@@ -10,6 +10,7 @@
 #include "Flight/WHBreachDirector.h"
 #include "Flight/WHRescueDirector.h"
 #include "Flight/WHFlightHUD.h"
+#include "Flight/WHChaseVillain.h"
 #include "HAL/IConsoleManager.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -753,9 +754,12 @@ void AWebTravCharacter::BeginPlay()
 			int32 RescueArg = 1;
 			FParse::Value(FCommandLine::Get(), TEXT("-WHRescue="), RescueArg);
 			if (RescueArg != 0) RescueDirector = GetWorld()->SpawnActor<AWHRescueDirector>(FVector::ZeroVector, FRotator::ZeroRotator, SP);
+			int32 ChaseArg = 1;
+			FParse::Value(FCommandLine::Get(), TEXT("-WHChase="), ChaseArg);
+			if (ChaseArg != 0) ChaseVillain = GetWorld()->SpawnActor<AWHChaseVillain>(FVector::ZeroVector, FRotator::ZeroRotator, SP);
 		}
-		UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT mode %s (breach director %s, rescue %s)"), bFlightMode ? TEXT("ON (Invincible)") : TEXT("off (web swing)"),
-			BreachDirector ? TEXT("yes") : TEXT("no"), RescueDirector ? TEXT("yes") : TEXT("no"));
+		UE_LOG(LogWebHomage, Display, TEXT("WH_FLIGHT mode %s (breach director %s, rescue %s, chase %s)"), bFlightMode ? TEXT("ON (Invincible)") : TEXT("off (web swing)"),
+			BreachDirector ? TEXT("yes") : TEXT("no"), RescueDirector ? TEXT("yes") : TEXT("no"), ChaseVillain ? TEXT("yes") : TEXT("no"));
 	}
 	// [F perf local patch, P3 to adopt] the two 480x270 scene captures below re-render the scene every frame (the full-scene depth
 	// capture = a second Nanite/VSM/prepass pass). They only feed telemetry columns (hero mask / wall_frac / hero_occl), so they are

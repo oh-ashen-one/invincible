@@ -67,6 +67,8 @@ protected:
 	TObjectPtr<class UWHFlightComponent> Flight;
 	UPROPERTY(Transient) TObjectPtr<class AWHBreachDirector> BreachDirector;
 	UPROPERTY(Transient) TObjectPtr<AActor> RescueDirector;
+	/** Enemy-race mini-game (owner request 2026-10-25): the flying villain to chase; -WHChase=0 disables. */
+	UPROPERTY(Transient) TObjectPtr<AActor> ChaseVillain;
 	bool bFlightMode = true, bFlightHudSet = false, bWasBreachHold = false;
 	double BreachClearT = 0.0;
 	void FlightFrame(const FWebTravInput& I, double Dt);
