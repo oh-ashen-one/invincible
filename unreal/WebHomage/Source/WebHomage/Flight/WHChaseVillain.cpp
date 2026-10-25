@@ -125,6 +125,25 @@ void AWHChaseVillain::SetupBody()
 			}
 		Beacon->RegisterComponent();
 	}
+	// the aura: a faint red shell around his body -- visible a few hundred metres out where a 1.85 m figure is just pixels
+	if (UStaticMesh* Sph = LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Sphere.Sphere")))
+	{
+		Aura = NewObject<UStaticMeshComponent>(this, TEXT("Aura"));
+		Aura->SetupAttachment(Body);
+		Aura->SetStaticMesh(Sph);
+		Aura->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		Aura->SetCastShadow(false);
+		Aura->SetRelativeLocation(FVector(0, 0, 90.0));
+		Aura->SetRelativeScale3D(FVector(4.0, 4.0, 5.0));
+		if (UMaterialInterface* FX = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Combat/Materials/M_CmbFX.M_CmbFX")))
+			if (UMaterialInstanceDynamic* Mi = UMaterialInstanceDynamic::Create(FX, this))
+			{
+				Mi->SetVectorParameterValue(TEXT("Color"), FLinearColor(3.0f, 0.10f, 0.08f));
+				Mi->SetScalarParameterValue(TEXT("Opacity"), 0.30f);
+				Aura->SetMaterial(0, Mi);
+			}
+		Aura->RegisterComponent();
+	}
 }
 
 void AWHChaseVillain::SetClip(UAnimSequence* Seq)

@@ -176,13 +176,14 @@ void AWHFlightHUD::DrawChase(const UWHFlightWorldSubsystem* Sub, const FVector& 
 		bool bOnScreen = false;
 		if (bFront)
 		{
-			const FVector P = Canvas->Project(Sub->VillainPosCm);
+			// mark the point ~5 m ABOVE him: a diamond on his body hides the tiny figure (owner 2026-10-25)
+			const FVector P = Canvas->Project(Sub->VillainPosCm + FVector(0, 0, 500.0));
 			Sp = FVector2D(P.X, P.Y);
 			bOnScreen = Sp.X > Margin && Sp.X < Canvas->ClipX - Margin && Sp.Y > Margin && Sp.Y < Canvas->ClipY - Margin;
 		}
 		if (bOnScreen)
 		{
-			const float R = 14.f * K, T = FMath::Max(1.5f, 2.5f * K);
+			const float R = 11.f * K, T = FMath::Max(1.5f, 2.5f * K);
 			DrawLine(Sp.X, Sp.Y - R, Sp.X + R, Sp.Y, VRed, T);
 			DrawLine(Sp.X + R, Sp.Y, Sp.X, Sp.Y + R, VRed, T);
 			DrawLine(Sp.X, Sp.Y + R, Sp.X - R, Sp.Y, VRed, T);

@@ -83,9 +83,11 @@ private:
 
 	// ---- spawn / cutscene: a tall glow column marks his spot until the hero closes in
 	UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> Beacon;
+	/** soft red glow around his body so he reads at a few hundred metres */
+	UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> Aura;
 	float SceneT = 0.f;
 	TWeakObjectPtr<class ACameraActor> SceneCam;
-	float TalkRangeM = 35.f;   // hero this close while he waits = start the cutscene
+	float TalkRangeM = 75.f;   // hero this close while he waits = start the cutscene
 
 	TObjectPtr<UAnimSequence> SeqHover;
 	TObjectPtr<UAnimSequence> SeqFly;
