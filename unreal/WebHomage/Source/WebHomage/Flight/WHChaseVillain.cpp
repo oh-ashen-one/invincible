@@ -17,6 +17,9 @@
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "InputCoreTypes.h"
+#include "Camera/CameraActor.h"
+#include "Components/StaticMeshComponent.h"
+#include "Engine/StaticMesh.h"
 
 const TCHAR* AWHChaseVillain::Taunts[] = {
 	TEXT("Catch me if you can!"),
@@ -49,13 +52,15 @@ void AWHChaseVillain::BeginPlay()
 
 	UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this);
 	const FVector Hero = (FW && FW->bHeroValid) ? FW->HeroPosCm : GetActorLocation();
-	// spawn ~600 m out on a random bearing, ~140 m up: close enough to find, far enough to chase
+	// spawn ~280 m out on a random bearing, ~55 m up, hovering in place under a tall beacon: he is meant to be FOUND
 	const double A = FMath::FRand() * 2.0 * PI;
-	PosCm = Hero + FVector(FMath::Cos(A) * 60000.0, FMath::Sin(A) * 60000.0, 14000.0);
+	PosCm = Hero + FVector(FMath::Cos(A) * 28000.0, FMath::Sin(A) * 28000.0, 5500.0);
 	SetActorLocation(PosCm);
+	State = EState::WaitHere;
 	SpawnT = GetWorld() ? GetWorld()->GetTimeSeconds() : 0.f;
 	if (FW) FW->ChaseStartT = SpawnT;
-	UE_LOG(LogWebHomage, Display, TEXT("WH_CHASE villain spawned at (%.0f %.0f %.0f) -- catch him!"), PosCm.X, PosCm.Y, PosCm.Z);
+	if (Beacon) Beacon->SetVisibility(true);
+	UE_LOG(LogWebHomage, Display, TEXT("WH_CHASE villain waiting at (%.0f %.0f %.0f) -- find him!"), PosCm.X, PosCm.Y, PosCm.Z);
 }
 
 void AWHChaseVillain::SetupBody()
@@ -100,6 +105,26 @@ void AWHChaseVillain::SetupBody()
 	SeqFly = LoadObject<UAnimSequence>(nullptr, TEXT("/Game/Invincible/HeroV2/Anims/AS_Fly.AS_Fly"));
 	SeqBoost = LoadObject<UAnimSequence>(nullptr, TEXT("/Game/Invincible/HeroV2/Anims/AS_BoostHold.AS_BoostHold"));
 	SetClip(SeqHover);
+
+	// the beacon: a tall thin glow column hanging off him (down from his hover) so he can be FOUND across the city
+	if (UStaticMesh* Cyl = LoadObject<UStaticMesh>(nullptr, TEXT("/Engine/BasicShapes/Cylinder.Cylinder")))
+	{
+		Beacon = NewObject<UStaticMeshComponent>(this, TEXT("Beacon"));
+		Beacon->SetupAttachment(RootComponent);
+		Beacon->SetStaticMesh(Cyl);
+		Beacon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		Beacon->SetCastShadow(false);
+		Beacon->SetRelativeLocation(FVector(0, 0, -16000.0));   // column hangs 160 m below him to the rooftops
+		Beacon->SetRelativeScale3D(FVector(1.6, 1.6, 320.0));   // cylinder is 100 cm tall at scale 1
+		if (UMaterialInterface* FX = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/Combat/Materials/M_CmbFX.M_CmbFX")))
+			if (UMaterialInstanceDynamic* Mi = UMaterialInstanceDynamic::Create(FX, this))
+			{
+				Mi->SetVectorParameterValue(TEXT("Color"), FLinearColor(4.0f, 0.15f, 0.10f));
+				Mi->SetScalarParameterValue(TEXT("Opacity"), 0.5f);
+				Beacon->SetMaterial(0, Mi);
+			}
+		Beacon->RegisterComponent();
+	}
 }
 
 void AWHChaseVillain::SetClip(UAnimSequence* Seq)
@@ -126,7 +151,95 @@ void AWHChaseVillain::Tick(float Dt)
 	}
 	StepBrain(Dt);
 	StepMove(Dt);
+	if (State == EState::Scene) StepScene(Dt);
 	Publish(W);
+}
+
+// ---- the cutscene (owner request 2026-10-25): hero reaches him -> a few second exchange on different camera
+// angles, then he bolts. The scene camera is a spawned ACameraActor; the view goes back to the pawn at the end.
+void AWHChaseVillain::BeginScene(const FVector& HeroPosCm)
+{
+	UWorld* W = GetWorld();
+	UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this);
+	if (!W || !FW) return;
+	State = EState::Scene;
+	SceneT = 0.f;
+	FW->bChaseScene = true;
+	if (Beacon) Beacon->SetVisibility(false);
+	if (APlayerController* PC = W->GetFirstPlayerController())
+	{
+		FActorSpawnParameters SP; SP.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		if (ACameraActor* Cam = W->SpawnActor<ACameraActor>(PosCm, FRotator::ZeroRotator, SP))
+		{
+			SceneCam = Cam;
+			PC->SetViewTargetWithBlend(Cam, 0.5f);
+		}
+	}
+	FW->ChaseLine = TEXT("VILLAIN: If you can't beat me in a race... I'm going to destroy this city.");
+	FW->ChaseLineUntil = W->GetTimeSeconds() + 3.2f;
+	UE_LOG(LogWebHomage, Display, TEXT("WH_CHASE cutscene start"));
+}
+
+void AWHChaseVillain::StepScene(float Dt)
+{
+	UWorld* W = GetWorld();
+	UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this);
+	if (!W || !FW || !SceneCam.IsValid()) { EndScene(); return; }
+	SceneT += Dt;
+	const float Now = W->GetTimeSeconds();
+	const FVector Hero = FW->bHeroValid ? FW->HeroPosCm : PosCm + FVector(900, 0, 0);
+	// beats: {endT, camera kind, line}; camera positions re-evaluated each frame so the shot tracks both flyers
+	struct FBeat { float End; int32 Cam; const TCHAR* Line; };
+	static const FBeat Beats[] = {
+		{ 3.2f, 0, TEXT("VILLAIN: If you can't beat me in a race... I'm going to destroy this city.") },
+		{ 6.2f, 1, TEXT("YOU: No -- don't do that. I'll stop you.") },
+		{ 9.0f, 2, TEXT("VILLAIN: Oh yeah? Catch me if you can.") },
+		{ 11.0f, 3, TEXT("") },
+	};
+	int32 I = 0;
+	while (I < int32(UE_ARRAY_COUNT(Beats)) - 1 && SceneT >= Beats[I].End) ++I;
+	const FBeat& B = Beats[I];
+	if (B.Line[0] && FW->ChaseLineUntil < Now + B.End - SceneT - 0.2f) { FW->ChaseLine = B.Line; FW->ChaseLineUntil = Now + (B.End - SceneT) - 0.05f; }
+	// ---- camera per beat: 0 wide side-on, 1 over-villain-shoulder on the hero, 2 over-hero-shoulder on the villain, 3 pull-back behind him
+	const FVector Mid = (PosCm + Hero) * 0.5;
+	const FVector ToV = (PosCm - Hero).GetSafeNormal();
+	const FVector Side(-ToV.Y, ToV.X, 0.0);
+	FVector CamPos; FVector LookAt;
+	if (B.Cam == 0)      { CamPos = Mid + Side * 1600.0 + FVector(0, 0, 250.0); LookAt = Mid + FVector(0, 0, 80.0); }
+	else if (B.Cam == 1) { CamPos = PosCm + ToV * 650.0 + FVector(0, 0, 180.0); LookAt = Hero + FVector(0, 0, 140.0); }
+	else if (B.Cam == 2) { CamPos = Hero - ToV * 650.0 + FVector(0, 0, 180.0); LookAt = PosCm + FVector(0, 0, 140.0); }
+	else                 { CamPos = PosCm - ToV * 500.0 + FVector(0, 0, 300.0); LookAt = PosCm + FVector(0, 0, 100.0); }
+	SceneCam->SetActorLocation(CamPos);
+	SceneCam->SetActorRotation((LookAt - CamPos).Rotation());
+	if (SceneT >= Beats[UE_ARRAY_COUNT(Beats) - 1].End) EndScene();
+}
+
+void AWHChaseVillain::EndScene()
+{
+	UWorld* W = GetWorld();
+	UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this);
+	// he bolts: a long burst straight away from the hero starts the chase
+	State = EState::Flee;
+	BurstT = BurstDur + 1.5f;
+	BurstCd = BurstEvery;
+	FleeHoldT = 6.0f;
+	SceneT = 0.f;
+	if (FW)
+	{
+		FW->bChaseScene = false;
+		FW->ChaseLine.Empty();
+		FW->ChaseStartT = W ? W->GetTimeSeconds() : 0.f;   // the chase clock starts when he bolts, not at spawn
+		FW->PushStimulus(EWHCrowdStimulus::SonicBoom, PosCm, 9000.f, 1.f, 3.f, FVector(0, 0, 30000.0));
+	}
+	if (SceneCam.IsValid())
+	{
+		if (W)
+			if (APlayerController* PC = W->GetFirstPlayerController())
+				if (PC->GetPawn()) PC->SetViewTargetWithBlend(PC->GetPawn(), 0.6f);
+		SceneCam->Destroy();
+		SceneCam = nullptr;
+	}
+	UE_LOG(LogWebHomage, Display, TEXT("WH_CHASE cutscene end -- he bolts"));
 }
 
 void AWHChaseVillain::RestartChase(float Now)
@@ -134,14 +247,15 @@ void AWHChaseVillain::RestartChase(float Now)
 	UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this);
 	const FVector Hero = (FW && FW->bHeroValid) ? FW->HeroPosCm : PosCm;
 	const double A = FMath::FRand() * 2.0 * PI;
-	PosCm = Hero + FVector(FMath::Cos(A) * 60000.0, FMath::Sin(A) * 60000.0, 14000.0);
+	PosCm = Hero + FVector(FMath::Cos(A) * 28000.0, FMath::Sin(A) * 28000.0, 5500.0);
 	VelCm = FVector::ZeroVector;
-	State = EState::Roam; bHaveWay = false;
+	State = EState::WaitHere; bHaveWay = false;
 	BurstT = BurstCd = TauntCd = FleeHoldT = BreachCd = 0.f;
 	SpawnT = Now; CaughtT = -1.f;
-	if (FW) { FW->bVillainCaught = false; FW->ChaseStartT = Now; FW->VillainTaunt = TEXT("Round two -- catch me if you can!"); FW->VillainTauntUntil = Now + 5.f; }
+	if (Beacon) Beacon->SetVisibility(true);
+	if (FW) { FW->bVillainCaught = false; FW->ChaseStartT = Now; FW->VillainTaunt = TEXT("Round two -- come find me!"); FW->VillainTauntUntil = Now + 5.f; }
 	SetActorLocation(PosCm);
-	UE_LOG(LogWebHomage, Display, TEXT("WH_CHASE restart: villain re-spawned at (%.0f %.0f %.0f)"), PosCm.X, PosCm.Y, PosCm.Z);
+	UE_LOG(LogWebHomage, Display, TEXT("WH_CHASE restart: villain waiting at (%.0f %.0f %.0f)"), PosCm.X, PosCm.Y, PosCm.Z);
 }
 
 void AWHChaseVillain::ApplyTune(const FString& S)
@@ -176,9 +290,17 @@ void AWHChaseVillain::StepBrain(float Dt)
 
 	if (State == EState::Caught) return;
 
-	// ---- catch: body contact, or E / Triangle held inside CatchRadiusM
-	const bool bGrab = DistM <= CatchRadiusM && FW->bInteractHeld;
-	if (DistM <= TouchRadiusM || bGrab) { OnCaught(Now); return; }
+	// ---- catch: body contact, or E / Triangle held inside CatchRadiusM (only once he is fleeing)
+	if (State == EState::Flee || State == EState::Roam)
+	{
+		const bool bGrab = DistM <= CatchRadiusM && FW->bInteractHeld;
+		if (DistM <= TouchRadiusM || bGrab) { OnCaught(Now); return; }
+	}
+	else if (State == EState::WaitHere && DistM <= TalkRangeM)
+	{
+		BeginScene(Hero);
+		return;
+	}
 
 	// ---- chase trigger: the hero inside FleeRadius starts the flee; he keeps running briefly after the hero drops back
 	if (State == EState::Roam && DistM <= FleeRadiusM) { State = EState::Flee; BurstCd = 1.0f; }
@@ -212,9 +334,12 @@ void AWHChaseVillain::StepMove(float Dt)
 	WeaveT += Dt;
 
 	FVector Want; double Speed;
-	if (State == EState::Caught)
+	if (State == EState::Caught || State == EState::WaitHere || State == EState::Scene)
 	{
-		Want = FVector::ZeroVector; Speed = 0.0;
+		// hover in place: gentle bob, facing the hero when he is near
+		const float Now = W->GetTimeSeconds();
+		Want = FVector(0, 0, 60.0 * FMath::Sin(Now * 1.4));
+		Speed = 0.0;
 	}
 	else if (State == EState::Flee)
 	{
@@ -279,6 +404,13 @@ void AWHChaseVillain::StepMove(float Dt)
 	if (State == EState::Caught) VelCm *= FMath::Max(0.0, 1.0 - 4.0 * Dt);
 	PosCm += VelCm * Dt;
 	SetActorLocation(PosCm);
+
+	// hovering / in the scene: face the hero
+	if ((State == EState::WaitHere || State == EState::Scene || State == EState::Caught) && FW->bHeroValid)
+	{
+		const FVector To = Hero - PosCm;
+		if (To.SizeSquared2D() > 1.0) SetActorRotation(FRotator(0.0, float(FMath::RadiansToDegrees(FMath::Atan2(To.Y, To.X))), 0.0));
+	}
 
 	// ---- facing: yaw into the travel; pitch the body along the path only in the path-aligned clips
 	const double Spd = VelCm.Size() / 100.0;

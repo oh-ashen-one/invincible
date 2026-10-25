@@ -73,6 +73,10 @@ public:
 	bool bVillainCaught = false;
 	float ChaseStartT = -1.f;        // world time the chase began (villain spawn)
 	double ChaseCaughtT = 0.0;       // world time of the catch
+	// ---- enemy-race cutscene: the villain's dialogue line for the HUD subtitle (speaker prefixed), while bChaseScene
+	FString ChaseLine;
+	float ChaseLineUntil = 0.f;
+	bool bChaseScene = false;
 
 	// ---- score
 	UPROPERTY(BlueprintReadOnly, Category="Flight") float CollateralUSD = 0.f;

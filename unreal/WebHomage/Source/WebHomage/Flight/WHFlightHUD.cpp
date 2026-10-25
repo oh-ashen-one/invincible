@@ -212,6 +212,12 @@ void AWHFlightHUD::DrawChase(const UWHFlightWorldSubsystem* Sub, const FVector& 
 	}
 	if (!Sub->VillainTaunt.IsEmpty())
 		Text(Sub->VillainTaunt, CX, float(Canvas->ClipY) - 150.f * K, VRed, Small, 1.5f * K, true);
+	// cutscene dialogue: bottom-centre subtitle, bigger than the taunt line
+	if (!Sub->ChaseLine.IsEmpty() && PlayerOwner && PlayerOwner->GetWorld()->GetTimeSeconds() < Sub->ChaseLineUntil)
+	{
+		const bool bHeroLine = Sub->ChaseLine.StartsWith(TEXT("YOU"));
+		Text(Sub->ChaseLine, CX, float(Canvas->ClipY) - 110.f * K, bHeroLine ? White : VRed, Med, 0.85f, true);
+	}
 }
 
 void AWHFlightHUD::DrawPanel(const AWHRescueDirector* Dir, const FVector& Hero)

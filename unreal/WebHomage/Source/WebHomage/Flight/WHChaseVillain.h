@@ -29,7 +29,9 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float Dt) override;
 
-	enum class EState : uint8 { Roam = 1, Flee = 2, Caught = 3 };
+	// WaitHere = the marked spawn-in-place phase (beacon + hover until the hero arrives); Scene = the dialogue
+	// cutscene before he bolts. Roam / Flee / Caught keep their old values (the HUD reads these ints).
+	enum class EState : uint8 { Roam = 1, Flee = 2, Caught = 3, WaitHere = 4, Scene = 5 };
 
 	/** -WHChaseTune=Name=Value,... overrides the tunables below (same convention as -WHFlightTune). */
 	void ApplyTune(const FString& S);
@@ -40,11 +42,14 @@ private:
 	void SetupBody();
 	void StepBrain(float Dt);
 	void StepMove(float Dt);
+	void StepScene(float Dt);
 	void Publish(UWorld* W);
 	void PickWaypoint();
 	void MaybeTaunt(float Now, double DistM, float Dt);
 	void OnCaught(float Now);
 	void SetClip(UAnimSequence* Seq);
+	void BeginScene(const FVector& HeroPosCm);
+	void EndScene();
 
 	UPROPERTY(VisibleAnywhere) TObjectPtr<USkeletalMeshComponent> Body;
 
@@ -75,6 +80,12 @@ private:
 	float BreachCd = 0.f;    // s until the next facade punch-through is allowed
 	bool bPrevB = false;     // B key last frame (restart edge)
 	TWeakObjectPtr<class AWHBreachDirector> Breach;
+
+	// ---- spawn / cutscene: a tall glow column marks his spot until the hero closes in
+	UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> Beacon;
+	float SceneT = 0.f;
+	TWeakObjectPtr<class ACameraActor> SceneCam;
+	float TalkRangeM = 35.f;   // hero this close while he waits = start the cutscene
 
 	TObjectPtr<UAnimSequence> SeqHover;
 	TObjectPtr<UAnimSequence> SeqFly;
