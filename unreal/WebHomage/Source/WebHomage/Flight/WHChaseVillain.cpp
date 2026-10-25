@@ -12,7 +12,11 @@
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
 #include "Flight/WHFlightWorld.h"
+#include "Flight/WHBreachDirector.h"
 #include "Traversal/Anim/WHHeroV2AnimInstance.h"
+#include "EngineUtils.h"
+#include "GameFramework/PlayerController.h"
+#include "InputCoreTypes.h"
 
 const TCHAR* AWHChaseVillain::Taunts[] = {
 	TEXT("Catch me if you can!"),
@@ -38,6 +42,8 @@ void AWHChaseVillain::BeginPlay()
 	int32 Arg = 1;
 	FParse::Value(FCommandLine::Get(), TEXT("-WHChase="), Arg);
 	if (Arg == 0) { SetActorHiddenInGame(true); SetActorTickEnabled(false); return; }
+	FString Tune;
+	if (FParse::Value(FCommandLine::Get(), TEXT("-WHChaseTune="), Tune, false) && !Tune.IsEmpty()) ApplyTune(Tune);
 
 	SetupBody();
 
@@ -108,9 +114,55 @@ void AWHChaseVillain::Tick(float Dt)
 	Super::Tick(Dt);
 	UWorld* W = GetWorld();
 	if (!W || Dt <= 0.f) return;
+	// B after a catch restarts the chase (he re-spawns on a fresh bearing)
+	if (State == EState::Caught)
+	{
+		if (APlayerController* PC = W->GetFirstPlayerController())
+		{
+			const bool bB = PC->IsInputKeyDown(EKeys::B);
+			if (bB && !bPrevB) RestartChase(W->GetTimeSeconds());
+			bPrevB = bB;
+		}
+	}
 	StepBrain(Dt);
 	StepMove(Dt);
 	Publish(W);
+}
+
+void AWHChaseVillain::RestartChase(float Now)
+{
+	UWHFlightWorldSubsystem* FW = UWHFlightWorldSubsystem::Get(this);
+	const FVector Hero = (FW && FW->bHeroValid) ? FW->HeroPosCm : PosCm;
+	const double A = FMath::FRand() * 2.0 * PI;
+	PosCm = Hero + FVector(FMath::Cos(A) * 60000.0, FMath::Sin(A) * 60000.0, 14000.0);
+	VelCm = FVector::ZeroVector;
+	State = EState::Roam; bHaveWay = false;
+	BurstT = BurstCd = TauntCd = FleeHoldT = BreachCd = 0.f;
+	SpawnT = Now; CaughtT = -1.f;
+	if (FW) { FW->bVillainCaught = false; FW->ChaseStartT = Now; FW->VillainTaunt = TEXT("Round two -- catch me if you can!"); FW->VillainTauntUntil = Now + 5.f; }
+	SetActorLocation(PosCm);
+	UE_LOG(LogWebHomage, Display, TEXT("WH_CHASE restart: villain re-spawned at (%.0f %.0f %.0f)"), PosCm.X, PosCm.Y, PosCm.Z);
+}
+
+void AWHChaseVillain::ApplyTune(const FString& S)
+{
+	TArray<FString> KVs; S.ParseIntoArray(KVs, TEXT(","), true);
+	for (FString KV : KVs)
+	{
+		FString K, V; if (!KV.Split(TEXT("="), &K, &V)) continue;
+		const double D = FCString::Atod(*V);
+		if (K == TEXT("RoamSpeed")) RoamSpeed = float(D);
+		else if (K == TEXT("FleeSpeed")) FleeSpeed = float(D);
+		else if (K == TEXT("BurstSpeed")) BurstSpeed = float(D);
+		else if (K == TEXT("BurstDur")) BurstDur = float(D);
+		else if (K == TEXT("BurstEvery")) BurstEvery = float(D);
+		else if (K == TEXT("FleeRadius")) FleeRadiusM = float(D);
+		else if (K == TEXT("CatchRadius")) CatchRadiusM = float(D);
+		else if (K == TEXT("MinAlt")) MinAltM = float(D);
+		else if (K == TEXT("MaxAlt")) MaxAltM = float(D);
+	}
+	UE_LOG(LogWebHomage, Display, TEXT("WH_CHASE tune: roam %.0f flee %.0f burst %.0f (%.1f s / %.1f s) radius %.0f catch %.0f"),
+		RoamSpeed, FleeSpeed, BurstSpeed, BurstDur, BurstEvery, FleeRadiusM, CatchRadiusM);
 }
 
 void AWHChaseVillain::StepBrain(float Dt)
@@ -190,15 +242,34 @@ void AWHChaseVillain::StepMove(float Dt)
 		Want = Dir * Speed * 100.0;
 	}
 
-	// ---- world guards: floor below and solids ahead (two cheap line traces; he never breaches)
+	// ---- world guards: floor below and solids ahead (two cheap line traces). Roaming he steers around; while FLEEING he
+	// punches straight through walls (breach proxies fire on the facade) -- owner request 2026-10-25.
 	FHitResult Hit;
 	const FVector Vn = VelCm.GetSafeNormal();
 	const FVector Ahead = (Vn.IsNearlyZero() ? GetActorForwardVector() : Vn) * (Speed * 100.0 * 1.5 + 20000.0);
+	BreachCd -= Dt;
 	if (W->LineTraceSingleByObjectType(Hit, PosCm, PosCm + Ahead, FCollisionObjectQueryParams(ECC_WorldStatic)))
 	{
 		const FVector N = Hit.ImpactNormal;
-		FVector Deflect = FVector::VectorPlaneProject(Want.GetSafeNormal(), N) + N * 0.8 + FVector(0, 0, 0.5);
-		Want = Deflect.GetSafeNormal() * FMath::Max(Speed, 30.0) * 100.0;
+		const bool bWall = FMath::Abs(N.Z) < 0.6;
+		if (State == EState::Flee && bWall && BreachCd <= 0.f)
+		{
+			if (!Breach.IsValid()) { TActorIterator<AWHBreachDirector> It(W); if (It) Breach = *It; }
+			if (Breach.IsValid())
+			{
+				const float Sev = float(FMath::Clamp(FVector2D(VelCm.X, VelCm.Y).Size() / 12000.0, 0.3, 1.0));
+				Breach->VillainBreach(Hit.ImpactPoint / 100.0, VelCm.GetSafeNormal(), Sev);
+				FW->PushStimulus(EWHCrowdStimulus::Impact, Hit.ImpactPoint, 6000.f, 1.f, 4.f, VelCm);
+				UE_LOG(LogWebHomage, Display, TEXT("WH_CHASE villain breach at %s sev %.2f"), *Hit.ImpactPoint.ToString(), Sev);
+				BreachCd = 0.9f;
+			}
+		}
+		if (!bWall || State != EState::Flee || BreachCd <= 0.f)
+		{
+			FVector Deflect = FVector::VectorPlaneProject(Want.GetSafeNormal(), N) + N * 0.8 + FVector(0, 0, 0.5);
+			Want = Deflect.GetSafeNormal() * FMath::Max(Speed, 30.0) * 100.0;
+		}
+		// fleeing + wall + breach just fired: keep the line (he goes through)
 	}
 	if (W->LineTraceSingleByObjectType(Hit, PosCm, PosCm - FVector(0, 0, 50000.0), FCollisionObjectQueryParams(ECC_WorldStatic))
 		&& Hit.Distance < MinAltM * 100.0 + (VelCm.Z < 0.0 ? double(-VelCm.Z) * 1.2 : 0.0))

@@ -58,6 +58,10 @@ public:
 	/** Feed this frame's flight events (metres, from UWebTraversalComponent::Events). */
 	void OnFlightEvents(const TArray<FWebTravEvent>& Events);
 
+	/** Enemy-race (owner request 2026-10-25): the fleeing villain punches through a facade -- one entry-side breach FX call
+	 *  (metres, like OnFlightEvents). The villain is kinematic and carries on through; this only fires the proxies. */
+	void VillainBreach(const FVector& PosM, const FVector& DirM, float Sev);
+
 	// critic r2 (breaches: "at least 20 debris chunks", mixed sizes): more, smaller pieces; the pool grew with them
 	UPROPERTY(EditAnywhere, Category="Destruction") int32 MaxChunks = 96;    // owner 2026-10-16 (breach lag): 240 live Chaos-simulated chunks hitched the frame
 	UPROPERTY(EditAnywhere, Category="Destruction") int32 ChunksPerBreach = 24;   // (owner 2026-10-16 breach lag; was 44)

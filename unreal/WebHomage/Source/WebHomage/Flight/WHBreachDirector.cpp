@@ -1854,3 +1854,8 @@ void AWHBreachDirector::Tick(float DeltaSeconds)
 		}
 	}
 }
+
+void AWHBreachDirector::VillainBreach(const FVector& PosM, const FVector& DirM, float Sev)
+{
+	Breach(PosM, DirM, Sev, true);
+}

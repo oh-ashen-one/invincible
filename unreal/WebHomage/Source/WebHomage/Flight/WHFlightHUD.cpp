@@ -159,6 +159,7 @@ void AWHFlightHUD::DrawChase(const UWHFlightWorldSubsystem* Sub, const FVector& 
 		const double T = Sub->ChaseCaughtT - Sub->ChaseStartT;
 		Text(FString::Printf(TEXT("GOT HIM -- %.0f s"), T), CX, CY - 40.f * K, VRed, Med, 1.0f, true);
 		Text(TEXT("villain caught"), CX, CY - 12.f * K, White, Small, 1.2f * K, true);
+		Text(TEXT("B -- chase again"), CX, CY + 8.f * K, Dim, Small, 1.1f * K, true);
 	}
 	else
 	{

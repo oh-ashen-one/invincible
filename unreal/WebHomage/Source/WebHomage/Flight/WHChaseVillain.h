@@ -31,6 +31,11 @@ public:
 
 	enum class EState : uint8 { Roam = 1, Flee = 2, Caught = 3 };
 
+	/** -WHChaseTune=Name=Value,... overrides the tunables below (same convention as -WHFlightTune). */
+	void ApplyTune(const FString& S);
+	/** B restarts the chase after a catch: he re-spawns on a fresh bearing, chase clock resets. */
+	void RestartChase(float Now);
+
 private:
 	void SetupBody();
 	void StepBrain(float Dt);
@@ -67,6 +72,9 @@ private:
 	float SpawnT = 0.f;
 	float FleeHoldT = 0.f;   // keep fleeing briefly after the hero falls out of the radius
 	float CaughtT = -1.f;
+	float BreachCd = 0.f;    // s until the next facade punch-through is allowed
+	bool bPrevB = false;     // B key last frame (restart edge)
+	TWeakObjectPtr<class AWHBreachDirector> Breach;
 
 	TObjectPtr<UAnimSequence> SeqHover;
 	TObjectPtr<UAnimSequence> SeqFly;
