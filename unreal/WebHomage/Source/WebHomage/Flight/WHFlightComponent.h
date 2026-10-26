@@ -149,11 +149,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float DiveTime = 2.2f;          // s: from higher up the acceleration grows so the floor is reached in ~this
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float DiveMaxSpeed = 600.f;     // m/s cap
 	// ---- owner feedback #3: flight-simulator feel (the plane is the hero)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FlyLatAccel = 60.f;       // m/s^2 lateral in the fly line (turn radius 50 m at 55 m/s, 427 m at 160)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float NoseLeadMaxDeg = 60.f;    // deg the nose may lead the travel heading
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float LookYawK = 1.0f;          // nose yaw per rad of horizontal look input
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float FlyLatAccel = 90.f;       // m/s^2 lateral in the fly line (turn radius 34 m at 55 m/s; owner 2026-10-25: 60 felt dead)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float NoseLeadMaxDeg = 90.f;    // deg the nose may lead the travel heading (owner: 60 ignored flicks)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float LookYawK = 1.6f;          // nose yaw per rad of horizontal look input (owner: faster mouse steering)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float LookPitchK = 1.0f;        // nose pitch per rad of vertical look input
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float StickTurnRate = 70.f;     // deg/s nose turn from stick X in the fly / super line
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float StickPitchRate = 90.f;    // deg/s nose pitch from W / S in the fly line (owner 2026-10-25: W up, S down)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float StickRollDeg = 20.f;      // deg extra roll from stick X
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float ClimbEnergyK = 1.2f;      // x g x sin(climb angle): speed lost climbing / gained diving
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Flight") float NoseBodyK = 0.2f;         // the body points this share toward the nose (angle of attack)

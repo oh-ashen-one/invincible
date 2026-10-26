@@ -734,7 +734,7 @@ void UWHFlightComponent::StepAirSub(UWebTraversalComponent& T, double H, const F
 	{ // owner feedback #3: cruise line steered by the nose with momentum (StepLine); owner feedback #1: Shift no longer ramps a boost here
 		// (the old TurnRateSlow..TurnRateFast blend and StickYawDeg aim offset are replaced by FlyLatAccel and the stick turn in StepFlight)
 		double Vt = CruiseSpeed;
-		if (I.Move.Y < -0.3) Vt *= FMath::Lerp(1.0, 0.35, FMath::Clamp((-I.Move.Y - 0.3) / 0.7, 0.0, 1.0)); // stick back = slow flight
+		// owner 2026-10-25: W / S pitch the nose in the fly line (replaces "stick back = slow flight")
 		const double V1 = StepLine(Vt, double(FlyLatAccel), double(Accel), double(Decel));
 		SetFlySub(T, V1 > SonicSpeed * 0.8 ? NF_boost : NF_fly);
 	}
@@ -955,6 +955,8 @@ void UWHFlightComponent::StepFlight(UWebTraversalComponent& T, double Dt, FWebTr
 			AimPitch = FMath::Clamp(AimPitch + I.Look.Y * double(LookPitchK), -1.35, 1.35);
 			AimYaw += I.Look.X * double(LookYawK);
 			if (SuperState != ESuper::Charge) AimYaw += FMath::DegreesToRadians(double(StickTurnRate)) * I.Move.X * Dt;
+			// owner 2026-10-25: W / S pitch the nose (AimPitch + = down, so forward input subtracts)
+			AimPitch = FMath::Clamp(AimPitch - I.Move.Y * FMath::DegreesToRadians(double(StickPitchRate)) * Dt, -1.35, 1.35);
 			if (FlHLen(S.Vel) > 8.0 && SuperState != ESuper::Charge)
 			{
 				const double VY = FMath::Atan2(S.Vel.Y, S.Vel.X);
