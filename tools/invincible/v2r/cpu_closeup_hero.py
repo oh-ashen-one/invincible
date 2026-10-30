@@ -15,6 +15,7 @@ ap.add_argument('--cams', default='tq,front'); ap.add_argument('--samples', type
 ap.add_argument('--fps', type=int, default=24); ap.add_argument('--every', type=int, default=1); ap.add_argument('--lens', type=float, default=50.0)
 ap.add_argument('--label', default='clip'); ap.add_argument('--scale', type=float, default=0.0, help='armature scale (0 = auto: 0.01 if the body is over 20 units tall)')
 ap.add_argument('--threads', type=int, default=8)
+ap.add_argument('--frame-all', action='store_true', help='frame the whole clip (bounds over every 8th frame) instead of frame 0: for clips that crouch, leap or dive')
 a = ap.parse_args(argv)
 W, H = [int(x) for x in a.size.split('x')]
 YAW = {'front': 0.0, 'tq': 40.0, 'side': 90.0, 'back': 180.0}
@@ -41,7 +42,14 @@ scale = a.scale or (0.01 if hi - lo > 20 else 1.0)
 arm.scale = (scale, scale, scale); bpy.context.view_layer.update(); lo, hi = wb()
 AW = arm.matrix_world; h = lambda n: AW @ arm.pose.bones[n].head
 fwd = h('left_foot') - h('left_ankle'); fwd.z = 0; fwd.normalize()
-pel = h('pelvis'); body_h = hi - lo
+pel = h('pelvis').copy(); body_h = hi - lo
+if a.frame_all:
+    zs, pels = [], []
+    for f in range(int(f0), int(f1) + 1, 8):
+        sc.frame_set(f); bpy.context.view_layer.update(); l_, h_ = wb(); zs += [l_, h_]; pels.append(h('pelvis').copy())
+    sc.frame_set(int(f0)); bpy.context.view_layer.update()
+    lo, hi = min(zs), max(zs); body_h = hi - lo
+    pel = sum(pels, Vector()) / len(pels); pel.z = 0.5 * (lo + hi) - 0.05 * body_h   # the clip's vertical centre; the target adds 5 % back
 # studio: grey world, soft sun + fill, floor under the lowest point of frame 0 (the hover hangs over it)
 world = bpy.data.worlds.new('w'); sc.world = world; world.use_nodes = True
 bg = next(n for n in world.node_tree.nodes if n.type == 'BACKGROUND'); bg.inputs[0].default_value = (0.42, 0.41, 0.40, 1); bg.inputs[1].default_value = 1.0
