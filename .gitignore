@@ -10,3 +10,6 @@ concepts/_tripo_next/
 
 # Blender rotating backups; editable current .blend is versioned.
 *.blend[0-9]
+
+# video2rig projects, progress page and other machine-local work (never committed)
+Local/
