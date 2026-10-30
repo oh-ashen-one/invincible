@@ -1,3 +1,29 @@
+## video2rig round with Seedance 2.5 — owner brief 2026-10-30 (branch `v2r-seedance`, in progress)
+
+Owner (relayed from the Hulk session): re-animate the hero's clips through video2rig from Seedance takes of the game's own rig so they look
+higher-quality and more fluid; "visibly better" is the only ship rule; fidelity gates prove the transfer, not the upgrade (agents-md PR #36).
+Read `docs/invincible/video2rig/SEEDANCE.md` first (rules, setup table, ledger). Tools: `tools/invincible/v2r/` (run_clip.sh pipeline,
+refine_hero.py, export_hero_clip.py with the verified 0.0 mm export -> merge -> game-rig round trip, size_gate.py, cpu_closeup_hero.py,
+take_look.py, neutral-cmdline runners). Project (gitignored): `Local/video2rig/hero/` (model.blend = hover pose base, model_stand / model_dive,
+rig/, rig-stand/, start/ hover picture, start-stand/, start-dive/ with `_line` (floor line) and `_bw` (black-and-white) variants, reader/ poses +
+renders ready, clips/, work/). Fork worktree `/Users/midir/video2rig-hero` (branch `hero-air-lockfix` = lock-feet floor fix + air key), venv
+python `/Users/midir/video2rig/.venv/bin/python`; neutral symlinks `Local/v2r-hero` and `/Users/midir/v2r-fork` keep CPU steps out of gpu_slot's
+ML census. Progress page (owner wants it visual): `Local/progress/` served on http://127.0.0.1:8810/ (`status_loop.py`, pipeline.json, media/).
+
+State at 13:25 ET 2026-10-30:
+- Takes judged USE at first look (size gate PASS, strips/sheets in `Local/video2rig/hero/work/<clip>/`): `hover_sd_v2` (colour), `landhero_sd_v2`
+  (black-and-white start+end pictures), `takeoff_sd_v1` (black-and-white). Refused by the copyright classifier: hover v1 (uncharged), landhero v1
+  (start+end variant, CHARGED). Black-and-white pictures + "black-and-white footage" prompt pass that classifier (2 of 2) where colour failed 2 of 3.
+- Credits: ONE Higgsfield pool shared with the Hulk session; 127.64 left after my 4 charged takes; one more take allowed in my split, announce first.
+- Reader: poses (3000), hidden-joint check (seen 0.93/0.91) and pose renders done; the 9000-step training (~2.5-3 h MPS) waits for the GPU turn
+  (Markhor midir-5b both readers -> Dragon midir-dd -> me; message them before launching). Then per clip: `tools/invincible/v2r/run_clip.sh
+  <project> <clipname> <Clip> --loop|--return-to-stance [--refine-args ...]` (check -> fit -> review -> import -> refine -> export -> close-up
+  sheet). Hover: `--loop`, no plant, `--xfade`; LandHero: `--return-to-stance` (defaults to the stance rig + yaw align), plant on, size gate with
+  `--start start-dive/start_line_bw.png`; Takeoff: `--return-to-stance`? no: it ends airborne, use `--refine-args "--compress-holds"` and no return.
+- Then: old-vs-new CPU close-up A/B (same camera, `cpu_closeup_hero.py` + `compose.sh pair`), ship only visibly better; merge the winners with
+  `tools/invincible/merge_hero_clips.py` (`<glb>:<Clip>_v2r_vN=A_<Clip>`, keep the other 9 clips from their current GLBs), rebuild with
+  `Scripts/import_invincible_v2.py` through gpu_slot, in-game close-up A/B (flight suite case + a close chase camera), owner playtest. No merge to main.
+
 ## Enemy-race chase mini-game — owner request 2026-10-25 (branch `enemy-race`, built)
 
 Owner asked mid-playtest: duplicate the playable hero as an AI villain with a different skin, who flies around the map
