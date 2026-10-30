@@ -114,7 +114,10 @@ class WEBHOMAGE_API UWHHeroV2AnimInstance : public UAnimInstance
 	GENERATED_BODY()
 
 public:
-	static const TCHAR* ClipRoot;   // /Game/Invincible/HeroV2/Anims
+	static const TCHAR* ClipRoot;   // /Game/Invincible/HeroV2/Anims (the shipped clip set; the default)
+	/** In-game A/B (2026-10-30): -WHHeroV2Clips=<package path> (e.g. /Game/Invincible/HeroV2R/Anims) loads each AS_<clip> from that folder
+	 *  first; a clip missing there falls back to ClipRoot. Empty (no flag, empty value, or the same folder as ClipRoot) = no override. */
+	static FString ClipRootOverride();
 	static const TCHAR* ClipAsset(EWHHeroV2Clip C);
 	static const TCHAR* StateName(EWHHeroV2State S);
 

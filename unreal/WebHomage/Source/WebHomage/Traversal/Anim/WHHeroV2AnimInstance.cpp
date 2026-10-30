@@ -20,6 +20,7 @@
 #include "HAL/PlatformTime.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
+#include "Misc/PackageName.h"
 #include "UObject/UnrealType.h"
 
 // (unity build: every helper lives in a named namespace so it cannot collide with the other traversal files' anonymous helpers)
@@ -86,6 +87,15 @@ bool FWHHeroV2AnimProxy::IsArmBone(const FName& Bone)
 }
 
 const TCHAR* UWHHeroV2AnimInstance::ClipRoot = TEXT("/Game/Invincible/HeroV2/Anims");
+
+FString UWHHeroV2AnimInstance::ClipRootOverride()
+{
+	FString R;
+	if (!FParse::Value(FCommandLine::Get(), TEXT("-WHHeroV2Clips="), R, false)) return FString();
+	R.TrimStartAndEndInline();
+	while (R.Len() > 1 && R.EndsWith(TEXT("/"))) R.LeftChopInline(1);
+	return R.Equals(ClipRoot, ESearchCase::IgnoreCase) ? FString() : R;
+}
 
 const TCHAR* UWHHeroV2AnimInstance::ClipAsset(EWHHeroV2Clip C)
 {
@@ -208,12 +218,22 @@ void UWHHeroV2AnimInstance::NativeInitializeAnimation()
 	Clips.SetNum(int32(EWHHeroV2Clip::Num));
 	const USkeletalMeshComponent* SMC = GetSkelMeshComponent();
 	const USkeletalMesh* Mesh = SMC ? SMC->GetSkeletalMeshAsset() : nullptr;
-	FString Missing, Mismatch;
-	int32 NLoaded = 0;
+	FString Missing, Mismatch, FromOverride;
+	int32 NLoaded = 0, NOverride = 0;
+	// -WHHeroV2Clips=<folder> (in-game A/B of a new clip set, 2026-10-30): each clip is looked up there first and falls back per clip to
+	// ClipRoot, so a set with only some new clips still plays the shipped ones for the rest. The shipped assets are never touched.
+	const FString Over = ClipRootOverride();
 	for (int32 C = 0; C < int32(EWHHeroV2Clip::Num); ++C)
 	{
 		const TCHAR* Nm = ClipAsset(EWHHeroV2Clip(C));
-		UAnimSequence* S = LoadObject<UAnimSequence>(nullptr, *FString::Printf(TEXT("%s/%s.%s"), ClipRoot, Nm, Nm));
+		UAnimSequence* S = nullptr;
+		if (!Over.IsEmpty())
+		{   // probe first: a plain LoadObject of a missing package logs a warning per clip; the fallback is the expected case here
+			const FString OverPath = FString::Printf(TEXT("%s/%s.%s"), *Over, Nm, Nm);
+			if (FPackageName::DoesPackageExist(FString::Printf(TEXT("%s/%s"), *Over, Nm))) S = LoadObject<UAnimSequence>(nullptr, *OverPath);
+			if (S) { ++NOverride; FromOverride += FString(FromOverride.IsEmpty() ? TEXT("") : TEXT(" ")) + Nm; }
+		}
+		if (!S) S = LoadObject<UAnimSequence>(nullptr, *FString::Printf(TEXT("%s/%s.%s"), ClipRoot, Nm, Nm));
 		Clips[C] = S;
 		if (!S) { Missing += FString(Missing.IsEmpty() ? TEXT("") : TEXT(" ")) + Nm; continue; }
 		++NLoaded;
@@ -233,8 +253,12 @@ void UWHHeroV2AnimInstance::NativeInitializeAnimation()
 	Tracks.Reset();
 	DipT = 99.f; CarryW = 0.f; bCarry = false;
 	BurstS = -1.f; BobW = 0.f; StandWant = StandNudge = FVector::ZeroVector;
+	// no override: the line is byte-identical to before; with one: "from <override> (fallback <ClipRoot>) [override K/12: AS_...]"
+	const FString RootDesc = Over.IsEmpty() ? FString(ClipRoot)
+		: FString::Printf(TEXT("%s (fallback %s) [override %d/%d: %s]"), *Over, ClipRoot, NOverride, int32(EWHHeroV2Clip::Num),
+			FromOverride.IsEmpty() ? TEXT("none") : *FromOverride);
 	UE_LOG(LogWebHomage, Display, TEXT("WH_HEROV2 anim init: %d/%d clips from %s (missing: %s; skeleton mismatch: %s), ref %s up %s fwd %s footUp %.2f height %.2f units"),
-		NLoaded, int32(EWHHeroV2Clip::Num), ClipRoot, Missing.IsEmpty() ? TEXT("none") : *Missing, Mismatch.IsEmpty() ? TEXT("none") : *Mismatch,
+		NLoaded, int32(EWHHeroV2Clip::Num), *RootDesc, Missing.IsEmpty() ? TEXT("none") : *Missing, Mismatch.IsEmpty() ? TEXT("none") : *Mismatch,
 		bRefOk ? TEXT("ok") : TEXT("MISSING BONES (no ground lock)"), *Ref.Up.ToString(), *Ref.Fwd.ToString(), Ref.RefFootUp, Ref.HeightUnits);
 }
 

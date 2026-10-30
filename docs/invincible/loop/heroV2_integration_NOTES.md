@@ -61,6 +61,7 @@ BlendDefault 0.2 · BlendToTakeoff 0.1 · BlendTakeoffOut 0.25 · BlendHoverLaun
 
 Other tunables (same flag): BoostBurstT 0.42, LandImpactT 0.37, LandDiveHoldT 0.2, TakeoffClipStart 0.5, TakeoffUnlockT 0.2, BrakeClipRate 1.4, DashRate 1.6, LaunchUpPitchDeg 60, LaunchUpBandDeg 10, UpBlendRate 5, HoverClimbVz 5, BrakeMinSpeed 8, GroundLockTau 0.06, LogMinInterval 0.05.
 Character: `-WHHeroV2=0` (off), `-WHHeroV2Height=<cm>`; config `HeroV2MaxBankDeg`, `HeroV2MaxPitchDeg`, `HeroV2YawRate`.
+Clip set (2026-10-30, in-game A/B): `-WHHeroV2Clips=<package path>` loads each `AS_<Clip>` from that folder first, per-clip fallback to `/Game/Invincible/HeroV2/Anims`; see `docs/invincible/video2rig/INGAME-AB.md`.
 
 ## Log lines
 
