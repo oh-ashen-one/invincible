@@ -62,6 +62,14 @@
 #                            and are re-measured (retime.hit in the JSON). Runs after spikes/bursts, before the return blend.
 #                            The contact spans themselves play at real speed (eased into over 3 samples), so a strike keeps its own
 #                            timing and weight while the wind-up/recovery speed up.
+#     --return-target T      (hero) with --return-to-stance: frame0 (default, the Brute: blend the end onto frame 0) or stance (blend
+#                            the end onto the --stance-rig start_pose: every bone's basis rotation + the location-keyed bones'
+#                            translation; --keep-travel still keeps the pelvis x/y). For one-shots that do NOT start in the stance,
+#                            e.g. A_LandHero (starts in a head-first dive, ends standing): frame0 would turn the standing end back into
+#                            the dive. The seam is then measured last frame -> stance; --stance-snap snaps the end lift to 0.
+#     --stance-yaw-align     (hero) with --return-target stance: first turn the stance's pelvis about world Z onto the clip end's
+#                            facing (rig-stand/rig.json faces ~30 deg off -Y; A_LandHero ends facing -Y), so the return does not
+#                            swing the whole body in the last frames. Turned angle in JSON return.stance_yaw_aligned_deg.
 #     --stance-snap N        with --return-to-stance: the return blend already makes the last pose equal frame 0 before the plant;
 #                            the toe clamp's smoothed lift could still differ at the two ends (Land: 16 mm end gap). This blends the
 #                            lift of the last N samples onto frame 0's lift (never below what the toes need), so the last frame equals
@@ -149,6 +157,8 @@ def parse():
     ap.add_argument('--max-seconds', type=float, default=0.0)
     ap.add_argument('--max-speedup', type=float, default=1.6)
     ap.add_argument('--stance-snap', type=int, default=0)
+    ap.add_argument('--return-target', choices=('frame0', 'stance'), default='frame0')
+    ap.add_argument('--stance-yaw-align', action='store_true')
     ap.add_argument('--lock-yaw', action='store_true')
     ap.add_argument('--action', default='')
     ap.add_argument('--clip', default='')
@@ -159,6 +169,10 @@ def parse():
         ap.error('--loop and --return-to-stance exclude each other')
     if (a.compress_holds or a.stance_snap) and not a.return_to_stance:
         ap.error('--compress-holds / --stance-snap need --return-to-stance')
+    if a.return_target == 'stance' and not a.return_to_stance:
+        ap.error('--return-target stance needs --return-to-stance')
+    if a.stance_yaw_align and a.return_target != 'stance':
+        ap.error('--stance-yaw-align needs --return-target stance')
     return a
 
 
@@ -288,6 +302,11 @@ def steps(ch, n, bones):
 
 def pose_dist(ch, i, j, bones):
     return float(sum(qang(ch[b]['q'][i], ch[b]['q'][j]) for b in bones))
+
+
+def pose_dist_to(ch, i, tq, bones):
+    """pose distance of sample i to a target pose {bone: quaternion} (hero: --return-target stance)"""
+    return float(sum(qang(ch[b]['q'][i], tq[b]) for b in bones))
 
 
 def resample(ch, t):
@@ -823,11 +842,29 @@ def main():
         limited = N - Wn < start_min
         if limited:
             Wn = max(2, N - start_min)
-        before = pose_dist(ch, N - 1, 0, rotb)
+        # the blend target: frame 0 (the Brute: its one-shots start in the stance), or with --return-target stance (hero) the
+        # --stance-rig start_pose (pose-basis rotations of every bone, location of every location-keyed bone)
+        tq = {b: np.array(ch[b]['q'][0]) for b in rotb}
+        tl = {b: np.array(d['l'][0]) for b, d in ch.items() if 'l' in d}
+        if a.return_target == 'stance':
+            assert st, '--return-target stance: no start_pose in --stance-rig %s' % a.stance_rig
+            miss = [b for b in rotb if b not in st]
+            assert not miss, '--return-target stance: stance rig lacks bones %s' % miss[:8]
+            tq = {b: np.array(list(Matrix(st[b]).to_quaternion())) for b in rotb}
+            tl = {b: np.array(list(Matrix(st[b]).to_translation())) for b in tl}
+        Bq_ = arm.matrix_world.to_quaternion() @ arm.data.bones[root].matrix_local.to_quaternion()
+        Fw_ = arm.matrix_world.to_quaternion() @ facing_axis(src)[0]
+        yw_ = root_yaw(np.array([ch[root]['q'][N - 1], tq[root]]), Bq_, Fw_)
+        yaw_aligned = None
+        if a.stance_yaw_align:   # turn the stance's root about world Z onto the clip end's facing (its body-relative pose is kept)
+            dyw = float(yw_[0] - yw_[1])
+            tq[root] = np.array(list(Bq_.inverted() @ Quaternion((0, 0, 1), dyw) @ Bq_ @ Quaternion(tq[root])))
+            yaw_aligned = r3(math.degrees(dyw))
+        before = pose_dist_to(ch, N - 1, tq, rotb)
         for b in rotb:
             q = ch[b]['q']
             for j in range(N - Wn, N):
-                q[j] = nlerp(q[j], q[0], sstep((j - (N - Wn) + 1) / Wn))
+                q[j] = nlerp(q[j], tq[b], sstep((j - (N - Wn) + 1) / Wn))
             ch[b]['q'] = fix_hemi(q)
         Rr = arm.data.bones[root].matrix_local.to_3x3()      # root location keys are in the rest bone's axes; travel = armature x/y
         for b, d in ch.items():
@@ -836,13 +873,17 @@ def main():
             for j in range(N - Wn, N):
                 s = sstep((j - (N - Wn) + 1) / Wn)
                 if a.keep_travel and b == root:
-                    lj, l0 = Rr @ Vector(d['l'][j]), Rr @ Vector(d['l'][0])
+                    lj, l0 = Rr @ Vector(d['l'][j]), Rr @ Vector(tl[b])
                     t = Vector((lj.x, lj.y, (1 - s) * lj.z + s * l0.z))
                     d['l'][j] = list(Rr.inverted() @ t)
                 else:
-                    d['l'][j] = (1 - s) * d['l'][j] + s * d['l'][0]
+                    d['l'][j] = (1 - s) * d['l'][j] + s * tl[b]
         blend_win = set(range(N - Wn, N))
-        REP['return'] = dict(frames=Wn, seconds=r3(Wn / sr), limited_by_hand_peak=limited, hand_peak_sample=hp, end_vs_start_rad_before=r3(before), end_vs_start_rad_after=r3(pose_dist(ch, N - 1, 0, rotb)))
+        REP['return'] = dict(frames=Wn, seconds=r3(Wn / sr), limited_by_hand_peak=limited, hand_peak_sample=hp, target=a.return_target,
+                             end_vs_start_rad_before=r3(before), end_vs_start_rad_after=r3(pose_dist_to(ch, N - 1, tq, rotb)),
+                             end_vs_frame0_rad_after=r3(pose_dist(ch, N - 1, 0, rotb)),
+                             root_yaw_end_to_target_deg=r3(math.degrees(yw_[1] - yw_[0])), stance_yaw_aligned_deg=yaw_aligned,
+                             note='end_vs_start_* are measured against the blend target (frame 0, or the stance rig with --return-target stance)')
         print('REFINE return', json.dumps(REP['return']))
 
     grid = grid0[:N]
@@ -995,7 +1036,7 @@ def main():
                 l_ = lifts[s]; before_ = float(l_[N - 1] - l_[0])
                 for j in range(N - nS, N):
                     sw = sstep((j - (N - nS) + 1) / nS)
-                    l_[j] = max(need[j], (1 - sw) * l_[j] + sw * l_[0])
+                    l_[j] = max(need[j], (1 - sw) * l_[j] + sw * (0.0 if a.return_target == 'stance' else l_[0]))   # stance: its own pose, no lift
                 feet_rep.setdefault('stance_snap', {})[s] = dict(samples=nS, end_minus_start_lift_mm_before=r3(before_ * 1000),
                                                                  after=r3((l_[N - 1] - l_[0]) * 1000))
         if any(l_.max() > 1e-6 for l_ in lifts.values()):
@@ -1032,8 +1073,12 @@ def main():
         seam = pose_dist(chf, N - 2, 0, rotb) / medf
         seam_def = 'loop: last distinct frame (N-2) -> frame 0 / median step; end frame equals frame 0: %s' % dup
     else:
-        seam = pose_dist(chf, N - 1, 0, rotb) / medf
-        seam_def = 'one-shot: last frame -> frame 0 / median step'
+        if a.return_target == 'stance':
+            seam = pose_dist_to(chf, N - 1, tq, rotb) / medf
+            seam_def = 'one-shot, --return-target stance: last frame -> the stance rig start_pose / median step'
+        else:
+            seam = pose_dist(chf, N - 1, 0, rotb) / medf
+            seam_def = 'one-shot: last frame -> frame 0 / median step'
     # untouched arms: every arm-bone rotation equals the pre-plant channels (plant touches legs only); and the pre-plant channels equal
     # the raw fit outside spike frames and the loop/return blend window
     arm_vs_pre = max((math.degrees(qang(chf[b]['q'][i], ch_pre[b]['q'][i])) for b in armb for i in range(N)), default=0.0)
@@ -1043,6 +1088,12 @@ def main():
     head_dev = {b: r3(max(math.degrees(qang(chf[b]['q'][i], chf[b]['q'][0])) for i in range(N))) for b in (L.NECK, L.HEAD) if b in chf}
     if not a.no_plant:
         feet_rep['drift_mm_final'] = drift(fr_fin)
+        # hero report: how far the soles sit from the floor while planted (lowest foot-region vertex, after the plant + clamp), mm
+        feet_rep['plant_sole_mm'] = {s: [dict(samples=[int(a_), int(b_)], min=r3((fh_fin[s]['foot'][a_:b_ + 1].min() - a.floor) * 1000),
+                                              max=r3((fh_fin[s]['foot'][a_:b_ + 1].max() - a.floor) * 1000))
+                                         for g in groups[s] for a_, b_ in g] for s in SIDES}
+        feet_rep['last_sample_sole_mm'] = {s: r3((fh_fin[s]['foot'][N - 1] - a.floor) * 1000) for s in SIDES}
+        print('REFINE plant soles (mm above floor, min/max per plant)', json.dumps(feet_rep['plant_sole_mm']), 'last sample', json.dumps(feet_rep['last_sample_sole_mm']))
     drift_after = max((v for s in SIDES for v in feet_rep.get('drift_mm_final', {}).get(s, {}).values()), default=float('nan'))
     if st:
         R.set_frame(grid[0]); V0f = R.mesh_world(mesh)
