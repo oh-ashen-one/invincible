@@ -32,6 +32,7 @@
 #                  warnings, outline) come from work/<clipname>/pipeline.state, else from check.json / report.json.
 #                  --from refine / export / sheet / log reuse the newest <Clip>_v2r_v<N>.blend; `import` always writes the next number.
 #   --to <step>    stop after a step (testing)
+#   --size-start P  start picture for the size gate when the clip did not start from start/start.png (LandHero: start-dive/start_line_bw.png)
 #   --no-size-gate skip step 0 (tools/invincible/v2r/size_gate.py, limit 1.3x; a clip failing it is regenerated, never fitted)
 #   --*-args "..." extra arguments passed through to `video2rig run`, refine_hero.py or export_hero_clip.py (e.g. --refine-args "--xfade 12")
 #
@@ -281,7 +282,7 @@ EOF
 usage() { sed -n '3,/^# Gates/p' "$0" | sed '$d' | sed 's/^# \{0,1\}//'; exit 2; }
 [ "${1:-}" = --selftest ] && selftest
 PROJ=''; CLIPNAME=''; CLIP=''; MODE=''; FORK=$DEFAULT_FORK; OUT_DIR=''; V2RPROJ=''; MODEL_BLEND=''; STANCE_RIG=''; STANCE_GIVEN=0
-FROM=''; TO=log; PY=''; SIZE_GATE=1; RUN_ARGS=''; REFINE_ARGS=''; EXPORT_ARGS=''; PLANT=0; FRAME0_RETURN=0; PLANT_TOL=''
+FROM=''; TO=log; PY=''; SIZE_GATE=1; SIZE_START=''; RUN_ARGS=''; REFINE_ARGS=''; EXPORT_ARGS=''; PLANT=0; FRAME0_RETURN=0; PLANT_TOL=''
 pos=0; P1=''; P2=''; P3=''
 while [ $# -gt 0 ]; do
   case $1 in
@@ -299,6 +300,7 @@ while [ $# -gt 0 ]; do
     --to) TO=${2:?--to needs a step}; shift ;;
     --python) PY=${2:?--python needs a path}; shift ;;
     --no-size-gate) SIZE_GATE=0 ;;
+    --size-start) SIZE_START=${2:?--size-start needs a png}; shift ;;
     --run-args) RUN_ARGS=${2-}; shift ;;
     --refine-args) REFINE_ARGS=${2-}; shift ;;
     --export-args) EXPORT_ARGS=${2-}; shift ;;
@@ -417,7 +419,7 @@ hdr() { N=$((N + 1)); say "step $1: $2"; }
 if step_on size; then
   hdr size "size_gate.py (limit ${SIZE_MAX}x)"
   L=$WORK/size.log
-  ( cd "$FORK" && V2R_HOME="$FORK" "$PY" "$HERE/size_gate.py" "$V2RPROJ" "$CLIPNAME" --max "$SIZE_MAX" ) > "$L" 2>&1; rc=$?
+  ( cd "$FORK" && V2R_HOME="$FORK" "$PY" "$HERE/size_gate.py" "$V2RPROJ" "$CLIPNAME" --max "$SIZE_MAX" ${SIZE_START:+--start "$SIZE_START"} ) > "$L" 2>&1; rc=$?
   parse_size "$L" || stop_err size 'no SIZE_GATE line' "$L"
   if [ "$SIZE_RESULT" = FAIL ] || [ $rc -eq 1 ]; then
     why=$(grep -m1 -E '^  FAIL' "$L" | sed -E 's/^  FAIL: *//' | cut -c1-240)
