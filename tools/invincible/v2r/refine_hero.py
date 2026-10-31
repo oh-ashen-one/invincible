@@ -90,6 +90,8 @@
 #                            HOVER pose Local/video2rig/hero/rig/rig.json, the standing stance is rig-stand/rig.json
 #     --root-dz U            (2026-10-31) shift every root location key by U ARMATURE units up (armature space) before anything else:
 #                            a fit from a project whose model sits at another height over its floor (hero-dive) onto the game floor.
+#     --smooth S             (2026-10-31) Gaussian low-pass over every rotation and the root location, sigma S samples (1.0 for
+#                            the fit's frame-to-frame jitter; 0 = off), before everything else after --root-dz.
 # Writes <out>.blend and <out>.json; prints
 #   REFINE_GATE <clip> seam x.xx foot_drift_mm X toe_min_mm X peakhand_L f peakhand_R f [yaw_locked D]   (D only with --lock-yaw)
 #   seam  = rotation step across the loop wrap / median step (loop: last DISTINCT frame -> frame 0, the end frame equals frame 0 as in
@@ -167,6 +169,7 @@ def parse():
     ap.add_argument('--out', default='')
     ap.add_argument('--stance-rig', default=STANCE_RIG)
     ap.add_argument('--root-dz', type=float, default=0.0)
+    ap.add_argument('--smooth', type=float, default=0.0)
     a = ap.parse_args(argv)
     if a.loop and a.return_to_stance:
         ap.error('--loop and --return-to-stance exclude each other')
@@ -492,6 +495,26 @@ def main():
         write_channels(arm, act, ch0, grid0)
         REP['root_dz'] = dict(armature_units=a.root_dz, metres=r3(a.root_dz * arm.matrix_world.to_scale().z))
         print('REFINE root_dz', json.dumps(REP['root_dz']))
+    # ---------- temporal low-pass (--smooth SIGMA, in samples): the fit's frame-to-frame noise (2026-10-31 Hover: trunk and legs
+    #           alternating 0.3 / 2.8 deg per sample at samples 34-42 and 88-96, read by the blind critic as a stutter) is a Gaussian
+    #           away from real motion: sigma 1.0 keeps 97 % of a 1 Hz swing at 24 /s and removes ~70 % of a 6 Hz wobble and all
+    #           of a 12 Hz one. Quaternions on one hemisphere, filtered per component, renormalised; root location filtered too.
+    if a.smooth > 0:
+        hw = max(2, int(math.ceil(3 * a.smooth)))
+        before = {}
+        for b_, d_ in ch0.items():
+            if 'q' in d_:
+                qv = fix_hemi(np.asarray(d_['q'], float))
+                before[b_] = qv.copy()
+                qs = np.stack([gauss1d(qv[:, k], a.smooth, hw) for k in range(4)], 1)
+                d_['q'] = qs / np.linalg.norm(qs, axis=1, keepdims=True)
+            if 'l' in d_:
+                lv = np.asarray(d_['l'], float)
+                d_['l'] = np.stack([gauss1d(lv[:, k], a.smooth, hw) for k in range(3)], 1)
+        write_channels(arm, act, ch0, grid0)
+        mx = max((max(qang(before[b_][i], ch0[b_]['q'][i]) for i in range(N0)), b_) for b_ in before)
+        REP['smooth'] = dict(sigma_samples=a.smooth, half_width=hw, max_change_deg=r3(math.degrees(mx[0])), bone=mx[1])
+        print('REFINE smooth', json.dumps(REP['smooth']))
     # ---------- 0. yaw lock (one-shots whose take turns the whole body, e.g. Seedance punches): the root's world yaw relative to frame 0
     #           is removed from every sample (basis q' = Bq^-1 Rz(-dyaw) Bq q); children are parent-relative, so the limbs keep their
     #           body-relative motion. Done on the fit channels before everything else: the raw hand peaks, holds and contact windows are

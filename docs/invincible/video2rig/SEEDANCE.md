@@ -59,7 +59,7 @@ Credits are ONE Higgsfield pool shared with the Hulk session (midir-60, 2026-10-
 
 | clip | project | check (body miss, fail > 1.5 %) | fit px | refine | export gate | close-up A/B | ship |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Hover hover_sd_v2 (`--loop --refine-args '--xfade 12'`) | `hero` (hover rig + start) | 0.43 % PASS | 2.48 (1 warning), outline 0.879 / 0.873 | seam 2.30 | 0.0006 mm PASS | pending (blind pack `Local/video2rig/hero/ab/hover/`, old re-rendered with the same script and camera) | pending |
+| Hover hover_sd_v2 (`--loop --refine-args '--xfade 12 --smooth 1.0'`) | `hero` (hover rig + start) | 0.43 % PASS | 2.48 (1 warning), outline 0.879 / 0.873 | v1 seam 2.30; v2 with `--smooth 1.0` seam 0.83, 5.0 s loop (max smoothing change 1.1 deg, spine2) | 0.0006 mm PASS | CPU close-up, old re-rendered with the same script/camera, sides drawn at random, Sonnet critics (owner 02:15: lean subagents). Round 1 (unsmoothed): NEW wins, slight: reads as floating vs the old near-static standing pose; stutter at samples 35-46 (fit noise in spine2/neck/legs, 0.3 vs 2.8 deg per sample, no 4-frame cadence) -> refine `--smooth`. Round 2 (smoothed): NEW wins, slight: weighted rise and fall, boots lift, shadow breathes; left: mild zigzag 35-44, slow points at the top (22-26) and bottom (52-55) of the bob, arms nearly static (as in the old). Packs `Local/video2rig/hero/ab/hover*/`, keys beside them | CANDIDATE: in-game close-up A/B decides (GPU turn) |
 | LandHero landhero_sd_v2 | `hero` (first run) | 1.86 % FAIL, frame-0 outline 0.40 | - | - | - | - | - |
 | Takeoff takeoff_sd_v1 | `hero` (first run) | 3.51 % FAIL, frame-0 outline 0.42 | - | - | - | - | - |
 
