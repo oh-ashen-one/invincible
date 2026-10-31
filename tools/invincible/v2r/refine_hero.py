@@ -88,6 +88,8 @@
 #     --action NAME --clip NAME --out PATH.blend   (defaults: active action; clip = action name; <fit>_refined.blend beside input)
 #     --stance-rig rig.json  the project rig.json whose start_pose is the start-picture stance (overlap check); default the
 #                            HOVER pose Local/video2rig/hero/rig/rig.json, the standing stance is rig-stand/rig.json
+#     --root-dz U            (2026-10-31) shift every root location key by U ARMATURE units up (armature space) before anything else:
+#                            a fit from a project whose model sits at another height over its floor (hero-dive) onto the game floor.
 # Writes <out>.blend and <out>.json; prints
 #   REFINE_GATE <clip> seam x.xx foot_drift_mm X toe_min_mm X peakhand_L f peakhand_R f [yaw_locked D]   (D only with --lock-yaw)
 #   seam  = rotation step across the loop wrap / median step (loop: last DISTINCT frame -> frame 0, the end frame equals frame 0 as in
@@ -164,6 +166,7 @@ def parse():
     ap.add_argument('--clip', default='')
     ap.add_argument('--out', default='')
     ap.add_argument('--stance-rig', default=STANCE_RIG)
+    ap.add_argument('--root-dz', type=float, default=0.0)
     a = ap.parse_args(argv)
     if a.loop and a.return_to_stance:
         ap.error('--loop and --return-to-stance exclude each other')
@@ -475,6 +478,20 @@ def main():
         REP['window'] = dict(samples=[wa, wb], seconds=[r3(wa / sr), r3(wb / sr)], kept=N0)
         REP['grid']['samples'] = N0; REP['grid']['seconds'] = (N0 - 1) / sr
         print('REFINE window', json.dumps(REP['window']))
+    # ---------- root height shift (--root-dz, ARMATURE units, +z up): a fit made in a project whose model sits at another height
+    #           over its floor (hero-dive: the dive picture is 1.2 m over the floor line, the game's LandHero start 0.55 m) lands on that
+    #           project's floor in armature space; this moves every root location key by dz in armature space so the landing meets the
+    #           game's floor. Done first, so refine's floor/plant logic runs on the shifted motion (pass --floor dz*scale in metres when the
+    #           model's own floor is world 0). The root has no parent: armature delta = rest3x3 @ basis delta.
+    if a.root_dz:
+        rb = L.ROOT
+        assert arm.data.bones[rb].parent is None, '--root-dz: root %s has a parent' % rb
+        assert rb in ch0 and 'l' in ch0[rb], '--root-dz: no %s location keys in the fit' % rb
+        d = arm.data.bones[rb].matrix_local.to_3x3().inverted() @ Vector((0.0, 0.0, a.root_dz))
+        ch0[rb]['l'] = np.asarray(ch0[rb]['l'], float) + np.array(list(d))
+        write_channels(arm, act, ch0, grid0)
+        REP['root_dz'] = dict(armature_units=a.root_dz, metres=r3(a.root_dz * arm.matrix_world.to_scale().z))
+        print('REFINE root_dz', json.dumps(REP['root_dz']))
     # ---------- 0. yaw lock (one-shots whose take turns the whole body, e.g. Seedance punches): the root's world yaw relative to frame 0
     #           is removed from every sample (basis q' = Bq^-1 Rz(-dyaw) Bq q); children are parent-relative, so the limbs keep their
     #           body-relative motion. Done on the fit channels before everything else: the raw hand peaks, holds and contact windows are

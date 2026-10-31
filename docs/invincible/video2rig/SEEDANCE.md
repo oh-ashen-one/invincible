@@ -48,3 +48,26 @@ Credits are ONE Higgsfield pool shared with the Hulk session (midir-60, 2026-10-
 | (landhero_sd_v2 result) | a5690464 | 35 | PASSED moderation in black-and-white (the suit reads grey/white; silhouettes intact). Size gate PASS 1.20 against the dive picture (the default compares with start/start.png = the hover picture and warns, use `--start start-dive/start_line_bw.png`). First look: drops head-first, swings the legs under by 0.4 s, lands at ~0.5 s in a deep three-point crouch (knee down, fist back, arm swept out), holds 1.0-2.0 s with the weight settling, pushes up 2.3-2.9 s, stands in the wide stance by 3.0 s and holds it to the end matching the end picture; both panels in sync; no drift. Faster impact than prompted (0.5 s vs 1.0 s): fine, the game measures the impact from the clip. Beside the old Meshy landing (crouch floats 0.3-0.5 m, stiff hold) this is visibly better. Director: USE. Fit with the reader, refine `--return-to-stance --return-target stance --stance-yaw-align --stance-rig rig-stand/rig.json`, plant on. | pending reader | | | |
 | takeoff_sd_v1 | 185e8f18 | 35 (pending) | take 4 of my split; start = the black-and-white standing picture (media 90f43b00, start_image only), prompt prompts/takeoff_sd_v1.txt: deep crouch, explode straight up, float half a body height up with fists overhead to the end (the game hands off to LaunchUp). | | | | |
 | (takeoff_sd_v1 result) | 185e8f18 | 35 | PASSED moderation (b/w: 2 of 2 passed; colour: 1 of 3). Size gate PASS 1.09 (vs the b/w standing picture). First look: wide stance -> deep crouch with the arms swinging back 0.4-1.5 s (longer than asked, a hold at 1.0-1.5 s), explosive extension to fists-overhead between 1.5 and 2.0 s, then he hangs vertical with the fists up to the end, only ~0.15 body heights off the floor (the prompt asked half a height; in game the flight physics carries the rise, the clip only needs the push-off and the reach). No turning, panels in sync, sharp. Director: USE, fit with --compress-holds (the crouch hold) and --no-plant after the push-off; judge beside the old Meshy takeoff on the close-up. My charged count: 4. | pending reader | | | |
+
+## Reader
+
+| reader | poses | steps | train | held-out median px front / side (p90) | notes |
+| --- | --- | --- | --- | --- | --- |
+| hero (hover base, air key: alt_rig rig-stand 0.35, jump_share 0.6, jump_max 1.0) | 3000, seen 0.93/0.91 | 9000 | 7436 s MPS (18:10-20:14 ET, alone on the GPU; pose renders EEVEE 247 s) | 2.15 / 2.29 (8.6 / 9.0); off-bone points 2.74 / 2.88 | `Local/video2rig/hero/reader/reader.pt`; one reader for standing, hovering and lifted poses |
+
+## Fits (CPU, V2R_DEVICE=cpu, `tools/invincible/v2r/run_clip.sh`)
+
+| clip | project | check (body miss, fail > 1.5 %) | fit px | refine | export gate | close-up A/B | ship |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Hover hover_sd_v2 (`--loop --refine-args '--xfade 12'`) | `hero` (hover rig + start) | 0.43 % PASS | 2.48 (1 warning), outline 0.879 / 0.873 | seam 2.30 | 0.0006 mm PASS | pending (blind pack `Local/video2rig/hero/ab/hover/`, old re-rendered with the same script and camera) | pending |
+| LandHero landhero_sd_v2 | `hero` (first run) | 1.86 % FAIL, frame-0 outline 0.40 | - | - | - | - | - |
+| Takeoff takeoff_sd_v1 | `hero` (first run) | 3.51 % FAIL, frame-0 outline 0.42 | - | - | - | - | - |
+
+Why LandHero and Takeoff failed the first check: `video2rig check` aligns each panel camera by fitting the project's START POSE to frame 0 (creature.py `_load`, `clip.align`). In the `hero` project the start pose is the hover pose, so for clips made from the dive and the standing pictures the cameras were aligned to the wrong silhouette (frame-0 outline 0.40 / 0.42; a clip from its own start picture reads 0.85+). Misaligned cameras inflate the panel disagreement. Fix (2026-10-31): sibling projects that share the trained reader and clips but carry their own rig, start pictures and floor:
+
+| project | rig (start pose) | start pictures | floor (armature units) | model for import |
+| --- | --- | --- | --- | --- |
+| `Local/video2rig/hero-dive` (neutral path `Local/v2r-dive`) | `rig-dive` (exported 2026-10-31 from `model_dive.blend`, A_LandHero frame 0) | `start-dive/` | -153.556 | `model_dive.blend` |
+| `Local/video2rig/hero-stand` (neutral path `Local/v2r-stand`) | `rig-stand` | `start-stand/` | -88.785 | `model_stand.blend` |
+
+Root heights: every model is the same armature moved up or down as an object (`build_info*.json` `armature_location`), so a fit's root keys are in that model's armature space and its floor value is the floor in that space. The game's floor for a standing pose is -88.785 (the stand model). A LandHero fit in `hero-dive` lands on -153.556, 0.65 m lower: before export its root needs +64.77 units in z (or the dive model rebuilt on the game floor), or the landing sinks into the ground. Checked before anything ships.
