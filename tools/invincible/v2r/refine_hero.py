@@ -92,6 +92,8 @@
 #                            a fit from a project whose model sits at another height over its floor (hero-dive) onto the game floor.
 #     --smooth S             (2026-10-31) Gaussian low-pass over every rotation and the root location, sigma S samples (1.0 for
 #                            the fit's frame-to-frame jitter; 0 = off), before everything else after --root-dz.
+#     --even-pace W          (2026-10-31) re-time samples a share W (0..1) of the way toward constant motion speed (shorter dead
+#                            holds, eased fast spans); ends fixed, same length. After --smooth.
 # Writes <out>.blend and <out>.json; prints
 #   REFINE_GATE <clip> seam x.xx foot_drift_mm X toe_min_mm X peakhand_L f peakhand_R f [yaw_locked D]   (D only with --lock-yaw)
 #   seam  = rotation step across the loop wrap / median step (loop: last DISTINCT frame -> frame 0, the end frame equals frame 0 as in
@@ -170,6 +172,7 @@ def parse():
     ap.add_argument('--stance-rig', default=STANCE_RIG)
     ap.add_argument('--root-dz', type=float, default=0.0)
     ap.add_argument('--smooth', type=float, default=0.0)
+    ap.add_argument('--even-pace', type=float, default=0.0)
     a = ap.parse_args(argv)
     if a.loop and a.return_to_stance:
         ap.error('--loop and --return-to-stance exclude each other')
@@ -515,6 +518,43 @@ def main():
         mx = max((max(qang(before[b_][i], ch0[b_]['q'][i]) for i in range(N0)), b_) for b_ in before)
         REP['smooth'] = dict(sigma_samples=a.smooth, half_width=hw, max_change_deg=r3(math.degrees(mx[0])), bone=mx[1])
         print('REFINE smooth', json.dumps(REP['smooth']))
+    # ---------- pace evening (--even-pace W, 0..1): the blind critic's Hover round 3 (2026-10-31) read the new hover as "lurches with
+    #           dead pauses": Seedance's rise and settle has near-frozen spans (0.06 vs 1.3 per frame) between constant-speed ones. Re-time
+    #           the samples part of the way toward constant motion speed: source position u(k) = (1-W) k + W s^-1(k), s = cumulative
+    #           motion (summed non-finger bone turn + 8 x root travel in metres, floored at 15 % of the median step so holds keep a little time).
+    #           Ends fixed (u(0) = 0, u(N-1) = N-1); quaternions nlerped and locations lerped at fractional u. Same samples, same seconds.
+    if a.even_pace > 0:
+        FING = ('thumb', 'index', 'middle', 'ring', 'pinky', 'finger')   # finger noise reads as motion while the body hangs still
+        names_q = [b_ for b_ in ch0 if 'q' in ch0[b_] and not any(t in b_.lower() for t in FING)]
+        step = np.zeros(N0 - 1)
+        for b_ in names_q:
+            qv = fix_hemi(np.asarray(ch0[b_]['q'], float)); ch0[b_]['q'] = qv
+            step += 2 * np.arccos(np.clip(np.abs((qv[1:] * qv[:-1]).sum(1)), 0, 1))
+        rb = L.ROOT
+        if rb in ch0 and 'l' in ch0[rb]:
+            lv = np.asarray(ch0[rb]['l'], float)
+            step += 8.0 * np.linalg.norm(np.diff(lv, axis=0), axis=1) * arm.matrix_world.to_scale().z   # metres of root travel x 8 (the whole body moving)
+        step = np.maximum(step, 0.15 * np.median(step))
+        cum = np.concatenate([[0.0], np.cumsum(step)]); cum = cum / cum[-1] * (N0 - 1)
+        k = np.arange(N0, dtype=float)
+        inv = np.interp(k, cum, k)                       # source position whose cumulative motion is k
+        u = (1 - a.even_pace) * k + a.even_pace * inv; u[0], u[-1] = 0.0, N0 - 1.0
+        i0 = np.clip(np.floor(u).astype(int), 0, N0 - 1); i1 = np.minimum(i0 + 1, N0 - 1); w = u - i0
+        for b_, d_ in ch0.items():
+            if 'q' in d_:
+                qv = fix_hemi(np.asarray(d_['q'], float))
+                d_['q'] = np.array([nlerp(qv[i0[j]], qv[i1[j]], w[j]) for j in range(N0)])
+            if 'l' in d_:
+                lv = np.asarray(d_['l'], float)
+                d_['l'] = lv[i0] * (1 - w)[:, None] + lv[i1] * w[:, None]
+        write_channels(arm, act, ch0, grid0)
+        sp_after = np.zeros(N0 - 1)
+        for b_ in names_q:
+            qv = np.asarray(ch0[b_]['q']); sp_after += 2 * np.arccos(np.clip(np.abs((qv[1:] * qv[:-1]).sum(1)), 0, 1))
+        REP['even_pace'] = dict(weight=a.even_pace, max_shift_samples=r3(np.abs(u - k).max()),
+                                speed_p10_over_median_before=r3(np.percentile(step, 10) / np.median(step)),
+                                speed_p10_over_median_after=r3(np.percentile(sp_after, 10) / np.median(sp_after)))
+        print('REFINE even_pace', json.dumps(REP['even_pace']))
     # ---------- 0. yaw lock (one-shots whose take turns the whole body, e.g. Seedance punches): the root's world yaw relative to frame 0
     #           is removed from every sample (basis q' = Bq^-1 Rz(-dyaw) Bq q); children are parent-relative, so the limbs keep their
     #           body-relative motion. Done on the fit channels before everything else: the raw hand peaks, holds and contact windows are
