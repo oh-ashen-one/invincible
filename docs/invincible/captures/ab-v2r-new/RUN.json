@@ -1,0 +1,22 @@
+{
+ "tag": "ab-v2r-new",
+ "mode": "render-1080p-fixed60",
+ "source_head": "69d564e8",
+ "source_dirty": false,
+ "map": "/Game/Showcase/Maps/Manhattan_Island",
+ "game_args": [
+  "-WHHeroV2Clips=/Game/Invincible/HeroV2R/Anims"
+ ],
+ "cases": [
+  {
+   "case": "fl11_slam_crater",
+   "rc": 0,
+   "wall_s": 122.7,
+   "rows": 719,
+   "frames_rendered": 811,
+   "preroll_cut": 92,
+   "frames_kept": 421,
+   "mp4_mb": 5.0
+  }
+ ]
+}

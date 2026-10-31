@@ -1,4 +1,4 @@
-## video2rig round with Seedance 2.5 — owner brief 2026-10-30 (branch `v2r-seedance`, CPU A/B done, in-game A/B pending)
+## video2rig round with Seedance 2.5 — owner brief 2026-10-30 (branch `v2r-seedance`, STOPPED: in-game A/B tie, nothing shipped)
 
 Owner (relayed from the Hulk session): re-animate the hero's clips through video2rig from Seedance takes of the game's own rig so they look
 higher-quality and more fluid; "visibly better" is the only ship rule; fidelity gates prove the transfer, not the upgrade (agents-md PR #36).
@@ -23,10 +23,10 @@ State at 02:50 ET 2026-10-31 (verified; details and every number in SEEDANCE.md)
   Hover (`--loop --xfade 12 --smooth 1.0 --even-pace 0.6`) new wins slight; LandHero v1 (hero-dive) new > v2 > old, old clearly last;
   Takeoff v2 (hero-stand, `--window 38 80` = 1.2 s for the game's TakeoffRate 1.5 / no-plant timing) new wins slight.
 - Combined GLB built: `unreal/WebHomage/Saved/P2Build/invincible/SK_InvincibleV2R.glb` (A_Hover, A_LandHero, A_Takeoff), MAKE_V2R_GLB_OK.
-- Next (needs a GPU turn from the Hulk session midir-60, asked 02:48): `docs/invincible/video2rig/INGAME-AB.md` step 2 import into
-  /Game/Invincible/HeroV2R/Anims, then in-game close-up captures with and without `-WHHeroV2Clips=/Game/Invincible/HeroV2R/Anims`, blind
-  critique (Opus for the final call), ship only "visibly better". Disk: 16 GB free on the data volume at 02:45: do not start captures under
-  15 GB; freeing space is the owner's call. No merge to main.
+- In-game A/B done 03:38-04:00 (import via gpu_slot, fl01 + fl11 new/old, default camera; the close chase loses the hero): Opus critic
+  TIE on both pairs -> nothing ships; stopped per the flat-round rule (see `docs/invincible/captures/ab-v2r-new/CRITIC.md`). The new
+  landing's in-game hip-high leg swing in the stand-up is NOT in the exported clip (feet on the floor throughout): look at how
+  `WHHeroV2AnimInstance` cuts LandHero into the next state before re-running. The v2r assets stay in their own folder; shipped clips untouched.
 - Credits: no new takes this session; my charged total stays 4 (one shared pool with the Hulk session).
 
 ## Enemy-race chase mini-game — owner request 2026-10-25 (branch `enemy-race`, built)

@@ -1,0 +1,20 @@
+{
+ "tag": "ab-v2r-old",
+ "mode": "render-1080p-fixed60",
+ "source_head": "69d564e8",
+ "source_dirty": false,
+ "map": "/Game/Showcase/Maps/Manhattan_Island",
+ "game_args": [],
+ "cases": [
+  {
+   "case": "fl11_slam_crater",
+   "rc": 0,
+   "wall_s": 118.6,
+   "rows": 719,
+   "frames_rendered": 811,
+   "preroll_cut": 92,
+   "frames_kept": 421,
+   "mp4_mb": 4.84
+  }
+ ]
+}

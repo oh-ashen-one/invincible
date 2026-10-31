@@ -94,3 +94,13 @@ In-game step (2026-10-31 02:44-03:00). Import: `INGAME-AB.md` step 2 through gpu
 | ChaseFbMin=0.85,ChaseFbMax=0.95 | 2.96 | FAIL (69 / 19): the close chase loses the hero when he rises |
 
 So the rendered in-game pair uses the default camera (hero always in view); the close-up quality call stays with the matched CPU renders above, and the in-game pair checks the clips in context (blends, timing, contact). Rendered runs wait for the Hulk session's "GPU done"; disk floor 15 GB (16 GB free).
+
+## In-game result (2026-10-31 03:38-04:00): TIE on both pairs, nothing ships, stopped per the flat-round rule
+
+Rendered fl01 + fl11, new and old, default camera, all 4 cases PASS the suite gates, disk stayed at 18 GB (Hulk freed scratch first).
+Opus critic on the blind pack: takeoff-hover TIE, slam-landing TIE (`docs/invincible/captures/ab-v2r-new/CRITIC.md`). The new landing's
+dive and three-point landing beat the old, but an in-game hip-high leg swing in the stand-up cancels it; the exported clip has no such
+swing (feet on the floor throughout), so it is a playback/blend issue in the game. fl01 never shows the ground takeoff, and the new hover
+reads stiffer in game than in the CPU close-ups. Next (owner decision): (1) read how `WHHeroV2AnimInstance` cuts LandHero into the next
+state (and its hover playback) and fix the blend or shorten the new clip's hold; (2) a capture case that starts on the ground for Takeoff;
+(3) re-run the in-game pair. Spend this session: 0 credits.

@@ -1,0 +1,96 @@
+{
+ "fl11_slam_crater": {
+  "checks": [
+   {
+    "check": "sub slam seen",
+    "ok": true,
+    "value": [
+     "hover",
+     "landHero",
+     "slam"
+    ],
+    "want": "slam"
+   },
+   {
+    "check": "hero landings",
+    "ok": true,
+    "value": 1,
+    "want": 1
+   },
+   {
+    "check": "floating near a surface at the end",
+    "ok": true,
+    "value": [
+     "air",
+     0.45
+    ],
+    "want": "air, < 2 m"
+   },
+   {
+    "check": "camera inside geometry frames",
+    "ok": true,
+    "value": 0,
+    "want": "<= 6"
+   },
+   {
+    "check": "longest hidden run outside breaches (off-screen / occluded / dark)",
+    "ok": true,
+    "value": "0 frames (0 total)",
+    "want": "<= 6"
+   },
+   {
+    "check": "dark frames outside breaches (luma < 40)",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "longest hidden stretch inside a breach",
+    "ok": true,
+    "value": "0 frames",
+    "want": "<= 36 (0.6 s)"
+   },
+   {
+    "check": "frozen frames (speed > 5 m/s reported, < 20 % actual)",
+    "ok": true,
+    "value": 0,
+    "want": "<= 15"
+   },
+   {
+    "check": "below the floor frames",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "position teleports",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   },
+   {
+    "check": "log errors",
+    "ok": true,
+    "value": 0,
+    "want": 0
+   }
+  ],
+  "pass": true,
+  "seen_subs": [
+   "hover",
+   "landHero",
+   "slam"
+  ],
+  "max_speed": 94.5,
+  "z_start_end": [
+   60.0,
+   1.4
+  ],
+  "frames": 421,
+  "luma_frames": 423,
+  "known_preexisting_ensures": 1,
+  "log_flight": [
+   "heroLand"
+  ]
+ }
+}
