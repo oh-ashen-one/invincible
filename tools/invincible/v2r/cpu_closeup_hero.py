@@ -43,7 +43,7 @@ def wb():
     deps = bpy.context.evaluated_depsgraph_get(); ev = body.evaluated_get(deps)
     zs = [(ev.matrix_world @ v.co).z for v in ev.data.vertices]; return min(zs), max(zs)
 lo, hi = wb()
-scale = a.scale or (0.01 if hi - lo > 20 else 1.0)
+scale = a.scale or (arm.scale.x * (0.01 if hi - lo > 20 else 1.0))   # a fit GLB already carries 0.01: keep it (2026-10-31)
 arm.scale = (scale, scale, scale)
 if a.arm_origin: arm.location = (0.0, 0.0, 0.0)
 bpy.context.view_layer.update(); lo, hi = wb()
