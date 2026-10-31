@@ -2,7 +2,9 @@
 # CPU-only Cycles close-up render of ONE hero clip from a fixed camera table (same camera for old and new, so a pair differs only in
 # the motion). Workbench is not used (flat look hides nothing but also shows no weight); Cycles CPU keeps the GPU untouched.
 #   Blender -b --factory-startup -P cpu_closeup_hero.py -- --glb <file.glb> --action <name> --out <dir> [--cams tq,front,side]
-#        [--samples 16] [--size 480x540] [--fps 24] [--every 1] [--lens 50] [--label old]
+#        [--samples 16] [--size 480x540] [--fps 24] [--every 1] [--lens 50] [--label old] [--frame-all] [--arm-origin] [--floor-z Z]
+#        [--frame-from <old>_info.json]   (old/new pairs: render the old with --frame-all, the new with --frame-from its info: same camera,
+#        same floor; --arm-origin on both, since a fit GLB keeps its model's object offset, 2026-10-31)
 # Output: <out>/<label>_<cam>/0000.png ... and a JSON with the frame count. The camera yaw is measured from the hero's facing
 # (left_foot - left_ankle at frame 0, horizontal); target = pelvis height at frame 0; distance so a 1.9 m body fills ~75 % of the height.
 import argparse, json, math, os, sys
@@ -16,6 +18,9 @@ ap.add_argument('--fps', type=int, default=24); ap.add_argument('--every', type=
 ap.add_argument('--label', default='clip'); ap.add_argument('--scale', type=float, default=0.0, help='armature scale (0 = auto: 0.01 if the body is over 20 units tall)')
 ap.add_argument('--threads', type=int, default=8)
 ap.add_argument('--frame-all', action='store_true', help='frame the whole clip (bounds over every 8th frame) instead of frame 0: for clips that crouch, leap or dive')
+ap.add_argument('--arm-origin', action='store_true', help='put the armature object at the world origin (a fit GLB keeps its model\'s object offset; the game plays the action only)')
+ap.add_argument('--floor-z', type=float, default=None, help='floor height in world metres (default min(lowest framed point, 0))')
+ap.add_argument('--frame-from', default='', help='<label>_info.json of an earlier render: reuse its camera target, body height, facing and floor (old/new pairs)')
 a = ap.parse_args(argv)
 W, H = [int(x) for x in a.size.split('x')]
 YAW = {'front': 0.0, 'tq': 40.0, 'side': 90.0, 'back': 180.0}
@@ -39,7 +44,9 @@ def wb():
     zs = [(ev.matrix_world @ v.co).z for v in ev.data.vertices]; return min(zs), max(zs)
 lo, hi = wb()
 scale = a.scale or (0.01 if hi - lo > 20 else 1.0)
-arm.scale = (scale, scale, scale); bpy.context.view_layer.update(); lo, hi = wb()
+arm.scale = (scale, scale, scale)
+if a.arm_origin: arm.location = (0.0, 0.0, 0.0)
+bpy.context.view_layer.update(); lo, hi = wb()
 AW = arm.matrix_world; h = lambda n: AW @ arm.pose.bones[n].head
 fwd = h('left_foot') - h('left_ankle'); fwd.z = 0; fwd.normalize()
 pel = h('pelvis').copy(); body_h = hi - lo
@@ -50,6 +57,8 @@ if a.frame_all:
     sc.frame_set(int(f0)); bpy.context.view_layer.update()
     lo, hi = min(zs), max(zs); body_h = hi - lo
     pel = sum(pels, Vector()) / len(pels); pel.z = 0.5 * (lo + hi) - 0.05 * body_h   # the clip's vertical centre; the target adds 5 % back
+if a.frame_from:
+    ff = json.load(open(a.frame_from)); pel = Vector(ff['target_pelvis']); body_h = ff['body_h']; fwd = Vector(ff['facing']); lo = ff['floor_z']
 # studio: grey world, soft sun + fill, floor under the lowest point of frame 0 (the hover hangs over it)
 world = bpy.data.worlds.new('w'); sc.world = world; world.use_nodes = True
 bg = next(n for n in world.node_tree.nodes if n.type == 'BACKGROUND'); bg.inputs[0].default_value = (0.42, 0.41, 0.40, 1); bg.inputs[1].default_value = 1.0
@@ -57,7 +66,7 @@ sun = bpy.data.objects.new('sun', bpy.data.lights.new('sun', 'SUN')); sun.data.e
 sun.rotation_euler = (math.radians(50), 0, math.atan2(fwd.y, fwd.x) + math.radians(150))
 fill = bpy.data.objects.new('fill', bpy.data.lights.new('fill', 'SUN')); fill.data.energy = 1.2; fill.data.angle = math.radians(60); sc.collection.objects.link(fill)
 fill.rotation_euler = (math.radians(35), 0, math.atan2(fwd.y, fwd.x) - math.radians(140))
-r = 40.0; fz = min(lo, 0.0)
+r = 40.0; fz = a.floor_z if a.floor_z is not None else (lo if a.frame_from else min(lo, 0.0))
 fm = bpy.data.meshes.new('floor'); fm.from_pydata([(-r, -r, fz), (r, -r, fz), (r, r, fz), (-r, r, fz)], [], [(0, 1, 2, 3)])
 mat = bpy.data.materials.new('floor'); mat.use_nodes = True
 pb = next(n for n in mat.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'); pb.inputs['Base Color'].default_value = (0.36, 0.35, 0.34, 1); pb.inputs['Roughness'].default_value = 0.9
@@ -79,7 +88,7 @@ for name in a.cams.split(','):
     loc = target + d * dist + Vector((0, 0, 0.12 * body_h)); co.location = loc
     co.rotation_euler = (target - loc).to_track_quat('-Z', 'Y').to_euler(); cams[name] = co
 frames = list(range(int(f0), int(f1) + 1, a.every))
-info = dict(glb=a.glb, action=a.action, frames=len(frames), fps=a.fps, first=int(f0), last=int(f1), body_h=body_h, facing=list(fwd), scale=scale, cams=a.cams)
+info = dict(glb=a.glb, action=a.action, frames=len(frames), fps=a.fps, first=int(f0), last=int(f1), body_h=body_h, facing=list(fwd), scale=scale, cams=a.cams, target_pelvis=list(pel), floor_z=fz, arm_origin=a.arm_origin, frame_all=a.frame_all, frame_from=a.frame_from)
 for name, co in cams.items():
     d = os.path.join(a.out, '%s_%s' % (a.label, name)); os.makedirs(d, exist_ok=True); sc.camera = co
     for i, f in enumerate(frames):
