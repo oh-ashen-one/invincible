@@ -1,4 +1,4 @@
-## video2rig round with Seedance 2.5 — owner brief 2026-10-30 (branch `v2r-seedance`, in progress)
+## video2rig round with Seedance 2.5 — owner brief 2026-10-30 (branch `v2r-seedance`, CPU A/B done, in-game A/B pending)
 
 Owner (relayed from the Hulk session): re-animate the hero's clips through video2rig from Seedance takes of the game's own rig so they look
 higher-quality and more fluid; "visibly better" is the only ship rule; fidelity gates prove the transfer, not the upgrade (agents-md PR #36).
@@ -10,19 +10,24 @@ renders ready, clips/, work/). Fork worktree `/Users/midir/video2rig-hero` (bran
 python `/Users/midir/video2rig/.venv/bin/python`; neutral symlinks `Local/v2r-hero` and `/Users/midir/v2r-fork` keep CPU steps out of gpu_slot's
 ML census. Progress page (owner wants it visual): `Local/progress/` served on http://127.0.0.1:8810/ (`status_loop.py`, pipeline.json, media/).
 
-State at 13:25 ET 2026-10-30:
-- Takes judged USE at first look (size gate PASS, strips/sheets in `Local/video2rig/hero/work/<clip>/`): `hover_sd_v2` (colour), `landhero_sd_v2`
-  (black-and-white start+end pictures), `takeoff_sd_v1` (black-and-white). Refused by the copyright classifier: hover v1 (uncharged), landhero v1
-  (start+end variant, CHARGED). Black-and-white pictures + "black-and-white footage" prompt pass that classifier (2 of 2) where colour failed 2 of 3.
-- Credits: ONE Higgsfield pool shared with the Hulk session; 127.64 left after my 4 charged takes; one more take allowed in my split, announce first.
-- Reader: poses (3000), hidden-joint check (seen 0.93/0.91) and pose renders done; the 9000-step training (~2.5-3 h MPS) waits for the GPU turn
-  (Markhor midir-5b both readers -> Dragon midir-dd -> me; message them before launching). Then per clip: `tools/invincible/v2r/run_clip.sh
-  <project> <clipname> <Clip> --loop|--return-to-stance [--refine-args ...]` (check -> fit -> review -> import -> refine -> export -> close-up
-  sheet). Hover: `--loop`, no plant, `--xfade`; LandHero: `--return-to-stance` (defaults to the stance rig + yaw align), plant on, size gate with
-  `--start start-dive/start_line_bw.png`; Takeoff: `--return-to-stance`? no: it ends airborne, use `--refine-args "--compress-holds"` and no return.
-- Then: old-vs-new CPU close-up A/B (same camera, `cpu_closeup_hero.py` + `compose.sh pair`), ship only visibly better; merge the winners with
-  `tools/invincible/merge_hero_clips.py` (`<glb>:<Clip>_v2r_vN=A_<Clip>`, keep the other 9 clips from their current GLBs), rebuild with
-  `Scripts/import_invincible_v2.py` through gpu_slot, in-game close-up A/B (flight suite case + a close chase camera), owner playtest. No merge to main.
+State at 02:50 ET 2026-10-31 (verified; details and every number in SEEDANCE.md):
+- Reader trained (9000 steps, 2.15 / 2.29 px held-out). Fits run on CPU (`V2R_DEVICE=cpu`).
+- Clips from other start pictures need their OWN project (the check aligns cameras to the project's start pose): `Local/video2rig/hero-dive`
+  (rig-dive, start-dive, floor -153.556, wider spine/neck/head/ankle ranges) and `Local/video2rig/hero-stand` (rig-stand, start-stand, floor
+  -88.785, wider ankle/collar ranges); both share the hero reader + clips by symlink; neutral paths `Local/v2r-dive`, `Local/v2r-stand`.
+  A dive-project fit needs refine `--root-dz 64.7708 --floor 0.647708` to land on the game floor.
+- New refine options: `--smooth S` (fit jitter low-pass), `--even-pace W` (re-time toward constant speed), `--root-dz U`, plus the old ones.
+  Close-ups for old/new pairs MUST be matched: old `--frame-all --arm-origin`, new `--arm-origin --frame-from <old>_info.json` (a fit GLB keeps
+  its model's object offset; the first Hover rounds were biased by that).
+- Candidates (blind CPU close-up A/B on matched renders, Sonnet critics, keys in `Local/video2rig/hero/ab/*_KEY.txt`):
+  Hover (`--loop --xfade 12 --smooth 1.0 --even-pace 0.6`) new wins slight; LandHero v1 (hero-dive) new > v2 > old, old clearly last;
+  Takeoff v2 (hero-stand, `--window 38 80` = 1.2 s for the game's TakeoffRate 1.5 / no-plant timing) new wins slight.
+- Combined GLB built: `unreal/WebHomage/Saved/P2Build/invincible/SK_InvincibleV2R.glb` (A_Hover, A_LandHero, A_Takeoff), MAKE_V2R_GLB_OK.
+- Next (needs a GPU turn from the Hulk session midir-60, asked 02:48): `docs/invincible/video2rig/INGAME-AB.md` step 2 import into
+  /Game/Invincible/HeroV2R/Anims, then in-game close-up captures with and without `-WHHeroV2Clips=/Game/Invincible/HeroV2R/Anims`, blind
+  critique (Opus for the final call), ship only "visibly better". Disk: 16 GB free on the data volume at 02:45: do not start captures under
+  15 GB; freeing space is the owner's call. No merge to main.
+- Credits: no new takes this session; my charged total stays 4 (one shared pool with the Hulk session).
 
 ## Enemy-race chase mini-game — owner request 2026-10-25 (branch `enemy-race`, built)
 
