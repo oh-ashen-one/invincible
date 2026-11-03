@@ -7,3 +7,7 @@ DerivedDataCache/
 *.xcodeproj
 
 Content/
+
+# Per-developer engine settings may contain local authentication material.
+/Config/UserEngine.ini
+

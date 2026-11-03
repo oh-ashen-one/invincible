@@ -1,3 +1,9 @@
+## 2026-11-03 — Android File Server security default
+
+Branch: `security/remove-shared-afs-token-20261103`. Owner approved disabling AFS by default and removing the shared tracked token. Android transfers fall back to ADB; optional private per-developer settings belong in ignored `unreal/WebHomage/Config/UserEngine.ini`. See [local setup and incident follow-up](docs/security/ANDROID_FILE_SERVER.md).
+
+Verified: only the AFS enable flag and token entry changed in engine settings; networking/shipping and all gameplay/renderer settings are preserved. Local-ignore and static configuration checks passed. No Unreal process, Android build, credential creation/rotation, installed-package replacement, or history rewrite was performed. Existing Android packages and historical copies still need separate owner-approved remediation.
+
 ## Enemy-race chase mini-game — owner request 2026-10-25 (branch `enemy-race`, built)
 
 Owner asked mid-playtest: duplicate the playable hero as an AI villain with a different skin, who flies around the map
